@@ -49,22 +49,21 @@ class LogoutService:
             )
         # -- check for if already revoked
         if stored_token.is_revoked:
-                    raise HTTPException(
-                        status_code=status.HTTP_401_UNAUTHORIZED,
-                        detail="Token already revoked.",
+            return LogoutResponse(
+                message="Logged out successfully"
+            )
+        if stored_token.expires_at < datetime.now(timezone.utc):
+            return LogoutResponse(
+                message="Logged out successfully"
             )
         # ── 3. Revoke the token ────────────────────────────────────────
         stored_token.is_revoked = True
         
 
         # ── 4. Blacklist the access token (by JTI) ─────────────────────
-        print(f"[DEBUG LOGOUT SERVICE] access_token_jti provided: {access_token_jti}")
-        print(f"[DEBUG LOGOUT SERVICE] access_token_expires_at provided: {access_token_expires_at}")
-        
         if access_token_jti:
             # Use the token's exp as the blacklist expiry; fallback to now if unavailable
             blacklist_expires_at = access_token_expires_at or datetime.now(timezone.utc)
-            print(f"[DEBUG LOGOUT SERVICE] Creating TokenBlacklist entry with jti={access_token_jti}, expires_at={blacklist_expires_at}")
             blacklisted_entry = TokenBlacklist(
                 jti=access_token_jti,
                 user_id=stored_token.user_id,
@@ -72,13 +71,7 @@ class LogoutService:
                 reason="logout",
             )
             self.db.add(blacklisted_entry)
-            print(f"[DEBUG LOGOUT SERVICE] TokenBlacklist entry added to session")
-        else:
-            print(f"[DEBUG LOGOUT SERVICE] SKIPPING blacklist - access_token_jti is falsy")
-        
-        print(f"[DEBUG LOGOUT SERVICE] Committing transaction...")
         await self.db.commit()
-        print(f"[DEBUG LOGOUT SERVICE] Transaction committed successfully")
         
         # ── 5. Return success ──────────────────────────────────────────
         return LogoutResponse(message="Logged out successfully")

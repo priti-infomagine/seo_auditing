@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.logger import logger
 from app.schemas.auth_schemas.register import RegisterRequest, RegisterResponse
 from app.services.auth_services.register_service import RegisterService
 
@@ -24,5 +25,6 @@ async def register(
     db: AsyncSession = Depends(get_db),
 ) -> RegisterResponse:
     """Create a new user account and send OTP for email verification."""
+    logger.info("POST /auth/register - Register endpoint called")
     service = RegisterService(db)
     return await service.execute(body)

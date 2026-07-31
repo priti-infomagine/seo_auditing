@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.logger import logger
 from app.core.security import get_current_user
 from app.models.auth_models.users import User
 from app.schemas.user_schemas.profile import UserProfileResponse
@@ -27,5 +28,6 @@ async def get_profile(
     db: AsyncSession = Depends(get_db),
 ) -> UserProfileResponse:
     """Return the authenticated user's profile information."""
+    logger.info("GET /user/profile - Get profile endpoint called")
     service = GetProfileService(db)
     return await service.execute(current_user)

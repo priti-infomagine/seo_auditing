@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.logger import logger
 from app.schemas.auth_schemas.login import LoginRequest, LoginResponse
 from app.services.auth_services.login_service import LoginService
 
@@ -25,6 +26,7 @@ async def login(
     db: AsyncSession = Depends(get_db),
 ) -> LoginResponse:
     """Authenticate a verified user and return JWT tokens."""
+    logger.info("POST /auth/login - Login endpoint called")
     # Extract device info from request
     ip_address = request.client.host if request.client else None
     user_agent = request.headers.get("user-agent")

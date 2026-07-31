@@ -10,6 +10,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.logger import logger
 from app.schemas.auth_schemas.forgot_password import (
     ForgotPasswordRequest,
     ForgotPasswordResponse,
@@ -38,6 +39,7 @@ async def forgot_password(
     db: AsyncSession = Depends(get_db),
 ) -> ForgotPasswordResponse:
     """Send a password reset OTP to the user's email."""
+    logger.info("POST /auth/forgot-pass/request_otp - Forgot password endpoint called")
     service = ForgotPasswordService(db)
     return await service.execute(body)
 
@@ -53,6 +55,7 @@ async def verify_reset_otp(
     db: AsyncSession = Depends(get_db),
 ) -> VerifyResetOTPResponse:
     """Verify the OTP and authorize password reset."""
+    logger.info("POST /auth/forgot-pass/verify-reset-otp - Verify reset OTP endpoint called")
     service = VerifyResetOTPService(db)
     return await service.execute(body)
 
@@ -68,5 +71,6 @@ async def reset_password(
     db: AsyncSession = Depends(get_db),
 ) -> ResetPasswordResponse:
     """Reset the user's password after successful OTP verification."""
+    logger.info("POST /auth/forgot-pass/confirm-password - Reset password endpoint called")
     service = ResetPasswordService(db)
     return await service.execute(body)

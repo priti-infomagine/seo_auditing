@@ -83,6 +83,20 @@ class VerifyOTPService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="OTP has expired. Please register again.",
             )
+        if otp_record.attempts >= 5:
+            raise HTTPException(
+                status_code=400,
+                detail="Too many attempts. Request a new OTP."
+            )
+
+        if otp_record.otp != request.otp:
+            otp_record.attempts += 1
+            await self.db.commit()
+
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid OTP."
+            )
 
         # ── 4. Verify OTP value ────────────────────────────────────────
         if otp_record.otp != request.otp:
@@ -109,7 +123,7 @@ class VerifyOTPService:
         rt_expires_at = datetime.now(timezone.utc) + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
         )
-
+        
         rt_record = RefreshToken(
             id=uuid.uuid4(),
             user_id=user.id,
@@ -122,7 +136,8 @@ class VerifyOTPService:
         self.db.add(rt_record)
         await self.db.flush()
 
-        # ── 9. Return tokens ───────────────────────────────────────────
+        # ── 9. Return tokens ───────────────────────────────────────────\
+        await self.db.commit()
         return VerifyOTPResult(
             response=VerifyOTPResponse(
                 message="Email verified successfully",
