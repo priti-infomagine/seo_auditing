@@ -4,16 +4,20 @@ JWT token creation and verification utilities.
 Generates access tokens (short-lived) and refresh tokens (long-lived)
 using python-jose with HS256 algorithm.
 """
+import uuid
 from datetime import datetime, timedelta, timezone
 
-from jose import  jwt
+from jose import jwt
 
 from app.core.config import settings
 
 
 def create_access_token(subject: str) -> str:
     """
-    Create a short-lived JWT access token.
+    Create a short-lived JWT access token with a unique JWT ID (jti).
+
+    The jti claim enables individual token blacklisting so that
+    a token can be revoked before it expires (e.g. on logout).
 
     Args:
         subject: The user identifier (UUID string) to embed in the token.
@@ -25,6 +29,7 @@ def create_access_token(subject: str) -> str:
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     payload = {
+        "jti": str(uuid.uuid4()),
         "sub": subject,
         "exp": expire,
         "iat": datetime.now(timezone.utc),

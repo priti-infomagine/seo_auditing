@@ -9,7 +9,7 @@ Steps:
     5. Mark user as verified
     6. Delete used OTP
     7. Generate JWT tokens (auto-login)
-    8. Store refresh token hash in DB
+    8. Store refresh token hash in DB (with device info)
     9. Return tokens
 """
 import uuid
@@ -46,7 +46,12 @@ class VerifyOTPService:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def execute(self, request: VerifyOTPRequest) -> VerifyOTPResult:
+    async def execute(
+        self,
+        request: VerifyOTPRequest,
+        ip_address: str | None = None,
+        user_agent: str | None = None,
+    ) -> VerifyOTPResult:
         # ── 1. Find user by email ──────────────────────────────────────
         result = await self.db.execute(
             select(User).where(User.email == request.email)
@@ -99,7 +104,7 @@ class VerifyOTPService:
         access_token = create_access_token(subject)
         refresh_token = create_refresh_token(subject)
 
-        # ── 8. Store refresh token hash in DB ──────────────────────────
+        # ── 8. Store refresh token hash in DB (with device info) ───────
         token_hash = hash_token(refresh_token)
         rt_expires_at = datetime.now(timezone.utc) + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
@@ -111,6 +116,8 @@ class VerifyOTPService:
             token_hash=token_hash,
             expires_at=rt_expires_at,
             is_revoked=False,
+            ip_address=ip_address,
+            user_agent=user_agent,
         )
         self.db.add(rt_record)
         await self.db.flush()

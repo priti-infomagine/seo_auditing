@@ -6,7 +6,7 @@ Steps:
     2. Check if user is verified
     3. Verify password
     4. Generate JWT tokens
-    5. Store refresh token hash in DB
+    5. Store refresh token hash in DB (with device info)
     6. Return tokens
 """
 import uuid
@@ -30,7 +30,12 @@ class LoginService:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def execute(self, request: LoginRequest) -> LoginResponse:
+    async def execute(
+        self,
+        request: LoginRequest,
+        ip_address: str | None = None,
+        user_agent: str | None = None,
+    ) -> LoginResponse:
         # ── 1. Find user by email ──────────────────────────────────────
         result = await self.db.execute(
             select(User).where(User.email == request.email)
@@ -61,7 +66,7 @@ class LoginService:
         access_token = create_access_token(subject)
         refresh_token = create_refresh_token(subject)
 
-        # ── 5. Store refresh token hash in DB ──────────────────────────
+        # ── 5. Store refresh token hash in DB (with device info) ───────
         token_hash = hash_token(refresh_token)
         rt_expires_at = datetime.now(timezone.utc) + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
@@ -73,6 +78,8 @@ class LoginService:
             token_hash=token_hash,
             expires_at=rt_expires_at,
             is_revoked=False,
+            ip_address=ip_address,
+            user_agent=user_agent,
         )
         self.db.add(rt_record)
         await self.db.flush()

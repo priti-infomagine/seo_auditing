@@ -1,9 +1,9 @@
 """
 POST /auth/login — Authenticate a verified user.
 
-Returns JWT access + refresh tokens.
+Returns JWT access + refresh tokens with device info stored.
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -20,9 +20,18 @@ router = APIRouter()
     summary="Login with email and password",
 )
 async def login(
+    request: Request,
     body: LoginRequest,
     db: AsyncSession = Depends(get_db),
 ) -> LoginResponse:
     """Authenticate a verified user and return JWT tokens."""
+    # Extract device info from request
+    ip_address = request.client.host if request.client else None
+    user_agent = request.headers.get("user-agent")
+
     service = LoginService(db)
-    return await service.execute(body)
+    return await service.execute(
+        body,
+        ip_address=ip_address,
+        user_agent=user_agent,
+    )

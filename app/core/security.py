@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.jwt import decode_token
+from app.models.auth_models.token_blacklist import TokenBlacklist
 from app.models.auth_models.users import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -92,6 +93,18 @@ async def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired access token.",
         )
+
+    # ── Check if the access token has been blacklisted (e.g. logged out) ──
+    jti = payload.get("jti")
+    if jti:
+        blacklisted = await db.execute(
+            select(TokenBlacklist).where(TokenBlacklist.jti == jti)
+        )
+        if blacklisted.scalar_one_or_none() is not None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Access token has been revoked.",
+            )
 
     user_id = payload.get("sub")
     if not user_id:
