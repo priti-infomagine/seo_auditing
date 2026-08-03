@@ -9,3 +9,6 @@ build/
 alembic/versions/*.pyc
 alembic/README
 .alembic/
+.kilo
+.pytest_cache
+.alembic/

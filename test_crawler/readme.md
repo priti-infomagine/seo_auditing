@@ -316,3 +316,40 @@ crawler/
 ├── sitemap.py          # Reads XML sitemaps
 ├── link_checker.py     # Validates internal/external links
 └── site_audit.py       # Aggregates results across all pages
+
+
+crawler/
+│
+├── crawler/
+│   ├── fetcher.py
+│   ├── queue.py
+│   └── downloader.py
+│
+├── parser/
+│   ├── html_parser.py
+│   ├── content_parser.py
+│   ├── image_parser.py
+│   ├── link_parser.py
+│   └── schema_parser.py
+│
+├── analyzer/
+│   ├── title_checks.py
+│   ├── meta_checks.py
+│   ├── heading_checks.py
+│   ├── content_checks.py
+│   ├── image_checks.py
+│   ├── technical_checks.py
+│   ├── scoring.py
+│   └── recommendations.py
+│
+├── storage/
+│   ├── models.py
+│   ├── repository.py
+│   └── serializers.py
+│
+├── reports/
+│   ├── json_report.py
+│   ├── pdf_report.py
+│   └── excel_report.py
+│
+└── api/
