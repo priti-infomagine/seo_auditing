@@ -1,7 +1,7 @@
 from celery import Celery
 import os
 
-redis_host = os.getenv("REDIS_HOST", "localhost")
+redis_host = os.getenv("REDIS_HOST", "127.0.0.1")
 
 app = Celery(
     "tasks",

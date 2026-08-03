@@ -1,8 +1,10 @@
 import logging
+import os
 import sys
 
-import logging
 
+# Ensure logs directory exists
+os.makedirs("logs", exist_ok=True)
 
 file_handler = logging.FileHandler(
     "logs/app.log"

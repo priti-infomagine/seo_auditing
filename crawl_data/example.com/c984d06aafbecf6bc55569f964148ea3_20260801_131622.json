@@ -1,0 +1,44 @@
+{
+  "url": "https://example.com",
+  "crawled_at": "2026-08-01T13:16:22.085796",
+  "url_hash": "c984d06aafbecf6bc55569f964148ea3",
+  "domain": "example.com",
+  "data": {
+    "title": "Example Domain",
+    "meta_description": null,
+    "meta_keywords": [],
+    "headings": {
+      "h1": [
+        "Example Domain"
+      ],
+      "h2": [],
+      "h3": [],
+      "h4": [],
+      "h5": [],
+      "h6": []
+    },
+    "links": {
+      "internal_count": 0,
+      "external_count": 1,
+      "internal_links": [],
+      "external_links": [
+        {
+          "url": "https://iana.org/domains/example",
+          "text": "Learn more"
+        }
+      ]
+    },
+    "images": {
+      "total_count": 0,
+      "without_alt": 0,
+      "sample": []
+    },
+    "word_count": 18,
+    "language": "en",
+    "canonical_url": null,
+    "robots_meta": null,
+    "open_graph": {},
+    "twitter_cards": {},
+    "schema_markup": []
+  }
+}
