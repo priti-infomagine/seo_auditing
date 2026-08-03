@@ -20,7 +20,7 @@ class RobotsCollector:
         """
         self.base_url = base_url.rstrip('/')
     
-    async def collect_robots(self, page) -> Dict[str, Any]:
+    def collect_robots(self, page) -> Dict[str, Any]:
         """
         Collect robots.txt data.
         
@@ -33,8 +33,8 @@ class RobotsCollector:
         robots_url = urljoin(self.base_url, '/robots.txt')
         
         try:
-            response = await page.request.get(robots_url)
-            content = await response.text() if response.status == 200 else ""
+            response = page.request.get(robots_url)
+            content = response.text() if response.status == 200 else ""
             
             # Extract sitemap URLs from robots.txt
             sitemap_urls = []
@@ -58,7 +58,7 @@ class RobotsCollector:
                 "sitemap_urls": []
             }
     
-    async def collect_sitemap(self, page, sitemap_urls: List[str] = None) -> Dict[str, Any]:
+    def collect_sitemap(self, page, sitemap_urls: List[str] = None) -> Dict[str, Any]:
         """
         Collect sitemap.xml data.
         
@@ -77,11 +77,11 @@ class RobotsCollector:
         
         for sitemap_url in sitemap_urls:
             try:
-                response = await page.request.get(sitemap_url)
+                response = page.request.get(sitemap_url)
                 
                 if response.status == 200:
                     sitemap_exists = True
-                    content = await response.text()
+                    content = response.text()
                     
                     # Simple URL extraction (basic XML parsing)
                     # For production, use proper XML parser
@@ -97,7 +97,7 @@ class RobotsCollector:
             "urls": all_urls[:100]  # Limit to 100 URLs
         }
     
-    async def collect_all(self, page) -> Dict[str, Any]:
+    def collect_all(self, page) -> Dict[str, Any]:
         """
         Collect both robots.txt and sitemap data.
         
@@ -107,8 +107,8 @@ class RobotsCollector:
         Returns:
             Dictionary containing robots and sitemap information
         """
-        robots_data = await self.collect_robots(page)
-        sitemap_data = await self.collect_sitemap(page, robots_data.get('sitemap_urls', []))
+        robots_data = self.collect_robots(page)
+        sitemap_data = self.collect_sitemap(page, robots_data.get('sitemap_urls', []))
         
         return {
             "robots": robots_data,

@@ -11,7 +11,7 @@ class SecurityCollector:
     """Collects security-related information from responses."""
     
     @staticmethod
-    async def collect_ssl_info(page) -> Dict[str, Any]:
+    def collect_ssl_info(page) -> Dict[str, Any]:
         """
         Collect SSL/TLS certificate information.
         
@@ -23,7 +23,7 @@ class SecurityCollector:
         """
         try:
             # Get security details from page
-            security_details = await page.evaluate("""
+            security_details = page.evaluate("""
                 () => {
                     return {
                         isSecure: window.isSecureContext,
@@ -62,7 +62,9 @@ class SecurityCollector:
             Dictionary containing security headers
         """
         try:
-            headers = dict(response.headers)
+            # In sync API, headers is a method; call it if callable
+            headers_dict = response.headers() if callable(response.headers) else response.headers
+            headers = dict(headers_dict)
             
             return {
                 "strict_transport_security": headers.get("strict-transport-security", ""),

@@ -1,12 +1,10 @@
 from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db, close_db
 from app.core.logger import logger
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -26,7 +24,6 @@ app = FastAPI(
     title=settings.APP_NAME,
     lifespan=lifespan,
 )
-
 # ── CORS ─────────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
@@ -37,7 +34,7 @@ app.add_middleware(
 )
 
 # ── Routers ──────────────────────────────────────────────────────────
-from app.apis.router import api_router  # noqa: E402
+from app.apis.router import api_router  
 
 app.include_router(api_router)
 

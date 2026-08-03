@@ -22,11 +22,16 @@ class HTTPCollector:
             Dictionary containing HTTP response data
         """
         try:
-            headers = dict(response.headers)
+            # In sync API, headers is a method; call it if callable
+            headers_dict = response.headers() if callable(response.headers) else response.headers
+            headers = dict(headers_dict)
+            
+            # http_version is a method in sync API; call it if callable
+            http_version = response.http_version() if callable(response.http_version) else response.http_version
             
             return {
                 "status_code": response.status,
-                "http_version": response.http_version if hasattr(response, 'http_version') else "",
+                "http_version": http_version if http_version else "",
                 "content_type": headers.get("content-type", ""),
                 "content_length": headers.get("content-length", ""),
                 "content_encoding": headers.get("content-encoding", ""),

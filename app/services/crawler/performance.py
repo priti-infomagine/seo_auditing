@@ -11,7 +11,7 @@ class PerformanceCollector:
     """Collects performance metrics from browser."""
     
     @staticmethod
-    async def collect_from_page(page) -> Dict[str, Any]:
+    def collect_from_page(page) -> Dict[str, Any]:
         """
         Collect performance metrics from Playwright page.
         
@@ -23,7 +23,7 @@ class PerformanceCollector:
         """
         try:
             # Execute JavaScript to collect performance metrics
-            metrics = await page.evaluate("""
+            metrics = page.evaluate("""
                 () => {
                     const perfData = performance.getEntriesByType('navigation')[0];
                     const paintMetrics = performance.getEntriesByType('paint');

@@ -42,3 +42,472 @@
 2026-07-31 16:08:59,216 | INFO | Application shutdown: database connections closed
 2026-07-31 16:09:02,063 | INFO | Application startup: initializing database
 2026-07-31 16:09:02,175 | INFO | Application startup: database initialized successfully
+2026-08-03 14:53:10,038 | INFO | Application startup: initializing database
+2026-08-03 14:53:10,293 | INFO | Application startup: database initialized successfully
+2026-08-03 14:54:13,387 | INFO | Application shutdown: closing database connections
+2026-08-03 14:54:13,395 | INFO | Application shutdown: database connections closed
+2026-08-03 15:05:31,650 | INFO | Application startup: initializing database
+2026-08-03 15:05:31,949 | INFO | Application startup: database initialized successfully
+2026-08-03 15:09:55,723 | INFO | Application shutdown: closing database connections
+2026-08-03 15:09:55,813 | INFO | Application shutdown: database connections closed
+2026-08-03 15:10:05,836 | INFO | Application startup: initializing database
+2026-08-03 15:10:05,992 | INFO | Application startup: database initialized successfully
+2026-08-03 15:10:27,996 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:10:27,997 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:10:28,102 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:16:38,326 | INFO | Application shutdown: closing database connections
+2026-08-03 15:16:38,800 | INFO | Application shutdown: database connections closed
+2026-08-03 15:16:52,306 | INFO | Application startup: initializing database
+2026-08-03 15:16:53,413 | INFO | Application startup: database initialized successfully
+2026-08-03 15:19:53,245 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:19:53,251 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:19:53,303 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:20:43,245 | INFO | Application shutdown: closing database connections
+2026-08-03 15:20:43,371 | INFO | Application shutdown: database connections closed
+2026-08-03 15:20:58,133 | INFO | Application startup: initializing database
+2026-08-03 15:20:59,261 | INFO | Application startup: database initialized successfully
+2026-08-03 15:22:04,401 | INFO | Application shutdown: closing database connections
+2026-08-03 15:22:04,410 | INFO | Application shutdown: database connections closed
+2026-08-03 15:22:57,622 | INFO | Application startup: initializing database
+2026-08-03 15:22:57,839 | INFO | Application startup: database initialized successfully
+2026-08-03 15:23:21,545 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:23:21,546 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:23:21,557 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:28:20,247 | INFO | Application startup: initializing database
+2026-08-03 15:28:20,645 | INFO | Application startup: database initialized successfully
+2026-08-03 15:29:47,251 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:29:47,251 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:29:47,355 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:32:39,919 | INFO | Application shutdown: closing database connections
+2026-08-03 15:32:39,940 | INFO | Application shutdown: database connections closed
+2026-08-03 15:32:43,173 | INFO | Application startup: initializing database
+2026-08-03 15:32:43,437 | INFO | Application startup: database initialized successfully
+2026-08-03 15:32:44,498 | INFO | Application shutdown: closing database connections
+2026-08-03 15:32:44,499 | INFO | Application shutdown: database connections closed
+2026-08-03 15:32:46,466 | INFO | Application startup: initializing database
+2026-08-03 15:32:46,636 | INFO | Application startup: database initialized successfully
+2026-08-03 15:34:24,827 | INFO | Application shutdown: closing database connections
+2026-08-03 15:34:24,834 | INFO | Application shutdown: database connections closed
+2026-08-03 15:34:27,083 | INFO | Application startup: initializing database
+2026-08-03 15:34:27,242 | INFO | Application startup: database initialized successfully
+2026-08-03 15:34:27,354 | INFO | Application shutdown: closing database connections
+2026-08-03 15:34:27,357 | INFO | Application shutdown: database connections closed
+2026-08-03 15:34:53,176 | INFO | Application startup: initializing database
+2026-08-03 15:34:53,385 | INFO | Application startup: database initialized successfully
+2026-08-03 15:34:58,718 | INFO | Application shutdown: closing database connections
+2026-08-03 15:34:58,722 | INFO | Application shutdown: database connections closed
+2026-08-03 15:35:08,197 | INFO | Application startup: initializing database
+2026-08-03 15:35:08,328 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:29,581 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:29,581 | INFO | Application shutdown: database connections closed
+2026-08-03 15:36:33,258 | INFO | Application startup: initializing database
+2026-08-03 15:36:33,404 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:33,514 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:33,523 | INFO | Application shutdown: database connections closed
+2026-08-03 15:36:37,040 | INFO | Application startup: initializing database
+2026-08-03 15:36:37,305 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:37,412 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:37,414 | INFO | Application shutdown: database connections closed
+2026-08-03 15:36:41,640 | INFO | Application startup: initializing database
+2026-08-03 15:36:42,091 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:42,213 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:42,223 | INFO | Application shutdown: database connections closed
+2026-08-03 15:36:45,055 | INFO | Application startup: initializing database
+2026-08-03 15:36:45,231 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:49,785 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:49,787 | INFO | Application shutdown: database connections closed
+2026-08-03 15:36:51,665 | INFO | Application startup: initializing database
+2026-08-03 15:36:51,796 | INFO | Application startup: database initialized successfully
+2026-08-03 15:36:55,165 | INFO | Application shutdown: closing database connections
+2026-08-03 15:36:55,165 | INFO | Application shutdown: database connections closed
+2026-08-03 15:37:01,756 | INFO | Application startup: initializing database
+2026-08-03 15:37:01,897 | INFO | Application startup: database initialized successfully
+2026-08-03 15:37:07,332 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:37:07,332 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:37:07,386 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:44:11,430 | INFO | Application shutdown: closing database connections
+2026-08-03 15:44:11,441 | INFO | Application shutdown: database connections closed
+2026-08-03 15:44:14,758 | INFO | Application startup: initializing database
+2026-08-03 15:44:14,999 | INFO | Application startup: database initialized successfully
+2026-08-03 15:44:15,106 | INFO | Application shutdown: closing database connections
+2026-08-03 15:44:15,111 | INFO | Application shutdown: database connections closed
+2026-08-03 15:44:17,556 | INFO | Application startup: initializing database
+2026-08-03 15:44:17,676 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:09,106 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:09,108 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:10,994 | INFO | Application startup: initializing database
+2026-08-03 15:46:11,099 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:13,769 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:13,771 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:15,887 | INFO | Application startup: initializing database
+2026-08-03 15:46:16,022 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:19,232 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:19,238 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:20,975 | INFO | Application startup: initializing database
+2026-08-03 15:46:21,071 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:22,905 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:22,910 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:25,008 | INFO | Application startup: initializing database
+2026-08-03 15:46:25,107 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:25,221 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:25,229 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:27,068 | INFO | Application startup: initializing database
+2026-08-03 15:46:27,295 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:27,404 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:27,405 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:29,655 | INFO | Application startup: initializing database
+2026-08-03 15:46:29,873 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:29,987 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:29,992 | INFO | Application shutdown: database connections closed
+2026-08-03 15:46:31,895 | INFO | Application startup: initializing database
+2026-08-03 15:46:31,995 | INFO | Application startup: database initialized successfully
+2026-08-03 15:46:58,338 | INFO | Application shutdown: closing database connections
+2026-08-03 15:46:58,343 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:00,381 | INFO | Application startup: initializing database
+2026-08-03 15:47:00,484 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:00,599 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:00,603 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:02,623 | INFO | Application startup: initializing database
+2026-08-03 15:47:02,891 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:05,321 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:05,326 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:07,496 | INFO | Application startup: initializing database
+2026-08-03 15:47:07,671 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:07,773 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:07,773 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:10,305 | INFO | Application startup: initializing database
+2026-08-03 15:47:10,423 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:11,288 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:11,292 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:13,321 | INFO | Application startup: initializing database
+2026-08-03 15:47:13,443 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:13,588 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:13,595 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:15,972 | INFO | Application startup: initializing database
+2026-08-03 15:47:16,072 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:16,189 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:16,210 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:18,485 | INFO | Application startup: initializing database
+2026-08-03 15:47:18,701 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:21,038 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:21,041 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:23,022 | INFO | Application startup: initializing database
+2026-08-03 15:47:23,142 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:23,256 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:23,265 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:24,991 | INFO | Application startup: initializing database
+2026-08-03 15:47:25,094 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:30,237 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:30,238 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:32,749 | INFO | Application startup: initializing database
+2026-08-03 15:47:32,872 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:33,090 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:33,094 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:35,171 | INFO | Application startup: initializing database
+2026-08-03 15:47:35,272 | INFO | Application startup: database initialized successfully
+2026-08-03 15:47:35,383 | INFO | Application shutdown: closing database connections
+2026-08-03 15:47:35,387 | INFO | Application shutdown: database connections closed
+2026-08-03 15:47:37,019 | INFO | Application startup: initializing database
+2026-08-03 15:47:37,130 | INFO | Application startup: database initialized successfully
+2026-08-03 15:48:03,239 | INFO | Application shutdown: closing database connections
+2026-08-03 15:48:03,248 | INFO | Application shutdown: database connections closed
+2026-08-03 15:48:05,325 | INFO | Application startup: initializing database
+2026-08-03 15:48:05,451 | INFO | Application startup: database initialized successfully
+2026-08-03 15:48:05,555 | INFO | Application shutdown: closing database connections
+2026-08-03 15:48:05,560 | INFO | Application shutdown: database connections closed
+2026-08-03 15:48:08,060 | INFO | Application startup: initializing database
+2026-08-03 15:48:08,189 | INFO | Application startup: database initialized successfully
+2026-08-03 15:48:33,523 | INFO | Application shutdown: closing database connections
+2026-08-03 15:48:33,523 | INFO | Application shutdown: database connections closed
+2026-08-03 15:48:35,688 | INFO | Application startup: initializing database
+2026-08-03 15:48:35,963 | INFO | Application startup: database initialized successfully
+2026-08-03 15:48:40,438 | INFO | Application shutdown: closing database connections
+2026-08-03 15:48:40,439 | INFO | Application shutdown: database connections closed
+2026-08-03 15:48:42,256 | INFO | Application startup: initializing database
+2026-08-03 15:48:42,353 | INFO | Application startup: database initialized successfully
+2026-08-03 15:50:19,692 | INFO | Application shutdown: closing database connections
+2026-08-03 15:50:19,695 | INFO | Application shutdown: database connections closed
+2026-08-03 15:50:24,055 | INFO | Application startup: initializing database
+2026-08-03 15:50:24,268 | INFO | Application startup: database initialized successfully
+2026-08-03 15:50:30,982 | INFO | Application shutdown: closing database connections
+2026-08-03 15:50:30,990 | INFO | Application shutdown: database connections closed
+2026-08-03 15:50:33,196 | INFO | Application startup: initializing database
+2026-08-03 15:50:33,309 | INFO | Application startup: database initialized successfully
+2026-08-03 15:50:37,724 | INFO | Application shutdown: closing database connections
+2026-08-03 15:50:37,726 | INFO | Application shutdown: database connections closed
+2026-08-03 15:50:40,641 | INFO | Application startup: initializing database
+2026-08-03 15:50:40,740 | INFO | Application startup: database initialized successfully
+2026-08-03 15:50:58,499 | INFO | Application shutdown: closing database connections
+2026-08-03 15:50:58,499 | INFO | Application shutdown: database connections closed
+2026-08-03 15:51:00,372 | INFO | Application startup: initializing database
+2026-08-03 15:51:00,546 | INFO | Application startup: database initialized successfully
+2026-08-03 15:51:02,475 | INFO | Application shutdown: closing database connections
+2026-08-03 15:51:02,475 | INFO | Application shutdown: database connections closed
+2026-08-03 15:51:04,257 | INFO | Application startup: initializing database
+2026-08-03 15:51:04,355 | INFO | Application startup: database initialized successfully
+2026-08-03 15:51:25,704 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:51:25,704 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:51:25,708 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:55:51,809 | INFO | Application shutdown: closing database connections
+2026-08-03 15:55:51,822 | INFO | Application shutdown: database connections closed
+2026-08-03 15:55:54,815 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:55:55,857 | INFO | Application startup: initializing database
+2026-08-03 15:55:56,274 | INFO | Application startup: database initialized successfully
+2026-08-03 15:56:30,280 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:56:30,284 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:56:30,340 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:56:39,942 | INFO | Application shutdown: closing database connections
+2026-08-03 15:56:39,945 | INFO | Application shutdown: database connections closed
+2026-08-03 15:56:42,548 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:57:00,895 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:57:08,748 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:57:09,407 | INFO | Application startup: initializing database
+2026-08-03 15:57:09,712 | INFO | Application startup: database initialized successfully
+2026-08-03 15:57:20,611 | INFO | Application shutdown: closing database connections
+2026-08-03 15:57:20,612 | INFO | Application shutdown: database connections closed
+2026-08-03 15:57:23,986 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:57:25,067 | INFO | Application startup: initializing database
+2026-08-03 15:57:25,361 | INFO | Application startup: database initialized successfully
+2026-08-03 15:57:39,331 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:57:39,331 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:57:39,341 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 15:58:59,442 | INFO | Application shutdown: closing database connections
+2026-08-03 15:58:59,447 | INFO | Application shutdown: database connections closed
+2026-08-03 15:59:02,004 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 15:59:02,447 | INFO | Application startup: initializing database
+2026-08-03 15:59:02,600 | INFO | Application startup: database initialized successfully
+2026-08-03 15:59:57,927 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 15:59:57,927 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 15:59:57,938 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 16:00:06,349 | INFO | Application shutdown: closing database connections
+2026-08-03 16:00:06,365 | INFO | Application shutdown: database connections closed
+2026-08-03 16:02:18,036 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:02:18,913 | INFO | Application startup: initializing database
+2026-08-03 16:02:19,186 | INFO | Application startup: database initialized successfully
+2026-08-03 16:02:22,325 | INFO | Application shutdown: closing database connections
+2026-08-03 16:02:22,339 | INFO | Application shutdown: database connections closed
+2026-08-03 16:02:25,932 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:02:26,350 | INFO | Application startup: initializing database
+2026-08-03 16:02:26,483 | INFO | Application startup: database initialized successfully
+2026-08-03 16:02:26,592 | INFO | Application shutdown: closing database connections
+2026-08-03 16:02:26,597 | INFO | Application shutdown: database connections closed
+2026-08-03 16:02:28,557 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:02:29,257 | INFO | Application startup: initializing database
+2026-08-03 16:02:29,621 | INFO | Application startup: database initialized successfully
+2026-08-03 16:02:59,473 | INFO | Application shutdown: closing database connections
+2026-08-03 16:02:59,481 | INFO | Application shutdown: database connections closed
+2026-08-03 16:03:03,431 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:03:04,142 | INFO | Application startup: initializing database
+2026-08-03 16:03:04,330 | INFO | Application startup: database initialized successfully
+2026-08-03 16:03:13,145 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:03:13,145 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:03:13,154 | ERROR | Crawl failed for URL: https://cyfuture.com/ - 
+2026-08-03 16:03:47,842 | INFO | Application shutdown: closing database connections
+2026-08-03 16:03:47,852 | INFO | Application shutdown: database connections closed
+2026-08-03 16:03:50,620 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:03:55,415 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:03:57,117 | INFO | Application startup: initializing database
+2026-08-03 16:03:57,376 | INFO | Application startup: database initialized successfully
+2026-08-03 16:03:57,495 | INFO | Application shutdown: closing database connections
+2026-08-03 16:03:57,500 | INFO | Application shutdown: database connections closed
+2026-08-03 16:04:00,434 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:04:00,900 | INFO | Application startup: initializing database
+2026-08-03 16:04:01,148 | INFO | Application startup: database initialized successfully
+2026-08-03 16:04:27,478 | INFO | Application shutdown: closing database connections
+2026-08-03 16:04:27,487 | INFO | Application shutdown: database connections closed
+2026-08-03 16:04:29,212 | INFO | Windows event loop policy set to SelectorEventLoop for Playwright support
+2026-08-03 16:04:29,655 | INFO | Application startup: initializing database
+2026-08-03 16:04:29,783 | INFO | Application startup: database initialized successfully
+2026-08-03 16:04:51,148 | INFO | Application shutdown: closing database connections
+2026-08-03 16:04:51,156 | INFO | Application shutdown: database connections closed
+2026-08-03 16:04:53,521 | INFO | Application startup: initializing database
+2026-08-03 16:04:53,656 | INFO | Application startup: database initialized successfully
+2026-08-03 16:05:18,916 | INFO | Application shutdown: closing database connections
+2026-08-03 16:05:18,922 | INFO | Application shutdown: database connections closed
+2026-08-03 16:05:21,079 | INFO | Application startup: initializing database
+2026-08-03 16:05:21,200 | INFO | Application startup: database initialized successfully
+2026-08-03 16:06:17,698 | INFO | Application shutdown: closing database connections
+2026-08-03 16:06:17,705 | INFO | Application shutdown: database connections closed
+2026-08-03 16:06:20,955 | INFO | Application startup: initializing database
+2026-08-03 16:06:21,163 | INFO | Application startup: database initialized successfully
+2026-08-03 16:06:43,957 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:07:33,934 | INFO | Application shutdown: closing database connections
+2026-08-03 16:07:33,938 | INFO | Application shutdown: database connections closed
+2026-08-03 16:07:37,356 | INFO | Application startup: initializing database
+2026-08-03 16:07:37,710 | INFO | Application startup: database initialized successfully
+2026-08-03 16:08:58,867 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:09:19,585 | INFO | Application shutdown: closing database connections
+2026-08-03 16:09:19,587 | INFO | Application shutdown: database connections closed
+2026-08-03 16:09:22,122 | INFO | Application startup: initializing database
+2026-08-03 16:09:22,323 | INFO | Application startup: database initialized successfully
+2026-08-03 16:09:45,264 | INFO | Application shutdown: closing database connections
+2026-08-03 16:09:45,270 | INFO | Application shutdown: database connections closed
+2026-08-03 16:09:50,970 | INFO | Application startup: initializing database
+2026-08-03 16:09:51,148 | INFO | Application startup: database initialized successfully
+2026-08-03 16:09:51,269 | INFO | Application shutdown: closing database connections
+2026-08-03 16:09:51,273 | INFO | Application shutdown: database connections closed
+2026-08-03 16:09:53,730 | INFO | Application startup: initializing database
+2026-08-03 16:09:53,866 | INFO | Application startup: database initialized successfully
+2026-08-03 16:11:23,184 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:12:09,149 | INFO | Application shutdown: closing database connections
+2026-08-03 16:12:09,158 | INFO | Application shutdown: database connections closed
+2026-08-03 16:12:11,631 | INFO | Application startup: initializing database
+2026-08-03 16:12:11,786 | INFO | Application startup: database initialized successfully
+2026-08-03 16:12:22,735 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:12:26,930 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_161226_test_4.json
+2026-08-03 16:12:54,073 | INFO | Application shutdown: closing database connections
+2026-08-03 16:12:54,080 | INFO | Application shutdown: database connections closed
+2026-08-03 16:12:56,995 | INFO | Application startup: initializing database
+2026-08-03 16:12:57,298 | INFO | Application startup: database initialized successfully
+2026-08-03 16:14:03,835 | INFO | Application shutdown: closing database connections
+2026-08-03 16:14:03,850 | INFO | Application shutdown: database connections closed
+2026-08-03 16:14:09,880 | INFO | Application startup: initializing database
+2026-08-03 16:14:10,034 | INFO | Application startup: database initialized successfully
+2026-08-03 16:14:32,038 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:14:32,041 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:14:36,036 | ERROR | Unexpected error during crawl for URL: https://cyfuture.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\apis\endpoints\v1\crawler\crawl.py", line 60, in crawl_url
+    result = await service.crawl_url(str(body.url))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawl_service.py", line 56, in crawl_url
+    async with WebCrawler() as crawler:
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawler.py", line 55, in __aexit__
+    await asyncio.to_thread(self.playwright.stop)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\sync_api\_context_manager.py", line 90, in __exit__
+    self._connection.stop_sync()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 352, in stop_sync
+    self._dispatcher_fiber.switch()
+greenlet.error: Cannot switch to a different thread
+	Current:  <greenlet.greenlet object at 0x00000297C3367FC0 (otid=0x00000297C2376A30) current active started main>
+	Expected: <greenlet.greenlet object at 0x00000297C3B19680 (otid=0x00000297C2376BF0) suspended active started main>
+2026-08-03 16:16:59,475 | INFO | Application shutdown: closing database connections
+2026-08-03 16:16:59,484 | INFO | Application shutdown: database connections closed
+2026-08-03 16:17:02,930 | INFO | Application startup: initializing database
+2026-08-03 16:17:03,177 | INFO | Application startup: database initialized successfully
+2026-08-03 16:17:12,909 | INFO | Application shutdown: closing database connections
+2026-08-03 16:17:12,914 | INFO | Application shutdown: database connections closed
+2026-08-03 16:17:15,816 | INFO | Application startup: initializing database
+2026-08-03 16:17:15,981 | INFO | Application startup: database initialized successfully
+2026-08-03 16:17:51,726 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:17:51,726 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:17:55,778 | ERROR | Unexpected error during crawl for URL: https://cyfuture.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\apis\endpoints\v1\crawler\crawl.py", line 60, in crawl_url
+    result = await service.crawl_url(str(body.url))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawl_service.py", line 56, in crawl_url
+    async with WebCrawler() as crawler:
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawler.py", line 53, in __aexit__
+    await self.browser.close()
+          ^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 16425, in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close(reason=reason)))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 113, in _sync
+    self._dispatcher_fiber.switch()
+greenlet.error: Cannot switch to a different thread
+	Current:  <greenlet.greenlet object at 0x000001956A357C40 (otid=0x00000195698183C0) current active started main>
+	Expected: <greenlet.greenlet object at 0x000001956C7904C0 (otid=0x000001956B084370) suspended active started main>
+2026-08-03 16:18:04,383 | INFO | Application shutdown: closing database connections
+2026-08-03 16:18:04,383 | INFO | Application shutdown: database connections closed
+2026-08-03 16:18:10,187 | INFO | Application startup: initializing database
+2026-08-03 16:18:10,332 | INFO | Application startup: database initialized successfully
+2026-08-03 16:18:11,024 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:18:11,027 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:18:14,776 | ERROR | Unexpected error during crawl for URL: https://cyfuture.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\apis\endpoints\v1\crawler\crawl.py", line 60, in crawl_url
+    result = await service.crawl_url(str(body.url))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawl_service.py", line 56, in crawl_url
+    async with WebCrawler() as crawler:
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\app\services\crawler\crawler.py", line 53, in __aexit__
+    await self.browser.close()
+          ^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 16425, in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close(reason=reason)))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 113, in _sync
+    self._dispatcher_fiber.switch()
+greenlet.error: Cannot switch to a different thread
+	Current:  <greenlet.greenlet object at 0x0000016190957AC0 (otid=0x000001618FE3F510) current active started main>
+	Expected: <greenlet.greenlet object at 0x0000016192DF3380 (otid=0x000001618FEDFF90) suspended active started main>
+2026-08-03 16:19:36,897 | INFO | Application shutdown: closing database connections
+2026-08-03 16:19:36,900 | INFO | Application shutdown: database connections closed
+2026-08-03 16:25:54,895 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:25:59,072 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_162559_test_5.json
+2026-08-03 16:31:04,024 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:31:07,929 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_163107_test_6.json
+2026-08-03 16:37:24,919 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:37:24,921 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:37:28,369 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_163728_test_7.json
+2026-08-03 16:37:28,371 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:37:28,410 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:37:28,410 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:37:32,311 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_163732_test_8.json
+2026-08-03 16:37:32,311 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:38:07,103 | INFO | Application startup: initializing database
+2026-08-03 16:38:07,360 | INFO | Application startup: database initialized successfully
+2026-08-03 16:38:41,757 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:38:41,757 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:38:45,706 | INFO | Crawl completed successfully. Saved to: crawl_data\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_163845_test_9.json
+2026-08-03 16:38:45,706 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:41:16,520 | INFO | Application shutdown: closing database connections
+2026-08-03 16:41:16,529 | INFO | Application shutdown: database connections closed
+2026-08-03 16:41:20,475 | INFO | Application startup: initializing database
+2026-08-03 16:41:20,641 | INFO | Application startup: database initialized successfully
+2026-08-03 16:41:20,749 | INFO | Application shutdown: closing database connections
+2026-08-03 16:41:20,749 | INFO | Application shutdown: database connections closed
+2026-08-03 16:41:23,226 | INFO | Application startup: initializing database
+2026-08-03 16:41:23,406 | INFO | Application startup: database initialized successfully
+2026-08-03 16:42:14,563 | INFO | Application shutdown: closing database connections
+2026-08-03 16:42:14,580 | INFO | Application shutdown: database connections closed
+2026-08-03 16:42:18,231 | INFO | Application startup: initializing database
+2026-08-03 16:42:18,549 | INFO | Application startup: database initialized successfully
+2026-08-03 16:42:28,108 | INFO | Application shutdown: closing database connections
+2026-08-03 16:42:28,119 | INFO | Application shutdown: database connections closed
+2026-08-03 16:42:32,126 | INFO | Application startup: initializing database
+2026-08-03 16:42:32,285 | INFO | Application startup: database initialized successfully
+2026-08-03 16:42:43,366 | INFO | Application shutdown: closing database connections
+2026-08-03 16:42:43,382 | INFO | Application shutdown: database connections closed
+2026-08-03 16:42:46,194 | INFO | Application startup: initializing database
+2026-08-03 16:42:46,419 | INFO | Application startup: database initialized successfully
+2026-08-03 16:43:01,592 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:43:01,596 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:43:05,826 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_164305_test_1.json
+2026-08-03 16:43:05,826 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:43:05,876 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:43:05,876 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:43:09,968 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_164309_test_2.json
+2026-08-03 16:43:09,968 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:45:49,285 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:45:49,287 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:45:52,815 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_164552_test_3.json
+2026-08-03 16:45:52,817 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:45:52,864 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:45:52,864 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:45:57,021 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\a2aa0fa5ac16b09907bc5656e37c7429_20260803_164557_test_4.json
+2026-08-03 16:45:57,027 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-03 16:48:13,010 | INFO | Application shutdown: closing database connections
+2026-08-03 16:48:13,013 | INFO | Application shutdown: database connections closed
+2026-08-03 16:48:17,238 | INFO | Application startup: initializing database
+2026-08-03 16:48:17,524 | INFO | Application startup: database initialized successfully
+2026-08-03 16:48:17,628 | INFO | Application shutdown: closing database connections
+2026-08-03 16:48:17,630 | INFO | Application shutdown: database connections closed
+2026-08-03 16:48:20,167 | INFO | Application startup: initializing database
+2026-08-03 16:48:20,309 | INFO | Application startup: database initialized successfully
+2026-08-03 16:48:32,410 | INFO | Application shutdown: closing database connections
+2026-08-03 16:48:32,416 | INFO | Application shutdown: database connections closed
+2026-08-03 16:48:35,748 | INFO | Application startup: initializing database
+2026-08-03 16:48:35,977 | INFO | Application startup: database initialized successfully
+2026-08-03 16:50:01,965 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-03 16:50:01,965 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-03 16:50:05,881 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_5.json
+2026-08-03 16:50:05,881 | INFO | Crawl successful for URL: https://cyfuture.com/
