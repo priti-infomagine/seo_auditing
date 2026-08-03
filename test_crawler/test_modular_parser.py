@@ -5,7 +5,7 @@ from pathlib import Path
 # Add test_crawler to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from parser import ParserService
+from app.services.parser import ParserService
 
 
 def test_parse_domain(domain: str = "cyfuture.com"):

@@ -1,0 +1,289 @@
+{
+  "url": "https://cyfuture.com/",
+  "crawled_at": "2026-08-03T16:50:05.683136",
+  "domain": "cyfuture.com",
+  "seo_score": {
+    "overall_score": 88,
+    "overall_grade": "B",
+    "breakdown": {
+      "on_page_seo": {
+        "score": 81,
+        "grade": "B",
+        "issues": [],
+        "warnings": [
+          "Title too long (67 chars, recommended: 30-60)",
+          "Meta description too long (397 chars)",
+          "6 images missing alt text",
+          "URL: Empty URL",
+          "Lazy loading not detected"
+        ],
+        "passed": [
+          "Has exactly one H1 tag",
+          "Good content length: 560 words",
+          "Has 13 internal links"
+        ]
+      },
+      "technical_seo": {
+        "score": 82,
+        "grade": "B",
+        "issues": [
+          "No SSL certificate (not using HTTPS)"
+        ],
+        "warnings": [
+          "Language not specified",
+          "No structured data/schema markup",
+          "Low text-to-HTML ratio"
+        ],
+        "passed": [
+          "Mobile-friendly (viewport meta tag present)",
+          "Has canonical URL",
+          "Open Graph tags present (3 tags)"
+        ]
+      },
+      "off_page_seo": {
+        "score": 100,
+        "grade": "A",
+        "issues": [],
+        "warnings": [
+          "No social media links detected"
+        ],
+        "passed": []
+      },
+      "geo_seo": {
+        "score": 100,
+        "grade": "A",
+        "issues": [],
+        "warnings": [
+          "No address information found",
+          "No phone numbers found",
+          "No business hours found",
+          "No Google My Business integration",
+          "No local business schema markup",
+          "No geo meta tags"
+        ],
+        "passed": []
+      },
+      "local_seo": {
+        "score": 100,
+        "grade": "A",
+        "note": "Local SEO score based on geo signals and local business optimization"
+      }
+    },
+    "reading_time_minutes": 0
+  },
+  "keywords": [],
+  "links": {
+    "total_links": 21,
+    "internal_links": 13,
+    "external_links": 8,
+    "ratio": "13:8",
+    "external_domains": {
+      "twitter.com": 2,
+      "www.twitter.com": 2,
+      "www.facebook.com": 2,
+      "cyfuture.com": 1,
+      "api.whatsapp.com": 1
+    },
+    "sample_internal": [
+      {
+        "url": "business-consulting-services.html",
+        "text": "Explore",
+        "title": "",
+        "rel": [],
+        "type": "internal"
+      },
+      {
+        "url": "cloud-infrastructure.html",
+        "text": "Explore",
+        "title": "",
+        "rel": [],
+        "type": "internal"
+      },
+      {
+        "url": "blockchain.html",
+        "text": "Explore",
+        "title": "",
+        "rel": [],
+        "type": "internal"
+      },
+      {
+        "url": "bigdata-analytics.html",
+        "text": "Explore",
+        "title": "",
+        "rel": [],
+        "type": "internal"
+      },
+      {
+        "url": "documents/Indane%20II-cyfuture.pdf",
+        "text": "Hosting & Development of a Consumer Portal\nfor a Fortune 500 Oil CompanyView Story",
+        "title": "",
+        "rel": [],
+        "type": "internal"
+      }
+    ],
+    "sample_external": [
+      {
+        "url": "https://twitter.com/cyfuture/status/1029328997916635136",
+        "text": "https://twitter.com/cyfuture/status/1029328997916635136",
+        "title": "",
+        "rel": [],
+        "type": "external"
+      },
+      {
+        "url": "https://www.twitter.com/Cyfuture",
+        "text": "cyfuture",
+        "title": "",
+        "rel": [],
+        "type": "external"
+      },
+      {
+        "url": "https://twitter.com/cyfuture/status/1022828875917746177",
+        "text": "https://twitter.com/cyfuture/status/1022828875917746177",
+        "title": "",
+        "rel": [],
+        "type": "external"
+      },
+      {
+        "url": "https://www.twitter.com/Cyfuture",
+        "text": "cyfuture",
+        "title": "",
+        "rel": [],
+        "type": "external"
+      },
+      {
+        "url": "https://www.facebook.com/CyFuture/photos/a.1427833697464228/2037561089824816/?type=3&theater",
+        "text": "https://www.facebook.com/CyFuture/photos/a.1427833697464228/2037561089824816/?type=3&theater",
+        "title": "",
+        "rel": [],
+        "type": "external"
+      }
+    ]
+  },
+  "images": {
+    "total_images": 21,
+    "images_with_alt": 15,
+    "images_without_alt": 6,
+    "alt_text_coverage_percent": 71.4,
+    "status": "Needs Improvement",
+    "sample_images": [
+      {
+        "src": "https://www.facebook.com/tr?id=3441877369427016&ev=PageView&noscript=1",
+        "alt": "",
+        "has_alt": false,
+        "title": "",
+        "width": "1",
+        "height": "1",
+        "loading": false
+      },
+      {
+        "src": "images/wheel.png",
+        "alt": "Cyfuture Services",
+        "has_alt": true,
+        "title": "",
+        "width": "",
+        "height": "",
+        "loading": false
+      },
+      {
+        "src": "images/wheel-hand.png",
+        "alt": "Wheel Hand",
+        "has_alt": true,
+        "title": "",
+        "width": "",
+        "height": "",
+        "loading": false
+      },
+      {
+        "src": "images/digital-icon.png",
+        "alt": "Digital icon",
+        "has_alt": true,
+        "title": "",
+        "width": "",
+        "height": "",
+        "loading": false
+      },
+      {
+        "src": "images/cloud-icon.png",
+        "alt": "",
+        "has_alt": false,
+        "title": "",
+        "width": "",
+        "height": "",
+        "loading": false
+      }
+    ]
+  },
+  "basic_info": {
+    "title": "Data Centers | Cloud Hosting | Tech Support BPO Services – Cyfuture",
+    "meta_description": "Cyfuture India Specializes in Setting up Data Centers, Provides Enterprise Cloud Storage and Cloud Hosting Solutions, Economical and best Web Hosting services, VPS Hosting, Dedicated Servers Hosting and Technical Support Business Process Outsourcing (BPO) Services for customers in India, USA and UK. We have two data centers in India. Visit our official website www.Cyfuture.com for more details.",
+    "word_count": 560,
+    "reading_time_minutes": 3,
+    "language": "",
+    "doctype": "html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\""
+  },
+  "technical": {
+    "html_size_bytes": 0.046,
+    "text_html_ratio": 0.046,
+    "viewport": "width=device-width, initial-scale=1",
+    "charset": "utf-8",
+    "canonical_url": "https://cyfuture.com/",
+    "robots_meta": "",
+    "ssl_certificate": false,
+    "mobile_friendly": true
+  },
+  "social": {
+    "open_graph_tags": 0,
+    "twitter_cards": 0,
+    "schema_markup_count": 0
+  },
+  "geo_local": {
+    "address_info": {
+      "found": false,
+      "structured_data": {},
+      "text_matches": []
+    },
+    "phone_numbers": [
+      "10293289979",
+      "10228288759",
+      "1427833697",
+      "2037561089",
+      "1029328997916635136",
+      "1022828875917746177",
+      "1427833697464228",
+      "2037561089824816"
+    ],
+    "business_hours": {
+      "found": true,
+      "structured_data": {},
+      "text_matches": [
+        "d diaphanous in digital terms. Explore how our versatile digital knowledge can result in copacetic digi",
+        "ained media appreciation to settle Power issue in Monsoon https://twitter.com/cyfuture/status/102282887"
+      ]
+    },
+    "google_my_business": {
+      "found": false,
+      "integration_score": 0,
+      "indicators": []
+    },
+    "local_business_schema": {},
+    "social_media_links": [
+      {
+        "platform": "twitter",
+        "url": "https://twitter.com/cyfuture/status/1029328997916635136",
+        "text": "https://twitter.com/cyfuture/status/1029328997916635136"
+      },
+      {
+        "platform": "facebook",
+        "url": "https://www.facebook.com/CyFuture/photos/a.1427833697464228/2037561089824816/?type=3&theater",
+        "text": "https://www.facebook.com/CyFuture/photos/a.1427833697464228/2037561089824816/?type=3&theater"
+      },
+      {
+        "platform": "whatsapp",
+        "url": "https://api.whatsapp.com/send/?phone=919205054583&text=Hi&app_absent=0&lang=en",
+        "text": ""
+      }
+    ]
+  },
+  "source_crawl_file": "cyfuture.com_test_5.json",
+  "parsed_at": "2026-08-03T17:44:33.256655"
+}

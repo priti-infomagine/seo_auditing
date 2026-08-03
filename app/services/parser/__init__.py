@@ -31,6 +31,7 @@ from .social_parser import SocialParser
 from .technical_parser import TechnicalParser
 from .geo_parser import GeoParser
 from .parser_service import ParserService
+from .parse_service import ParseService
 
 __all__ = [
     'HTMLParser',
@@ -43,5 +44,6 @@ __all__ = [
     'SocialParser',
     'TechnicalParser',
     'GeoParser',
-    'ParserService'
+    'ParserService',
+    'ParseService'
 ]
