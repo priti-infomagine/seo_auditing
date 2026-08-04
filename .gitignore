@@ -12,3 +12,5 @@ alembic/README
 .kilo
 .pytest_cache
 .alembic/
+./celery-test/mimio_data/
+./celery-test/__pycache__
