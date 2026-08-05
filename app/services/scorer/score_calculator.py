@@ -1,7 +1,7 @@
 """
 Score Calculator - Computes weighted SEO scores from rule results.
 """
-from typing import Dict, List, Any
+from typing import Dict, List, Any 
 from app.models.scorer_models.rule_result import RuleResult, CategoryScore, Severity
 
 
@@ -38,7 +38,7 @@ class ScoreCalculator:
         "performance": 0.15,
     }
     
-    def __init__(self, weights: Dict[str, float] = None):
+    def __init__(self, weights: Dict[str, float] ):
         """
         Initialize calculator with custom weights.
         
@@ -173,15 +173,23 @@ class ScoreCalculator:
         }
     
     def _get_grade(self, score: float) -> str:
-        """Convert score to letter grade."""
-        if score >= 90:
+        """Convert SEO score to letter grade."""
+        if score >= 95:
+            return "A+"
+        elif score >= 90:
             return "A"
+        elif score >= 85:
+            return "B+"
         elif score >= 80:
             return "B"
+        elif score >= 75:
+            return "C+"
         elif score >= 70:
             return "C"
         elif score >= 60:
             return "D"
+        elif score >= 50:
+            return "E"
         else:
             return "F"
     
