@@ -2091,3 +2091,36 @@ Call log:
 2026-08-05 16:00:21,106 | INFO | Completed 70 rule evaluations
 2026-08-05 16:00:21,117 | INFO | SEO Score calculated: 82.3/100 (Grade B)
 2026-08-05 16:00:21,125 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
+2026-08-05 16:45:08,849 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-05 16:45:08,860 | INFO | Step 1: Starting crawl phase
+2026-08-05 16:45:08,865 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-05 16:45:17,616 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_1.json
+2026-08-05 16:45:17,861 | INFO | Step 2: Starting parse phase
+2026-08-05 16:45:18,087 | INFO | Step 3: Starting scoring phase
+2026-08-05 16:45:18,087 | INFO | Loaded 70 scoring rules
+2026-08-05 16:45:18,093 | INFO | Starting SEO scoring...
+2026-08-05 16:45:18,100 | INFO | Completed 70 rule evaluations
+2026-08-05 16:45:18,101 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-05 16:45:18,101 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
+2026-08-05 17:11:13,429 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-05 17:11:13,437 | INFO | Step 1: Starting crawl phase
+2026-08-05 17:11:13,444 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-05 17:11:25,044 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_2.json
+2026-08-05 17:11:25,384 | INFO | Step 2: Starting parse phase
+2026-08-05 17:11:25,550 | INFO | Step 3: Starting scoring phase
+2026-08-05 17:11:25,550 | INFO | Loaded 70 scoring rules
+2026-08-05 17:11:25,550 | INFO | Starting SEO scoring...
+2026-08-05 17:11:25,558 | INFO | Completed 70 rule evaluations
+2026-08-05 17:11:25,558 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-05 17:11:25,558 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
+2026-08-05 17:11:30,734 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-05 17:11:30,734 | INFO | Step 1: Starting crawl phase
+2026-08-05 17:11:30,734 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-05 17:11:35,216 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_3.json
+2026-08-05 17:11:35,342 | INFO | Step 2: Starting parse phase
+2026-08-05 17:11:36,058 | INFO | Step 3: Starting scoring phase
+2026-08-05 17:11:36,058 | INFO | Loaded 70 scoring rules
+2026-08-05 17:11:36,058 | INFO | Starting SEO scoring...
+2026-08-05 17:11:36,060 | INFO | Completed 70 rule evaluations
+2026-08-05 17:11:36,060 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-05 17:11:36,060 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
