@@ -1,0 +1,70 @@
+{
+  "requested_url": "https://example.com/",
+  "final_url": "https://example.com/",
+  "domain": "example.com",
+  "html": "<!DOCTYPE html><html lang=\"en\"><head><title>Example Domain</title><link rel=\"icon\" href=\"data:,\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div>\n</body></html>",
+  "crawled_at": "2026-08-03T17:46:53.958174",
+  "http": {
+    "status_code": 200,
+    "http_version": "HTTP/2.0",
+    "content_type": "text/html",
+    "content_length": "",
+    "content_encoding": "br",
+    "server": "cloudflare",
+    "cache_control": "",
+    "etag": "",
+    "last_modified": "Sat, 01 Aug 2026 09:39:03 GMT",
+    "vary": "",
+    "response_time": 3.837371
+  },
+  "redirects": [],
+  "performance": {
+    "dom_content_loaded": 2821.699999999255,
+    "load_event": 2822.199999999255,
+    "first_paint": 2860,
+    "first_contentful_paint": 2860,
+    "largest_contentful_paint": 0
+  },
+  "resources": {
+    "javascript": [],
+    "css": [],
+    "images": [],
+    "fonts": [],
+    "documents": [],
+    "other": [
+      {
+        "url": "https://example.com/",
+        "type": "other",
+        "size": 0
+      }
+    ]
+  },
+  "javascript": {
+    "console_errors": [],
+    "console_warnings": [],
+    "failed_requests": []
+  },
+  "security_headers": {
+    "strict_transport_security": "",
+    "content_security_policy": "",
+    "x_frame_options": "",
+    "x_content_type_options": "",
+    "referrer_policy": ""
+  },
+  "ssl": {
+    "enabled": false,
+    "certificate_issuer": "",
+    "certificate_expiry": "",
+    "tls_version": ""
+  },
+  "robots": {
+    "exists": false,
+    "content": "",
+    "sitemap_urls": []
+  },
+  "sitemap": {
+    "exists": false,
+    "urls": []
+  },
+  "cookies": []
+}
