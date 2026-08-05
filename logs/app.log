@@ -2014,3 +2014,80 @@ Call log:
 2026-08-05 13:52:17,594 | INFO | Completed 70 rule evaluations
 2026-08-05 13:52:17,594 | INFO | SEO Score calculated: 77.0/100 (Grade C)
 2026-08-05 13:52:17,594 | INFO | Audit pipeline completed successfully for URL: http://cyfuture.com - SEO Score: 77.0/100 (Grade: C)
+2026-08-05 14:13:02,327 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:13:02,343 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:13:02,346 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:13:15,624 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_1.json
+2026-08-05 14:13:16,208 | INFO | Step 2: Starting parse phase
+2026-08-05 14:13:16,846 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:13:16,847 | INFO | Loaded 70 scoring rules
+2026-08-05 14:13:16,847 | INFO | Starting SEO scoring...
+2026-08-05 14:13:16,851 | INFO | Completed 70 rule evaluations
+2026-08-05 14:13:16,852 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:13:16,852 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:13:22,489 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:13:22,490 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:13:22,492 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:13:29,024 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_2.json
+2026-08-05 14:13:29,308 | INFO | Step 2: Starting parse phase
+2026-08-05 14:13:29,364 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:13:29,365 | INFO | Loaded 70 scoring rules
+2026-08-05 14:13:29,365 | INFO | Starting SEO scoring...
+2026-08-05 14:13:29,366 | INFO | Completed 70 rule evaluations
+2026-08-05 14:13:29,366 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:13:29,366 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:27:02,185 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:27:02,201 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:27:02,201 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:27:13,351 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_3.json
+2026-08-05 14:27:13,868 | INFO | Step 2: Starting parse phase
+2026-08-05 14:27:13,968 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:27:13,986 | INFO | Loaded 70 scoring rules
+2026-08-05 14:27:13,986 | INFO | Starting SEO scoring...
+2026-08-05 14:27:13,992 | INFO | Completed 70 rule evaluations
+2026-08-05 14:27:13,993 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:27:13,993 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:36:05,933 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:36:05,943 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:36:05,943 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:36:13,341 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_4.json
+2026-08-05 14:36:13,742 | INFO | Step 2: Starting parse phase
+2026-08-05 14:36:13,823 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:36:13,824 | INFO | Loaded 70 scoring rules
+2026-08-05 14:36:13,826 | INFO | Starting SEO scoring...
+2026-08-05 14:36:13,830 | INFO | Completed 70 rule evaluations
+2026-08-05 14:36:13,831 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:36:13,831 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:37:20,823 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:37:20,824 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:37:20,825 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:37:28,623 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_5.json
+2026-08-05 14:37:29,000 | INFO | Step 2: Starting parse phase
+2026-08-05 14:37:29,073 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:37:29,073 | INFO | Loaded 70 scoring rules
+2026-08-05 14:37:29,073 | INFO | Starting SEO scoring...
+2026-08-05 14:37:29,075 | INFO | Completed 70 rule evaluations
+2026-08-05 14:37:29,076 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:37:29,077 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 15:11:27,668 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 15:11:27,686 | INFO | Step 1: Starting crawl phase
+2026-08-05 15:11:27,706 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 15:11:41,393 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_6.json
+2026-08-05 15:11:42,300 | INFO | Step 2: Starting parse phase
+2026-08-05 15:11:42,531 | INFO | Step 3: Starting scoring phase
+2026-08-05 15:11:42,537 | INFO | Loaded 70 scoring rules
+2026-08-05 15:11:42,537 | INFO | Starting SEO scoring...
+2026-08-05 15:11:42,547 | INFO | Completed 70 rule evaluations
+2026-08-05 15:11:42,549 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 15:11:42,549 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 16:00:03,096 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-05 16:00:03,216 | INFO | Step 1: Starting crawl phase
+2026-08-05 16:00:03,324 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-05 16:00:19,937 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_1.json
+2026-08-05 16:00:20,586 | INFO | Step 2: Starting parse phase
+2026-08-05 16:00:21,057 | INFO | Step 3: Starting scoring phase
+2026-08-05 16:00:21,077 | INFO | Loaded 70 scoring rules
+2026-08-05 16:00:21,079 | INFO | Starting SEO scoring...
+2026-08-05 16:00:21,106 | INFO | Completed 70 rule evaluations
+2026-08-05 16:00:21,117 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-05 16:00:21,125 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
