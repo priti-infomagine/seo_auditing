@@ -10,14 +10,14 @@ from app.core.logger import logger
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
     # ── Startup ──────────────────────────────────────────────────────
-    logger.info("Application startup: initializing database")
+    # logger.info("Application startup: initializing database")
     await init_db()
-    logger.info("Application startup: database initialized successfully")
+    # logger.info("Application startup: database initialized successfully")
     yield
     # ── Shutdown ─────────────────────────────────────────────────────
-    logger.info("Application shutdown: closing database connections")
+    # logger.info("Application shutdown: closing database connections")
     await close_db()
-    logger.info("Application shutdown: database connections closed")
+    # logger.info("Application shutdown: database connections closed")
 
 
 app = FastAPI(

@@ -1,6 +1,5 @@
 """
-Schemas for the combined crawl + parse (audit) API endpoint.
-This is a mock API that simulates the full crawler → parser pipeline.
+Schemas for the combined crawl + parse + score (full audit) API endpoint.
 """
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Dict, Any, List
@@ -69,6 +68,104 @@ class AuditResponse(BaseModel):
 
 
 class AuditError(BaseModel):
+    """Error response schema."""
+    
+    success: bool = False
+    error: str = Field(..., description="Error type")
+    detail: str = Field(..., description="Error details")
+
+
+class AuditAnalyzeRequest(BaseModel):
+    """Request schema for running a complete crawl → parse → score audit."""
+    
+    url: str = Field(
+        ...,
+        description="URL to audit (e.g., 'https://example.com')",
+        examples=["https://example.com"]
+    )
+    
+    @field_validator("url")
+    @classmethod
+    def validate_url(cls, v: str) -> str:
+        """Validate URL format."""
+        url = v.strip()
+        if not url:
+            raise ValueError("URL cannot be empty")
+        
+        # Auto-prepend https:// if no protocol
+        if not url.startswith(("http://", "https://")):
+            url = f"https://{url}"
+        
+        return url
+
+
+class CrawlSummarySchema(BaseModel):
+    """Summary of crawl phase."""
+    url: str
+    domain: str
+    status_code: int
+    response_time: float
+    html_size_bytes: int
+    test_number: int
+    file_path: str
+    crawled_at: str
+
+
+class RuleResultSchema(BaseModel):
+    """Schema for individual rule result."""
+    rule_id: str
+    name: str
+    category: str
+    severity: str
+    passed: bool
+    score_impact: float
+    message: str
+    recommendation: Optional[str] = None
+    data: Optional[Dict[str, Any]] = None
+    tags: List[str] = []
+
+
+class CategoryScoreSchema(BaseModel):
+    """Schema for category score breakdown."""
+    category: str
+    score: float
+    max_score: float = 100.0
+    weight: float
+    rules_checked: int
+    rules_passed: int
+    rules_failed: int
+    issues: List[RuleResultSchema] = []
+    warnings: List[RuleResultSchema] = []
+    passed_rules: List[RuleResultSchema] = []
+
+
+class SeoScoreSchema(BaseModel):
+    """Schema for SEO score results."""
+    overall_score: float
+    grade: str
+    categories: Dict[str, CategoryScoreSchema]
+    total_rules: int
+    total_passed: int
+    total_failed: int
+    critical_issues: int
+    warnings: int
+    summary: str
+    top_issues: List[RuleResultSchema]
+
+
+class AuditAnalyzeResponse(BaseModel):
+    """Response schema for the complete crawl → parse → score audit."""
+    
+    success: bool = Field(..., description="Whether the audit was successful")
+    message: str = Field(..., description="Status message")
+    url: str = Field(..., description="The audited URL")
+    domain: str = Field(..., description="Extracted domain name")
+    crawl: CrawlSummarySchema = Field(..., description="Crawl phase summary")
+    seo_score: Dict[str, Any] = Field(..., description="SEO scoring results")
+    parsed_data: Optional[Dict[str, Any]] = Field(None, description="Full parsed data")
+
+
+class AuditAnalyzeError(BaseModel):
     """Error response schema."""
     
     success: bool = False

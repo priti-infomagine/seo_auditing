@@ -737,18 +737,18 @@ class ParserService:
                 "doctype": page_data.get('basic', {}).get('doctype')
             },
             "technical": {
-                "html_size_bytes": page_data.get('content', {}).get('text_html_ratio', 0),
+                "html_size_bytes": page_data.get('technical', {}).get('html_size_bytes', 0),
                 "text_html_ratio": page_data.get('content', {}).get('text_html_ratio'),
                 "viewport": page_data.get('basic', {}).get('viewport'),
                 "charset": page_data.get('basic', {}).get('charset'),
                 "canonical_url": page_data.get('seo', {}).get('canonical_url'),
                 "robots_meta": page_data.get('seo', {}).get('robots_meta'),
-                "ssl_certificate": False,
+                "ssl_certificate": page_data.get('url', {}).get('https', False),
                 "mobile_friendly": bool(page_data.get('basic', {}).get('viewport'))
             },
             "social": {
-                "open_graph_tags": len(page_data.get('social', {}).get('open_graph', {}).get('tags', {})),
-                "twitter_cards": len(page_data.get('social', {}).get('twitter_cards', {}).get('tags', {})),
+                "open_graph_tags": len(page_data.get('social', {}).get('open_graph', {})),
+                "twitter_cards": len(page_data.get('social', {}).get('twitter_cards', {})),
                 "schema_markup_count": len(page_data.get('structured_data', {}).get('schema_markup', []))
             },
             "geo_local": {
@@ -756,7 +756,7 @@ class ParserService:
                 "phone_numbers": page_data.get('local_seo', {}).get('phone_numbers', []),
                 "business_hours": page_data.get('local_seo', {}).get('business_hours', {}),
                 "google_my_business": page_data.get('local_seo', {}).get('google_business', {}),
-                "local_business_schema": {},
+                "local_business_schema": page_data.get('local_seo', {}).get('local_business_schema', {}),
                 "social_media_links": page_data.get('social', {}).get('social_links', {}).get('links', [])
             }
         }

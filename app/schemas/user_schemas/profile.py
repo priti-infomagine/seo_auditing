@@ -4,7 +4,7 @@ Schemas for user profile endpoints.
 Endpoints:
     GET /user/profile → Get current user's profile
 """
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr ,ConfigDict
 
 
 class UserProfileResponse(BaseModel):
@@ -15,5 +15,4 @@ class UserProfileResponse(BaseModel):
     credits: int
     is_verified: bool
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

@@ -18,3 +18,4 @@ router.include_router(parser_router, prefix="/parser", tags=["Parser"])
 router.include_router(audit_router, prefix="/audit", tags=["Audit"])
 router.include_router(scorer_router, prefix="/scorer", tags=["Scorer"])
 
+__all__ = ["router"]

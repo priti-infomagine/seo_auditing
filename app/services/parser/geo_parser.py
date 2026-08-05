@@ -82,8 +82,13 @@ class GeoParser:
             for match in matches:
                 # Normalize phone number
                 normalized = GeoParser._normalize_phone(match)
+                # Filter out invalid numbers (too long - likely social media IDs)
                 if normalized and normalized not in phone_numbers:
-                    phone_numbers.append(normalized)
+                    # Remove leading + or 1, check digit count
+                    digits_only = re.sub(r'[^\d]', '', normalized)
+                    # Valid phone numbers are typically 10-15 digits
+                    if 10 <= len(digits_only) <= 15:
+                        phone_numbers.append(normalized)
         
         return phone_numbers
     
@@ -111,21 +116,19 @@ class GeoParser:
             hours_info["structured_data"] = schema_hours
             return hours_info
         
-        # Search in page text
+        # Search in page text - require day name AND time pattern together
         text = GeoParser._get_page_text(soup)
         
-        for pattern in GeoParser.HOURS_PATTERNS:
-            if re.search(pattern, text, re.IGNORECASE):
-                hours_info["found"] = True
-                # Extract context around the match
-                matches = re.finditer(pattern, text, re.IGNORECASE)
-                for match in list(matches)[:3]:  # Limit to 3
-                    start = max(0, match.start() - 50)
-                    end = min(len(text), match.end() + 50)
-                    context = text[start:end].strip()
-                    if context not in hours_info["text_matches"]:
-                        hours_info["text_matches"].append(context)
-                break
+        # More strict pattern: day name followed by time within reasonable distance
+        strict_hours_pattern = r'(?:monday|mon|tuesday|tue|wednesday|wed|thursday|thu|friday|fri|saturday|sat|sunday|sun)[^\n]{0,50}?\d{1,2}(?::\d{2})?\s*(?:am|pm|AM|PM)'
+        matches = re.findall(strict_hours_pattern, text, re.IGNORECASE)
+        
+        if matches:
+            hours_info["found"] = True
+            for match in matches[:3]:
+                context = match.strip()
+                if context not in hours_info["text_matches"]:
+                    hours_info["text_matches"].append(context)
         
         return hours_info
     

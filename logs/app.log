@@ -1736,3 +1736,281 @@ Call log:
 2026-08-04 15:20:44,551 | INFO | SEO Score calculated: 68.8/100 (Grade D)
 2026-08-04 15:40:25,836 | INFO | Application shutdown: closing database connections
 2026-08-04 15:40:25,967 | INFO | Application shutdown: database connections closed
+2026-08-04 15:40:35,121 | INFO | Application startup: initializing database
+2026-08-04 15:40:35,378 | INFO | Application startup: database initialized successfully
+2026-08-04 15:40:35,480 | INFO | Application shutdown: closing database connections
+2026-08-04 15:40:35,487 | INFO | Application shutdown: database connections closed
+2026-08-04 15:40:39,670 | INFO | Application startup: initializing database
+2026-08-04 15:40:39,974 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:06,062 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:06,081 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:18,592 | INFO | Application startup: initializing database
+2026-08-04 15:42:18,940 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:19,066 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:19,081 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:24,721 | INFO | Application startup: initializing database
+2026-08-04 15:42:25,004 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:25,648 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:25,659 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:31,659 | INFO | Application startup: initializing database
+2026-08-04 15:42:32,366 | INFO | Application startup: database initialized successfully
+2026-08-04 15:43:10,955 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:10,958 | INFO | Starting SEO scoring...
+2026-08-04 15:43:10,958 | INFO | Completed 70 rule evaluations
+2026-08-04 15:43:10,965 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:43:10,973 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:10,978 | INFO | Starting SEO scoring...
+2026-08-04 15:43:10,980 | INFO | Completed 70 rule evaluations
+2026-08-04 15:43:10,980 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:43:10,989 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,007 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,007 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,020 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,028 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,036 | INFO | Loaded 70 scoring rules
+2026-08-04 15:45:17,490 | INFO | Application shutdown: closing database connections
+2026-08-04 15:45:17,498 | INFO | Application shutdown: database connections closed
+2026-08-04 15:45:20,252 | INFO | Application startup: initializing database
+2026-08-04 15:45:20,517 | INFO | Application startup: database initialized successfully
+2026-08-04 16:51:02,851 | INFO | Application shutdown: closing database connections
+2026-08-04 16:51:02,967 | INFO | Application shutdown: database connections closed
+2026-08-04 16:51:11,235 | INFO | Application startup: initializing database
+2026-08-04 16:51:11,570 | INFO | Application startup: database initialized successfully
+2026-08-04 17:12:27,383 | INFO | Loaded 70 scoring rules
+2026-08-04 17:12:27,383 | INFO | Scoring provided parsed data
+2026-08-04 17:12:27,383 | INFO | Starting SEO scoring...
+2026-08-04 17:12:27,400 | INFO | Completed 70 rule evaluations
+2026-08-04 17:12:27,400 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 18:21:36,664 | INFO | Application startup: initializing database
+2026-08-04 18:21:36,809 | INFO | Application startup: database initialized successfully
+2026-08-04 18:22:32,957 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:32,958 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:35,124 | INFO | Application startup: database initialized successfully
+2026-08-04 18:22:38,878 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:38,884 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:42,774 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:42,774 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:45,712 | INFO | Application shutdown: database connections closed
+2026-08-04 18:26:41,411 | INFO | GET / - Root endpoint called
+2026-08-04 18:26:49,405 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:00,097 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:09,472 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:09,472 | INFO | Scoring provided parsed data
+2026-08-04 18:27:09,472 | INFO | Starting SEO scoring...
+2026-08-04 18:27:09,480 | INFO | Completed 70 rule evaluations
+2026-08-04 18:27:09,481 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 18:33:05,666 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-04 18:33:05,666 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:33:16,243 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_6.json
+2026-08-04 18:33:16,243 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-04 18:33:16,318 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-04 18:33:16,319 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:33:22,212 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_7.json
+2026-08-04 18:33:22,212 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-04 18:33:22,698 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,698 | INFO | Starting SEO scoring...
+2026-08-04 18:33:22,698 | INFO | Completed 70 rule evaluations
+2026-08-04 18:33:22,698 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:33:22,705 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,707 | INFO | Starting SEO scoring...
+2026-08-04 18:33:22,707 | INFO | Completed 70 rule evaluations
+2026-08-04 18:33:22,708 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:33:22,710 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,716 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,719 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,724 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,728 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,734 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,837 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,837 | INFO | Scoring provided parsed data
+2026-08-04 18:35:03,837 | INFO | Starting SEO scoring...
+2026-08-04 18:35:03,837 | INFO | Completed 70 rule evaluations
+2026-08-04 18:35:03,837 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-04 18:35:03,867 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,879 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,887 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:51,455 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:35:51,455 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:35:51,455 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:35:56,122 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_8.json
+2026-08-04 18:35:56,567 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:35:56,567 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:35:56,568 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:36:03,227 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:37:30,368 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:37:30,370 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:37:30,370 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:37:35,390 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_9.json
+2026-08-04 18:37:35,977 | INFO | Step 2: Starting parse phase
+2026-08-04 18:37:36,095 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:37:36,095 | INFO | Loaded 70 scoring rules
+2026-08-04 18:37:36,095 | INFO | Starting SEO scoring...
+2026-08-04 18:37:36,099 | INFO | Completed 70 rule evaluations
+2026-08-04 18:37:36,099 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:37:36,099 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:37:36,116 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:37:36,116 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:37:36,116 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:37:42,672 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:38:16,969 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:38:16,969 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:16,969 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:38:21,509 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_10.json
+2026-08-04 18:38:22,014 | INFO | Step 2: Starting parse phase
+2026-08-04 18:38:22,146 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:38:22,146 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:22,146 | INFO | Starting SEO scoring...
+2026-08-04 18:38:22,148 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:22,148 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:38:22,148 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:38:22,170 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:38:22,170 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:22,170 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:38:29,012 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:38:47,398 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,402 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,403 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,404 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:38:47,407 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,414 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,420 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,422 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:38:47,422 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,436 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,441 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,452 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,457 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,472 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,519 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,519 | INFO | Scoring provided parsed data
+2026-08-04 18:38:47,519 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,519 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,519 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-04 18:38:47,544 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,560 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,569 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,589 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:38:47,589 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:47,600 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:38:52,249 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_11.json
+2026-08-04 18:38:52,819 | INFO | Step 2: Starting parse phase
+2026-08-04 18:38:53,007 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:38:53,008 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:53,008 | INFO | Starting SEO scoring...
+2026-08-04 18:38:53,011 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:53,012 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:38:53,012 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:38:53,034 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:38:53,035 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:53,035 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:38:59,969 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-05 11:00:06,658 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-05 11:00:06,663 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:06,663 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-05 11:00:23,898 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-05 11:00:23,898 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:23,898 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-05 11:00:28,155 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_12.json
+2026-08-05 11:00:28,519 | INFO | Step 2: Starting parse phase
+2026-08-05 11:00:28,598 | INFO | Step 3: Starting scoring phase
+2026-08-05 11:00:28,598 | INFO | Loaded 70 scoring rules
+2026-08-05 11:00:28,598 | INFO | Starting SEO scoring...
+2026-08-05 11:00:28,598 | INFO | Completed 70 rule evaluations
+2026-08-05 11:00:28,598 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 11:00:28,598 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 11:00:28,624 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-05 11:00:28,624 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:28,624 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-05 11:00:35,112 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-05 11:10:40,015 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://smashingmagazine.com
+2026-08-05 11:10:40,015 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:10:40,015 | INFO | Starting crawl for URL: https://smashingmagazine.com
+2026-08-05 11:10:47,973 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\smashingmagazine.com\smashingmagazine.com_test_1.json
+2026-08-05 11:10:48,511 | INFO | Step 2: Starting parse phase
+2026-08-05 11:10:48,750 | INFO | Step 3: Starting scoring phase
+2026-08-05 11:10:48,750 | INFO | Loaded 70 scoring rules
+2026-08-05 11:10:48,750 | INFO | Starting SEO scoring...
+2026-08-05 11:10:48,750 | INFO | Completed 70 rule evaluations
+2026-08-05 11:10:48,750 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-05 11:10:48,750 | INFO | Audit pipeline completed successfully for URL: https://smashingmagazine.com - SEO Score: 83.4/100 (Grade: B)
+2026-08-05 12:01:09,430 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://smashingmagazine.com
+2026-08-05 12:01:09,435 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:01:09,461 | INFO | Starting crawl for URL: https://smashingmagazine.com
+2026-08-05 12:01:18,525 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\smashingmagazine.com\smashingmagazine.com_test_2.json
+2026-08-05 12:01:18,989 | INFO | Step 2: Starting parse phase
+2026-08-05 12:01:19,096 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:01:19,096 | INFO | Loaded 70 scoring rules
+2026-08-05 12:01:19,096 | INFO | Starting SEO scoring...
+2026-08-05 12:01:19,101 | INFO | Completed 70 rule evaluations
+2026-08-05 12:01:19,101 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-05 12:01:19,101 | INFO | Audit pipeline completed successfully for URL: https://smashingmagazine.com - SEO Score: 83.4/100 (Grade: B)
+2026-08-05 12:15:16,506 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://searchenginejournal.com
+2026-08-05 12:15:16,521 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:15:16,528 | INFO | Starting crawl for URL: https://searchenginejournal.com
+2026-08-05 12:15:33,457 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\searchenginejournal.com\searchenginejournal.com_test_1.json
+2026-08-05 12:15:34,145 | INFO | Step 2: Starting parse phase
+2026-08-05 12:15:34,895 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:15:34,895 | INFO | Loaded 70 scoring rules
+2026-08-05 12:15:34,895 | INFO | Starting SEO scoring...
+2026-08-05 12:15:34,895 | INFO | Completed 70 rule evaluations
+2026-08-05 12:15:34,895 | INFO | SEO Score calculated: 82.5/100 (Grade B)
+2026-08-05 12:15:34,895 | INFO | Audit pipeline completed successfully for URL: https://searchenginejournal.com - SEO Score: 82.5/100 (Grade: B)
+2026-08-05 12:42:57,864 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://localhost:5173/
+2026-08-05 12:42:57,874 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:42:57,884 | INFO | Starting crawl for URL: http://localhost:5173/
+2026-08-05 12:43:00,014 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\localhost_5173\localhost_5173_test_1.json
+2026-08-05 12:43:00,124 | INFO | Step 2: Starting parse phase
+2026-08-05 12:43:00,147 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:43:00,150 | INFO | Loaded 70 scoring rules
+2026-08-05 12:43:00,150 | INFO | Starting SEO scoring...
+2026-08-05 12:43:00,154 | INFO | Completed 70 rule evaluations
+2026-08-05 12:43:00,154 | INFO | SEO Score calculated: 77.5/100 (Grade C)
+2026-08-05 12:43:00,154 | INFO | Audit pipeline completed successfully for URL: http://localhost:5173/ - SEO Score: 77.5/100 (Grade: C)
+2026-08-05 12:43:32,819 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com
+2026-08-05 12:43:32,819 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:43:32,821 | INFO | Starting crawl for URL: https://cyfuture.com
+2026-08-05 12:43:39,274 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_13.json
+2026-08-05 12:43:39,784 | INFO | Step 2: Starting parse phase
+2026-08-05 12:43:39,892 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:43:39,893 | INFO | Loaded 70 scoring rules
+2026-08-05 12:43:39,893 | INFO | Starting SEO scoring...
+2026-08-05 12:43:39,894 | INFO | Completed 70 rule evaluations
+2026-08-05 12:43:39,894 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 12:43:39,894 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 12:48:26,987 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.com
+2026-08-05 12:48:26,994 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:48:26,997 | INFO | Starting crawl for URL: https://infomagine.com
+2026-08-05 12:48:30,253 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.com\infomagine.com_test_1.json
+2026-08-05 12:48:30,358 | INFO | Step 2: Starting parse phase
+2026-08-05 12:48:30,363 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:48:30,363 | INFO | Loaded 70 scoring rules
+2026-08-05 12:48:30,363 | INFO | Starting SEO scoring...
+2026-08-05 12:48:30,369 | INFO | Completed 70 rule evaluations
+2026-08-05 12:48:30,369 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 12:48:30,369 | INFO | Audit pipeline completed successfully for URL: https://infomagine.com - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 13:52:06,670 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://cyfuture.com
+2026-08-05 13:52:06,685 | INFO | Step 1: Starting crawl phase
+2026-08-05 13:52:06,703 | INFO | Starting crawl for URL: http://cyfuture.com
+2026-08-05 13:52:16,605 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_14.json
+2026-08-05 13:52:17,494 | INFO | Step 2: Starting parse phase
+2026-08-05 13:52:17,581 | INFO | Step 3: Starting scoring phase
+2026-08-05 13:52:17,581 | INFO | Loaded 70 scoring rules
+2026-08-05 13:52:17,581 | INFO | Starting SEO scoring...
+2026-08-05 13:52:17,594 | INFO | Completed 70 rule evaluations
+2026-08-05 13:52:17,594 | INFO | SEO Score calculated: 77.0/100 (Grade C)
+2026-08-05 13:52:17,594 | INFO | Audit pipeline completed successfully for URL: http://cyfuture.com - SEO Score: 77.0/100 (Grade: C)
