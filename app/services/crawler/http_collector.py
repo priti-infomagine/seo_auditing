@@ -66,7 +66,7 @@ class HTTPCollector:
         Returns:
             Dictionary of security headers
         """
-        return {
+        return {    
             "strict_transport_security": headers.get("strict-transport-security", ""),
             "content_security_policy": headers.get("content-security-policy", ""),
             "x_frame_options": headers.get("x-frame-options", ""),
