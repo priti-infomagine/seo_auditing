@@ -797,3 +797,1286 @@ greenlet.error: Cannot switch to a different thread
 2026-08-03 18:09:47,970 | INFO | Starting crawl for URL: https://www.wikipedia.org/
 2026-08-03 18:09:54,022 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\www.wikipedia.org\www.wikipedia.org_test_2.json
 2026-08-03 18:09:54,022 | INFO | Crawl successful for URL: https://www.wikipedia.org/
+2026-08-04 11:18:04,285 | INFO | Application startup: initializing database
+2026-08-04 11:18:04,574 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:04,683 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:04,689 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:07,278 | INFO | Application startup: initializing database
+2026-08-04 11:18:07,486 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:08,129 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:08,137 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:13,272 | INFO | Application startup: initializing database
+2026-08-04 11:18:13,620 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:14,061 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:14,100 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:21,666 | INFO | Application startup: initializing database
+2026-08-04 11:18:21,978 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:22,082 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:22,089 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:26,457 | INFO | Application startup: initializing database
+2026-08-04 11:18:26,762 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:26,870 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:26,880 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:30,532 | INFO | Application startup: initializing database
+2026-08-04 11:18:30,861 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:30,968 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:30,973 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:33,351 | INFO | Application startup: initializing database
+2026-08-04 11:18:33,513 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:34,782 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:34,788 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:37,802 | INFO | Application startup: initializing database
+2026-08-04 11:18:38,010 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:38,749 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:38,754 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:41,327 | INFO | Application startup: initializing database
+2026-08-04 11:18:41,463 | INFO | Application startup: database initialized successfully
+2026-08-04 11:18:48,251 | INFO | Application shutdown: closing database connections
+2026-08-04 11:18:48,252 | INFO | Application shutdown: database connections closed
+2026-08-04 11:18:50,227 | INFO | Application startup: initializing database
+2026-08-04 11:18:50,362 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:04,921 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:04,926 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:08,381 | INFO | Application startup: initializing database
+2026-08-04 11:19:08,616 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:08,735 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:08,741 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:12,024 | INFO | Application startup: initializing database
+2026-08-04 11:19:12,278 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:12,384 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:12,391 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:15,580 | INFO | Application startup: initializing database
+2026-08-04 11:19:15,816 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:15,927 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:15,935 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:20,192 | INFO | Application startup: initializing database
+2026-08-04 11:19:20,351 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:20,462 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:20,467 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:23,936 | INFO | Application startup: initializing database
+2026-08-04 11:19:24,238 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:27,235 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:27,240 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:30,091 | INFO | Application startup: initializing database
+2026-08-04 11:19:30,242 | INFO | Application startup: database initialized successfully
+2026-08-04 11:19:33,325 | INFO | Application shutdown: closing database connections
+2026-08-04 11:19:33,332 | INFO | Application shutdown: database connections closed
+2026-08-04 11:19:36,820 | INFO | Application startup: initializing database
+2026-08-04 11:19:36,991 | INFO | Application startup: database initialized successfully
+2026-08-04 11:21:03,677 | INFO | Application shutdown: closing database connections
+2026-08-04 11:21:03,689 | INFO | Application shutdown: database connections closed
+2026-08-04 11:21:09,455 | INFO | Application startup: initializing database
+2026-08-04 11:21:09,711 | INFO | Application startup: database initialized successfully
+2026-08-04 11:21:09,815 | INFO | Application shutdown: closing database connections
+2026-08-04 11:21:09,826 | INFO | Application shutdown: database connections closed
+2026-08-04 11:21:15,150 | INFO | Application startup: initializing database
+2026-08-04 11:21:15,600 | INFO | Application startup: database initialized successfully
+2026-08-04 11:21:15,703 | INFO | Application shutdown: closing database connections
+2026-08-04 11:21:15,709 | INFO | Application shutdown: database connections closed
+2026-08-04 11:21:19,293 | INFO | Application startup: initializing database
+2026-08-04 11:21:19,691 | INFO | Application startup: database initialized successfully
+2026-08-04 11:21:42,537 | INFO | Application shutdown: closing database connections
+2026-08-04 11:21:42,545 | INFO | Application shutdown: database connections closed
+2026-08-04 11:21:47,821 | INFO | Application startup: initializing database
+2026-08-04 11:21:48,005 | INFO | Application startup: database initialized successfully
+2026-08-04 11:21:49,399 | INFO | Application shutdown: closing database connections
+2026-08-04 11:21:49,408 | INFO | Application shutdown: database connections closed
+2026-08-04 11:22:12,230 | INFO | Application startup: initializing database
+2026-08-04 11:22:13,030 | INFO | Application startup: database initialized successfully
+2026-08-04 11:22:13,163 | INFO | Application shutdown: closing database connections
+2026-08-04 11:22:13,190 | INFO | Application shutdown: database connections closed
+2026-08-04 11:22:19,763 | INFO | Application startup: initializing database
+2026-08-04 11:22:19,952 | INFO | Application startup: database initialized successfully
+2026-08-04 11:22:25,295 | INFO | Application shutdown: closing database connections
+2026-08-04 11:22:25,311 | INFO | Application shutdown: database connections closed
+2026-08-04 11:22:35,696 | INFO | Application startup: initializing database
+2026-08-04 11:22:36,078 | INFO | Application startup: database initialized successfully
+2026-08-04 11:22:36,194 | INFO | Application shutdown: closing database connections
+2026-08-04 11:22:36,225 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:00,668 | INFO | Application startup: initializing database
+2026-08-04 11:23:01,519 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:01,652 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:01,666 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:14,814 | INFO | Application startup: initializing database
+2026-08-04 11:23:15,669 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:28,203 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:28,209 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:33,566 | INFO | Application startup: initializing database
+2026-08-04 11:23:33,784 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:33,901 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:33,906 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:36,831 | INFO | Application startup: initializing database
+2026-08-04 11:23:36,971 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:37,086 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:37,092 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:40,581 | INFO | Application startup: initializing database
+2026-08-04 11:23:40,721 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:40,821 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:40,821 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:43,546 | INFO | Application startup: initializing database
+2026-08-04 11:23:43,695 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:43,801 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:43,804 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:47,010 | INFO | Application startup: initializing database
+2026-08-04 11:23:47,172 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:47,281 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:47,291 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:49,858 | INFO | Application startup: initializing database
+2026-08-04 11:23:50,041 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:50,372 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:50,377 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:53,468 | INFO | Application startup: initializing database
+2026-08-04 11:23:53,628 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:53,734 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:53,739 | INFO | Application shutdown: database connections closed
+2026-08-04 11:23:58,350 | INFO | Application startup: initializing database
+2026-08-04 11:23:58,527 | INFO | Application startup: database initialized successfully
+2026-08-04 11:23:58,636 | INFO | Application shutdown: closing database connections
+2026-08-04 11:23:58,643 | INFO | Application shutdown: database connections closed
+2026-08-04 11:24:01,231 | INFO | Application startup: initializing database
+2026-08-04 11:24:01,410 | INFO | Application startup: database initialized successfully
+2026-08-04 11:24:01,522 | INFO | Application shutdown: closing database connections
+2026-08-04 11:24:01,527 | INFO | Application shutdown: database connections closed
+2026-08-04 11:24:04,056 | INFO | Application startup: initializing database
+2026-08-04 11:24:04,180 | INFO | Application startup: database initialized successfully
+2026-08-04 11:24:04,191 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://www.jeckukas.org.in/
+2026-08-04 11:24:04,191 | INFO | Starting crawl for URL: https://www.jeckukas.org.in/
+2026-08-04 11:24:09,226 | ERROR | Crawl failed for URL: https://www.jeckukas.org.in/ - Failed to crawl https://www.jeckukas.org.in/: Page.goto: net::ERR_ABORTED at https://www.jeckukas.org.in/
+Call log:
+  - navigating to "https://www.jeckukas.org.in/", waiting until "domcontentloaded"
+
+2026-08-04 11:24:09,290 | INFO | Application shutdown: closing database connections
+2026-08-04 11:24:09,297 | INFO | Application shutdown: database connections closed
+2026-08-04 11:24:12,804 | INFO | Application startup: initializing database
+2026-08-04 11:24:12,989 | INFO | Application startup: database initialized successfully
+2026-08-04 11:24:13,104 | INFO | Application shutdown: closing database connections
+2026-08-04 11:24:13,109 | INFO | Application shutdown: database connections closed
+2026-08-04 11:24:15,566 | INFO | Application startup: initializing database
+2026-08-04 11:24:15,718 | INFO | Application startup: database initialized successfully
+2026-08-04 11:24:20,903 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://www.jeckukas.org.in/
+2026-08-04 11:24:20,903 | INFO | Starting crawl for URL: https://www.jeckukas.org.in/
+2026-08-04 11:24:38,601 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\www.jeckukas.org.in\www.jeckukas.org.in_test_1.json
+2026-08-04 11:24:38,605 | INFO | Crawl successful for URL: https://www.jeckukas.org.in/
+2026-08-04 11:25:07,154 | INFO | Application shutdown: closing database connections
+2026-08-04 11:25:07,162 | INFO | Application shutdown: database connections closed
+2026-08-04 11:25:09,481 | INFO | Application startup: initializing database
+2026-08-04 11:25:09,612 | INFO | Application startup: database initialized successfully
+2026-08-04 11:25:25,074 | INFO | Application shutdown: closing database connections
+2026-08-04 11:25:25,079 | INFO | Application shutdown: database connections closed
+2026-08-04 11:25:29,463 | INFO | Application startup: initializing database
+2026-08-04 11:25:29,678 | INFO | Application startup: database initialized successfully
+2026-08-04 11:25:29,790 | INFO | Application shutdown: closing database connections
+2026-08-04 11:25:29,801 | INFO | Application shutdown: database connections closed
+2026-08-04 11:25:33,807 | INFO | Application startup: initializing database
+2026-08-04 11:25:34,037 | INFO | Application startup: database initialized successfully
+2026-08-04 11:25:34,151 | INFO | Application shutdown: closing database connections
+2026-08-04 11:25:34,151 | INFO | Application shutdown: database connections closed
+2026-08-04 11:25:37,092 | INFO | Application startup: initializing database
+2026-08-04 11:25:37,260 | INFO | Application startup: database initialized successfully
+2026-08-04 11:25:52,515 | INFO | Application shutdown: closing database connections
+2026-08-04 11:25:52,520 | INFO | Application shutdown: database connections closed
+2026-08-04 11:25:58,208 | INFO | Application startup: initializing database
+2026-08-04 11:25:58,515 | INFO | Application startup: database initialized successfully
+2026-08-04 11:26:03,923 | INFO | Application shutdown: closing database connections
+2026-08-04 11:26:03,930 | INFO | Application shutdown: database connections closed
+2026-08-04 11:26:12,633 | INFO | Application startup: initializing database
+2026-08-04 11:26:12,902 | INFO | Application startup: database initialized successfully
+2026-08-04 11:26:13,572 | INFO | Application shutdown: closing database connections
+2026-08-04 11:26:13,579 | INFO | Application shutdown: database connections closed
+2026-08-04 11:26:16,480 | INFO | Application startup: initializing database
+2026-08-04 11:26:16,595 | INFO | Application startup: database initialized successfully
+2026-08-04 11:26:18,538 | INFO | Application shutdown: closing database connections
+2026-08-04 11:26:18,540 | INFO | Application shutdown: database connections closed
+2026-08-04 11:26:20,823 | INFO | Application startup: initializing database
+2026-08-04 11:26:20,950 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:13,664 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:13,671 | INFO | Application shutdown: database connections closed
+2026-08-04 11:27:17,381 | INFO | Application startup: initializing database
+2026-08-04 11:27:17,606 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:17,716 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:17,720 | INFO | Application shutdown: database connections closed
+2026-08-04 11:27:23,285 | INFO | Application startup: initializing database
+2026-08-04 11:27:23,557 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:23,672 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:23,681 | INFO | Application shutdown: database connections closed
+2026-08-04 11:27:29,480 | INFO | Application startup: initializing database
+2026-08-04 11:27:29,749 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:29,852 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:29,856 | INFO | Application shutdown: database connections closed
+2026-08-04 11:27:34,167 | INFO | Application startup: initializing database
+2026-08-04 11:27:34,343 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:36,458 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:36,467 | INFO | Application shutdown: database connections closed
+2026-08-04 11:27:50,063 | INFO | Application startup: initializing database
+2026-08-04 11:27:50,470 | INFO | Application startup: database initialized successfully
+2026-08-04 11:27:50,586 | INFO | Application shutdown: closing database connections
+2026-08-04 11:27:50,598 | INFO | Application shutdown: database connections closed
+2026-08-04 11:28:07,480 | INFO | Application startup: initializing database
+2026-08-04 11:28:08,421 | INFO | Application startup: database initialized successfully
+2026-08-04 11:28:08,564 | INFO | Application shutdown: closing database connections
+2026-08-04 11:28:08,586 | INFO | Application shutdown: database connections closed
+2026-08-04 11:28:18,682 | INFO | Application startup: initializing database
+2026-08-04 11:28:19,058 | INFO | Application startup: database initialized successfully
+2026-08-04 11:28:53,573 | INFO | Application shutdown: closing database connections
+2026-08-04 11:28:53,581 | INFO | Application shutdown: database connections closed
+2026-08-04 11:29:07,713 | INFO | Application startup: initializing database
+2026-08-04 11:29:08,102 | INFO | Application startup: database initialized successfully
+2026-08-04 11:29:08,223 | INFO | Application shutdown: closing database connections
+2026-08-04 11:29:08,234 | INFO | Application shutdown: database connections closed
+2026-08-04 11:29:24,389 | INFO | Application startup: initializing database
+2026-08-04 11:29:25,419 | INFO | Application startup: database initialized successfully
+2026-08-04 11:29:25,551 | INFO | Application shutdown: closing database connections
+2026-08-04 11:29:25,564 | INFO | Application shutdown: database connections closed
+2026-08-04 11:29:40,121 | INFO | Application startup: initializing database
+2026-08-04 11:29:40,714 | INFO | Application startup: database initialized successfully
+2026-08-04 11:29:58,326 | INFO | Application shutdown: closing database connections
+2026-08-04 11:29:58,331 | INFO | Application shutdown: database connections closed
+2026-08-04 11:30:13,322 | INFO | Application startup: initializing database
+2026-08-04 11:30:13,665 | INFO | Application startup: database initialized successfully
+2026-08-04 11:30:13,776 | INFO | Application shutdown: closing database connections
+2026-08-04 11:30:13,789 | INFO | Application shutdown: database connections closed
+2026-08-04 11:30:25,293 | INFO | Application startup: initializing database
+2026-08-04 11:30:25,551 | INFO | Application startup: database initialized successfully
+2026-08-04 11:30:33,934 | INFO | Application shutdown: closing database connections
+2026-08-04 11:30:33,953 | INFO | Application shutdown: database connections closed
+2026-08-04 11:30:46,541 | INFO | Application startup: initializing database
+2026-08-04 11:30:47,420 | INFO | Application startup: database initialized successfully
+2026-08-04 11:30:47,618 | INFO | Application shutdown: closing database connections
+2026-08-04 11:30:47,672 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:00,571 | INFO | Application startup: initializing database
+2026-08-04 11:31:01,144 | INFO | Application startup: database initialized successfully
+2026-08-04 11:31:01,267 | INFO | Application shutdown: closing database connections
+2026-08-04 11:31:01,283 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:07,453 | INFO | Application startup: initializing database
+2026-08-04 11:31:07,759 | INFO | Application startup: database initialized successfully
+2026-08-04 11:31:07,860 | INFO | Application shutdown: closing database connections
+2026-08-04 11:31:07,865 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:10,789 | INFO | Application startup: initializing database
+2026-08-04 11:31:10,934 | INFO | Application startup: database initialized successfully
+2026-08-04 11:31:20,352 | INFO | Application shutdown: closing database connections
+2026-08-04 11:31:20,362 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:28,003 | INFO | Application startup: initializing database
+2026-08-04 11:31:28,746 | INFO | Application startup: database initialized successfully
+2026-08-04 11:31:28,859 | INFO | Application shutdown: closing database connections
+2026-08-04 11:31:28,871 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:40,649 | INFO | Application startup: initializing database
+2026-08-04 11:31:41,065 | INFO | Application startup: database initialized successfully
+2026-08-04 11:31:41,175 | INFO | Application shutdown: closing database connections
+2026-08-04 11:31:41,182 | INFO | Application shutdown: database connections closed
+2026-08-04 11:31:47,569 | INFO | Application startup: initializing database
+2026-08-04 11:31:47,856 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:27,084 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:27,096 | INFO | Application shutdown: database connections closed
+2026-08-04 11:33:34,345 | INFO | Application startup: initializing database
+2026-08-04 11:33:34,687 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:34,796 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:34,804 | INFO | Application shutdown: database connections closed
+2026-08-04 11:33:40,491 | INFO | Application startup: initializing database
+2026-08-04 11:33:40,725 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:40,843 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:40,851 | INFO | Application shutdown: database connections closed
+2026-08-04 11:33:47,949 | INFO | Application startup: initializing database
+2026-08-04 11:33:48,234 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:48,344 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:48,352 | INFO | Application shutdown: database connections closed
+2026-08-04 11:33:52,791 | INFO | Application startup: initializing database
+2026-08-04 11:33:53,016 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:53,135 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:53,143 | INFO | Application shutdown: database connections closed
+2026-08-04 11:33:57,804 | INFO | Application startup: initializing database
+2026-08-04 11:33:58,021 | INFO | Application startup: database initialized successfully
+2026-08-04 11:33:58,129 | INFO | Application shutdown: closing database connections
+2026-08-04 11:33:58,135 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:02,413 | INFO | Application startup: initializing database
+2026-08-04 11:34:02,608 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:02,715 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:02,721 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:05,849 | INFO | Application startup: initializing database
+2026-08-04 11:34:06,019 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:12,013 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:12,023 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:16,115 | INFO | Application startup: initializing database
+2026-08-04 11:34:16,289 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:19,893 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:19,900 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:23,320 | INFO | Application startup: initializing database
+2026-08-04 11:34:23,465 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:23,579 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:23,584 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:27,749 | INFO | Application startup: initializing database
+2026-08-04 11:34:27,921 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:28,025 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:28,033 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:30,457 | INFO | Application startup: initializing database
+2026-08-04 11:34:30,603 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:31,118 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:31,123 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:34,258 | INFO | Application startup: initializing database
+2026-08-04 11:34:34,613 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:36,960 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:36,965 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:40,423 | INFO | Application startup: initializing database
+2026-08-04 11:34:40,680 | INFO | Application startup: database initialized successfully
+2026-08-04 11:34:40,795 | INFO | Application shutdown: closing database connections
+2026-08-04 11:34:40,799 | INFO | Application shutdown: database connections closed
+2026-08-04 11:34:43,574 | INFO | Application startup: initializing database
+2026-08-04 11:34:43,812 | INFO | Application startup: database initialized successfully
+2026-08-04 11:35:34,505 | INFO | Application shutdown: closing database connections
+2026-08-04 11:35:34,508 | INFO | Application shutdown: database connections closed
+2026-08-04 11:35:36,641 | INFO | Application startup: initializing database
+2026-08-04 11:35:36,765 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:02,222 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:02,229 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:06,297 | INFO | Application startup: initializing database
+2026-08-04 11:36:06,518 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:06,628 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:06,638 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:11,524 | INFO | Application startup: initializing database
+2026-08-04 11:36:11,881 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:11,995 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:12,000 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:15,480 | INFO | Application startup: initializing database
+2026-08-04 11:36:15,718 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:17,044 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:17,049 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:19,873 | INFO | Application startup: initializing database
+2026-08-04 11:36:20,018 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:20,131 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:20,139 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:22,338 | INFO | Application startup: initializing database
+2026-08-04 11:36:22,558 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:24,265 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:24,268 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:26,524 | INFO | Application startup: initializing database
+2026-08-04 11:36:26,638 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:33,129 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:33,135 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:35,383 | INFO | Application startup: initializing database
+2026-08-04 11:36:35,518 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:40,163 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:40,168 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:46,436 | INFO | Application startup: initializing database
+2026-08-04 11:36:46,728 | INFO | Application startup: database initialized successfully
+2026-08-04 11:36:46,846 | INFO | Application shutdown: closing database connections
+2026-08-04 11:36:46,849 | INFO | Application shutdown: database connections closed
+2026-08-04 11:36:52,993 | INFO | Application startup: initializing database
+2026-08-04 11:36:53,973 | INFO | Application startup: database initialized successfully
+2026-08-04 11:37:22,413 | INFO | Application shutdown: closing database connections
+2026-08-04 11:37:22,420 | INFO | Application shutdown: database connections closed
+2026-08-04 11:37:26,849 | INFO | Application startup: initializing database
+2026-08-04 11:37:27,183 | INFO | Application startup: database initialized successfully
+2026-08-04 11:37:27,296 | INFO | Application shutdown: closing database connections
+2026-08-04 11:37:27,304 | INFO | Application shutdown: database connections closed
+2026-08-04 11:37:30,923 | INFO | Application startup: initializing database
+2026-08-04 11:37:31,088 | INFO | Application startup: database initialized successfully
+2026-08-04 11:38:14,052 | INFO | Application shutdown: closing database connections
+2026-08-04 11:38:14,058 | INFO | Application shutdown: database connections closed
+2026-08-04 11:38:16,465 | INFO | Application startup: initializing database
+2026-08-04 11:38:16,611 | INFO | Application startup: database initialized successfully
+2026-08-04 11:38:44,316 | INFO | Application shutdown: closing database connections
+2026-08-04 11:38:44,320 | INFO | Application shutdown: database connections closed
+2026-08-04 11:38:48,385 | INFO | Application startup: initializing database
+2026-08-04 11:38:48,538 | INFO | Application startup: database initialized successfully
+2026-08-04 11:38:52,198 | INFO | Application shutdown: closing database connections
+2026-08-04 11:38:52,205 | INFO | Application shutdown: database connections closed
+2026-08-04 11:38:56,111 | INFO | Application startup: initializing database
+2026-08-04 11:38:56,722 | INFO | Application startup: database initialized successfully
+2026-08-04 11:38:56,838 | INFO | Application shutdown: closing database connections
+2026-08-04 11:38:56,851 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:00,467 | INFO | Application startup: initializing database
+2026-08-04 11:39:00,672 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:00,781 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:00,781 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:05,217 | INFO | Application startup: initializing database
+2026-08-04 11:39:05,518 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:05,630 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:05,634 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:08,751 | INFO | Application startup: initializing database
+2026-08-04 11:39:08,911 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:09,022 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:09,030 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:11,804 | INFO | Application startup: initializing database
+2026-08-04 11:39:11,909 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:19,466 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:19,469 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:21,809 | INFO | Application startup: initializing database
+2026-08-04 11:39:21,918 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:45,879 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:45,883 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:49,477 | INFO | Application startup: initializing database
+2026-08-04 11:39:49,761 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:49,865 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:49,869 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:53,106 | INFO | Application startup: initializing database
+2026-08-04 11:39:53,379 | INFO | Application startup: database initialized successfully
+2026-08-04 11:39:53,485 | INFO | Application shutdown: closing database connections
+2026-08-04 11:39:53,487 | INFO | Application shutdown: database connections closed
+2026-08-04 11:39:56,710 | INFO | Application startup: initializing database
+2026-08-04 11:39:56,948 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:21,033 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:21,039 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:24,257 | INFO | Application startup: initializing database
+2026-08-04 11:40:24,416 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:25,615 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:25,621 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:29,504 | INFO | Application startup: initializing database
+2026-08-04 11:40:29,689 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:29,798 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:29,803 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:33,491 | INFO | Application startup: initializing database
+2026-08-04 11:40:33,887 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:34,652 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:34,662 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:38,388 | INFO | Application startup: initializing database
+2026-08-04 11:40:38,508 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:40,332 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:40,337 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:44,457 | INFO | Application startup: initializing database
+2026-08-04 11:40:44,637 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:44,752 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:44,758 | INFO | Application shutdown: database connections closed
+2026-08-04 11:40:47,287 | INFO | Application startup: initializing database
+2026-08-04 11:40:47,429 | INFO | Application startup: database initialized successfully
+2026-08-04 11:40:57,634 | INFO | Application shutdown: closing database connections
+2026-08-04 11:40:57,640 | INFO | Application shutdown: database connections closed
+2026-08-04 11:41:01,211 | INFO | Application startup: initializing database
+2026-08-04 11:41:01,368 | INFO | Application startup: database initialized successfully
+2026-08-04 11:41:03,418 | INFO | Application shutdown: closing database connections
+2026-08-04 11:41:03,418 | INFO | Application shutdown: database connections closed
+2026-08-04 11:41:06,129 | INFO | Application startup: initializing database
+2026-08-04 11:41:06,387 | INFO | Application startup: database initialized successfully
+2026-08-04 11:41:25,774 | INFO | Application shutdown: closing database connections
+2026-08-04 11:41:25,779 | INFO | Application shutdown: database connections closed
+2026-08-04 11:41:27,702 | INFO | Application startup: initializing database
+2026-08-04 11:41:27,807 | INFO | Application startup: database initialized successfully
+2026-08-04 11:42:11,251 | INFO | Application shutdown: closing database connections
+2026-08-04 11:42:11,267 | INFO | Application shutdown: database connections closed
+2026-08-04 11:42:17,052 | INFO | Application startup: initializing database
+2026-08-04 11:42:17,304 | INFO | Application startup: database initialized successfully
+2026-08-04 11:42:17,407 | INFO | Application shutdown: closing database connections
+2026-08-04 11:42:17,409 | INFO | Application shutdown: database connections closed
+2026-08-04 11:42:23,025 | INFO | Application startup: initializing database
+2026-08-04 11:42:23,377 | INFO | Application startup: database initialized successfully
+2026-08-04 11:42:55,089 | INFO | Application shutdown: closing database connections
+2026-08-04 11:42:55,098 | INFO | Application shutdown: database connections closed
+2026-08-04 11:42:59,662 | INFO | Application startup: initializing database
+2026-08-04 11:43:00,012 | INFO | Application startup: database initialized successfully
+2026-08-04 11:43:00,117 | INFO | Application shutdown: closing database connections
+2026-08-04 11:43:00,127 | INFO | Application shutdown: database connections closed
+2026-08-04 11:43:05,686 | INFO | Application startup: initializing database
+2026-08-04 11:43:05,870 | INFO | Application startup: database initialized successfully
+2026-08-04 11:43:05,985 | INFO | Application shutdown: closing database connections
+2026-08-04 11:43:05,992 | INFO | Application shutdown: database connections closed
+2026-08-04 11:43:10,799 | INFO | Application startup: initializing database
+2026-08-04 11:43:11,034 | INFO | Application startup: database initialized successfully
+2026-08-04 11:43:11,138 | INFO | Application shutdown: closing database connections
+2026-08-04 11:43:11,144 | INFO | Application shutdown: database connections closed
+2026-08-04 11:43:15,496 | INFO | Application startup: initializing database
+2026-08-04 11:43:15,730 | INFO | Application startup: database initialized successfully
+2026-08-04 11:43:15,835 | INFO | Application shutdown: closing database connections
+2026-08-04 11:43:15,843 | INFO | Application shutdown: database connections closed
+2026-08-04 11:43:19,079 | INFO | Application startup: initializing database
+2026-08-04 11:43:19,245 | INFO | Application startup: database initialized successfully
+2026-08-04 11:43:23,650 | INFO | Application shutdown: closing database connections
+2026-08-04 11:43:23,656 | INFO | Application shutdown: database connections closed
+2026-08-04 11:43:27,443 | INFO | Application startup: initializing database
+2026-08-04 11:43:27,746 | INFO | Application startup: database initialized successfully
+2026-08-04 11:44:19,101 | INFO | Application shutdown: closing database connections
+2026-08-04 11:44:19,108 | INFO | Application shutdown: database connections closed
+2026-08-04 11:44:23,636 | INFO | Application startup: initializing database
+2026-08-04 11:44:23,790 | INFO | Application startup: database initialized successfully
+2026-08-04 11:44:23,892 | INFO | Application shutdown: closing database connections
+2026-08-04 11:44:23,892 | INFO | Application shutdown: database connections closed
+2026-08-04 11:44:26,371 | INFO | Application startup: initializing database
+2026-08-04 11:44:26,476 | INFO | Application startup: database initialized successfully
+2026-08-04 11:44:48,456 | INFO | Application shutdown: closing database connections
+2026-08-04 11:44:48,462 | INFO | Application shutdown: database connections closed
+2026-08-04 11:44:51,056 | INFO | Application startup: initializing database
+2026-08-04 11:44:51,306 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:12,151 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:12,157 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:15,356 | INFO | Application startup: initializing database
+2026-08-04 11:45:15,576 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:16,202 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:16,208 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:20,563 | INFO | Application startup: initializing database
+2026-08-04 11:45:20,826 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:20,926 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:20,931 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:23,506 | INFO | Application startup: initializing database
+2026-08-04 11:45:23,746 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:28,860 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:28,866 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:31,795 | INFO | Application startup: initializing database
+2026-08-04 11:45:31,948 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:32,486 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:32,492 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:35,373 | INFO | Application startup: initializing database
+2026-08-04 11:45:35,534 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:38,404 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:38,410 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:42,061 | INFO | Application startup: initializing database
+2026-08-04 11:45:42,240 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:42,355 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:42,356 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:45,985 | INFO | Application startup: initializing database
+2026-08-04 11:45:46,183 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:46,286 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:46,286 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:49,676 | INFO | Application startup: initializing database
+2026-08-04 11:45:49,884 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:55,589 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:55,589 | INFO | Application shutdown: database connections closed
+2026-08-04 11:45:57,694 | INFO | Application startup: initializing database
+2026-08-04 11:45:57,830 | INFO | Application startup: database initialized successfully
+2026-08-04 11:45:59,938 | INFO | Application shutdown: closing database connections
+2026-08-04 11:45:59,943 | INFO | Application shutdown: database connections closed
+2026-08-04 11:46:03,706 | INFO | Application startup: initializing database
+2026-08-04 11:46:03,848 | INFO | Application startup: database initialized successfully
+2026-08-04 11:46:03,952 | INFO | Application shutdown: closing database connections
+2026-08-04 11:46:03,956 | INFO | Application shutdown: database connections closed
+2026-08-04 11:46:05,836 | INFO | Application startup: initializing database
+2026-08-04 11:46:05,947 | INFO | Application startup: database initialized successfully
+2026-08-04 11:47:03,620 | INFO | Application shutdown: closing database connections
+2026-08-04 11:47:03,626 | INFO | Application shutdown: database connections closed
+2026-08-04 11:47:06,129 | INFO | Application startup: initializing database
+2026-08-04 11:47:06,237 | INFO | Application startup: database initialized successfully
+2026-08-04 11:47:28,536 | INFO | Application shutdown: closing database connections
+2026-08-04 11:47:28,554 | INFO | Application shutdown: database connections closed
+2026-08-04 11:47:33,897 | INFO | Application startup: initializing database
+2026-08-04 11:47:34,129 | INFO | Application startup: database initialized successfully
+2026-08-04 11:47:34,239 | INFO | Application shutdown: closing database connections
+2026-08-04 11:47:34,242 | INFO | Application shutdown: database connections closed
+2026-08-04 11:47:37,489 | INFO | Application startup: initializing database
+2026-08-04 11:47:37,616 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:13,286 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:13,289 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:15,803 | INFO | Application startup: initializing database
+2026-08-04 11:48:15,939 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:39,059 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:39,066 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:43,005 | INFO | Application startup: initializing database
+2026-08-04 11:48:43,301 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:43,725 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:43,738 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:47,710 | INFO | Application startup: initializing database
+2026-08-04 11:48:47,883 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:47,989 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:47,994 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:51,135 | INFO | Application startup: initializing database
+2026-08-04 11:48:51,451 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:51,557 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:51,564 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:55,495 | INFO | Application startup: initializing database
+2026-08-04 11:48:55,715 | INFO | Application startup: database initialized successfully
+2026-08-04 11:48:55,822 | INFO | Application shutdown: closing database connections
+2026-08-04 11:48:55,827 | INFO | Application shutdown: database connections closed
+2026-08-04 11:48:58,790 | INFO | Application startup: initializing database
+2026-08-04 11:48:58,911 | INFO | Application startup: database initialized successfully
+2026-08-04 11:49:12,503 | INFO | Application shutdown: closing database connections
+2026-08-04 11:49:12,506 | INFO | Application shutdown: database connections closed
+2026-08-04 11:49:15,707 | INFO | Application startup: initializing database
+2026-08-04 11:49:15,883 | INFO | Application startup: database initialized successfully
+2026-08-04 11:49:16,424 | INFO | Application shutdown: closing database connections
+2026-08-04 11:49:16,426 | INFO | Application shutdown: database connections closed
+2026-08-04 11:49:19,225 | INFO | Application startup: initializing database
+2026-08-04 11:49:19,355 | INFO | Application startup: database initialized successfully
+2026-08-04 11:49:21,342 | INFO | Application shutdown: closing database connections
+2026-08-04 11:49:21,345 | INFO | Application shutdown: database connections closed
+2026-08-04 11:49:23,607 | INFO | Application startup: initializing database
+2026-08-04 11:49:23,835 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:10,823 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:10,829 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:14,159 | INFO | Application startup: initializing database
+2026-08-04 11:51:14,345 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:14,457 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:14,459 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:17,571 | INFO | Application startup: initializing database
+2026-08-04 11:51:17,743 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:17,860 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:17,867 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:20,507 | INFO | Application startup: initializing database
+2026-08-04 11:51:20,620 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:23,639 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:23,643 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:25,952 | INFO | Application startup: initializing database
+2026-08-04 11:51:26,073 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:27,572 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:27,577 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:29,607 | INFO | Application startup: initializing database
+2026-08-04 11:51:29,842 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:30,706 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:30,711 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:32,975 | INFO | Application startup: initializing database
+2026-08-04 11:51:33,225 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:36,005 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:36,005 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:38,289 | INFO | Application startup: initializing database
+2026-08-04 11:51:38,415 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:41,005 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:41,011 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:43,017 | INFO | Application startup: initializing database
+2026-08-04 11:51:43,135 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:48,407 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:48,409 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:50,545 | INFO | Application startup: initializing database
+2026-08-04 11:51:50,759 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:53,056 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:53,056 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:55,105 | INFO | Application startup: initializing database
+2026-08-04 11:51:55,230 | INFO | Application startup: database initialized successfully
+2026-08-04 11:51:57,626 | INFO | Application shutdown: closing database connections
+2026-08-04 11:51:57,630 | INFO | Application shutdown: database connections closed
+2026-08-04 11:51:59,835 | INFO | Application startup: initializing database
+2026-08-04 11:51:59,965 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:03,541 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:03,547 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:05,709 | INFO | Application startup: initializing database
+2026-08-04 11:52:05,920 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:07,525 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:07,525 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:09,678 | INFO | Application startup: initializing database
+2026-08-04 11:52:09,795 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:20,710 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:20,717 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:23,930 | INFO | Application startup: initializing database
+2026-08-04 11:52:24,233 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:26,076 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:26,078 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:32,599 | INFO | Application startup: initializing database
+2026-08-04 11:52:33,068 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:33,175 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:33,187 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:40,154 | INFO | Application startup: initializing database
+2026-08-04 11:52:40,335 | INFO | Application startup: database initialized successfully
+2026-08-04 11:52:40,443 | INFO | Application shutdown: closing database connections
+2026-08-04 11:52:40,444 | INFO | Application shutdown: database connections closed
+2026-08-04 11:52:44,734 | INFO | Application startup: initializing database
+2026-08-04 11:52:44,996 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:15,529 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:15,538 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:17,996 | INFO | Application startup: initializing database
+2026-08-04 11:53:18,116 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:18,648 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:18,654 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:22,034 | INFO | Application startup: initializing database
+2026-08-04 11:53:22,254 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:22,810 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:22,815 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:27,409 | INFO | Application startup: initializing database
+2026-08-04 11:53:27,559 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:28,301 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:28,315 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:32,984 | INFO | Application startup: initializing database
+2026-08-04 11:53:33,197 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:33,303 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:33,306 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:37,064 | INFO | Application startup: initializing database
+2026-08-04 11:53:37,409 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:37,514 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:37,524 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:41,315 | INFO | Application startup: initializing database
+2026-08-04 11:53:41,474 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:41,692 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:41,700 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:45,076 | INFO | Application startup: initializing database
+2026-08-04 11:53:45,264 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:45,376 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:45,381 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:47,684 | INFO | Application startup: initializing database
+2026-08-04 11:53:47,826 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:47,942 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:47,946 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:50,214 | INFO | Application startup: initializing database
+2026-08-04 11:53:50,336 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:51,824 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:51,826 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:56,264 | INFO | Application startup: initializing database
+2026-08-04 11:53:56,443 | INFO | Application startup: database initialized successfully
+2026-08-04 11:53:56,560 | INFO | Application shutdown: closing database connections
+2026-08-04 11:53:56,564 | INFO | Application shutdown: database connections closed
+2026-08-04 11:53:58,764 | INFO | Application startup: initializing database
+2026-08-04 11:53:58,974 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:06,627 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:06,634 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:08,810 | INFO | Application startup: initializing database
+2026-08-04 11:54:08,943 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:32,094 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:32,100 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:35,714 | INFO | Application startup: initializing database
+2026-08-04 11:54:35,894 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:36,008 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:36,016 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:39,722 | INFO | Application startup: initializing database
+2026-08-04 11:54:39,895 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:40,007 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:40,013 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:44,984 | INFO | Application startup: initializing database
+2026-08-04 11:54:45,335 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:45,442 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:45,452 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:49,234 | INFO | Application startup: initializing database
+2026-08-04 11:54:49,364 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:49,809 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:49,813 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:53,014 | INFO | Application startup: initializing database
+2026-08-04 11:54:53,228 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:53,341 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:53,344 | INFO | Application shutdown: database connections closed
+2026-08-04 11:54:56,719 | INFO | Application startup: initializing database
+2026-08-04 11:54:56,992 | INFO | Application startup: database initialized successfully
+2026-08-04 11:54:57,103 | INFO | Application shutdown: closing database connections
+2026-08-04 11:54:57,108 | INFO | Application shutdown: database connections closed
+2026-08-04 11:55:01,417 | INFO | Application startup: initializing database
+2026-08-04 11:55:01,654 | INFO | Application startup: database initialized successfully
+2026-08-04 11:55:01,760 | INFO | Application shutdown: closing database connections
+2026-08-04 11:55:01,765 | INFO | Application shutdown: database connections closed
+2026-08-04 11:55:04,354 | INFO | Application startup: initializing database
+2026-08-04 11:55:04,487 | INFO | Application startup: database initialized successfully
+2026-08-04 11:55:44,225 | INFO | Application shutdown: closing database connections
+2026-08-04 11:55:44,233 | INFO | Application shutdown: database connections closed
+2026-08-04 11:55:49,136 | INFO | Application startup: initializing database
+2026-08-04 11:55:49,328 | INFO | Application startup: database initialized successfully
+2026-08-04 11:55:49,429 | INFO | Application shutdown: closing database connections
+2026-08-04 11:55:49,434 | INFO | Application shutdown: database connections closed
+2026-08-04 11:55:53,042 | INFO | Application startup: initializing database
+2026-08-04 11:55:53,304 | INFO | Application startup: database initialized successfully
+2026-08-04 11:55:53,412 | INFO | Application shutdown: closing database connections
+2026-08-04 11:55:53,416 | INFO | Application shutdown: database connections closed
+2026-08-04 11:55:55,704 | INFO | Application startup: initializing database
+2026-08-04 11:55:55,824 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:18,469 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:18,474 | INFO | Application shutdown: database connections closed
+2026-08-04 11:56:22,790 | INFO | Application startup: initializing database
+2026-08-04 11:56:22,995 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:23,112 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:23,117 | INFO | Application shutdown: database connections closed
+2026-08-04 11:56:27,579 | INFO | Application startup: initializing database
+2026-08-04 11:56:27,809 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:46,448 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:46,454 | INFO | Application shutdown: database connections closed
+2026-08-04 11:56:49,585 | INFO | Application startup: initializing database
+2026-08-04 11:56:49,728 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:50,812 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:50,817 | INFO | Application shutdown: database connections closed
+2026-08-04 11:56:54,303 | INFO | Application startup: initializing database
+2026-08-04 11:56:54,636 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:54,747 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:54,757 | INFO | Application shutdown: database connections closed
+2026-08-04 11:56:58,790 | INFO | Application startup: initializing database
+2026-08-04 11:56:58,958 | INFO | Application startup: database initialized successfully
+2026-08-04 11:56:59,064 | INFO | Application shutdown: closing database connections
+2026-08-04 11:56:59,068 | INFO | Application shutdown: database connections closed
+2026-08-04 11:57:04,129 | INFO | Application startup: initializing database
+2026-08-04 11:57:04,342 | INFO | Application startup: database initialized successfully
+2026-08-04 11:57:15,729 | INFO | Application shutdown: closing database connections
+2026-08-04 11:57:15,741 | INFO | Application shutdown: database connections closed
+2026-08-04 11:57:20,014 | INFO | Application startup: initializing database
+2026-08-04 11:57:20,203 | INFO | Application startup: database initialized successfully
+2026-08-04 11:57:20,846 | INFO | Application shutdown: closing database connections
+2026-08-04 11:57:20,853 | INFO | Application shutdown: database connections closed
+2026-08-04 11:57:24,939 | INFO | Application startup: initializing database
+2026-08-04 11:57:25,090 | INFO | Application startup: database initialized successfully
+2026-08-04 11:57:38,838 | INFO | Application shutdown: closing database connections
+2026-08-04 11:57:38,852 | INFO | Application shutdown: database connections closed
+2026-08-04 11:57:45,085 | INFO | Application startup: initializing database
+2026-08-04 11:57:45,433 | INFO | Application startup: database initialized successfully
+2026-08-04 11:58:05,030 | INFO | Application shutdown: closing database connections
+2026-08-04 11:58:05,054 | INFO | Application shutdown: database connections closed
+2026-08-04 11:58:09,073 | INFO | Application startup: initializing database
+2026-08-04 11:58:09,353 | INFO | Application startup: database initialized successfully
+2026-08-04 12:02:55,814 | INFO | Application shutdown: closing database connections
+2026-08-04 12:02:55,870 | INFO | Application shutdown: database connections closed
+2026-08-04 12:03:03,126 | INFO | Application startup: initializing database
+2026-08-04 12:03:03,427 | INFO | Application startup: database initialized successfully
+2026-08-04 12:03:03,536 | INFO | Application shutdown: closing database connections
+2026-08-04 12:03:03,549 | INFO | Application shutdown: database connections closed
+2026-08-04 12:03:09,371 | INFO | Application startup: initializing database
+2026-08-04 12:03:09,687 | INFO | Application startup: database initialized successfully
+2026-08-04 12:03:09,800 | INFO | Application shutdown: closing database connections
+2026-08-04 12:03:09,812 | INFO | Application shutdown: database connections closed
+2026-08-04 12:03:13,678 | INFO | Application startup: initializing database
+2026-08-04 12:03:14,089 | INFO | Application startup: database initialized successfully
+2026-08-04 12:03:14,199 | INFO | Application shutdown: closing database connections
+2026-08-04 12:03:14,208 | INFO | Application shutdown: database connections closed
+2026-08-04 12:03:18,285 | INFO | Application startup: initializing database
+2026-08-04 12:03:18,477 | INFO | Application startup: database initialized successfully
+2026-08-04 12:03:40,588 | INFO | Application shutdown: closing database connections
+2026-08-04 12:03:40,604 | INFO | Application shutdown: database connections closed
+2026-08-04 12:03:44,049 | INFO | Application startup: initializing database
+2026-08-04 12:03:44,257 | INFO | Application startup: database initialized successfully
+2026-08-04 12:04:54,110 | INFO | Application shutdown: closing database connections
+2026-08-04 12:04:54,120 | INFO | Application shutdown: database connections closed
+2026-08-04 12:04:57,160 | INFO | Application startup: initializing database
+2026-08-04 12:04:57,370 | INFO | Application startup: database initialized successfully
+2026-08-04 12:04:57,483 | INFO | Application shutdown: closing database connections
+2026-08-04 12:04:57,488 | INFO | Application shutdown: database connections closed
+2026-08-04 12:04:59,481 | INFO | Application startup: initializing database
+2026-08-04 12:04:59,601 | INFO | Application startup: database initialized successfully
+2026-08-04 12:18:51,110 | INFO | Application shutdown: closing database connections
+2026-08-04 12:18:51,358 | INFO | Application shutdown: database connections closed
+2026-08-04 12:18:58,981 | INFO | Application startup: initializing database
+2026-08-04 12:18:59,241 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:18,813 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:18,820 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:22,675 | INFO | Application startup: initializing database
+2026-08-04 12:20:22,847 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:22,966 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:22,972 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:26,669 | INFO | Application startup: initializing database
+2026-08-04 12:20:26,866 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:26,983 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:26,991 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:30,074 | INFO | Application startup: initializing database
+2026-08-04 12:20:30,316 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:30,419 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:30,420 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:32,904 | INFO | Application startup: initializing database
+2026-08-04 12:20:33,052 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:33,167 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:33,167 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:36,097 | INFO | Application startup: initializing database
+2026-08-04 12:20:36,340 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:36,452 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:36,452 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:39,861 | INFO | Application startup: initializing database
+2026-08-04 12:20:40,071 | INFO | Application startup: database initialized successfully
+2026-08-04 12:20:40,185 | INFO | Application shutdown: closing database connections
+2026-08-04 12:20:40,185 | INFO | Application shutdown: database connections closed
+2026-08-04 12:20:44,039 | INFO | Application startup: initializing database
+2026-08-04 12:20:44,219 | INFO | Application startup: database initialized successfully
+2026-08-04 12:23:49,010 | INFO | Application shutdown: closing database connections
+2026-08-04 12:23:49,020 | INFO | Application shutdown: database connections closed
+2026-08-04 14:59:29,444 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,454 | INFO | Starting SEO scoring...
+2026-08-04 14:59:29,457 | INFO | Completed 70 rule evaluations
+2026-08-04 14:59:29,457 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 14:59:29,464 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,468 | INFO | Starting SEO scoring...
+2026-08-04 14:59:29,469 | INFO | Completed 70 rule evaluations
+2026-08-04 14:59:29,470 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 14:59:29,477 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,486 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,493 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,504 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,806 | INFO | Loaded 70 scoring rules
+2026-08-04 14:59:29,812 | INFO | Loaded 70 scoring rules
+2026-08-04 15:00:10,016 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:35,213 | INFO | Application startup: initializing database
+2026-08-04 15:01:35,580 | INFO | Application startup: database initialized successfully
+2026-08-04 15:01:55,004 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,012 | INFO | Starting SEO scoring...
+2026-08-04 15:01:55,018 | INFO | Completed 70 rule evaluations
+2026-08-04 15:01:55,019 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:01:55,029 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,032 | INFO | Starting SEO scoring...
+2026-08-04 15:01:55,034 | INFO | Completed 70 rule evaluations
+2026-08-04 15:01:55,036 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:01:55,044 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,061 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,068 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,082 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,096 | INFO | Loaded 70 scoring rules
+2026-08-04 15:01:55,114 | INFO | Loaded 70 scoring rules
+2026-08-04 15:04:33,488 | INFO | Application shutdown: closing database connections
+2026-08-04 15:04:33,488 | INFO | Application shutdown: database connections closed
+2026-08-04 15:04:39,052 | INFO | Application startup: initializing database
+2026-08-04 15:04:39,196 | INFO | Application startup: database initialized successfully
+2026-08-04 15:04:40,155 | INFO | Application shutdown: closing database connections
+2026-08-04 15:04:40,155 | INFO | Application shutdown: database connections closed
+2026-08-04 15:04:49,763 | INFO | Application startup: initializing database
+2026-08-04 15:04:49,876 | INFO | Application startup: database initialized successfully
+2026-08-04 15:04:51,470 | INFO | Application shutdown: closing database connections
+2026-08-04 15:04:51,474 | INFO | Application shutdown: database connections closed
+2026-08-04 15:04:53,547 | INFO | Application startup: initializing database
+2026-08-04 15:04:53,755 | INFO | Application startup: database initialized successfully
+2026-08-04 15:04:55,040 | INFO | Application shutdown: closing database connections
+2026-08-04 15:04:55,045 | INFO | Application shutdown: database connections closed
+2026-08-04 15:04:57,096 | INFO | Application startup: initializing database
+2026-08-04 15:04:57,307 | INFO | Application startup: database initialized successfully
+2026-08-04 15:05:02,666 | INFO | Application shutdown: closing database connections
+2026-08-04 15:05:02,673 | INFO | Application shutdown: database connections closed
+2026-08-04 15:05:04,621 | INFO | Application startup: initializing database
+2026-08-04 15:05:04,764 | INFO | Application startup: database initialized successfully
+2026-08-04 15:05:04,866 | INFO | Application shutdown: closing database connections
+2026-08-04 15:05:04,871 | INFO | Application shutdown: database connections closed
+2026-08-04 15:05:07,021 | INFO | Application startup: initializing database
+2026-08-04 15:05:07,243 | INFO | Application startup: database initialized successfully
+2026-08-04 15:05:07,353 | INFO | Application shutdown: closing database connections
+2026-08-04 15:05:07,353 | INFO | Application shutdown: database connections closed
+2026-08-04 15:05:09,365 | INFO | Application startup: initializing database
+2026-08-04 15:05:09,471 | INFO | Application startup: database initialized successfully
+2026-08-04 15:05:40,565 | INFO | Application shutdown: closing database connections
+2026-08-04 15:05:40,572 | INFO | Application shutdown: database connections closed
+2026-08-04 15:05:48,226 | INFO | Application startup: initializing database
+2026-08-04 15:05:48,412 | INFO | Application startup: database initialized successfully
+2026-08-04 15:07:11,558 | INFO | Loaded 70 scoring rules
+2026-08-04 15:07:11,558 | INFO | Scoring provided parsed data
+2026-08-04 15:07:11,558 | INFO | Starting SEO scoring...
+2026-08-04 15:07:11,558 | INFO | Completed 70 rule evaluations
+2026-08-04 15:07:11,558 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 15:07:56,153 | INFO | Loaded 70 scoring rules
+2026-08-04 15:08:18,424 | INFO | Loaded 70 scoring rules
+2026-08-04 15:09:38,816 | INFO | Application shutdown: closing database connections
+2026-08-04 15:09:38,829 | INFO | Application shutdown: database connections closed
+2026-08-04 15:11:10,101 | INFO | Application startup: initializing database
+2026-08-04 15:11:10,434 | INFO | Application startup: database initialized successfully
+2026-08-04 15:11:40,559 | INFO | Application shutdown: closing database connections
+2026-08-04 15:11:40,566 | INFO | Application shutdown: database connections closed
+2026-08-04 15:11:43,745 | INFO | Application startup: initializing database
+2026-08-04 15:11:43,888 | INFO | Application startup: database initialized successfully
+2026-08-04 15:12:07,591 | INFO | Application shutdown: closing database connections
+2026-08-04 15:12:07,595 | INFO | Application shutdown: database connections closed
+2026-08-04 15:20:19,472 | INFO | Application startup: initializing database
+2026-08-04 15:20:19,621 | INFO | Application startup: database initialized successfully
+2026-08-04 15:20:44,543 | INFO | Loaded 70 scoring rules
+2026-08-04 15:20:44,543 | INFO | Scoring provided parsed data
+2026-08-04 15:20:44,543 | INFO | Starting SEO scoring...
+2026-08-04 15:20:44,543 | INFO | Completed 70 rule evaluations
+2026-08-04 15:20:44,551 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 15:40:25,836 | INFO | Application shutdown: closing database connections
+2026-08-04 15:40:25,967 | INFO | Application shutdown: database connections closed
+2026-08-04 15:40:35,121 | INFO | Application startup: initializing database
+2026-08-04 15:40:35,378 | INFO | Application startup: database initialized successfully
+2026-08-04 15:40:35,480 | INFO | Application shutdown: closing database connections
+2026-08-04 15:40:35,487 | INFO | Application shutdown: database connections closed
+2026-08-04 15:40:39,670 | INFO | Application startup: initializing database
+2026-08-04 15:40:39,974 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:06,062 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:06,081 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:18,592 | INFO | Application startup: initializing database
+2026-08-04 15:42:18,940 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:19,066 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:19,081 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:24,721 | INFO | Application startup: initializing database
+2026-08-04 15:42:25,004 | INFO | Application startup: database initialized successfully
+2026-08-04 15:42:25,648 | INFO | Application shutdown: closing database connections
+2026-08-04 15:42:25,659 | INFO | Application shutdown: database connections closed
+2026-08-04 15:42:31,659 | INFO | Application startup: initializing database
+2026-08-04 15:42:32,366 | INFO | Application startup: database initialized successfully
+2026-08-04 15:43:10,955 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:10,958 | INFO | Starting SEO scoring...
+2026-08-04 15:43:10,958 | INFO | Completed 70 rule evaluations
+2026-08-04 15:43:10,965 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:43:10,973 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:10,978 | INFO | Starting SEO scoring...
+2026-08-04 15:43:10,980 | INFO | Completed 70 rule evaluations
+2026-08-04 15:43:10,980 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 15:43:10,989 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,007 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,007 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,020 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,028 | INFO | Loaded 70 scoring rules
+2026-08-04 15:43:11,036 | INFO | Loaded 70 scoring rules
+2026-08-04 15:45:17,490 | INFO | Application shutdown: closing database connections
+2026-08-04 15:45:17,498 | INFO | Application shutdown: database connections closed
+2026-08-04 15:45:20,252 | INFO | Application startup: initializing database
+2026-08-04 15:45:20,517 | INFO | Application startup: database initialized successfully
+2026-08-04 16:51:02,851 | INFO | Application shutdown: closing database connections
+2026-08-04 16:51:02,967 | INFO | Application shutdown: database connections closed
+2026-08-04 16:51:11,235 | INFO | Application startup: initializing database
+2026-08-04 16:51:11,570 | INFO | Application startup: database initialized successfully
+2026-08-04 17:12:27,383 | INFO | Loaded 70 scoring rules
+2026-08-04 17:12:27,383 | INFO | Scoring provided parsed data
+2026-08-04 17:12:27,383 | INFO | Starting SEO scoring...
+2026-08-04 17:12:27,400 | INFO | Completed 70 rule evaluations
+2026-08-04 17:12:27,400 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 18:21:36,664 | INFO | Application startup: initializing database
+2026-08-04 18:21:36,809 | INFO | Application startup: database initialized successfully
+2026-08-04 18:22:32,957 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:32,958 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:35,124 | INFO | Application startup: database initialized successfully
+2026-08-04 18:22:38,878 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:38,884 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:42,774 | INFO | Application shutdown: closing database connections
+2026-08-04 18:22:42,774 | INFO | Application shutdown: database connections closed
+2026-08-04 18:22:45,712 | INFO | Application shutdown: database connections closed
+2026-08-04 18:26:41,411 | INFO | GET / - Root endpoint called
+2026-08-04 18:26:49,405 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:00,097 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:09,472 | INFO | Loaded 70 scoring rules
+2026-08-04 18:27:09,472 | INFO | Scoring provided parsed data
+2026-08-04 18:27:09,472 | INFO | Starting SEO scoring...
+2026-08-04 18:27:09,480 | INFO | Completed 70 rule evaluations
+2026-08-04 18:27:09,481 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-04 18:33:05,666 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-04 18:33:05,666 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:33:16,243 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_6.json
+2026-08-04 18:33:16,243 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-04 18:33:16,318 | INFO | POST /crawler/crawl - Crawl endpoint called for URL: https://cyfuture.com/
+2026-08-04 18:33:16,319 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:33:22,212 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_7.json
+2026-08-04 18:33:22,212 | INFO | Crawl successful for URL: https://cyfuture.com/
+2026-08-04 18:33:22,698 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,698 | INFO | Starting SEO scoring...
+2026-08-04 18:33:22,698 | INFO | Completed 70 rule evaluations
+2026-08-04 18:33:22,698 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:33:22,705 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,707 | INFO | Starting SEO scoring...
+2026-08-04 18:33:22,707 | INFO | Completed 70 rule evaluations
+2026-08-04 18:33:22,708 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:33:22,710 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,716 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,719 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,724 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,728 | INFO | Loaded 70 scoring rules
+2026-08-04 18:33:22,734 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,837 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,837 | INFO | Scoring provided parsed data
+2026-08-04 18:35:03,837 | INFO | Starting SEO scoring...
+2026-08-04 18:35:03,837 | INFO | Completed 70 rule evaluations
+2026-08-04 18:35:03,837 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-04 18:35:03,867 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,879 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:03,887 | INFO | Loaded 70 scoring rules
+2026-08-04 18:35:51,455 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:35:51,455 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:35:51,455 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:35:56,122 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_8.json
+2026-08-04 18:35:56,567 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:35:56,567 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:35:56,568 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:36:03,227 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:37:30,368 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:37:30,370 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:37:30,370 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:37:35,390 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_9.json
+2026-08-04 18:37:35,977 | INFO | Step 2: Starting parse phase
+2026-08-04 18:37:36,095 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:37:36,095 | INFO | Loaded 70 scoring rules
+2026-08-04 18:37:36,095 | INFO | Starting SEO scoring...
+2026-08-04 18:37:36,099 | INFO | Completed 70 rule evaluations
+2026-08-04 18:37:36,099 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:37:36,099 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:37:36,116 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:37:36,116 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:37:36,116 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:37:42,672 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:38:16,969 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:38:16,969 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:16,969 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:38:21,509 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_10.json
+2026-08-04 18:38:22,014 | INFO | Step 2: Starting parse phase
+2026-08-04 18:38:22,146 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:38:22,146 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:22,146 | INFO | Starting SEO scoring...
+2026-08-04 18:38:22,148 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:22,148 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:38:22,148 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:38:22,170 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:38:22,170 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:22,170 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:38:29,012 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-04 18:38:47,398 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,402 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,403 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,404 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:38:47,407 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,414 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,420 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,422 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-04 18:38:47,422 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,436 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,441 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,452 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,457 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,472 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,519 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,519 | INFO | Scoring provided parsed data
+2026-08-04 18:38:47,519 | INFO | Starting SEO scoring...
+2026-08-04 18:38:47,519 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:47,519 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-04 18:38:47,544 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,560 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,569 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:47,589 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-04 18:38:47,589 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:47,600 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-04 18:38:52,249 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_11.json
+2026-08-04 18:38:52,819 | INFO | Step 2: Starting parse phase
+2026-08-04 18:38:53,007 | INFO | Step 3: Starting scoring phase
+2026-08-04 18:38:53,008 | INFO | Loaded 70 scoring rules
+2026-08-04 18:38:53,008 | INFO | Starting SEO scoring...
+2026-08-04 18:38:53,011 | INFO | Completed 70 rule evaluations
+2026-08-04 18:38:53,012 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-04 18:38:53,012 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-04 18:38:53,034 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-04 18:38:53,035 | INFO | Step 1: Starting crawl phase
+2026-08-04 18:38:53,035 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-04 18:38:59,969 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-05 11:00:06,658 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-05 11:00:06,663 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:06,663 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-05 11:00:23,898 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-05 11:00:23,898 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:23,898 | INFO | Starting crawl for URL: https://cyfuture.com/
+2026-08-05 11:00:28,155 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_12.json
+2026-08-05 11:00:28,519 | INFO | Step 2: Starting parse phase
+2026-08-05 11:00:28,598 | INFO | Step 3: Starting scoring phase
+2026-08-05 11:00:28,598 | INFO | Loaded 70 scoring rules
+2026-08-05 11:00:28,598 | INFO | Starting SEO scoring...
+2026-08-05 11:00:28,598 | INFO | Completed 70 rule evaluations
+2026-08-05 11:00:28,598 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 11:00:28,598 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 11:00:28,624 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-05 11:00:28,624 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:00:28,624 | INFO | Starting crawl for URL: https://not-a-valid-url
+2026-08-05 11:00:35,112 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Failed to crawl https://not-a-valid-url: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://not-a-valid-url/
+Call log:
+  - navigating to "https://not-a-valid-url/", waiting until "domcontentloaded"
+
+2026-08-05 11:10:40,015 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://smashingmagazine.com
+2026-08-05 11:10:40,015 | INFO | Step 1: Starting crawl phase
+2026-08-05 11:10:40,015 | INFO | Starting crawl for URL: https://smashingmagazine.com
+2026-08-05 11:10:47,973 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\smashingmagazine.com\smashingmagazine.com_test_1.json
+2026-08-05 11:10:48,511 | INFO | Step 2: Starting parse phase
+2026-08-05 11:10:48,750 | INFO | Step 3: Starting scoring phase
+2026-08-05 11:10:48,750 | INFO | Loaded 70 scoring rules
+2026-08-05 11:10:48,750 | INFO | Starting SEO scoring...
+2026-08-05 11:10:48,750 | INFO | Completed 70 rule evaluations
+2026-08-05 11:10:48,750 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-05 11:10:48,750 | INFO | Audit pipeline completed successfully for URL: https://smashingmagazine.com - SEO Score: 83.4/100 (Grade: B)
+2026-08-05 12:01:09,430 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://smashingmagazine.com
+2026-08-05 12:01:09,435 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:01:09,461 | INFO | Starting crawl for URL: https://smashingmagazine.com
+2026-08-05 12:01:18,525 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\smashingmagazine.com\smashingmagazine.com_test_2.json
+2026-08-05 12:01:18,989 | INFO | Step 2: Starting parse phase
+2026-08-05 12:01:19,096 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:01:19,096 | INFO | Loaded 70 scoring rules
+2026-08-05 12:01:19,096 | INFO | Starting SEO scoring...
+2026-08-05 12:01:19,101 | INFO | Completed 70 rule evaluations
+2026-08-05 12:01:19,101 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-05 12:01:19,101 | INFO | Audit pipeline completed successfully for URL: https://smashingmagazine.com - SEO Score: 83.4/100 (Grade: B)
+2026-08-05 12:15:16,506 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://searchenginejournal.com
+2026-08-05 12:15:16,521 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:15:16,528 | INFO | Starting crawl for URL: https://searchenginejournal.com
+2026-08-05 12:15:33,457 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\searchenginejournal.com\searchenginejournal.com_test_1.json
+2026-08-05 12:15:34,145 | INFO | Step 2: Starting parse phase
+2026-08-05 12:15:34,895 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:15:34,895 | INFO | Loaded 70 scoring rules
+2026-08-05 12:15:34,895 | INFO | Starting SEO scoring...
+2026-08-05 12:15:34,895 | INFO | Completed 70 rule evaluations
+2026-08-05 12:15:34,895 | INFO | SEO Score calculated: 82.5/100 (Grade B)
+2026-08-05 12:15:34,895 | INFO | Audit pipeline completed successfully for URL: https://searchenginejournal.com - SEO Score: 82.5/100 (Grade: B)
+2026-08-05 12:42:57,864 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://localhost:5173/
+2026-08-05 12:42:57,874 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:42:57,884 | INFO | Starting crawl for URL: http://localhost:5173/
+2026-08-05 12:43:00,014 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\localhost_5173\localhost_5173_test_1.json
+2026-08-05 12:43:00,124 | INFO | Step 2: Starting parse phase
+2026-08-05 12:43:00,147 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:43:00,150 | INFO | Loaded 70 scoring rules
+2026-08-05 12:43:00,150 | INFO | Starting SEO scoring...
+2026-08-05 12:43:00,154 | INFO | Completed 70 rule evaluations
+2026-08-05 12:43:00,154 | INFO | SEO Score calculated: 77.5/100 (Grade C)
+2026-08-05 12:43:00,154 | INFO | Audit pipeline completed successfully for URL: http://localhost:5173/ - SEO Score: 77.5/100 (Grade: C)
+2026-08-05 12:43:32,819 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com
+2026-08-05 12:43:32,819 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:43:32,821 | INFO | Starting crawl for URL: https://cyfuture.com
+2026-08-05 12:43:39,274 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_13.json
+2026-08-05 12:43:39,784 | INFO | Step 2: Starting parse phase
+2026-08-05 12:43:39,892 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:43:39,893 | INFO | Loaded 70 scoring rules
+2026-08-05 12:43:39,893 | INFO | Starting SEO scoring...
+2026-08-05 12:43:39,894 | INFO | Completed 70 rule evaluations
+2026-08-05 12:43:39,894 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 12:43:39,894 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 12:48:26,987 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.com
+2026-08-05 12:48:26,994 | INFO | Step 1: Starting crawl phase
+2026-08-05 12:48:26,997 | INFO | Starting crawl for URL: https://infomagine.com
+2026-08-05 12:48:30,253 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.com\infomagine.com_test_1.json
+2026-08-05 12:48:30,358 | INFO | Step 2: Starting parse phase
+2026-08-05 12:48:30,363 | INFO | Step 3: Starting scoring phase
+2026-08-05 12:48:30,363 | INFO | Loaded 70 scoring rules
+2026-08-05 12:48:30,363 | INFO | Starting SEO scoring...
+2026-08-05 12:48:30,369 | INFO | Completed 70 rule evaluations
+2026-08-05 12:48:30,369 | INFO | SEO Score calculated: 78.4/100 (Grade C)
+2026-08-05 12:48:30,369 | INFO | Audit pipeline completed successfully for URL: https://infomagine.com - SEO Score: 78.4/100 (Grade: C)
+2026-08-05 13:52:06,670 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://cyfuture.com
+2026-08-05 13:52:06,685 | INFO | Step 1: Starting crawl phase
+2026-08-05 13:52:06,703 | INFO | Starting crawl for URL: http://cyfuture.com
+2026-08-05 13:52:16,605 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\cyfuture.com\cyfuture.com_test_14.json
+2026-08-05 13:52:17,494 | INFO | Step 2: Starting parse phase
+2026-08-05 13:52:17,581 | INFO | Step 3: Starting scoring phase
+2026-08-05 13:52:17,581 | INFO | Loaded 70 scoring rules
+2026-08-05 13:52:17,581 | INFO | Starting SEO scoring...
+2026-08-05 13:52:17,594 | INFO | Completed 70 rule evaluations
+2026-08-05 13:52:17,594 | INFO | SEO Score calculated: 77.0/100 (Grade C)
+2026-08-05 13:52:17,594 | INFO | Audit pipeline completed successfully for URL: http://cyfuture.com - SEO Score: 77.0/100 (Grade: C)
+2026-08-05 14:13:02,327 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:13:02,343 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:13:02,346 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:13:15,624 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_1.json
+2026-08-05 14:13:16,208 | INFO | Step 2: Starting parse phase
+2026-08-05 14:13:16,846 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:13:16,847 | INFO | Loaded 70 scoring rules
+2026-08-05 14:13:16,847 | INFO | Starting SEO scoring...
+2026-08-05 14:13:16,851 | INFO | Completed 70 rule evaluations
+2026-08-05 14:13:16,852 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:13:16,852 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:13:22,489 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:13:22,490 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:13:22,492 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:13:29,024 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_2.json
+2026-08-05 14:13:29,308 | INFO | Step 2: Starting parse phase
+2026-08-05 14:13:29,364 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:13:29,365 | INFO | Loaded 70 scoring rules
+2026-08-05 14:13:29,365 | INFO | Starting SEO scoring...
+2026-08-05 14:13:29,366 | INFO | Completed 70 rule evaluations
+2026-08-05 14:13:29,366 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:13:29,366 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:27:02,185 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:27:02,201 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:27:02,201 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:27:13,351 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_3.json
+2026-08-05 14:27:13,868 | INFO | Step 2: Starting parse phase
+2026-08-05 14:27:13,968 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:27:13,986 | INFO | Loaded 70 scoring rules
+2026-08-05 14:27:13,986 | INFO | Starting SEO scoring...
+2026-08-05 14:27:13,992 | INFO | Completed 70 rule evaluations
+2026-08-05 14:27:13,993 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:27:13,993 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:36:05,933 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:36:05,943 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:36:05,943 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:36:13,341 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_4.json
+2026-08-05 14:36:13,742 | INFO | Step 2: Starting parse phase
+2026-08-05 14:36:13,823 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:36:13,824 | INFO | Loaded 70 scoring rules
+2026-08-05 14:36:13,826 | INFO | Starting SEO scoring...
+2026-08-05 14:36:13,830 | INFO | Completed 70 rule evaluations
+2026-08-05 14:36:13,831 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:36:13,831 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 14:37:20,823 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 14:37:20,824 | INFO | Step 1: Starting crawl phase
+2026-08-05 14:37:20,825 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 14:37:28,623 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_5.json
+2026-08-05 14:37:29,000 | INFO | Step 2: Starting parse phase
+2026-08-05 14:37:29,073 | INFO | Step 3: Starting scoring phase
+2026-08-05 14:37:29,073 | INFO | Loaded 70 scoring rules
+2026-08-05 14:37:29,073 | INFO | Starting SEO scoring...
+2026-08-05 14:37:29,075 | INFO | Completed 70 rule evaluations
+2026-08-05 14:37:29,076 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 14:37:29,077 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 15:11:27,668 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://git.com/
+2026-08-05 15:11:27,686 | INFO | Step 1: Starting crawl phase
+2026-08-05 15:11:27,706 | INFO | Starting crawl for URL: https://git.com/
+2026-08-05 15:11:41,393 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\git.com\git.com_test_6.json
+2026-08-05 15:11:42,300 | INFO | Step 2: Starting parse phase
+2026-08-05 15:11:42,531 | INFO | Step 3: Starting scoring phase
+2026-08-05 15:11:42,537 | INFO | Loaded 70 scoring rules
+2026-08-05 15:11:42,537 | INFO | Starting SEO scoring...
+2026-08-05 15:11:42,547 | INFO | Completed 70 rule evaluations
+2026-08-05 15:11:42,549 | INFO | SEO Score calculated: 75.6/100 (Grade C)
+2026-08-05 15:11:42,549 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
