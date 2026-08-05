@@ -2080,3 +2080,14 @@ Call log:
 2026-08-05 15:11:42,547 | INFO | Completed 70 rule evaluations
 2026-08-05 15:11:42,549 | INFO | SEO Score calculated: 75.6/100 (Grade C)
 2026-08-05 15:11:42,549 | INFO | Audit pipeline completed successfully for URL: https://git.com/ - SEO Score: 75.6/100 (Grade: C)
+2026-08-05 16:00:03,096 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-05 16:00:03,216 | INFO | Step 1: Starting crawl phase
+2026-08-05 16:00:03,324 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-05 16:00:19,937 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_1.json
+2026-08-05 16:00:20,586 | INFO | Step 2: Starting parse phase
+2026-08-05 16:00:21,057 | INFO | Step 3: Starting scoring phase
+2026-08-05 16:00:21,077 | INFO | Loaded 70 scoring rules
+2026-08-05 16:00:21,079 | INFO | Starting SEO scoring...
+2026-08-05 16:00:21,106 | INFO | Completed 70 rule evaluations
+2026-08-05 16:00:21,117 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-05 16:00:21,125 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
