@@ -1,0 +1,75 @@
+{
+  "requested_url": "https://infomagine.com",
+  "final_url": "https://infomagine.com/",
+  "domain": "infomagine.com",
+  "html": "<!DOCTYPE html><html lang=\"en\"><head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Infomagine Softwares Pvt. Ltd</title>\n\n    <style>\n        *{\n            padding: 0;\n            margin: 0;\n            box-sizing: border-box;\n        }\n\n        body{\n\n            height: 100vh;\n            width: 100vw;\n            overflow: hidden;\n            background-image: url('./img.jpg');\n            background-position: 100% 100%;\n            background-repeat: no-repeat;\n            background-size: cover;\n        }\n</style>\n</head>\n<body>\n\n    \n    <div style=\"text-align: center; padding-top: 50vh; font-family: nexa; text-transform: uppercase; font-weight: bold; font-size: 2.5rem; letter-spacing: .5rem; \">\nComing Soon...\n    </div>\n\n</body></html>",
+  "crawled_at": "2026-08-05T12:48:30.103442",
+  "http": {
+    "status_code": 200,
+    "http_version": "HTTP/1.1",
+    "content_type": "text/html",
+    "content_length": "454",
+    "content_encoding": "gzip",
+    "server": "Apache",
+    "cache_control": "",
+    "etag": "\"358-62e7c02334200-gzip\"",
+    "last_modified": "Wed, 19 Feb 2025 10:13:28 GMT",
+    "vary": "Accept-Encoding",
+    "response_time": 2.395237
+  },
+  "redirects": [],
+  "performance": {
+    "dom_content_loaded": 1214.9000000059605,
+    "load_event": 1418.7000000029802,
+    "first_paint": 1280,
+    "first_contentful_paint": 1280,
+    "largest_contentful_paint": 0
+  },
+  "resources": {
+    "javascript": [],
+    "css": [],
+    "images": [],
+    "fonts": [],
+    "documents": [],
+    "other": [
+      {
+        "url": "https://infomagine.com/",
+        "type": "other",
+        "size": 0
+      },
+      {
+        "url": "https://infomagine.com/img.jpg",
+        "type": "images",
+        "size": 0
+      }
+    ]
+  },
+  "javascript": {
+    "console_errors": [],
+    "console_warnings": [],
+    "failed_requests": []
+  },
+  "security_headers": {
+    "strict_transport_security": "",
+    "content_security_policy": "",
+    "x_frame_options": "",
+    "x_content_type_options": "",
+    "referrer_policy": ""
+  },
+  "ssl": {
+    "enabled": false,
+    "certificate_issuer": "",
+    "certificate_expiry": "",
+    "tls_version": ""
+  },
+  "robots": {
+    "exists": false,
+    "content": "",
+    "sitemap_urls": []
+  },
+  "sitemap": {
+    "exists": false,
+    "urls": []
+  },
+  "cookies": []
+}
