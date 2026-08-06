@@ -27,7 +27,7 @@ from app.modules.auth.schemas.refresh import (
     RefreshTokenRequest,
     RefreshTokenResponse,
 )
-from app.core.jwt import create_access_token, create_refresh_token, decode_token
+from app.modules.auth.utils import create_access_token, create_refresh_token, decode_token
 from app.core.security import hash_token
 
 

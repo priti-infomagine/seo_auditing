@@ -7,7 +7,7 @@ SQLAlchemy metadata and discoverable by Alembic:
     from app.models.crawler_models import *  # noqa: F401, F403
 """
 
-from app.modules.crawler.models.crawl_jobs import CrawlJob  # noqa: F401
+from app.modules.crawler.models.crawl_jobs import CrawlJob  
 from app.modules.crawler.models.crawl_pages import CrawlPage  # noqa: F401
 from app.modules.crawler.models.crawl_config import CrawlConfig  # noqa: F401
 from app.modules.crawler.models.crawl_errors import CrawlError  # noqa: F401

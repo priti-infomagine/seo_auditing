@@ -20,7 +20,7 @@ from app.core.config import settings
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.users import User
 from app.modules.auth.schemas.login import LoginRequest, LoginResponse
-from app.core.jwt import create_access_token, create_refresh_token
+from app.modules.auth.utils import create_access_token, create_refresh_token
 from app.core.security import hash_token, verify_password
 
 

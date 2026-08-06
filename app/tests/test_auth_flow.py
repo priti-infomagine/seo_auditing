@@ -17,7 +17,7 @@ from fastapi import HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy import select
 
-from app.core.jwt import decode_token
+from app.modules.auth.utils import decode_token
 from app.core.security import get_current_user, hash_token
 from app.modules.auth.models.otp import OTP, OTPType
 from app.modules.auth.models.refresh_token import RefreshToken

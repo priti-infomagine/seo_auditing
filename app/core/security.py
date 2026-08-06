@@ -15,7 +15,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.jwt import decode_token
+from app.modules.auth.utils import decode_token
 from app.modules.auth.models.token_blacklist import TokenBlacklist
 from app.modules.auth.models.users import User
 

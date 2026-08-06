@@ -17,7 +17,7 @@ from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.jwt import decode_token
+from app.modules.auth.utils import decode_token
 from app.core.logger import logger
 from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse
 from app.modules.auth.services.logout_service import LogoutService

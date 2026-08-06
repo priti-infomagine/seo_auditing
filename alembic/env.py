@@ -14,11 +14,12 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # ── Import all models so Alembic can detect them ─────────────────────
-from app.core.base import Base  # noqa: E402
+from app.core.database import Base  # noqa: E402
 from app.core.config import settings  # noqa: E402
 
 # Import model modules so they register on Base.metadata
-import app.models  # noqa: E402, F401
+import app.modules.auth.models  # noqa: E402, F401
+import app.modules.crawler.models  # noqa: E402, F401
 
 target_metadata = Base.metadata
 

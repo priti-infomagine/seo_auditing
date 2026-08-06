@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.logger import logger
 from app.modules.audit.schemas.audit_schemas import AuditRequest, AuditResponse
-from app.services.audit_service import MockAuditService
+from app.modules.audit.services.mock_audit_service import MockAuditService
 
 router = APIRouter()
 

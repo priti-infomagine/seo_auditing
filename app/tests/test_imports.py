@@ -10,7 +10,7 @@ assert hash_token("some-token") == hash_token("some-token"), "Token hash mismatc
 print("✓ security.py - hash/verify/hash_token works")
 
 # Test 2: JWT utils
-from app.core.jwt import create_access_token, create_refresh_token, decode_token
+from app.modules.auth.utils import create_access_token, create_refresh_token, decode_token
 at = create_access_token("user-123")
 rt = create_refresh_token("user-123")
 assert decode_token(at)["sub"] == "user-123"

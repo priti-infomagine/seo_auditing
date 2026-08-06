@@ -12,7 +12,7 @@ from urllib.parse import urlparse, urljoin
 import httpx
 from bs4 import BeautifulSoup
 
-from app.utils.crawler_utils.url_utils import get_domain, is_internal_link, normalize_url
+from app.shared.utils.url_utils import get_domain, is_internal_link, normalize_url
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

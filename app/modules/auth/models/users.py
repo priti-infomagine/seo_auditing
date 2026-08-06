@@ -10,8 +10,7 @@ from sqlalchemy import Boolean, String ,Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.core.database import Base
-from app.core.base import TimestampMixin
+from app.core.database import Base, TimestampMixin
 
 
 class User(TimestampMixin, Base):
