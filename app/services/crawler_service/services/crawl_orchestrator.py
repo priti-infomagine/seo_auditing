@@ -7,19 +7,19 @@ from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_test.extractors.asset_extractor import extract_assets
-from crawler_test.extractors.link_extractor import extract_links
-from crawler_test.repositories.crawl_job_repository import CrawlJobRepository
-from crawler_test.services.asset_service import AssetService
-from crawler_test.services.crawl_error_service import CrawlErrorService
-from crawler_test.services.crawl_statistics_service import CrawlStatisticsService
-from crawler_test.services.checksum_service import ChecksumService
-from crawler_test.services.fetch_service import fetch_page, FetchResult
-from crawler_test.services.link_service import LinkService
-from crawler_test.services.page_service import PageService
-from crawler_test.services.redirect_service import RedirectService
-from crawler_test.services.response_service import process_response, ProcessedResponse
-from crawler_test.services.snapshot_service import SnapshotService
+from crawler_service.extractors.asset_extractor import extract_assets
+from crawler_service.extractors.link_extractor import extract_links
+from crawler_service.repositories.crawl_job_repository import CrawlJobRepository
+from crawler_service.services.asset_service import AssetService
+from crawler_service.services.crawl_error_service import CrawlErrorService
+from crawler_service.services.crawl_statistics_service import CrawlStatisticsService
+from crawler_service.services.checksum_service import ChecksumService
+from crawler_service.services.fetch_service import fetch_page, FetchResult
+from crawler_service.services.link_service import LinkService
+from crawler_service.services.page_service import PageService
+from crawler_service.services.redirect_service import RedirectService
+from crawler_service.services.response_service import process_response, ProcessedResponse
+from crawler_service.services.snapshot_service import SnapshotService
 
 
 class CrawlOrchestrator:

@@ -4,8 +4,8 @@ Pure HTTP fetching, no parsing logic.
 """
 from typing import Optional
 
-from crawler_test.utils.http_client import fetch_url
-from crawler_test.utils.url_utils import normalize_url
+from app.utils.crawler_utils.http_client import fetch_url
+from app.utils.crawler_utils.url_utils import normalize_url
 
 
 class FetchResult:

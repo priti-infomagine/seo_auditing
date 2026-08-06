@@ -7,9 +7,9 @@ from pathlib import Path
 from typing import List
 from uuid import UUID
 
-from crawler_test.extractors.link_extractor import ExtractedLink
-from crawler_test.repositories.page_link_repository import PageLinkRepository
-from crawler_test.utils.url_utils import is_internal_link, normalize_url
+from crawler_service.extractors.link_extractor import ExtractedLink
+from crawler_service.repositories.page_link_repository import PageLinkRepository
+from app.utils.crawler_utils.url_utils import is_internal_link, normalize_url
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

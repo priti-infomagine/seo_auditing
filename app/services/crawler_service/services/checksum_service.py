@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_test.repositories.crawl_page_repository import CrawlPageRepository
-from crawler_test.utils.checksum import generate_checksum
+from crawler_service.repositories.crawl_page_repository import CrawlPageRepository
+from app.utils.crawler_utils.checksum import generate_checksum
 
 
 class ChecksumService:

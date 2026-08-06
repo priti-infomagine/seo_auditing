@@ -5,8 +5,8 @@ Business logic for snapshot management.
 from typing import Optional
 from uuid import UUID
 
-from crawler_test.repositories.page_snapshot_repository import PageSnapshotRepository
-from crawler_test.utils.html_compressor import compress_html, should_compress
+from crawler_service.repositories.page_snapshot_repository import PageSnapshotRepository
+from app.utils.crawler_utils.html_compressor import compress_html, should_compress
 
 
 class SnapshotService:

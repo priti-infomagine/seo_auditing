@@ -4,7 +4,7 @@ Pure transformation logic, no parsing.
 """
 from typing import Optional
 
-from crawler_test.extractors.metadata_extractor import ExtractedMetadata, extract_metadata
+from crawler_service.extractors.metadata_extractor import ExtractedMetadata, extract_metadata
 
 
 class ProcessedResponse:

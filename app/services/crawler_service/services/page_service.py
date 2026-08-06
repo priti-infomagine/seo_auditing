@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_test.extractors.metadata_extractor import ExtractedMetadata
-from crawler_test.repositories.crawl_page_repository import CrawlPageRepository
+from crawler_service.extractors.metadata_extractor import ExtractedMetadata
+from crawler_service.repositories.crawl_page_repository import CrawlPageRepository
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

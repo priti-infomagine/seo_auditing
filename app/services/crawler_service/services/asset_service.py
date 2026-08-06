@@ -7,9 +7,9 @@ from pathlib import Path
 from typing import List
 from uuid import UUID
 
-from crawler_test.extractors.asset_extractor import ExtractedAsset
-from crawler_test.repositories.page_asset_repository import PageAssetRepository
-from crawler_test.utils.mime_detector import detect_mime_type
+from crawler_service.extractors.asset_extractor import ExtractedAsset
+from crawler_service.repositories.page_asset_repository import PageAssetRepository
+from app.utils.crawler_utils.mime_detector import detect_mime_type
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Optional
 from uuid import UUID
 
-from crawler_test.repositories.crawl_error_repository import CrawlErrorRepository
+from crawler_service.repositories.crawl_error_repository import CrawlErrorRepository
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

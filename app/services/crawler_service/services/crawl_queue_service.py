@@ -8,7 +8,7 @@ from typing import List, Optional
 from uuid import UUID
 from collections import deque
 
-from crawler_test.utils.url_utils import normalize_url
+from app.utils.crawler_utils.url_utils import normalize_url
 
 
 class QueueItem:

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_test.repositories.crawl_statistics_repository import CrawlStatisticsRepository
+from crawler_service.repositories.crawl_statistics_repository import CrawlStatisticsRepository
 
 
 class CrawlStatisticsService:
