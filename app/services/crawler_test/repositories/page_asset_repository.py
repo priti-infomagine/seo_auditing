@@ -31,7 +31,7 @@ class PageAssetRepository:
     async def create_batch(self, page_assets: List[PageAsset]) -> List[PageAsset]:
         """Create multiple page assets."""
         self.db.add_all(page_assets)
-        await self.db.flush()
+        await self.db.commit()
         return page_assets
     
     async def get_by_page_id(self, page_id: UUID) -> List[PageAsset]:

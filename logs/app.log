@@ -2124,3 +2124,14 @@ Call log:
 2026-08-05 17:11:36,060 | INFO | Completed 70 rule evaluations
 2026-08-05 17:11:36,060 | INFO | SEO Score calculated: 82.3/100 (Grade B)
 2026-08-05 17:11:36,060 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
+2026-08-06 10:06:24,817 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-06 10:06:24,817 | INFO | Step 1: Starting crawl phase
+2026-08-06 10:06:24,817 | INFO | Starting crawl for URL: https://infomagine.in/
+2026-08-06 10:06:33,541 | INFO | Crawl completed successfully. Saved to: app\storage\crawler\infomagine.in\infomagine.in_test_4.json
+2026-08-06 10:06:33,799 | INFO | Step 2: Starting parse phase
+2026-08-06 10:06:33,909 | INFO | Step 3: Starting scoring phase
+2026-08-06 10:06:33,910 | INFO | Loaded 70 scoring rules
+2026-08-06 10:06:33,910 | INFO | Starting SEO scoring...
+2026-08-06 10:06:33,912 | INFO | Completed 70 rule evaluations
+2026-08-06 10:06:33,913 | INFO | SEO Score calculated: 82.3/100 (Grade B)
+2026-08-06 10:06:33,913 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
