@@ -83,11 +83,7 @@ class VerifyOTPService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="OTP has expired. Please register again.",
             )
-        if otp_record.attempts >= 5:
-            raise HTTPException(
-                status_code=400,
-                detail="Too many attempts. Request a new OTP."
-            )
+        
 
         if otp_record.otp != request.otp:
             otp_record.attempts += 1

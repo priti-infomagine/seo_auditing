@@ -2135,3 +2135,20 @@ Call log:
 2026-08-06 10:06:33,912 | INFO | Completed 70 rule evaluations
 2026-08-06 10:06:33,913 | INFO | SEO Score calculated: 82.3/100 (Grade B)
 2026-08-06 10:06:33,913 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 82.3/100 (Grade: B)
+2026-08-06 17:58:30,214 | INFO | POST /auth/register - Register endpoint called
+2026-08-06 17:59:19,000 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-06 17:59:32,811 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-06 18:02:24,224 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-06 18:03:08,947 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-06 18:03:53,057 | INFO | POST /auth/logout - Logout endpoint called
+2026-08-06 18:03:53,070 | INFO | User logged out successfully
+2026-08-06 18:12:47,012 | INFO | POST /auth/register - Register endpoint called
+2026-08-06 18:13:11,237 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-06 18:13:25,578 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-06 18:13:30,658 | INFO | POST /auth/logout - Logout endpoint called
+2026-08-06 18:13:30,669 | INFO | User logged out successfully
+2026-08-06 18:15:51,321 | INFO | POST /auth/register - Register endpoint called
+2026-08-06 18:16:12,171 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-06 18:16:16,998 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-06 18:16:20,973 | INFO | POST /auth/logout - Logout endpoint called
+2026-08-06 18:16:20,981 | INFO | User logged out successfully

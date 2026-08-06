@@ -48,10 +48,10 @@ class LogoutService:
                 detail="Refresh token not found.",
             )
         # -- check for if already revoked
-        if stored_token.is_revoked:
-            return LogoutResponse(
-                message="Logged out successfully"
-            )
+        # if stored_token.is_revoked:
+        #     return LogoutResponse(
+        #         message="Logged out successfully"
+        #     )
         if stored_token.expires_at < datetime.now(timezone.utc):
             return LogoutResponse(
                 message="Logged out successfully"
@@ -59,7 +59,8 @@ class LogoutService:
         # ── 3. Revoke the token ────────────────────────────────────────
         stored_token.is_revoked = True
         
-
+        print(f"Revoking token: {stored_token.id} for user: {stored_token.user_id}")
+        print(f"Access token JTI: {access_token_jti}, expires at: {access_token_expires_at}")
         # ── 4. Blacklist the access token (by JTI) ─────────────────────
         if access_token_jti:
             # Use the token's exp as the blacklist expiry; fallback to now if unavailable
