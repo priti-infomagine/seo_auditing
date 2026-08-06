@@ -2,7 +2,10 @@
 Fetch service - handles HTTP requests only.
 Pure HTTP fetching, no parsing logic.
 """
+import time
 from typing import Optional
+
+import httpx
 
 from app.utils.crawler_utils.http_client import fetch_url
 from app.utils.crawler_utils.url_utils import normalize_url
@@ -19,6 +22,7 @@ class FetchResult:
         final_url: str,
         response_time_ms: int,
         error: Optional[str] = None,
+        response: Optional[httpx.Response] = None,
     ):
         self.url = url
         self.status_code = status_code
@@ -27,6 +31,8 @@ class FetchResult:
         self.final_url = final_url
         self.response_time_ms = response_time_ms
         self.error = error
+        # Raw httpx.Response (for redirect history, SSL info, etc.)
+        self._response = response
 
 
 async def fetch_page(
@@ -37,22 +43,19 @@ async def fetch_page(
 ) -> FetchResult:
     """
     Fetch a page and return structured result.
-    
+
     Args:
         url: URL to fetch
         timeout: Request timeout in seconds
         follow_redirects: Whether to follow redirects
         user_agent: Optional user agent string
-        
+
     Returns:
         FetchResult object
     """
-    import time
-    from httpx import HTTPError
-    
     normalized = normalize_url(url)
     start_time = time.time()
-    
+
     try:
         response = await fetch_url(
             normalized,
@@ -61,7 +64,7 @@ async def fetch_page(
             user_agent=user_agent,
         )
         response_time_ms = int((time.time() - start_time) * 1000)
-        
+
         return FetchResult(
             url=normalized,
             status_code=response.status_code,
@@ -69,8 +72,9 @@ async def fetch_page(
             headers=dict(response.headers),
             final_url=str(response.url),
             response_time_ms=response_time_ms,
+            response=response,
         )
-    except HTTPError as e:
+    except httpx.HTTPError as e:
         response_time_ms = int((time.time() - start_time) * 1000)
         return FetchResult(
             url=normalized,

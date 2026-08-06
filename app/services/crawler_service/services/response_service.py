@@ -4,7 +4,10 @@ Pure transformation logic, no parsing.
 """
 from typing import Optional
 
-from crawler_service.extractors.metadata_extractor import ExtractedMetadata, extract_metadata
+from app.services.crawler_service.extractors.metadata_extractor import (
+    ExtractedMetadata,
+    extract_metadata,
+)
 
 
 class ProcessedResponse:
@@ -25,16 +28,16 @@ def process_response(
 ) -> Optional[ProcessedResponse]:
     """
     Process raw HTTP response into structured object.
-    
+
     Args:
         fetch_result: FetchResult from fetch_service
-        
+
     Returns:
         ProcessedResponse object or None if error
     """
     if fetch_result.error:
         return None
-    
+
     # Extract metadata
     metadata = extract_metadata(
         status_code=fetch_result.status_code,
@@ -43,7 +46,7 @@ def process_response(
         response_time_ms=fetch_result.response_time_ms,
         final_url=fetch_result.final_url,
     )
-    
+
     return ProcessedResponse(
         fetch_result=fetch_result,
         metadata=metadata,

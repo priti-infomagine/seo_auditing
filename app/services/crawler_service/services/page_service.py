@@ -2,27 +2,21 @@
 Page service - creates/updates CrawlPage records.
 Business logic + validation + persistence coordination.
 """
-import sys
-from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_service.extractors.metadata_extractor import ExtractedMetadata
-from crawler_service.repositories.crawl_page_repository import CrawlPageRepository
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
+from app.services.crawler_service.extractors.metadata_extractor import ExtractedMetadata
+from app.services.crawler_service.repositories.crawl_page_repository import CrawlPageRepository
 from app.models.crawler_models.crawl_pages import CrawlPage
 
 
 class PageService:
     """Service for page operations."""
-    
+
     def __init__(self, db, crawl_id: UUID):
         self.repository = CrawlPageRepository(db)
         self.crawl_id = crawl_id
-    
+
     async def create_or_update_page(
         self,
         url: str,
@@ -33,20 +27,20 @@ class PageService:
     ) -> CrawlPage:
         """
         Create or update a crawl page.
-        
+
         Args:
             url: Original URL
             normalized_url: Normalized URL
             metadata: Extracted metadata
             parent_page_id: Parent page ID for hierarchy
             depth: Crawl depth
-            
+
         Returns:
             CrawlPage instance
         """
         # Check if page already exists
         existing = await self.repository.get_by_url(self.crawl_id, normalized_url)
-        
+
         if existing:
             # Update existing page
             existing.status_code = metadata.status_code
@@ -55,7 +49,7 @@ class PageService:
             existing.response_time_ms = metadata.response_time_ms
             existing.final_url = metadata.final_url
             return await self.repository.update(existing)
-        
+
         # Create new page
         page = CrawlPage(
             crawl_id=self.crawl_id,
@@ -70,7 +64,7 @@ class PageService:
             parent_page_id=parent_page_id,
         )
         return await self.repository.create(page)
-    
+
     async def get_page(self, page_id: UUID) -> Optional[CrawlPage]:
         """Get page by ID."""
         return await self.repository.get_by_id(page_id)

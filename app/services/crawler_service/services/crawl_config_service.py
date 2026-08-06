@@ -2,25 +2,19 @@
 Crawl config service - manages crawl settings.
 Business logic for crawl configuration.
 """
-import sys
-from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from crawler_service.repositories.crawl_config_repository import CrawlConfigRepository
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
+from app.services.crawler_service.repositories.crawl_config_repository import CrawlConfigRepository
 from app.models.crawler_models.crawl_config import CrawlConfig
 
 
 class CrawlConfigService:
     """Service for crawl configuration operations."""
-    
+
     def __init__(self, db):
         self.repository = CrawlConfigRepository(db)
-    
+
     async def create_config(
         self,
         crawl_id: UUID,
@@ -35,7 +29,7 @@ class CrawlConfigService:
     ) -> CrawlConfig:
         """
         Create crawl configuration.
-        
+
         Args:
             crawl_id: Crawl job ID
             max_depth: Maximum crawl depth
@@ -46,7 +40,7 @@ class CrawlConfigService:
             follow_redirects: Whether to follow redirects
             respect_robots: Whether to respect robots.txt
             user_agent: User agent string
-            
+
         Returns:
             Created CrawlConfig instance
         """
@@ -62,7 +56,7 @@ class CrawlConfigService:
             user_agent=user_agent,
         )
         return await self.repository.create(config)
-    
+
     async def get_config(self, crawl_id: UUID) -> Optional[CrawlConfig]:
         """Get configuration for a crawl job."""
         return await self.repository.get_by_crawl_id(crawl_id)
