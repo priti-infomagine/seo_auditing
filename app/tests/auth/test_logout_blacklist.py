@@ -12,11 +12,11 @@ import pytest
 from sqlalchemy import select
 
 from app.core.security import hash_token
-from app.models.auth_models.refresh_token import RefreshToken
-from app.models.auth_models.token_blacklist import TokenBlacklist
-from app.models.auth_models.users import User
-from app.schemas.auth_schemas.logout import LogoutRequest
-from app.services.auth_services.logout_service import LogoutService
+from app.modules.auth.models.refresh_token import RefreshToken
+from app.modules.auth.models.token_blacklist import TokenBlacklist
+from app.modules.auth.models.users import User
+from app.modules.auth.schemas.logout import LogoutRequest
+from app.modules.auth.services.logout_service import LogoutService
 
 
 async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_session):

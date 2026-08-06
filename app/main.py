@@ -34,7 +34,7 @@ app.add_middleware(
 )
 
 # ── Routers ──────────────────────────────────────────────────────────
-from app.apis.router import api_router  
+from app.api.router import api_router  
 
 app.include_router(api_router)
 

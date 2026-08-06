@@ -20,11 +20,11 @@ assert decode_token(rt)["type"] == "refresh"
 print("✓ jwt.py - token create/decode works")
 
 # Test 3: All schemas
-from app.schemas.auth_schemas.register import RegisterRequest, RegisterResponse
-from app.schemas.auth_schemas.verify_otp import VerifyOTPRequest, VerifyOTPResponse
-from app.schemas.auth_schemas.login import LoginRequest, LoginResponse
-from app.schemas.auth_schemas.refresh import RefreshTokenRequest, RefreshTokenResponse
-from app.schemas.auth_schemas.logout import LogoutRequest, LogoutResponse
+from app.modules.auth.schemas.register import RegisterRequest, RegisterResponse
+from app.modules.auth.schemas.verify_otp import VerifyOTPRequest, VerifyOTPResponse
+from app.modules.auth.schemas.login import LoginRequest, LoginResponse
+from app.modules.auth.schemas.refresh import RefreshTokenRequest, RefreshTokenResponse
+from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse
 
 # Test RegisterRequest with valid data
 req = RegisterRequest(name="Test User", email="test@example.com", password="StrongP@ss1")
@@ -68,7 +68,7 @@ except Exception:
     print("✓ RegisterRequest - password without special char correctly rejected")
 
 # Test LoginRequest password validation
-from app.schemas.auth_schemas.login import LoginRequest
+from app.modules.auth.schemas.login import LoginRequest
 try:
     LoginRequest(email="test@example.com", password="weak")
     assert False, "Should have raised ValidationError for weak login password"
@@ -78,27 +78,27 @@ except Exception:
 print("✓ schemas - all validations working correctly")
 
 # Test 4: All service imports
-from app.services.auth_services.register_service import RegisterService
-from app.services.auth_services.verify_otp_service import VerifyOTPService
-from app.services.auth_services.login_service import LoginService
-from app.services.auth_services.refresh_service import RefreshTokenService
-from app.services.auth_services.logout_service import LogoutService
+from app.modules.auth.services.register_service import RegisterService
+from app.modules.auth.services.verify_otp_service import VerifyOTPService
+from app.modules.auth.services.login_service import LoginService
+from app.modules.auth.services.refresh_service import RefreshTokenService
+from app.modules.auth.services.logout_service import LogoutService
 print("✓ services - all service imports OK")
 
 # Test 5: All router imports
-from app.apis.endpoints.v1.auth.register import router as reg_router
-from app.apis.endpoints.v1.auth.login import router as login_router
-from app.apis.endpoints.v1.auth.verify_otp import router as verify_router
-from app.apis.endpoints.v1.auth.refresh_token import router as refresh_router
-from app.apis.endpoints.v1.auth.logout import router as logout_router
-from app.apis.endpoints.v1.auth.forgot_pass import router as pw_router
-from app.apis.endpoints.v1.auth.router import router as auth_router
+from app.api.endpoints.v1.auth.register import router as reg_router
+from app.api.endpoints.v1.auth.login import router as login_router
+from app.api.endpoints.v1.auth.verify_otp import router as verify_router
+from app.api.endpoints.v1.auth.refresh_token import router as refresh_router
+from app.api.endpoints.v1.auth.logout import router as logout_router
+from app.api.endpoints.v1.auth.forgot_pass import router as pw_router
+from app.api.endpoints.v1.auth.router import router as auth_router
 print("✓ routers - all routers import OK")
 
 # Test 6: Model imports
-from app.models.auth_models.users import User
-from app.models.auth_models.otp import OTP
-from app.models.auth_models.refresh_token import RefreshToken
+from app.modules.auth.models.users import User
+from app.modules.auth.models.otp import OTP
+from app.modules.auth.models.refresh_token import RefreshToken
 print("✓ models - all model imports OK")
 
 print("\n✅ ALL IMPORTS AND BASIC TESTS PASSED")

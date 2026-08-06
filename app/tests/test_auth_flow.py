@@ -19,16 +19,16 @@ from sqlalchemy import select
 
 from app.core.jwt import decode_token
 from app.core.security import get_current_user, hash_token
-from app.models.auth_models.otp import OTP, OTPType
-from app.models.auth_models.refresh_token import RefreshToken
-from app.models.auth_models.token_blacklist import TokenBlacklist
-from app.models.auth_models.users import User
-from app.schemas.auth_schemas.register import RegisterRequest
-from app.schemas.auth_schemas.verify_otp import VerifyOTPRequest
-from app.schemas.auth_schemas.logout import LogoutRequest
-from app.services.auth_services.register_service import RegisterService
-from app.services.auth_services.verify_otp_service import VerifyOTPService
-from app.services.auth_services.logout_service import LogoutService
+from app.modules.auth.models.otp import OTP, OTPType
+from app.modules.auth.models.refresh_token import RefreshToken
+from app.modules.auth.models.token_blacklist import TokenBlacklist
+from app.modules.auth.models.users import User
+from app.modules.auth.schemas.register import RegisterRequest
+from app.modules.auth.schemas.verify_otp import VerifyOTPRequest
+from app.modules.auth.schemas.logout import LogoutRequest
+from app.modules.auth.services.register_service import RegisterService
+from app.modules.auth.services.verify_otp_service import VerifyOTPService
+from app.modules.auth.services.logout_service import LogoutService
 
 
 async def test_register_verify_otp_logout_flow(db_session):

@@ -14,3 +14,9 @@ alembic/README
 .alembic/
 ./celery-test/mimio_data/
 ./celery-test/__pycache__
+.kilo/
+.kilo
+.pytest_cache/
+.pytest_cache
+.clinerules
+.i

@@ -5,8 +5,8 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
-from app.services.scorer.scorer_service import ScorerService
-from app.models.scorer_models.rule_result import Severity
+from app.modules.scorer.services.scorer_service import ScorerService
+from app.modules.scorer.models.rule_result import Severity
 
 
 @pytest.fixture
@@ -174,7 +174,7 @@ class TestScorerService:
     @pytest.mark.asyncio
     async def test_score_calculator_weights(self, scorer_service):
         """Test score calculator with custom weights."""
-        from app.services.scorer.score_calculator import ScoreCalculator
+        from app.modules.scorer.services.score_calculator import ScoreCalculator
         
         custom_weights = {
             "on_page": 0.5,
@@ -200,7 +200,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_title_tag_rule(self, scorer_service):
         """Test TitleTagRule."""
-        from app.services.scorer.rules.on_page import TitleTagRule
+        from app.modules.scorer.services.rules.on_page import TitleTagRule
         
         rule = TitleTagRule()
         
@@ -222,7 +222,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_ssl_certificate_rule(self, scorer_service):
         """Test SSLCertificateRule."""
-        from app.services.scorer.rules.technical import SSL_CertificateRule
+        from app.modules.scorer.services.rules.technical import SSL_CertificateRule
         
         rule = SSL_CertificateRule()
         
@@ -244,7 +244,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_word_count_rule(self, scorer_service):
         """Test WordCountRule."""
-        from app.services.scorer.rules.content import WordCountRule
+        from app.modules.scorer.services.rules.content import WordCountRule
         
         rule = WordCountRule()
         
@@ -265,7 +265,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_image_alt_text_rule(self, scorer_service):
         """Test ImageAltTextRule."""
-        from app.services.scorer.rules.images import ImageAltTextRule
+        from app.modules.scorer.services.rules.images import ImageAltTextRule
         
         rule = ImageAltTextRule()
         
