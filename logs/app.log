@@ -2152,3 +2152,12 @@ Call log:
 2026-08-06 18:16:16,998 | INFO | POST /auth/refresh - Refresh token endpoint called
 2026-08-06 18:16:20,973 | INFO | POST /auth/logout - Logout endpoint called
 2026-08-06 18:16:20,981 | INFO | User logged out successfully
+2026-08-07 09:42:34,391 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-07 09:42:34,405 | INFO | Step 1: Starting crawl phase
+2026-08-07 09:42:35,640 | INFO | Step 2: Starting parse phase
+2026-08-07 09:42:35,656 | INFO | Step 3: Starting scoring phase
+2026-08-07 09:42:35,656 | INFO | Loaded 70 scoring rules
+2026-08-07 09:42:35,656 | INFO | Starting SEO scoring...
+2026-08-07 09:42:35,656 | INFO | Completed 70 rule evaluations
+2026-08-07 09:42:35,656 | INFO | SEO Score calculated: 80.9/100 (Grade B)
+2026-08-07 09:42:35,656 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 80.9/100 (Grade: B)
