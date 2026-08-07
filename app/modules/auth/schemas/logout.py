@@ -5,11 +5,15 @@ from pydantic import BaseModel, Field
 
 
 class LogoutRequest(BaseModel):
-    """Logout request body (token is read from cookie by the route)."""
+    """Logout request body."""
 
     refresh_token: str = Field(
         ...,
         description="The refresh token to revoke",
+    )
+    access_token: str = Field(
+        ...,
+        description="Access token to blacklist by JTI",
     )
 
 

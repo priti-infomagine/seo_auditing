@@ -30,7 +30,7 @@ class LogoutService:
     async def execute(
         self,
         request: LogoutRequest,
-        access_token_jti: str | None = None,
+        access_token_jti: str,
         access_token_expires_at: datetime | None = None,
     ) -> LogoutResponse:
         # ── 1. Hash the provided refresh token ─────────────────────────
@@ -47,23 +47,16 @@ class LogoutService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Refresh token not found.",
             )
-        # -- check for if already revoked
-        # if stored_token.is_revoked:
-        #     return LogoutResponse(
-        #         message="Logged out successfully"
-        #     )
-        if stored_token.expires_at < datetime.now(timezone.utc):
-            return LogoutResponse(
-                message="Logged out successfully"
-            )
-        # ── 3. Revoke the token ────────────────────────────────────────
-        stored_token.is_revoked = True
         
-        print(f"Revoking token: {stored_token.id} for user: {stored_token.user_id}")
-        print(f"Access token JTI: {access_token_jti}, expires at: {access_token_expires_at}")
+        # ── 3. Revoke refresh token if it hasn't expired yet ───────────
+        if stored_token.expires_at >= datetime.now(timezone.utc):
+            stored_token.is_revoked = True
+
         # ── 4. Blacklist the access token (by JTI) ─────────────────────
-        if access_token_jti:
-            # Use the token's exp as the blacklist expiry; fallback to now if unavailable
+        existing_blacklist = await self.db.execute(
+            select(TokenBlacklist).where(TokenBlacklist.jti == access_token_jti)
+        )
+        if existing_blacklist.scalar_one_or_none() is None:
             blacklist_expires_at = access_token_expires_at or datetime.now(timezone.utc)
             blacklisted_entry = TokenBlacklist(
                 jti=access_token_jti,

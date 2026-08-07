@@ -65,6 +65,15 @@ def decode_token(token: str) -> dict:
     """Decode and validate a JWT token."""
     return jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
 
+def generate_otp_code(length: int = 6) -> str:
+    """Generate a random numeric OTP code of specified length."""
+    import random
+    
+    otp_code = str(random.randint(100000, 999999))
+    expires_at = datetime.now(timezone.utc) + timedelta(
+        minutes=settings.OTP_EXPIRE_MINUTES
+        )
+    return otp_code, expires_at
 
 __all__ = [
     "hash_password",
@@ -76,4 +85,5 @@ __all__ = [
     "normalize_url",
     "get_domain",
     "is_internal_link",
+    "generate_otp_code",
 ]

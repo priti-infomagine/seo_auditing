@@ -28,7 +28,7 @@ from app.modules.auth.schemas.verify_otp import (
     VerifyOTPRequest,
     VerifyOTPResponse,
 )
-from app.modules.auth.utils import create_access_token, create_refresh_token
+from app.modules.auth.utils.auth_utils import create_access_token, create_refresh_token
 from app.core.security import hash_token
 
 
@@ -112,13 +112,30 @@ class VerifyOTPService:
         # ── 7. Generate JWT tokens (auto-login) ────────────────────────
         subject = str(user.id)
         access_token = create_access_token(subject)
-        refresh_token = create_refresh_token(subject)
+        from jose import jwt
 
+        access_token = create_access_token("user_id")
+
+        payload = jwt.decode(
+            access_token,
+            settings.SECRET_KEY,
+            algorithms=[settings.ALGORITHM]
+        )
+
+        print(
+            f"access_token_jti: {payload['jti']}, expires at: {payload['exp']}"
+        )
+
+        refresh_token = create_refresh_token(subject)
+        
         # ── 8. Store refresh token hash in DB (with device info) ───────
         token_hash = hash_token(refresh_token)
         rt_expires_at = datetime.now(timezone.utc) + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
         )
+        
+        from app.modules.auth.utils.email_utils import send_welcome_email
+        await send_welcome_email(user.email)
         
         rt_record = RefreshToken(
             id=uuid.uuid4(),

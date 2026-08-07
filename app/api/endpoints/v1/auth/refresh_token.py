@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.modules.auth.utils import decode_token
+from app.modules.auth.utils.auth_utils import decode_token
 from app.core.logger import logger
 from app.modules.auth.schemas.refresh import (
     RefreshTokenRequest,
@@ -39,7 +39,7 @@ async def refresh_token(
     """Revoke old refresh token and return a new access + refresh token pair."""
     logger.info("POST /auth/refresh - Refresh token endpoint called")
     # ── Read refresh token from cookie ─────────────────────────────────
-    refresh_token_value = request.cookies.get("refreshToken")
+    refresh_token_value = request.cookies.get("refresh_token")
     if refresh_token_value is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -81,7 +81,7 @@ async def refresh_token(
 
     # ── Set new refresh token as HttpOnly cookie ───────────────────────
     response.set_cookie(
-        key="refreshToken",
+        key="refresh_token",
         value=result.refresh_token,
         httponly=True,
         secure=True,

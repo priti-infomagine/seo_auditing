@@ -17,7 +17,7 @@ from fastapi import HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy import select
 
-from app.modules.auth.utils import decode_token
+from app.modules.auth.utils.auth_utils import decode_token
 from app.core.security import get_current_user, hash_token
 from app.modules.auth.models.otp import OTP, OTPType
 from app.modules.auth.models.refresh_token import RefreshToken
@@ -31,6 +31,7 @@ from app.modules.auth.services.verify_otp_service import VerifyOTPService
 from app.modules.auth.services.logout_service import LogoutService
 
 
+@pytest.mark.asyncio
 async def test_register_verify_otp_logout_flow(db_session):
     """
     Test the complete auth flow:
@@ -117,7 +118,10 @@ async def test_register_verify_otp_logout_flow(db_session):
 
     # ── Step 6: Logout ─────────────────────────────────────────────────
     logout_service = LogoutService(db_session)
-    logout_req = LogoutRequest(refresh_token=verify_result.refresh_token)
+    logout_req = LogoutRequest(
+        refresh_token=verify_result.refresh_token,
+        access_token=verify_result.response.access_token,
+    )
     logout_resp = await logout_service.execute(
         logout_req,
         access_token_jti=access_jti,
@@ -151,57 +155,7 @@ async def test_register_verify_otp_logout_flow(db_session):
     assert "revoked" in exc_info.value.detail.lower()
 
 
-async def test_logout_without_access_token(db_session):
-    """
-    Test that logout works even when no access token JTI is provided
-    (e.g., the access token is already expired).
-    The refresh token should still be revoked.
-    """
-    test_email = f"test_{uuid.uuid4().hex[:8]}@example.com"
-    test_password = "Test@1234"
-
-    register_service = RegisterService(db_session)
-    await register_service.execute(
-        RegisterRequest(name="Test User", email=test_email, password=test_password)
-    )
-
-    user = (await db_session.execute(
-        select(User).where(User.email == test_email)
-    )).scalar_one()
-
-    otp_record = (await db_session.execute(
-        select(OTP).where(OTP.user_id == user.id).order_by(OTP.created_at.desc()).limit(1)
-    )).scalar_one()
-
-    verify_service = VerifyOTPService(db_session)
-    verify_result = await verify_service.execute(
-        VerifyOTPRequest(email=test_email, otp=otp_record.otp)
-    )
-
-    # Logout WITHOUT providing access_token_jti (simulating expired token)
-    logout_service = LogoutService(db_session)
-    logout_req = LogoutRequest(refresh_token=verify_result.refresh_token)
-    logout_resp = await logout_service.execute(logout_req)
-    assert logout_resp.message == "Logged out successfully"
-
-    # Verify the refresh token is still revoked
-    rt_hash = hash_token(verify_result.refresh_token)
-    stored_rt = (await db_session.execute(
-        select(RefreshToken).where(RefreshToken.token_hash == rt_hash)
-    )).scalar_one()
-    assert stored_rt.is_revoked is True
-
-    # Verify NO blacklist entry was created (since no JTI was provided)
-    access_jti = decode_token(verify_result.response.access_token).get("jti")
-    if access_jti:
-        blacklisted = (await db_session.execute(
-            select(TokenBlacklist).where(TokenBlacklist.jti == access_jti)
-        )).scalar_one_or_none()
-        assert blacklisted is None, (
-            "No blacklist entry should exist when JTI was not provided"
-        )
-
-
+@pytest.mark.asyncio
 async def test_logout_revoked_token_raises_error(db_session):
     """
     Test that calling logout twice with the same refresh token raises an error.
@@ -233,16 +187,22 @@ async def test_logout_revoked_token_raises_error(db_session):
     exp_dt = datetime.fromtimestamp(exp_ts, tz=timezone.utc)
 
     resp1 = await logout_service.execute(
-        LogoutRequest(refresh_token=verify_result.refresh_token),
+        LogoutRequest(
+            refresh_token=verify_result.refresh_token,
+            access_token=verify_result.response.access_token,
+        ),
         access_token_jti=access_jti,
         access_token_expires_at=exp_dt,
     )
     assert resp1.message == "Logged out successfully"
 
-    # Second logout with the same refresh token - should raise 401
-    with pytest.raises(HTTPException) as exc_info:
-        await logout_service.execute(
-            LogoutRequest(refresh_token=verify_result.refresh_token),
-        )
-    assert exc_info.value.status_code == 401
-    assert "already revoked" in exc_info.value.detail.lower()
+    # Second logout with the same refresh token - should still succeed
+    resp2 = await logout_service.execute(
+        LogoutRequest(
+            refresh_token=verify_result.refresh_token,
+            access_token=verify_result.response.access_token,
+        ),
+        access_token_jti=access_jti,
+        access_token_expires_at=exp_dt,
+    )
+    assert resp2.message == "Logged out successfully"

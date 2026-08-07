@@ -17,7 +17,7 @@ from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.modules.auth.utils import decode_token
+from app.modules.auth.utils.auth_utils import decode_token
 from app.core.logger import logger
 from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse
 from app.modules.auth.services.logout_service import LogoutService
@@ -44,7 +44,7 @@ async def logout(
     logger.info("POST /auth/logout - Logout endpoint called")
 
     # ── 1. Read refresh token from HttpOnly cookie ─────────────────────
-    refresh_token = request.cookies.get("refreshToken")
+    refresh_token = request.cookies.get("refresh_token")
 
     if not refresh_token:
         raise HTTPException(
@@ -52,47 +52,51 @@ async def logout(
             detail="Refresh token not found.",
         )
 
-    # ── 2. Extract access token from Authorization header ───────────────
-    access_token_jti: str | None = None
-    access_token_expires_at: datetime | None = None
-
+    # ── 2. Extract access token from Authorization header or request body ──
     auth_header = request.headers.get("Authorization")
 
     if auth_header and auth_header.startswith("Bearer "):
         access_token = auth_header.removeprefix("Bearer ").strip()
-
+    else:
         try:
-            payload = decode_token(access_token)
+            body = await request.json()
+            access_token = body.get("access_token") if isinstance(body, dict) else None
+        except Exception:
+            access_token = None
 
-            access_token_jti = payload.get("jti")
+    if not access_token:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Access token is required for logout.",
+        )
 
-            exp_timestamp = payload.get("exp")
-
-            if exp_timestamp:
-                access_token_expires_at = datetime.fromtimestamp(
-                    exp_timestamp,
-                    tz=timezone.utc,
-                )
-
-        except JWTError:
-            # Access token invalid/expired.
-            # Refresh token logout can continue.
-            logger.info(
-                "Access token could not be decoded during logout"
-            )
+    try:
+        payload = decode_token(access_token)
+        access_token_jti = payload.get("jti")
+        exp_timestamp = payload.get("exp")
+        access_token_expires_at = (
+            datetime.fromtimestamp(exp_timestamp, tz=timezone.utc)
+            if exp_timestamp
+            else None
+        )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired access token.",
+        )
 
     # ── 3. Execute logout service ──────────────────────────────────────
     service = LogoutService(db)
 
     result = await service.execute(
-        LogoutRequest(refresh_token=refresh_token),
+        LogoutRequest(refresh_token=refresh_token, access_token=access_token),
         access_token_jti=access_token_jti,
         access_token_expires_at=access_token_expires_at,
     )
 
     # ── 4. Remove refresh token cookie ─────────────────────────────────
     response.delete_cookie(
-        key="refreshToken",
+        key="refresh_token",
         path="/",
     )
 

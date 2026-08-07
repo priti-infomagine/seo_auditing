@@ -27,7 +27,7 @@ from app.modules.auth.schemas.refresh import (
     RefreshTokenRequest,
     RefreshTokenResponse,
 )
-from app.modules.auth.utils import create_access_token, create_refresh_token, decode_token
+from app.modules.auth.utils.auth_utils import create_access_token, create_refresh_token, decode_token
 from app.core.security import hash_token
 
 
@@ -136,7 +136,7 @@ class RefreshTokenService:
             user_agent=user_agent,
         )
         self.db.add(new_rt_record)
-        await self.db.flush()
+        await self.db.commit()
 
         # ── 9. Return new token pair ───────────────────────────────────
         return RefreshResult(

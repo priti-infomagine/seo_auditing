@@ -26,7 +26,8 @@ from app.modules.auth.schemas.forgot_password import (
     VerifyResetOTPResponse,
 )
 from app.core.security import hash_password, verify_password
-
+from app.modules.auth.utils.email_utils import  send_password_reset_otp_email
+from app.modules.auth.utils.auth_utils import generate_otp_code 
 
 class ForgotPasswordService:
     """Generate and send a forgot-password OTP."""
@@ -56,11 +57,8 @@ class ForgotPasswordService:
                 await self.db.delete(otp_record)
             await self.db.flush()
 
-            # ── 3. Generate 6-digit OTP ────────────────────────────────────
-            otp_code = str(random.randint(100000, 999999))
-            expires_at = datetime.now(timezone.utc) + timedelta(
-                minutes=settings.OTP_EXPIRE_MINUTES
-            )
+            
+            otp_code, expires_at = generate_otp_code()
 
             otp = OTP(
                 id=uuid.uuid4(),
@@ -72,7 +70,9 @@ class ForgotPasswordService:
             self.db.add(otp)
             await self.db.flush()
 
-            # ── NOTE: In production, send OTP via email/SMS here ───────────
+            # ── NOTE: In production, send OTP via email/SMS here through background tasks───────────
+            
+            await send_password_reset_otp_email(user.email, otp_code)
             print(f"[FORGOT PASSWORD] OTP for {user.email}: {otp_code}")
 
             return ForgotPasswordResponse(message="OTP sent successfully")

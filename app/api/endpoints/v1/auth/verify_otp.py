@@ -49,7 +49,7 @@ async def verify_otp(
 
     # Set refresh token as HttpOnly cookie
     response.set_cookie(
-        key="refreshToken",
+        key="refresh_token",
         value=result.refresh_token,
         httponly=True,
         secure=False,

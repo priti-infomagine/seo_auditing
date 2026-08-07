@@ -2161,3 +2161,26 @@ Call log:
 2026-08-07 09:42:35,656 | INFO | Completed 70 rule evaluations
 2026-08-07 09:42:35,656 | INFO | SEO Score calculated: 80.9/100 (Grade B)
 2026-08-07 09:42:35,656 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 80.9/100 (Grade: B)
+2026-08-07 11:45:05,781 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 11:48:31,801 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 11:51:09,306 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 11:53:24,011 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 11:54:11,823 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 12:00:05,627 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 12:09:25,918 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 12:10:26,100 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-07 12:10:34,046 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-07 12:10:58,305 | INFO | POST /auth/forgot-pass/request_otp - Forgot password endpoint called
+2026-08-07 12:11:55,454 | INFO | POST /auth/forgot-pass/verify-reset-otp - Verify reset OTP endpoint called
+2026-08-07 12:12:05,730 | INFO | POST /auth/forgot-pass/verify-reset-otp - Verify reset OTP endpoint called
+2026-08-07 12:13:02,972 | INFO | POST /auth/forgot-pass/confirm-password - Reset password endpoint called
+2026-08-07 12:13:12,400 | INFO | POST /auth/forgot-pass/confirm-password - Reset password endpoint called
+2026-08-07 12:19:49,626 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 12:20:17,028 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-07 12:27:11,431 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-07 12:36:28,589 | INFO | POST /auth/logout - Logout endpoint called
+2026-08-07 12:36:28,657 | INFO | User logged out successfully
+2026-08-07 12:40:50,074 | INFO | POST /auth/register - Register endpoint called
+2026-08-07 12:41:21,633 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-07 12:41:26,989 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-07 12:41:52,529 | INFO | POST /auth/logout - Logout endpoint called

@@ -19,6 +19,7 @@ from app.modules.auth.schemas.logout import LogoutRequest
 from app.modules.auth.services.logout_service import LogoutService
 
 
+@pytest.mark.asyncio
 async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_session):
     test_email = f"logout_test_{uuid.uuid4().hex[:8]}@example.com"
     test_password_hash = "hashed_test_password"
@@ -48,7 +49,7 @@ async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_sessi
     assert refresh_token.id is not None
 
     logout_service = LogoutService(db_session)
-    logout_req = LogoutRequest(refresh_token=raw_refresh_token)
+    logout_req = LogoutRequest(refresh_token=raw_refresh_token, access_token="dummy")
     logout_resp = await logout_service.execute(
         logout_req,
         access_token_jti=access_token_jti,

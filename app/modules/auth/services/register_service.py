@@ -22,6 +22,7 @@ from app.modules.auth.models.otp import OTP, OTPType
 from app.modules.auth.models.users import User
 from app.modules.auth.schemas.register import RegisterRequest, RegisterResponse
 from app.core.security import hash_password
+from app.modules.auth.utils.email_utils import send_register_otp_email
 
 
 class RegisterService:
@@ -55,12 +56,11 @@ class RegisterService:
         self.db.add(user)
         await self.db.flush()
 
-        # ── 4. Generate 6-digit OTP ────────────────────────────────────
-        otp_code = str(random.randint(100000, 999999))
-        expires_at = datetime.now(timezone.utc) + timedelta(
-            minutes=settings.OTP_EXPIRE_MINUTES
-        )
-
+        # # ── 4. Generate 6-digit OTP ────────────────────────────────────
+        
+        from app.modules.auth.utils.auth_utils import generate_otp_code
+        otp_code, expires_at = generate_otp_code()
+            
         otp = OTP(
             id=uuid.uuid4(),
             user_id=user.id,
@@ -71,8 +71,9 @@ class RegisterService:
         self.db.add(otp)
         await self.db.flush()
 
-        # ── NOTE: In production, send OTP via email/SMS here ───────────
-        # For now, log the OTP so it can be used in testing
+        # ── NOTE: In production, send OTP via email/SMS here through background tasks ───────────
+        
+        await send_register_otp_email(user.email, otp_code)
         print(f"[REGISTER] OTP for {user.email}: {otp_code}")
 
         # ── 5. Return success ──────────────────────────────────────────
