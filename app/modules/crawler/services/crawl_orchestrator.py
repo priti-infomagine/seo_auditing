@@ -135,13 +135,21 @@ class CrawlOrchestrator:
             if self.config.delay_ms:
                 await asyncio.sleep(self.config.delay_ms / 1000.0)
 
-        # Wait for all in-flight tasks
+        # Wait for all in-flight tasks and collect failures
+        failures: list[str] = []
         if tasks:
-            await asyncio.gather(*tasks, return_exceptions=True)
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for item in results:
+                if isinstance(item, Exception):
+                    failures.append(str(item))
 
         # Finalise
         duration_ms = int((time.time() - start_time) * 1000)
-        await self._mark_completed(duration_ms)
+        if failures:
+            error_summary = "; ".join(failures[:5])
+            await self._mark_failed(error_summary)
+        else:
+            await self._mark_completed(duration_ms)
 
         return await self.statistics_service.get_crawl_summary(self.crawl_job_id)
 
@@ -242,17 +250,26 @@ class CrawlOrchestrator:
         return "text/html" in ct
 
     async def _mark_running(self) -> None:
-        """Mark the crawl job as 'running'."""
-        await self._set_status("running")
+        """Mark the crawl job as 'crawling'."""
+        await self._set_status("crawling")
 
     async def _mark_completed(self, duration_ms: int) -> None:
         """Mark the crawl job as 'completed' with duration."""
         await self._finalize_status("completed", duration_ms)
 
+    async def _mark_failed(self, error_message: str) -> None:
+        """Mark the crawl job as 'failed' with error message."""
+        job = await self.job_repository.get_by_id(self.crawl_job_id)
+        if job and job.status not in ("completed", "failed", "cancelled"):
+            job.status = "failed"
+            job.error = error_message[:1024]
+            job.completed_at = datetime.now(timezone.utc)
+            await self.job_repository.update(job)
+
     async def _set_status(self, status: str) -> None:
         job = await self.job_repository.get_by_id(self.crawl_job_id)
         if job:
-            if status == "running" and not job.started_at:
+            if status == "crawling" and not job.started_at:
                 job.started_at = datetime.now(timezone.utc)
             job.status = status
             await self.job_repository.update(job)

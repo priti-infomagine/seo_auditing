@@ -72,8 +72,7 @@ class ForgotPasswordService:
 
             # ── NOTE: In production, send OTP via email/SMS here through background tasks───────────
             
-            await send_password_reset_otp_email(user.email, otp_code)
-            print(f"[FORGOT PASSWORD] OTP for {user.email}: {otp_code}")
+            send_password_reset_otp_email(user.email, otp_code)
 
             return ForgotPasswordResponse(message="OTP sent successfully")
 

@@ -83,16 +83,6 @@ class VerifyOTPService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="OTP has expired. Please register again.",
             )
-        
-
-        if otp_record.otp != request.otp:
-            otp_record.attempts += 1
-            await self.db.commit()
-
-            raise HTTPException(
-                status_code=400,
-                detail="Invalid OTP."
-            )
 
         # ── 4. Verify OTP value ────────────────────────────────────────
         if otp_record.otp != request.otp:
@@ -112,19 +102,6 @@ class VerifyOTPService:
         # ── 7. Generate JWT tokens (auto-login) ────────────────────────
         subject = str(user.id)
         access_token = create_access_token(subject)
-        from jose import jwt
-
-        access_token = create_access_token("user_id")
-
-        payload = jwt.decode(
-            access_token,
-            settings.SECRET_KEY,
-            algorithms=[settings.ALGORITHM]
-        )
-
-        print(
-            f"access_token_jti: {payload['jti']}, expires at: {payload['exp']}"
-        )
 
         refresh_token = create_refresh_token(subject)
         
@@ -135,7 +112,7 @@ class VerifyOTPService:
         )
         
         from app.modules.auth.utils.email_utils import send_welcome_email
-        await send_welcome_email(user.email)
+        send_welcome_email(user.email)
         
         rt_record = RefreshToken(
             id=uuid.uuid4(),

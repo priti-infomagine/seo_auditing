@@ -1,16 +1,17 @@
-from app.shared.services.email_service import send_email
+from app.modules.auth.tasks import (
+    send_register_otp_email_task,
+    send_welcome_email_task,
+    send_password_reset_otp_email_task,
+)
 
-async def send_register_otp_email(to_email: str, otp: str):
-    subject = "Your OTP for Registration"
-    content = f"registering for SEO Audit Tool. Your OTP is: {otp}. It will expire in 10 minutes."
-    await send_email(to_email=to_email, subject=subject, content=content)
 
-async def send_welcome_email(to_email: str):
-    subject = "Welcome to SEO Audit Tool!"
-    content = "Thank you for registering with SEO Audit Tool. We're excited to have you on board!"
-    await send_email(to_email=to_email, subject=subject, content=content) 
+def send_register_otp_email(to_email: str, otp: str):
+    send_register_otp_email_task.delay(to_email, otp)
 
-async def send_password_reset_otp_email(to_email: str, otp: str):
-    subject = "Your OTP for Password Reset"
-    content = f"You requested a password reset. Your OTP is: {otp}. It will expire in 10 minutes."
-    await send_email(to_email=to_email, subject=subject, content=content)
+
+def send_welcome_email(to_email: str):
+    send_welcome_email_task.delay(to_email)
+
+
+def send_password_reset_otp_email(to_email: str, otp: str):
+    send_password_reset_otp_email_task.delay(to_email, otp)

@@ -1,16 +1,12 @@
 """
 CrawlJob repository - database operations for CrawlJob model.
 """
-import sys
-from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from sqlalchemy.orm import joinedload
 
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 
@@ -29,9 +25,11 @@ class CrawlJobRepository:
         return crawl_job
     
     async def get_by_id(self, crawl_job_id: UUID) -> Optional[CrawlJob]:
-        """Get crawl job by ID."""
+        """Get crawl job by ID with config eagerly loaded."""
         result = await self.db.execute(
-            select(CrawlJob).where(CrawlJob.id == crawl_job_id)
+            select(CrawlJob)
+            .where(CrawlJob.id == crawl_job_id)
+            .options(joinedload(CrawlJob.crawl_config))
         )
         return result.scalar_one_or_none()
     

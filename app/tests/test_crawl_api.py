@@ -2,79 +2,150 @@
 Integration tests for the Crawler API endpoint.
 
 Tests the POST /api/v1/crawler/crawl endpoint:
-    1. Successful crawl with a valid URL
-    2. Invalid URL returns 422 validation error
-    3. Missing URL returns 422 validation error
-    4. Crawled data is saved to storage
+     1. Successful crawl queuing with a valid URL (authenticated)
+     2. Invalid URL returns 422 validation error
+     3. Missing URL returns 422 validation error
+     4. Crawl job is created in database with correct owner
+     5. Status endpoint returns job status (authenticated)
+     6. Unauthenticated request returns 401
 """
 
 import sys
 from pathlib import Path
 from typing import AsyncGenerator
+from uuid import UUID
 
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import select
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.main import app
+from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.auth.models.users import User
+from app.modules.auth.models.otp import OTP
+from app.modules.auth.schemas.register import RegisterRequest
+from app.modules.auth.schemas.verify_otp import VerifyOTPRequest
+from app.modules.auth.services.register_service import RegisterService
+from app.modules.auth.services.verify_otp_service import VerifyOTPService
+
+
+@pytest_asyncio.fixture(scope="session")
+async def db_engine():
+    from app.core.config import settings
+    from app.core.database import Base
+    from sqlalchemy.ext.asyncio import create_async_engine
+
+    engine = create_async_engine(
+        settings.DATABASE_URL,
+        echo=False,
+        pool_pre_ping=True,
+    )
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    yield engine
+
+    await engine.dispose()
 
 
 @pytest_asyncio.fixture
-async def client() -> AsyncGenerator[AsyncClient, None]:
-    """Create an async test client for the FastAPI app."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as c:
-        yield c
+async def db_session(db_engine) -> AsyncGenerator:
+    from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+
+    session_factory = async_sessionmaker(
+        bind=db_engine,
+        class_=AsyncSession,
+        expire_on_commit=False,
+    )
+    session = session_factory()
+    try:
+        yield session
+    finally:
+        try:
+            await session.close()
+        except Exception:
+            pass
 
 
-@pytest.mark.asyncio
-async def test_crawl_success(client: AsyncClient):
+@pytest_asyncio.fixture
+async def authenticated_client(db_session) -> AsyncGenerator[AsyncClient, None]:
     """
-    Test successful crawl of a valid URL.
-
-    Verifies:
-        1. Response status is 200
-        2. Response body indicates success
-        3. Crawled data contains expected fields
-        4. Data file is saved to storage
+    Create an AsyncClient pre-configured with a valid Bearer token.
+    Registers a fresh user and completes OTP verification for each test.
     """
-    response = await client.post(
-        "/api/v1/crawler/crawl",
-        json={"url": "https://cyfuture.com/"},
+    test_email = f"crawl_test_{UUID(int=0).hex[:8]}@example.com"
+
+    register_service = RegisterService(db_session)
+    await register_service.execute(
+        RegisterRequest(name="Crawl Test User", email=test_email, password="Test@1234")
     )
 
-    assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
+    user_result = await db_session.execute(
+        select(User).where(User.email == test_email)
+    )
+    user = user_result.scalar_one_or_none()
+    assert user is not None, "User should exist after registration"
 
-    data = response.json()
-    assert data["success"] is True
-    assert data["message"] == "Crawl completed successfully"
-    assert data["url"] == "https://cyfuture.com/"
-    assert data["domain"] == "cyfuture.com"
-    assert data["test_number"] >= 1
-    assert data["file_path"] is not None
-    assert data["crawled_at"] is not None
+    otp_result = await db_session.execute(
+        select(OTP)
+        .where(OTP.user_id == user.id)
+        .order_by(OTP.created_at.desc())
+        .limit(1)
+    )
+    otp_record = otp_result.scalar_one_or_none()
+    assert otp_record is not None, "OTP should exist after registration"
 
-    # Validate saved data summary
-    assert data["data"] is not None
-    assert data["data"]["status_code"] == 200
-    assert data["data"]["response_time"] > 0
-    assert data["data"]["html_size"] > 0
+    verify_service = VerifyOTPService(db_session)
+    verify_result = await verify_service.execute(
+        VerifyOTPRequest(email=test_email, otp=otp_record.otp)
+    )
+
+    access_token = verify_result.response.access_token
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        client.headers["Authorization"] = f"Bearer {access_token}"
+        yield client
 
 
 @pytest.mark.asyncio
-async def test_crawl_invalid_url(client: AsyncClient):
+async def test_crawl_success(authenticated_client: AsyncClient, db_session):
+    """
+    Test successful crawl queuing with a valid URL.
+    """
+    response = await authenticated_client.post(
+        "/api/v1/crawler/crawl",
+        json={"url": "https://example.com/"},
+    )
+
+    assert response.status_code == 202, f"Expected 202, got {response.status_code}: {response.text}"
+
+    data = response.json()
+    assert data["status"] == "queued"
+    assert data["message"] == "Crawl job queued successfully"
+    assert "crawl_id" in data
+
+    crawl_id = UUID(data["crawl_id"])
+    repo = CrawlJobRepository(db_session)
+    job = await repo.get_by_id(crawl_id)
+    assert job is not None
+    assert job.domain == "example.com"
+    assert job.status == "queued"
+    assert job.url == "https://example.com/"
+
+
+@pytest.mark.asyncio
+async def test_crawl_invalid_url(authenticated_client: AsyncClient):
     """
     Test that an invalid URL returns a 422 validation error.
-
-    Verifies:
-        1. Response status is 422
-        2. Validation error is returned
     """
-    response = await client.post(
+    response = await authenticated_client.post(
         "/api/v1/crawler/crawl",
         json={"url": "not-a-valid-url"},
     )
@@ -84,15 +155,11 @@ async def test_crawl_invalid_url(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_crawl_missing_url(client: AsyncClient):
+async def test_crawl_missing_url(authenticated_client: AsyncClient):
     """
     Test that a missing URL field returns a 422 validation error.
-
-    Verifies:
-        1. Response status is 422
-        2. Validation error indicates missing field
     """
-    response = await client.post(
+    response = await authenticated_client.post(
         "/api/v1/crawler/crawl",
         json={},
     )
@@ -103,44 +170,46 @@ async def test_crawl_missing_url(client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_crawl_saves_data_to_storage(client: AsyncClient):
+async def test_crawl_status_endpoint(authenticated_client: AsyncClient, db_session):
     """
-    Test that crawled data is actually saved to disk.
-
-    Verifies:
-        1. Crawl succeeds
-        2. The file_path exists on disk
-        3. The saved JSON contains valid crawl data
+    Test that the status endpoint returns crawl job status.
     """
-    response = await client.post(
+    response = await authenticated_client.post(
         "/api/v1/crawler/crawl",
-        json={"url": "https://cyfuture.com/"},
+        json={"url": "https://example.com/"},
     )
+    assert response.status_code == 202
+    crawl_id = response.json()["crawl_id"]
 
-    assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
-    data = response.json()
+    status_response = await authenticated_client.get(f"/api/v1/crawler/status/{crawl_id}")
+    assert status_response.status_code == 200
 
-    # Verify the file was saved to disk in app/storage/crawler/
-    file_path = Path(data["file_path"])
-    assert file_path.exists(), f"Saved file does not exist: {file_path}"
-    assert "app" in str(file_path) and "storage" in str(file_path) and "crawler" in str(file_path), \
-        f"File should be saved under app/storage/crawler/, got: {file_path}"
+    status_data = status_response.json()
+    assert status_data["crawl_id"] == crawl_id
+    assert status_data["domain"] == "example.com"
+    assert status_data["url"] == "https://example.com/"
+    assert status_data["status"] == "queued"
 
-    # Verify the file content
-    import json
 
-    with open(file_path, "r", encoding="utf-8") as f:
-        saved_data = json.load(f)
+@pytest.mark.asyncio
+async def test_crawl_status_not_found(authenticated_client: AsyncClient):
+    """
+    Test that status endpoint returns 404 for non-existent crawl job.
+    """
+    fake_id = "00000000-0000-0000-0000-000000000000"
+    response = await authenticated_client.get(f"/api/v1/crawler/status/{fake_id}")
+    assert response.status_code == 404
 
-    assert saved_data["requested_url"] == "https://cyfuture.com/"
-    assert saved_data["final_url"] is not None
-    assert saved_data["html"] is not None and len(saved_data["html"]) > 0
-    assert saved_data["http"]["status_code"] == 200
-    assert saved_data["http"]["response_time"] > 0
-    assert "performance" in saved_data
-    assert "resources" in saved_data
-    assert "javascript" in saved_data
-    assert "security_headers" in saved_data
-    assert "ssl" in saved_data
-    assert "robots" in saved_data
-    assert "sitemap" in saved_data
+
+@pytest.mark.asyncio
+async def test_crawl_requires_auth():
+    """
+    Test that unauthenticated requests to /crawler/crawl return 401.
+    """
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post(
+            "/api/v1/crawler/crawl",
+            json={"url": "https://example.com/"},
+        )
+    assert response.status_code == 401

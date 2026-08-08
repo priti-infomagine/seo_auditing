@@ -1,95 +1,106 @@
 """
-POST /crawler/crawl — Crawl a URL and save the data.
+POST /crawler/crawl — Queue a URL for crawling.
 
-Takes a URL as input, crawls it using the crawler service,
-and saves the data to storage with domain name and incremental test number.
+Takes a URL as input, creates a crawl job in the database,
+and enqueues a Celery task to perform the crawl asynchronously.
+Returns immediately with a crawl_id for status polling.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.logger import logger
+from app.core.security import get_current_user
+from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.modules.crawler.models.crawl_config import CrawlConfig
+from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.crawler.repositories.crawl_config_repository import CrawlConfigRepository
 from app.modules.crawler.schemas.crawler_schemas import CrawlRequest, CrawlResponse
-from app.modules.crawler.crawl_service import CrawlerService
+from app.modules.auth.models.users import User
+from app.shared.tasks.celery_app import celery_app
+from app.shared.utils.url_utils import get_domain
+from uuid import uuid4
 
 router = APIRouter()
 
-# import asyncio
 
-# loop = asyncio.get_running_loop()
-# print("====================================")
-# print("=" * 60)
-# print("Loop:", loop)
-# print("Loop class:", loop.__class__)
-# print("Loop module:", loop.__class__.__module__)
-# print("=" * 60)
-
-# print("====================================")
 @router.post(
     "/crawl",
     response_model=CrawlResponse,
-    status_code=200,
-    summary="Crawl a URL and save data",
-    description="Crawls the provided URL, extracts data, and saves it to storage folder with incremental test number",
+    status_code=202,
+    summary="Queue a URL for crawling",
+    description="Creates a crawl job and enqueues it for background processing. Returns crawl_id immediately.",
 )
 async def crawl_url(
     body: CrawlRequest,
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ) -> CrawlResponse:
     """
-    Crawl a URL and save the data.
-    
+    Queue a URL for crawling.
+
     Args:
         body: CrawlRequest containing URL to crawl
-        db: Database session (required by architecture, though not used for crawl storage)
-        
+        db: Database session
+        current_user: Authenticated user (injected by get_current_user)
+
     Returns:
-        CrawlResponse with crawl results and file path
-        
+        CrawlResponse with crawl_id and status
+
     Raises:
-        HTTPException: If crawl fails or URL is invalid
+        HTTPException: If URL is invalid or user is not authenticated
     """
-    logger.info(f"POST /crawler/crawl - Crawl endpoint called for URL: {body.url}")
-    
+    logger.info(f"POST /crawler/crawl - Queuing crawl for URL: {body.url}")
+
     try:
-        # Initialize crawler service
-        # Note: Using local storage (app/storage/crawler/) not database
-        service = CrawlerService()
-        
-        # Perform crawl
-        result = await service.crawl_url(str(body.url))
-        
-        logger.info(f"Crawl successful for URL: {body.url}")
-        
-        return CrawlResponse(
-            success=True,
-            message="Crawl completed successfully",
-            url=result["url"],
-            domain=result["domain"],
-            test_number=result["test_number"],
-            file_path=result["file_path"],
-            crawled_at=result["crawled_at"],
-            data=result.get("data")
+        url_str = str(body.url)
+        domain = get_domain(url_str)
+        user_id = current_user.id
+
+        # Create crawl job
+        crawl_job = CrawlJob(
+            id=uuid4(),
+            user_id=user_id,
+            url=url_str,
+            domain=domain,
+            status="queued",
         )
-        
+        job_repo = CrawlJobRepository(db)
+        await job_repo.create(crawl_job)
+
+        # Create crawl config
+        crawl_config = CrawlConfig(
+            crawl_id=crawl_job.id,
+            max_depth=body.max_depth,
+            max_pages=body.max_pages,
+            concurrency=body.concurrency,
+        )
+        config_repo = CrawlConfigRepository(db)
+        await config_repo.create(crawl_config)
+
+        # Enqueue Celery task
+        celery_app.send_task(
+            "crawler.crawl_website",
+            args=[str(crawl_job.id), url_str, str(crawl_job.user_id)],
+        )
+
+        logger.info(f"Crawl job queued: {crawl_job.id} for URL: {body.url}")
+
+        return CrawlResponse(
+            crawl_id=str(crawl_job.id),
+            status="queued",
+            message="Crawl job queued successfully",
+        )
+
     except ValueError as e:
-        # Invalid URL or validation error
         logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid URL: {str(e)}"
         )
-    except RuntimeError as e:
-        # Crawl failed
-        logger.error(f"Crawl failed for URL: {body.url} - {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Crawl failed: {str(e)}"
-        )
     except Exception as e:
-        # Unexpected error
-        logger.error(f"Unexpected error during crawl for URL: {body.url}", exc_info=True)
+        logger.error(f"Unexpected error queuing crawl for URL: {body.url}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="An unexpected error occurred during crawling"
+            detail="An unexpected error occurred while queuing crawl job"
         )

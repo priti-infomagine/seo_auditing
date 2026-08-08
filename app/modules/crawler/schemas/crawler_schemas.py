@@ -15,6 +15,10 @@ class CrawlRequest(BaseModel):
         examples=["https://example.com"]
     )
     
+    max_depth: int = Field(5, description="Maximum crawl depth")
+    max_pages: int = Field(1000, description="Maximum pages to crawl")
+    concurrency: int = Field(10, description="Concurrent requests")
+    
     @field_validator("url")
     @classmethod
     def validate_url(cls, v: str) -> str:
@@ -31,14 +35,24 @@ class CrawlRequest(BaseModel):
 class CrawlResponse(BaseModel):
     """Response schema for crawl request."""
     
-    success: bool = Field(..., description="Whether crawl was successful")
+    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    status: str = Field(..., description="Current crawl job status")
     message: str = Field(..., description="Status message")
+
+
+class CrawlStatusResponse(BaseModel):
+    """Response schema for crawl status."""
+    
+    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    status: str = Field(..., description="Current crawl job status")
+    domain: str = Field(..., description="Domain being crawled")
     url: str = Field(..., description="Crawled URL")
-    domain: str = Field(..., description="Domain name")
-    test_number: int = Field(..., description="Test number for this domain")
-    file_path: str = Field(..., description="Path to saved crawl data")
-    crawled_at: str = Field(..., description="Timestamp of crawl")
-    data: Optional[Dict[str, Any]] = Field(None, description="Crawled data summary")
+    error: str | None = Field(None, description="Error message if crawl failed")
+    started_at: str | None = Field(None, description="When crawl started")
+    completed_at: str | None = Field(None, description="When crawl completed")
+    duration_ms: int | None = Field(None, description="Crawl duration in milliseconds")
+    pages_crawled: int = Field(0, description="Number of pages crawled")
+    total_errors: int = Field(0, description="Number of crawl errors")
 
 
 class CrawlError(BaseModel):

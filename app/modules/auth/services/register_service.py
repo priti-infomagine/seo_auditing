@@ -36,15 +36,20 @@ class RegisterService:
         existing = await self.db.execute(
             select(User).where(User.email == request.email)
         )
+        
         if existing.scalar_one_or_none() is not None:
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="A user with this email already exists.",
             )
-
+            
+        
+       
+        
         # ── 2. Hash password ───────────────────────────────────────────
         hashed_pw = hash_password(request.password)
-
+        print("4. after password hash")
+        print("6. before user creation")
         # ── 3. Create user (unverified) ────────────────────────────────
         user = User(
             id=uuid.uuid4(),
@@ -55,7 +60,8 @@ class RegisterService:
         )
         self.db.add(user)
         await self.db.flush()
-
+        
+        print("6. after user creation")
         # # ── 4. Generate 6-digit OTP ────────────────────────────────────
         
         from app.modules.auth.utils.auth_utils import generate_otp_code
@@ -73,8 +79,10 @@ class RegisterService:
 
         # ── NOTE: In production, send OTP via email/SMS here through background tasks ───────────
         
-        await send_register_otp_email(user.email, otp_code)
-        print(f"[REGISTER] OTP for {user.email}: {otp_code}")
+        send_register_otp_email(user.email, otp_code)
+        print("9. after celery task")
+
+        print("10. returning response")
 
         # ── 5. Return success ──────────────────────────────────────────
         return RegisterResponse(message="OTP sent successfully")

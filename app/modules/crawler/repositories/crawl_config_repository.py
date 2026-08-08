@@ -1,16 +1,11 @@
 """
 CrawlConfig repository - database operations for CrawlConfig model.
 """
-import sys
-from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from app.modules.crawler.models.crawl_config import CrawlConfig
 
