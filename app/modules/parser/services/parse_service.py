@@ -1,61 +1,41 @@
-"""
-Parse Service
-=============
-Business logic for parsing crawled website data.
-
-This service:
-1. Takes a website/domain name
-2. Matches it with the latest crawled .json file in app/storage/crawler/{domain}/
-3. Parses the crawled data using the ParserService
-4. Stores the parsed output in app/storage/parsed/{domain}/ with incremental test number
-"""
 import json
 import re
-from pathlib import Path
 from datetime import datetime
-from typing import Optional, Dict, Any, Tuple
+from pathlib import Path
+from typing import Any, Dict, Optional, Tuple
+from urllib.parse import urlparse
 
 from app.core.logger import logger
+
 from .parser_service import ParserService
 
 
 class ParseService:
-    """Service for parsing crawled website data and storing results."""
+    """
+    Pipeline / storage adapter for the parser module.
+
+    Responsibilities:
+    - locate latest crawl result on disk
+    - load crawl result JSON
+    - pass crawl result to ParserService
+    - attach source crawl metadata
+    - persist parsed output
+
+    ParserService knows nothing about filesystem paths.
+    """
 
     def __init__(
         self,
         crawl_dir: str = "app/storage/crawler",
         parsed_dir: str = "app/storage/parsed",
     ):
-        """
-        Initialize parse service.
-
-        Args:
-            crawl_dir: Directory containing crawled data
-            parsed_dir: Directory to store parsed data
-        """
         self.crawl_dir = Path(crawl_dir)
         self.parsed_dir = Path(parsed_dir)
-        self.parser = ParserService(crawl_dir=str(self.crawl_dir))
+        self.parser = ParserService()
 
     def parse_website(self, website: str) -> Dict[str, Any]:
-        """
-        Parse the latest crawled data for a website and save the result.
-
-        Args:
-            website: Website/domain name (e.g., 'cyfuture.com')
-
-        Returns:
-            Dictionary with parse results and metadata
-
-        Raises:
-            ValueError: If no crawl data found for the website
-            RuntimeError: If parsing fails
-        """
-        # Normalize domain
         domain = self._normalize_domain(website)
 
-        # Find the latest crawl file for this domain (checks exact and www. variants)
         crawl_file = self._get_latest_crawl_file(domain)
         if not crawl_file:
             raise ValueError(
@@ -63,39 +43,41 @@ class ParseService:
                 f"Please crawl the website first."
             )
 
-        # Use the actual directory name where the crawl data was stored
-        # (e.g., 'www.wikipedia.org' if that's how the crawler saved it)
         actual_domain = crawl_file.parent.name
+        logger.info("Parsing crawl file: %s", crawl_file)
 
-        logger.info(f"Found latest crawl file: {crawl_file}")
-
-        # Load crawl data
         crawl_data = self._load_json(crawl_file)
-
-        # Parse the HTML from crawl data
         html = crawl_data.get("html", "")
-        url = crawl_data.get("final_url") or crawl_data.get("requested_url", "")
 
         if not html:
-            raise RuntimeError(f"Crawl file {crawl_file.name} contains no HTML content")
+            raise RuntimeError(
+                f"Crawl file {crawl_file.name} contains no HTML content"
+            )
 
-        # Generate comprehensive SEO report using the actual stored domain
-        report = self.parser.generate_report_by_domain(actual_domain)
-        if not report:
-            raise RuntimeError(f"Failed to generate report for domain: {domain}")
+        url = (
+            crawl_data.get("final_url")
+            or crawl_data.get("requested_url")
+            or website
+        )
 
-        # Fix URL in report (crawl data uses final_url/requested_url keys)
-        if not report.get("url"):
-            report["url"] = url
+        parsed_document = self.parser.parse(html=html, url=url)
 
-        # Add source metadata
-        report["source_crawl_file"] = crawl_file.name
-        report["parsed_at"] = datetime.now().isoformat()
+        parsed_output = parsed_document.model_dump(mode="json")
 
-        # Save parsed data using actual stored domain
-        filepath, test_number = self._save_parsed_data(report, actual_domain)
+        parsed_output["crawl_context"] = {
+            "requested_url": crawl_data.get("requested_url"),
+            "final_url": crawl_data.get("final_url"),
+            "status_code": crawl_data.get("status_code"),
+            "content_type": crawl_data.get("content_type"),
+            "response_time_ms": crawl_data.get("response_time_ms"),
+            "source_crawl_file": crawl_file.name,
+        }
 
-        logger.info(f"Parsing completed successfully. Saved to: {filepath}")
+        parsed_output["parsed_at"] = datetime.now().isoformat()
+
+        filepath, test_number = self._save_parsed_data(parsed_output, actual_domain)
+
+        logger.info("Parsing completed: %s", filepath)
 
         return {
             "success": True,
@@ -103,144 +85,82 @@ class ParseService:
             "website": actual_domain,
             "test_number": test_number,
             "file_path": str(filepath),
-            "parsed_at": report["parsed_at"],
+            "parsed_at": parsed_output["parsed_at"],
             "source_crawl_file": crawl_file.name,
             "data": {
-                "url": report.get("url"),
-                "seo_score": report.get("seo_score", {}).get("overall_score"),
-                "seo_grade": report.get("seo_score", {}).get("overall_grade"),
-                "title": report.get("basic_info", {}).get("title"),
-                "word_count": report.get("basic_info", {}).get("word_count"),
-                "total_links": report.get("links", {}).get("total_links"),
-                "total_images": report.get("images", {}).get("total_images"),
+                "url": parsed_output["document"].get("url"),
+                "title": parsed_output["metadata"].get("title"),
+                "word_count": parsed_output["content"].get("word_count"),
+                "total_links": len(parsed_output.get("links", [])),
+                "total_resources": len(parsed_output.get("resources", [])),
+                "structured_data_items": len(
+                    parsed_output.get("structured_data", [])
+                ),
             },
         }
 
     def _normalize_domain(self, website: str) -> str:
-        """
-        Normalize website input to a clean domain name.
+        value = website.strip().lower()
 
-        Matches the crawler's domain extraction (keeps www. prefix),
-        so that the crawl directory lookup works correctly.
+        if not value:
+            raise ValueError("Website cannot be empty")
 
-        Args:
-            website: Website name or URL
+        if not value.startswith(("http://", "https://")):
+            value = f"https://{value}"
 
-        Returns:
-            Clean domain name
-        """
-        domain = website.strip().lower()
+        parsed = urlparse(value)
+        if not parsed.netloc:
+            raise ValueError(f"Invalid website: {website}")
 
-        # Remove protocol
-        if domain.startswith(("http://", "https://")):
-            from urllib.parse import urlparse
-            domain = urlparse(domain).netloc or domain
-
-        # Remove trailing slash and path
-        domain = domain.rstrip("/")
-        domain = domain.split("/")[0]
-
-        return domain
+        return parsed.netloc.rstrip("/")
 
     def _get_latest_crawl_file(self, domain: str) -> Optional[Path]:
-        """
-        Get the latest crawl file for a domain.
-
-        Tries both the exact domain and the www.-prefixed variant,
-        since the crawler may store data under either.
-
-        Args:
-            domain: Domain name
-
-        Returns:
-            Path to latest crawl file or None
-        """
-        # Try candidates: exact domain first, then www. variant
         candidates = [domain]
-        if not domain.startswith("www."):
-            candidates.append(f"www.{domain}")
-        else:
+        if domain.startswith("www."):
             candidates.append(domain[4:])
+        else:
+            candidates.append(f"www.{domain}")
 
         for candidate in candidates:
             domain_dir = self.crawl_dir / candidate
-
             if not domain_dir.exists():
                 continue
-
-            # Get all JSON files sorted by name (test number is in filename)
-            files = sorted(domain_dir.glob("*.json"), reverse=True)
-
-            if files:
-                return files[0]
+            files = list(domain_dir.glob("*.json"))
+            if not files:
+                continue
+            return max(files, key=lambda path: path.stat().st_mtime)
 
         return None
 
-    def _load_json(self, filepath: Path) -> Dict[str, Any]:
-        """Load JSON data from file."""
-        with open(filepath, "r", encoding="utf-8") as f:
-            return json.load(f)
+    @staticmethod
+    def _load_json(filepath: Path) -> Dict[str, Any]:
+        with filepath.open("r", encoding="utf-8") as file:
+            return json.load(file)
 
     def _get_next_test_number(self, domain: str) -> int:
-        """
-        Get the next test number for a domain in parsed storage.
-
-        Args:
-            domain: Domain name
-
-        Returns:
-            Next test number
-        """
         domain_dir = self.parsed_dir / domain
-
         if not domain_dir.exists():
             return 1
 
-        # Find all test files
-        test_files = list(domain_dir.glob(f"{domain}_test_*.json"))
-
-        if not test_files:
-            return 1
-
-        # Extract test numbers
         test_numbers = []
-        for filepath in test_files:
-            try:
-                # Format: {domain}_test_{number}_{timestamp}.json
-                stem = filepath.stem
-                match = re.search(r"_test_(\d+)", stem)
-                if match:
-                    test_numbers.append(int(match.group(1)))
-            except (IndexError, ValueError):
-                continue
+        for filepath in domain_dir.glob(f"{domain}_test_*.json"):
+            match = re.search(r"_test_(\d+)", filepath.stem)
+            if match:
+                test_numbers.append(int(match.group(1)))
 
         return max(test_numbers, default=0) + 1
 
-    def _save_parsed_data(self, report: Dict[str, Any], domain: str) -> Tuple[Path, int]:
-        """
-        Save parsed data to file with incremental test number.
-
-        Args:
-            report: Parsed report dictionary
-            domain: Domain name
-
-        Returns:
-            Tuple of (Path to saved file, test number)
-        """
-        # Create domain directory in parsed storage
+    def _save_parsed_data(
+        self, data: Dict[str, Any], domain: str
+    ) -> Tuple[Path, int]:
         domain_dir = self.parsed_dir / domain
         domain_dir.mkdir(parents=True, exist_ok=True)
 
-        # Get next test number
         test_number = self._get_next_test_number(domain)
-
-        # Generate filename
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{domain}_test_{test_number}_{timestamp}.json"
-        filepath = domain_dir / filename
+        filepath = domain_dir / f"{domain}_test_{test_number}_{timestamp}.json"
 
-        # Save to file
-        with open(filepath, "w", encoding="utf-8") as f:
-            json.dump(report, f, indent=2, ensure_ascii=False)
+        with filepath.open("w", encoding="utf-8") as file:
+            json.dump(data, file, indent=2, ensure_ascii=False)
 
         return filepath, test_number

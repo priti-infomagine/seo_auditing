@@ -1,81 +1,113 @@
-"""
+﻿"""
 Link extractor - extracts links from HTML content.
-Returns structured link data only, no persistence logic.
 """
-from typing import List, Optional
+from dataclasses import dataclass, field
 from urllib.parse import urljoin
-
 from bs4 import BeautifulSoup
 
 
-class ExtractedLink:
-    """Structured link data."""
-    def __init__(
-        self,
-        url: str,
-        anchor_text: Optional[str] = None,
-        rel: Optional[str] = None,
-        link_type: str = "anchor",
-    ):
-        self.url = url
-        self.anchor_text = anchor_text
-        self.rel = rel
-        self.link_type = link_type
+@dataclass
+class LinkFacts:
+    links: list = field(default_factory=list)
+    internal_count: int = 0
+    external_count: int = 0
 
 
-def extract_links(html: str, base_url: str) -> List[ExtractedLink]:
+def extract_links(soup: BeautifulSoup, base_url: str) -> LinkFacts:
     """
     Extract all links from HTML content.
-    
+
     Args:
-        html: Raw HTML string
+        soup: BeautifulSoup object
         base_url: Base URL for resolving relative links
-        
+
     Returns:
-        List of ExtractedLink objects
+        LinkFacts with all extracted links
     """
-    soup = BeautifulSoup(html, "html.parser")
+    from app.shared.utils.url_utils import is_internal_link
+
     links = []
-    
+    internal_count = 0
+    external_count = 0
+
     # Extract <a> tags
     for tag in soup.find_all("a", href=True):
         href = str(tag.get("href", "")).strip()
-        if href and not href.startswith(("#", "javascript:", "mailto:", "tel:")):
-            absolute_url = urljoin(base_url, href)
-            anchor_text = tag.get_text(strip=True) or None
-            rel = tag.get("rel")
-            if isinstance(rel, list):
-                rel = rel[0] if rel else None
-            elif rel is not None:
-                rel = str(rel)
-            links.append(ExtractedLink(
-                url=absolute_url,
-                anchor_text=anchor_text,
-                rel=rel,
-                link_type="anchor",
-            ))
-    
+        if not href or href.startswith(("#", "javascript:", "mailto:", "tel:")):
+            continue
+
+        absolute_url = urljoin(base_url, href)
+        anchor_text = tag.get_text(strip=True) or ""
+        rel = tag.get("rel")
+        if isinstance(rel, list):
+            rel = " ".join(rel)
+        elif rel is None:
+            rel = ""
+
+        rel_lower = rel.lower()
+        is_internal = is_internal_link(base_url, absolute_url)
+
+        link_type = "anchor"
+        if tag.find_parent("nav"):
+            link_type = "navigation"
+        elif tag.find_parent("footer"):
+            link_type = "footer"
+
+        links.append({
+            "url": absolute_url,
+            "anchor_text": anchor_text,
+            "rel": rel,
+            "link_type": link_type,
+            "is_internal": is_internal,
+            "is_external": not is_internal,
+            "nofollow": "nofollow" in rel_lower,
+            "ugc": "ugc" in rel_lower,
+            "sponsored": "sponsored" in rel_lower,
+        })
+
+        if is_internal:
+            internal_count += 1
+        else:
+            external_count += 1
+
     # Extract canonical links
     for tag in soup.find_all("link", rel="canonical", href=True):
-        href = str(tag.get("href", "")).strip()
+        href = tag.get("href", "").strip()
         if href:
             absolute_url = urljoin(base_url, href)
-            links.append(ExtractedLink(
-                url=absolute_url,
-                link_type="canonical",
-            ))
-    
+            links.append({
+                "url": absolute_url,
+                "anchor_text": "",
+                "rel": "canonical",
+                "link_type": "canonical",
+                "is_internal": True,
+                "is_external": False,
+                "nofollow": False,
+                "ugc": False,
+                "sponsored": False,
+            })
+            internal_count += 1
+
     # Extract hreflang links
     for tag in soup.find_all("link", rel="alternate", hreflang=True, href=True):
-        href = str(tag.get("href", "")).strip()
+        href = tag.get("href", "").strip()
         if href:
             absolute_url = urljoin(base_url, href)
-            hreflang = tag.get("hreflang")
-            rel = str(hreflang) if hreflang else None
-            links.append(ExtractedLink(
-                url=absolute_url,
-                rel=rel,
-                link_type="hreflang",
-            ))
-    
-    return links
+            links.append({
+                "url": absolute_url,
+                "anchor_text": "",
+                "rel": tag.get("hreflang", ""),
+                "link_type": "hreflang",
+                "is_internal": True,
+                "is_external": False,
+                "nofollow": False,
+                "ugc": False,
+                "sponsored": False,
+            })
+            internal_count += 1
+
+    return LinkFacts(
+        links=links,
+        internal_count=internal_count,
+        external_count=external_count,
+    )

@@ -1,74 +1,109 @@
+﻿"""
+Asset extractor - extracts resources (images, CSS, JS, fonts, etc.) from HTML.
 """
-Asset extractor - extracts assets (images, CSS, JS, fonts, etc.) from HTML.
-Returns structured asset data only, no persistence logic.
-"""
-from typing import List, Optional
+from dataclasses import dataclass, field
 from urllib.parse import urljoin
-
 from bs4 import BeautifulSoup
 
 
-class ExtractedAsset:
-    """Structured asset data."""
-    def __init__(
-        self,
-        url: str,
-        asset_type: str,
-        mime_type: Optional[str] = None,
-    ):
-        self.url = url
-        self.asset_type = asset_type
-        self.mime_type = mime_type
+@dataclass
+class ResourceFacts:
+    resources: list = field(default_factory=list)
 
 
-def extract_assets(html: str, base_url: str) -> List[ExtractedAsset]:
+def extract_resources(soup: BeautifulSoup, base_url: str) -> ResourceFacts:
     """
-    Extract all assets from HTML content.
-    
+    Extract all resources from HTML content.
+
     Args:
-        html: Raw HTML string
-        base_url: Base URL for resolving relative links
-        
+        soup: BeautifulSoup object
+        base_url: Base URL for resolving relative URLs
+
     Returns:
-        List of ExtractedAsset objects
+        ResourceFacts with all extracted resources
     """
-    soup = BeautifulSoup(html, "html.parser")
-    assets = []
-    
+    resources = []
+
     # Images
     for tag in soup.find_all("img", src=True):
         src = str(tag.get("src", "")).strip()
-        if src:
-            assets.append(ExtractedAsset(
-                url=urljoin(base_url, src),
-                asset_type="image",
-            ))
-    
+        if not src:
+            continue
+
+        alt = tag.get("alt", "")
+        width = tag.get("width")
+        height = tag.get("height")
+        loading = tag.get("loading", "")
+        srcset = tag.get("srcset", "")
+        sizes = tag.get("sizes", "")
+
+        resources.append({
+            "type": "image",
+            "url": urljoin(base_url, src),
+            "alt": alt,
+            "width": int(width) if width and width.isdigit() else None,
+            "height": int(height) if height and height.isdigit() else None,
+            "loading": loading if loading else None,
+            "srcset": srcset if srcset else None,
+            "sizes": sizes if sizes else None,
+            "is_lazy": loading == "lazy",
+        })
+
     # CSS
     for tag in soup.find_all("link", rel="stylesheet", href=True):
-        href = str(tag.get("href", "")).strip()
+        href = tag.get("href", "").strip()
         if href:
-            assets.append(ExtractedAsset(
-                url=urljoin(base_url, href),
-                asset_type="css",
-            ))
-    
+            resources.append({
+                "type": "css",
+                "url": urljoin(base_url, href),
+                "media": tag.get("media", ""),
+            })
+
     # JavaScript
     for tag in soup.find_all("script", src=True):
-        src = str(tag.get("src", "")).strip()
+        src = tag.get("src", "").strip()
         if src:
-            assets.append(ExtractedAsset(
-                url=urljoin(base_url, src),
-                asset_type="javascript",
-            ))
-    
+            resources.append({
+                "type": "javascript",
+                "url": urljoin(base_url, src),
+                "async": tag.get("async") is not None,
+                "defer": tag.get("defer") is not None,
+            })
+
     # Favicon
     for tag in soup.find_all("link", rel=["icon", "shortcut icon"], href=True):
-        href = str(tag.get("href", "")).strip()
+        href = tag.get("href", "").strip()
         if href:
-            assets.append(ExtractedAsset(
-                url=urljoin(base_url, href),
-                asset_type="favicon",
-            ))
-    
-    return assets
+            resources.append({
+                "type": "favicon",
+                "url": urljoin(base_url, href),
+            })
+
+    # Iframe
+    for tag in soup.find_all("iframe", src=True):
+        src = tag.get("src", "").strip()
+        if src:
+            resources.append({
+                "type": "iframe",
+                "url": urljoin(base_url, src),
+            })
+
+    # Video
+    for tag in soup.find_all("video", src=True):
+        src = tag.get("src", "").strip()
+        if src:
+            resources.append({
+                "type": "video",
+                "url": urljoin(base_url, src),
+            })
+
+    # Audio
+    for tag in soup.find_all("audio", src=True):
+        src = tag.get("src", "").strip()
+        if src:
+            resources.append({
+                "type": "audio",
+                "url": urljoin(base_url, src),
+            })
+
+    return ResourceFacts(resources=resources)

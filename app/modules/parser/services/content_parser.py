@@ -1,128 +1,169 @@
-"""Content Parser - Extracts and analyzes page content."""
-from typing import Dict, Any, List
+import copy
 import re
+
 from bs4 import BeautifulSoup
+
+from ..schemas.content_schema import (
+    ContentData,
+    HeadingData,
+    ListData,
+    ParagraphData,
+    SemanticElement,
+    TableData,
+)
+from .html_parser import ParserContext
 
 
 class ContentParser:
-    """Analyzes page content and text."""
-    
+
+    def parse(self, context: ParserContext) -> ContentData:
+        soup = context.soup
+
+        text = self._get_visible_text(soup)
+        normalized_text = self._normalize_text(text)
+
+        return ContentData(
+            text=text,
+            normalized_text=normalized_text,
+            word_count=self._word_count(normalized_text),
+            character_count=len(normalized_text),
+            paragraphs=self._paragraphs(soup),
+            headings=self._headings(soup),
+            lists=self._lists(soup),
+            tables=self._tables(soup),
+            semantic_elements=self._semantic_elements(soup),
+            has_main=soup.find("main") is not None,
+            has_article=soup.find("article") is not None,
+            has_header=soup.find("header") is not None,
+            has_footer=soup.find("footer") is not None,
+            has_nav=soup.find("nav") is not None,
+        )
+
     @staticmethod
-    def get_word_count(soup: BeautifulSoup) -> int:
-        """
-        Count words in page content.
-        
-        Args:
-            soup: BeautifulSoup object
-            
-        Returns:
-            Word count
-        """
-        # Get text from main content areas
-        text = ContentParser._extract_main_text(soup)
+    def _get_visible_text(soup: BeautifulSoup) -> str:
+        working = copy.copy(soup)
+        for tag in working(
+            ["script", "style", "noscript", "template"]
+        ):
+            tag.decompose()
+        return working.get_text(" ", strip=True)
+
+    @staticmethod
+    def _normalize_text(text: str) -> str:
+        return re.sub(r"\s+", " ", text).strip()
+
+    @staticmethod
+    def _word_count(text: str) -> int:
         if not text:
             return 0
-        
-        # Split on whitespace and filter empty strings
-        words = re.findall(r'\b\w+\b', text)
-        return len(words)
-    
+        return len(text.split())
+
     @staticmethod
-    def get_reading_time(soup: BeautifulSoup) -> int:
-        """
-        Estimate reading time in minutes.
-        
-        Args:
-            soup: BeautifulSoup object
-            
-        Returns:
-            Reading time in minutes
-        """
-        word_count = ContentParser.get_word_count(soup)
-        # Average reading speed: 200-250 words per minute
-        return max(1, round(word_count / 200))
-    
+    def _paragraphs(soup: BeautifulSoup):
+        return [
+            ParagraphData(
+                text=tag.get_text(" ", strip=True)
+            )
+            for tag in soup.find_all("p")
+            if tag.get_text(" ", strip=True)
+        ]
+
     @staticmethod
-    def get_paragraph_count(soup: BeautifulSoup) -> int:
-        """
-        Count paragraphs.
-        
-        Args:
-            soup: BeautifulSoup object
-            
-        Returns:
-            Number of paragraphs
-        """
-        paragraphs = soup.find_all('p')
-        return len(paragraphs)
-    
+    def _headings(soup: BeautifulSoup):
+        results = []
+        position = 0
+
+        for tag in soup.find_all(
+            ["h1", "h2", "h3", "h4", "h5", "h6"]
+        ):
+            text = tag.get_text(" ", strip=True)
+
+            if not text:
+                continue
+
+            results.append(
+                HeadingData(
+                    level=int(tag.name[1]),
+                    text=text,
+                    position=position,
+                )
+            )
+
+            position += 1
+
+        return results
+
     @staticmethod
-    def get_text_html_ratio(html: str, soup: BeautifulSoup) -> float:
-        """
-        Calculate text-to-HTML ratio.
-        
-        Args:
-            html: Raw HTML string
-            soup: BeautifulSoup object
-            
-        Returns:
-            Ratio of text content to HTML size
-        """
-        if not html:
-            return 0.0
-        
-        text = ContentParser._extract_main_text(soup)
-        text_length = len(text)
-        html_length = len(html)
-        
-        if html_length == 0:
-            return 0.0
-        
-        ratio = text_length / html_length
-        return round(ratio, 3)
-    
+    def _lists(soup: BeautifulSoup):
+        results = []
+
+        for tag in soup.find_all(["ul", "ol"]):
+            items = [
+                item.get_text(" ", strip=True)
+                for item in tag.find_all("li", recursive=False)
+            ]
+
+            results.append(
+                ListData(
+                    ordered=tag.name == "ol",
+                    items=items,
+                )
+            )
+
+        return results
+
     @staticmethod
-    def get_content_hash(soup: BeautifulSoup) -> str:
-        """
-        Generate hash of main content for duplicate detection.
-        
-        Args:
-            soup: BeautifulSoup object
-            
-        Returns:
-            MD5 hash of content
-        """
-        import hashlib
-        
-        text = ContentParser._extract_main_text(soup)
-        if not text:
-            return ""
-        
-        return hashlib.md5(text.encode('utf-8')).hexdigest()
-    
+    def _tables(soup: BeautifulSoup):
+        results = []
+
+        for table in soup.find_all("table"):
+            headers = [
+                cell.get_text(" ", strip=True)
+                for cell in table.find_all("th")
+            ]
+
+            rows = []
+
+            for row in table.find_all("tr"):
+                cells = row.find_all(["th", "td"])
+
+                if not cells:
+                    continue
+
+                rows.append([
+                    cell.get_text(" ", strip=True)
+                    for cell in cells
+                ])
+
+            results.append(
+                TableData(
+                    headers=headers,
+                    rows=rows,
+                )
+            )
+
+        return results
+
     @staticmethod
-    def _extract_main_text(soup: BeautifulSoup) -> str:
-        """
-        Extract main text content from HTML.
-        
-        Args:
-            soup: BeautifulSoup object
-            
-        Returns:
-            Extracted text content
-        """
-        # Remove script and style elements
-        for script in soup(['script', 'style', 'nav', 'header', 'footer']):
-            script.decompose()
-        
-        # Get text from main content areas
-        main_content = soup.find('main') or soup.find('article') or soup.find('body')
-        
-        if main_content:
-            text = main_content.get_text(separator=' ', strip=True)
-        else:
-            text = soup.get_text(separator=' ', strip=True)
-        
-        # Clean up whitespace
-        text = re.sub(r'\s+', ' ', text)
-        return text.strip()
+    def _semantic_elements(soup: BeautifulSoup):
+        tags = [
+            "main",
+            "article",
+            "section",
+            "nav",
+            "header",
+            "footer",
+            "aside",
+            "figure",
+            "figcaption",
+            "address",
+            "time",
+        ]
+
+        return [
+            SemanticElement(
+                tag=tag.name,
+                text=tag.get_text(" ", strip=True),
+            )
+            for tag in soup.find_all(tags)
+        ]

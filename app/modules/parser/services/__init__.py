@@ -3,47 +3,33 @@ Parser Module
 =============
 Modular SEO parser components for analyzing crawled website data.
 
-This module provides a collection of specialized parsers for extracting
-SEO-relevant information from HTML pages. Each parser focuses on a specific
-aspect of SEO analysis:
-
-- HTMLParser: Basic HTML structure and metadata
-- SEOParser: Core SEO elements (title, meta tags, keywords)
-- ContentParser: Page content analysis
-- HeadingParser: Heading structure (H1-H6)
-- LinkParser: Internal and external link analysis
-- ImageParser: Image optimization checks
-- SchemaParser: Structured data and schema.org markup
-- SocialParser: Social media tags and links
-- TechnicalParser: Technical SEO and HTTP information
-- GeoParser: Local SEO and geographic information
-- ParserService: Orchestrates all parsers for comprehensive analysis
+Architecture:
+  HTMLParser   - Creates reusable DOM parsing context
+  MetadataParser - Extracts title, meta, canonical, OG, Twitter, hreflang, favicon
+  ContentParser  - Extracts text, headings, paragraphs, lists, tables, semantic HTML
+  LinkParser     - Extracts all <a> elements
+  ResourceParser - Extracts images, scripts, stylesheets, iframes, video, audio
+  StructuredDataParser - Extracts JSON-LD, Microdata, RDFa
+  ParserService  - Orchestrates all sub-parsers → ParsedDocument
+  ParseService   - Pipeline adapter: crawl storage → ParserService → parsed storage
 """
 
 from .html_parser import HTMLParser
-from .seo_parser import SEOParser
+from .metadata_parser import MetadataParser
 from .content_parser import ContentParser
-from .heading_parser import HeadingParser
 from .link_parser import LinkParser
-from .image_parser import ImageParser
-from .schema_parser import SchemaParser
-from .social_parser import SocialParser
-from .technical_parser import TechnicalParser
-from .geo_parser import GeoParser
+from .resource_parser import ResourceParser
+from .structured_data_parser import StructuredDataParser
 from .parser_service import ParserService
 from .parse_service import ParseService
 
 __all__ = [
-    'HTMLParser',
-    'SEOParser',
-    'ContentParser',
-    'HeadingParser',
-    'LinkParser',
-    'ImageParser',
-    'SchemaParser',
-    'SocialParser',
-    'TechnicalParser',
-    'GeoParser',
-    'ParserService',
-    'ParseService'
+    "HTMLParser",
+    "MetadataParser",
+    "ContentParser",
+    "LinkParser",
+    "ResourceParser",
+    "StructuredDataParser",
+    "ParserService",
+    "ParseService",
 ]

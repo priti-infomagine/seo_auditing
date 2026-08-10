@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.logger import logger
-from app.modules.parser.schemas.parser_schemas import ParseRequest, ParseResponse
+from app.modules.parser.schemas.parser_schema import ParseRequest, ParseResponse
 from app.modules.parser.services.parse_service import ParseService
 
 router = APIRouter()

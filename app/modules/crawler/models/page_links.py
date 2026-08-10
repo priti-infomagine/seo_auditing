@@ -1,12 +1,12 @@
 """
 PageLink model.
 
-Fields:
-    id, page_id, target_url, anchor_text, rel, is_internal, is_nofollow, link_type, created_at, updated_at
+Represents a link from one page to another.
+Expanded with target lookup fields, rel attributes, and crawl-level queryability.
 """
 import uuid
 
-from sqlalchemy import Boolean, Enum, ForeignKey, String, Text
+from sqlalchemy import Boolean, Integer, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -24,13 +24,21 @@ class PageLink(TimestampMixin, Base):
     )
     page_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("crawl_pages.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    crawl_job_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
         nullable=False,
         index=True,
     )
     target_url: Mapped[str] = mapped_column(
         Text,
         nullable=False,
+    )
+    normalized_target_url: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
     )
     anchor_text: Mapped[str | None] = mapped_column(
         Text,
@@ -40,27 +48,51 @@ class PageLink(TimestampMixin, Base):
         String(100),
         nullable=True,
     )
+    link_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+    )
     is_internal: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,
         default=True,
     )
-    is_nofollow: Mapped[bool] = mapped_column(
+    is_external: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,
         default=False,
     )
-    link_type: Mapped[str] = mapped_column(
-        Enum(
-            "anchor",
-            "image",
-            "script",
-            "stylesheet",
-            "canonical",
-            "hreflang",
-            name="link_type_enum",
-        ),
+    nofollow: Mapped[bool] = mapped_column(
+        Boolean,
         nullable=False,
+        default=False,
+    )
+    ugc: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=False,
+    )
+    sponsored: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=False,
+    )
+    is_crawlable: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=True,
+    )
+    target_status_code: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+    target_response_time_ms: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+    target_error: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
     )
 
     def __repr__(self) -> str:

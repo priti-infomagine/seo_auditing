@@ -3185,3 +3185,197 @@ DETAIL:  Key (email)=(system@local) already exists.
 [SQL: INSERT INTO users (id, name, email, password_hash, plan, credits, is_verified) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::INTEGER, $7::BOOLEAN) RETURNING users.created_at, users.updated_at]
 [parameters: (UUID('a5fab637-57c3-4b92-a8b7-f63cb34443f8'), 'System', 'system@local', '', 'free', 0, True)]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-08-10 09:36:01,630 | INFO | Loaded 70 scoring rules
+2026-08-10 09:36:39,461 | INFO | Loaded 70 scoring rules
+2026-08-10 09:41:00,184 | INFO | Loaded 70 scoring rules
+2026-08-10 09:41:00,192 | INFO | Scoring provided parsed data
+2026-08-10 09:41:00,192 | INFO | Starting SEO scoring...
+2026-08-10 09:41:00,194 | INFO | Completed 70 rule evaluations
+2026-08-10 09:41:00,194 | INFO | SEO Score calculated: 68.8/100 (Grade D)
+2026-08-10 14:37:19,379 | INFO | POST /auth/register - Register endpoint called
+2026-08-10 14:37:27,089 | INFO | POST /auth/register - Register endpoint called
+2026-08-10 14:54:46,499 | INFO | POST /auth/register - Register endpoint called
+2026-08-10 16:19:46,789 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,795 | INFO | Starting SEO scoring...
+2026-08-10 16:19:46,795 | INFO | Completed 70 rule evaluations
+2026-08-10 16:19:46,795 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:19:46,795 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,805 | INFO | Starting SEO scoring...
+2026-08-10 16:19:46,805 | INFO | Completed 70 rule evaluations
+2026-08-10 16:19:46,805 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:19:46,805 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,825 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,829 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,836 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,845 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,845 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,895 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,895 | INFO | Scoring provided parsed data
+2026-08-10 16:19:46,897 | INFO | Starting SEO scoring...
+2026-08-10 16:19:46,900 | INFO | Completed 70 rule evaluations
+2026-08-10 16:19:46,900 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-10 16:19:46,916 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,924 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:46,936 | INFO | Loaded 70 scoring rules
+2026-08-10 16:19:49,755 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:19:49,755 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:19:49,757 | ERROR | Unexpected error during audit for URL: https://cyfuture.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 58, in analyze_website
+    crawl_result = await crawler_service.crawl_url(body.url)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\crawl_service.py", line 54, in crawl_url
+    result: PageCrawlResult = await self.page_crawl_service.crawl_page(normalized)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\page_crawl_service.py", line 81, in crawl_page
+    fetch_result = await fetch_page(
+                   ^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\fetch_service.py", line 285, in fetch_page
+    response = await HTTPClient(
+                     ^^^^^^^^^^^
+TypeError: HTTPClient.__init__() got multiple values for argument 'timeout'
+2026-08-10 16:19:49,844 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:19:49,844 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:19:49,844 | ERROR | Unexpected error during audit for URL: https://not-a-valid-url
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 58, in analyze_website
+    crawl_result = await crawler_service.crawl_url(body.url)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\crawl_service.py", line 54, in crawl_url
+    result: PageCrawlResult = await self.page_crawl_service.crawl_page(normalized)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\page_crawl_service.py", line 81, in crawl_page
+    fetch_result = await fetch_page(
+                   ^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\fetch_service.py", line 285, in fetch_page
+    response = await HTTPClient(
+                     ^^^^^^^^^^^
+TypeError: HTTPClient.__init__() got multiple values for argument 'timeout'
+2026-08-10 16:20:12,205 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:20:12,205 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:20:12,205 | ERROR | Unexpected error during audit for URL: https://cyfuture.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 58, in analyze_website
+    crawl_result = await crawler_service.crawl_url(body.url)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\crawl_service.py", line 54, in crawl_url
+    result: PageCrawlResult = await self.page_crawl_service.crawl_page(normalized)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\page_crawl_service.py", line 81, in crawl_page
+    fetch_result = await fetch_page(
+                   ^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\fetch_service.py", line 285, in fetch_page
+    response = await HTTPClient(
+                     ^^^^^^^^^^^
+TypeError: HTTPClient.__init__() got multiple values for argument 'timeout'
+2026-08-10 16:20:12,547 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:20:12,547 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:20:12,547 | ERROR | Unexpected error during audit for URL: https://not-a-valid-url
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 58, in analyze_website
+    crawl_result = await crawler_service.crawl_url(body.url)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\crawl_service.py", line 54, in crawl_url
+    result: PageCrawlResult = await self.page_crawl_service.crawl_page(normalized)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\page_crawl_service.py", line 81, in crawl_page
+    fetch_result = await fetch_page(
+                   ^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\fetch_service.py", line 285, in fetch_page
+    response = await HTTPClient(
+                     ^^^^^^^^^^^
+TypeError: HTTPClient.__init__() got multiple values for argument 'timeout'
+2026-08-10 16:22:40,034 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:22:40,034 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:22:42,264 | INFO | Step 2: Starting parse phase
+2026-08-10 16:22:42,437 | INFO | Step 3: Starting scoring phase
+2026-08-10 16:22:42,437 | INFO | Loaded 70 scoring rules
+2026-08-10 16:22:42,438 | INFO | Starting SEO scoring...
+2026-08-10 16:22:42,438 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-10 16:22:42,438 | INFO | Completed 58 rule evaluations
+2026-08-10 16:22:42,438 | INFO | SEO Score calculated: 70.4/100 (Grade C)
+2026-08-10 16:22:42,438 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 70.4/100 (Grade: C)
+2026-08-10 16:22:42,454 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:22:42,454 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:22:54,808 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url: [Errno 11001] getaddrinfo failed
+2026-08-10 16:23:31,984 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:23:31,984 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:23:33,239 | INFO | Step 2: Starting parse phase
+2026-08-10 16:23:33,514 | INFO | Step 3: Starting scoring phase
+2026-08-10 16:23:33,514 | INFO | Loaded 70 scoring rules
+2026-08-10 16:23:33,514 | INFO | Starting SEO scoring...
+2026-08-10 16:23:33,514 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,520 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,520 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,520 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,522 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,522 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-10 16:23:33,524 | INFO | Completed 58 rule evaluations
+2026-08-10 16:23:33,524 | INFO | SEO Score calculated: 70.4/100 (Grade C)
+2026-08-10 16:23:33,524 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 70.4/100 (Grade: C)
+2026-08-10 16:23:33,561 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:23:33,565 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:23:46,476 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url: [Errno 11001] getaddrinfo failed
+2026-08-10 16:26:11,098 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:26:11,098 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:26:12,652 | INFO | Step 2: Starting parse phase
+2026-08-10 16:26:12,758 | INFO | Step 3: Starting scoring phase
+2026-08-10 16:26:12,758 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:12,758 | INFO | Starting SEO scoring...
+2026-08-10 16:26:12,758 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-10 16:26:12,758 | INFO | Completed 58 rule evaluations
+2026-08-10 16:26:12,764 | INFO | SEO Score calculated: 70.4/100 (Grade C)
+2026-08-10 16:26:12,764 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 70.4/100 (Grade: C)
+2026-08-10 16:26:12,784 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:26:12,784 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:26:25,280 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url: [Errno 11001] getaddrinfo failed
+2026-08-10 16:26:25,304 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,309 | INFO | Starting SEO scoring...
+2026-08-10 16:26:25,309 | INFO | Completed 70 rule evaluations
+2026-08-10 16:26:25,314 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:26:25,319 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,319 | INFO | Starting SEO scoring...
+2026-08-10 16:26:25,326 | INFO | Completed 70 rule evaluations
+2026-08-10 16:26:25,328 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:26:25,330 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,335 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,346 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,354 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,364 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,366 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,396 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,398 | INFO | Scoring provided parsed data
+2026-08-10 16:26:25,400 | INFO | Starting SEO scoring...
+2026-08-10 16:26:25,405 | INFO | Completed 70 rule evaluations
+2026-08-10 16:26:25,406 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-10 16:26:25,434 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,454 | INFO | Loaded 70 scoring rules
+2026-08-10 16:26:25,473 | INFO | Loaded 70 scoring rules

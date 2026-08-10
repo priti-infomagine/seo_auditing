@@ -12,9 +12,7 @@ from app.core.database import get_db
 from app.core.logger import logger
 from app.core.security import get_current_user
 from app.modules.crawler.models.crawl_jobs import CrawlJob
-from app.modules.crawler.models.crawl_config import CrawlConfig
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.crawler.repositories.crawl_config_repository import CrawlConfigRepository
 from app.modules.crawler.schemas.crawler_schemas import CrawlRequest, CrawlResponse
 from app.modules.auth.models.users import User
 from app.shared.tasks.celery_app import celery_app
@@ -57,26 +55,27 @@ async def crawl_url(
         domain = get_domain(url_str)
         user_id = current_user.id
 
-        # Create crawl job
+        crawl_config = {
+            "max_depth": body.max_depth,
+            "max_pages": body.max_pages,
+            "concurrency": body.concurrency,
+            "request_timeout": 30,
+            "delay_ms": 0,
+            "follow_redirects": True,
+            "respect_robots": True,
+        }
+
+        # Create crawl job with config embedded as JSONB
         crawl_job = CrawlJob(
             id=uuid4(),
             user_id=user_id,
             url=url_str,
             domain=domain,
             status="queued",
+            crawl_config=crawl_config,
         )
         job_repo = CrawlJobRepository(db)
         await job_repo.create(crawl_job)
-
-        # Create crawl config
-        crawl_config = CrawlConfig(
-            crawl_id=crawl_job.id,
-            max_depth=body.max_depth,
-            max_pages=body.max_pages,
-            concurrency=body.concurrency,
-        )
-        config_repo = CrawlConfigRepository(db)
-        await config_repo.create(crawl_config)
 
         # Enqueue Celery task
         celery_app.send_task(

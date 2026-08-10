@@ -1,83 +1,77 @@
-"""HTML Parser - Extracts basic HTML elements and metadata."""
-from typing import Dict, Any
+from dataclasses import dataclass, field
+from typing import List
+
 from bs4 import BeautifulSoup
 
 
+@dataclass
+class ParserContext:
+    html: str
+    url: str
+    soup: BeautifulSoup
+
+    doctype: str = ""
+    language: str = ""
+    charset: str = ""
+
+    warnings: List[str] = field(default_factory=list)
+    errors: List[str] = field(default_factory=list)
+
+
 class HTMLParser:
-    """Extracts basic HTML structure and metadata."""
-    
-    @staticmethod
-    def parse(html: str, url: str = "") -> Dict[str, Any]:
-        """Parse HTML and extract basic elements."""
+    """
+    Converts raw HTML into a reusable DOM parsing context.
+
+    This class does not perform SEO validation.
+    """
+
+    def parse(self, html: str, url: str = "") -> ParserContext:
         if not html:
-            return {
-                "title": "", "meta_description": "", "canonical": "",
-                "language": "", "charset": "", "viewport": "",
-                "robots_meta": "", "doctype": "", "html_size": 0
-            }
-        
+            raise ValueError("HTML content is empty")
+
         try:
-            soup = BeautifulSoup(html, 'html.parser')
-            
-            title = ""
-            title_tag = soup.find('title')
-            if title_tag and title_tag.string:
-                title = title_tag.string.strip()
-            
-            meta_description = ""
-            meta_desc_tag = soup.find('meta', attrs={'name': 'description'})
-            if meta_desc_tag:
-                meta_description = meta_desc_tag.get('content', '').strip()
-            
-            canonical = ""
-            canonical_tag = soup.find('link', attrs={'rel': 'canonical'})
-            if canonical_tag:
-                canonical = canonical_tag.get('href', '').strip()
-            
+            soup = BeautifulSoup(html, "html.parser")
+
+            doctype = self._extract_doctype(html)
+
+            html_tag = soup.find("html")
+
             language = ""
-            html_tag = soup.find('html')
             if html_tag:
-                language = html_tag.get('lang', '').strip()
-            
+                language = str(html_tag.get("lang", "")).strip()
+
             charset = ""
-            charset_meta = soup.find('meta', attrs={'charset': True})
-            if charset_meta:
-                charset = charset_meta.get('charset', '').strip()
-            
-            viewport = ""
-            viewport_meta = soup.find('meta', attrs={'name': 'viewport'})
-            if viewport_meta:
-                viewport = viewport_meta.get('content', '').strip()
-            
-            robots_meta = ""
-            robots_tag = soup.find('meta', attrs={'name': 'robots'})
-            if robots_tag:
-                robots_meta = robots_tag.get('content', '').strip()
-            
-            doctype = ""
-            if html.strip().upper().startswith('<!DOCTYPE'):
-                doctype_end = html.find('>', 10)
-                if doctype_end != -1:
-                    doctype = html[10:doctype_end].strip()
-            
-            html_size = len(html.encode('utf-8'))
-            
-            return {
-                "title": title,
-                "meta_description": meta_description,
-                "canonical": canonical,
-                "language": language,
-                "charset": charset,
-                "viewport": viewport,
-                "robots_meta": robots_meta,
-                "doctype": doctype,
-                "html_size": html_size
-            }
-            
-        except Exception as e:
-            return {
-                "title": "", "meta_description": "", "canonical": "",
-                "language": "", "charset": "", "viewport": "",
-                "robots_meta": "", "doctype": "", "html_size": 0,
-                "error": str(e)
-            }
+            charset_tag = soup.find("meta", attrs={"charset": True})
+
+            if charset_tag:
+                charset = str(
+                    charset_tag.get("charset", "")
+                ).strip()
+
+            return ParserContext(
+                html=html,
+                url=url,
+                soup=soup,
+                doctype=doctype,
+                language=language,
+                charset=charset,
+            )
+
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed to parse HTML: {exc}"
+            ) from exc
+
+    @staticmethod
+    def _extract_doctype(html: str) -> str:
+        upper = html.lstrip().upper()
+
+        if not upper.startswith("<!DOCTYPE"):
+            return ""
+
+        end = html.find(">")
+
+        if end == -1:
+            return ""
+
+        return html[9:end].strip()

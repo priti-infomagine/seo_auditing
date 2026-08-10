@@ -1,16 +1,15 @@
 """
 CrawlPage model.
 
-Fields:
-    id, crawl_id, parent_page_id, url, normalized_url, depth, status_code, final_url,
-    content_type, content_size, response_time_ms, checksum, discovered_at, crawled_at,
-    created_at, updated_at
+Central page table. One row per discovered/crawled URL.
+High-frequency, queryable page facts.
 """
+import hashlib
 import uuid
 from datetime import datetime
 
-from sqlalchemy import BigInteger, DateTime, ForeignKey, Integer, SmallInteger, String, Text, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import BigInteger, DateTime, Integer, SmallInteger, String, Text, func
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -27,13 +26,11 @@ class CrawlPage(TimestampMixin, Base):
     )
     crawl_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("crawl_jobs.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
     parent_page_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("crawl_pages.id", ondelete="SET NULL"),
         nullable=True,
         index=True,
     )
@@ -44,6 +41,28 @@ class CrawlPage(TimestampMixin, Base):
     normalized_url: Mapped[str] = mapped_column(
         Text,
         nullable=False,
+    )
+    url_hash: Mapped[str] = mapped_column(
+        String(64),
+        nullable=False,
+        index=True,
+    )
+    scheme: Mapped[str | None] = mapped_column(
+        String(10),
+        nullable=True,
+    )
+    host: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+        index=True,
+    )
+    path: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
+    query: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
     )
     depth: Mapped[int] = mapped_column(
         Integer,
@@ -62,7 +81,7 @@ class CrawlPage(TimestampMixin, Base):
         String(100),
         nullable=True,
     )
-    content_size: Mapped[int | None] = mapped_column(
+    content_length: Mapped[int | None] = mapped_column(
         BigInteger,
         nullable=True,
     )
@@ -70,9 +89,30 @@ class CrawlPage(TimestampMixin, Base):
         Integer,
         nullable=True,
     )
-    checksum: Mapped[str | None] = mapped_column(
-        String(64),
-        nullable=True,
+    is_internal: Mapped[bool] = mapped_column(
+        Integer,
+        nullable=False,
+        default=True,
+    )
+    is_crawled: Mapped[bool] = mapped_column(
+        Integer,
+        nullable=False,
+        default=False,
+    )
+    is_success: Mapped[bool] = mapped_column(
+        Integer,
+        nullable=False,
+        default=False,
+    )
+    is_redirect: Mapped[bool] = mapped_column(
+        Integer,
+        nullable=False,
+        default=False,
+    )
+    is_error: Mapped[bool] = mapped_column(
+        Integer,
+        nullable=False,
+        default=False,
     )
     discovered_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),

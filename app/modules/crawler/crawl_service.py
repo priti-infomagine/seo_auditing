@@ -1,7 +1,7 @@
-"""
+﻿"""
 CrawlerService - high-level crawler service.
 
-Wraps ``WebCrawler`` to crawl a single URL and persist the results
+Wraps the new crawler services to crawl a single URL and persist the results
 to disk in ``app/storage/crawler/<domain>/``.  Returns a dict that
 the API layer and tests expect.
 """
@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-from app.modules.crawler.services.crawler import CrawlResult, WebCrawler
+from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.shared.utils.url_utils import get_domain, normalize_url
 
 # Project root is three levels above this file:
@@ -25,8 +25,8 @@ class CrawlerService:
     and returns a structured response dict.
     """
 
-    def __init__(self, web_crawler: Optional[WebCrawler] = None):
-        self.crawler = web_crawler or WebCrawler()
+    def __init__(self, page_crawl_service: Optional[PageCrawlService] = None):
+        self.page_crawl_service = page_crawl_service or PageCrawlService()
 
     async def crawl_url(self, url: str) -> dict:
         """
@@ -51,7 +51,10 @@ class CrawlerService:
             raise ValueError(f"Invalid URL: {url} - could not extract domain")
 
         # Crawl
-        result: CrawlResult = await self.crawler.crawl(normalized)
+        result: PageCrawlResult = await self.page_crawl_service.crawl_page(normalized)
+
+        if result.error:
+            raise RuntimeError(f"Crawl failed for {normalized}: {result.error}")
 
         # Determine incremental test number for this domain
         test_number = self._get_next_test_number(domain)
@@ -65,13 +68,23 @@ class CrawlerService:
 
         crawled_at = datetime.now(timezone.utc).isoformat()
 
-        # Build the response ``data`` dict -- includes convenience keys
-        # (status_code, response_time, html_size) expected by the API
-        # tests, plus the full sub-dicts that score.py feeds to the parser.
-        data = result.to_dict()
-        data["status_code"] = result.http["status_code"]
-        data["response_time"] = result.http["response_time"]
-        data["html_size"] = result.http["content_size"]
+        # Build the response ``data`` dict
+        data = {
+            "requested_url": result.url,
+            "final_url": result.fetch_result.final_url if result.fetch_result else result.url,
+            "html": result.document.raw_html if result.document else "",
+            "http": {
+                "status_code": result.fetch_result.status_code if result.fetch_result else 0,
+                "response_time": (result.fetch_result.response_time_ms / 1000.0) if result.fetch_result else 0,
+                "response_time_ms": result.fetch_result.response_time_ms if result.fetch_result else 0,
+                "content_type": result.fetch_result.content_type if result.fetch_result else "",
+                "content_size": result.fetch_result.content_length if result.fetch_result else 0,
+                "headers": result.fetch_result.headers if result.fetch_result else {},
+            },
+        }
+        data["status_code"] = data["http"]["status_code"]
+        data["response_time"] = data["http"]["response_time"]
+        data["html_size"] = data["http"]["content_size"]
 
         return {
             "url": normalized,
@@ -110,14 +123,26 @@ class CrawlerService:
 
     def _save_to_storage(
         self,
-        result: CrawlResult,
+        result: PageCrawlResult,
         storage_path: Path,
         requested_url: str,
         domain: str,
         test_number: int,
     ) -> None:
         """Write the crawl result to a JSON file on disk."""
-        payload = result.to_dict()
+        payload = {
+            "requested_url": result.url,
+            "final_url": result.fetch_result.final_url if result.fetch_result else result.url,
+            "html": result.document.raw_html if result.document else "",
+            "http": {
+                "status_code": result.fetch_result.status_code if result.fetch_result else 0,
+                "response_time": (result.fetch_result.response_time_ms / 1000.0) if result.fetch_result else 0,
+                "response_time_ms": result.fetch_result.response_time_ms if result.fetch_result else 0,
+                "content_type": result.fetch_result.content_type if result.fetch_result else "",
+                "content_size": result.fetch_result.content_length if result.fetch_result else 0,
+                "headers": result.fetch_result.headers if result.fetch_result else {},
+            },
+        }
         payload["domain"] = domain
         payload["test_number"] = test_number
         payload["crawled_at"] = datetime.now(timezone.utc).isoformat()

@@ -1,15 +1,14 @@
-"""
+﻿"""
 Crawl orchestrator - controls the entire crawl lifecycle.
 
 Orchestrates all services to perform a complete recursive crawl:
-  1. Create a CrawlJob + CrawlConfig in the database.
-  2. Seed the CrawlQueueService with the start URL.
-  3. BFS crawl loop with bounded concurrency (asyncio.Semaphore).
-  4. For every URL: fetch -> process -> persist page -> extract links/
-     assets -> store snapshot -> checksum -> enqueue new internal links.
-  5. Update CrawlJob status and duration on completion.
+  1. Initialize CrawlJob
+  2. Seed CrawlQueue with start URL
+  3. BFS crawl loop with bounded concurrency
+  4. For every URL: page_crawl_service -> page_extraction_service -> persist
+  5. Update CrawlJob status on completion
 
-All crawl logic lives here -- no parsing or scoring concerns.
+All crawl logic lives here -- no parsing, extraction, or SQL concerns.
 """
 import asyncio
 import time
@@ -17,30 +16,16 @@ from datetime import datetime, timezone
 from typing import Optional
 from uuid import UUID
 
-from app.modules.crawler.extractors.asset_extractor import extract_assets
-from app.modules.crawler.extractors.link_extractor import extract_links
-from app.modules.crawler.extractors.redirect_extractor import (
-    extract_redirect_chain,
-)
+from app.modules.crawler.crawl_queue import CrawlQueueService, QueueItem
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.crawler.services.asset_service import AssetService
-from app.modules.crawler.services.checksum_service import ChecksumService
-from app.modules.crawler.services.crawl_config_service import CrawlConfigService
-from app.modules.crawler.services.crawl_error_service import CrawlErrorService
-from app.modules.crawler.services.crawl_queue_service import CrawlQueueService
-from app.modules.crawler.services.fetch_service import FetchResult, fetch_page
-from app.modules.crawler.services.link_service import LinkService
-from app.modules.crawler.services.page_service import PageService
-from app.modules.crawler.services.redirect_service import RedirectService
-from app.modules.crawler.services.response_service import (
-    ProcessedResponse,
-    process_response,
-)
-from app.modules.crawler.services.snapshot_service import SnapshotService
-from app.modules.crawler.services.crawl_statistics_service import CrawlStatisticsService
-from app.shared.utils.url_utils import get_domain, normalize_url, is_internal_link
+from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
+from app.modules.crawler.services.page_extraction_service import PageExtractionService, PageFacts
+from app.modules.crawler.services.link_analysis_service import LinkAnalysisService
+from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
+from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
+from app.modules.crawler.services.crawl_persistence_service import CrawlPersistenceService
+from app.shared.utils.url_utils import get_domain
 from app.modules.crawler.models.crawl_jobs import CrawlJob
-from app.modules.crawler.models.crawl_config import CrawlConfig
 
 
 class CrawlOrchestrator:
@@ -50,16 +35,11 @@ class CrawlOrchestrator:
         self.db = db
         self.crawl_job_id = crawl_job_id
         self.job_repository = CrawlJobRepository(db)
-        self.config_service = CrawlConfigService(db)
-        self.page_service = PageService(db, crawl_job_id)
-        self.snapshot_service = SnapshotService(db)
-        self.error_service = CrawlErrorService(db)
-        self.checksum_service = ChecksumService(db)
-        self.statistics_service = CrawlStatisticsService(db)
+        self.page_crawl_service = PageCrawlService()
+        self.page_extraction_service = PageExtractionService()
+        self.persistence = CrawlPersistenceService(db, crawl_job_id)
         self.queue_service: Optional[CrawlQueueService] = None
-        self.config: Optional[CrawlConfig] = None
-
-    # -- public API ---------------------------------------------------
+        self.config: Optional[dict] = None
 
     async def run(
         self,
@@ -88,62 +68,83 @@ class CrawlOrchestrator:
             user_agent: Custom User-Agent header.
 
         Returns:
-            Summary dict from CrawlStatisticsService.
+            Summary dict
         """
         start_time = time.time()
         await self._mark_running()
 
-        # Create / fetch crawl configuration
-        self.config = await self.config_service.create_config(
-            crawl_id=self.crawl_job_id,
-            max_depth=max_depth,
-            max_pages=max_pages,
-            concurrency=concurrency,
-            timeout_seconds=timeout_seconds,
-            delay_ms=delay_ms,
-            follow_redirects=follow_redirects,
-            respect_robots=respect_robots,
-            user_agent=user_agent,
-        )
+        job = await self.job_repository.get_by_id(self.crawl_job_id)
+        if not job:
+            raise ValueError(f"CrawlJob {self.crawl_job_id} not found")
 
-        # Determine the base domain for internal-link filtering
+        self.config = job.crawl_config or {}
+        max_depth = self.config.get("max_depth", max_depth)
+        max_pages = self.config.get("max_pages", max_pages)
+        concurrency = self.config.get("concurrency", concurrency)
+        timeout_seconds = self.config.get("request_timeout", timeout_seconds)
+        delay_ms = self.config.get("delay_ms", delay_ms)
+        follow_redirects = self.config.get("follow_redirects", follow_redirects)
+        respect_robots = self.config.get("respect_robots", respect_robots)
+        user_agent = self.config.get("user_agent", user_agent)
+
         start_domain = get_domain(start_url)
 
-        # Initialise the BFS queue with domain filtering
         self.queue_service = CrawlQueueService(
-            max_depth=self.config.max_depth,
-            max_pages=self.config.max_pages,
+            max_depth=max_depth,
+            max_pages=max_pages,
             base_domain=start_domain,
         )
         self.queue_service.add_url(start_url, depth=0)
 
-        # Bounded-concurrency semaphore
-        semaphore = asyncio.Semaphore(self.config.concurrency)
+        if respect_robots:
+            discovery = SiteDiscoveryService(start_url, timeout=timeout_seconds)
+            site_result = await discovery.discover()
+            await self.persistence.persist_site_data(
+                CrawlSiteData(
+                    crawl_job_id=self.crawl_job_id,
+                    robots={
+                        "exists": site_result.robots.exists,
+                        "status_code": site_result.robots.status_code,
+                        "user_agents": {"*": {"allow": [], "disallow": []}},
+                        "sitemaps": site_result.robots.sitemap_references,
+                    },
+                    sitemaps={
+                        "exists": len(site_result.sitemaps) > 0,
+                        "files": [
+                            {
+                                "url": s.url,
+                                "status_code": s.status_code,
+                                "type": "sitemap",
+                                "url_count": len(s.urls),
+                            }
+                            for s in site_result.sitemaps
+                        ],
+                    },
+                )
+            )
 
-        # Crawl loop
-        tasks: list[asyncio.Task] = []
+        semaphore = asyncio.Semaphore(concurrency)
+
+        tasks = []
         while not self.queue_service.is_empty:
             item = self.queue_service.get_next()
             if item is None:
                 break
             task = asyncio.create_task(
-                self._crawl_with_semaphore(semaphore, item, start_url)
+                self._crawl_with_semaphore(semaphore, item)
             )
             tasks.append(task)
 
-            # Optional crawl delay
-            if self.config.delay_ms:
-                await asyncio.sleep(self.config.delay_ms / 1000.0)
+            if delay_ms:
+                await asyncio.sleep(delay_ms / 1000.0)
 
-        # Wait for all in-flight tasks and collect failures
-        failures: list[str] = []
+        failures = []
         if tasks:
             results = await asyncio.gather(*tasks, return_exceptions=True)
             for item in results:
                 if isinstance(item, Exception):
                     failures.append(str(item))
 
-        # Finalise
         duration_ms = int((time.time() - start_time) * 1000)
         if failures:
             error_summary = "; ".join(failures[:5])
@@ -151,7 +152,7 @@ class CrawlOrchestrator:
         else:
             await self._mark_completed(duration_ms)
 
-        return await self.statistics_service.get_crawl_summary(self.crawl_job_id)
+        return {"status": "completed", "crawl_id": str(self.crawl_job_id)}
 
     async def crawl_page(
         self,
@@ -161,104 +162,167 @@ class CrawlOrchestrator:
     ) -> None:
         """
         Crawl a single page and process it.
-
-        Args:
-            url: URL to crawl
-            depth: Current crawl depth
-            parent_page_id: Parent page ID for hierarchy
         """
         try:
-            # Fetch the page
-            fetch_result = await fetch_page(
+            crawl_result = await self.page_crawl_service.crawl_page(
                 url,
                 timeout=self._timeout,
                 follow_redirects=self._follow_redirects,
                 user_agent=self._user_agent,
             )
 
-            if fetch_result.error:
-                await self.error_service.log_error(
-                    self.crawl_job_id,
-                    parent_page_id,
-                    "fetch_error",
-                    fetch_result.error,
+            if crawl_result.error:
+                await self.persistence.persist_error(
+                    page_id=parent_page_id,
+                    error_type=crawl_result.error_type or "crawl_error",
+                    error_message=crawl_result.error,
                 )
                 return
 
-            # Process response
-            processed = process_response(fetch_result)
-            if not processed:
-                return
+            document = crawl_result.document
+            fetch_result = crawl_result.fetch_result
 
-            # Create or update page
-            normalized_url = normalize_url(url)
-            page = await self.page_service.create_or_update_page(
-                url=url,
-                normalized_url=normalized_url,
-                metadata=processed.metadata,
-                parent_page_id=parent_page_id,
-                depth=depth,
+            page_facts = await self.page_extraction_service.extract_all(
+                document=document,
+                status_code=fetch_result.status_code,
+                headers=fetch_result.headers,
+                content_length=fetch_result.content_length,
+                response_time_ms=fetch_result.response_time_ms,
+                redirects=[
+                    {"url": r.url, "status_code": r.status_code}
+                    for r in fetch_result.redirect_chain
+                ],
             )
 
-            # Store snapshot
-            html_content = processed.content.decode("utf-8", errors="ignore")
-            await self.snapshot_service.store_snapshot(page.id, html_content)
+            link_analysis = LinkAnalysisService(url)
+            link_result = await link_analysis.analyze(page_facts.links)
 
-            # Generate checksum
-            await self.checksum_service.generate_and_save_checksum(page.id, processed.content)
+            technical_analysis = TechnicalAnalysisService()
+            technical_result = await technical_analysis.analyze(
+                page_facts.technical,
+                content_bytes=fetch_result.content,
+            )
 
-            # Process redirects
-            await self._process_redirects(fetch_result, page.id)
+            normalized_url = crawl_result.normalized_url
+            page = CrawlPage(
+                crawl_id=self.crawl_job_id,
+                url=url,
+                normalized_url=normalized_url,
+                depth=depth,
+                status_code=technical_result.status_code,
+                content_type=technical_result.content_type,
+                content_length=technical_result.content_length,
+                response_time_ms=technical_result.response_time_ms,
+                parent_page_id=parent_page_id,
+                is_crawled=True,
+                is_success=200 <= technical_result.status_code < 400,
+                is_redirect=300 <= technical_result.status_code < 400,
+                is_error=technical_result.status_code >= 400,
+            )
+            page = await self.persistence.persist_page(page)
 
-            # Extract and save links + assets (HTML only)
-            if self._is_html(processed):
-                extracted_links = extract_links(html_content, url)
-                await self._process_links(extracted_links, page.id, page.url, depth)
+            await self.persistence.persist_snapshot(page.id, document.raw_html)
 
-                extracted_assets = extract_assets(html_content, url)
-                await self._process_assets(extracted_assets, page.id, page.url)
+            await self.persistence.persist_network_data(
+                PageNetworkData(
+                    page_id=page.id,
+                    status_code=technical_result.status_code,
+                    content_type=technical_result.content_type,
+                    content_length=technical_result.content_length,
+                    response_time_ms=technical_result.response_time_ms,
+                    headers=technical_result.headers,
+                    redirects=technical_result.redirects,
+                    security=technical_result.security,
+                    performance=technical_result.performance,
+                )
+            )
+
+            await self.persistence.persist_seo_data(
+                PageSEOData(
+                    page_id=page.id,
+                    title=page_facts.metadata.title,
+                    title_length=page_facts.metadata.title_length,
+                    meta_description=page_facts.metadata.meta_description,
+                    meta_description_length=page_facts.metadata.meta_description_length,
+                    canonical=page_facts.metadata.canonical,
+                    robots_meta=page_facts.metadata.robots_meta,
+                    language=page_facts.metadata.language or document.language,
+                    charset=page_facts.metadata.charset or document.charset,
+                    viewport=page_facts.metadata.viewport,
+                    favicon=page_facts.metadata.favicon,
+                    word_count=page_facts.content.word_count,
+                    content_hash=page_facts.content.content_hash,
+                    headings=page_facts.content.headings,
+                    content={
+                        "text": page_facts.content.text,
+                        "word_count": page_facts.content.word_count,
+                        "character_count": len(page_facts.content.text),
+                        "paragraph_count": page_facts.content.paragraph_count,
+                        "sentence_count": page_facts.content.sentence_count,
+                        "language": document.language,
+                        "content_hash": page_facts.content.content_hash,
+                    },
+                    structured_data={
+                        "exists": len(technical_result.json_ld) > 0,
+                        "items": technical_result.json_ld,
+                        "types": [item.get("type") for item in technical_result.json_ld],
+                    },
+                    social={
+                        "open_graph": page_facts.metadata.open_graph,
+                        "twitter": page_facts.metadata.twitter,
+                    },
+                    indexability={
+                        "robots_meta": page_facts.metadata.robots_meta,
+                        "canonical": page_facts.metadata.canonical,
+                    },
+                    accessibility=technical_result.accessibility,
+                )
+            )
+
+            await self.persistence.persist_resources(page.id, page_facts.resources.resources)
+            await self.persistence.persist_links(page.id, link_result.links)
+
+            if link_result.redirect_links:
+                redirect_service = __import__(
+                    "app.modules.crawler.services.redirect_service", fromlist=["RedirectService"]
+                ).RedirectService(self.db, page.id)
+                await redirect_service.process_and_save_redirects(link_result.redirect_links)
+
+            if document.is_html:
+                self._enqueue_links(link_result.links, page.id, url, depth)
 
         except Exception as e:
-            await self.error_service.log_error(
-                self.crawl_job_id,
-                parent_page_id,
-                "crawl_error",
-                str(e),
+            await self.persistence.persist_error(
+                page_id=parent_page_id,
+                error_type="crawl_error",
+                error_message=str(e),
             )
 
     async def get_summary(self) -> Optional[dict]:
         """Get crawl summary."""
-        return await self.statistics_service.get_crawl_summary(self.crawl_job_id)
+        return {"status": "completed", "crawl_id": str(self.crawl_job_id)}
 
     # -- private helpers ----------------------------------------------
 
     @property
     def _timeout(self) -> int:
-        return self.config.timeout_seconds if self.config else 30
+        return self.config.get("request_timeout", 30) if self.config else 30
 
     @property
     def _follow_redirects(self) -> bool:
-        return self.config.follow_redirects if self.config else True
+        return self.config.get("follow_redirects", True) if self.config else True
 
     @property
     def _user_agent(self) -> Optional[str]:
-        return self.config.user_agent if self.config else None
-
-    @staticmethod
-    def _is_html(processed: ProcessedResponse) -> bool:
-        ct = processed.metadata.content_type or ""
-        return "text/html" in ct
+        return self.config.get("user_agent") if self.config else None
 
     async def _mark_running(self) -> None:
-        """Mark the crawl job as 'crawling'."""
         await self._set_status("crawling")
 
     async def _mark_completed(self, duration_ms: int) -> None:
-        """Mark the crawl job as 'completed' with duration."""
         await self._finalize_status("completed", duration_ms)
 
     async def _mark_failed(self, error_message: str) -> None:
-        """Mark the crawl job as 'failed' with error message."""
         job = await self.job_repository.get_by_id(self.crawl_job_id)
         if job and job.status not in ("completed", "failed", "cancelled"):
             job.status = "failed"
@@ -285,60 +349,33 @@ class CrawlOrchestrator:
     async def _crawl_with_semaphore(
         self,
         semaphore: asyncio.Semaphore,
-        item,
-        base_url: str,
+        item: QueueItem,
     ) -> None:
-        """Crawl a single queue item under the concurrency semaphore."""
         async with semaphore:
             await self.crawl_page(
                 item.url, depth=item.depth, parent_page_id=item.parent_page_id
             )
 
-    async def _process_redirects(
+    def _enqueue_links(
         self,
-        fetch_result: FetchResult,
-        page_id: UUID,
-    ) -> None:
-        """Extract redirect chain and update the page's final_url."""
-        redirects = []
-        if fetch_result._response is not None:
-            redirects = extract_redirect_chain(fetch_result._response)
-        if redirects:
-            redirect_service = RedirectService(self.db, page_id)
-            await redirect_service.process_and_save_redirects(redirects)
-
-    async def _process_links(
-        self,
-        extracted_links,
+        links: list,
         page_id: UUID,
         page_url: str,
         depth: int,
     ) -> None:
-        """Persist extracted links and enqueue internal ones for further crawl."""
-        link_service = LinkService(self.db, page_id, page_url)
-        await link_service.process_and_save_links(extracted_links)
+        if not self.queue_service or not self.config:
+            return
 
-        # Enqueue new internal links within the domain
         base_domain = get_domain(page_url)
-        if self.queue_service and self.config:
-            next_depth = depth + 1
-            for link in extracted_links:
-                if next_depth > self.config.max_depth:
-                    break
-                # Only enqueue internal links to stay within domain
-                if is_internal_link(base_domain, link.url):
-                    self.queue_service.add_url(
-                        link.url,
-                        depth=next_depth,
-                        parent_page_id=page_id,
-                    )
+        next_depth = depth + 1
+        max_depth = self.config.get("max_depth", 5)
 
-    async def _process_assets(
-        self,
-        extracted_assets,
-        page_id: UUID,
-        page_url: str,
-    ) -> None:
-        """Persist extracted assets."""
-        asset_service = AssetService(self.db, page_id)
-        await asset_service.process_and_save_assets(extracted_assets)
+        for link in links:
+            if next_depth > max_depth:
+                break
+            if link.get("is_internal"):
+                self.queue_service.add_url(
+                    link["url"],
+                    depth=next_depth,
+                    parent_page_id=page_id,
+                )

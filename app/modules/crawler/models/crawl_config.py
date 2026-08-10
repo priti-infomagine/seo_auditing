@@ -1,15 +1,15 @@
 """
 CrawlConfig model.
 
-Fields:
-    id, crawl_id, max_depth, max_pages, concurrency, timeout_seconds, delay_ms,
-    follow_redirects, respect_robots, user_agent, created_at, updated_at
+This model exists only for Alembic migration compatibility.
+The table will be dropped by migration d1e2f3a4b5c6.
+Config is now stored in CrawlJob.crawl_config JSONB.
 """
 import uuid
 
-from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, ForeignKey, Integer, Text
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
 from app.core.database import TimestampMixin
@@ -67,12 +67,6 @@ class CrawlConfig(TimestampMixin, Base):
     user_agent: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,
-    )
-
-    crawl_job: Mapped["CrawlJob"] = relationship(
-        "CrawlJob",
-        back_populates="crawl_config",
-        uselist=False,
     )
 
     def __repr__(self) -> str:

@@ -1,19 +1,25 @@
 """
 CrawlJob model.
 
-Fields:
-    id, user_id, domain, status, started_at, completed_at, duration_ms,
-    created_at, updated_at
+Represents one audit/crawl execution. Crawl-level aggregate.
 """
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import BigInteger, DateTime, Enum, Integer, String, Text, func
+from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
 from app.core.database import TimestampMixin
+
+
+class CrawlJobStatus(str):
+    QUEUED = "queued"
+    CRAWLING = "crawling"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
 
 
 class CrawlJob(TimestampMixin, Base):
@@ -26,9 +32,12 @@ class CrawlJob(TimestampMixin, Base):
     )
     user_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
+    )
+    project_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        nullable=True,
     )
     url: Mapped[str] = mapped_column(
         String(2048),
@@ -39,9 +48,54 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
     )
     status: Mapped[str] = mapped_column(
-        Enum("queued", "crawling", "completed", "failed", "cancelled", name="crawl_job_status_enum"),
+        Enum(
+            CrawlJobStatus.QUEUED,
+            CrawlJobStatus.CRAWLING,
+            CrawlJobStatus.COMPLETED,
+            CrawlJobStatus.FAILED,
+            CrawlJobStatus.CANCELLED,
+            name="crawl_job_status_enum",
+        ),
         nullable=False,
-        default="queued",
+        default=CrawlJobStatus.QUEUED,
+    )
+    crawl_type: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True,
+    )
+    max_pages: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=1000,
+    )
+    max_depth: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=5,
+    )
+    pages_discovered: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
+    pages_crawled: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
+    pages_failed: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
+    error_count: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
+    crawl_config: Mapped[dict | None] = mapped_column(
+        JSONB,
+        nullable=True,
     )
     started_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
@@ -58,12 +112,6 @@ class CrawlJob(TimestampMixin, Base):
     error: Mapped[str | None] = mapped_column(
         String(1024),
         nullable=True,
-    )
-
-    crawl_config: Mapped["CrawlConfig"] = relationship(
-        "CrawlConfig",
-        back_populates="crawl_job",
-        uselist=False,
     )
 
     def __repr__(self) -> str:
