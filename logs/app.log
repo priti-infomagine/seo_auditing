@@ -3379,3 +3379,49 @@ TypeError: HTTPClient.__init__() got multiple values for argument 'timeout'
 2026-08-10 16:26:25,434 | INFO | Loaded 70 scoring rules
 2026-08-10 16:26:25,454 | INFO | Loaded 70 scoring rules
 2026-08-10 16:26:25,473 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:19,943 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfuture.com/
+2026-08-10 16:28:19,943 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:28:22,143 | INFO | Step 2: Starting parse phase
+2026-08-10 16:28:22,330 | INFO | Step 3: Starting scoring phase
+2026-08-10 16:28:22,330 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:22,330 | INFO | Starting SEO scoring...
+2026-08-10 16:28:22,333 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,333 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,333 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,335 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-10 16:28:22,337 | INFO | Completed 58 rule evaluations
+2026-08-10 16:28:22,337 | INFO | SEO Score calculated: 70.4/100 (Grade C)
+2026-08-10 16:28:22,337 | INFO | Audit pipeline completed successfully for URL: https://cyfuture.com/ - SEO Score: 70.4/100 (Grade: C)
+2026-08-10 16:28:22,368 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-10 16:28:22,370 | INFO | Step 1: Starting crawl phase
+2026-08-10 16:28:35,354 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url: [Errno 11001] getaddrinfo failed
+2026-08-10 16:28:35,367 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,367 | INFO | Starting SEO scoring...
+2026-08-10 16:28:35,375 | INFO | Completed 70 rule evaluations
+2026-08-10 16:28:35,375 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:28:35,375 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,384 | INFO | Starting SEO scoring...
+2026-08-10 16:28:35,384 | INFO | Completed 70 rule evaluations
+2026-08-10 16:28:35,384 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-10 16:28:35,384 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,397 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,402 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,408 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,412 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,417 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,440 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,441 | INFO | Scoring provided parsed data
+2026-08-10 16:28:35,441 | INFO | Starting SEO scoring...
+2026-08-10 16:28:35,443 | INFO | Completed 70 rule evaluations
+2026-08-10 16:28:35,443 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-10 16:28:35,460 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,472 | INFO | Loaded 70 scoring rules
+2026-08-10 16:28:35,486 | INFO | Loaded 70 scoring rules
