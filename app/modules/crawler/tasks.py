@@ -34,17 +34,18 @@ def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
                 return {"status": job.status, "crawl_id": crawl_id}
 
             try:
+                cfg = job.crawl_config or {}
                 orchestrator = CrawlOrchestrator(db, crawl_uuid)
                 result = await orchestrator.run(
                     start_url=url,
-                    max_depth=job.crawl_config.max_depth if job.crawl_config else 5,
-                    max_pages=job.crawl_config.max_pages if job.crawl_config else 1000,
-                    concurrency=job.crawl_config.concurrency if job.crawl_config else 10,
-                    timeout_seconds=job.crawl_config.timeout_seconds if job.crawl_config else 30,
-                    delay_ms=job.crawl_config.delay_ms if job.crawl_config else 0,
-                    follow_redirects=job.crawl_config.follow_redirects if job.crawl_config else True,
-                    respect_robots=job.crawl_config.respect_robots if job.crawl_config else True,
-                    user_agent=job.crawl_config.user_agent if job.crawl_config else None,
+                    max_depth=cfg.get("max_depth", 5),
+                    max_pages=cfg.get("max_pages", 1000),
+                    concurrency=cfg.get("concurrency", 10),
+                    timeout_seconds=cfg.get("request_timeout", 30),
+                    delay_ms=cfg.get("delay_ms", 0),
+                    follow_redirects=cfg.get("follow_redirects", True),
+                    respect_robots=cfg.get("respect_robots", True),
+                    user_agent=cfg.get("user_agent"),
                 )
                 return result
             except Exception as exc:

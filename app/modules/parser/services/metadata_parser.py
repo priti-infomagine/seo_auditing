@@ -7,7 +7,7 @@ from ..schemas.metadata_schema import (
     MetaTag,
     MetadataData,
 )
-from .html_parser import ParserContext
+from .helpers.html_parser import ParserContext
 
 
 class MetadataParser:

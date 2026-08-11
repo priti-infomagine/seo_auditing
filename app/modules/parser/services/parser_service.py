@@ -1,6 +1,6 @@
 from ..schemas.document_schema import DocumentInfo, ParsedDocument
 from .content_parser import ContentParser
-from .html_parser import HTMLParser
+from .helpers.html_parser import HTMLParser
 from .link_parser import LinkParser
 from .metadata_parser import MetadataParser
 from .resource_parser import ResourceParser

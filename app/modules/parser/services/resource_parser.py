@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 from ..schemas.resource_schema import ResourceData
-from .html_parser import ParserContext
+from .helpers.html_parser import ParserContext
 
 
 class ResourceParser:

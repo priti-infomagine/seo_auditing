@@ -14,14 +14,14 @@ Architecture:
   ParseService   - Pipeline adapter: crawl storage → ParserService → parsed storage
 """
 
-from .html_parser import HTMLParser
+from .helpers.html_parser import HTMLParser
 from .metadata_parser import MetadataParser
 from .content_parser import ContentParser
 from .link_parser import LinkParser
 from .resource_parser import ResourceParser
 from .structured_data_parser import StructuredDataParser
 from .parser_service import ParserService
-from .parse_service import ParseService
+from .pseud_parse_service import ParseService
 
 __all__ = [
     "HTMLParser",

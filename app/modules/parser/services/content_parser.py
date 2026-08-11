@@ -11,7 +11,7 @@ from ..schemas.content_schema import (
     SemanticElement,
     TableData,
 )
-from .html_parser import ParserContext
+from .helpers.html_parser import ParserContext
 
 
 class ContentParser:

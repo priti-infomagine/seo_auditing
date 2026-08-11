@@ -4542,3 +4542,20 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-11 12:54:13,832 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
 2026-08-11 12:54:16,781 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
 2026-08-11 12:54:24,148 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-11 14:20:17,343 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-11 14:20:50,767 | INFO | POST /auth/register - Register endpoint called
+2026-08-11 14:21:31,412 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-11 14:21:42,783 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-11 14:22:36,603 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://myntra.com/
+2026-08-11 14:22:54,471 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://myntra.com/
+2026-08-11 14:22:54,585 | INFO | Crawl job queued: f9e5057b-fa9d-486e-8090-077766c072a3 for URL: https://myntra.com/
+2026-08-11 14:23:51,570 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://myntra.com/
+2026-08-11 14:23:51,581 | INFO | Crawl job queued: 9ea6b086-080e-49d7-ae63-f359b50e1a41 for URL: https://myntra.com/
+2026-08-11 14:25:43,883 | INFO | GET /crawler/status/9ea6b086-080e-49d7-ae63-f359b50e1a41 - Status endpoint called
+2026-08-11 16:02:07,261 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-11 16:02:29,521 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-11 16:03:21,154 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://bihar.com/
+2026-08-11 16:03:27,843 | INFO | Crawl job queued: 6ed5958c-7edc-4871-a67c-798cd622eedd for URL: https://bihar.com/
+2026-08-11 16:12:09,798 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-11 16:14:15,630 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-11 16:16:00,388 | INFO | POST /auth/forgot-pass/request_otp - Forgot password endpoint called

@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 from ..schemas.link_schema import LinkData
-from .html_parser import ParserContext
+from .helpers.html_parser import ParserContext
 
 
 class LinkParser:

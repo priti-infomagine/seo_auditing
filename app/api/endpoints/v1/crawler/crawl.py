@@ -77,10 +77,11 @@ async def crawl_url(
         job_repo = CrawlJobRepository(db)
         await job_repo.create(crawl_job)
 
-        # Enqueue Celery task
+        # Enqueue Celery task on the crawler queue
         celery_app.send_task(
             "crawler.crawl_website",
             args=[str(crawl_job.id), url_str, str(crawl_job.user_id)],
+            queue="crawler",
         )
 
         logger.info(f"Crawl job queued: {crawl_job.id} for URL: {body.url}")

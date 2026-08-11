@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 
 class SchemaParser:
-    """Extracts structured data and schema markup."""
+    """Extracts structured data and website schema markup."""
     
     @staticmethod
     def get_schema_markup(soup: BeautifulSoup) -> List[Dict[str, Any]]:

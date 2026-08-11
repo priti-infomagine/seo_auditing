@@ -1,11 +1,11 @@
 task_routes = {
-    "app.modules.auth.tasks.*": {
+    "auth.*": {
         "queue": "otp",
     },
-    "app.modules.crawler.tasks.*": {
+    "crawler.*": {
         "queue": "crawler",
     },
-    "app.modules.audit.tasks.*": {
+    "audit.*": {
         "queue": "audit",
     },
 }

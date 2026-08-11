@@ -54,7 +54,7 @@ async def verify_otp(
         httponly=True,
         secure=False,
         samesite="strict",
-        path="/",
+        path="/api/v1/auth/refresh",
         max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,  # days → seconds
     )
 
