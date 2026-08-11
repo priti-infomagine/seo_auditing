@@ -1,6 +1,7 @@
 ﻿"""
 Content extractor - extracts page content, headings, forms, and buttons.
 """
+import copy
 from dataclasses import dataclass, field
 import hashlib
 import re
@@ -24,52 +25,43 @@ def extract_content(soup: BeautifulSoup, raw_html: str = "") -> ContentFacts:
     """
     Extract content facts from parsed HTML.
 
+    Works on a copy of the soup so the original DOM is preserved
+    for downstream extractors (links, resources, structured data).
+
     Args:
-        soup: BeautifulSoup object
+        soup: BeautifulSoup object (NOT mutated)
         raw_html: Raw HTML string for ratio calculation
 
     Returns:
         ContentFacts with content metrics
     """
-    # Remove non-content elements
-    for tag in soup(["script", "style", "nav", "header", "footer"]):
+    working = copy.copy(soup)
+
+    for tag in working(["script", "style", "noscript", "template"]):
         tag.decompose()
 
-    # Extract main text
-    main_content = soup.find("main") or soup.find("article") or soup.find("body")
-    if main_content:
-        text = main_content.get_text(separator=" ", strip=True)
-    else:
-        text = soup.get_text(separator=" ", strip=True)
-
+    text = working.get_text(" ", strip=True)
     text = re.sub(r"\s+", " ", text).strip()
 
-    # Word count
     words = re.findall(r"\b\w+\b", text)
     word_count = len(words)
 
-    # Sentence count (rough estimate)
     sentences = re.split(r"[.!?]+", text)
     sentence_count = len([s for s in sentences if s.strip()])
 
-    # Paragraph count
-    paragraph_count = len(soup.find_all("p"))
+    paragraph_count = len(working.find_all("p"))
 
-    # Headings
     headings = {}
     for level in range(1, 7):
         tag = f"h{level}"
-        tags = soup.find_all(tag)
+        tags = working.find_all(tag)
         headings[tag] = [h.get_text(strip=True) for h in tags if h.get_text(strip=True)]
 
-    # Forms and buttons
-    forms = len(soup.find_all("form"))
-    buttons = len(soup.find_all("button"))
+    forms = len(working.find_all("form"))
+    buttons = len(working.find_all("button"))
 
-    # Content hash
     content_hash = hashlib.md5(text.encode("utf-8")).hexdigest() if text else ""
 
-    # Text/HTML ratio
     text_html_ratio = 0.0
     if raw_html:
         html_length = len(raw_html)

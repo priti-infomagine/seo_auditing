@@ -11,21 +11,32 @@ Orchestrates all services to perform a complete recursive crawl:
 All crawl logic lives here -- no parsing, extraction, or SQL concerns.
 """
 import asyncio
+import hashlib
 import time
 from datetime import datetime, timezone
 from typing import Optional
+from urllib.parse import urlparse
 from uuid import UUID
 
 from app.modules.crawler.crawl_queue import CrawlQueueService, QueueItem
+from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.modules.crawler.models.crawl_pages import CrawlPage
+from app.modules.crawler.models.crawl_site_data import CrawlSiteData
+from app.modules.crawler.models.page_links import PageLink
+from app.modules.crawler.models.page_network_data import PageNetworkData
+from app.modules.crawler.models.page_resources import PageResource
+from app.modules.crawler.models.page_seo_data import PageSEOData
+from app.modules.crawler.models.page_snapshots import PageSnapshot
+from app.modules.crawler.models.crawl_errors import CrawlError
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.modules.crawler.services.page_extraction_service import PageExtractionService, PageFacts
-from app.modules.crawler.services.link_analysis_service import LinkAnalysisService
+from app.modules.crawler.services.link_analysis_service import LinkAnalysisService, LinkAnalysisResult
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
 from app.modules.crawler.services.crawl_persistence_service import CrawlPersistenceService
-from app.shared.utils.url_utils import get_domain
-from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.shared.utils.url_utils import get_domain, normalize_url
+from app.modules.crawler.utils.url_classifier import strip_tracking_params
 
 
 class CrawlOrchestrator:
@@ -197,17 +208,29 @@ class CrawlOrchestrator:
             link_analysis = LinkAnalysisService(url)
             link_result = await link_analysis.analyze(page_facts.links)
 
+            normalized_url = crawl_result.normalized_url
+            redirect_chain = fetch_result.redirect_chain
+
             technical_analysis = TechnicalAnalysisService()
             technical_result = await technical_analysis.analyze(
                 page_facts.technical,
                 content_bytes=fetch_result.content,
+                url=normalized_url,
             )
 
-            normalized_url = crawl_result.normalized_url
+            parsed_url = urlparse(normalized_url)
+            url_hash = hashlib.md5(normalized_url.encode()).hexdigest()
+
             page = CrawlPage(
                 crawl_id=self.crawl_job_id,
                 url=url,
                 normalized_url=normalized_url,
+                url_hash=url_hash,
+                scheme=parsed_url.scheme,
+                host=parsed_url.netloc,
+                path=parsed_url.path,
+                query=parsed_url.query,
+                final_url=fetch_result.final_url,
                 depth=depth,
                 status_code=technical_result.status_code,
                 content_type=technical_result.content_type,
@@ -216,7 +239,7 @@ class CrawlOrchestrator:
                 parent_page_id=parent_page_id,
                 is_crawled=True,
                 is_success=200 <= technical_result.status_code < 400,
-                is_redirect=300 <= technical_result.status_code < 400,
+                is_redirect=len(redirect_chain) > 0,
                 is_error=technical_result.status_code >= 400,
             )
             page = await self.persistence.persist_page(page)
@@ -236,6 +259,26 @@ class CrawlOrchestrator:
                     performance=technical_result.performance,
                 )
             )
+
+            page_metadata = {
+                "meta_tags": [
+                    {"name": t.name, "content": t.content}
+                    for t in (page_facts.metadata.meta_tags or [])
+                ],
+                "open_graph": page_facts.metadata.open_graph or {},
+                "twitter": page_facts.metadata.twitter or {},
+                "hreflang": [
+                    {"url": h.get("url", ""), "hreflang": h.get("hreflang", "")}
+                    for h in (page_facts.metadata.hreflang or [])
+                ],
+            }
+            googlebot_content = ""
+            for t in (page_facts.metadata.robots or []):
+                if t.name == "googlebot":
+                    googlebot_content = t.content
+                    break
+            if googlebot_content:
+                page_metadata["googlebot"] = googlebot_content
 
             await self.persistence.persist_seo_data(
                 PageSEOData(
@@ -276,10 +319,11 @@ class CrawlOrchestrator:
                         "canonical": page_facts.metadata.canonical,
                     },
                     accessibility=technical_result.accessibility,
+                    page_metadata=page_metadata,
                 )
             )
 
-            await self.persistence.persist_resources(page.id, page_facts.resources.resources)
+            await self.persistence.persist_resources(page.id, page_facts.resources.resources, page_url=normalized_url)
             await self.persistence.persist_links(page.id, link_result.links)
 
             if link_result.redirect_links:
@@ -374,8 +418,10 @@ class CrawlOrchestrator:
             if next_depth > max_depth:
                 break
             if link.get("is_internal"):
+                raw_url = link["url"]
+                clean_url = strip_tracking_params(raw_url)
                 self.queue_service.add_url(
-                    link["url"],
+                    clean_url,
                     depth=next_depth,
                     parent_page_id=page_id,
                 )

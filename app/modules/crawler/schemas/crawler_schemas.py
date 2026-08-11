@@ -55,9 +55,27 @@ class CrawlStatusResponse(BaseModel):
     total_errors: int = Field(0, description="Number of crawl errors")
 
 
+class TestCrawlResponse(BaseModel):
+    """Response schema for synchronous test crawl."""
+
+    success: bool = Field(..., description="Whether the crawl completed successfully")
+    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    status: str = Field(..., description="Final crawl job status")
+    url: str = Field(..., description="Crawled URL")
+    domain: str = Field(..., description="Domain being crawled")
+    pages_crawled: int = Field(..., description="Number of pages crawled")
+    total_errors: int = Field(..., description="Total number of crawl errors")
+    duration_ms: int = Field(..., description="Crawl duration in milliseconds")
+    started_at: str | None = Field(None, description="When crawl started (ISO 8601)")
+    completed_at: str | None = Field(None, description="When crawl completed (ISO 8601)")
+    pages: list[dict] = Field(default_factory=list, description="List of crawled pages with details")
+    errors: list[dict] = Field(default_factory=list, description="List of crawl errors")
+    crawl_config: dict = Field(default_factory=dict, description="Crawl configuration used")
+
+
 class CrawlError(BaseModel):
     """Error response schema."""
-    
+
     success: bool = False
     error: str = Field(..., description="Error type")
     detail: str = Field(..., description="Error details")

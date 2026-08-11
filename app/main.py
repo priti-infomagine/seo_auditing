@@ -6,7 +6,7 @@ from app.core.config import settings
 from app.core.database import init_db, close_db
 from app.core.logger import logger
 
-from prometheus_fastapi_instrumentator import Instrumentator
+# from prometheus_fastapi_instrumentator import Instrumentator
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,7 +31,7 @@ app.add_middleware(
 
 from app.api.router import api_router  
 #monitoring  setup
-Instrumentator().instrument(app).expose(app)
+# Instrumentator().instrument(app).expose(app)
 app.include_router(api_router)
 
 

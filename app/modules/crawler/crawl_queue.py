@@ -6,6 +6,7 @@ from collections import deque
 from typing import Optional
 from uuid import UUID
 
+from app.modules.crawler.utils.url_classifier import classify_url, strip_tracking_params
 from app.shared.utils.url_utils import get_domain, is_internal_link, normalize_url
 
 
@@ -32,6 +33,7 @@ class CrawlQueueService:
         self.queue: deque[QueueItem] = deque()
         self.visited: set[str] = set()
         self.crawled_count = 0
+        self.rejected: list[dict] = []
 
     def add_url(
         self,
@@ -40,10 +42,10 @@ class CrawlQueueService:
         parent_page_id: Optional[UUID] = None,
     ) -> bool:
         """
-        Add URL to queue if not visited and within depth/page limits.
+        Add URL to queue if not visited, within limits, and crawlable.
 
-        When ``base_domain`` is set, only internal links are enqueued
-        (i.e. links whose domain matches ``base_domain``).
+        Classifies the URL before enqueuing. Non-HTML, invalid, ignored,
+        and external URLs are rejected rather than silently dropped.
 
         Args:
             url: URL to add
@@ -53,27 +55,34 @@ class CrawlQueueService:
         Returns:
             True if added, False otherwise
         """
-        # Check depth limit
         if depth > self.max_depth:
+            self.rejected.append({"url": url, "depth": depth, "reason": "depth_limit"})
             return False
 
-        # Check page limit
         if self.crawled_count >= self.max_pages:
+            self.rejected.append({"url": url, "reason": "page_limit"})
             return False
 
-        # Normalize URL
+        classification, reason = classify_url(url, self.base_domain)
+
+        if classification in ("INVALID", "IGNORED", "ROBOTS", "SITEMAP", "API"):
+            self.rejected.append({"url": url, "classification": classification, "reason": reason})
+            return False
+
+        if classification == "EXTERNAL":
+            self.rejected.append({"url": url, "classification": classification, "reason": reason})
+            return False
+
+        if classification == "RESOURCE":
+            self.rejected.append({"url": url, "classification": classification, "reason": reason})
+            return False
+
         normalized = normalize_url(url)
 
-        # Only enqueue internal links when a base domain is configured
-        if self.base_domain:
-            if not is_internal_link(self.base_domain, url):
-                return False
-
-        # Check if already visited
         if normalized in self.visited:
+            self.rejected.append({"url": url, "reason": "duplicate"})
             return False
 
-        # Add to queue
         self.queue.append(QueueItem(url, depth, parent_page_id))
         self.visited.add(normalized)
         return True

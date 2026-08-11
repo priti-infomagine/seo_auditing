@@ -3,9 +3,10 @@ Link analysis service - analyzes extracted links.
 
 This service:
 1. Receives LinkFacts from page_extraction_service
-2. Classifies internal/external
-3. Tracks redirect targets
-4. Detects broken links (evidence only, no PASS/FAIL)
+2. Enriches each link with rel-derived flags (nofollow, sponsored, ugc, canonical, hreflang)
+3. Returns enriched link list for persistence and enqueue
+
+Broken-link detection and redirect tracking require HTTP checks and are deferred.
 
 It does NOT:
 - Write to PostgreSQL
@@ -16,7 +17,6 @@ from typing import Optional
 from uuid import UUID
 
 from app.modules.crawler.extractors.link_extractor import LinkFacts
-from app.shared.utils.url_utils import is_internal_link
 
 
 @dataclass
@@ -43,37 +43,39 @@ class LinkAnalysisService:
         """
         Analyze extracted links.
 
+        Enriches each link dict with boolean flags derived from rel,
+        link_type, and other attributes so downstream consumers
+        (persistence, enqueue) have complete evidence.
+
         Args:
             link_facts: LinkFacts from link_extractor
             crawl_job_id: Optional crawl job ID for context
 
         Returns:
-            LinkAnalysisResult with analysis
+            LinkAnalysisResult with enriched links
         """
-        broken_links = []
-        redirect_links = []
+        enriched_links = []
 
         for link in link_facts.links:
-            analyzed_link = dict(link)
+            enriched = dict(link)
 
-            if link.get("link_type") == "canonical":
-                analyzed_link["is_canonical"] = True
-            elif link.get("link_type") == "hreflang":
-                analyzed_link["is_hreflang"] = True
+            link_type = link.get("link_type", "anchor")
+            if link_type == "canonical":
+                enriched["is_canonical"] = True
+            elif link_type == "hreflang":
+                enriched["is_hreflang"] = True
 
-            if link.get("rel", "").lower().count("nofollow") > 0:
-                analyzed_link["is_nofollow"] = True
+            rel = str(link.get("rel", "")).lower()
+            enriched["is_nofollow"] = "nofollow" in rel
+            enriched["is_sponsored"] = "sponsored" in rel
+            enriched["is_ugc"] = "ugc" in rel
 
-            if link.get("rel", "").lower().count("sponsored") > 0:
-                analyzed_link["is_sponsored"] = True
-
-            if link.get("rel", "").lower().count("ugc") > 0:
-                analyzed_link["is_ugc"] = True
+            enriched_links.append(enriched)
 
         return LinkAnalysisResult(
-            links=link_facts.links,
+            links=enriched_links,
             internal_count=link_facts.internal_count,
             external_count=link_facts.external_count,
-            broken_links=broken_links,
-            redirect_links=redirect_links,
+            broken_links=[],
+            redirect_links=[],
         )

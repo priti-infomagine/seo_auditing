@@ -2,8 +2,19 @@
 Asset extractor - extracts resources (images, CSS, JS, fonts, etc.) from HTML.
 """
 from dataclasses import dataclass, field
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
+
+
+TYPE_TO_MIME = {
+    "image": "image/*",
+    "css": "text/css",
+    "javascript": "application/javascript",
+    "favicon": "image/x-icon",
+    "iframe": "text/html",
+    "video": "video/*",
+    "audio": "audio/*",
+}
 
 
 @dataclass
@@ -24,7 +35,6 @@ def extract_resources(soup: BeautifulSoup, base_url: str) -> ResourceFacts:
     """
     resources = []
 
-    # Images
     for tag in soup.find_all("img", src=True):
         src = str(tag.get("src", "")).strip()
         if not src:
@@ -47,9 +57,9 @@ def extract_resources(soup: BeautifulSoup, base_url: str) -> ResourceFacts:
             "srcset": srcset if srcset else None,
             "sizes": sizes if sizes else None,
             "is_lazy": loading == "lazy",
+            "mime_type": TYPE_TO_MIME.get("image", "image/*"),
         })
 
-    # CSS
     for tag in soup.find_all("link", rel="stylesheet", href=True):
         href = tag.get("href", "").strip()
         if href:
@@ -57,9 +67,9 @@ def extract_resources(soup: BeautifulSoup, base_url: str) -> ResourceFacts:
                 "type": "css",
                 "url": urljoin(base_url, href),
                 "media": tag.get("media", ""),
+                "mime_type": TYPE_TO_MIME.get("css", "text/css"),
             })
 
-    # JavaScript
     for tag in soup.find_all("script", src=True):
         src = tag.get("src", "").strip()
         if src:
@@ -68,42 +78,43 @@ def extract_resources(soup: BeautifulSoup, base_url: str) -> ResourceFacts:
                 "url": urljoin(base_url, src),
                 "async": tag.get("async") is not None,
                 "defer": tag.get("defer") is not None,
+                "mime_type": TYPE_TO_MIME.get("javascript", "application/javascript"),
             })
 
-    # Favicon
     for tag in soup.find_all("link", rel=["icon", "shortcut icon"], href=True):
         href = tag.get("href", "").strip()
         if href:
             resources.append({
                 "type": "favicon",
                 "url": urljoin(base_url, href),
+                "mime_type": TYPE_TO_MIME.get("favicon", "image/x-icon"),
             })
 
-    # Iframe
     for tag in soup.find_all("iframe", src=True):
         src = tag.get("src", "").strip()
         if src:
             resources.append({
                 "type": "iframe",
                 "url": urljoin(base_url, src),
+                "mime_type": TYPE_TO_MIME.get("iframe", "text/html"),
             })
 
-    # Video
     for tag in soup.find_all("video", src=True):
         src = tag.get("src", "").strip()
         if src:
             resources.append({
                 "type": "video",
                 "url": urljoin(base_url, src),
+                "mime_type": TYPE_TO_MIME.get("video", "video/*"),
             })
 
-    # Audio
     for tag in soup.find_all("audio", src=True):
         src = tag.get("src", "").strip()
         if src:
             resources.append({
                 "type": "audio",
                 "url": urljoin(base_url, src),
+                "mime_type": TYPE_TO_MIME.get("audio", "audio/*"),
             })
 
     return ResourceFacts(resources=resources)

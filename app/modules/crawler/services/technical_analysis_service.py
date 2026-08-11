@@ -44,6 +44,7 @@ class TechnicalAnalysisService:
         self,
         technical: TechnicalFacts,
         content_bytes: Optional[bytes] = None,
+        url: Optional[str] = None,
     ) -> TechnicalAnalysisResult:
         """
         Analyze technical facts.
@@ -51,6 +52,7 @@ class TechnicalAnalysisService:
         Args:
             technical: TechnicalFacts from technical_extractor
             content_bytes: Raw content bytes for checksum
+            url: Normalized URL used to determine HTTPS state
 
         Returns:
             TechnicalAnalysisResult with analysis
@@ -59,9 +61,10 @@ class TechnicalAnalysisService:
         if content_bytes:
             checksum = generate_checksum(content_bytes)
 
-        is_https = technical.headers.get("scheme", "") == "https" or str(
-            technical.headers.get("content-type", "")
-        ).startswith("https")
+        is_https = url.startswith("https://") if url else False
+
+        security = dict(technical.security)
+        security["is_https"] = is_https
 
         return TechnicalAnalysisResult(
             status_code=technical.status_code,
@@ -70,7 +73,7 @@ class TechnicalAnalysisService:
             response_time_ms=technical.response_time_ms,
             headers=technical.headers,
             redirects=technical.redirects,
-            security=technical.security,
+            security=security,
             performance=technical.performance,
             accessibility=technical.accessibility,
             json_ld=technical.json_ld,

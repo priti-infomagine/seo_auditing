@@ -21,8 +21,14 @@ from app.core.config import settings
 from app.core.database import Base
 
 
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture(scope="function")
 async def db_engine():
+    from app.core.database import engine as app_engine
+    try:
+        await app_engine.dispose()
+    except Exception:
+        pass
+
     engine = create_async_engine(
         settings.DATABASE_URL,
         echo=False,
@@ -30,6 +36,7 @@ async def db_engine():
     )
 
     async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
     yield engine

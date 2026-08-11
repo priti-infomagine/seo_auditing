@@ -21,6 +21,7 @@ It does NOT:
 - Run SEO rules
 """
 from typing import Optional
+from urllib.parse import urlparse
 from uuid import UUID
 
 from app.modules.crawler.models.crawl_jobs import CrawlJob
@@ -89,15 +90,36 @@ class CrawlPersistenceService:
         """Persist SEO data."""
         return await self.seo_repo.upsert(seo_data)
 
-    async def persist_resources(self, page_id: UUID, resources: list) -> list:
-        """Persist page resources."""
+    async def persist_resources(self, page_id: UUID, resources: list, page_url: str = "") -> list:
+        """Persist page resources with mixed-content detection."""
         if not resources:
             return []
-        resource_objects = [
-            PageResource(page_id=page_id, **r)
-            for r in resources
-            if isinstance(r, dict)
-        ]
+
+        page_scheme = urlparse(page_url).scheme if page_url else "https"
+        resource_objects = []
+        for r in resources:
+            if not isinstance(r, dict):
+                continue
+            resource = PageResource(
+                page_id=page_id,
+                resource_type=r.get("type", ""),
+                url=r.get("url", ""),
+                normalized_url=r.get("url"),
+                alt=r.get("alt"),
+                width=r.get("width"),
+                height=r.get("height"),
+                loading=r.get("loading"),
+                srcset=r.get("srcset"),
+                sizes=r.get("sizes"),
+                is_lazy=r.get("is_lazy"),
+                mime_type=r.get("mime_type"),
+                is_mixed_content=(
+                    urlparse(r.get("url", "")).scheme == "http"
+                    and page_scheme == "https"
+                ),
+            )
+            resource_objects.append(resource)
+
         return await self.resource_repo.create_batch(resource_objects)
 
     async def persist_network_data(self, network_data: PageNetworkData) -> PageNetworkData:
