@@ -1,11 +1,11 @@
 """
 Tests for the document extractor.
 
-Crawls https://cyfuture.com, runs :func:`extract_document` (via
+Crawls https://www.reddit.com, runs :func:`extract_document` (via
 ``PageCrawlService.crawl_page``), and verifies that the resulting
 :class:`DocumentFacts` dataclass contains valid HTML parsing metadata.
 
-Results are saved to ``crawler/results/cyfuture.com/document.json``.
+Results are saved to ``crawler/results/www.reddit.com/document.json``.
 """
 from conftest import RESULTS_DIR, get_crawl_result, save_result
 

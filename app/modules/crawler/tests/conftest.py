@@ -2,7 +2,7 @@
 Shared configuration, fixtures, and helpers for the crawler test-suite.
 
 When tests run under pytest the session-scoped ``crawl_result`` fixture
-crawls **https://cyfuture.com** once and shares the result with every test.
+crawls **https://www.reddit.com** once and shares the result with every test.
 
 Every test also saves its extracted output to::
 
@@ -35,8 +35,8 @@ import pytest                                  # noqa: E402
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-TEST_URL = "https://cyfuture.com"
-DOMAIN = "cyfuture.com"
+TEST_URL = "https://www.reddit.com"
+DOMAIN = "www.reddit.com"
 
 # Results directory:  crawler/results/<domain>/
 RESULTS_DIR = Path(__file__).resolve().parents[1] / "results" / DOMAIN
@@ -101,7 +101,7 @@ async def get_crawl_result():
 # ---------------------------------------------------------------------------
 @pytest.fixture(scope="session")
 async def crawl_result():
-    """Session-scoped crawl of https://cyfuture.com (shared by all tests)."""
+    """Session-scoped crawl of https://www.reddit.com (shared by all tests)."""
     return await get_crawl_result()
 
 

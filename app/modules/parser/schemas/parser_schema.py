@@ -11,7 +11,7 @@ class ParseRequest(BaseModel):
     
     website: str = Field(
         ...,
-        description="Website name or domain to parse (e.g., 'cyfuture.com' or 'https://cyfuture.com')",
+        description="Website name or domain to parse (e.g., 'www.reddit.com' or 'https://www.reddit.com')",
         examples=["cyfuture.com", "https://cyfuture.com"]
     )
     

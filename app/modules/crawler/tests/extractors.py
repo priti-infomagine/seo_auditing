@@ -1,11 +1,11 @@
 """
 Integration test for the full extractor pipeline via PageExtractionService.
 
-Crawls https://cyfuture.com, runs PageExtractionService.extract_all which
+Crawls https://www.reddit.com, runs PageExtractionService.extract_all which
 orchestrates every individual extractor (document, content, metadata, links,
 resources, technical) and returns a single PageFacts dataclass.
 
-Results are saved to crawler/results/cyfuture.com/extractors.json.
+Results are saved to crawler/results/www.reddit.com/extractors.json.
 """
 from conftest import RESULTS_DIR, get_crawl_result, save_result
 

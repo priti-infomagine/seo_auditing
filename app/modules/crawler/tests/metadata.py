@@ -1,11 +1,11 @@
 """
 Tests for the metadata extractor.
 
-Crawls https://cyfuture.com, runs :func:`extract_metadata`, and verifies
+Crawls https://www.reddit.com, runs :func:`extract_metadata`, and verifies
 that the resulting :class:`MetadataFacts` dataclass captures title,
 meta description, canonical, Open Graph, Twitter Card, and hreflang tags.
 
-Results are saved to ``crawler/results/cyfuture.com/metadata.json``.
+Results are saved to ``crawler/results/www.reddit.com/metadata.json``.
 """
 from conftest import RESULTS_DIR, get_crawl_result, save_result
 

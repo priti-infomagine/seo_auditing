@@ -8,7 +8,7 @@ async def main():
     print(f"Running loop class: {loop.__class__.__name__}")
     
     crawler = WebCrawler()
-    result = await crawler.crawl("https://cyfuture.com/")
+    result = await crawler.crawl("https://www.reddit.com/")
     print(f"Final URL: {result.final_url}")
     print(f"Status: {result.http.get('status_code')}")
     print(f"Response time: {result.http.get('response_time')}s")

@@ -1,14 +1,14 @@
 """
 Tests for the SEO-fact extractor bridge.
 
-Crawls https://cyfuture.com, parses the raw HTML through
+Crawls https://www.reddit.com, parses the raw HTML through
 :class:`ParserService` to obtain a ``ParsedDocument``, then verifies:
 
 * :func:`extract_seo_facts` - produces a flat rule-engine-compatible dict.
 * :func:`parsed_document_to_page_facts` - produces a crawler
   :class:`PageFacts` dataclass from the parsed document.
 
-Results are saved to ``crawler/results/cyfuture.com/seo_fact.json``.
+Results are saved to ``crawler/results/www.reddit.com/seo_fact.json``.
 """
 from conftest import RESULTS_DIR, get_crawl_result, save_result
 

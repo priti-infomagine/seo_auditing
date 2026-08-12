@@ -1,0 +1,75 @@
+{
+  "basic": {
+    "url": "https://www.reddit.com",
+    "title": "Reddit",
+    "title_length": 6,
+    "meta_description": "",
+    "meta_description_length": 0,
+    "meta_keywords": [],
+    "doctype": "YPE html",
+    "language": "en",
+    "charset": "UTF-8",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "html_size": 8393
+  },
+  "headings": {
+    "heading_stats": {}
+  },
+  "seo": {
+    "canonical_url": "",
+    "robots_meta": "",
+    "robots": [],
+    "meta_tags": [
+      {
+        "name": "",
+        "property": "",
+        "content": "",
+        "http_equiv": ""
+      },
+      {
+        "name": "viewport",
+        "property": "",
+        "content": "width=device-width, initial-scale=1.0",
+        "http_equiv": ""
+      }
+    ],
+    "hreflang": [],
+    "favicon_urls": [
+      "https://www.redditstatic.com/shreddit/assets/favicon/64x64.png"
+    ]
+  },
+  "social": {
+    "open_graph": {
+      "tags": {}
+    },
+    "twitter_cards": {
+      "tags": {}
+    }
+  },
+  "content": {
+    "text": "Reddit",
+    "normalized_text": "Reddit",
+    "word_count": 1,
+    "character_count": 6,
+    "paragraph_count": 0,
+    "sentence_count": 0,
+    "text_html_ratio": 0.0,
+    "has_main": true,
+    "has_article": false,
+    "has_nav": false,
+    "has_header": false,
+    "has_footer": false
+  },
+  "links": [],
+  "images": [],
+  "scripts": [],
+  "stylesheets": [],
+  "resources": [],
+  "structured_data": [],
+  "technical": {
+    "doctype": "YPE html",
+    "language": "en",
+    "charset": "UTF-8"
+  },
+  "crawl_context": {}
+}

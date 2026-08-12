@@ -1,12 +1,12 @@
 """
 Tests for the technical extractor and technical-analysis service.
 
-Crawls https://cyfuture.com, runs :func:`extract_technical` to build a
+Crawls https://www.reddit.com, runs :func:`extract_technical` to build a
 :class:`TechnicalFacts` dataclass, then passes it through
 :class:`TechnicalAnalysisService` to verify checksum generation, HTTPS
 detection, and security-header classification.
 
-Results are saved to ``crawler/results/cyfuture.com/technical.json``.
+Results are saved to ``crawler/results/www.reddit.com/technical.json``.
 """
 from conftest import RESULTS_DIR, get_crawl_result, save_result
 from app.modules.crawler.extractors.technical_extractor import (

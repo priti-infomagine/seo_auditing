@@ -1,11 +1,11 @@
 """
 Tests for the asset / resource extractor.
 
-Crawls https://cyfuture.com, runs :func:`extract_resources`, and verifies
+Crawls https://www.reddit.com, runs :func:`extract_resources`, and verifies
 that the resulting :class:`ResourceFacts` dataclass captures images,
 CSS, JavaScript, favicons, and other resource tags.
 
-Results are saved to ``crawler/results/cyfuture.com/assets.json``.
+Results are saved to ``crawler/results/www.reddit.com/assets.json``.
 """
 from collections import Counter
 

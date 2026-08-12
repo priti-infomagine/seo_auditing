@@ -22,7 +22,7 @@ async def test_audit_analyze_success():
     ) as client:
         response = await client.post(
             "/api/v1/audit/analyze",
-            json={"url": "https://cyfuture.com/"},
+            json={"url": "https://www.reddit.com/"},
         )
 
     assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
@@ -30,12 +30,12 @@ async def test_audit_analyze_success():
     data = response.json()
     assert data["success"] is True
     assert data["message"] == "SEO audit completed successfully"
-    assert data["url"] == "https://cyfuture.com/"
+    assert data["url"] == "https://www.reddit.com/"
     assert data["domain"] == "cyfuture.com"
 
     # Verify crawl summary
     crawl = data["crawl"]
-    assert crawl["url"] == "https://cyfuture.com/"
+    assert crawl["url"] == "https://www.reddit.com/"
     assert crawl["domain"] == "cyfuture.com"
     assert crawl["status_code"] == 200
     assert crawl["response_time"] > 0

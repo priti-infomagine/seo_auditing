@@ -1,0 +1,63 @@
+{
+  "url": "https://www.reddit.com",
+  "status_code": 200,
+  "content_type": "text/html",
+  "content_length": 8393,
+  "response_time_ms": 420,
+  "headers": {
+    "connection": "close",
+    "content-length": "8393",
+    "retry-after": "0",
+    "cache-control": "private, no-store",
+    "content-type": "text/html",
+    "content-security-policy": "default-src 'none'; script-src 'nonce-3e03a2da-649e-4e03-b7b8-7c521cda8663'; style-src 'unsafe-inline'; img-src https://www.redditstatic.com; form-action 'self';",
+    "accept-ranges": "bytes",
+    "date": "Wed, 12 Aug 2026 06:54:57 GMT",
+    "via": "1.1 varnish",
+    "server-timing": "reddit-ct;desc=\"dn=FT,p=DEL,cs=HIT\"",
+    "strict-transport-security": "max-age=31536000; includeSubdomains",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-xss-protection": "1; mode=block",
+    "set-cookie": "edgebucket=4nKY5tnWPs0Rv3pJ70; Domain=reddit.com; Max-Age=63071999; Path=/;  secure",
+    "server": "snooserv",
+    "report-to": "{\"group\": \"w3-reporting-nel\", \"max_age\": 14400, \"include_subdomains\": true,  \"endpoints\": [{ \"url\": \"https://w3-reporting-nel.reddit.com/reports\" }]}, {\"group\": \"w3-reporting\", \"max_age\": 14400, \"include_subdomains\": true, \"endpoints\": [{ \"url\": \"https://w3-reporting.reddit.com/reports\" }]}, {\"group\": \"w3-reporting-csp\", \"max_age\": 14400, \"include_subdomains\": true, \"endpoints\": [{ \"url\": \"https://w3-reporting-csp.reddit.com/reports\" }]}",
+    "nel": "{\"report_to\": \"w3-reporting-nel\", \"max_age\": 14400, \"include_subdomains\": false, \"success_fraction\": 1.0, \"failure_fraction\": 1.0}"
+  },
+  "redirects": [],
+  "security": {
+    "https": false,
+    "ssl": {},
+    "headers": {
+      "strict_transport_security": "max-age=31536000; includeSubdomains",
+      "content_security_policy": "default-src 'none'; script-src 'nonce-3e03a2da-649e-4e03-b7b8-7c521cda8663'; style-src 'unsafe-inline'; img-src https://www.redditstatic.com; form-action 'self';",
+      "x_content_type_options": "nosniff",
+      "x_frame_options": "SAMEORIGIN"
+    },
+    "mixed_content": []
+  },
+  "performance": {
+    "load_time_ms": 420,
+    "html_size_bytes": 8393,
+    "render_blocking_resources": [],
+    "render_blocking_count": 0,
+    "script_count": 1
+  },
+  "accessibility": {
+    "images": {
+      "total": 0,
+      "with_alt": 0,
+      "without_alt": 0
+    },
+    "forms": {
+      "total": 1,
+      "inputs": 4,
+      "labeled_inputs": 4
+    },
+    "buttons": {
+      "total": 0,
+      "accessible": 0
+    }
+  },
+  "json_ld": []
+}
