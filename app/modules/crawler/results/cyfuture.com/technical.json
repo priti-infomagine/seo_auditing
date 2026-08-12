@@ -1,0 +1,121 @@
+{
+  "url": "https://cyfuture.com",
+  "status_code": 200,
+  "content_type": "text/html",
+  "content_length": 82891,
+  "response_time_ms": 434,
+  "headers": {
+    "date": "Wed, 12 Aug 2026 05:46:30 GMT",
+    "content-type": "text/html; charset=UTF-8",
+    "transfer-encoding": "chunked",
+    "connection": "keep-alive",
+    "server": "cloudflare",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "referrer-policy": "strict-origin",
+    "permissions-policy": "geolocation=(),midi=(),sync-xhr=(),microphone=(),camera=(),magnetometer=(),gyroscope=(),fullscreen=(self),payment=()",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "x-xss-protection": "1; mode=block",
+    "content-security-policy": "font-src 'self' *.gstatic.com data:; img-src 'self';",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=DLKPDom2WtczorMCUUmv%2F4cl21ZxI9pLDZHA91pNvUOk1ARszmm2%2BA6kUnTgGQd2oNFJhUWrf3UR3a3%2BPDbujzE3BWWAU4q%2FCNm4nNgwStVJVyyGJYCe122anIX0I8tFETSsmq0d5S55qcM%3D\"}]}",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "cf-cache-status": "DYNAMIC",
+    "content-encoding": "gzip",
+    "cf-ray": "a29d2e13792eaa20-DEL",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "redirects": [],
+  "security": {
+    "https": false,
+    "ssl": {},
+    "headers": {
+      "strict_transport_security": "max-age=31536000; includeSubDomains; preload",
+      "content_security_policy": "font-src 'self' *.gstatic.com data:; img-src 'self';",
+      "x_content_type_options": "nosniff",
+      "x_frame_options": "SAMEORIGIN",
+      "referrer_policy": "strict-origin"
+    },
+    "mixed_content": []
+  },
+  "performance": {
+    "load_time_ms": 434,
+    "html_size_bytes": 82891,
+    "render_blocking_resources": [
+      "css/bootstrap.min.css",
+      "css/font-awesome.min.css",
+      "css/owl.carousel.min.css",
+      "css/animate.min.css",
+      "css/owl.theme.default.min.css"
+    ],
+    "render_blocking_count": 5,
+    "script_count": 43
+  },
+  "accessibility": {
+    "images": {
+      "total": 46,
+      "with_alt": 40,
+      "without_alt": 6
+    },
+    "forms": {
+      "total": 0,
+      "inputs": 0,
+      "labeled_inputs": 0
+    },
+    "buttons": {
+      "total": 2,
+      "accessible": 0
+    }
+  },
+  "json_ld": [
+    {
+      "type": "Corporation",
+      "context": "https://schema.org",
+      "raw": "\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Corporation\",\n  \"name\": \"Cyfuture\",\n  \"url\": \"https://cyfuture.com\",\n  \"logo\": \"https://cyfuture.com/images/logo.png\",\n  \"sameAs\": [\n    \"https://www.facebook.com/Cyfuture\",\n    \"https://twitter.com/cyfuture\",\n    \"https://www.instagram.com/cyfuture\",\n    \"https://www.linkedin.com/company/cyfuture\"\n  ]\n}\n",
+      "parsed": {
+        "@context": "https://schema.org",
+        "@type": "Corporation",
+        "name": "Cyfuture",
+        "url": "https://cyfuture.com",
+        "logo": "https://cyfuture.com/images/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/Cyfuture",
+          "https://twitter.com/cyfuture",
+          "https://www.instagram.com/cyfuture",
+          "https://www.linkedin.com/company/cyfuture"
+        ]
+      }
+    },
+    {
+      "type": "Product",
+      "context": "http://schema.org",
+      "raw": "\n    { \"@context\": \"http://schema.org\",\n\n    \"@type\": \"Product\",\n    \"name\": \"Data Center in India\",\n    \"aggregateRating\":\n    {\"@type\": \"AggregateRating\",\n    \"ratingValue\": \"4\",\n    \"reviewCount\": \"47\"\n    }\n    }\n",
+      "parsed": {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Data Center in India",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4",
+          "reviewCount": "47"
+        }
+      }
+    },
+    {
+      "type": "AggregateRating",
+      "context": "https://schema.org/",
+      "raw": "\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"@context\": \"https://schema.org/\",\n\t\t\t\t\t\t\t\"@type\": \"AggregateRating\",\n\t\t\t\t\t\t\t\"itemReviewed\": {\n\t\t\t\t\t\t\t\"@type\": \"Organization\",\n\t\t\t\t\t\t\t\"name\": \"Cyfuture\",\n\t\t\t\t\t\t\t\"url\": \"https://cyfuture.com\"\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\"ratingValue\": \"5\",\n\t\t\t\t\t\t\t\"bestRating\": \"5\",\n\t\t\t\t\t\t\t\"ratingCount\": \"3\"\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t",
+      "parsed": {
+        "@context": "https://schema.org/",
+        "@type": "AggregateRating",
+        "itemReviewed": {
+          "@type": "Organization",
+          "name": "Cyfuture",
+          "url": "https://cyfuture.com"
+        },
+        "ratingValue": "5",
+        "bestRating": "5",
+        "ratingCount": "3"
+      }
+    }
+  ]
+}
