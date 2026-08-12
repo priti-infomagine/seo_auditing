@@ -40,6 +40,15 @@ async def test_link_extraction(crawl_result):
         assert "is_internal" in link
         assert "rel" in link
 
+    # --- Deep-analysis surface ---
+    assert hasattr(link_facts, "deep_links")
+    assert len(link_facts.deep_links) >= len(link_facts.links)
+    for deep in link_facts.deep_links:
+        for key in ("protocol", "is_http", "is_fragment", "raw_href",
+                    "opens_new_tab", "anchor_text_classification",
+                    "link_text_length", "target"):
+            assert key in deep, f"deep link missing {key}"
+
     # --- Persist results ---
     payload = {
         "url": crawl_result.normalized_url,
@@ -47,9 +56,17 @@ async def test_link_extraction(crawl_result):
         "internal_count": link_facts.internal_count,
         "external_count": link_facts.external_count,
         "links": link_facts.links,
+        "deep_links": link_facts.deep_links,
+        "deep_total_links": len(link_facts.deep_links),
+        "non_http_count": link_facts.non_http_count,
+        "fragment_count": link_facts.fragment_count,
+        "mailto_count": link_facts.mailto_count,
+        "tel_count": link_facts.tel_count,
+        "javascript_count": link_facts.javascript_count,
     }
     save_result("links.json", payload)
     print(f"  [PASS] link extraction - total={len(link_facts.links)}, "
+          f"deep={len(link_facts.deep_links)}, "
           f"internal={link_facts.internal_count}, "
           f"external={link_facts.external_count}")
 
@@ -77,15 +94,25 @@ async def test_link_analysis_service(crawl_result):
         assert "is_sponsored" in link
         assert "is_ugc" in link
 
+    assert isinstance(analysis.summary, dict)
+    # Deep summary rolls up the full surface (incl. non-HTTP anchors), so it
+    # is >= the preserved compatibility ``links`` list.
+    assert analysis.summary.get("total_links") >= len(analysis.links)
+    assert "by_protocol" in analysis.summary
+    assert "by_anchor_text_classification" in analysis.summary
+
     save_result("link_analysis.json", {
         "url": crawl_result.normalized_url,
         "base_url": base_url,
         "total_links": len(analysis.links),
+        "deep_total_links": analysis.summary.get("total_links"),
         "internal_count": analysis.internal_count,
         "external_count": analysis.external_count,
+        "summary": analysis.summary,
         "enriched_links": analysis.links,
     })
-    print(f"  [PASS] link analysis - enriched {len(analysis.links)} links")
+    print(f"  [PASS] link analysis - enriched {len(analysis.links)} links, "
+          f"deep summary total={analysis.summary.get('total_links')}")
 
 
 # ---------------------------------------------------------------------------
