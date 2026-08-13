@@ -1,8 +1,12 @@
-﻿"""
+"""
 Page crawl service - orchestrates fetching and initial processing of a single page.
 
 Uses the fetcher protocol (HttpFetcher + BrowserFetcher) with RenderDetector
 for dynamic Playwright fallback on SPA/CSR shells.
+
+Initial HTTP evidence is preserved separately from the final result so
+callers can compare pre-render and post-render responses without
+corrupting redirect/final_url data.
 """
 from typing import Optional
 from uuid import UUID
@@ -13,7 +17,7 @@ from app.modules.crawler.fetchers.base import Fetcher
 from app.modules.crawler.fetchers.browser_fetcher import BrowserFetcher
 from app.modules.crawler.fetchers.http_fetcher import HttpFetcher
 from app.modules.crawler.rendering.render_detector import RenderDetector
-from app.modules.crawler.types import FetchResult, RenderResult
+from app.modules.crawler.types import FetchResult, RedirectInfo
 from app.shared.utils.url_utils import normalize_url
 
 
@@ -26,6 +30,7 @@ class PageCrawlResult:
         normalized_url: str,
         document: Optional[DocumentFacts] = None,
         fetch_result: Optional[FetchResult] = None,
+        initial_fetch_result: Optional[FetchResult] = None,
         error: Optional[str] = None,
         error_type: Optional[str] = None,
     ):
@@ -33,6 +38,7 @@ class PageCrawlResult:
         self.normalized_url = normalized_url
         self.document = document
         self.fetch_result = fetch_result
+        self.initial_fetch_result = initial_fetch_result
         self.error = error
         self.error_type = error_type
         self.success = document is not None and fetch_result is not None and error is None
@@ -74,7 +80,10 @@ class PageCrawlService:
             max_retries: Maximum retry attempts
 
         Returns:
-            PageCrawlResult with document facts or error
+            PageCrawlResult with document facts or error.
+            If browser fallback occurred, fetch_result contains the merged
+            browser result and initial_fetch_result contains the original
+            HTTP response.
         """
         try:
             normalized_url = normalize_url(url)
@@ -91,53 +100,73 @@ class PageCrawlService:
         if user_agent:
             headers["User-Agent"] = user_agent
 
-        fetch_result = await self.http_fetcher.fetch(
+        # 1. HTTP fetch first
+        http_result = await self.http_fetcher.fetch(
             normalized_url,
             timeout=req_timeout,
             headers=headers if headers else None,
         )
+        initial_fetch_result = http_result
+        html_content = http_result.content.decode("utf-8", errors="replace")
 
-        html_content = fetch_result.content.decode("utf-8", errors="replace")
-
-        if fetch_result.success and self.config.enable_browser_rendering:
-            needs_render, reason = self.render_detector.needs_browser_render(fetch_result)
-            if needs_render:
-                render_result = await self.browser_fetcher.fetch(
+        # 2. Rendering decision (only for successful HTML responses)
+        if http_result.success and self.config.enable_browser_rendering:
+            decision = self.render_detector.evaluate(http_result)
+            if decision.needs_render:
+                browser_result = await self.browser_fetcher.fetch(
                     normalized_url,
                     timeout=req_timeout,
                     headers=headers if headers else None,
                 )
-                if render_result.success and render_result.html:
-                    html_content = render_result.html
-                    fetch_result = _merge_render_into_fetch(fetch_result, render_result)
+                if browser_result.success and browser_result.content:
+                    html_content = browser_result.content.decode("utf-8", errors="replace")
+                    http_result = _merge_render_into_fetch(initial_fetch_result, browser_result)
+                # If browser fallback fails, http_result remains the initial HTTP result
 
-        if fetch_result.error:
+        # 3. Error handling
+        if http_result.error:
             return PageCrawlResult(
                 url=url,
                 normalized_url=normalized_url,
-                fetch_result=fetch_result,
-                error=fetch_result.error,
-                error_type=fetch_result.error_type,
+                fetch_result=http_result,
+                initial_fetch_result=initial_fetch_result if initial_fetch_result.error else None,
+                error=http_result.error,
+                error_type=http_result.error_type,
             )
 
+        # 4. Parse with existing BS4 pipeline (unchanged)
         document = extract_document(html_content, normalized_url)
 
         return PageCrawlResult(
             url=url,
             normalized_url=normalized_url,
             document=document,
-            fetch_result=fetch_result,
+            fetch_result=http_result,
+            initial_fetch_result=initial_fetch_result,
         )
 
 
-def _merge_render_into_fetch(fetch: FetchResult, render: RenderResult) -> FetchResult:
-    """Merge browser render result into the original HTTP fetch result."""
-    fetch.content = render.html.encode("utf-8")
-    fetch.content_type = "text/html"
-    fetch.content_length = len(fetch.content)
-    fetch.final_url = render.final_url or fetch.final_url
-    fetch.render_mode = "browser"
-    fetch.render_reason = render.render_reason
-    if render.status_code:
-        fetch.status_code = render.status_code
-    return fetch
+def _merge_render_into_fetch(initial: FetchResult, browser: FetchResult) -> FetchResult:
+    """
+    Merge browser fallback result into initial HTTP result.
+
+    Preserves initial HTTP evidence (redirect_chain, url, normalized_url)
+    while replacing content with browser-rendered bytes.
+    """
+    return FetchResult(
+        url=initial.url,
+        normalized_url=initial.normalized_url,
+        status_code=browser.status_code or initial.status_code,
+        content=browser.content,
+        headers=browser.headers or initial.headers,
+        final_url=browser.final_url or initial.final_url,
+        content_type="text/html",
+        content_length=len(browser.content),
+        response_time_ms=initial.response_time_ms + browser.response_time_ms,
+        redirect_chain=initial.redirect_chain,
+        success=True,
+        error=None,
+        error_type=None,
+        render_mode="browser",
+        render_reason=browser.render_reason,
+    )

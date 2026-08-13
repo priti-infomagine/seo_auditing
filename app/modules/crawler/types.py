@@ -8,6 +8,14 @@ from typing import Any, Dict, List, Optional
 from uuid import UUID
 
 
+@dataclass(slots=True)
+class RenderDecision:
+    needs_render: bool
+    reason: str
+    details: Dict[str, Any] = field(default_factory=dict)
+
+
+
 class CrawlStateEnum(str, Enum):
     DISCOVERED = "discovered"
     QUEUED = "queued"

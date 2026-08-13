@@ -1,12 +1,12 @@
 {
-  "test_url": "https://www.reddit.com",
-  "final_url": "https://www.reddit.com",
+  "test_url": "https://www.reddit.com/",
+  "final_url": "https://www.reddit.com/",
   "status_code": 200,
   "doctype": "PE html",
   "is_html": true,
   "language": "en",
   "charset": "utf-8",
-  "base_url": "https://www.reddit.com",
+  "base_url": "https://www.reddit.com/",
   "raw_html_length": 8393,
   "html_tag_found": true
 }
