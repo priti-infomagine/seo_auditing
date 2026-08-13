@@ -4626,3 +4626,5 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-12 17:57:39,783 | INFO | Completed 58 rule evaluations
 2026-08-12 17:57:39,783 | INFO | SEO Score calculated: 69.4/100 (Grade D)
 2026-08-12 17:57:39,786 | INFO | Audit pipeline completed successfully for URL: https://infomagine.com - SEO Score: 69.4/100 (Grade: D)
+2026-08-13 15:41:08,890 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-13 15:41:13,920 | INFO | POST /auth/refresh - Refresh token endpoint called
