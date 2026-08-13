@@ -8,7 +8,7 @@ import hashlib
 import uuid
 from datetime import datetime
 
-from sqlalchemy import BigInteger, DateTime, Integer, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, DateTime, Integer, SmallInteger, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -90,27 +90,27 @@ class CrawlPage(TimestampMixin, Base):
         nullable=True,
     )
     is_internal: Mapped[bool] = mapped_column(
-        Integer,
+        Boolean,
         nullable=False,
         default=True,
     )
     is_crawled: Mapped[bool] = mapped_column(
-        Integer,
+        Boolean,
         nullable=False,
         default=False,
     )
     is_success: Mapped[bool] = mapped_column(
-        Integer,
+        Boolean,
         nullable=False,
         default=False,
     )
     is_redirect: Mapped[bool] = mapped_column(
-        Integer,
+        Boolean,
         nullable=False,
         default=False,
     )
     is_error: Mapped[bool] = mapped_column(
-        Integer,
+        Boolean,
         nullable=False,
         default=False,
     )

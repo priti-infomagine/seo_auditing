@@ -7,7 +7,7 @@ Crawls https://www.reddit.com, runs :func:`extract_document` (via
 
 Results are saved to ``crawler/results/www.reddit.com/document.json``.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.crawler.extractors.document_extractor import (
     DocumentFacts,

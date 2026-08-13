@@ -9,7 +9,7 @@ Results are saved to ``crawler/results/www.reddit.com/assets.json``.
 """
 from collections import Counter
 
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.crawler.extractors.asset_extractor import (
     ResourceFacts,

@@ -1,25 +1,81 @@
 """
 URL utility functions for normalization and validation.
 """
-from typing import Optional
-from urllib.parse import urlparse
-
+from urllib.parse import urlparse, urlunparse
+from typing import Optional 
 
 def normalize_url(url: str) -> str:
     """
-    Normalize a URL by removing fragments and standardizing format.
-    
-    Args:
-        url: The URL to normalize
-        
-    Returns:
-        Normalized URL string
-    """
-    parsed = urlparse(url)
-    # Remove fragment
-    normalized = parsed._replace(fragment="").geturl()
-    return normalized
+    Normalize a URL for crawler deduplication.
 
+    Normalization:
+    - Lowercases scheme and hostname.
+    - Removes URL fragments.
+    - Removes default HTTP/HTTPS ports.
+    - Ensures the URL has a path.
+    - Preserves the query string.
+    - Removes surrounding whitespace.
+
+    Args:
+        url: URL to normalize.
+
+    Returns:
+        Normalized URL string.
+
+    Raises:
+        ValueError: If the URL has no valid scheme or hostname.
+    """
+    url = url.strip()
+
+    if not url:
+        raise ValueError("URL cannot be empty")
+
+    parsed = urlparse(url)
+
+    if parsed.scheme.lower() not in {"http", "https"}:
+        raise ValueError(f"Unsupported URL scheme: {parsed.scheme!r}")
+
+    if not parsed.hostname:
+        raise ValueError(f"Invalid URL: {url!r}")
+
+    scheme = parsed.scheme.lower()
+    hostname = parsed.hostname.lower()
+
+    # Preserve username/password if present.
+    netloc = hostname
+
+    if parsed.username is not None:
+        netloc = f"{parsed.username}"
+        if parsed.password is not None:
+            netloc += f":{parsed.password}"
+        netloc += f"@{hostname}"
+
+    # Remove default ports.
+    port = parsed.port
+
+    if port is not None:
+        is_default_port = (
+            (scheme == "http" and port == 80)
+            or (scheme == "https" and port == 443)
+        )
+
+        if not is_default_port:
+            netloc += f":{port}"
+
+    # Empty path becomes "/".
+    path = parsed.path or "/"
+
+    # Fragment is deliberately removed.
+    return urlunparse(
+        (
+            scheme,
+            netloc,
+            path,
+            parsed.params,
+            parsed.query,
+            "",
+        )
+    )
 
 def is_valid_url(url: str) -> bool:
     """

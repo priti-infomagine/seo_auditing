@@ -4559,3 +4559,70 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-11 16:12:09,798 | INFO | POST /auth/refresh - Refresh token endpoint called
 2026-08-11 16:14:15,630 | INFO | POST /auth/refresh - Refresh token endpoint called
 2026-08-11 16:16:00,388 | INFO | POST /auth/forgot-pass/request_otp - Forgot password endpoint called
+2026-08-12 14:01:11,498 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-12 14:01:11,498 | INFO | Step 1: Starting crawl phase
+2026-08-12 14:01:13,316 | INFO | Step 2: Starting parse phase
+2026-08-12 14:01:13,328 | INFO | Step 3: Starting scoring phase
+2026-08-12 14:01:13,328 | INFO | Loaded 70 scoring rules
+2026-08-12 14:01:13,332 | INFO | Starting SEO scoring...
+2026-08-12 14:01:13,332 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,332 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-12 14:01:13,334 | INFO | Completed 58 rule evaluations
+2026-08-12 14:01:13,334 | INFO | SEO Score calculated: 69.4/100 (Grade D)
+2026-08-12 14:01:13,334 | INFO | Audit pipeline completed successfully for URL: https://www.reddit.com/ - SEO Score: 69.4/100 (Grade: D)
+2026-08-12 14:01:13,352 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-12 14:01:13,352 | INFO | Step 1: Starting crawl phase
+2026-08-12 14:01:25,479 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url: [Errno 11001] getaddrinfo failed
+2026-08-12 14:05:10,934 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,936 | INFO | Starting SEO scoring...
+2026-08-12 14:05:10,940 | INFO | Completed 70 rule evaluations
+2026-08-12 14:05:10,940 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-12 14:05:10,942 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,944 | INFO | Starting SEO scoring...
+2026-08-12 14:05:10,944 | INFO | Completed 70 rule evaluations
+2026-08-12 14:05:10,944 | INFO | SEO Score calculated: 90.7/100 (Grade A)
+2026-08-12 14:05:10,948 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,948 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,948 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,959 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,963 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,963 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,972 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:10,972 | INFO | Scoring provided parsed data
+2026-08-12 14:05:10,972 | INFO | Starting SEO scoring...
+2026-08-12 14:05:10,972 | INFO | Completed 70 rule evaluations
+2026-08-12 14:05:10,979 | INFO | SEO Score calculated: 83.4/100 (Grade B)
+2026-08-12 14:05:10,991 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:11,001 | INFO | Loaded 70 scoring rules
+2026-08-12 14:05:11,010 | INFO | Loaded 70 scoring rules
+2026-08-12 17:57:38,535 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.com
+2026-08-12 17:57:38,535 | INFO | Step 1: Starting crawl phase
+2026-08-12 17:57:39,765 | INFO | Step 2: Starting parse phase
+2026-08-12 17:57:39,765 | INFO | Step 3: Starting scoring phase
+2026-08-12 17:57:39,777 | INFO | Loaded 70 scoring rules
+2026-08-12 17:57:39,777 | INFO | Starting SEO scoring...
+2026-08-12 17:57:39,777 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,777 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,777 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,777 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,777 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,777 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,781 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,781 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,781 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,781 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,781 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,783 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-12 17:57:39,783 | INFO | Completed 58 rule evaluations
+2026-08-12 17:57:39,783 | INFO | SEO Score calculated: 69.4/100 (Grade D)
+2026-08-12 17:57:39,786 | INFO | Audit pipeline completed successfully for URL: https://infomagine.com - SEO Score: 69.4/100 (Grade: D)

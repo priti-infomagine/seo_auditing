@@ -7,7 +7,7 @@ link enrichment and internal/external classification.
 
 Results are saved to ``crawler/results/www.reddit.com/links.json``.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.crawler.extractors.link_extractor import (
     LinkFacts,

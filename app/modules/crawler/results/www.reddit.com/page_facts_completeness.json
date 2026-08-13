@@ -1,0 +1,12 @@
+{
+  "url": "https://www.reddit.com",
+  "all_sections_present": true,
+  "types": {
+    "document": "DocumentFacts",
+    "content": "ContentFacts",
+    "metadata": "MetadataFacts",
+    "links": "LinkFacts",
+    "resources": "ResourceFacts",
+    "technical": "TechnicalFacts"
+  }
+}

@@ -7,7 +7,7 @@ resources, technical) and returns a single PageFacts dataclass.
 
 Results are saved to crawler/results/www.reddit.com/extractors.json.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.crawler.services.page_extraction_service import (
     PageExtractionService,

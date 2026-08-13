@@ -10,7 +10,7 @@ Crawls https://www.reddit.com, parses the raw HTML through
 
 Results are saved to ``crawler/results/www.reddit.com/seo_fact.json``.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.parser.services.parser_service import ParserService
 from app.modules.crawler.extractors.seo_fact_extractor import (

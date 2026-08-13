@@ -7,7 +7,7 @@ page-content metrics (text, word count, headings, etc.).
 
 Results are saved to ``crawler/results/www.reddit.com/content.json``.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
 from app.modules.crawler.extractors.content_extractor import (
     ContentFacts,

@@ -1,4 +1,4 @@
-﻿"""
+"""
 Content extractor - extracts page content, headings, forms, and buttons.
 """
 import copy
@@ -35,7 +35,7 @@ def extract_content(soup: BeautifulSoup, raw_html: str = "") -> ContentFacts:
     Returns:
         ContentFacts with content metrics
     """
-    working = copy.copy(soup)
+    working = copy.deepcopy(soup)
 
     for tag in working(["script", "style", "noscript", "template"]):
         tag.decompose()

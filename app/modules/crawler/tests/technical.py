@@ -8,7 +8,7 @@ detection, and security-header classification.
 
 Results are saved to ``crawler/results/www.reddit.com/technical.json``.
 """
-from conftest import RESULTS_DIR, get_crawl_result, save_result
+from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 from app.modules.crawler.extractors.technical_extractor import (
     TechnicalFacts,
     extract_technical,
