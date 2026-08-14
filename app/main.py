@@ -50,10 +50,6 @@ async def health_check():
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
-@app.get("/test")
-async def test():
-    return {"status": "ok"}
-
 @app.get("/health/detailed", tags=["Health"])
 async def detailed_health_check():
     from datetime import datetime, timezone

@@ -1,17 +1,8 @@
-from typing import Any, Dict, List
+"""
+Backward compatibility: schemas.structured_data_schema → models.schema_data
+"""
+from app.modules.parser.models.schema_data import SchemaData as StructuredDataItem
 
-from pydantic import BaseModel, Field
+SchemaMarkupSchema = StructuredDataItem
 
-
-class StructuredDataItem(BaseModel):
-    format: str
-
-    raw: str = ""
-
-    parsed: Any = None
-
-    types: List[str] = Field(default_factory=list)
-
-    context: str = ""
-
-    attributes: Dict[str, Any] = Field(default_factory=dict)
+__all__ = ["StructuredDataItem", "SchemaData", "SchemaMarkupSchema"]

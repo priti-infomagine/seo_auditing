@@ -1,31 +1,9 @@
-from typing import Any, Dict, List, Optional
+"""
+Backward compatibility: schemas.document_schema → models.parsed_page
+"""
+from app.modules.parser.models.parsed_page import ParsedPage, PageIdentity, ParserMetadata
 
-from pydantic import BaseModel, Field
+DocumentInfo = PageIdentity
+ParsedDocument = ParsedPage
 
-
-class ParserIssue(BaseModel):
-    level: str
-    message: str
-
-
-class DocumentInfo(BaseModel):
-    url: str = ""
-    doctype: str = ""
-    language: str = ""
-    charset: str = ""
-    html_size: int = 0
-
-
-class ParsedDocument(BaseModel):
-    document: DocumentInfo = Field(default_factory=DocumentInfo)
-
-    metadata: Optional[Any] = None
-    content: Optional[Any] = None
-    links: List[Any] = Field(default_factory=list)
-    resources: List[Any] = Field(default_factory=list)
-    structured_data: List[Any] = Field(default_factory=list)
-
-    warnings: List[ParserIssue] = Field(default_factory=list)
-    errors: List[ParserIssue] = Field(default_factory=list)
-
-    parser_version: str = "1.0"
+__all__ = ["ParsedDocument", "DocumentInfo", "ParsedPage", "PageIdentity", "ParserMetadata"]

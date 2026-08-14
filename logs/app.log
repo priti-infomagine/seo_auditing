@@ -4628,3 +4628,85 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-12 17:57:39,786 | INFO | Audit pipeline completed successfully for URL: https://infomagine.com - SEO Score: 69.4/100 (Grade: D)
 2026-08-13 15:41:08,890 | INFO | POST /auth/refresh - Refresh token endpoint called
 2026-08-13 15:41:13,920 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-13 18:22:45,690 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://cyfutue.com
+2026-08-13 18:22:45,690 | INFO | Step 1: Starting crawl phase
+2026-08-13 18:22:48,190 | ERROR | Audit pipeline failed for URL: https://cyfutue.com - Crawl failed for https://cyfutue.com/: [Errno 11001] getaddrinfo failed
+2026-08-14 10:27:33,721 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-14 10:27:33,721 | INFO | Step 1: Starting crawl phase
+2026-08-14 10:27:35,329 | INFO | Step 2: Starting parse phase
+2026-08-14 10:27:35,337 | INFO | Step 3: Starting scoring phase
+2026-08-14 10:27:35,337 | INFO | Loaded 70 scoring rules
+2026-08-14 10:27:35,337 | INFO | Starting SEO scoring...
+2026-08-14 10:27:35,337 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-14 10:27:35,337 | INFO | Completed 48 rule evaluations
+2026-08-14 10:27:35,337 | INFO | SEO Score calculated: 70.3/100 (Grade C)
+2026-08-14 10:27:35,337 | INFO | Audit pipeline completed successfully for URL: https://www.reddit.com/ - SEO Score: 70.3/100 (Grade: C)
+2026-08-14 10:27:35,379 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-14 10:27:35,379 | INFO | Step 1: Starting crawl phase
+2026-08-14 10:27:48,521 | ERROR | Audit pipeline failed for URL: https://not-a-valid-url - Crawl failed for https://not-a-valid-url/: [Errno 11001] getaddrinfo failed
+2026-08-14 11:37:56,637 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 11:57:45,602 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:03:25,713 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:11:42,564 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:11:56,659 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:19:01,303 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:20:12,957 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:21:29,166 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:24:59,930 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:25:08,622 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:38:55,620 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:40:31,583 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 12:41:07,137 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 12:41:30,272 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 12:45:09,203 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:45:33,937 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 12:45:47,104 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 12:46:15,801 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 12:46:58,105 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 12:47:34,447 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 12:55:00,942 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 12:55:41,183 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 12:55:58,322 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 12:56:50,537 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 13:44:23,724 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 13:44:33,974 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 13:46:55,595 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 13:46:59,726 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 13:47:07,259 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:20:54,362 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 14:21:34,574 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 14:22:09,676 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:22:59,805 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:24:51,839 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:34:04,643 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:38:20,687 | INFO | POST /auth/register - Register endpoint called
+2026-08-14 14:39:46,710 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-14 14:41:50,535 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-14 14:44:53,659 | INFO | GET /user/profile - Get profile endpoint called
+2026-08-14 15:00:06,291 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://brevo.com/
+2026-08-14 15:00:06,457 | INFO | Crawl job queued: 39ca2189-2c0b-4e68-b5fe-16373495e0d5 for URL: https://brevo.com/
+2026-08-14 15:00:48,670 | INFO | GET /crawler/status/39ca2189-2c0b-4e68-b5fe-16373495e0d5 - Status endpoint called
+2026-08-14 15:02:07,009 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://brevo.com/
+2026-08-14 15:12:00,670 | INFO | Loaded 70 scoring rules
+2026-08-14 15:12:17,128 | INFO | Loaded 70 scoring rules

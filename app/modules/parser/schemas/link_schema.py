@@ -1,19 +1,8 @@
-from typing import List
+"""
+Backward compatibility: schemas.link_schema → models.link_data
+"""
+from app.modules.parser.models.link_data import LinkData
 
-from pydantic import BaseModel, Field
+LinkSchema = LinkData
 
-
-class LinkData(BaseModel):
-    href: str = ""
-    text: str = ""
-
-    rel: List[str] = Field(default_factory=list)
-
-    target: str = ""
-    title: str = ""
-
-    download: str = ""
-
-    absolute_url: str = ""
-
-    attributes: dict = Field(default_factory=dict)
+__all__ = ["LinkData", "LinkSchema"]

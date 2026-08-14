@@ -84,7 +84,7 @@ async def refresh_token(
         key="refresh_token",
         value=result.refresh_token,
         httponly=True,
-        secure=True,
+        secure=settings.COOKIE_SECURE,
         samesite="strict",
         path="/api/v1/auth/refresh",
         max_age=settings.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,  # days → seconds
