@@ -1,9 +1,8 @@
 """
-Tests for the document extractor.
+Tests for document facts via the parser-backed pipeline.
 
-Crawls https://www.reddit.com, runs :func:`extract_document` (via
-``PageCrawlService.crawl_page``), and verifies that the resulting
-:class:`DocumentFacts` dataclass contains valid HTML parsing metadata.
+Crawls https://www.reddit.com, creates DocumentFacts via create_document_facts(),
+then verifies the resulting DocumentFacts dataclass contains valid metadata.
 
 Results are saved to ``crawler/results/www.reddit.com/document.json``.
 """
@@ -11,65 +10,63 @@ from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, sa
 
 from app.modules.crawler.extractors.document_extractor import (
     DocumentFacts,
-    extract_document,
+    create_document_facts,
 )
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
 
-async def test_document_extraction(crawl_result):
-    """Verify DocumentFacts produced by the page-crawl pipeline."""
+async def test_document_facts_via_parser(crawl_result):
+    """Verify DocumentFacts produced by create_document_facts + parser."""
     document: DocumentFacts = crawl_result.document
 
     # --- Core assertions ---
     assert document.is_html is True, "Page should be parsed as valid HTML"
-    assert document.doctype, "Doctype should be present"
     assert document.base_url == crawl_result.normalized_url, "Base URL mismatch"
     assert document.raw_html, "Raw HTML should be non-empty"
+    assert document.soup is None, "soup should be None (parser module handles DOM)"
 
-    # --- BeautifulSoup soup sanity checks ---
-    assert document.soup is not None, "BeautifulSoup soup should be populated"
-    html_tag = document.soup.find("html")
-    assert html_tag is not None, "Should find <html> tag in soup"
+    # --- Parser should produce metadata from the same raw_html ---
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=document.raw_html, url=crawl_result.normalized_url)
+    assert parsed.document.url == crawl_result.normalized_url
+    assert parsed.content.text
 
     # --- Persist results ---
     payload = {
         "test_url": crawl_result.normalized_url,
         "final_url": crawl_result.fetch_result.final_url,
         "status_code": crawl_result.fetch_result.status_code,
-        "doctype": document.doctype,
         "is_html": document.is_html,
-        "language": document.language,
-        "charset": document.charset,
         "base_url": document.base_url,
         "raw_html_length": len(document.raw_html),
-        "html_tag_found": html_tag is not None,
+        "parser_title": parsed.metadata.title,
+        "parser_word_count": parsed.content.word_count,
     }
     save_result("document.json", payload)
-    print(f"  [PASS] document extraction - doctype={document.doctype}, "
-          f"is_html={document.is_html}, charset={document.charset}")
+    print(f"  [PASS] document facts - is_html={document.is_html}, "
+          f"raw_html_length={len(document.raw_html)}")
 
 
-async def test_extract_document_directly(crawl_result):
-    """Call extract_document() directly with the fetched HTML."""
+async def test_create_document_facts_directly(crawl_result):
+    """Call create_document_facts() directly with the fetched HTML."""
     html = crawl_result.document.raw_html
     url = crawl_result.normalized_url
 
-    doc = extract_document(html, url)
+    doc = create_document_facts(html, url)
 
     assert doc.is_html is True
-    # assert doc.doctype == "html"
     assert doc.base_url == url
     assert doc.raw_html == html
-    assert doc.soup is not None
+    assert doc.soup is None
 
     payload = {
         "url": url,
-        "doctype": doc.doctype,
         "is_html": doc.is_html,
-        "language": doc.language,
-        "charset": doc.charset,
+        "base_url": doc.base_url,
+        "raw_html_length": len(doc.raw_html),
     }
     save_result("document_direct.json", payload)
-    print(f"  [PASS] extract_document() direct - doctype={doc.doctype}")
+    print(f"  [PASS] create_document_facts() direct - is_html={doc.is_html}")
 
 
 # ---------------------------------------------------------------------------
@@ -80,10 +77,9 @@ if __name__ == "__main__":
 
     async def main():
         result = await get_crawl_result()
-        await test_document_extraction(result)
-        await test_extract_document_directly(result)
+        await test_document_facts_via_parser(result)
+        await test_create_document_facts_directly(result)
         print("\nAll document tests passed!")
         print(f"Results saved to: {RESULTS_DIR}")
 
     asyncio.run(main())
-

@@ -1,3 +1,0 @@
-"""
-Payment models package.
-"""

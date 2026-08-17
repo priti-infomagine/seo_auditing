@@ -12,7 +12,7 @@ from typing import Optional
 from uuid import UUID
 
 from app.modules.crawler.config import CrawlConfig
-from app.modules.crawler.extractors.document_extractor import DocumentFacts, extract_document
+from app.modules.crawler.extractors.document_extractor import create_document_facts, DocumentFacts
 from app.modules.crawler.fetchers.base import Fetcher
 from app.modules.crawler.fetchers.browser_fetcher import BrowserFetcher
 from app.modules.crawler.fetchers.http_fetcher import HttpFetcher
@@ -134,8 +134,8 @@ class PageCrawlService:
                 error_type=http_result.error_type,
             )
 
-        # 4. Parse with existing BS4 pipeline (unchanged)
-        document = extract_document(html_content, normalized_url)
+        # 4. Build minimal document facts (extraction happens via parser module)
+        document = create_document_facts(html_content, normalized_url)
 
         return PageCrawlResult(
             url=url,

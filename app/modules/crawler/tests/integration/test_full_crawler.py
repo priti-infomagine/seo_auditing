@@ -31,10 +31,6 @@ if str(_BACKEND_ROOT) not in sys.path:
 # Imports from existing crawler module (NO production code modifications)
 # ---------------------------------------------------------------------------
 from app.modules.crawler.config import CrawlConfig
-from app.modules.crawler.extractors.content_extractor import ContentFacts, extract_content
-from app.modules.crawler.extractors.link_extractor import LinkFacts, extract_links
-from app.modules.crawler.extractors.metadata_extractor import MetadataFacts, extract_metadata
-from app.modules.crawler.extractors.asset_extractor import ResourceFacts, extract_resources
 from app.modules.crawler.rendering.render_detector import RenderDetector
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 try:
@@ -185,6 +181,7 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
     # -----------------------------------------------------------------------
     print(f"\n[3] HTTP FETCHER")
     http_result: Optional[FetchResult] = None
+    crawl_result = None
     try:
         service = PageCrawlService()
         crawl_result = await service.crawl_page(test_case.url)
@@ -196,7 +193,7 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
             result.http_final_url = http_result.final_url
             result.http_response_time_ms = http_result.response_time_ms
             result.http_redirects = [
-                {"url": r.url, "status_code": r.status_code, "location": r.location}
+                {"url": r.url, "status_code": r.status_code, "location": getattr(r, "location", "")}
                 for r in http_result.redirect_chain
             ]
             result.initial_render_mode = http_result.render_mode
@@ -282,46 +279,40 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
     document = crawl_result.document if crawl_result else None
     if document and document.is_html:
         result.parser_executed = True
-        soup = document.soup
+
+        from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
+        parser = ParserOrchestrator()
+        parsed = parser.parse(html=document.raw_html, url=result.normalized_url or test_case.url)
 
         # Title
-        title_tag = soup.find("title")
-        result.parser_title = title_tag.get_text(strip=True) if title_tag else ""
+        result.parser_title = parsed.metadata.title or ""
         print(f"  Title: {result.parser_title[:80] if result.parser_title else '(none)'}")
 
         # Headings
-        h1_tags = soup.find_all("h1")
-        h2_tags = soup.find_all("h2")
-        result.parser_h1_count = len(h1_tags)
-        result.parser_h2_count = len(h2_tags)
+        if parsed.content and parsed.content.headings:
+            result.parser_h1_count = len(parsed.content.headings.get("h1", []))
+            result.parser_h2_count = len(parsed.content.headings.get("h2", []))
         print(f"  H1 count: {result.parser_h1_count}")
         print(f"  H2 count: {result.parser_h2_count}")
 
         # Content
-        content_facts = extract_content(soup, document.raw_html)
-        result.parser_word_count = content_facts.word_count
-        print(f"  Word count: {content_facts.word_count}")
+        result.parser_word_count = parsed.content.word_count if parsed.content else 0
+        print(f"  Word count: {result.parser_word_count}")
 
-        # Links
-        link_facts = extract_links(soup, result.normalized_url or test_case.url)
-        result.parser_links_total = link_facts.total_link_count
-        result.parser_links_internal = link_facts.internal_count
-        result.parser_links_external = link_facts.external_count
-        print(f"  Links total: {link_facts.total_link_count}")
-        print(f"  Links internal: {link_facts.internal_count}")
-        print(f"  Links external: {link_facts.external_count}")
+        # Links (from parser)
+        result.parser_links_total = len(parsed.links or [])
+        print(f"  Links total: {result.parser_links_total}")
         print(f"  Sample links:")
-        for link in link_facts.links[:5]:
-            print(f"    -> {link.get('url', '')}")
-        if link_facts.total_link_count > 5:
-            print(f"    ... and {link_facts.total_link_count - 5} more")
+        for link in (parsed.links or [])[:5]:
+            print(f"    -> {link.absolute_url or link.href}")
+        if result.parser_links_total > 5:
+            print(f"    ... and {result.parser_links_total - 5} more")
 
         # Images
-        img_tags = soup.find_all("img")
-        result.parser_images_total = len(img_tags)
-        missing_alt = sum(1 for img in img_tags if not img.get("alt", "").strip())
+        result.parser_images_total = len(parsed.images or [])
+        missing_alt = sum(1 for img in (parsed.images or []) if not (img.alt or "").strip())
         result.parser_images_missing_alt = missing_alt
-        print(f"  Images total: {len(img_tags)}")
+        print(f"  Images total: {result.parser_images_total}")
         print(f"  Images missing alt: {missing_alt}")
     else:
         result.parser_executed = False
@@ -333,19 +324,23 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
     # [8] SEO DATA
     # -----------------------------------------------------------------------
     print(f"\n[8] SEO DATA")
-    if document and document.is_html:
-        soup = document.soup
-        metadata = extract_metadata(soup, result.normalized_url or test_case.url)
+    if document and document.is_html and result.parser_executed:
+        from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
+        parser = ParserOrchestrator()
+        parsed = parser.parse(html=document.raw_html, url=result.normalized_url or test_case.url)
+        metadata = parsed.metadata
 
         result.seo_title_present = bool(metadata.title)
         result.seo_meta_description_present = bool(metadata.meta_description)
         result.seo_canonical_present = bool(metadata.canonical)
-        result.seo_robots_present = bool(metadata.robots_meta)
-        result.seo_hreflang_count = len(metadata.hreflang)
+        result.seo_robots_present = bool(
+            next((t.content for t in (metadata.robots or []) if t.name == "robots"), "")
+        )
+        result.seo_hreflang_count = len(metadata.hreflang or [])
 
-        # H1 check (from parser or fresh)
-        h1_tags = soup.find_all("h1")
-        result.seo_h1_present = len(h1_tags) > 0
+        # H1 check (from parser)
+        if parsed.content and parsed.content.headings:
+            result.seo_h1_present = len(parsed.content.headings.get("h1", [])) > 0
 
         print(f"  Title present: {result.seo_title_present}")
         if result.seo_title_present:
@@ -358,7 +353,7 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
             print(f"    Canonical: {metadata.canonical}")
         print(f"  Robots meta present: {result.seo_robots_present}")
         if result.seo_robots_present:
-            print(f"    Robots: {metadata.robots_meta}")
+            print(f"    Robots: {next((t.content for t in (metadata.robots or []) if t.name == 'robots'), '')}")
         print(f"  H1 present: {result.seo_h1_present}")
         print(f"  Hreflang count: {result.seo_hreflang_count}")
     else:
@@ -368,31 +363,17 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
     # [9] LINKS DETAIL
     # -----------------------------------------------------------------------
     print(f"\n[9] LINKS")
-    if document and document.is_html:
-        soup = document.soup
-        link_facts = extract_links(soup, result.normalized_url or test_case.url)
-        print(f"  Total: {link_facts.total_link_count}")
-        print(f"  Internal: {link_facts.internal_count}")
-        print(f"  External: {link_facts.external_count}")
-        print(f"  Fragments: {link_facts.fragment_count}")
-        print(f"  Mailto: {link_facts.mailto_count}")
-        print(f"  Tel: {link_facts.tel_count}")
-        print(f"  JavaScript: {link_facts.javascript_count}")
-        print(f"  Non-HTTP: {link_facts.non_http_count}")
+    if document and document.is_html and result.parser_executed:
+        from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
+        parser = ParserOrchestrator()
+        parsed = parser.parse(html=document.raw_html, url=result.normalized_url or test_case.url)
 
-        # Sample internal links
-        internal_links = [l for l in link_facts.links if l.get("is_internal")]
-        if internal_links:
-            print(f"  Sample internal links:")
-            for link in internal_links[:3]:
-                print(f"    -> {link.get('url', '')}")
-
-        # Sample external links
-        external_links = [l for l in link_facts.links if l.get("is_external")]
-        if external_links:
-            print(f"  Sample external links:")
-            for link in external_links[:3]:
-                print(f"    -> {link.get('url', '')}")
+        print(f"  Total: {result.parser_links_total}")
+        print(f"  Sample links:")
+        for link in (parsed.links or [])[:5]:
+            print(f"    -> {link.absolute_url or link.href}")
+        if result.parser_links_total > 5:
+            print(f"    ... and {result.parser_links_total - 5} more")
     else:
         print(f"  Skipped (not HTML)")
 
@@ -400,12 +381,10 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
     # [10] IMAGES DETAIL
     # -----------------------------------------------------------------------
     print(f"\n[10] IMAGES")
-    if document and document.is_html:
-        soup = document.soup
-        img_tags = soup.find_all("img")
-        print(f"  Total: {len(img_tags)}")
+    if document and document.is_html and result.parser_executed:
+        print(f"  Total: {result.parser_images_total}")
         print(f"  Missing alt: {result.parser_images_missing_alt}")
-        lazy_loaded = sum(1 for img in img_tags if img.get("loading") == "lazy")
+        lazy_loaded = 0  # Parser doesn't track loading attribute separately
         print(f"  Lazy loaded: {lazy_loaded}")
     else:
         print(f"  Skipped (not HTML)")
@@ -470,8 +449,8 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
         "render_decision": _serialize_dataclass(render_decision) if render_decision else None,
         "document": {
             "is_html": document.is_html if document else False,
-            "language": document.language if document else "",
-            "charset": document.charset if document else "",
+            "language": "",  # Parser handles this
+            "charset": "",   # Parser handles this
             "raw_html_length": len(document.raw_html) if document else 0,
         } if document else None,
     }

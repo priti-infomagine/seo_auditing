@@ -1,29 +1,25 @@
 ﻿"""
-Page extraction service - coordinates all extractors to produce structured PageFacts.
+Page extraction service - converts parser output to crawler PageFacts.
 
-This service:
-1. Receives DocumentFacts from page_crawl_service
-2. Calls all relevant extractors
-3. Normalizes outputs
-4. Returns structured PageFacts
+This service now only supports the parser-backed path:
 
-It also supports receiving a ParserService ParsedDocument directly,
-converting it to PageFacts via the SEO fact extractor.
+    1. Receives a ParserService ParsedDocument
+    2. Converts it to crawler PageFacts via the SEO fact extractor bridge
 
 It does NOT:
 - Make HTTP requests
 - Write to PostgreSQL
 - Run SEO rules
+- Run BS4 extractors (removed; parser module is the single extraction source)
 """
 from dataclasses import dataclass, field
-from typing import Optional
 
 from app.modules.crawler.extractors.document_extractor import DocumentFacts
-from app.modules.crawler.extractors.content_extractor import ContentFacts, extract_content
-from app.modules.crawler.extractors.metadata_extractor import MetadataFacts, extract_metadata
-from app.modules.crawler.extractors.link_extractor import LinkFacts, extract_links
-from app.modules.crawler.extractors.asset_extractor import ResourceFacts, extract_resources
-from app.modules.crawler.extractors.technical_extractor import TechnicalFacts, extract_technical
+from app.modules.crawler.extractors.content_extractor import ContentFacts
+from app.modules.crawler.extractors.metadata_extractor import MetadataFacts
+from app.modules.crawler.extractors.link_extractor import LinkFacts
+from app.modules.crawler.extractors.asset_extractor import ResourceFacts
+from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
 from app.modules.crawler.extractors.seo_fact_extractor import (
     parsed_document_to_page_facts,
 )
@@ -41,65 +37,7 @@ class PageFacts:
 
 
 class PageExtractionService:
-    """Service for coordinating all page extractors."""
-
-    async def extract_all(
-        self,
-        document: DocumentFacts,
-        status_code: int = 0,
-        headers: dict = None,
-        content_length: int = 0,
-        response_time_ms: int = 0,
-        redirects: list = None,
-    ) -> PageFacts:
-        """
-        Run all crawler extractors against a DocumentFacts (BeautifulSoup-based).
-
-        This is the original crawler-native path.
-        """
-        if headers is None:
-            headers = {}
-        if redirects is None:
-            redirects = []
-
-        if not document.is_html:
-            return PageFacts(
-                document=document,
-                content=ContentFacts(),
-                metadata=MetadataFacts(),
-                links=LinkFacts(),
-                resources=ResourceFacts(),
-                technical=TechnicalFacts(
-                    status_code=status_code,
-                    content_length=content_length,
-                    response_time_ms=response_time_ms,
-                    headers=headers,
-                    redirects=redirects,
-                ),
-            )
-
-        content = extract_content(document.soup, document.raw_html)
-        metadata = extract_metadata(document.soup, document.base_url)
-        links = extract_links(document.soup, document.base_url)
-        resources = extract_resources(document.soup, document.base_url)
-        technical = extract_technical(
-            status_code=status_code,
-            headers=headers,
-            content_length=content_length,
-            response_time_ms=response_time_ms,
-            redirects=redirects,
-            soup=document.soup,
-            raw_html=document.raw_html,
-        )
-
-        return PageFacts(
-            document=document,
-            content=content,
-            metadata=metadata,
-            links=links,
-            resources=resources,
-            technical=technical,
-        )
+    """Service for converting parser output to crawler PageFacts."""
 
     def extract_from_parsed(
         self,
@@ -109,16 +47,14 @@ class PageExtractionService:
         content_length: int = 0,
         response_time_ms: int = 0,
         redirects: list | None = None,
+        raw_html: str = "",
     ) -> PageFacts:
         """
         Convert a ParserService ParsedDocument into PageFacts.
 
-        This path is used when HTML has already been parsed by the parser
-        module and we want to produce crawler-compatible PageFacts
-        without reparsing the DOM.
-
-        Crawl context (status_code, headers, etc.) is passed separately
-        so the parser never needs to know about HTTP transport.
+        This is the only active extraction path. HTML is parsed by the
+        parser module; this service converts parser output into the
+        crawler's dataclass contract.
         """
         return parsed_document_to_page_facts(
             parsed_document,
@@ -127,5 +63,5 @@ class PageExtractionService:
             content_length=content_length,
             response_time_ms=response_time_ms,
             redirects=redirects,
+            raw_html=raw_html,
         )
-

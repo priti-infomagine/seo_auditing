@@ -1,9 +1,8 @@
 """
-Integration test for the full extractor pipeline via PageExtractionService.
+Integration test for the parser-backed extraction pipeline via PageExtractionService.
 
-Crawls https://www.reddit.com, runs PageExtractionService.extract_all which
-orchestrates every individual extractor (document, content, metadata, links,
-resources, technical) and returns a single PageFacts dataclass.
+Uses ParserOrchestrator to parse HTML, then runs PageExtractionService.extract_from_parsed
+which converts ParsedDocument into PageFacts.
 
 Results are saved to crawler/results/www.reddit.com/extractors.json.
 """
@@ -19,6 +18,7 @@ from app.modules.crawler.extractors.metadata_extractor import MetadataFacts
 from app.modules.crawler.extractors.link_extractor import LinkFacts
 from app.modules.crawler.extractors.asset_extractor import ResourceFacts
 from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
 
 def _redirects_to_dicts(chain):
@@ -35,18 +35,22 @@ def _redirects_to_dicts(chain):
 
 
 async def test_all_extractors_integration(crawl_result):
-    """Run the full extractor pipeline and verify every section is populated."""
+    """Run the parser-backed extraction pipeline and verify every section is populated."""
     document = crawl_result.document
     fetch = crawl_result.fetch_result
 
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=document.raw_html, url=crawl_result.normalized_url)
+
     service = PageExtractionService()
-    page_facts: PageFacts = await service.extract_all(
-        document=document,
+    page_facts: PageFacts = service.extract_from_parsed(
+        parsed_document=parsed,
         status_code=fetch.status_code,
         headers=fetch.headers,
-        content_length=fetch.content_length,
+        content_length=len(document.raw_html),
         response_time_ms=fetch.response_time_ms,
         redirects=_redirects_to_dicts(fetch.redirect_chain),
+        raw_html=document.raw_html,
     )
 
     # --- Verify every section is populated ---
@@ -60,7 +64,7 @@ async def test_all_extractors_integration(crawl_result):
 
     # --- Document ---
     assert page_facts.document.is_html is True
-    assert page_facts.document.doctype
+    assert page_facts.document.raw_html
 
     # --- Content ---
     assert page_facts.content.word_count > 0
@@ -136,7 +140,7 @@ async def test_all_extractors_integration(crawl_result):
           f"words={page_facts.content.word_count}, "
           f"links={len(page_facts.links.links)}, "
           f"resources={len(page_facts.resources.resources)}, "
-          f"json_ld={len(page_facts.technical.json_ld)}")   
+          f"json_ld={len(page_facts.technical.json_ld)}")
 
 
 async def test_page_facts_completeness(crawl_result):
@@ -144,14 +148,18 @@ async def test_page_facts_completeness(crawl_result):
     document = crawl_result.document
     fetch = crawl_result.fetch_result
 
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=document.raw_html, url=crawl_result.normalized_url)
+
     service = PageExtractionService()
-    page_facts = await service.extract_all(
-        document=document,
+    page_facts = service.extract_from_parsed(
+        parsed_document=parsed,
         status_code=fetch.status_code,
         headers=fetch.headers,
-        content_length=fetch.content_length,
+        content_length=len(document.raw_html),
         response_time_ms=fetch.response_time_ms,
         redirects=[],
+        raw_html=document.raw_html,
     )
 
     # Type checks for every section
@@ -191,4 +199,3 @@ if __name__ == "__main__":
         print(f"Results saved to: {RESULTS_DIR}")
 
     asyncio.run(main())
-

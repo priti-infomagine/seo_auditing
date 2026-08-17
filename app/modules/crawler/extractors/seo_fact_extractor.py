@@ -73,6 +73,7 @@ def parsed_document_to_page_facts(
     content_length: int = 0,
     response_time_ms: int = 0,
     redirects: list | None = None,
+    raw_html: str = "",
 ) -> PageFacts:
     """
     Convert a ParserService ParsedDocument into the crawler's PageFacts
@@ -101,13 +102,13 @@ def parsed_document_to_page_facts(
     resources = parsed_document.resources
 
     document_facts = DocumentFacts(
-        soup=None,  # DOM is not serialized; raw_html is available from crawl context
+        soup=None,
         language=doc_info.language or metadata.language or "",
         charset=doc_info.charset or metadata.charset or "",
         doctype=doc_info.doctype,
         base_url=doc_info.url,
         is_html=True,
-        raw_html="",
+        raw_html=raw_html,
     )
 
     heading_dict: dict = {}

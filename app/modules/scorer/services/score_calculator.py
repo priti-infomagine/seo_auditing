@@ -2,7 +2,7 @@
 Score Calculator - Computes weighted SEO scores from rule results.
 """
 from typing import Dict, List, Any 
-from app.modules.scorer.models.rule_result import RuleResult, CategoryScore, Severity
+from app.modules.rule_engine.models.rule_result import RuleResult, CategoryScore, Severity
 
 
 class ScoreCalculator:

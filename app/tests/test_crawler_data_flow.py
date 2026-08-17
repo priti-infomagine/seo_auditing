@@ -4,8 +4,6 @@ sys.path.insert(0, ".")
 
 from bs4 import BeautifulSoup
 
-from app.modules.crawler.extractors.content_extractor import extract_content
-from app.modules.crawler.extractors.asset_extractor import extract_resources
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
 from app.modules.crawler.services.link_analysis_service import LinkAnalysisService, LinkAnalysisResult
 from app.modules.crawler.utils.url_classifier import (
@@ -13,13 +11,14 @@ from app.modules.crawler.utils.url_classifier import (
     strip_tracking_params,
     UrlClassification,
 )
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
 
 # ---------------------------------------------------------------------------
-# BUG-1: ContentParser must not mutate shared DOM
+# BUG-1: Content extraction via parser module
 # ---------------------------------------------------------------------------
 
-def test_content_parser_does_not_mutate_soup():
+def test_parser_extracts_content():
     html = """<!DOCTYPE html>
 <html><head>
     <script type="application/ld+json">
@@ -32,27 +31,14 @@ def test_content_parser_does_not_mutate_soup():
     <footer><p>Footer</p></footer>
 </body></html>"""
 
-    soup = BeautifulSoup(html, "html.parser")
-    original_scripts = len(soup.find_all("script", type="application/ld+json"))
-    original_navs = len(soup.find_all("nav"))
-    original_headers = len(soup.find_all("header"))
-    original_footers = len(soup.find_all("footer"))
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=html, url="https://example.com")
 
-    extract_content(soup, html)
-
-    assert len(soup.find_all("script", type="application/ld+json")) == original_scripts, \
-        "ContentParser must not remove <script> tags from shared DOM"
-    assert len(soup.find_all("nav")) == original_navs, \
-        "ContentParser must not remove <nav> tags from shared DOM"
-    assert len(soup.find_all("header")) == original_headers, \
-        "ContentParser must not remove <header> tags from shared DOM"
-    assert len(soup.find_all("footer")) == original_footers, \
-        "ContentParser must not remove <footer> tags from shared DOM"
-
-    # Content extraction itself should still work
-    assert len(soup.find_all("p")) >= 1
-
-    print("test_content_parser_does_not_mutate_soup: PASS")
+    assert parsed.content is not None
+    assert parsed.content.text
+    assert "Hello world" in parsed.content.text
+    assert parsed.content.word_count > 0
+    print("test_parser_extracts_content: PASS")
 
 
 # ---------------------------------------------------------------------------
@@ -178,12 +164,10 @@ def test_link_analysis_returns_enriched_links():
 
 
 # ---------------------------------------------------------------------------
-# BUG-6: PageSEOData page_metadata — verified through classification + persistence
+# BUG-6: PageSEOData page_metadata — verified through parser module
 # ---------------------------------------------------------------------------
 
-def test_page_metadata_fields_extracted():
-    from app.modules.crawler.extractors.metadata_extractor import extract_metadata
-
+def test_parser_extracts_page_metadata():
     html = """<html><head>
         <meta name="description" content="Test desc">
         <meta name="robots" content="index, follow">
@@ -194,65 +178,69 @@ def test_page_metadata_fields_extracted():
         <link rel="alternate" hreflang="en" href="https://example.com/en">
     </head><body><p>Content</p></body></html>"""
 
-    soup = BeautifulSoup(html, "html.parser")
-    metadata = extract_metadata(soup, "https://example.com")
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=html, url="https://example.com")
 
-    assert metadata.meta_description == "Test desc"
-    assert metadata.meta_description_length == 9
-    assert metadata.canonical == "https://example.com/canonical"
-    assert metadata.robots_meta == "index, follow"
-    assert metadata.googlebot == "noindex"
+    assert parsed.metadata.meta_description == "Test desc"
+    assert parsed.metadata.meta_description_length == 9
+    assert parsed.metadata.canonical == "https://example.com/canonical"
 
-    # Build page_metadata dict (as crawl_orchestrator now does)
+    robots_meta = next((t.content for t in (parsed.metadata.robots or []) if t.name == "robots"), "")
+    googlebot = next((t.content for t in (parsed.metadata.robots or []) if t.name == "googlebot"), "")
+    assert robots_meta == "index, follow"
+    assert googlebot == "noindex"
+
     page_metadata = {
         "meta_tags": [
-            {"name": "description", "content": metadata.meta_description},
-            {"name": "robots", "content": metadata.robots_meta},
-            {"name": "googlebot", "content": metadata.googlebot},
+            {"name": t.name, "content": t.content}
+            for t in (parsed.metadata.meta_tags or [])
         ],
-        "open_graph": metadata.open_graph or {},
-        "twitter": metadata.twitter or {},
+        "open_graph": dict(parsed.metadata.open_graph or {}),
+        "twitter": dict(parsed.metadata.twitter or {}),
         "hreflang": [
-            {"url": h.get("url", ""), "hreflang": h.get("hreflang", "")}
-            for h in (metadata.hreflang or [])
+            {"url": h.href, "hreflang": h.hreflang}
+            for h in (parsed.metadata.hreflang or [])
         ],
     }
 
-    assert page_metadata["open_graph"]["title"] == "OG Title"
-    assert page_metadata["twitter"]["card"] == "summary"
+    og_title = page_metadata["open_graph"].get("og:title", [])
+    twitter_card = page_metadata["twitter"].get("twitter:card", [])
+    assert len(og_title) > 0 and og_title[0] == "OG Title"
+    assert len(twitter_card) > 0 and twitter_card[0] == "summary"
     assert len(page_metadata["hreflang"]) == 1
     assert page_metadata["hreflang"][0]["hreflang"] == "en"
-    assert page_metadata["meta_tags"][2]["name"] == "googlebot"
-    assert page_metadata["meta_tags"][2]["content"] == "noindex"
-
-    print("test_page_metadata_fields_extracted: PASS")
+    print("test_parser_extracts_page_metadata: PASS")
 
 
 # ---------------------------------------------------------------------------
-# BUG-7: PageResource mime_type + is_mixed_content
+# BUG-7: Resources via parser module
 # ---------------------------------------------------------------------------
 
-def test_asset_extractor_includes_mime_type():
+def test_parser_extracts_resources():
     html = """<html><body>
         <img src="/hero.jpg" alt="hero">
         <link rel="stylesheet" href="/style.css">
         <script src="/app.js"></script>
     </body></html>"""
-    soup = BeautifulSoup(html, "html.parser")
-    facts = extract_resources(soup, "https://example.com")
 
-    resources_by_type = {r["type"]: r for r in facts.resources}
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=html, url="https://example.com")
 
-    img = resources_by_type["image"]
-    assert img["mime_type"] == "image/*"
+    resources_by_type = {r.resource_type: r for r in (parsed.resources or [])}
 
-    css = resources_by_type["css"]
-    assert css["mime_type"] == "text/css"
+    img = resources_by_type.get("image")
+    assert img is not None
+    assert img.url == "/hero.jpg"
 
-    js = resources_by_type["javascript"]
-    assert js["mime_type"] == "application/javascript"
+    css = resources_by_type.get("stylesheet")
+    assert css is not None
+    assert css.url == "/style.css"
 
-    print("test_asset_extractor_includes_mime_type: PASS")
+    js = resources_by_type.get("script")
+    assert js is not None
+    assert js.url == "/app.js"
+
+    print("test_parser_extracts_resources: PASS")
 
 
 def test_is_mixed_content_detected():
@@ -359,14 +347,14 @@ def test_crawl_queue_rejects_non_html():
 
 
 if __name__ == "__main__":
-    test_content_parser_does_not_mutate_soup()
+    test_parser_extracts_content()
     test_is_https_true_for_https_urls()
     test_is_https_false_for_http_urls()
     test_url_hash_computed()
     test_redirect_chain_length_detects_redirect()
     test_link_analysis_returns_enriched_links()
-    test_page_metadata_fields_extracted()
-    test_asset_extractor_includes_mime_type()
+    test_parser_extracts_page_metadata()
+    test_parser_extracts_resources()
     test_is_mixed_content_detected()
     test_classify_resource_urls()
     test_classify_ignored_urls()

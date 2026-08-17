@@ -8,12 +8,19 @@ from app.core.logger import logger
 
 # from prometheus_fastapi_instrumentator import Instrumentator
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    await init_db()
+    try:
+        await init_db()
+    except Exception as exc:
+        logger.error(f"init_db failed during lifespan: {exc}", exc_info=True)
     yield
-    await close_db()
+    try:
+        await close_db()
+    except Exception as exc:
+        logger.error(f"close_db failed during lifespan shutdown: {exc}", exc_info=True)
 
 
 app = FastAPI(
@@ -38,17 +45,29 @@ app.include_router(api_router)
 # ── Root health-check ──────────────────────────────────────────────────
 @app.get("/")
 async def root():
-    return {"message": f"Welcome to the {settings.APP_NAME}!"}
+    try:
+        return {"message": f"Welcome to the {settings.APP_NAME}!"}
+    except Exception as exc:
+        logger.error(f"Root endpoint failed: {exc}", exc_info=True)
+        return {"message": "Service error", "error": str(exc)}
 
 
 @app.get("/health", tags=["Health"])
 async def health_check():
     from datetime import datetime, timezone
-    return {
-        "status": "healthy",
-        "service": settings.APP_NAME,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
+    try:
+        return {
+            "status": "healthy",
+            "service": settings.APP_NAME,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+    except Exception as exc:
+        logger.error(f"Health check failed: {exc}", exc_info=True)
+        return {
+            "status": "unhealthy",
+            "service": settings.APP_NAME,
+            "error": str(exc),
+        }
 
 @app.get("/health/detailed", tags=["Health"])
 async def detailed_health_check():

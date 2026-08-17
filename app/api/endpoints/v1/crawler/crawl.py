@@ -63,12 +63,17 @@ async def crawl_url(
             "delay_ms": 0,
             "follow_redirects": True,
             "respect_robots": True,
+            "auto_analyze": body.auto_analyze,
         }
+
+        # Determine project_id
+        project_id = body.project_id or uuid4()
 
         # Create crawl job with config embedded as JSONB
         crawl_job = CrawlJob(
             id=uuid4(),
             user_id=user_id,
+            project_id=project_id,
             url=url_str,
             domain=domain,
             status="queued",
@@ -90,6 +95,7 @@ async def crawl_url(
             crawl_id=str(crawl_job.id),
             status="queued",
             message="Crawl job queued successfully",
+            project_id=str(project_id),
         )
 
     except ValueError as e:

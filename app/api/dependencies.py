@@ -14,8 +14,12 @@ from app.core.logger import logger
 
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
     """Yield a database session for API routes."""
-    async for session in get_db():
-        yield session
+    try:
+        async for session in get_db():
+            yield session
+    except Exception as exc:
+        logger.error(f"get_db_session: database session error: {exc}", exc_info=True)
+        raise
 
 
 __all__ = ["get_db_session"]

@@ -22,6 +22,7 @@ from app.shared.tasks.db import run_async
     time_limit=3600,
     soft_time_limit=3300,
 )
+
 def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
     async def _run():
         crawl_uuid = UUID(crawl_id)
@@ -47,6 +48,26 @@ def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
                     respect_robots=cfg.get("respect_robots", True),
                     user_agent=cfg.get("user_agent"),
                 )
+
+                # Fire auto-analyze pipeline if requested
+                if cfg.get("auto_analyze"):
+                    from uuid import uuid4
+                    project_id = job.project_id or uuid4()
+                    # Update project_id on the job if it was None
+                    if not job.project_id:
+                        job.project_id = project_id
+                        await job_repo.update(job)
+                    await db.commit()
+
+                    # Fire the analysis pipeline asynchronously
+                    celery_app.send_task(
+                        "audit.run_analysis_pipeline",
+                        args=[str(project_id), str(crawl_uuid)],
+                        queue="audit",
+                    )
+                    result["auto_analyze"] = True
+                    result["project_id"] = str(project_id)
+
                 return result
             except Exception as exc:
                 await _mark_failed(db, crawl_uuid, str(exc))

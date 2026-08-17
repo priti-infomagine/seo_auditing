@@ -161,8 +161,15 @@ async def analyze_website(
 @router.get("/health", tags=["Audit"])
 async def audit_health_check():
     """Health check for audit endpoint."""
-    return {
-        "status": "healthy",
-        "service": "audit-analyze",
-        "endpoints": ["/api/v1/audit/analyze"],
-    }
+    try:
+        return {
+            "status": "healthy",
+            "service": "audit-analyze",
+            "endpoints": ["/api/v1/audit/analyze"],
+        }
+    except Exception as exc:
+        logger.error(f"audit_health_check: unexpected error: {exc}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Audit service health check failed",
+        )

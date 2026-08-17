@@ -12,7 +12,7 @@ Results are saved to ``crawler/results/www.reddit.com/seo_fact.json``.
 """
 from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
-from app.modules.parser.services.parser_service import ParserService
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.modules.crawler.extractors.seo_fact_extractor import (
     extract_seo_facts,
     parsed_document_to_page_facts,
@@ -38,7 +38,7 @@ async def test_seo_facts_extraction(crawl_result):
     html = crawl_result.document.raw_html
     url = crawl_result.normalized_url
 
-    parser = ParserService()
+    parser = ParserOrchestrator()
     parsed = parser.parse(html=html, url=url)
 
     facts = extract_seo_facts(parsed)
@@ -77,7 +77,7 @@ async def test_page_facts_from_parsed_document(crawl_result):
     url = crawl_result.normalized_url
     fetch = crawl_result.fetch_result
 
-    parser = ParserService()
+    parser = ParserOrchestrator()
     parsed = parser.parse(html=html, url=url)
 
     page_facts: PageFacts = parsed_document_to_page_facts(

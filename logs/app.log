@@ -4710,3 +4710,47 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-14 15:02:07,009 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://brevo.com/
 2026-08-14 15:12:00,670 | INFO | Loaded 70 scoring rules
 2026-08-14 15:12:17,128 | INFO | Loaded 70 scoring rules
+2026-08-17 09:44:13,274 | INFO | POST /auth/register - Register endpoint called
+2026-08-17 09:46:34,459 | INFO | POST /auth/register - Register endpoint called
+2026-08-17 09:46:42,888 | INFO | POST /auth/register - Register endpoint called
+2026-08-17 14:59:08,442 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in
+2026-08-17 14:59:08,442 | INFO | Step 1: Starting crawl phase
+2026-08-17 14:59:10,230 | INFO | Step 2: Starting parse phase
+2026-08-17 14:59:10,258 | INFO | Step 3: Starting scoring phase
+2026-08-17 14:59:10,260 | INFO | Loaded 70 scoring rules
+2026-08-17 14:59:10,264 | INFO | Starting SEO scoring...
+2026-08-17 14:59:10,268 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,290 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,312 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,316 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,318 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,318 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,334 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,349 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,349 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,351 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,351 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,353 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,375 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,391 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,399 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,407 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,411 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,413 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,417 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,440 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,445 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,447 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 14:59:10,447 | INFO | Completed 70 rule evaluations
+2026-08-17 14:59:10,449 | INFO | SEO Score calculated: 75.2/100 (Grade C+)
+2026-08-17 14:59:10,449 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in - SEO Score: 75.2/100 (Grade: C+)
+2026-08-17 15:06:10,730 | INFO | POST /auth/register - Register endpoint called
+2026-08-17 15:07:47,498 | INFO | POST /auth/verify-otp - Verify OTP endpoint called
+2026-08-17 15:07:59,486 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-17 15:08:30,327 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://infomagine.in/
+2026-08-17 15:08:30,383 | INFO | Crawl job queued: ff642ebf-76fb-4c92-9a15-c8c369a9024e for URL: https://infomagine.in/
+2026-08-17 15:08:57,833 | INFO | GET /crawler/status/ff642ebf-76fb-4c92-9a15-c8c369a9024e - Status endpoint called
+2026-08-17 15:10:25,003 | INFO | POST /auth/refresh - Refresh token endpoint called
+2026-08-17 15:11:24,790 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://infomagine.in/
+2026-08-17 15:11:31,401 | INFO | Crawl job queued: f2a871ec-a27b-49c3-bf20-9f424ae7a6bb for URL: https://infomagine.in/
+2026-08-17 15:12:12,868 | INFO | GET /crawler/status/f2a871ec-a27b-49c3-bf20-9f424ae7a6bb - Status endpoint called

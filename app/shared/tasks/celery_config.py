@@ -1,6 +1,6 @@
 task_routes = {
     "auth.*": {
-        "queue": "otp",
+        "queue": "email",
     },
     "crawler.*": {
         "queue": "crawler",

@@ -3,43 +3,13 @@
   "status_code": 200,
   "content_type": "text/html",
   "content_length": 8393,
-  "response_time_ms": 88,
+  "response_time_ms": 93,
   "is_https": true,
-  "checksum": "da11a4c572096949b23c31e6fb14f8660990776f84ac3c595eb0721b11161af2",
+  "checksum": "b70f72fac1f0b9a3b59f5edba7dd9a9eb6f4da0de26aaa00ba17ced314d9eb80",
   "security": {
-    "https": false,
-    "ssl": {},
-    "headers": {
-      "strict_transport_security": "max-age=31536000; includeSubdomains",
-      "content_security_policy": "default-src 'none'; script-src 'nonce-242bdefd-2c17-42e4-b4dc-33d259b5ed16'; style-src 'unsafe-inline'; img-src https://www.redditstatic.com; form-action 'self';",
-      "x_content_type_options": "nosniff",
-      "x_frame_options": "SAMEORIGIN"
-    },
-    "mixed_content": [],
     "is_https": true
   },
-  "performance": {
-    "load_time_ms": 88,
-    "html_size_bytes": 8393,
-    "render_blocking_resources": [],
-    "render_blocking_count": 0,
-    "script_count": 1
-  },
-  "accessibility": {
-    "images": {
-      "total": 0,
-      "with_alt": 0,
-      "without_alt": 0
-    },
-    "forms": {
-      "total": 1,
-      "inputs": 4,
-      "labeled_inputs": 4
-    },
-    "buttons": {
-      "total": 0,
-      "accessible": 0
-    }
-  },
+  "performance": {},
+  "accessibility": {},
   "json_ld_count": 0
 }

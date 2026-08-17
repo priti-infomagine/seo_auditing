@@ -1,22 +1,19 @@
 """
-Tests for the technical extractor and technical-analysis service.
+Tests for technical extraction via the parser-backed pipeline.
 
-Crawls https://www.reddit.com, runs :func:`extract_technical` to build a
-:class:`TechnicalFacts` dataclass, then passes it through
-:class:`TechnicalAnalysisService` to verify checksum generation, HTTPS
-detection, and security-header classification.
+Crawls https://www.reddit.com, converts parser output to TechnicalFacts
+via the bridge, then passes it through TechnicalAnalysisService to verify
+checksum generation, HTTPS detection, and security-header classification.
 
 Results are saved to ``crawler/results/www.reddit.com/technical.json``.
 """
 from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
-from app.modules.crawler.extractors.technical_extractor import (
-    TechnicalFacts,
-    extract_technical,
-)
+from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
 from app.modules.crawler.services.technical_analysis_service import (
     TechnicalAnalysisService,
     TechnicalAnalysisResult,
 )
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.shared.utils.checksum import generate_checksum
 
 
@@ -34,19 +31,24 @@ def _redirects_to_dicts(chain):
 
 
 async def test_technical_extraction(crawl_result):
-    """Verify TechnicalFacts produced by extract_technical()."""
+    """Verify TechnicalFacts produced by parser-backed bridge."""
     document = crawl_result.document
     fetch = crawl_result.fetch_result
 
-    technical: TechnicalFacts = extract_technical(
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=document.raw_html, url=crawl_result.normalized_url)
+
+    from app.modules.crawler.extractors.seo_fact_extractor import parsed_document_to_page_facts
+    page_facts = parsed_document_to_page_facts(
+        parsed,
         status_code=fetch.status_code,
         headers=fetch.headers,
-        content_length=fetch.content_length,
+        content_length=len(document.raw_html),
         response_time_ms=fetch.response_time_ms,
         redirects=_redirects_to_dicts(fetch.redirect_chain),
-        soup=document.soup,
         raw_html=document.raw_html,
     )
+    technical: TechnicalFacts = page_facts.technical
 
     # --- Core assertions ---
     assert isinstance(technical, TechnicalFacts)
@@ -59,14 +61,6 @@ async def test_technical_extraction(crawl_result):
     assert isinstance(technical.performance, dict)
     assert isinstance(technical.accessibility, dict)
     assert isinstance(technical.json_ld, list)
-
-    # --- Performance metrics ---
-    assert "load_time_ms" in technical.performance
-    assert "script_count" in technical.performance
-
-    # --- Accessibility metrics ---
-    assert "images" in technical.accessibility
-    assert "total" in technical.accessibility["images"]
 
     # --- Persist results ---
     payload = {
@@ -85,7 +79,6 @@ async def test_technical_extraction(crawl_result):
     save_result("technical.json", payload)
     print(f"  [PASS] technical extraction - status={technical.status_code}, "
           f"type={technical.content_type}, "
-          f"scripts={technical.performance.get('script_count', 'N/A')}, "
           f"json_ld={len(technical.json_ld)}")
 
 
@@ -94,19 +87,23 @@ async def test_technical_analysis_service(crawl_result):
     document = crawl_result.document
     fetch = crawl_result.fetch_result
 
-    technical = extract_technical(
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=document.raw_html, url=crawl_result.normalized_url)
+
+    from app.modules.crawler.extractors.seo_fact_extractor import parsed_document_to_page_facts
+    page_facts = parsed_document_to_page_facts(
+        parsed,
         status_code=fetch.status_code,
         headers=fetch.headers,
-        content_length=fetch.content_length,
+        content_length=len(document.raw_html),
         response_time_ms=fetch.response_time_ms,
         redirects=_redirects_to_dicts(fetch.redirect_chain),
-        soup=document.soup,
         raw_html=document.raw_html,
     )
 
     service = TechnicalAnalysisService()
     analysis: TechnicalAnalysisResult = await service.analyze(
-        technical=technical,
+        technical=page_facts.technical,
         content_bytes=fetch.content,
         url=crawl_result.normalized_url,
     )
@@ -156,4 +153,3 @@ if __name__ == "__main__":
         print(f"Results saved to: {RESULTS_DIR}")
 
     asyncio.run(main())
-

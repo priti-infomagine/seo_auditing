@@ -12,6 +12,7 @@ class Severity(str, Enum):
     WARNING = "warning"
     INFO = "info"
     PASSED = "passed"
+    ERROR = "error"
 
 
 class RuleResult(BaseModel):

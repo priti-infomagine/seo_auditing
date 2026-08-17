@@ -13,7 +13,7 @@ from app.shared.services.email_service import send_email_sync
 
 @celery_app.task(
     name="auth.send_register_otp_email",
-    queue="otp",
+    queue="email",
     autoretry_for=(Exception,),
     retry_backoff=True,
     retry_backoff_max=300,
@@ -27,7 +27,7 @@ def send_register_otp_email_task(to_email: str, otp: str) -> None:
 
 @celery_app.task(
     name="auth.send_welcome_email",
-    queue="otp",
+    queue="email",
     autoretry_for=(Exception,),
     retry_backoff=True,
     retry_backoff_max=300,
@@ -41,7 +41,7 @@ def send_welcome_email_task(to_email: str) -> None:
 
 @celery_app.task(
     name="auth.send_password_reset_otp_email",
-    queue="otp",
+    queue="email",
     autoretry_for=(Exception,),
     retry_backoff=True,
     retry_backoff_max=300,

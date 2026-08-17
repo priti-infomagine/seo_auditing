@@ -4,7 +4,7 @@ GET /user/profile — Get current authenticated user's profile.
 Security:
     Requires a valid Bearer access token.
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -29,5 +29,14 @@ async def get_profile(
 ) -> UserProfileResponse:
     """Return the authenticated user's profile information."""
     logger.info("GET /user/profile - Get profile endpoint called")
-    service = GetProfileService(db)
-    return await service.execute(current_user)
+    try:
+        service = GetProfileService(db)
+        return await service.execute(current_user)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error(f"GET /user/profile: unexpected error: {exc}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected error occurred retrieving profile",
+        )

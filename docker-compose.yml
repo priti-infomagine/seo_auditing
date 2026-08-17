@@ -7,6 +7,34 @@ services:
     volumes:
       - redis_data:/data
 
+  worker:
+    build: .
+    container_name: celery_worker
+    command: >
+      sh -c "celery -A app.shared.tasks worker --loglevel=info -Q email,crawler --without-gossip --without-mingle --without-heartbeat"
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+
+  celery-beat:
+    build: .
+    container_name: celery_beat
+    command: >
+      sh -c "celery -A app.shared.tasks beat --loglevel=info"
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus

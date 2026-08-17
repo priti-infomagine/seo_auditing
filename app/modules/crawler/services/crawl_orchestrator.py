@@ -214,12 +214,21 @@ class CrawlOrchestrator:
 
         document = crawl_result.document
         fetch_result = crawl_result.fetch_result
+        normalized_url = crawl_result.normalized_url
 
-        page_facts = await self.page_extraction_service.extract_all(
-            document=document,
+        from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
+
+        parser = ParserOrchestrator()
+        parsed = parser.parse(
+            html=document.raw_html,
+            url=normalized_url,
+        )
+
+        page_facts = self.page_extraction_service.extract_from_parsed(
+            parsed_document=parsed,
             status_code=fetch_result.status_code,
             headers=fetch_result.headers,
-            content_length=fetch_result.content_length,
+            content_length=len(document.raw_html),
             response_time_ms=fetch_result.response_time_ms,
             redirects=[
                 {"url": r.url, "status_code": r.status_code}
@@ -227,10 +236,16 @@ class CrawlOrchestrator:
             ],
         )
 
+        if parsed.content and parsed.content.text:
+            page_facts.content.content_hash = hashlib.md5(parsed.content.text.encode()).hexdigest()
+            page_facts.content.sentence_count = max(
+                page_facts.content.sentence_count,
+                len([s for s in parsed.content.text.replace("!", ".").replace("?", ".").split(".") if s.strip()])
+            )
+
         link_analysis = self.link_analysis_service(item.normalized_url)
         link_result = await link_analysis.analyze(page_facts.links)
 
-        normalized_url = crawl_result.normalized_url
         redirect_chain = fetch_result.redirect_chain
 
         technical_analysis = self.technical_analysis_service()

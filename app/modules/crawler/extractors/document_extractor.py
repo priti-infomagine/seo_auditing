@@ -1,13 +1,19 @@
 ﻿"""
-Document extractor - owns HTML parsing and DOM foundation.
+Document extractor - dataclass definitions for crawler document facts.
+
+.. deprecated::
+    BS4 extraction has been removed. Use ``ParserOrchestrator`` + bridge
+    (``parsed_document_to_page_facts``) instead.
 """
+from __future__ import annotations
+
 from dataclasses import dataclass, field
-from bs4 import BeautifulSoup
+from typing import Optional
 
 
 @dataclass
 class DocumentFacts:
-    soup: BeautifulSoup
+    soup: Optional[object] = None
     language: str = ""
     charset: str = ""
     doctype: str = ""
@@ -16,40 +22,14 @@ class DocumentFacts:
     raw_html: str = ""
 
 
-def extract_document(html: str, url: str) -> DocumentFacts:
-    if not html:
-        return DocumentFacts(soup=BeautifulSoup("", "html.parser"), is_html=False, raw_html=html)
-
-    soup = BeautifulSoup(html, "html.parser")
-    is_html = soup.find("html") is not None
-
-    language = ""
-    html_tag = soup.find("html")
-    if html_tag:
-        language = html_tag.get("lang", "").strip()
-
-    charset = ""
-    charset_meta = soup.find("meta", attrs={"charset": True})
-    if charset_meta:
-        charset = charset_meta.get("charset", "").strip().lower()
-    else:
-        content_type_meta = soup.find("meta", attrs={"http-equiv": "Content-Type"})
-        if content_type_meta:
-            content = content_type_meta.get("content", "")
-            if "charset=" in content:
-                charset = content.split("charset=")[-1].strip().lower()
-
-    doctype = ""
-    if html.strip().upper().startswith("<!DOCTYPE"):
-        doctype_end = html.find(">", 10)
-        if doctype_end != -1:
-            doctype = html[10:doctype_end].strip()
-
+def create_document_facts(html: str, url: str) -> DocumentFacts:
+    """Create a minimal DocumentFacts without BS4 parsing."""
+    is_html = html.strip().upper().startswith(("<HTML", "<!DOCTYPE"))
     return DocumentFacts(
-        soup=soup,
-        language=language,
-        charset=charset,
-        doctype=doctype,
+        soup=None,
+        language="",
+        charset="",
+        doctype="",
         base_url=url,
         is_html=is_html,
         raw_html=html,

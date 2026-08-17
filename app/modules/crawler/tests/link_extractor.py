@@ -1,18 +1,14 @@
 """
-Tests for the link extractor and link-analysis service.
+Tests for link extraction via the parser-backed pipeline.
 
-Crawls https://www.reddit.com, runs :func:`extract_links`, then passes
-the :class:`LinkFacts` through :class:`LinkAnalysisService` to verify
-link enrichment and internal/external classification.
+Crawls https://www.reddit.com, parses HTML with ParserOrchestrator,
+and verifies that links are extracted correctly.
 
 Results are saved to ``crawler/results/www.reddit.com/links.json``.
 """
 from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
-from app.modules.crawler.extractors.link_extractor import (
-    LinkFacts,
-    extract_links,
-)
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.modules.crawler.services.link_analysis_service import (
     LinkAnalysisService,
     LinkAnalysisResult,
@@ -20,71 +16,64 @@ from app.modules.crawler.services.link_analysis_service import (
 
 
 async def test_link_extraction(crawl_result):
-    """Verify LinkFacts produced by extract_links()."""
-    document = crawl_result.document
-    soup = document.soup
-    base_url = document.base_url
+    """Verify links produced by parser."""
+    raw_html = crawl_result.document.raw_html
+    url = crawl_result.normalized_url
 
-    link_facts: LinkFacts = extract_links(soup, base_url)
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=raw_html, url=url)
+
+    # Convert parser links to crawler-compatible format via bridge
+    from app.modules.crawler.extractors.seo_fact_extractor import parsed_document_to_page_facts
+    page_facts = parsed_document_to_page_facts(parsed, raw_html=raw_html)
 
     # --- Core assertions ---
-    assert isinstance(link_facts, LinkFacts)
-    assert len(link_facts.links) >= 0, "Should find at least some links on the page"
-    assert link_facts.internal_count >= 0
-    assert link_facts.external_count >= 0
+    assert isinstance(page_facts.links, type(page_facts.links))
+    assert len(page_facts.links.links) >= 0, "Should find at least some links on the page"
+    assert page_facts.links.internal_count >= 0
+    assert page_facts.links.external_count >= 0
 
     # --- Each link should have required fields ---
-    for link in link_facts.links:
+    for link in page_facts.links.links:
         assert "url" in link
         assert "anchor_text" in link
         assert "is_internal" in link
         assert "rel" in link
 
-    # --- Deep-analysis surface ---
-    assert hasattr(link_facts, "deep_links")
-    assert len(link_facts.deep_links) >= len(link_facts.links)
-    for deep in link_facts.deep_links:
-        for key in ("protocol", "is_http", "is_fragment", "raw_href",
-                    "opens_new_tab", "anchor_text_classification",
-                    "link_text_length", "target"):
-            assert key in deep, f"deep link missing {key}"
-
     # --- Persist results ---
     payload = {
-        "url": crawl_result.normalized_url,
-        "total_links": len(link_facts.links),
-        "internal_count": link_facts.internal_count,
-        "external_count": link_facts.external_count,
-        "links": link_facts.links,
-        "deep_links": link_facts.deep_links,
-        "deep_total_links": len(link_facts.deep_links),
-        "non_http_count": link_facts.non_http_count,
-        "fragment_count": link_facts.fragment_count,
-        "mailto_count": link_facts.mailto_count,
-        "tel_count": link_facts.tel_count,
-        "javascript_count": link_facts.javascript_count,
+        "url": url,
+        "total_links": len(page_facts.links.links),
+        "internal_count": page_facts.links.internal_count,
+        "external_count": page_facts.links.external_count,
+        "links": page_facts.links.links,
+        "deep_links": page_facts.links.deep_links,
+        "deep_total_links": len(page_facts.links.deep_links),
     }
     save_result("links.json", payload)
-    print(f"  [PASS] link extraction - total={len(link_facts.links)}, "
-          f"deep={len(link_facts.deep_links)}, "
-          f"internal={link_facts.internal_count}, "
-          f"external={link_facts.external_count}")
+    print(f"  [PASS] link extraction - total={len(page_facts.links.links)}, "
+          f"internal={page_facts.links.internal_count}, "
+          f"external={page_facts.links.external_count}")
 
 
 async def test_link_analysis_service(crawl_result):
     """Pass LinkFacts through LinkAnalysisService and verify enrichment."""
-    document = crawl_result.document
-    base_url = document.base_url
+    raw_html = crawl_result.document.raw_html
+    url = crawl_result.normalized_url
 
-    link_facts = extract_links(document.soup, base_url)
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=raw_html, url=url)
 
-    service = LinkAnalysisService(base_url=base_url)
-    analysis: LinkAnalysisResult = await service.analyze(link_facts)
+    from app.modules.crawler.extractors.seo_fact_extractor import parsed_document_to_page_facts
+    page_facts = parsed_document_to_page_facts(parsed, raw_html=raw_html)
+
+    service = LinkAnalysisService(base_url=url)
+    analysis: LinkAnalysisResult = await service.analyze(page_facts.links)
 
     assert isinstance(analysis, LinkAnalysisResult)
-    assert analysis.internal_count == link_facts.internal_count
-    assert analysis.external_count == link_facts.external_count
-    assert len(analysis.links) == len(link_facts.links), (
+    assert analysis.internal_count == page_facts.links.internal_count
+    assert analysis.external_count == page_facts.links.external_count
+    assert len(analysis.links) == len(page_facts.links.links), (
         "Enriched link count should match extracted link count"
     )
 
@@ -95,15 +84,13 @@ async def test_link_analysis_service(crawl_result):
         assert "is_ugc" in link
 
     assert isinstance(analysis.summary, dict)
-    # Deep summary rolls up the full surface (incl. non-HTTP anchors), so it
-    # is >= the preserved compatibility ``links`` list.
     assert analysis.summary.get("total_links") >= len(analysis.links)
     assert "by_protocol" in analysis.summary
     assert "by_anchor_text_classification" in analysis.summary
 
     save_result("link_analysis.json", {
-        "url": crawl_result.normalized_url,
-        "base_url": base_url,
+        "url": url,
+        "base_url": url,
         "total_links": len(analysis.links),
         "deep_total_links": analysis.summary.get("total_links"),
         "internal_count": analysis.internal_count,
@@ -129,4 +116,3 @@ if __name__ == "__main__":
         print(f"Results saved to: {RESULTS_DIR}")
 
     asyncio.run(main())
-

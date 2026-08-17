@@ -4,49 +4,49 @@ Scorer Service - Orchestrates all scoring rules and produces SEO score.
 from typing import Dict, Any, List, Optional
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.scorer.services.score_calculator import ScoreCalculator
-from app.modules.scorer.models.rule_result import RuleResult
+from app.modules.rule_engine.models.rule_result import RuleResult
 from app.core.logger import logger
 
 
 # Import all rule classes
-from app.modules.scorer.services.rules.on_page import (
+from app.modules.rule_engine.category_rules.on_page import (
     TitleTagRule, MetaDescriptionRule, H1TagRule, HeadingHierarchyRule,
     MetaKeywordsRule, CanonicalUrlRule, RobotsMetaRule, OpenGraphRule, TwitterCardsRule
 )
-from app.modules.scorer.services.rules.technical import (
+from app.modules.rule_engine.category_rules.technical import (
     SSL_CertificateRule, MobileViewportRule, LanguageDeclarationRule,
     CharsetRule, DoctypeRule, HtmlLangRule, SecurityHeadersRule,
     RobotsTxtRule, SitemapRule, StructuredDataRule
 )
-from app.modules.scorer.services.rules.content import (
+from app.modules.rule_engine.category_rules.content import (
     WordCountRule, ReadingTimeRule, ParagraphCountRule, TextHtmlRatioRule,
     KeywordInContentRule, DuplicateContentRule, ContentFreshnessRule
 )
-from app.modules.scorer.services.rules.links import (
+from app.modules.rule_engine.category_rules.links import (
     InternalLinksRule, ExternalLinksRule, BrokenLinksRule,
     AnchorTextRule, NofollowLinksRule
 )
-from app.modules.scorer.services.rules.images import (
+from app.modules.rule_engine.category_rules.images import (
     ImageAltTextRule, ImageSizeRule, LazyLoadingRule, ImageDimensionsRule,
     ResponsiveImagesRule, ImageFormatsRule
 )
-from app.modules.scorer.services.rules.schema import (
+from app.modules.rule_engine.category_rules.schema import (
     SchemaMarkupRule, OrganizationSchemaRule, BreadcrumbSchemaRule,
     ArticleSchemaRule, ProductSchemaRule, JsonLdFormatRule
 )
-from app.modules.scorer.services.rules.social import (
+from app.modules.rule_engine.category_rules.social import (
     OpenGraphRule, TwitterCardsRule, SocialMediaLinksRule,
     FacebookDomainRule, SocialImageRule
 )
-from app.modules.scorer.services.rules.security import (
+from app.modules.rule_engine.category_rules.security import (
     HTTPSRule, MixedContentRule, SecurityHeadersRule, SSLCertificateRule,
     HSTSRule, XSSProtectionRule
 )
-from app.modules.scorer.services.rules.accessibility import (
+from app.modules.rule_engine.category_rules.accessibility import (
     AltTextRule, LanguageRule, HeadingStructureRule, LinkTextRule,
     ColorContrastRule, KeyboardNavigationRule, ARIALabelsRule, FormLabelsRule
 )
-from app.modules.scorer.services.rules.performance import (
+from app.modules.rule_engine.category_rules.performance import (
     ResponseTimeRule, HTMLSizeRule, MinificationRule, ResourceCountRule,
     CacheHeadersRule, CompressionRule, PageSizeRule, JavaScriptErrorsRule
 )
@@ -129,32 +129,50 @@ class ScorerService:
         Returns:
             Complete SEO score report
         """
-        logger.info("Starting SEO scoring...")
-        
-        # Run all rules
-        rule_results = []
-        for rule in self.rules:
-            try:
-                results = await rule.evaluate(parsed_data)
-                rule_results.extend(results)
-            except Exception as e:
-                logger.error(f"Error running rule {rule.rule_id}: {e}")
-                continue
-        
-        logger.info(f"Completed {len(rule_results)} rule evaluations")
-        
-        # Calculate final score
-        score_report = self.score_calculator.calculate_score(rule_results)
-        
-        # Add raw results for transparency
-        score_report["rule_results"] = rule_results
-        
-        logger.info(
-            f"SEO Score calculated: {score_report['overall_score']}/100 "
-            f"(Grade {score_report['grade']})"
-        )
-        
-        return score_report
+        try:
+            logger.info("Starting SEO scoring...")
+            
+            # Run all rules
+            rule_results = []
+            for rule in self.rules:
+                try:
+                    results = await rule.evaluate(parsed_data)
+                    rule_results.extend(results)
+                except Exception as e:
+                    logger.error(f"Error running rule {rule.rule_id}: {e}")
+                    # Create synthetic error result so the rule is visible in output
+                    from app.modules.rule_engine.models.rule_result import RuleResult, Severity
+                    error_result = RuleResult(
+                        rule_id=rule.rule_id,
+                        name=rule.name,
+                        category=rule.category,
+                        severity=Severity.ERROR,
+                        passed=False,
+                        score_impact=0,
+                        message=f"Rule evaluation failed: {e}",
+                        recommendation="Check rule implementation for data mismatch",
+                        tags=rule.tags,
+                    )
+                    rule_results.append(error_result)
+                    continue
+            
+            logger.info(f"Completed {len(rule_results)} rule evaluations")
+            
+            # Calculate final score
+            score_report = self.score_calculator.calculate_score(rule_results)
+            
+            # Add raw results for transparency
+            score_report["rule_results"] = rule_results
+            
+            logger.info(
+                f"SEO Score calculated: {score_report['overall_score']}/100 "
+                f"(Grade {score_report['grade']})"
+            )
+            
+            return score_report
+        except Exception as ex:
+            logger.error(f"ScorerService.score_parsed_data: unhandled error: {ex}", exc_info=True)
+            raise
     
     async def score_url(self, url: str, crawl_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
@@ -167,14 +185,20 @@ class ScorerService:
         Returns:
             Complete SEO score report
         """
-        if not crawl_data:
-            raise ValueError("crawl_data is required for scoring")
-        
-        # Extract parsed data from crawl data
-        # The parser service would normally populate a 'data' key
-        parsed_data = crawl_data.get("data", crawl_data)
-        
-        return await self.score_parsed_data(parsed_data)
+        try:
+            if not crawl_data:
+                raise ValueError("crawl_data is required for scoring")
+            
+            # Extract parsed data from crawl data
+            # The parser service would normally populate a 'data' key
+            parsed_data = crawl_data.get("data", crawl_data)
+            
+            return await self.score_parsed_data(parsed_data)
+        except ValueError:
+            raise
+        except Exception as exc:
+            logger.error(f"ScorerService.score_url: error for url={url}: {exc}", exc_info=True)
+            raise
     
     def get_rule_statistics(self) -> Dict[str, Any]:
         """

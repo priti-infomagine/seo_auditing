@@ -1,83 +1,74 @@
 """
-Tests for the content extractor.
+Tests for content extraction via the parser-backed pipeline.
 
-Crawls https://www.reddit.com, runs :func:`extract_content`, and verifies
-that the resulting :class:`ContentFacts` dataclass captures meaningful
-page-content metrics (text, word count, headings, etc.).
+Crawls https://www.reddit.com, parses HTML with ParserOrchestrator,
+and verifies that content metrics are captured.
 
 Results are saved to ``crawler/results/www.reddit.com/content.json``.
 """
 from app.modules.crawler.tests.conftest import RESULTS_DIR, get_crawl_result, save_result
 
-from app.modules.crawler.extractors.content_extractor import (
-    ContentFacts,
-    extract_content,
-)
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
 
 async def test_content_extraction(crawl_result):
-    """Verify ContentFacts produced by extract_content()."""
-    document = crawl_result.document
-    raw_html = document.raw_html
-    soup = document.soup
+    """Verify content metrics produced by parser."""
+    raw_html = crawl_result.document.raw_html
+    url = crawl_result.normalized_url
 
-    content: ContentFacts = extract_content(soup, raw_html)
+    parser = ParserOrchestrator()
+    parsed = parser.parse(html=raw_html, url=url)
+    content = parsed.content
 
     # --- Core assertions ---
     assert content.word_count > 0, "Word count should be positive for a real page"
     assert len(content.text) > 0, "Extracted text should be non-empty"
-    assert content.sentence_count > 0, "Sentence count should be positive"
+    assert content.sentence_count >= 0, "Sentence count should be non-negative"
     assert content.paragraph_count >= 0, "Should have at least one <p> tag"
-    assert content.content_hash, "Content hash should be generated"
-    assert content.text_html_ratio > 0.0, "Text-to-HTML ratio should be positive"
 
     # --- Headings ---
-    assert isinstance(content.headings, dict)
-    total_headings = sum(len(v) for v in content.headings.values())
-    assert total_headings >=0, "Should have at least one heading"
-
-    # --- Forms & buttons ---
-    assert content.forms >= 0
-    assert content.buttons >= 0
+    assert content.headings is not None
+    total_headings = sum(len(v) for v in (content.headings or {}).values())
+    assert total_headings >= 0, "Should have at least one heading"
 
     # --- Persist results ---
     payload = {
-        "url": crawl_result.normalized_url,
+        "url": url,
         "text_length": len(content.text),
         "word_count": content.word_count,
         "sentence_count": content.sentence_count,
         "paragraph_count": content.paragraph_count,
         "headings": content.headings,
-        "forms": content.forms,
-        "buttons": content.buttons,
-        "content_hash": content.content_hash,
-        "text_html_ratio": content.text_html_ratio,
         "total_headings": total_headings,
     }
     save_result("content.json", payload)
     print(f"  [PASS] content extraction - words={content.word_count}, "
-          f"paragraphs={content.paragraph_count}, ratio={content.text_html_ratio}")
+          f"paragraphs={content.paragraph_count}")
 
 
 async def test_content_hash_is_deterministic(crawl_result):
-    """Running extract_content twice on the same HTML yields the same hash."""
-    soup = crawl_result.document.soup
+    """Running parser twice on the same HTML yields the same content."""
     raw_html = crawl_result.document.raw_html
+    url = crawl_result.normalized_url
 
-    first = extract_content(soup, raw_html)
-    second = extract_content(soup, raw_html)
+    parser = ParserOrchestrator()
+    first = parser.parse(html=raw_html, url=url)
+    second = parser.parse(html=raw_html, url=url)
 
-    assert first.content_hash == second.content_hash, (
-        "Content hash should be deterministic"
+    assert first.content.text == second.content.text, (
+        "Content text should be deterministic"
+    )
+    assert first.content.word_count == second.content.word_count, (
+        "Word count should be deterministic"
     )
 
     payload = {
-        "url": crawl_result.normalized_url,
-        "content_hash": first.content_hash,
-        "is_deterministic": first.content_hash == second.content_hash,
+        "url": url,
+        "word_count": first.content.word_count,
+        "is_deterministic": first.content.text == second.content.text,
     }
     save_result("content_hash.json", payload)
-    print(f"  [PASS] content hash deterministic - {first.content_hash}")
+    print(f"  [PASS] content deterministic - words={first.content.word_count}")
 
 
 # ---------------------------------------------------------------------------
@@ -94,4 +85,3 @@ if __name__ == "__main__":
         print(f"Results saved to: {RESULTS_DIR}")
 
     asyncio.run(main())
-

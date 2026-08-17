@@ -4,6 +4,7 @@ Schemas for crawler API endpoints.
 from pydantic import BaseModel, Field, HttpUrl, field_validator
 from typing import Optional, Dict, Any, List
 from datetime import datetime
+from uuid import UUID
 
 
 class CrawlRequest(BaseModel):
@@ -18,6 +19,14 @@ class CrawlRequest(BaseModel):
     max_depth: int = Field(5, description="Maximum crawl depth")
     max_pages: int = Field(1000, description="Maximum pages to crawl")
     concurrency: int = Field(10, description="Concurrent requests")
+    auto_analyze: bool = Field(
+        False,
+        description="If true, automatically run parse → evaluate → score pipeline after crawl completes"
+    )
+    project_id: Optional[UUID] = Field(
+        None,
+        description="Project identifier for tracking. If None, a new UUID is generated.",
+    )
     
     @field_validator("url")
     @classmethod
@@ -38,6 +47,7 @@ class CrawlResponse(BaseModel):
     crawl_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Current crawl job status")
     message: str = Field(..., description="Status message")
+    project_id: str = Field(..., description="Project identifier for tracking the analysis pipeline")
 
 
 class CrawlStatusResponse(BaseModel):

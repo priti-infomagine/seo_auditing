@@ -24,6 +24,7 @@ from typing import Optional
 from urllib.parse import urlparse
 from uuid import UUID
 
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.page_seo_data import PageSEOData
@@ -67,78 +68,106 @@ class CrawlPersistenceService:
         error: Optional[str] = None,
     ) -> None:
         """Update crawl job status."""
-        job = await self.job_repo.get_by_id(self.crawl_job_id)
-        if job:
-            job.status = status
-            if duration_ms is not None:
-                job.duration_ms = duration_ms
-            if error is not None:
-                job.error = error[:1024]
-            await self.job_repo.update(job)
+        try:
+            job = await self.job_repo.get_by_id(self.crawl_job_id)
+            if job:
+                job.status = status
+                if duration_ms is not None:
+                    job.duration_ms = duration_ms
+                if error is not None:
+                    job.error = error[:1024]
+                await self.job_repo.update(job)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.update_job_status: error: {exc}", exc_info=True)
+            raise
 
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
         """Persist a crawl page."""
-        existing = await self.page_repo.get_by_url(page.crawl_id, page.normalized_url)
-        if existing:
-            for key, value in page.__dict__.items():
-                if key not in ("id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"):
-                    setattr(existing, key, value)
-            return await self.page_repo.update(existing)
-        return await self.page_repo.create(page)
+        try:
+            existing = await self.page_repo.get_by_url(page.crawl_id, page.normalized_url)
+            if existing:
+                for key, value in page.__dict__.items():
+                    if key not in ("id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"):
+                        setattr(existing, key, value)
+                return await self.page_repo.update(existing)
+            return await self.page_repo.create(page)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_page: error: {exc}", exc_info=True)
+            raise
 
     async def persist_seo_data(self, seo_data: PageSEOData) -> PageSEOData:
         """Persist SEO data."""
-        return await self.seo_repo.upsert(seo_data)
+        try:
+            return await self.seo_repo.upsert(seo_data)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_seo_data: error: {exc}", exc_info=True)
+            raise
 
     async def persist_resources(self, page_id: UUID, resources: list, page_url: str = "") -> list:
         """Persist page resources with mixed-content detection."""
-        if not resources:
-            return []
+        try:
+            if not resources:
+                return []
 
-        page_scheme = urlparse(page_url).scheme if page_url else "https"
-        resource_objects = []
-        for r in resources:
-            if not isinstance(r, dict):
-                continue
-            resource = PageResource(
-                page_id=page_id,
-                resource_type=r.get("type", ""),
-                url=r.get("url", ""),
-                normalized_url=r.get("url"),
-                alt=r.get("alt"),
-                width=r.get("width"),
-                height=r.get("height"),
-                loading=r.get("loading"),
-                srcset=r.get("srcset"),
-                sizes=r.get("sizes"),
-                is_lazy=r.get("is_lazy"),
-                mime_type=r.get("mime_type"),
-                is_mixed_content=(
-                    urlparse(r.get("url", "")).scheme == "http"
-                    and page_scheme == "https"
-                ),
-            )
-            resource_objects.append(resource)
+            page_scheme = urlparse(page_url).scheme if page_url else "https"
+            resource_objects = []
+            for r in resources:
+                if not isinstance(r, dict):
+                    continue
+                resource = PageResource(
+                    page_id=page_id,
+                    resource_type=r.get("type", ""),
+                    url=r.get("url", ""),
+                    normalized_url=r.get("url"),
+                    alt=r.get("alt"),
+                    width=r.get("width"),
+                    height=r.get("height"),
+                    loading=r.get("loading"),
+                    srcset=r.get("srcset"),
+                    sizes=r.get("sizes"),
+                    is_lazy=r.get("is_lazy"),
+                    mime_type=r.get("mime_type"),
+                    is_mixed_content=(
+                        urlparse(r.get("url", "")).scheme == "http"
+                        and page_scheme == "https"
+                    ),
+                )
+                resource_objects.append(resource)
 
-        return await self.resource_repo.create_batch(resource_objects)
+            return await self.resource_repo.create_batch(resource_objects)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_resources: error: {exc}", exc_info=True)
+            raise
 
     async def persist_network_data(self, network_data: PageNetworkData) -> PageNetworkData:
         """Persist network data."""
-        return await self.network_repo.upsert(network_data)
+        try:
+            return await self.network_repo.upsert(network_data)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_network_data: error: {exc}", exc_info=True)
+            raise
 
     async def persist_site_data(self, site_data: CrawlSiteData) -> CrawlSiteData:
         """Persist site data."""
-        return await self.site_repo.upsert(site_data)
+        try:
+            return await self.site_repo.upsert(site_data)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_site_data: error: {exc}", exc_info=True)
+            raise
 
     async def persist_snapshot(self, page_id: UUID, html_content: str) -> PageSnapshot:
         """Persist HTML snapshot."""
-        from app.shared.utils.html_compressor import compress_html, should_compress
-        content_to_store = html_content
-        compressed = False
-        if should_compress(html_content):
-            content_to_store = compress_html(html_content)
-            compressed = True
-        return await self.snapshot_repo.save_snapshot(page_id, content_to_store, compressed)
+        try:
+            from app.shared.utils.html_compressor import compress_html, should_compress
+            content_to_store = html_content
+            compressed = False
+            if should_compress(html_content):
+                content_to_store = compress_html(html_content)
+                compressed = True
+            return await self.snapshot_repo.save_snapshot(page_id, content_to_store, compressed)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_snapshot: error: {exc}", exc_info=True)
+            raise
 
     async def persist_error(
         self,
@@ -147,35 +176,43 @@ class CrawlPersistenceService:
         error_message: str,
     ) -> CrawlError:
         """Persist crawl error."""
-        error = CrawlError(
-            crawl_id=self.crawl_job_id,
-            page_id=page_id,
-            error_type=error_type,
-            error_message=error_message,
-        )
-        return await self.error_repo.create(error)
+        try:
+            error = CrawlError(
+                crawl_id=self.crawl_job_id,
+                page_id=page_id,
+                error_type=error_type,
+                error_message=error_message,
+            )
+            return await self.error_repo.create(error)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_error: error: {exc}", exc_info=True)
+            raise
 
     async def persist_links(self, page_id: UUID, links: list) -> list:
         """Persist page links."""
-        if not links:
-            return []
-        link_objects = [
-            PageLink(
-                page_id=page_id,
-                crawl_job_id=self.crawl_job_id,
-                target_url=link.get("url", ""),
-                normalized_target_url=link.get("url"),
-                anchor_text=link.get("anchor_text"),
-                rel=link.get("rel"),
-                link_type=link.get("link_type", "anchor"),
-                is_internal=link.get("is_internal", True),
-                is_external=link.get("is_external", False),
-                nofollow=link.get("nofollow", False),
-                ugc=link.get("ugc", False),
-                sponsored=link.get("sponsored", False),
-                is_crawlable=link.get("is_internal", True),
-            )
-            for link in links
-            if isinstance(link, dict)
-        ]
-        return await self.link_repo.create_batch(link_objects)
+        try:
+            if not links:
+                return []
+            link_objects = [
+                PageLink(
+                    page_id=page_id,
+                    crawl_job_id=self.crawl_job_id,
+                    target_url=link.get("url", ""),
+                    normalized_target_url=link.get("url"),
+                    anchor_text=link.get("anchor_text"),
+                    rel=link.get("rel"),
+                    link_type=link.get("link_type", "anchor"),
+                    is_internal=link.get("is_internal", True),
+                    is_external=link.get("is_external", False),
+                    nofollow=link.get("nofollow", False),
+                    ugc=link.get("ugc", False),
+                    sponsored=link.get("sponsored", False),
+                    is_crawlable=link.get("is_internal", True),
+                )
+                for link in links
+                if isinstance(link, dict)
+            ]
+            return await self.link_repo.create_batch(link_objects)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.persist_links: error: {exc}", exc_info=True)
+            raise
