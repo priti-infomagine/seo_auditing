@@ -38,7 +38,7 @@ class ScoreCalculator:
         "performance": 0.05,
     }
     
-    def __init__(self, weights: Dict[str, float] ):
+    def __init__(self, weights: Dict[str, float] = None ):
         """
         Initialize calculator with custom weights.
         

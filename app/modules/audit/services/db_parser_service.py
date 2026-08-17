@@ -355,7 +355,7 @@ class DBParserService:
                 headings.append({
                     "level": h.level,
                     "text": h.text,
-                    "id": h.id,
+                    "position": getattr(h, "position", None),
                 })
 
         paragraphs = []
@@ -401,33 +401,33 @@ class DBParserService:
             for link in parsed.links:
                 attrs["links"].append({
                     "href": link.href,
-                    "anchor_text": link.anchor_text,
+                    "anchor_text": link.text,
                     "rel": link.rel,
-                    "is_internal": link.is_internal,
-                    "is_external": link.is_external,
-                    "id": link.id,
-                    "classes": link.class_names if hasattr(link, "class_names") else [],
-                    "aria_label": link.aria_label if hasattr(link, "aria_label") else None,
+                    "is_internal": not link.absolute_url or link.href.startswith("/"),
+                    "is_external": bool(link.absolute_url) and not link.href.startswith("/"),
+                    "id": None,
+                    "classes": link.attributes.get("class", []) if hasattr(link, "attributes") and link.attributes else [],
+                    "aria_label": link.attributes.get("aria-label", None) if hasattr(link, "attributes") and link.attributes else None,
                 })
 
         if parsed.images:
             for img in parsed.images:
                 attrs["images"].append({
-                    "src": img.src,
+                    "src": img.url,
                     "alt": img.alt,
                     "width": img.width,
                     "height": img.height,
-                    "loading": img.loading if hasattr(img, "loading") else None,
-                    "id": img.id,
-                    "classes": img.class_names if hasattr(img, "class_names") else [],
+                    "loading": img.loading,
+                    "id": None,
+                    "classes": img.attributes.get("class", []) if hasattr(img, "attributes") and img.attributes else [],
                 })
 
         if parsed.resources:
             for res in parsed.resources:
                 attrs["resources"].append({
                     "url": res.url,
-                    "resource_type": res.resource_type if hasattr(res, "resource_type") else "",
-                    "id": res.id if hasattr(res, "id") else None,
+                    "resource_type": res.resource_type,
+                    "id": None,
                 })
 
         return attrs

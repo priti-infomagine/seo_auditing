@@ -4948,3 +4948,615 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-17 17:24:18,606 | INFO | Starting SEO scoring...
 2026-08-17 17:24:18,606 | INFO | Completed 70 rule evaluations
 2026-08-17 17:24:18,606 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:43:52,990 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:43:52,990 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:43:55,116 | INFO | Step 2: Starting parse phase
+2026-08-17 17:43:55,296 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:43:55,296 | INFO | Loaded 70 scoring rules
+2026-08-17 17:43:55,296 | INFO | Starting SEO scoring...
+2026-08-17 17:43:55,296 | INFO | Completed 70 rule evaluations
+2026-08-17 17:43:55,296 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:43:55,296 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:43:55,296 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:43:55,563 | INFO | DB persistence completed: crawl_id=3d0b0f52-8155-414e-9d5e-93ddc54b36f7, page_id=44444b2d-5340-4790-9aac-f6bebe272f07
+2026-08-17 17:43:55,563 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:43:55,563 | INFO | DBParserService.parse_crawl: project_id=7fbb42a9-61fc-4923-b0c8-f1e97f92225a, crawl_id=3d0b0f52-8155-414e-9d5e-93ddc54b36f7, force=True
+2026-08-17 17:43:55,709 | ERROR | DBParserService.parse_page: error for page_id=44444b2d-5340-4790-9aac-f6bebe272f07: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:43:55,716 | ERROR | DBParserService: parse failed for page_id=44444b2d-5340-4790-9aac-f6bebe272f07: Page parse failed for page_id=44444b2d-5340-4790-9aac-f6bebe272f07: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 123, in parse_crawl
+    fact = await self.parse_page(project_id, crawl_id, page.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 305, in parse_page
+    raise ParserError(f"Page parse failed for page_id={page_id}: {exc}") from exc
+app.shared.exceptions.ParserError: Page parse failed for page_id=44444b2d-5340-4790-9aac-f6bebe272f07: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:43:55,720 | INFO | DBParserService.parse_crawl: parsed=0, failed=1, skipped=0 for project_id=7fbb42a9-61fc-4923-b0c8-f1e97f92225a
+2026-08-17 17:43:55,720 | INFO | DB parse: 0 pages parsed, 1 failed
+2026-08-17 17:43:55,722 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:43:55,722 | INFO | Loaded 70 scoring rules
+2026-08-17 17:43:55,722 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=7fbb42a9-61fc-4923-b0c8-f1e97f92225a, crawl_id=3d0b0f52-8155-414e-9d5e-93ddc54b36f7, force=True
+2026-08-17 17:43:55,732 | WARNING | RuleEvaluatorService.evaluate_crawl: no parsed facts for project_id=7fbb42a9-61fc-4923-b0c8-f1e97f92225a, crawl_id=3d0b0f52-8155-414e-9d5e-93ddc54b36f7
+2026-08-17 17:43:55,732 | INFO | DB evaluate: 0 rules run, 0 results, 0 errors
+2026-08-17 17:43:55,732 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:43:55,732 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 273, in analyze_website
+    db_scorer = AnalysisScorerService(db)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 46, in __init__
+    self.calculator = ScoreCalculator()
+                      ^^^^^^^^^^^^^^^^^
+TypeError: ScoreCalculator.__init__() missing 1 required positional argument: 'weights'
+2026-08-17 17:44:14,369 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:44:14,369 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:44:15,654 | INFO | Step 2: Starting parse phase
+2026-08-17 17:44:15,768 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:44:15,768 | INFO | Loaded 70 scoring rules
+2026-08-17 17:44:15,768 | INFO | Starting SEO scoring...
+2026-08-17 17:44:15,768 | INFO | Completed 70 rule evaluations
+2026-08-17 17:44:15,768 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:44:15,768 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:44:15,768 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:44:15,793 | INFO | DB persistence completed: crawl_id=88857feb-4703-4d45-8b87-39f83feff370, page_id=c4236fd9-b038-4d4f-8dbd-9417ef6d78ca
+2026-08-17 17:44:15,793 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:44:15,793 | INFO | DBParserService.parse_crawl: project_id=edcf929f-7e5d-43b0-80fc-a39fc3367055, crawl_id=88857feb-4703-4d45-8b87-39f83feff370, force=True
+2026-08-17 17:44:15,906 | ERROR | DBParserService.parse_page: error for page_id=c4236fd9-b038-4d4f-8dbd-9417ef6d78ca: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:44:15,906 | ERROR | DBParserService: parse failed for page_id=c4236fd9-b038-4d4f-8dbd-9417ef6d78ca: Page parse failed for page_id=c4236fd9-b038-4d4f-8dbd-9417ef6d78ca: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 123, in parse_crawl
+    fact = await self.parse_page(project_id, crawl_id, page.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 305, in parse_page
+    raise ParserError(f"Page parse failed for page_id={page_id}: {exc}") from exc
+app.shared.exceptions.ParserError: Page parse failed for page_id=c4236fd9-b038-4d4f-8dbd-9417ef6d78ca: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:44:15,918 | INFO | DBParserService.parse_crawl: parsed=0, failed=1, skipped=0 for project_id=edcf929f-7e5d-43b0-80fc-a39fc3367055
+2026-08-17 17:44:15,918 | INFO | DB parse: 0 pages parsed, 1 failed
+2026-08-17 17:44:15,918 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:44:15,918 | INFO | Loaded 70 scoring rules
+2026-08-17 17:44:15,918 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=edcf929f-7e5d-43b0-80fc-a39fc3367055, crawl_id=88857feb-4703-4d45-8b87-39f83feff370, force=True
+2026-08-17 17:44:15,918 | WARNING | RuleEvaluatorService.evaluate_crawl: no parsed facts for project_id=edcf929f-7e5d-43b0-80fc-a39fc3367055, crawl_id=88857feb-4703-4d45-8b87-39f83feff370
+2026-08-17 17:44:15,918 | INFO | DB evaluate: 0 rules run, 0 results, 0 errors
+2026-08-17 17:44:15,918 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:44:15,918 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 273, in analyze_website
+    db_scorer = AnalysisScorerService(db)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 46, in __init__
+    self.calculator = ScoreCalculator()
+                      ^^^^^^^^^^^^^^^^^
+TypeError: ScoreCalculator.__init__() missing 1 required positional argument: 'weights'
+2026-08-17 17:44:27,322 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:44:27,322 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:44:28,757 | INFO | Step 2: Starting parse phase
+2026-08-17 17:44:28,908 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:44:28,908 | INFO | Loaded 70 scoring rules
+2026-08-17 17:44:28,908 | INFO | Starting SEO scoring...
+2026-08-17 17:44:28,910 | INFO | Completed 70 rule evaluations
+2026-08-17 17:44:28,911 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:44:28,911 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:44:28,911 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:44:28,950 | INFO | DB persistence completed: crawl_id=e61290a2-1f54-4f3c-ab85-db22149c9b2c, page_id=63514b32-5d6f-447a-a99c-5d0b04e92f35
+2026-08-17 17:44:28,950 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:44:28,951 | INFO | DBParserService.parse_crawl: project_id=9c681a39-529f-4c75-a50b-ae5ff8912f15, crawl_id=e61290a2-1f54-4f3c-ab85-db22149c9b2c, force=True
+2026-08-17 17:44:29,050 | ERROR | DBParserService.parse_page: error for page_id=63514b32-5d6f-447a-a99c-5d0b04e92f35: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:44:29,050 | ERROR | DBParserService: parse failed for page_id=63514b32-5d6f-447a-a99c-5d0b04e92f35: Page parse failed for page_id=63514b32-5d6f-447a-a99c-5d0b04e92f35: 'HeadingData' object has no attribute 'id'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 260, in parse_page
+    elements = self._build_elements(parsed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 358, in _build_elements
+    "id": h.id,
+          ^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'HeadingData' object has no attribute 'id'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 123, in parse_crawl
+    fact = await self.parse_page(project_id, crawl_id, page.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 305, in parse_page
+    raise ParserError(f"Page parse failed for page_id={page_id}: {exc}") from exc
+app.shared.exceptions.ParserError: Page parse failed for page_id=63514b32-5d6f-447a-a99c-5d0b04e92f35: 'HeadingData' object has no attribute 'id'
+2026-08-17 17:44:29,061 | INFO | DBParserService.parse_crawl: parsed=0, failed=1, skipped=0 for project_id=9c681a39-529f-4c75-a50b-ae5ff8912f15
+2026-08-17 17:44:29,061 | INFO | DB parse: 0 pages parsed, 1 failed
+2026-08-17 17:44:29,061 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:44:29,061 | INFO | Loaded 70 scoring rules
+2026-08-17 17:44:29,061 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=9c681a39-529f-4c75-a50b-ae5ff8912f15, crawl_id=e61290a2-1f54-4f3c-ab85-db22149c9b2c, force=True
+2026-08-17 17:44:29,063 | WARNING | RuleEvaluatorService.evaluate_crawl: no parsed facts for project_id=9c681a39-529f-4c75-a50b-ae5ff8912f15, crawl_id=e61290a2-1f54-4f3c-ab85-db22149c9b2c
+2026-08-17 17:44:29,063 | INFO | DB evaluate: 0 rules run, 0 results, 0 errors
+2026-08-17 17:44:29,063 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:44:29,063 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 273, in analyze_website
+    db_scorer = AnalysisScorerService(db)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 46, in __init__
+    self.calculator = ScoreCalculator()
+                      ^^^^^^^^^^^^^^^^^
+TypeError: ScoreCalculator.__init__() missing 1 required positional argument: 'weights'
+2026-08-17 17:45:47,562 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:45:47,565 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:45:49,145 | INFO | Step 2: Starting parse phase
+2026-08-17 17:45:49,300 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:45:49,300 | INFO | Loaded 70 scoring rules
+2026-08-17 17:45:49,300 | INFO | Starting SEO scoring...
+2026-08-17 17:45:49,306 | INFO | Completed 70 rule evaluations
+2026-08-17 17:45:49,306 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:45:49,306 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:45:49,306 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:45:49,522 | INFO | DB persistence completed: crawl_id=9212ab39-d960-4646-8358-a813b25bf301, page_id=f151fcd7-d678-4f36-ac1b-5a2135e9a371
+2026-08-17 17:45:49,522 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:45:49,522 | INFO | DBParserService.parse_crawl: project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e, crawl_id=9212ab39-d960-4646-8358-a813b25bf301, force=True
+2026-08-17 17:45:49,668 | ERROR | DBParserService.parse_page: error for page_id=f151fcd7-d678-4f36-ac1b-5a2135e9a371: 'LinkData' object has no attribute 'anchor_text'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 263, in parse_page
+    attributes = self._build_attributes(parsed)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 404, in _build_attributes
+    "anchor_text": link.anchor_text,
+                   ^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'LinkData' object has no attribute 'anchor_text'
+2026-08-17 17:45:49,673 | ERROR | DBParserService: parse failed for page_id=f151fcd7-d678-4f36-ac1b-5a2135e9a371: Page parse failed for page_id=f151fcd7-d678-4f36-ac1b-5a2135e9a371: 'LinkData' object has no attribute 'anchor_text'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 263, in parse_page
+    attributes = self._build_attributes(parsed)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 404, in _build_attributes
+    "anchor_text": link.anchor_text,
+                   ^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'LinkData' object has no attribute 'anchor_text'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 123, in parse_crawl
+    fact = await self.parse_page(project_id, crawl_id, page.id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\db_parser_service.py", line 305, in parse_page
+    raise ParserError(f"Page parse failed for page_id={page_id}: {exc}") from exc
+app.shared.exceptions.ParserError: Page parse failed for page_id=f151fcd7-d678-4f36-ac1b-5a2135e9a371: 'LinkData' object has no attribute 'anchor_text'
+2026-08-17 17:45:49,673 | INFO | DBParserService.parse_crawl: parsed=0, failed=1, skipped=0 for project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e
+2026-08-17 17:45:49,673 | INFO | DB parse: 0 pages parsed, 1 failed
+2026-08-17 17:45:49,673 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:45:49,678 | INFO | Loaded 70 scoring rules
+2026-08-17 17:45:49,678 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e, crawl_id=9212ab39-d960-4646-8358-a813b25bf301, force=True
+2026-08-17 17:45:49,681 | WARNING | RuleEvaluatorService.evaluate_crawl: no parsed facts for project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e, crawl_id=9212ab39-d960-4646-8358-a813b25bf301
+2026-08-17 17:45:49,681 | INFO | DB evaluate: 0 rules run, 0 results, 0 errors
+2026-08-17 17:45:49,684 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:45:49,684 | INFO | AnalysisScorerService.score_project: project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e, crawl_id=9212ab39-d960-4646-8358-a813b25bf301, force=True
+2026-08-17 17:45:49,705 | WARNING | AnalysisScorerService: no rule results found for project_id=3ffe725c-f63b-42e8-b698-cfc0322fdf5e, crawl_id=9212ab39-d960-4646-8358-a813b25bf301
+2026-08-17 17:45:49,739 | INFO | DB scoring completed: Score=0.0/100 (Grade: F)
+2026-08-17 17:47:37,960 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:47:37,961 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:47:39,926 | INFO | Step 2: Starting parse phase
+2026-08-17 17:47:40,101 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:47:40,101 | INFO | Loaded 70 scoring rules
+2026-08-17 17:47:40,101 | INFO | Starting SEO scoring...
+2026-08-17 17:47:40,101 | INFO | Completed 70 rule evaluations
+2026-08-17 17:47:40,101 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:47:40,101 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:47:40,101 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:47:40,260 | INFO | DB persistence completed: crawl_id=4efb8399-d70e-4736-9a31-f3ed8d7fcb3f, page_id=75caea4b-647f-437d-b6b3-9de3458fb178
+2026-08-17 17:47:40,260 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:47:40,260 | INFO | DBParserService.parse_crawl: project_id=53729b9c-4dfd-436d-a661-8441270ede72, crawl_id=4efb8399-d70e-4736-9a31-f3ed8d7fcb3f, force=True
+2026-08-17 17:47:40,413 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=53729b9c-4dfd-436d-a661-8441270ede72
+2026-08-17 17:47:40,413 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 17:47:40,413 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:47:40,413 | INFO | Loaded 70 scoring rules
+2026-08-17 17:47:40,413 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=53729b9c-4dfd-436d-a661-8441270ede72, crawl_id=4efb8399-d70e-4736-9a31-f3ed8d7fcb3f, force=True
+2026-08-17 17:47:40,660 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=53729b9c-4dfd-436d-a661-8441270ede72
+2026-08-17 17:47:40,660 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 17:47:40,660 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:47:40,660 | INFO | AnalysisScorerService.score_project: project_id=53729b9c-4dfd-436d-a661-8441270ede72, crawl_id=4efb8399-d70e-4736-9a31-f3ed8d7fcb3f, force=True
+2026-08-17 17:47:40,677 | ERROR | AnalysisScorerService.score_project: unhandled error for project_id=53729b9c-4dfd-436d-a661-8441270ede72: 'RuleResult' object has no attribute 'get'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 196, in score_project
+    self._dict_to_rule_result(issue)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 444, in _dict_to_rule_result
+    rule_id=d.get("rule_id", ""),
+            ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'RuleResult' object has no attribute 'get'
+2026-08-17 17:47:40,685 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 196, in score_project
+    self._dict_to_rule_result(issue)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 444, in _dict_to_rule_result
+    rule_id=d.get("rule_id", ""),
+            ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'RuleResult' object has no attribute 'get'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 274, in analyze_website
+    db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 308, in score_project
+    raise ScoringError(f"Project scoring failed: {exc}") from exc
+app.shared.exceptions.ScoringError: Project scoring failed: 'RuleResult' object has no attribute 'get'
+2026-08-17 17:49:03,206 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:49:03,206 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:49:04,557 | INFO | Step 2: Starting parse phase
+2026-08-17 17:49:04,798 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:49:04,798 | INFO | Loaded 70 scoring rules
+2026-08-17 17:49:04,807 | INFO | Starting SEO scoring...
+2026-08-17 17:49:04,807 | INFO | Completed 70 rule evaluations
+2026-08-17 17:49:04,807 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:49:04,807 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:49:04,807 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:49:04,969 | INFO | DB persistence completed: crawl_id=89338634-5a3b-4abb-9bfe-7e727c7cdd62, page_id=0e335cb3-9c23-4035-a223-4ee337873e3f
+2026-08-17 17:49:04,970 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:49:04,970 | INFO | DBParserService.parse_crawl: project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a, crawl_id=89338634-5a3b-4abb-9bfe-7e727c7cdd62, force=True
+2026-08-17 17:49:05,088 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a
+2026-08-17 17:49:05,088 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 17:49:05,102 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:49:05,102 | INFO | Loaded 70 scoring rules
+2026-08-17 17:49:05,103 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a, crawl_id=89338634-5a3b-4abb-9bfe-7e727c7cdd62, force=True
+2026-08-17 17:49:05,272 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a
+2026-08-17 17:49:05,272 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 17:49:05,272 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:49:05,272 | INFO | AnalysisScorerService.score_project: project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a, crawl_id=89338634-5a3b-4abb-9bfe-7e727c7cdd62, force=True
+2026-08-17 17:49:05,320 | ERROR | AnalysisScorerService.score_project: unhandled error for project_id=e7bdcbfc-b9f6-4e46-b6b3-03c0e42ecb3a: (builtins.TypeError) Object of type RuleResult is not JSON serializable
+[SQL: INSERT INTO seo_analysis_runs (id, project_id, crawl_id, domain, overall_score, grade, total_pages_scored, total_rules_evaluated, total_passed, total_failed, critical_issues, warnings, error_pages, error_summary, category_scores, top_issues, summary, output_file_path, analysis_status, scored_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::FLOAT, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::JSONB, $15::JSONB, $16::JSONB, $17::VARCHAR, $18::VARCHAR, $19::VARCHAR, $20::TIMESTAMP WITH TIME ZONE) RETURNING seo_analysis_runs.created_at, seo_analysis_runs.updated_at]
+[parameters: [{'grade': 'B', 'error_pages': 0, 'critical_issues': 4, 'domain': 'radonindia.com', 'total_passed': 44, 'output_file_path': 'app\\output\\radonindia.co ... (23809 characters truncated) ... n': "Add <link rel='canonical' href='...'> to prevent duplicate content issues", 'data': None, 'tags': ['critical', 'on_page', 'duplicate_content']}]}]]
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1817, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1494, in _init_compiled
+    l_param: List[Any] = [
+                         ^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1496, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 2802, in process
+    return json_serializer(value)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type RuleResult is not JSON serializable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 294, in score_project
+    await self.analysis_repo.upsert(run)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\repositories\seo_analysis_repository.py", line 51, in upsert
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1823, in _execute_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1817, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1494, in _init_compiled
+    l_param: List[Any] = [
+                         ^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1496, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 2802, in process
+    return json_serializer(value)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+sqlalchemy.exc.StatementError: (builtins.TypeError) Object of type RuleResult is not JSON serializable
+[SQL: INSERT INTO seo_analysis_runs (id, project_id, crawl_id, domain, overall_score, grade, total_pages_scored, total_rules_evaluated, total_passed, total_failed, critical_issues, warnings, error_pages, error_summary, category_scores, top_issues, summary, output_file_path, analysis_status, scored_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::FLOAT, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::JSONB, $15::JSONB, $16::JSONB, $17::VARCHAR, $18::VARCHAR, $19::VARCHAR, $20::TIMESTAMP WITH TIME ZONE) RETURNING seo_analysis_runs.created_at, seo_analysis_runs.updated_at]
+[parameters: [{'grade': 'B', 'error_pages': 0, 'critical_issues': 4, 'domain': 'radonindia.com', 'total_passed': 44, 'output_file_path': 'app\\output\\radonindia.co ... (23809 characters truncated) ... n': "Add <link rel='canonical' href='...'> to prevent duplicate content issues", 'data': None, 'tags': ['critical', 'on_page', 'duplicate_content']}]}]]
+2026-08-17 17:49:05,507 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1817, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1494, in _init_compiled
+    l_param: List[Any] = [
+                         ^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1496, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 2802, in process
+    return json_serializer(value)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type RuleResult is not JSON serializable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 294, in score_project
+    await self.analysis_repo.upsert(run)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\repositories\seo_analysis_repository.py", line 51, in upsert
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1823, in _execute_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1817, in _execute_context
+    context = constructor(
+              ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1494, in _init_compiled
+    l_param: List[Any] = [
+                         ^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 1496, in <listcomp>
+    flattened_processors[key](compiled_params[key])
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\sqltypes.py", line 2802, in process
+    return json_serializer(value)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 258, in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+sqlalchemy.exc.StatementError: (builtins.TypeError) Object of type RuleResult is not JSON serializable
+[SQL: INSERT INTO seo_analysis_runs (id, project_id, crawl_id, domain, overall_score, grade, total_pages_scored, total_rules_evaluated, total_passed, total_failed, critical_issues, warnings, error_pages, error_summary, category_scores, top_issues, summary, output_file_path, analysis_status, scored_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::FLOAT, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::JSONB, $15::JSONB, $16::JSONB, $17::VARCHAR, $18::VARCHAR, $19::VARCHAR, $20::TIMESTAMP WITH TIME ZONE) RETURNING seo_analysis_runs.created_at, seo_analysis_runs.updated_at]
+[parameters: [{'grade': 'B', 'error_pages': 0, 'critical_issues': 4, 'domain': 'radonindia.com', 'total_passed': 44, 'output_file_path': 'app\\output\\radonindia.co ... (23809 characters truncated) ... n': "Add <link rel='canonical' href='...'> to prevent duplicate content issues", 'data': None, 'tags': ['critical', 'on_page', 'duplicate_content']}]}]]
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 274, in analyze_website
+    db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 314, in score_project
+    raise ScoringError(f"Project scoring failed: {exc}") from exc
+app.shared.exceptions.ScoringError: Project scoring failed: (builtins.TypeError) Object of type RuleResult is not JSON serializable
+[SQL: INSERT INTO seo_analysis_runs (id, project_id, crawl_id, domain, overall_score, grade, total_pages_scored, total_rules_evaluated, total_passed, total_failed, critical_issues, warnings, error_pages, error_summary, category_scores, top_issues, summary, output_file_path, analysis_status, scored_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::FLOAT, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::JSONB, $15::JSONB, $16::JSONB, $17::VARCHAR, $18::VARCHAR, $19::VARCHAR, $20::TIMESTAMP WITH TIME ZONE) RETURNING seo_analysis_runs.created_at, seo_analysis_runs.updated_at]
+[parameters: [{'grade': 'B', 'error_pages': 0, 'critical_issues': 4, 'domain': 'radonindia.com', 'total_passed': 44, 'output_file_path': 'app\\output\\radonindia.co ... (23809 characters truncated) ... n': "Add <link rel='canonical' href='...'> to prevent duplicate content issues", 'data': None, 'tags': ['critical', 'on_page', 'duplicate_content']}]}]]
+2026-08-17 17:50:16,573 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-17 17:50:16,573 | INFO | Step 1: Starting crawl phase
+2026-08-17 17:50:17,814 | INFO | Step 2: Starting parse phase
+2026-08-17 17:50:17,967 | INFO | Step 3: Starting scoring phase
+2026-08-17 17:50:17,967 | INFO | Loaded 70 scoring rules
+2026-08-17 17:50:17,967 | INFO | Starting SEO scoring...
+2026-08-17 17:50:17,967 | INFO | Completed 70 rule evaluations
+2026-08-17 17:50:17,967 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 17:50:17,970 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:50:17,970 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 17:50:18,087 | INFO | DB persistence completed: crawl_id=09c06f9a-8cf6-48ba-88ad-936fc417404e, page_id=3bba5fdb-6af5-49ff-bdd5-5a75214a8238
+2026-08-17 17:50:18,087 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 17:50:18,090 | INFO | DBParserService.parse_crawl: project_id=4460200c-31ff-48fd-9f07-4847dd8486a8, crawl_id=09c06f9a-8cf6-48ba-88ad-936fc417404e, force=True
+2026-08-17 17:50:18,213 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=4460200c-31ff-48fd-9f07-4847dd8486a8
+2026-08-17 17:50:18,213 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 17:50:18,213 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 17:50:18,213 | INFO | Loaded 70 scoring rules
+2026-08-17 17:50:18,213 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=4460200c-31ff-48fd-9f07-4847dd8486a8, crawl_id=09c06f9a-8cf6-48ba-88ad-936fc417404e, force=True
+2026-08-17 17:50:18,390 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=4460200c-31ff-48fd-9f07-4847dd8486a8
+2026-08-17 17:50:18,390 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 17:50:18,390 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 17:50:18,390 | INFO | AnalysisScorerService.score_project: project_id=4460200c-31ff-48fd-9f07-4847dd8486a8, crawl_id=09c06f9a-8cf6-48ba-88ad-936fc417404e, force=True
+2026-08-17 17:50:18,456 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=4460200c-31ff-48fd-9f07-4847dd8486a8
+2026-08-17 17:50:18,456 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-17 18:03:49,178 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 18:03:49,192 | INFO | Step 1: Starting crawl phase
+2026-08-17 18:03:52,337 | INFO | Step 2: Starting parse phase
+2026-08-17 18:03:52,441 | INFO | Step 3: Starting scoring phase
+2026-08-17 18:03:52,441 | INFO | Loaded 70 scoring rules
+2026-08-17 18:03:52,441 | INFO | Starting SEO scoring...
+2026-08-17 18:03:52,446 | INFO | Completed 70 rule evaluations
+2026-08-17 18:03:52,446 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 18:03:52,446 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 18:03:52,446 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 18:03:52,616 | INFO | DB persistence completed: crawl_id=5069f00a-7a47-40e3-a3f5-d693e67924e6, page_id=9a7307d1-bd34-48ce-a7b7-68f27e702cea
+2026-08-17 18:03:52,616 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 18:03:52,616 | INFO | DBParserService.parse_crawl: project_id=d6e4a8f2-342e-497f-9947-0facf5295cde, crawl_id=5069f00a-7a47-40e3-a3f5-d693e67924e6, force=True
+2026-08-17 18:03:52,759 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=d6e4a8f2-342e-497f-9947-0facf5295cde
+2026-08-17 18:03:52,759 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 18:03:52,759 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 18:03:52,763 | INFO | Loaded 70 scoring rules
+2026-08-17 18:03:52,763 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d6e4a8f2-342e-497f-9947-0facf5295cde, crawl_id=5069f00a-7a47-40e3-a3f5-d693e67924e6, force=True
+2026-08-17 18:03:52,918 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=d6e4a8f2-342e-497f-9947-0facf5295cde
+2026-08-17 18:03:52,918 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 18:03:52,918 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 18:03:52,918 | INFO | AnalysisScorerService.score_project: project_id=d6e4a8f2-342e-497f-9947-0facf5295cde, crawl_id=5069f00a-7a47-40e3-a3f5-d693e67924e6, force=True
+2026-08-17 18:03:52,969 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=d6e4a8f2-342e-497f-9947-0facf5295cde
+2026-08-17 18:03:52,969 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-17 18:04:40,631 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 18:04:40,631 | INFO | Step 1: Starting crawl phase
+2026-08-17 18:04:41,863 | INFO | Step 2: Starting parse phase
+2026-08-17 18:04:41,946 | INFO | Step 3: Starting scoring phase
+2026-08-17 18:04:41,946 | INFO | Loaded 70 scoring rules
+2026-08-17 18:04:41,946 | INFO | Starting SEO scoring...
+2026-08-17 18:04:41,946 | INFO | Completed 70 rule evaluations
+2026-08-17 18:04:41,946 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 18:04:41,946 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 18:04:41,946 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 18:04:41,991 | INFO | DB persistence completed: crawl_id=a241eecd-16de-4c09-b1ad-ab58fca17947, page_id=697f826d-067b-498b-b4cb-1197cde34650
+2026-08-17 18:04:41,991 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 18:04:41,991 | INFO | DBParserService.parse_crawl: project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2, crawl_id=a241eecd-16de-4c09-b1ad-ab58fca17947, force=True
+2026-08-17 18:04:42,097 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2
+2026-08-17 18:04:42,097 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 18:04:42,097 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 18:04:42,097 | INFO | Loaded 70 scoring rules
+2026-08-17 18:04:42,097 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2, crawl_id=a241eecd-16de-4c09-b1ad-ab58fca17947, force=True
+2026-08-17 18:04:42,231 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2
+2026-08-17 18:04:42,231 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 18:04:42,231 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 18:04:42,231 | INFO | AnalysisScorerService.score_project: project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2, crawl_id=a241eecd-16de-4c09-b1ad-ab58fca17947, force=True
+2026-08-17 18:04:42,268 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=c340376e-0eb7-4f08-9dab-3fe887eac5d2
+2026-08-17 18:04:42,268 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-17 18:15:35,339 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 18:15:35,339 | INFO | Step 1: Starting crawl phase
+2026-08-17 18:15:37,813 | INFO | Step 2: Starting parse phase
+2026-08-17 18:15:37,919 | INFO | Step 3: Starting scoring phase
+2026-08-17 18:15:37,921 | INFO | Loaded 70 scoring rules
+2026-08-17 18:15:37,921 | INFO | Starting SEO scoring...
+2026-08-17 18:15:37,921 | INFO | Completed 70 rule evaluations
+2026-08-17 18:15:37,921 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 18:15:37,921 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 18:15:37,921 | INFO | Step 4: Starting DB persistence phase
+2026-08-17 18:15:38,004 | INFO | DB persistence completed: crawl_id=40d44f03-04f1-46b3-bd7f-bf338b7d83d2, page_id=a4851ba5-475f-4671-a23e-b54a97c0da8f
+2026-08-17 18:15:38,004 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-17 18:15:38,004 | INFO | DBParserService.parse_crawl: project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f, crawl_id=40d44f03-04f1-46b3-bd7f-bf338b7d83d2, force=True
+2026-08-17 18:15:38,231 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f
+2026-08-17 18:15:38,232 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-17 18:15:38,232 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-17 18:15:38,233 | INFO | Loaded 70 scoring rules
+2026-08-17 18:15:38,234 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f, crawl_id=40d44f03-04f1-46b3-bd7f-bf338b7d83d2, force=True
+2026-08-17 18:15:38,763 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f
+2026-08-17 18:15:38,763 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-17 18:15:38,763 | INFO | Step 7: Starting DB-backed scoring
+2026-08-17 18:15:38,763 | INFO | AnalysisScorerService.score_project: project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f, crawl_id=40d44f03-04f1-46b3-bd7f-bf338b7d83d2, force=True
+2026-08-17 18:15:38,834 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f
+2026-08-17 18:15:38,834 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)

@@ -8,6 +8,13 @@ Takes a URL as input, performs the full pipeline:
 
 Returns comprehensive scored output after all rule checks.
 """
+import hashlib
+import json
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urlparse
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,8 +26,27 @@ from app.modules.audit.schemas.audit_schemas import (
     CrawlSummarySchema,
 )
 from app.modules.crawler.crawl_service import CrawlerService
+from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.modules.crawler.models.crawl_pages import CrawlPage
+from app.modules.crawler.models.page_network_data import PageNetworkData
+from app.modules.crawler.models.page_seo_data import PageSEOData
+from app.modules.crawler.models.page_snapshots import PageSnapshot
+from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
+from app.modules.crawler.repositories.page_network_data_repository import (
+    PageNetworkDataRepository,
+)
+from app.modules.crawler.repositories.page_seo_data_repository import (
+    PageSEODataRepository,
+)
+from app.modules.crawler.repositories.page_snapshot_repository import (
+    PageSnapshotRepository,
+)
 from app.modules.parser.services.parser_service import ParserService
 from app.modules.scorer.services.scorer_service import ScorerService
+from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
+from app.modules.audit.services.db_parser_service import DBParserService
+from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
 
 router = APIRouter()
 
@@ -70,8 +96,6 @@ async def analyze_website(
         )
         
         # Load the full crawl data from the saved file to get HTML
-        import json
-        from pathlib import Path
         filepath = Path(crawl_result["file_path"])
         with open(filepath, 'r', encoding='utf-8') as f:
             full_crawl_data = json.load(f)
@@ -122,13 +146,144 @@ async def analyze_website(
             f"(Grade: {seo_score_report['grade']})"
         )
         
+        # Step 4: Persist crawl data to DB (DB-backed pipeline, no Celery/tasks)
+        logger.info("Step 4: Starting DB persistence phase")
+        project_id = uuid.uuid4()
+        test_user_id = uuid.UUID("00000000-0000-0000-0000-000000000000")
+        
+        # 4a: Create CrawlJob in DB
+        domain = crawl_result["domain"]
+        crawl_config_dict = {
+            "max_pages": 1,
+            "max_depth": 0,
+            "concurrency": 1,
+        }
+        db_crawl_job = CrawlJob(
+            project_id=project_id,
+            user_id=test_user_id,
+            url=body.url,
+            domain=domain,
+            status="crawling",
+            max_pages=1,
+            max_depth=0,
+            crawl_config=crawl_config_dict,
+            pages_discovered=1,
+            pages_crawled=1,
+        )
+        db_crawl_job = await CrawlJobRepository(db).create(db_crawl_job)
+        crawl_id = db_crawl_job.id
+        
+        # 4b: Create CrawlPage in DB
+        parsed_url = urlparse(crawl_result["url"])
+        page = CrawlPage(
+            crawl_id=crawl_id,
+            url=crawl_result["url"],
+            normalized_url=crawl_result["url"],
+            url_hash=hashlib.md5(crawl_result["url"].encode()).hexdigest(),
+            scheme=parsed_url.scheme,
+            host=parsed_url.netloc,
+            path=parsed_url.path,
+            query=parsed_url.query,
+            final_url=crawl_result["url"],
+            status_code=crawl_result["data"].get("http", {}).get("status_code", 0),
+            content_type=crawl_result["data"].get("http", {}).get("content_type", ""),
+            content_length=len(html),
+            response_time_ms=int(
+                crawl_result["data"].get("http", {}).get("response_time_ms", 0)
+            ),
+            depth=0,
+            is_crawled=True,
+            is_success=True,
+            is_redirect=False,
+            is_error=False,
+        )
+        page = await CrawlPageRepository(db).create(page)
+        
+        # 4c: Persist HTML snapshot
+        await PageSnapshotRepository(db).save_snapshot(
+            page_id=page.id,
+            html_content=html,
+        )
+        
+        # 4d: Persist SEO data
+        meta = parsed_data.get("metadata", {}) or {}
+        content_data = parsed_data.get("content", {}) or {}
+        await PageSEODataRepository(db).upsert(PageSEOData(
+            page_id=page.id,
+            title=meta.get("title", ""),
+            title_length=meta.get("title_length", 0),
+            meta_description=meta.get("meta_description", ""),
+            meta_description_length=meta.get("meta_description_length", 0),
+            canonical=meta.get("canonical", ""),
+            robots_meta=meta.get("robots_meta", ""),
+            language=meta.get("language", "") or meta.get("page_language", ""),
+            charset=meta.get("charset", ""),
+            viewport=meta.get("viewport", ""),
+            favicon=meta.get("favicon", ""),
+            word_count=content_data.get("word_count", 0),
+            content_hash=content_data.get("content_hash", ""),
+            content=content_data,
+            structured_data={"exists": len(parsed_data.get("schemas", [])) > 0},
+            social=parsed_data.get("social", {}) or {},
+            accessibility={},
+            page_metadata={},
+        ))
+        
+        # 4e: Persist network data
+        http_data = full_crawl_data.get("http", {})
+        await PageNetworkDataRepository(db).upsert(PageNetworkData(
+            page_id=page.id,
+            status_code=http_data.get("status_code", 0),
+            content_type=http_data.get("content_type", ""),
+            content_length=http_data.get("content_size", 0),
+            response_time_ms=http_data.get("response_time_ms", 0),
+            headers=http_data.get("headers", {}),
+            redirects=http_data.get("redirect_chain", []),
+            security=full_crawl_data.get("ssl", {}),
+            performance=full_crawl_data.get("technical", {}) or {},
+        ))
+        
+        # 4f: Update CrawlJob status to completed
+        db_crawl_job.status = "completed"
+        db_crawl_job.completed_at = datetime.now(timezone.utc)
+        await CrawlJobRepository(db).update(db_crawl_job)
+        
+        logger.info(f"DB persistence completed: crawl_id={crawl_id}, page_id={page.id}")
+        
+        # Step 5: DB-backed parse (reads snapshot from DB, saves ParsedPageFact)
+        logger.info("Step 5: Starting DB-backed parse phase")
+        db_parser = DBParserService(db)
+        parse_result = await db_parser.parse_crawl(project_id, crawl_id, force=True)
+        logger.info(
+            f"DB parse: {parse_result['pages_parsed']} pages parsed, "
+            f"{parse_result['pages_failed']} failed"
+        )
+        
+        # Step 6: DB-backed rule evaluation
+        logger.info("Step 6: Starting DB-backed rule evaluation")
+        evaluator = RuleEvaluatorService(db)
+        eval_result = await evaluator.evaluate_crawl(project_id, crawl_id, force=True)
+        logger.info(
+            f"DB evaluate: {eval_result['rules_run']} rules run, "
+            f"{eval_result['total_results']} results, {len(eval_result['errors'])} errors"
+        )
+        
+        # Step 7: DB-backed scoring
+        logger.info("Step 7: Starting DB-backed scoring")
+        db_scorer = AnalysisScorerService(db)
+        db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
+        logger.info(
+            f"DB scoring completed: Score={db_score_report['overall_score']}/100 "
+            f"(Grade: {db_score_report['grade']})"
+        )
+        
         return AuditAnalyzeResponse(
             success=True,
             message="SEO audit completed successfully",
             url=crawl_result["url"],
             domain=crawl_result["domain"],
             crawl=crawl_summary,
-            seo_score=seo_score_report,
+            seo_score=db_score_report,
             parsed_data=parsed_data,
         )
         

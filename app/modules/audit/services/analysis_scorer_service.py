@@ -188,13 +188,19 @@ class AnalysisScorerService:
                         all_category_results[cat_name] = []
                     # Reconstruct RuleResults from category data
                     for issue in cat_data.get("issues", []):
-                        all_category_results[cat_name].append(
-                            self._dict_to_rule_result(issue)
-                        )
+                        if isinstance(issue, RuleResult):
+                            all_category_results[cat_name].append(issue)
+                        else:
+                            all_category_results[cat_name].append(
+                                self._dict_to_rule_result(issue)
+                            )
                     for issue in cat_data.get("warnings", []):
-                        all_category_results[cat_name].append(
-                            self._dict_to_rule_result(issue)
-                        )
+                        if isinstance(issue, RuleResult):
+                            all_category_results[cat_name].append(issue)
+                        else:
+                            all_category_results[cat_name].append(
+                                self._dict_to_rule_result(issue)
+                            )
 
                 all_rule_results.extend(page_rule_results)
 
@@ -420,6 +426,24 @@ class AnalysisScorerService:
             if not cat_results:
                 continue
             score_dict = self.calculator.calculate_score(cat_results)
+            # Convert RuleResult objects to dicts for JSON serialization
+            score_dict["top_issues"] = [
+                self._rule_result_to_dict(r) if isinstance(r, RuleResult) else r
+                for r in score_dict.get("top_issues", [])
+            ]
+            for cat_data in score_dict.get("categories", {}).values():
+                cat_data["issues"] = [
+                    self._rule_result_to_dict(r) if isinstance(r, RuleResult) else r
+                    for r in cat_data.get("issues", [])
+                ]
+                cat_data["warnings"] = [
+                    self._rule_result_to_dict(r) if isinstance(r, RuleResult) else r
+                    for r in cat_data.get("warnings", [])
+                ]
+                cat_data["passed_rules"] = [
+                    self._rule_result_to_dict(r) if isinstance(r, RuleResult) else r
+                    for r in cat_data.get("passed_rules", [])
+                ]
             category_scores[cat_name] = score_dict
         return category_scores
 
