@@ -10,32 +10,32 @@ class ScoreCalculator:
     Calculates overall SEO score from rule results.
     
     Uses weighted categories:
-    - on_page: 30%
-    - technical: 30%
+    - on_page: 20%
+    - technical: 15%
     - content: 20%
     - links: 10%
-    - images: 10%
-    - schema: 10%
-    - social: 10%
-    - security: 15%
-    - accessibility: 10%
-    - performance: 15%
+    - images: 5%
+    - schema: 5%
+    - social: 5%
+    - security: 10%
+    - accessibility: 5%
+    - performance: 5%
     
-    Note: Weights can exceed 100% to allow emphasis on certain categories.
-    """
+"""
     
     # Default category weights (can be customized)
     DEFAULT_WEIGHTS = {
-        "on_page": 0.30,
-        "technical": 0.30,
+        "on_page": 0.20,
+        "technical": 0.15,
         "content": 0.20,
         "links": 0.10,
-        "images": 0.10,
-        "schema": 0.10,
-        "social": 0.10,
-        "security": 0.15,
-        "accessibility": 0.10,
-        "performance": 0.15,
+        "images": 0.05,
+        "schema": 0.05,
+        "social": 0.05,
+        "security": 0.10,
+        "accessibility": 0.05,
+        "performance": 0.05,
+        "performance": 0.05,
     }
     
     def __init__(self, weights: Dict[str, float] ):

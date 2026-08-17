@@ -311,10 +311,11 @@ class RuleEvaluatorService:
                 parsed_data = parsed_fact.parsed_data or {}
                 # Map parsed data keys to rule data keys
                 data["content"] = parsed_data.get("content", {})
-                data["headings"] = parsed_data.get("headings", [])
-                data["links"] = parsed_data.get("links", [])
-                data["images"] = parsed_data.get("images", [])
+                data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
+                data["links"] = self._build_links_summary(parsed_data.get("links", []))
+                data["images"] = self._build_images_summary(parsed_data.get("images", []))
                 data["schemas"] = parsed_data.get("schemas", [])
+                data["structured_data"] = self._build_structured_data(parsed_data.get("schemas", []))
                 data["hreflang"] = parsed_data.get("hreflang", [])
                 data["social"] = parsed_data.get("social", {}) or {}
                 data["resources"] = parsed_data.get("resources", [])
@@ -395,11 +396,115 @@ class RuleEvaluatorService:
             logger.debug(f"Could not load network data for page_id={page_id}: {exc}")
 
         # Set defaults for remaining keys if not already populated
-        data.setdefault("media", data.get("images", []))
+        data.setdefault("media", data.get("images", {}))
         data.setdefault("seo", data.get("basic", {}))
         data.setdefault("javascript", {})
 
         return data
+
+    def _build_links_summary(self, links: list) -> dict:
+        """Transform raw parsed links list into the dict structure that SEO rules expect."""
+        internal_count = 0
+        external_count = 0
+        nofollow_count = 0
+        internal_links = []
+        external_links = []
+        for link in links:
+            if not isinstance(link, dict):
+                continue
+            is_external = (
+                link.get("link_type") == "external" or link.get("is_external", False)
+            )
+            if is_external:
+                external_count += 1
+                external_links.append(link)
+            else:
+                internal_count += 1
+                internal_links.append(link)
+            if link.get("nofollow") or link.get("is_nofollow"):
+                nofollow_count += 1
+        return {
+            "total_links": len(links),
+            "internal_count": internal_count,
+            "external_count": external_count,
+            "nofollow_count": nofollow_count,
+            "internal_links": internal_links,
+            "external_links": external_links,
+        }
+
+    def _build_images_summary(self, images: list) -> dict:
+        """Transform raw parsed images list into the dict structure that SEO rules expect."""
+        total_count = len(images)
+        without_alt = 0
+        lazy_loading = False
+        sample = []
+        for img in images:
+            if not isinstance(img, dict):
+                continue
+            alt = img.get('alt', '')
+            if not alt or not alt.strip():
+                without_alt += 1
+            if img.get('loading', '').strip().lower() == 'lazy':
+                lazy_loading = True
+            if len(sample) < 20:
+                sample.append({
+                    'src': img.get('url', img.get('src', '')),
+                    'alt': alt,
+                    'title': img.get('title', ''),
+                    'width': img.get('width', ''),
+                    'height': img.get('height', ''),
+                    'loading': img.get('loading', ''),
+                    'srcset': img.get('srcset', ''),
+                    'sizes': img.get('sizes', ''),
+                    'file_size': 0,
+                })
+        return {
+            'total_count': total_count,
+            'without_alt': without_alt,
+            'with_alt': total_count - without_alt,
+            'lazy_loading': lazy_loading,
+            'sample': sample,
+            'has_alt_text': without_alt == 0,
+        }
+
+
+    def _build_headings_summary(self, headings: list) -> dict:
+        """Transform raw parsed headings list into the dict structure that rules expect."""
+        result = {'h' + str(i): [] for i in range(1, 7)}
+        result['heading_stats'] = {'is_sequential': True, 'max_level': 0, 'heading_count': 0}
+        for h in headings:
+            if not isinstance(h, dict):
+                continue
+            level = h.get('level', 0)
+            text = h.get('text', '')
+            if 1 <= level <= 6:
+                result['h' + str(level)].append(text)
+            result['heading_stats']['heading_count'] += 1
+            if level > result['heading_stats']['max_level']:
+                result['heading_stats']['max_level'] = level
+        return result
+
+
+    def _build_structured_data(self, schemas: list) -> dict:
+        """Wrap schemas list into the structured_data dict that rules expect."""
+        schema_markup = []
+        for schema in schemas:
+            if isinstance(schema, dict):
+                parsed_val = schema.get('parsed', schema.get('raw', {}))
+                if isinstance(parsed_val, dict):
+                    schema_markup.append(parsed_val)
+                else:
+                    type_val = schema.get('types', [])
+                    type_name = type_val[0] if type_val else 'Unknown'
+                    schema_markup.append({'@type': str(type_name)})
+            else:
+                schema_markup.append({'@type': str(schema)})
+        return {
+            'schema_markup': schema_markup,
+            'schema_count': len(schema_markup),
+            'formats': list(set(s.get('format', '') for s in schemas if isinstance(s, dict))),
+        }
+
 
     def _create_error_result(
         self,

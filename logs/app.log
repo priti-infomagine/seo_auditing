@@ -4754,3 +4754,197 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-08-17 15:11:24,790 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://infomagine.in/
 2026-08-17 15:11:31,401 | INFO | Crawl job queued: f2a871ec-a27b-49c3-bf20-9f424ae7a6bb for URL: https://infomagine.in/
 2026-08-17 15:12:12,868 | INFO | GET /crawler/status/f2a871ec-a27b-49c3-bf20-9f424ae7a6bb - Status endpoint called
+2026-08-17 15:25:41,958 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://infomagine.in/
+2026-08-17 15:25:48,796 | INFO | Crawl job queued: 4832f39c-84bd-4a79-aa0e-71a90ea735bd for URL: https://infomagine.in/
+2026-08-17 15:26:09,945 | INFO | GET /crawler/status/4832f39c-84bd-4a79-aa0e-71a90ea735bd - Status endpoint called
+2026-08-17 15:29:19,901 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-17 15:29:19,904 | INFO | Step 1: Starting crawl phase
+2026-08-17 15:29:22,995 | INFO | Step 2: Starting parse phase
+2026-08-17 15:29:23,066 | INFO | Step 3: Starting scoring phase
+2026-08-17 15:29:23,066 | INFO | Loaded 70 scoring rules
+2026-08-17 15:29:23,073 | INFO | Starting SEO scoring...
+2026-08-17 15:29:23,077 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,082 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,083 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,086 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,090 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,095 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,099 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,103 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,103 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,106 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,112 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,116 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,119 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,123 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,123 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,132 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,134 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,140 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,145 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,149 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,149 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,149 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 15:29:23,151 | INFO | Completed 70 rule evaluations
+2026-08-17 15:29:23,154 | INFO | SEO Score calculated: 75.2/100 (Grade C+)
+2026-08-17 15:29:23,154 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in/ - SEO Score: 75.2/100 (Grade: C+)
+2026-08-17 15:33:27,998 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 15:33:28,015 | INFO | Step 1: Starting crawl phase
+2026-08-17 15:33:33,321 | INFO | Step 2: Starting parse phase
+2026-08-17 15:33:33,631 | INFO | Step 3: Starting scoring phase
+2026-08-17 15:33:33,634 | INFO | Loaded 70 scoring rules
+2026-08-17 15:33:33,638 | INFO | Starting SEO scoring...
+2026-08-17 15:33:33,640 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,641 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,644 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,644 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,645 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,648 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,648 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,648 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,648 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,648 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,651 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,651 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,654 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,654 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,654 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,657 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,657 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,659 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,661 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,664 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,667 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,669 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 15:33:33,675 | INFO | Completed 70 rule evaluations
+2026-08-17 15:33:33,677 | INFO | SEO Score calculated: 76.2/100 (Grade C+)
+2026-08-17 15:33:33,678 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 76.2/100 (Grade: C+)
+2026-08-17 15:40:21,182 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 15:40:21,182 | INFO | Step 1: Starting crawl phase
+2026-08-17 15:40:23,038 | INFO | Step 2: Starting parse phase
+2026-08-17 15:40:23,189 | INFO | Step 3: Starting scoring phase
+2026-08-17 15:40:23,189 | INFO | Loaded 70 scoring rules
+2026-08-17 15:40:23,189 | INFO | Starting SEO scoring...
+2026-08-17 15:40:23,189 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 15:40:23,189 | INFO | Completed 70 rule evaluations
+2026-08-17 15:40:23,189 | INFO | SEO Score calculated: 76.2/100 (Grade C+)
+2026-08-17 15:40:23,189 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 76.2/100 (Grade: C+)
+2026-08-17 15:59:13,366 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 15:59:13,366 | INFO | Step 1: Starting crawl phase
+2026-08-17 15:59:15,278 | INFO | Step 2: Starting parse phase
+2026-08-17 15:59:15,495 | INFO | Step 3: Starting scoring phase
+2026-08-17 15:59:15,495 | INFO | Loaded 70 scoring rules
+2026-08-17 15:59:15,495 | INFO | Starting SEO scoring...
+2026-08-17 15:59:15,495 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,495 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,495 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,495 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,509 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,511 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,511 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:15,512 | INFO | Completed 70 rule evaluations
+2026-08-17 15:59:15,512 | INFO | SEO Score calculated: 76.2/100 (Grade C+)
+2026-08-17 15:59:15,512 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 76.2/100 (Grade: C+)
+2026-08-17 15:59:24,628 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 15:59:24,631 | INFO | Step 1: Starting crawl phase
+2026-08-17 15:59:25,728 | INFO | Step 2: Starting parse phase
+2026-08-17 15:59:25,814 | INFO | Step 3: Starting scoring phase
+2026-08-17 15:59:25,814 | INFO | Loaded 70 scoring rules
+2026-08-17 15:59:25,814 | INFO | Starting SEO scoring...
+2026-08-17 15:59:25,814 | ERROR | Error running rule on_page_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule on_page_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule technical_010: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule links_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule links_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule links_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule links_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule links_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule images_006: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule schema_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule schema_002: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule schema_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule schema_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule schema_005: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule a11y_001: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule a11y_003: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | ERROR | Error running rule a11y_004: 'list' object has no attribute 'get'
+2026-08-17 15:59:25,814 | INFO | Completed 70 rule evaluations
+2026-08-17 15:59:25,814 | INFO | SEO Score calculated: 76.2/100 (Grade C+)
+2026-08-17 15:59:25,814 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 76.2/100 (Grade: C+)
+2026-08-17 16:12:58,442 | INFO | Loaded 70 scoring rules
+2026-08-17 16:13:33,584 | INFO | Loaded 70 scoring rules
+2026-08-17 16:13:33,584 | INFO | Starting SEO scoring...
+2026-08-17 16:13:33,584 | INFO | Completed 70 rule evaluations
+2026-08-17 16:13:33,584 | INFO | SEO Score calculated: 83.6/100 (Grade B)
+2026-08-17 16:15:31,652 | INFO | Loaded 70 scoring rules
+2026-08-17 16:18:39,833 | INFO | Loaded 70 scoring rules
+2026-08-17 16:18:39,833 | INFO | Starting SEO scoring...
+2026-08-17 16:18:39,840 | INFO | Completed 70 rule evaluations
+2026-08-17 16:18:39,841 | INFO | SEO Score calculated: 84.7/100 (Grade B)
+2026-08-17 16:21:23,428 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 16:21:23,428 | INFO | Step 1: Starting crawl phase
+2026-08-17 16:21:25,795 | INFO | Step 2: Starting parse phase
+2026-08-17 16:21:25,902 | INFO | Step 3: Starting scoring phase
+2026-08-17 16:21:25,902 | INFO | Loaded 70 scoring rules
+2026-08-17 16:21:25,902 | INFO | Starting SEO scoring...
+2026-08-17 16:21:25,902 | INFO | Completed 70 rule evaluations
+2026-08-17 16:21:25,909 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 16:21:25,909 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 16:58:14,320 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-17 16:58:14,320 | INFO | Step 1: Starting crawl phase
+2026-08-17 16:58:16,202 | INFO | Step 2: Starting parse phase
+2026-08-17 16:58:16,386 | INFO | Step 3: Starting scoring phase
+2026-08-17 16:58:16,386 | INFO | Loaded 70 scoring rules
+2026-08-17 16:58:16,386 | INFO | Starting SEO scoring...
+2026-08-17 16:58:16,386 | INFO | Completed 70 rule evaluations
+2026-08-17 16:58:16,386 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-17 16:58:16,403 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com/ - SEO Score: 79.7/100 (Grade: C+)
+2026-08-17 17:23:16,705 | INFO | Loaded 70 scoring rules
+2026-08-17 17:23:16,707 | INFO | Starting SEO scoring...
+2026-08-17 17:23:16,709 | INFO | Completed 70 rule evaluations
+2026-08-17 17:23:16,711 | INFO | SEO Score calculated: 81.4/100 (Grade B)
+2026-08-17 17:24:18,606 | INFO | Loaded 70 scoring rules
+2026-08-17 17:24:18,606 | INFO | Starting SEO scoring...
+2026-08-17 17:24:18,606 | INFO | Completed 70 rule evaluations
+2026-08-17 17:24:18,606 | INFO | SEO Score calculated: 79.7/100 (Grade C+)

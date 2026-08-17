@@ -3,6 +3,8 @@ CrawlScheduler - Dynamic asynchronous worker pool scheduler for recursive crawli
 Terminates ONLY when queue is empty AND active_workers == 0.
 """
 import asyncio
+
+from app.core.logger import logger
 from typing import Awaitable, Callable, Optional, Set
 from uuid import UUID
 
@@ -148,10 +150,13 @@ class CrawlScheduler:
                 if self.config.crawl_delay_ms > 0:
                     await asyncio.sleep(self.config.crawl_delay_ms / 1000.0)
 
-                await self.worker_func(item)
+                await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
                 self.pages_crawled_count += 1
-            except Exception:
-                pass
+            except Exception as e:
+                logger.error(
+                    f"Worker {worker_id}: error processing {item.normalized_url}: {e}",
+                    exc_info=True,
+                )
             finally:
                 async with self._condition:
                     self.active_workers -= 1
@@ -160,3 +165,5 @@ class CrawlScheduler:
 
     def cancel(self) -> None:
         self.cancelled = True
+
+

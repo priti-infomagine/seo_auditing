@@ -132,11 +132,14 @@ class ScorerService:
         try:
             logger.info("Starting SEO scoring...")
             
+            # Prepare rule data: transforms parsed lists into summary dicts that rules expect
+            rule_data = self._prepare_rule_data(parsed_data)
+            
             # Run all rules
             rule_results = []
             for rule in self.rules:
                 try:
-                    results = await rule.evaluate(parsed_data)
+                    results = await rule.evaluate(rule_data)
                     rule_results.extend(results)
                 except Exception as e:
                     logger.error(f"Error running rule {rule.rule_id}: {e}")
@@ -200,6 +203,96 @@ class ScorerService:
             logger.error(f"ScorerService.score_url: error for url={url}: {exc}", exc_info=True)
             raise
     
+    def _prepare_rule_data(self, parsed_data):
+        """Transform parsed_data into the dict structure that SEO rules expect."""
+        from urllib.parse import urlparse
+        data = {}
+        metadata = parsed_data.get('metadata', {}) or {}
+        basic = {'title': '', 'meta_description': '', 'canonical': '', 'robots_meta': '', 'language': '', 'charset': '', 'viewport': '', 'favicon': '', 'word_count': 0}
+        for k in basic:
+            basic[k] = metadata.get(k, basic[k])
+        data['basic'] = basic
+        data['seo'] = basic
+        data['content'] = parsed_data.get('content', {}) or {}
+
+        headings_list = parsed_data.get('headings', [])
+        hd = {'h' + str(i): [] for i in range(1, 7)}
+        hd['heading_stats'] = {'is_sequential': True, 'max_level': 0, 'heading_count': 0}
+        for h in headings_list:
+            if isinstance(h, dict):
+                level = h.get('level', 0)
+                text = h.get('text', '')
+                if 1 <= level <= 6:
+                    hd['h' + str(level)].append(text)
+                hd['heading_stats']['heading_count'] += 1
+                if level > hd['heading_stats']['max_level']:
+                    hd['heading_stats']['max_level'] = level
+        data['headings'] = hd
+
+        links_list = parsed_data.get('links', [])
+        ic = ec = nc = 0
+        il = []
+        el = []
+        for link in links_list:
+            if isinstance(link, dict):
+                is_ext = link.get('link_type') == 'external' or link.get('is_external', False)
+                if is_ext:
+                    ec += 1
+                    el.append(link)
+                else:
+                    ic += 1
+                    il.append(link)
+                if link.get('nofollow') or link.get('is_nofollow'):
+                    nc += 1
+        data['links'] = {'total_links': len(links_list), 'internal_count': ic, 'external_count': ec, 'nofollow_count': nc, 'internal_links': il, 'external_links': el}
+
+        images_list = parsed_data.get('images', [])
+        wa = 0
+        ll = False
+        sample = []
+        for img in images_list:
+            if isinstance(img, dict):
+                alt = img.get('alt', '')
+                if not alt or not alt.strip():
+                    wa += 1
+                if img.get('loading', '').strip().lower() == 'lazy':
+                    ll = True
+                if len(sample) < 20:
+                    sample.append({'src': img.get('url', img.get('src', '')), 'alt': alt, 'title': img.get('title', ''), 'width': img.get('width', ''), 'height': img.get('height', ''), 'loading': img.get('loading', ''), 'srcset': img.get('srcset', ''), 'sizes': img.get('sizes', ''), 'file_size': 0})
+        data['images'] = {'total_count': len(images_list), 'without_alt': wa, 'with_alt': len(images_list) - wa, 'lazy_loading': ll, 'sample': sample, 'has_alt_text': wa == 0}
+        data['media'] = data['images']
+
+        schemas_list = parsed_data.get('schemas', [])
+        schema_markup = []
+        for schema in schemas_list:
+            if isinstance(schema, dict):
+                parsed_val = schema.get('parsed', schema.get('raw', {}))
+                if isinstance(parsed_val, dict):
+                    schema_markup.append(parsed_val)
+                else:
+                    type_val = schema.get('types', [])
+                    tn = type_val[0] if type_val else 'Unknown'
+                    schema_markup.append({'@type': str(tn)})
+            else:
+                schema_markup.append({'@type': str(schema)})
+        data['structured_data'] = {'schema_markup': schema_markup, 'schema_count': len(schema_markup)}
+
+        data['social'] = parsed_data.get('social', {}) or {}
+        crawler_data = parsed_data.get('crawler_data', {}) or {}
+        rt = crawler_data.get('response_time_ms', 0)
+        data['http'] = {'status_code': crawler_data.get('status_code', 0), 'content_type': crawler_data.get('content_type', ''), 'response_time': rt / 1000.0 if rt else 0.0, 'headers': crawler_data.get('headers', {})}
+        document = parsed_data.get('document', {}) or {}
+        url_str = document.get('url', '') or ''
+        pu = urlparse(url_str) if url_str else None
+        data['url'] = {'https': url_str.startswith('https://') if url_str else False, 'domain': pu.netloc if pu else '', 'path': pu.path if pu else '', 'query': pu.query if pu else ''}
+        data['ssl'] = crawler_data.get('ssl', {}) or {}
+        data['performance'] = {}
+        data['javascript'] = {}
+        data['security_headers'] = {}
+        data['robots'] = {}
+        data['sitemap'] = {}
+        return data
+
     def get_rule_statistics(self) -> Dict[str, Any]:
         """
         Get statistics about loaded rules.
