@@ -1,12 +1,13 @@
 {
   "audit": {
-    "audit_id": "d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d",
-    "project_id": "860f29af-45d6-43bd-bcfc-4cf638e67c2f",
+    "audit_id": "14e8e788-2586-482e-8e3d-3f560cd0f2b8",
+    "project_id": "7f967ccf-8f11-4877-808f-7bf9348e520e",
     "url": "https://www.reddit.com/",
     "domain": "www.reddit.com",
-    "started_at": "2026-08-18T11:25:55.840265+00:00",
-    "completed_at": "2026-08-18T11:25:56.080393+00:00",
+    "started_at": "2026-08-18T11:28:36.509685+00:00",
+    "completed_at": "2026-08-18T11:28:36.747968+00:00",
     "status": "completed",
+    "pages_discovered": 1,
     "pages_crawled": 1,
     "pages_analyzed": 1
   },
@@ -628,8 +629,8 @@
     "status_codes": {
       "200": 1
     },
-    "started_at": "2026-08-18T11:25:55.840265+00:00",
-    "completed_at": "2026-08-18T11:25:56.080393+00:00"
+    "started_at": "2026-08-18T11:28:36.509685+00:00",
+    "completed_at": "2026-08-18T11:28:36.747968+00:00"
   },
   "indexation": {
     "indexable": 1,
@@ -651,7 +652,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 87.0,
+      "value": 91.0,
       "unit": "milliseconds",
       "status": "excellent",
       "reason": null
