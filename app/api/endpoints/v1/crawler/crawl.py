@@ -83,7 +83,7 @@ async def crawl_url(
         await job_repo.create(crawl_job)
 
         # Enqueue Celery task on the crawler queue
-        celery_app.send_task(
+        async_result = celery_app.send_task(
             "crawler.crawl_website",
             args=[str(crawl_job.id), url_str, str(crawl_job.user_id)],
             queue="crawler",
@@ -96,6 +96,7 @@ async def crawl_url(
             status="queued",
             message="Crawl job queued successfully",
             project_id=str(project_id),
+            task_id=async_result.id,
         )
 
     except ValueError as e:

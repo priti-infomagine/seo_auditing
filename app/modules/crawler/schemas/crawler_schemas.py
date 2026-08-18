@@ -43,16 +43,17 @@ class CrawlRequest(BaseModel):
 
 class CrawlResponse(BaseModel):
     """Response schema for crawl request."""
-    
+
     crawl_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Current crawl job status")
     message: str = Field(..., description="Status message")
     project_id: str = Field(..., description="Project identifier for tracking the analysis pipeline")
+    task_id: str = Field(..., description="Celery task ID for progress polling via result backend")
 
 
 class CrawlStatusResponse(BaseModel):
     """Response schema for crawl status."""
-    
+
     crawl_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Current crawl job status")
     domain: str = Field(..., description="Domain being crawled")
@@ -62,6 +63,11 @@ class CrawlStatusResponse(BaseModel):
     completed_at: str | None = Field(None, description="When crawl completed")
     duration_ms: int | None = Field(None, description="Crawl duration in milliseconds")
     pages_crawled: int = Field(0, description="Number of pages crawled")
+    pages_discovered: int | None = Field(None, description="Total pages discovered")
+    pages_failed: int = Field(0, description="Number of failed pages")
+    total_pages: int | None = Field(None, description="Total pages configured to crawl")
+    current_page: int | None = Field(None, description="Current page being processed")
+    progress_percent: int | None = Field(None, description="Crawl progress as a percentage (0-100)")
     total_errors: int = Field(0, description="Number of crawl errors")
 
 

@@ -1,0 +1,2550 @@
+{
+  "project_id": "f3062bbd-1f24-4aee-97a9-2565776ccd9a",
+  "crawl_id": "38438f64-789b-47f7-a6b5-d5a9abc6633d",
+  "domain": "www.reddit.com",
+  "scored_at": "2026-08-18T07:26:35.822087+00:00",
+  "overall_score": 82.4,
+  "grade": "B",
+  "total_pages_scored": 1,
+  "total_rules_evaluated": 67,
+  "total_passed": 44,
+  "total_failed": 23,
+  "critical_issues": 4,
+  "warnings": 14,
+  "error_pages": 0,
+  "error_summary": null,
+  "summary": "Good! Your site scores 82.4/100 (Grade B). Minor improvements recommended.",
+  "category_scores": {
+    "accessibility": {
+      "overall_score": 95.0,
+      "grade": "A+",
+      "categories": {
+        "accessibility": {
+          "category": "accessibility",
+          "score": 95.0,
+          "max_score": 100.0,
+          "weight": 0.05,
+          "rules_checked": 1,
+          "rules_passed": 0,
+          "rules_failed": 1,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "a11y_003",
+              "name": "Heading Structure",
+              "category": "accessibility",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "Heading accessibility issues: Missing H1",
+              "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3) for screen readers",
+              "data": null,
+              "tags": [
+                "warning",
+                "accessibility",
+                "headings"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 1,
+      "total_passed": 0,
+      "total_failed": 1,
+      "critical_issues": 0,
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
+      "top_issues": [
+        {
+          "rule_id": "a11y_003",
+          "name": "Heading Structure",
+          "category": "accessibility",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Heading accessibility issues: Missing H1",
+          "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3) for screen readers",
+          "data": null,
+          "tags": [
+            "warning",
+            "accessibility",
+            "headings"
+          ]
+        }
+      ]
+    },
+    "content": {
+      "overall_score": 83.0,
+      "grade": "B",
+      "categories": {
+        "content": {
+          "category": "content",
+          "score": 83.0,
+          "max_score": 100.0,
+          "weight": 0.2,
+          "rules_checked": 4,
+          "rules_passed": 0,
+          "rules_failed": 4,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "content_001",
+              "name": "Word Count",
+              "category": "content",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -8.0,
+              "message": "Thin content: 1 words (recommended: 300+)",
+              "recommendation": "Increase content to at least 300 words (currently 1)",
+              "data": {
+                "word_count": 1
+              },
+              "tags": [
+                "critical",
+                "content",
+                "quality"
+              ]
+            },
+            {
+              "rule_id": "content_003",
+              "name": "Paragraph Structure",
+              "category": "content",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No paragraphs found",
+              "recommendation": "Break content into paragraphs for better readability",
+              "data": null,
+              "tags": [
+                "warning",
+                "content",
+                "readability"
+              ]
+            },
+            {
+              "rule_id": "content_006",
+              "name": "Duplicate Content",
+              "category": "content",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -3.0,
+              "message": "No canonical URL (potential duplicate content risk)",
+              "recommendation": "Add canonical URL tag to indicate preferred version",
+              "data": null,
+              "tags": [
+                "warning",
+                "content",
+                "duplicate"
+              ]
+            },
+            {
+              "rule_id": "content_007",
+              "name": "Content Freshness",
+              "category": "content",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No content freshness dates found",
+              "recommendation": "Consider adding article published/modified dates",
+              "data": null,
+              "tags": [
+                "info",
+                "content",
+                "freshness"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 4,
+      "total_passed": 0,
+      "total_failed": 4,
+      "critical_issues": 0,
+      "warnings": 3,
+      "summary": "Good! Your site scores 83.0/100 (Grade B). Minor improvements recommended.",
+      "top_issues": [
+        {
+          "rule_id": "content_001",
+          "name": "Word Count",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Thin content: 1 words (recommended: 300+)",
+          "recommendation": "Increase content to at least 300 words (currently 1)",
+          "data": {
+            "word_count": 1
+          },
+          "tags": [
+            "critical",
+            "content",
+            "quality"
+          ]
+        },
+        {
+          "rule_id": "content_003",
+          "name": "Paragraph Structure",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No paragraphs found",
+          "recommendation": "Break content into paragraphs for better readability",
+          "data": null,
+          "tags": [
+            "warning",
+            "content",
+            "readability"
+          ]
+        },
+        {
+          "rule_id": "content_006",
+          "name": "Duplicate Content",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "No canonical URL (potential duplicate content risk)",
+          "recommendation": "Add canonical URL tag to indicate preferred version",
+          "data": null,
+          "tags": [
+            "warning",
+            "content",
+            "duplicate"
+          ]
+        },
+        {
+          "rule_id": "content_007",
+          "name": "Content Freshness",
+          "category": "content",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No content freshness dates found",
+          "recommendation": "Consider adding article published/modified dates",
+          "data": null,
+          "tags": [
+            "info",
+            "content",
+            "freshness"
+          ]
+        }
+      ]
+    },
+    "links": {
+      "overall_score": 94.0,
+      "grade": "A",
+      "categories": {
+        "links": {
+          "category": "links",
+          "score": 94.0,
+          "max_score": 100.0,
+          "weight": 0.1,
+          "rules_checked": 2,
+          "rules_passed": 0,
+          "rules_failed": 2,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "links_001",
+              "name": "Internal Links",
+              "category": "links",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No internal links found",
+              "recommendation": "Add internal links to other pages on your website",
+              "data": null,
+              "tags": [
+                "warning",
+                "links",
+                "navigation"
+              ]
+            },
+            {
+              "rule_id": "links_002",
+              "name": "External Links",
+              "category": "links",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No external links found",
+              "recommendation": "Consider linking to authoritative external sources",
+              "data": null,
+              "tags": [
+                "info",
+                "links",
+                "outbound"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 2,
+      "total_passed": 0,
+      "total_failed": 2,
+      "critical_issues": 0,
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 94.0/100 (Grade A). Your website follows SEO best practices.",
+      "top_issues": [
+        {
+          "rule_id": "links_001",
+          "name": "Internal Links",
+          "category": "links",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No internal links found",
+          "recommendation": "Add internal links to other pages on your website",
+          "data": null,
+          "tags": [
+            "warning",
+            "links",
+            "navigation"
+          ]
+        },
+        {
+          "rule_id": "links_002",
+          "name": "External Links",
+          "category": "links",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No external links found",
+          "recommendation": "Consider linking to authoritative external sources",
+          "data": null,
+          "tags": [
+            "info",
+            "links",
+            "outbound"
+          ]
+        }
+      ]
+    },
+    "on_page": {
+      "overall_score": 65.0,
+      "grade": "D",
+      "categories": {
+        "on_page": {
+          "category": "on_page",
+          "score": 65.0,
+          "max_score": 100.0,
+          "weight": 0.2,
+          "rules_checked": 5,
+          "rules_passed": 0,
+          "rules_failed": 5,
+          "issues": [
+            {
+              "rule_id": "on_page_002",
+              "name": "Meta Description",
+              "category": "on_page",
+              "severity": "critical",
+              "passed": false,
+              "score_impact": -12.0,
+              "message": "Missing meta description",
+              "recommendation": "Add a compelling meta description (150-160 characters)",
+              "data": null,
+              "tags": [
+                "critical",
+                "on_page",
+                "meta"
+              ]
+            },
+            {
+              "rule_id": "on_page_003",
+              "name": "H1 Tag",
+              "category": "on_page",
+              "severity": "critical",
+              "passed": false,
+              "score_impact": -10.0,
+              "message": "Missing H1 tag",
+              "recommendation": "Add a single <h1> tag containing your primary keyword",
+              "data": null,
+              "tags": [
+                "critical",
+                "on_page",
+                "headings"
+              ]
+            }
+          ],
+          "warnings": [
+            {
+              "rule_id": "on_page_001",
+              "name": "Title Tag",
+              "category": "on_page",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "Title length is 6 characters (recommended: 30-60) - too short",
+              "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
+              "data": null,
+              "tags": [
+                "critical",
+                "on_page",
+                "title"
+              ]
+            },
+            {
+              "rule_id": "on_page_004",
+              "name": "Heading Hierarchy",
+              "category": "on_page",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -3.0,
+              "message": "Heading hierarchy issues: Missing H1",
+              "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
+              "data": {
+                "h1": 0,
+                "h2": 0,
+                "h3": 0,
+                "issues": [
+                  "Missing H1"
+                ]
+              },
+              "tags": [
+                "warning",
+                "on_page",
+                "headings"
+              ]
+            },
+            {
+              "rule_id": "on_page_006",
+              "name": "Canonical URL",
+              "category": "on_page",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "Missing canonical URL tag",
+              "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+              "data": null,
+              "tags": [
+                "critical",
+                "on_page",
+                "duplicate_content"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 5,
+      "total_passed": 0,
+      "total_failed": 5,
+      "critical_issues": 2,
+      "warnings": 3,
+      "summary": "Poor. Your site scores 65.0/100 (Grade D). Significant improvements needed (2 critical issues).",
+      "top_issues": [
+        {
+          "rule_id": "on_page_002",
+          "name": "Meta Description",
+          "category": "on_page",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -12.0,
+          "message": "Missing meta description",
+          "recommendation": "Add a compelling meta description (150-160 characters)",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "meta"
+          ]
+        },
+        {
+          "rule_id": "on_page_003",
+          "name": "H1 Tag",
+          "category": "on_page",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -10.0,
+          "message": "Missing H1 tag",
+          "recommendation": "Add a single <h1> tag containing your primary keyword",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "headings"
+          ]
+        },
+        {
+          "rule_id": "on_page_001",
+          "name": "Title Tag",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Title length is 6 characters (recommended: 30-60) - too short",
+          "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "title"
+          ]
+        },
+        {
+          "rule_id": "on_page_006",
+          "name": "Canonical URL",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Missing canonical URL tag",
+          "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "duplicate_content"
+          ]
+        },
+        {
+          "rule_id": "on_page_004",
+          "name": "Heading Hierarchy",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "Heading hierarchy issues: Missing H1",
+          "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
+          "data": {
+            "h1": 0,
+            "h2": 0,
+            "h3": 0,
+            "issues": [
+              "Missing H1"
+            ]
+          },
+          "tags": [
+            "warning",
+            "on_page",
+            "headings"
+          ]
+        }
+      ]
+    },
+    "performance": {
+      "overall_score": 95.0,
+      "grade": "A+",
+      "categories": {
+        "performance": {
+          "category": "performance",
+          "score": 95.0,
+          "max_score": 100.0,
+          "weight": 0.05,
+          "rules_checked": 1,
+          "rules_passed": 0,
+          "rules_failed": 1,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "perf_006",
+              "name": "Compression",
+              "category": "performance",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No compression detected",
+              "recommendation": "Enable gzip or brotli compression on your server",
+              "data": null,
+              "tags": [
+                "warning",
+                "performance",
+                "compression"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 1,
+      "total_passed": 0,
+      "total_failed": 1,
+      "critical_issues": 0,
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
+      "top_issues": [
+        {
+          "rule_id": "perf_006",
+          "name": "Compression",
+          "category": "performance",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No compression detected",
+          "recommendation": "Enable gzip or brotli compression on your server",
+          "data": null,
+          "tags": [
+            "warning",
+            "performance",
+            "compression"
+          ]
+        }
+      ]
+    },
+    "schema": {
+      "overall_score": 95.0,
+      "grade": "A+",
+      "categories": {
+        "schema": {
+          "category": "schema",
+          "score": 95.0,
+          "max_score": 100.0,
+          "weight": 0.05,
+          "rules_checked": 1,
+          "rules_passed": 0,
+          "rules_failed": 1,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "schema_001",
+              "name": "Schema Markup",
+              "category": "schema",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No structured data / schema markup found",
+              "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+              "data": null,
+              "tags": [
+                "warning",
+                "schema",
+                "rich_snippets"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 1,
+      "total_passed": 0,
+      "total_failed": 1,
+      "critical_issues": 0,
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
+      "top_issues": [
+        {
+          "rule_id": "schema_001",
+          "name": "Schema Markup",
+          "category": "schema",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No structured data / schema markup found",
+          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+          "data": null,
+          "tags": [
+            "warning",
+            "schema",
+            "rich_snippets"
+          ]
+        }
+      ]
+    },
+    "security": {
+      "overall_score": 95.0,
+      "grade": "A+",
+      "categories": {
+        "security": {
+          "category": "security",
+          "score": 95.0,
+          "max_score": 100.0,
+          "weight": 0.1,
+          "rules_checked": 1,
+          "rules_passed": 0,
+          "rules_failed": 1,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "security_004",
+              "name": "SSL Certificate",
+              "category": "security",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No SSL certificate information available",
+              "recommendation": "Ensure SSL certificate is properly configured",
+              "data": null,
+              "tags": [
+                "critical",
+                "security",
+                "ssl"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 1,
+      "total_passed": 0,
+      "total_failed": 1,
+      "critical_issues": 0,
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
+      "top_issues": [
+        {
+          "rule_id": "security_004",
+          "name": "SSL Certificate",
+          "category": "security",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No SSL certificate information available",
+          "recommendation": "Ensure SSL certificate is properly configured",
+          "data": null,
+          "tags": [
+            "critical",
+            "security",
+            "ssl"
+          ]
+        }
+      ]
+    },
+    "social": {
+      "overall_score": 87.0,
+      "grade": "B+",
+      "categories": {
+        "social": {
+          "category": "social",
+          "score": 87.0,
+          "max_score": 100.0,
+          "weight": 0.05,
+          "rules_checked": 4,
+          "rules_passed": 0,
+          "rules_failed": 4,
+          "issues": [],
+          "warnings": [
+            {
+              "rule_id": "social_001",
+              "name": "Open Graph Tags",
+              "category": "social",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -8.0,
+              "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+              "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+              "data": {
+                "missing": [
+                  "og:title",
+                  "og:description",
+                  "og:image",
+                  "og:url"
+                ],
+                "present": []
+              },
+              "tags": [
+                "info",
+                "social",
+                "sharing"
+              ]
+            },
+            {
+              "rule_id": "social_003",
+              "name": "Social Media Links",
+              "category": "social",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No social media links found",
+              "recommendation": "Add links to your social media profiles",
+              "data": null,
+              "tags": [
+                "info",
+                "social",
+                "links"
+              ]
+            },
+            {
+              "rule_id": "social_004",
+              "name": "Facebook Domain Verification",
+              "category": "social",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No Facebook App ID or admins meta tag",
+              "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+              "data": null,
+              "tags": [
+                "info",
+                "social",
+                "facebook"
+              ]
+            },
+            {
+              "rule_id": "social_005",
+              "name": "Social Media Image",
+              "category": "social",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -3.0,
+              "message": "No social media image specified",
+              "recommendation": "Add og:image and twitter:image tags for better social sharing",
+              "data": null,
+              "tags": [
+                "warning",
+                "social",
+                "images"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 4,
+      "total_passed": 0,
+      "total_failed": 4,
+      "critical_issues": 0,
+      "warnings": 2,
+      "summary": "Good! Your site scores 87.0/100 (Grade B+). Minor improvements recommended.",
+      "top_issues": [
+        {
+          "rule_id": "social_001",
+          "name": "Open Graph Tags",
+          "category": "social",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+          "data": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "tags": [
+            "info",
+            "social",
+            "sharing"
+          ]
+        },
+        {
+          "rule_id": "social_005",
+          "name": "Social Media Image",
+          "category": "social",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "No social media image specified",
+          "recommendation": "Add og:image and twitter:image tags for better social sharing",
+          "data": null,
+          "tags": [
+            "warning",
+            "social",
+            "images"
+          ]
+        },
+        {
+          "rule_id": "social_003",
+          "name": "Social Media Links",
+          "category": "social",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No social media links found",
+          "recommendation": "Add links to your social media profiles",
+          "data": null,
+          "tags": [
+            "info",
+            "social",
+            "links"
+          ]
+        },
+        {
+          "rule_id": "social_004",
+          "name": "Facebook Domain Verification",
+          "category": "social",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Facebook App ID or admins meta tag",
+          "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+          "data": null,
+          "tags": [
+            "info",
+            "social",
+            "facebook"
+          ]
+        }
+      ]
+    },
+    "technical": {
+      "overall_score": 68.0,
+      "grade": "D",
+      "categories": {
+        "technical": {
+          "category": "technical",
+          "score": 68.0,
+          "max_score": 100.0,
+          "weight": 0.15,
+          "rules_checked": 4,
+          "rules_passed": 0,
+          "rules_failed": 4,
+          "issues": [
+            {
+              "rule_id": "technical_001",
+              "name": "SSL Certificate",
+              "category": "technical",
+              "severity": "critical",
+              "passed": false,
+              "score_impact": -15.0,
+              "message": "HTTPS detected but SSL certificate has issues",
+              "recommendation": "Fix SSL certificate issues. Ensure certificate is valid and trusted",
+              "data": {
+                "ssl_valid": false
+              },
+              "tags": [
+                "critical",
+                "technical",
+                "security"
+              ]
+            },
+            {
+              "rule_id": "technical_005",
+              "name": "DOCTYPE Declaration",
+              "category": "technical",
+              "severity": "critical",
+              "passed": false,
+              "score_impact": -10.0,
+              "message": "Missing DOCTYPE declaration",
+              "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+              "data": null,
+              "tags": [
+                "critical",
+                "technical"
+              ]
+            }
+          ],
+          "warnings": [
+            {
+              "rule_id": "technical_009",
+              "name": "XML Sitemap",
+              "category": "technical",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -2.0,
+              "message": "No sitemap data available",
+              "recommendation": "Create and submit XML sitemap to search engines",
+              "data": null,
+              "tags": [
+                "info",
+                "technical",
+                "indexing"
+              ]
+            },
+            {
+              "rule_id": "technical_010",
+              "name": "Structured Data",
+              "category": "technical",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No structured data / schema markup found",
+              "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+              "data": null,
+              "tags": [
+                "warning",
+                "technical",
+                "rich_snippets"
+              ]
+            }
+          ],
+          "passed_rules": []
+        }
+      },
+      "total_rules": 4,
+      "total_passed": 0,
+      "total_failed": 4,
+      "critical_issues": 2,
+      "warnings": 1,
+      "summary": "Poor. Your site scores 68.0/100 (Grade D). Significant improvements needed (2 critical issues).",
+      "top_issues": [
+        {
+          "rule_id": "technical_001",
+          "name": "SSL Certificate",
+          "category": "technical",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -15.0,
+          "message": "HTTPS detected but SSL certificate has issues",
+          "recommendation": "Fix SSL certificate issues. Ensure certificate is valid and trusted",
+          "data": {
+            "ssl_valid": false
+          },
+          "tags": [
+            "critical",
+            "technical",
+            "security"
+          ]
+        },
+        {
+          "rule_id": "technical_005",
+          "name": "DOCTYPE Declaration",
+          "category": "technical",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -10.0,
+          "message": "Missing DOCTYPE declaration",
+          "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+          "data": null,
+          "tags": [
+            "critical",
+            "technical"
+          ]
+        },
+        {
+          "rule_id": "technical_010",
+          "name": "Structured Data",
+          "category": "technical",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No structured data / schema markup found",
+          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+          "data": null,
+          "tags": [
+            "warning",
+            "technical",
+            "rich_snippets"
+          ]
+        },
+        {
+          "rule_id": "technical_009",
+          "name": "XML Sitemap",
+          "category": "technical",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -2.0,
+          "message": "No sitemap data available",
+          "recommendation": "Create and submit XML sitemap to search engines",
+          "data": null,
+          "tags": [
+            "info",
+            "technical",
+            "indexing"
+          ]
+        }
+      ]
+    }
+  },
+  "top_issues": [
+    {
+      "rule_id": "technical_001",
+      "name": "SSL Certificate",
+      "category": "technical",
+      "severity": "critical",
+      "passed": false,
+      "score_impact": -15.0,
+      "message": "HTTPS detected but SSL certificate has issues",
+      "recommendation": "Fix SSL certificate issues. Ensure certificate is valid and trusted",
+      "data": {
+        "ssl_valid": false
+      },
+      "tags": [
+        "critical",
+        "technical",
+        "security"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "on_page_002",
+      "name": "Meta Description",
+      "category": "on_page",
+      "severity": "critical",
+      "passed": false,
+      "score_impact": -12.0,
+      "message": "Missing meta description",
+      "recommendation": "Add a compelling meta description (150-160 characters)",
+      "data": null,
+      "tags": [
+        "critical",
+        "on_page",
+        "meta"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "on_page_003",
+      "name": "H1 Tag",
+      "category": "on_page",
+      "severity": "critical",
+      "passed": false,
+      "score_impact": -10.0,
+      "message": "Missing H1 tag",
+      "recommendation": "Add a single <h1> tag containing your primary keyword",
+      "data": null,
+      "tags": [
+        "critical",
+        "on_page",
+        "headings"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "technical_005",
+      "name": "DOCTYPE Declaration",
+      "category": "technical",
+      "severity": "critical",
+      "passed": false,
+      "score_impact": -10.0,
+      "message": "Missing DOCTYPE declaration",
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+      "data": null,
+      "tags": [
+        "critical",
+        "technical"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "content_001",
+      "name": "Word Count",
+      "category": "content",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -8.0,
+      "message": "Thin content: 1 words (recommended: 300+)",
+      "recommendation": "Increase content to at least 300 words (currently 1)",
+      "data": {
+        "word_count": 1
+      },
+      "tags": [
+        "critical",
+        "content",
+        "quality"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "social_001",
+      "name": "Open Graph Tags",
+      "category": "social",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -8.0,
+      "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+      "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+      "data": {
+        "missing": [
+          "og:title",
+          "og:description",
+          "og:image",
+          "og:url"
+        ],
+        "present": []
+      },
+      "tags": [
+        "info",
+        "social",
+        "sharing"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "a11y_003",
+      "name": "Heading Structure",
+      "category": "accessibility",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -5.0,
+      "message": "Heading accessibility issues: Missing H1",
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3) for screen readers",
+      "data": null,
+      "tags": [
+        "warning",
+        "accessibility",
+        "headings"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "content_003",
+      "name": "Paragraph Structure",
+      "category": "content",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -5.0,
+      "message": "No paragraphs found",
+      "recommendation": "Break content into paragraphs for better readability",
+      "data": null,
+      "tags": [
+        "warning",
+        "content",
+        "readability"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "links_001",
+      "name": "Internal Links",
+      "category": "links",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -5.0,
+      "message": "No internal links found",
+      "recommendation": "Add internal links to other pages on your website",
+      "data": null,
+      "tags": [
+        "warning",
+        "links",
+        "navigation"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    },
+    {
+      "rule_id": "on_page_001",
+      "name": "Title Tag",
+      "category": "on_page",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -5.0,
+      "message": "Title length is 6 characters (recommended: 30-60) - too short",
+      "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
+      "data": null,
+      "tags": [
+        "critical",
+        "on_page",
+        "title"
+      ],
+      "page_url": "https://www.reddit.com/",
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+    }
+  ],
+  "per_page": [
+    {
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85",
+      "url": "https://www.reddit.com/",
+      "overall_score": 82.4,
+      "grade": "B",
+      "rules_passed": 44,
+      "rules_failed": 23,
+      "critical_issues": 4,
+      "rule_results": [
+        {
+          "rule_id": "a11y_001",
+          "name": "Image Alt Text",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No images to check",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "accessibility",
+            "images"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_002",
+          "name": "Page Language",
+          "category": "accessibility",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Language declared: en",
+          "recommendation": null,
+          "data": {
+            "language": "en"
+          },
+          "tags": [
+            "critical",
+            "accessibility",
+            "language"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_003",
+          "name": "Heading Structure",
+          "category": "accessibility",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Heading accessibility issues: Missing H1",
+          "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3) for screen readers",
+          "data": null,
+          "tags": [
+            "warning",
+            "accessibility",
+            "headings"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_004",
+          "name": "Link Text",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No links to check",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "accessibility",
+            "links"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_005",
+          "name": "Color Contrast",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Color contrast check (requires style analysis)",
+          "recommendation": "Ensure text has WCAG AA compliant contrast ratio (4.5:1 minimum)",
+          "data": null,
+          "tags": [
+            "warning",
+            "accessibility",
+            "contrast"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_006",
+          "name": "Keyboard Navigation",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Keyboard navigation check (requires JavaScript execution)",
+          "recommendation": "Ensure all interactive elements are keyboard accessible",
+          "data": null,
+          "tags": [
+            "info",
+            "accessibility",
+            "keyboard"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_007",
+          "name": "ARIA Labels",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "ARIA labels check (requires attribute parsing)",
+          "recommendation": "Add ARIA labels to improve screen reader experience",
+          "data": null,
+          "tags": [
+            "info",
+            "accessibility",
+            "aria"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "a11y_008",
+          "name": "Form Labels",
+          "category": "accessibility",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No forms found",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "accessibility",
+            "forms"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_001",
+          "name": "Word Count",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Thin content: 1 words (recommended: 300+)",
+          "recommendation": "Increase content to at least 300 words (currently 1)",
+          "data": {
+            "word_count": 1
+          },
+          "tags": [
+            "critical",
+            "content",
+            "quality"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_002",
+          "name": "Reading Time",
+          "category": "content",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No reading time data available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "content",
+            "ux"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_003",
+          "name": "Paragraph Structure",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No paragraphs found",
+          "recommendation": "Break content into paragraphs for better readability",
+          "data": null,
+          "tags": [
+            "warning",
+            "content",
+            "readability"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_004",
+          "name": "Text-to-HTML Ratio",
+          "category": "content",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Text-to-HTML ratio not available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "content",
+            "quality"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_005",
+          "name": "Keyword in Content",
+          "category": "content",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Keyword presence check skipped (requires keyword analysis)",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "content",
+            "keywords"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_006",
+          "name": "Duplicate Content",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "No canonical URL (potential duplicate content risk)",
+          "recommendation": "Add canonical URL tag to indicate preferred version",
+          "data": null,
+          "tags": [
+            "warning",
+            "content",
+            "duplicate"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "content_007",
+          "name": "Content Freshness",
+          "category": "content",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No content freshness dates found",
+          "recommendation": "Consider adding article published/modified dates",
+          "data": null,
+          "tags": [
+            "info",
+            "content",
+            "freshness"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_001",
+          "name": "Image Alt Text",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No images found on page",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "images",
+            "accessibility"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_002",
+          "name": "Image File Size",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No image size data available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "images",
+            "performance"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_003",
+          "name": "Lazy Loading",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No images found",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "images",
+            "performance"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_004",
+          "name": "Image Dimensions",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No image dimension data available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "images",
+            "ux",
+            "core_web_vitals"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_005",
+          "name": "Responsive Images",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No image data available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "images",
+            "responsive"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "images_006",
+          "name": "Modern Image Formats",
+          "category": "images",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No image data available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "images",
+            "performance"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "links_001",
+          "name": "Internal Links",
+          "category": "links",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No internal links found",
+          "recommendation": "Add internal links to other pages on your website",
+          "data": null,
+          "tags": [
+            "warning",
+            "links",
+            "navigation"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "links_002",
+          "name": "External Links",
+          "category": "links",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No external links found",
+          "recommendation": "Consider linking to authoritative external sources",
+          "data": null,
+          "tags": [
+            "info",
+            "links",
+            "outbound"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "links_003",
+          "name": "Broken Links",
+          "category": "links",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No broken links detected",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "links",
+            "errors"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "links_004",
+          "name": "Anchor Text",
+          "category": "links",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No links to analyze",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "links",
+            "ux"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "links_005",
+          "name": "Nofollow Links",
+          "category": "links",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No links found",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "links",
+            "crawling"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_001",
+          "name": "Title Tag",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Title length is 6 characters (recommended: 30-60) - too short",
+          "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "title"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_002",
+          "name": "Meta Description",
+          "category": "on_page",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -12.0,
+          "message": "Missing meta description",
+          "recommendation": "Add a compelling meta description (150-160 characters)",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "meta"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_003",
+          "name": "H1 Tag",
+          "category": "on_page",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -10.0,
+          "message": "Missing H1 tag",
+          "recommendation": "Add a single <h1> tag containing your primary keyword",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "headings"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_004",
+          "name": "Heading Hierarchy",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "Heading hierarchy issues: Missing H1",
+          "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
+          "data": {
+            "h1": 0,
+            "h2": 0,
+            "h3": 0,
+            "issues": [
+              "Missing H1"
+            ]
+          },
+          "tags": [
+            "warning",
+            "on_page",
+            "headings"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_005",
+          "name": "Meta Keywords",
+          "category": "on_page",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Meta keywords not present (not critical for modern SEO)",
+          "recommendation": "Meta keywords are deprecated but can be added if desired",
+          "data": null,
+          "tags": [
+            "info",
+            "on_page",
+            "meta"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_006",
+          "name": "Canonical URL",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Missing canonical URL tag",
+          "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "duplicate_content"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "on_page_007",
+          "name": "Robots Meta Tag",
+          "category": "on_page",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No robots restrictions (page will be indexed)",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "on_page",
+            "indexing"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_001",
+          "name": "Response Time",
+          "category": "performance",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 2.0,
+          "message": "Excellent response time: 0.08s",
+          "recommendation": null,
+          "data": {
+            "response_time": 0.078
+          },
+          "tags": [
+            "critical",
+            "performance",
+            "core_web_vitals"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_002",
+          "name": "HTML Document Size",
+          "category": "performance",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "HTML size not available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "performance",
+            "size"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_003",
+          "name": "Code Minification",
+          "category": "performance",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Minification check not available",
+          "recommendation": "Enable HTML/CSS/JS minification for better performance",
+          "data": null,
+          "tags": [
+            "info",
+            "performance",
+            "optimization"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_004",
+          "name": "Resource Count",
+          "category": "performance",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Resource count not available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "performance",
+            "resources"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_005",
+          "name": "Browser Caching",
+          "category": "performance",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Cache headers present",
+          "recommendation": null,
+          "data": {
+            "expires": "",
+            "cache_control": "private, no-store"
+          },
+          "tags": [
+            "warning",
+            "performance",
+            "caching"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_006",
+          "name": "Compression",
+          "category": "performance",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No compression detected",
+          "recommendation": "Enable gzip or brotli compression on your server",
+          "data": null,
+          "tags": [
+            "warning",
+            "performance",
+            "compression"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_007",
+          "name": "Total Page Size",
+          "category": "performance",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Page size not available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "warning",
+            "performance",
+            "size"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "perf_008",
+          "name": "JavaScript Errors",
+          "category": "performance",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "JavaScript error check not available",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "performance",
+            "javascript"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_001",
+          "name": "Schema Markup",
+          "category": "schema",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No structured data / schema markup found",
+          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+          "data": null,
+          "tags": [
+            "warning",
+            "schema",
+            "rich_snippets"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_002",
+          "name": "Organization Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No schema markup to analyze",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "branding"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_003",
+          "name": "Breadcrumb Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No schema markup to analyze",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "navigation"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_004",
+          "name": "Article Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No schema markup to analyze",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "content"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_005",
+          "name": "Product Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No schema markup to analyze",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "ecommerce"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "schema_006",
+          "name": "JSON-LD Format",
+          "category": "schema",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Schema format check (JSON-LD recommended)",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "format"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_001",
+          "name": "HTTPS",
+          "category": "security",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Website uses HTTPS",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "security",
+            "https"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_002",
+          "name": "Mixed Content",
+          "category": "security",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No mixed content detected",
+          "recommendation": null,
+          "data": null,
+          "tags": [
+            "critical",
+            "security",
+            "https"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_003",
+          "name": "Security Headers",
+          "category": "security",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "All critical security headers present (5/5)",
+          "recommendation": null,
+          "data": {
+            "present": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ]
+          },
+          "tags": [
+            "critical",
+            "security",
+            "headers"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_004",
+          "name": "SSL Certificate",
+          "category": "security",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No SSL certificate information available",
+          "recommendation": "Ensure SSL certificate is properly configured",
+          "data": null,
+          "tags": [
+            "critical",
+            "security",
+            "ssl"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_005",
+          "name": "HSTS",
+          "category": "security",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "HSTS properly configured with long max-age",
+          "recommendation": null,
+          "data": {
+            "hsts": "max-age=31536000; includeSubdomains"
+          },
+          "tags": [
+            "warning",
+            "security",
+            "headers"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "security_006",
+          "name": "XSS Protection",
+          "category": "security",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "XSS protection headers present",
+          "recommendation": null,
+          "data": {
+            "csp": "default-src 'none'; script-src 'nonce-29d9addf-5a6f-42bd-9430-05f8cc177233'; style-src 'unsafe-inline'; img-src https://www.redditstatic.com; form-action 'self';",
+            "x_xss_protection": "1; mode=block"
+          },
+          "tags": [
+            "warning",
+            "security",
+            "xss"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "social_001",
+          "name": "Open Graph Tags",
+          "category": "social",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+          "data": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "tags": [
+            "info",
+            "social",
+            "sharing"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "social_002",
+          "name": "Twitter Cards",
+          "category": "social",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No Twitter Card tags (optional)",
+          "recommendation": "Consider adding Twitter Card tags for better social sharing",
+          "data": null,
+          "tags": [
+            "info",
+            "social",
+            "twitter"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "social_003",
+          "name": "Social Media Links",
+          "category": "social",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No social media links found",
+          "recommendation": "Add links to your social media profiles",
+          "data": null,
+          "tags": [
+            "info",
+            "social",
+            "links"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "social_004",
+          "name": "Facebook Domain Verification",
+          "category": "social",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Facebook App ID or admins meta tag",
+          "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+          "data": null,
+          "tags": [
+            "info",
+            "social",
+            "facebook"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "social_005",
+          "name": "Social Media Image",
+          "category": "social",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -3.0,
+          "message": "No social media image specified",
+          "recommendation": "Add og:image and twitter:image tags for better social sharing",
+          "data": null,
+          "tags": [
+            "warning",
+            "social",
+            "images"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_001",
+          "name": "SSL Certificate",
+          "category": "technical",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -15.0,
+          "message": "HTTPS detected but SSL certificate has issues",
+          "recommendation": "Fix SSL certificate issues. Ensure certificate is valid and trusted",
+          "data": {
+            "ssl_valid": false
+          },
+          "tags": [
+            "critical",
+            "technical",
+            "security"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_002",
+          "name": "Mobile Viewport",
+          "category": "technical",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Viewport meta tag is properly configured",
+          "recommendation": null,
+          "data": {
+            "viewport": "width=device-width, initial-scale=1.0"
+          },
+          "tags": [
+            "critical",
+            "technical",
+            "mobile"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_003",
+          "name": "Language Declaration",
+          "category": "technical",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Language declared: en",
+          "recommendation": null,
+          "data": {
+            "language": "en"
+          },
+          "tags": [
+            "warning",
+            "technical",
+            "accessibility"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_004",
+          "name": "Character Encoding",
+          "category": "technical",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Character encoding declared: UTF-8",
+          "recommendation": null,
+          "data": {
+            "charset": "UTF-8"
+          },
+          "tags": [
+            "warning",
+            "technical"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_005",
+          "name": "DOCTYPE Declaration",
+          "category": "technical",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -10.0,
+          "message": "Missing DOCTYPE declaration",
+          "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+          "data": null,
+          "tags": [
+            "critical",
+            "technical"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_006",
+          "name": "HTML Language Attribute",
+          "category": "technical",
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "HTML language properly declared: en",
+          "recommendation": null,
+          "data": {
+            "language": "en"
+          },
+          "tags": [
+            "warning",
+            "technical",
+            "accessibility"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_008",
+          "name": "Robots.txt",
+          "category": "technical",
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No robots.txt data available",
+          "recommendation": "Ensure robots.txt exists and is properly configured",
+          "data": null,
+          "tags": [
+            "info",
+            "technical",
+            "crawling"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_009",
+          "name": "XML Sitemap",
+          "category": "technical",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -2.0,
+          "message": "No sitemap data available",
+          "recommendation": "Create and submit XML sitemap to search engines",
+          "data": null,
+          "tags": [
+            "info",
+            "technical",
+            "indexing"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        },
+        {
+          "rule_id": "technical_010",
+          "name": "Structured Data",
+          "category": "technical",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No structured data / schema markup found",
+          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+          "data": null,
+          "tags": [
+            "warning",
+            "technical",
+            "rich_snippets"
+          ],
+          "page_url": "https://www.reddit.com/",
+          "page_id": "451226bb-212a-4a40-afc6-c85f75986e85"
+        }
+      ]
+    }
+  ],
+  "page_details": [
+    {
+      "page_id": "451226bb-212a-4a40-afc6-c85f75986e85",
+      "url": "https://www.reddit.com/",
+      "normalized_url": "https://www.reddit.com/",
+      "status_code": 200,
+      "response_time_ms": 78,
+      "content_length": 8393,
+      "content_type": "text/html",
+      "is_success": true,
+      "depth": 0,
+      "parsed_data_snapshot": {
+        "title": "Reddit",
+        "meta_description": "",
+        "word_count": 1,
+        "language": "en",
+        "canonical": "",
+        "structured_data": {
+          "exists": false
+        },
+        "social": {
+          "twitter": {
+            "tags": {}
+          },
+          "open_graph": {
+            "tags": {}
+          }
+        }
+      },
+      "network": {
+        "status_code": 200,
+        "response_time_ms": 78,
+        "content_length": 8393,
+        "headers": {
+          "nel": "{\"report_to\": \"w3-reporting-nel\", \"max_age\": 14400, \"include_subdomains\": false, \"success_fraction\": 1.0, \"failure_fraction\": 1.0}",
+          "via": "1.1 varnish",
+          "date": "Tue, 18 Aug 2026 07:26:36 GMT",
+          "server": "snooserv",
+          "report-to": "{\"group\": \"w3-reporting-nel\", \"max_age\": 14400, \"include_subdomains\": true,  \"endpoints\": [{ \"url\": \"https://w3-reporting-nel.reddit.com/reports\" }]}, {\"group\": \"w3-reporting\", \"max_age\": 14400, \"include_subdomains\": true, \"endpoints\": [{ \"url\": \"https://w3-reporting.reddit.com/reports\" }]}, {\"group\": \"w3-reporting-csp\", \"max_age\": 14400, \"include_subdomains\": true, \"endpoints\": [{ \"url\": \"https://w3-reporting-csp.reddit.com/reports\" }]}",
+          "connection": "close",
+          "set-cookie": "edgebucket=ohyQ1tsoIlPM7zxq2U; Domain=reddit.com; Max-Age=63071999; Path=/;  secure",
+          "retry-after": "0",
+          "content-type": "text/html",
+          "accept-ranges": "bytes",
+          "cache-control": "private, no-store",
+          "server-timing": "reddit-ct;desc=\"dn=FT,p=DEL,cs=HIT\"",
+          "content-length": "8393",
+          "x-frame-options": "SAMEORIGIN",
+          "x-xss-protection": "1; mode=block",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "default-src 'none'; script-src 'nonce-29d9addf-5a6f-42bd-9430-05f8cc177233'; style-src 'unsafe-inline'; img-src https://www.redditstatic.com; form-action 'self';",
+          "strict-transport-security": "max-age=31536000; includeSubdomains"
+        }
+      }
+    }
+  ]
+}

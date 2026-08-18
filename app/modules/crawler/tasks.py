@@ -1,7 +1,5 @@
+from datetime import datetime, timezone
 from uuid import UUID
-
-from celery import shared_task
-from sqlalchemy import select
 
 from app.core.database import async_session_factory
 from app.modules.crawler.models.crawl_jobs import CrawlJob
@@ -14,16 +12,18 @@ from app.shared.tasks.db import run_async
 @celery_app.task(
     name="crawler.crawl_website",
     queue="crawler",
+    bind=True,
     autoretry_for=(Exception,),
     retry_backoff=True,
     retry_backoff_max=300,
+    retry_jitter=True,
     max_retries=3,
     acks_late=True,
     time_limit=3600,
     soft_time_limit=3300,
+    track_started=True,
 )
-
-def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
+def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
     async def _run():
         crawl_uuid = UUID(crawl_id)
         async with async_session_factory() as db:
@@ -33,6 +33,19 @@ def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
                 raise ValueError(f"CrawlJob {crawl_id} not found")
             if job.status != "queued":
                 return {"status": job.status, "crawl_id": crawl_id}
+
+            def _progress_callback(current_page: int, total_pages: int | None):
+                total = total_pages or 0
+                percent = min(100, int((current_page / total) * 100)) if total else 0
+                self.update_state(
+                    state="PROGRESS",
+                    meta={
+                        "current": current_page,
+                        "total": total,
+                        "percent": percent,
+                        "crawl_id": crawl_id,
+                    },
+                )
 
             try:
                 cfg = job.crawl_config or {}
@@ -47,6 +60,7 @@ def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
                     follow_redirects=cfg.get("follow_redirects", True),
                     respect_robots=cfg.get("respect_robots", True),
                     user_agent=cfg.get("user_agent"),
+                    progress_callback=_progress_callback,
                 )
 
                 # Fire auto-analyze pipeline if requested
@@ -68,6 +82,15 @@ def crawl_website(crawl_id: str, url: str, user_id: str) -> dict:
                     result["auto_analyze"] = True
                     result["project_id"] = str(project_id)
 
+                self.update_state(
+                    state="SUCCESS",
+                    meta={
+                        "current": job.total_pages or 0,
+                        "total": job.total_pages or 0,
+                        "percent": 100,
+                        "crawl_id": crawl_id,
+                    },
+                )
                 return result
             except Exception as exc:
                 await _mark_failed(db, crawl_uuid, str(exc))
@@ -80,8 +103,8 @@ async def _mark_failed(db, crawl_uuid: UUID, error_message: str) -> None:
     job_repo = CrawlJobRepository(db)
     job = await job_repo.get_by_id(crawl_uuid)
     if job and job.status not in ("completed", "failed", "cancelled"):
-        from datetime import datetime, timezone
         job.status = "failed"
         job.error = error_message[:1024]
         job.completed_at = datetime.now(timezone.utc)
+        job.progress_percent = 100
         await job_repo.update(job)

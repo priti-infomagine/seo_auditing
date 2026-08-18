@@ -5745,3 +5745,376 @@ app.shared.exceptions.ScoringError: Project scoring failed: 'AnalysisScorerServi
 2026-08-18 11:19:52,716 | INFO | Links analysis: 56 total (0 external, 56 internal)
 2026-08-18 11:19:52,718 | INFO | Step 9: Building page-centric response grouping
 2026-08-18 11:19:52,718 | INFO | Built 1 page entries in response
+2026-08-18 12:53:59,456 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:53:59,458 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:54:01,178 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:54:01,178 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:54:02,413 | INFO | DB persistence completed: crawl_id=ce98e7f0-5fab-4bee-8bc8-18118d193ed7
+2026-08-18 12:54:02,413 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:54:02,415 | INFO | DBParserService.parse_crawl: project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83, crawl_id=ce98e7f0-5fab-4bee-8bc8-18118d193ed7, force=True
+2026-08-18 12:54:02,643 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83
+2026-08-18 12:54:02,644 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:54:02,646 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:54:02,646 | INFO | Loaded 70 scoring rules
+2026-08-18 12:54:02,647 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83, crawl_id=ce98e7f0-5fab-4bee-8bc8-18118d193ed7, force=True
+2026-08-18 12:54:03,829 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83
+2026-08-18 12:54:03,832 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:54:03,834 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:54:03,835 | INFO | AnalysisScorerService.score_project: project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83, crawl_id=ce98e7f0-5fab-4bee-8bc8-18118d193ed7, force=True
+2026-08-18 12:54:04,242 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83
+2026-08-18 12:54:04,272 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:54:04,272 | INFO | Step 6: Building per-page response
+2026-08-18 12:54:04,273 | INFO | build_per_page_breakdown: project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83, crawl_id=ce98e7f0-5fab-4bee-8bc8-18118d193ed7
+2026-08-18 12:54:04,320 | INFO | build_per_page_breakdown: built 1 page entries for project_id=28b8a96f-7177-41e1-8cf8-964d9db63e83
+2026-08-18 12:54:04,322 | INFO | Built 1 per-page entries in response
+2026-08-18 12:54:05,853 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:54:05,855 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:54:55,280 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:54:55,280 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:54:56,652 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:54:56,655 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:54:57,813 | INFO | DB persistence completed: crawl_id=d767011d-4752-4182-a115-37c36f30ef8a
+2026-08-18 12:54:57,813 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:54:57,814 | INFO | DBParserService.parse_crawl: project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696, crawl_id=d767011d-4752-4182-a115-37c36f30ef8a, force=True
+2026-08-18 12:54:57,971 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696
+2026-08-18 12:54:57,973 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:54:57,974 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:54:57,974 | INFO | Loaded 70 scoring rules
+2026-08-18 12:54:57,975 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696, crawl_id=d767011d-4752-4182-a115-37c36f30ef8a, force=True
+2026-08-18 12:54:58,979 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696
+2026-08-18 12:54:58,985 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:54:58,986 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:54:58,986 | INFO | AnalysisScorerService.score_project: project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696, crawl_id=d767011d-4752-4182-a115-37c36f30ef8a, force=True
+2026-08-18 12:54:59,199 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696
+2026-08-18 12:54:59,220 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:54:59,223 | INFO | Step 6: Building per-page response
+2026-08-18 12:54:59,224 | INFO | build_per_page_breakdown: project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696, crawl_id=d767011d-4752-4182-a115-37c36f30ef8a
+2026-08-18 12:54:59,281 | INFO | build_per_page_breakdown: built 1 page entries for project_id=ff2c3a51-a30d-4d43-bc5a-bfc799450696
+2026-08-18 12:54:59,285 | INFO | Built 1 per-page entries in response
+2026-08-18 12:55:00,610 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:55:00,610 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:56:34,507 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:56:34,507 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:56:35,226 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:56:35,226 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:56:35,580 | INFO | DB persistence completed: crawl_id=38438f64-789b-47f7-a6b5-d5a9abc6633d
+2026-08-18 12:56:35,580 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:56:35,580 | INFO | DBParserService.parse_crawl: project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a, crawl_id=38438f64-789b-47f7-a6b5-d5a9abc6633d, force=True
+2026-08-18 12:56:35,623 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a
+2026-08-18 12:56:35,623 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:56:35,623 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:56:35,623 | INFO | Loaded 70 scoring rules
+2026-08-18 12:56:35,623 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a, crawl_id=38438f64-789b-47f7-a6b5-d5a9abc6633d, force=True
+2026-08-18 12:56:35,810 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a
+2026-08-18 12:56:35,810 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:56:35,810 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:56:35,811 | INFO | AnalysisScorerService.score_project: project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a, crawl_id=38438f64-789b-47f7-a6b5-d5a9abc6633d, force=True
+2026-08-18 12:56:35,861 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a
+2026-08-18 12:56:35,865 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:56:35,865 | INFO | Step 6: Building per-page response
+2026-08-18 12:56:35,865 | INFO | build_per_page_breakdown: project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a, crawl_id=38438f64-789b-47f7-a6b5-d5a9abc6633d
+2026-08-18 12:56:35,874 | INFO | build_per_page_breakdown: built 1 page entries for project_id=f3062bbd-1f24-4aee-97a9-2565776ccd9a
+2026-08-18 12:56:35,874 | INFO | Built 1 per-page entries in response
+2026-08-18 12:56:36,313 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:56:36,313 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:57:18,639 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:57:18,641 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:57:19,176 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:57:19,176 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:57:19,389 | INFO | DB persistence completed: crawl_id=f674b3dd-1dc4-486d-a8e3-662651753780
+2026-08-18 12:57:19,389 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:57:19,389 | INFO | DBParserService.parse_crawl: project_id=435add4e-5599-40a9-9282-cf3b079381af, crawl_id=f674b3dd-1dc4-486d-a8e3-662651753780, force=True
+2026-08-18 12:57:19,438 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=435add4e-5599-40a9-9282-cf3b079381af
+2026-08-18 12:57:19,438 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:57:19,438 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:57:19,438 | INFO | Loaded 70 scoring rules
+2026-08-18 12:57:19,439 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=435add4e-5599-40a9-9282-cf3b079381af, crawl_id=f674b3dd-1dc4-486d-a8e3-662651753780, force=True
+2026-08-18 12:57:19,573 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=435add4e-5599-40a9-9282-cf3b079381af
+2026-08-18 12:57:19,573 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:57:19,573 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:57:19,574 | INFO | AnalysisScorerService.score_project: project_id=435add4e-5599-40a9-9282-cf3b079381af, crawl_id=f674b3dd-1dc4-486d-a8e3-662651753780, force=True
+2026-08-18 12:57:19,611 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=435add4e-5599-40a9-9282-cf3b079381af
+2026-08-18 12:57:19,615 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:57:19,615 | INFO | Step 6: Building per-page response
+2026-08-18 12:57:19,615 | INFO | build_per_page_breakdown: project_id=435add4e-5599-40a9-9282-cf3b079381af, crawl_id=f674b3dd-1dc4-486d-a8e3-662651753780
+2026-08-18 12:57:19,620 | INFO | build_per_page_breakdown: built 1 page entries for project_id=435add4e-5599-40a9-9282-cf3b079381af
+2026-08-18 12:57:19,621 | INFO | Built 1 per-page entries in response
+2026-08-18 12:57:19,961 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:57:19,962 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:58:36,411 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:58:36,411 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:58:37,271 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:58:37,271 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:58:37,681 | INFO | DB persistence completed: crawl_id=88849aa1-a68c-4e6f-8d1c-85f798c49913
+2026-08-18 12:58:37,681 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:58:37,681 | INFO | DBParserService.parse_crawl: project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63, crawl_id=88849aa1-a68c-4e6f-8d1c-85f798c49913, force=True
+2026-08-18 12:58:37,770 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63
+2026-08-18 12:58:37,771 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:58:37,771 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:58:37,771 | INFO | Loaded 70 scoring rules
+2026-08-18 12:58:37,771 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63, crawl_id=88849aa1-a68c-4e6f-8d1c-85f798c49913, force=True
+2026-08-18 12:58:37,990 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63
+2026-08-18 12:58:37,991 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:58:37,991 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:58:37,991 | INFO | AnalysisScorerService.score_project: project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63, crawl_id=88849aa1-a68c-4e6f-8d1c-85f798c49913, force=True
+2026-08-18 12:58:38,066 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63
+2026-08-18 12:58:38,069 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:58:38,069 | INFO | Step 6: Building per-page response
+2026-08-18 12:58:38,070 | INFO | build_per_page_breakdown: project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63, crawl_id=88849aa1-a68c-4e6f-8d1c-85f798c49913
+2026-08-18 12:58:38,077 | INFO | build_per_page_breakdown: built 1 page entries for project_id=4bed5414-a2b9-43ae-8ecb-bd909287ff63
+2026-08-18 12:58:38,077 | INFO | Built 1 per-page entries in response
+2026-08-18 12:58:38,091 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:58:38,091 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:59:16,702 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 12:59:16,702 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:59:17,486 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 12:59:17,487 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 12:59:17,882 | INFO | DB persistence completed: crawl_id=19093e8e-8113-4e90-8de2-9745ff5afd4c
+2026-08-18 12:59:17,882 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 12:59:17,882 | INFO | DBParserService.parse_crawl: project_id=041d8e02-9780-445e-9c20-c7118de5b441, crawl_id=19093e8e-8113-4e90-8de2-9745ff5afd4c, force=True
+2026-08-18 12:59:17,932 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=041d8e02-9780-445e-9c20-c7118de5b441
+2026-08-18 12:59:17,932 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 12:59:17,932 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 12:59:17,932 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:17,932 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=041d8e02-9780-445e-9c20-c7118de5b441, crawl_id=19093e8e-8113-4e90-8de2-9745ff5afd4c, force=True
+2026-08-18 12:59:18,180 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=041d8e02-9780-445e-9c20-c7118de5b441
+2026-08-18 12:59:18,180 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 12:59:18,184 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 12:59:18,184 | INFO | AnalysisScorerService.score_project: project_id=041d8e02-9780-445e-9c20-c7118de5b441, crawl_id=19093e8e-8113-4e90-8de2-9745ff5afd4c, force=True
+2026-08-18 12:59:18,270 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=041d8e02-9780-445e-9c20-c7118de5b441
+2026-08-18 12:59:18,270 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 12:59:18,270 | INFO | Step 6: Building per-page response
+2026-08-18 12:59:18,270 | INFO | build_per_page_breakdown: project_id=041d8e02-9780-445e-9c20-c7118de5b441, crawl_id=19093e8e-8113-4e90-8de2-9745ff5afd4c
+2026-08-18 12:59:18,290 | INFO | build_per_page_breakdown: built 1 page entries for project_id=041d8e02-9780-445e-9c20-c7118de5b441
+2026-08-18 12:59:18,290 | INFO | Built 1 per-page entries in response
+2026-08-18 12:59:18,331 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 12:59:18,333 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 12:59:33,347 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,349 | INFO | Starting SEO scoring...
+2026-08-18 12:59:33,352 | INFO | Completed 70 rule evaluations
+2026-08-18 12:59:33,352 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 12:59:33,352 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,361 | INFO | Starting SEO scoring...
+2026-08-18 12:59:33,361 | INFO | Completed 70 rule evaluations
+2026-08-18 12:59:33,361 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 12:59:33,365 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,369 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,374 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,377 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,380 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,385 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,435 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,435 | INFO | Scoring provided parsed data
+2026-08-18 12:59:33,435 | INFO | Starting SEO scoring...
+2026-08-18 12:59:33,436 | INFO | Completed 70 rule evaluations
+2026-08-18 12:59:33,439 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-18 12:59:33,453 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,469 | INFO | Loaded 70 scoring rules
+2026-08-18 12:59:33,481 | INFO | Loaded 70 scoring rules
+2026-08-18 14:41:54,112 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-18 14:41:54,112 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 14:42:04,726 | INFO | Crawl phase completed: 20 pages crawled
+2026-08-18 14:42:04,726 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 14:42:07,059 | INFO | DB persistence completed: crawl_id=a164bf1c-84db-42f9-87dc-e2bdda4edb95
+2026-08-18 14:42:07,059 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 14:42:07,059 | INFO | DBParserService.parse_crawl: project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f, crawl_id=a164bf1c-84db-42f9-87dc-e2bdda4edb95, force=True
+2026-08-18 14:42:11,466 | INFO | DBParserService.parse_crawl: parsed=20, failed=0, skipped=0 for project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f
+2026-08-18 14:42:11,466 | INFO | DB parse: 20 pages parsed, 0 failed
+2026-08-18 14:42:11,466 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 14:42:11,466 | INFO | Loaded 70 scoring rules
+2026-08-18 14:42:11,466 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f, crawl_id=a164bf1c-84db-42f9-87dc-e2bdda4edb95, force=True
+2026-08-18 14:42:15,942 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=20, rules_run=1400, total_results=1400, errors=0 for project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f
+2026-08-18 14:42:15,958 | INFO | DB evaluate: 1400 rules run, 1400 results, 0 errors
+2026-08-18 14:42:15,958 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 14:42:15,958 | INFO | AnalysisScorerService.score_project: project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f, crawl_id=a164bf1c-84db-42f9-87dc-e2bdda4edb95, force=True
+2026-08-18 14:42:16,553 | INFO | AnalysisScorerService.score_project: score=87.5, grade=B+, pages=20, project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f
+2026-08-18 14:42:16,759 | INFO | DB scoring completed: Score=87.5/100 (Grade: B+)
+2026-08-18 14:42:16,763 | INFO | Step 6: Building per-page response
+2026-08-18 14:42:16,765 | INFO | build_per_page_breakdown: project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f, crawl_id=a164bf1c-84db-42f9-87dc-e2bdda4edb95
+2026-08-18 14:42:17,216 | INFO | build_per_page_breakdown: built 20 page entries for project_id=ae42cbe6-9a2b-4a2c-bc5b-fad49d77582f
+2026-08-18 14:42:17,222 | INFO | Built 20 per-page entries in response
+2026-08-18 15:27:15,714 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-18 15:27:15,724 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:27:26,351 | INFO | Crawl phase completed: 20 pages crawled
+2026-08-18 15:27:26,351 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 15:27:26,404 | ERROR | Unexpected error during audit for URL: https://replit.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "total_pages" of relation "crawl_jobs" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "total_pages" of relation "crawl_jobs" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 136, in analyze_website
+    db_crawl_job = await CrawlJobRepository(db).create(db_crawl_job)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "total_pages" of relation "crawl_jobs" does not exist
+[SQL: INSERT INTO crawl_jobs (id, user_id, project_id, url, domain, status, crawl_type, max_pages, max_depth, pages_discovered, pages_crawled, pages_failed, error_count, total_pages, current_page, progress_percent, crawl_config, started_at, completed_at, duration_ms, error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::crawl_job_status_enum, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::INTEGER, $15::INTEGER, $16::INTEGER, $17::JSONB, $18::TIMESTAMP WITH TIME ZONE, $19::TIMESTAMP WITH TIME ZONE, $20::INTEGER, $21::VARCHAR) RETURNING crawl_jobs.created_at, crawl_jobs.updated_at]
+[parameters: (UUID('3b355d23-4a55-4fd7-9d2e-b499c0c47cec'), UUID('00000000-0000-0000-0000-000000000000'), UUID('85b11479-9b2a-4913-aa37-0fa225cebc68'), 'https://replit.com/', 'replit.com', 'crawling', None, 20, 2, 20, 20, 0, 0, None, None, None, '{"max_pages": 20, "max_depth": 2, "concurrency": 1}', None, None, None, None)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-08-18 15:30:32,013 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 15:30:32,020 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:30:32,676 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 15:30:32,676 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 15:30:33,092 | INFO | DB persistence completed: crawl_id=280fd165-29b0-4a88-9f71-3665bb677937
+2026-08-18 15:30:33,092 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 15:30:33,092 | INFO | DBParserService.parse_crawl: project_id=088d103e-0978-4e1c-b33a-612a7c7feca9, crawl_id=280fd165-29b0-4a88-9f71-3665bb677937, force=True
+2026-08-18 15:30:33,167 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=088d103e-0978-4e1c-b33a-612a7c7feca9
+2026-08-18 15:30:33,167 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 15:30:33,167 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 15:30:33,167 | INFO | Loaded 70 scoring rules
+2026-08-18 15:30:33,167 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=088d103e-0978-4e1c-b33a-612a7c7feca9, crawl_id=280fd165-29b0-4a88-9f71-3665bb677937, force=True
+2026-08-18 15:30:33,344 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=088d103e-0978-4e1c-b33a-612a7c7feca9
+2026-08-18 15:30:33,344 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 15:30:33,344 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 15:30:33,344 | INFO | AnalysisScorerService.score_project: project_id=088d103e-0978-4e1c-b33a-612a7c7feca9, crawl_id=280fd165-29b0-4a88-9f71-3665bb677937, force=True
+2026-08-18 15:30:33,420 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=088d103e-0978-4e1c-b33a-612a7c7feca9
+2026-08-18 15:30:33,427 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 15:30:33,428 | INFO | Step 6: Building per-page response
+2026-08-18 15:30:33,428 | INFO | build_per_page_breakdown: project_id=088d103e-0978-4e1c-b33a-612a7c7feca9, crawl_id=280fd165-29b0-4a88-9f71-3665bb677937
+2026-08-18 15:30:33,440 | INFO | build_per_page_breakdown: built 1 page entries for project_id=088d103e-0978-4e1c-b33a-612a7c7feca9
+2026-08-18 15:30:33,440 | INFO | Built 1 per-page entries in response
+2026-08-18 15:30:33,457 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 15:30:33,460 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:32:13,549 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 15:32:13,549 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:32:14,405 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 15:32:14,405 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 15:32:14,865 | INFO | DB persistence completed: crawl_id=690018f8-056a-45b0-82b5-3e8817145659
+2026-08-18 15:32:14,865 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 15:32:14,865 | INFO | DBParserService.parse_crawl: project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756, crawl_id=690018f8-056a-45b0-82b5-3e8817145659, force=True
+2026-08-18 15:32:14,913 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756
+2026-08-18 15:32:14,913 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 15:32:14,913 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 15:32:14,913 | INFO | Loaded 70 scoring rules
+2026-08-18 15:32:14,913 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756, crawl_id=690018f8-056a-45b0-82b5-3e8817145659, force=True
+2026-08-18 15:32:15,078 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756
+2026-08-18 15:32:15,078 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 15:32:15,078 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 15:32:15,078 | INFO | AnalysisScorerService.score_project: project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756, crawl_id=690018f8-056a-45b0-82b5-3e8817145659, force=True
+2026-08-18 15:32:15,125 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756
+2026-08-18 15:32:15,125 | INFO | DB scoring completed: Score=82.4/100 (Grade: B)
+2026-08-18 15:32:15,125 | INFO | Step 6: Building per-page response
+2026-08-18 15:32:15,125 | INFO | build_per_page_breakdown: project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756, crawl_id=690018f8-056a-45b0-82b5-3e8817145659
+2026-08-18 15:32:15,125 | INFO | build_per_page_breakdown: built 1 page entries for project_id=2a6053a0-d1bc-407e-9449-3fd76e60c756
+2026-08-18 15:32:15,141 | INFO | Built 1 per-page entries in response
+2026-08-18 15:32:15,157 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 15:32:15,157 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:35:01,179 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-18 15:35:01,179 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 15:35:11,781 | INFO | Crawl phase completed: 20 pages crawled
+2026-08-18 15:35:11,783 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 15:35:14,310 | INFO | DB persistence completed: crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3
+2026-08-18 15:35:14,310 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 15:35:14,310 | INFO | DBParserService.parse_crawl: project_id=772ca923-ba2e-481f-bf13-e477460aabef, crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3, force=True
+2026-08-18 15:35:16,531 | INFO | DBParserService.parse_crawl: parsed=20, failed=0, skipped=0 for project_id=772ca923-ba2e-481f-bf13-e477460aabef
+2026-08-18 15:35:16,531 | INFO | DB parse: 20 pages parsed, 0 failed
+2026-08-18 15:35:16,531 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 15:35:16,531 | INFO | Loaded 70 scoring rules
+2026-08-18 15:35:16,531 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=772ca923-ba2e-481f-bf13-e477460aabef, crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3, force=True
+2026-08-18 15:35:21,202 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=20, rules_run=1400, total_results=1400, errors=0 for project_id=772ca923-ba2e-481f-bf13-e477460aabef
+2026-08-18 15:35:21,202 | INFO | DB evaluate: 1400 rules run, 1400 results, 0 errors
+2026-08-18 15:35:21,202 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 15:35:21,202 | INFO | AnalysisScorerService.score_project: project_id=772ca923-ba2e-481f-bf13-e477460aabef, crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3, force=True
+2026-08-18 15:35:21,648 | INFO | AnalysisScorerService.score_project: score=87.5, grade=B+, pages=20, project_id=772ca923-ba2e-481f-bf13-e477460aabef
+2026-08-18 15:35:21,706 | INFO | DB scoring completed: Score=87.5/100 (Grade: B+)
+2026-08-18 15:35:21,706 | INFO | Step 6: Building per-page response
+2026-08-18 15:35:21,706 | INFO | build_per_page_breakdown: project_id=772ca923-ba2e-481f-bf13-e477460aabef, crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3
+2026-08-18 15:35:21,941 | INFO | build_per_page_breakdown: built 20 page entries for project_id=772ca923-ba2e-481f-bf13-e477460aabef
+2026-08-18 15:35:21,946 | INFO | Built 20 per-page entries in response

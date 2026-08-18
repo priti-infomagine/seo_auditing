@@ -52,6 +52,7 @@ class CrawlOrchestrator:
         self.config: Optional[CrawlConfig] = None
         self.event_bus = CrawlPipelineBus()
         self._scheduler: Optional[CrawlScheduler] = None
+        self._progress_callback: Optional[callable] = None
 
     async def run(
         self,
@@ -64,6 +65,7 @@ class CrawlOrchestrator:
         follow_redirects: bool = True,
         respect_robots: bool = True,
         user_agent: Optional[str] = None,
+        progress_callback: Optional[callable] = None,
     ) -> dict:
         """
         Run a full recursive crawl using CrawlScheduler dynamic worker pool.
@@ -80,6 +82,9 @@ class CrawlOrchestrator:
 
         raw_config = job.crawl_config or {}
         self.config = CrawlConfig.from_dict(raw_config)
+        self._progress_callback = progress_callback
+        job.total_pages = self.config.max_pages
+        await self.job_repository.update(job)
 
         start_domain = get_domain(start_url)
 
@@ -132,7 +137,16 @@ class CrawlOrchestrator:
             await self._mark_failed(str(exc))
             return {"status": "failed", "crawl_id": str(self.crawl_job_id)}
         finally:
+            pages_crawled_count = scheduler.pages_crawled_count
+            pages_discovered_count = scheduler.pages_discovered_count
             self._scheduler = None
+
+        # Persist final counts to CrawlJob
+        job = await self.job_repository.get_by_id(self.crawl_job_id)
+        if job:
+            job.pages_crawled = pages_crawled_count
+            job.pages_discovered = pages_discovered_count
+            await self.job_repository.update(job)
 
         duration_ms = int((time.time() - start_time) * 1000)
         await self._mark_completed(duration_ms)
@@ -140,16 +154,16 @@ class CrawlOrchestrator:
         await self.event_bus.emit(
             CrawlPipelineEvent.SCHEDULER_COMPLETE,
             crawl_id=str(self.crawl_job_id),
-            pages_crawled=scheduler.pages_crawled_count,
-            pages_discovered=scheduler.pages_discovered_count,
+            pages_crawled=pages_crawled_count,
+            pages_discovered=pages_discovered_count,
             duration_ms=duration_ms,
         )
 
         return {
             "status": "completed",
             "crawl_id": str(self.crawl_job_id),
-            "pages_crawled": scheduler.pages_crawled_count,
-            "pages_discovered": scheduler.pages_discovered_count,
+            "pages_crawled": pages_crawled_count,
+            "pages_discovered": pages_discovered_count,
         }
 
     async def crawl_page(
@@ -210,6 +224,7 @@ class CrawlOrchestrator:
                 url=item.normalized_url,
                 error=crawl_result.error,
             )
+            await self._update_progress(self._scheduler.pages_crawled_count + 1)
             return
 
         document = crawl_result.document
@@ -377,11 +392,23 @@ class CrawlOrchestrator:
             page_id=str(page.id),
         )
 
+        await self._update_progress(self._scheduler.pages_crawled_count + 1)
+
     async def get_summary(self) -> Optional[dict]:
         """Get crawl summary."""
         return {"status": "completed", "crawl_id": str(self.crawl_job_id)}
 
     # -- private helpers ----------------------------------------------
+
+    async def _update_progress(self, current_page: int) -> None:
+        """Update CrawlJob progress fields and notify subscribers."""
+        total = self.config.max_pages if self.config else None
+        try:
+            await self.persistence.update_progress(current_page, total)
+        except Exception as exc:
+            logger.warning(f"_update_progress: {exc}", exc_info=True)
+        if self._progress_callback:
+            self._progress_callback(current_page, total)
 
     async def _mark_running(self) -> None:
         await self._set_status("crawling")
@@ -395,7 +422,13 @@ class CrawlOrchestrator:
             job.status = "failed"
             job.error = error_message[:1024]
             job.completed_at = datetime.now(timezone.utc)
+            job.progress_percent = 100
             await self.job_repository.update(job)
+            if self._progress_callback:
+                self._progress_callback(
+                    job.current_page or 0,
+                    job.total_pages,
+                )
 
     async def _set_status(self, status: str) -> None:
         job = await self.job_repository.get_by_id(self.crawl_job_id)
@@ -411,7 +444,12 @@ class CrawlOrchestrator:
             job.status = status
             job.completed_at = datetime.now(timezone.utc)
             job.duration_ms = duration_ms
+            job.progress_percent = 100
+            if job.total_pages:
+                job.current_page = job.total_pages
             await self.job_repository.update(job)
+            if self._progress_callback:
+                self._progress_callback(job.total_pages or 0, job.total_pages)
 
     def _enqueue_links(
         self,

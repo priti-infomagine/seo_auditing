@@ -93,6 +93,18 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
         default=0,
     )
+    total_pages: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+    current_page: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
+    progress_percent: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+    )
     crawl_config: Mapped[dict | None] = mapped_column(
         JSONB,
         nullable=True,

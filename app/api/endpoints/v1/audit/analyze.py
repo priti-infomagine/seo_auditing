@@ -2,18 +2,17 @@
 POST /audit/analyze — Complete crawl → parse → score SEO audit pipeline.
 
 Takes a URL as input, performs the full pipeline:
-1. Crawls the URL
-2. Parses the HTML content
-3. Scores the parsed data using SEO rules
-
-Returns comprehensive scored output after all rule checks.
+1. Crawls multiple pages (sitemap-first, BFS-fallback)
+2. Persists crawl data to DB (CrawlPage, snapshot, SEO data, network data)
+3. DB-backed parse → rule evaluation → scoring
+4. Returns per-page breakdown with scores, rule results, and links analysis
 """
 import hashlib
-import json
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,6 +24,7 @@ from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeResponse,
     CrawlSummarySchema,
 )
+from app.modules.audit.services.response_builder import build_per_page_breakdown
 from app.modules.crawler.crawl_service import CrawlerService
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -42,8 +42,7 @@ from app.modules.crawler.repositories.page_seo_data_repository import (
 from app.modules.crawler.repositories.page_snapshot_repository import (
     PageSnapshotRepository,
 )
-from app.modules.parser.services.parser_service import ParserService
-from app.modules.scorer.services.scorer_service import ScorerService
+from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
@@ -56,7 +55,7 @@ router = APIRouter()
     response_model=AuditAnalyzeResponse,
     status_code=200,
     summary="Run complete SEO audit pipeline",
-    description="Crawls the provided URL, parses HTML content, and runs comprehensive SEO scoring rules to return final scored output",
+    description="Crawls multiple pages from the provided URL, parses HTML content, and runs comprehensive SEO scoring rules to return final scored output with per-page breakdown",
 )
 async def analyze_website(
     body: AuditAnalyzeRequest,
@@ -64,103 +63,62 @@ async def analyze_website(
 ) -> AuditAnalyzeResponse:
     """
     Run complete crawl → parse → score SEO audit pipeline.
-    
+
     Args:
-        body: AuditAnalyzeRequest containing URL to analyze
-        db: Database session (required by architecture, though not used)
-        
+        body: AuditAnalyzeRequest containing URL to analyze and crawl limits
+        db: Database session
+
     Returns:
-        AuditAnalyzeResponse with crawl results, parsed data, and comprehensive SEO scores
-        
+        AuditAnalyzeResponse with crawl summary, SEO scores, and per-page breakdown
+
     Raises:
         HTTPException: If crawl, parse, or scoring fails
     """
     logger.info(f"POST /audit/analyze - Full audit pipeline started for URL: {body.url}")
-    
+
     try:
-        # Step 1: Crawl the URL
-        logger.info("Step 1: Starting crawl phase")
+        # Step 1: Multi-page crawl
+        logger.info("Step 1: Starting crawl phase (multi-page)")
         crawler_service = CrawlerService()
-        crawl_result = await crawler_service.crawl_url(body.url)
-        
-        # Extract crawl summary info
+        crawl_results = await crawler_service.crawl_site(
+            body.url,
+            max_pages=body.max_pages,
+            max_depth=body.max_depth,
+        )
+
+        if not crawl_results:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Crawl produced no results"
+            )
+
+        logger.info(f"Crawl phase completed: {len(crawl_results)} pages crawled")
+
+        # Use first result for crawl summary
+        first_result = crawl_results[0]
         crawl_summary = CrawlSummarySchema(
-            url=crawl_result["url"],
-            domain=crawl_result["domain"],
-            status_code=crawl_result["data"].get("status_code", 0),
-            response_time=crawl_result["data"].get("response_time", 0.0),
-            html_size_bytes=crawl_result["data"].get("html_size", 0),
-            test_number=crawl_result["test_number"],
-            file_path=crawl_result["file_path"],
-            crawled_at=crawl_result["crawled_at"],
+            url=first_result["url"],
+            domain=first_result["domain"],
+            status_code=first_result["data"].get("status_code", 0),
+            response_time=first_result["data"].get("response_time", 0.0),
+            html_size_bytes=first_result["data"].get("html_size", 0),
+            test_number=first_result["test_number"],
+            file_path=first_result["file_path"],
+            crawled_at=first_result["crawled_at"],
+            pages_discovered=len(crawl_results),
+            pages_crawled=len(crawl_results),
         )
-        
-        # Load the full crawl data from the saved file to get HTML
-        filepath = Path(crawl_result["file_path"])
-        with open(filepath, 'r', encoding='utf-8') as f:
-            full_crawl_data = json.load(f)
-        
-        html = full_crawl_data.get("html", "")
-        if not html:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="No HTML content found in crawl result"
-            )
-        
-        # Merge full crawl data for parser
-        crawler_data_for_parser = {
-            "html": html,
-            "http": full_crawl_data.get("http", {}),
-            "ssl": full_crawl_data.get("ssl", {}),
-            "security_headers": full_crawl_data.get("security_headers", {}),
-            "performance": full_crawl_data.get("performance", {}),
-            "resources": full_crawl_data.get("resources", {}),
-            "javascript": full_crawl_data.get("javascript", {}),
-            "robots": full_crawl_data.get("robots", {}),
-            "sitemap": full_crawl_data.get("sitemap", {}),
-        }
-        
-        # Step 2: Parse the HTML
-        logger.info("Step 2: Starting parse phase")
-        parser_service = ParserService()
-        parsed_data = parser_service.parse_html(
-            html=html,
-            url=body.url,
-            crawler_data=crawler_data_for_parser
-        )
-        
-        if not parsed_data:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Parsing produced no data"
-            )
-        
-        # Attach page URL to parsed data
-        parsed_data["page_url"] = body.url
-        if isinstance(parsed_data.get("crawl_context"), dict):
-            parsed_data["crawl_context"]["page_url"] = body.url
-        
-        # Step 3: Score the parsed data
-        logger.info("Step 3: Starting scoring phase")
-        scorer_service = ScorerService()
-        seo_score_report = await scorer_service.score_parsed_data(parsed_data)
-        
-        logger.info(
-            f"Audit pipeline completed successfully for URL: {body.url} "
-            f"- SEO Score: {seo_score_report['overall_score']}/100 "
-            f"(Grade: {seo_score_report['grade']})"
-        )
-        
-        # Step 4: Persist crawl data to DB (DB-backed pipeline, no Celery/tasks)
-        logger.info("Step 4: Starting DB persistence phase")
+
+        # Step 2: Create CrawlJob and persist each crawled page
+        logger.info("Step 2: Starting DB persistence phase")
         project_id = uuid.uuid4()
         test_user_id = uuid.UUID("00000000-0000-0000-0000-000000000000")
-        
-        # 4a: Create CrawlJob in DB
-        domain = crawl_result["domain"]
+
+        # 2a: Create CrawlJob in DB
+        domain = first_result["domain"]
         crawl_config_dict = {
-            "max_pages": 1,
-            "max_depth": 0,
+            "max_pages": body.max_pages,
+            "max_depth": body.max_depth,
             "concurrency": 1,
         }
         db_crawl_job = CrawlJob(
@@ -169,239 +127,163 @@ async def analyze_website(
             url=body.url,
             domain=domain,
             status="crawling",
-            max_pages=1,
-            max_depth=0,
+            max_pages=body.max_pages,
+            max_depth=body.max_depth,
             crawl_config=crawl_config_dict,
-            pages_discovered=1,
-            pages_crawled=1,
+            pages_discovered=len(crawl_results),
+            pages_crawled=len(crawl_results),
         )
         db_crawl_job = await CrawlJobRepository(db).create(db_crawl_job)
         crawl_id = db_crawl_job.id
-        
-        # 4b: Create CrawlPage in DB
-        parsed_url = urlparse(crawl_result["url"])
-        page = CrawlPage(
-            crawl_id=crawl_id,
-            url=crawl_result["url"],
-            normalized_url=crawl_result["url"],
-            url_hash=hashlib.md5(crawl_result["url"].encode()).hexdigest(),
-            scheme=parsed_url.scheme,
-            host=parsed_url.netloc,
-            path=parsed_url.path,
-            query=parsed_url.query,
-            final_url=crawl_result["url"],
-            status_code=crawl_result["data"].get("http", {}).get("status_code", 0),
-            content_type=crawl_result["data"].get("http", {}).get("content_type", ""),
-            content_length=len(html),
-            response_time_ms=int(
-                crawl_result["data"].get("http", {}).get("response_time_ms", 0)
-            ),
-            depth=0,
-            is_crawled=True,
-            is_success=True,
-            is_redirect=False,
-            is_error=False,
-        )
-        page = await CrawlPageRepository(db).create(page)
-        
-        # 4c: Persist HTML snapshot
-        await PageSnapshotRepository(db).save_snapshot(
-            page_id=page.id,
-            html_content=html,
-        )
-        
-        # 4d: Persist SEO data
-        meta = parsed_data.get("metadata", {}) or {}
-        content_data = parsed_data.get("content", {}) or {}
-        await PageSEODataRepository(db).upsert(PageSEOData(
-            page_id=page.id,
-            title=meta.get("title", ""),
-            title_length=meta.get("title_length", 0),
-            meta_description=meta.get("meta_description", ""),
-            meta_description_length=meta.get("meta_description_length", 0),
-            canonical=meta.get("canonical", ""),
-            robots_meta=meta.get("robots_meta", ""),
-            language=meta.get("language", "") or meta.get("page_language", ""),
-            charset=meta.get("charset", ""),
-            viewport=meta.get("viewport", ""),
-            favicon=meta.get("favicon", ""),
-            word_count=content_data.get("word_count", 0),
-            content_hash=content_data.get("content_hash", ""),
-            content=content_data,
-            structured_data={"exists": len(parsed_data.get("schemas", [])) > 0},
-            social=parsed_data.get("social", {}) or {},
-            accessibility={},
-            page_metadata={},
-        ))
-        
-        # 4e: Persist network data
-        http_data = full_crawl_data.get("http", {})
-        await PageNetworkDataRepository(db).upsert(PageNetworkData(
-            page_id=page.id,
-            status_code=http_data.get("status_code", 0),
-            content_type=http_data.get("content_type", ""),
-            content_length=http_data.get("content_size", 0),
-            response_time_ms=http_data.get("response_time_ms", 0),
-            headers=http_data.get("headers", {}),
-            redirects=http_data.get("redirect_chain", []),
-            security=full_crawl_data.get("ssl", {}),
-            performance=full_crawl_data.get("technical", {}) or {},
-        ))
-        
-        # 4f: Update CrawlJob status to completed
+
+        # 2b-2e: Create CrawlPage + persist snapshot/SEO/network data for each page
+        parser = ParserOrchestrator()
+        crawl_page_repo = CrawlPageRepository(db)
+        snapshot_repo = PageSnapshotRepository(db)
+        seo_repo = PageSEODataRepository(db)
+        network_repo = PageNetworkDataRepository(db)
+
+        for idx, crawl_result in enumerate(crawl_results):
+            html = crawl_result["data"].get("html", "")
+            if not html:
+                logger.warning(f"Page {idx} ({crawl_result['url']}): no HTML, skipping persistence")
+                continue
+
+            # Parse HTML to extract SEO-relevant metadata
+            parsed = parser.parse(html=html, url=crawl_result["url"])
+            parsed_dict = parsed.model_dump(mode="json") if hasattr(parsed, "model_dump") else {}
+            metadata = parsed_dict.get("metadata", {}) or {}
+            content_data = parsed_dict.get("content", {}) or {}
+
+            # 2b: Create CrawlPage in DB
+            page_url = crawl_result["url"]
+            parsed_url = urlparse(page_url)
+            page = CrawlPage(
+                crawl_id=crawl_id,
+                url=page_url,
+                normalized_url=page_url,
+                url_hash=hashlib.md5(page_url.encode()).hexdigest(),
+                scheme=parsed_url.scheme,
+                host=parsed_url.netloc,
+                path=parsed_url.path,
+                query=parsed_url.query,
+                final_url=page_url,
+                status_code=crawl_result["data"].get("http", {}).get("status_code", 0),
+                content_type=crawl_result["data"].get("http", {}).get("content_type", ""),
+                content_length=len(html),
+                response_time_ms=int(
+                    crawl_result["data"].get("http", {}).get("response_time_ms", 0)
+                ),
+                depth=idx,  # 0 = start page, 1+ = discovered via links
+                is_crawled=True,
+                is_success=crawl_result["data"].get("http", {}).get("status_code", 0) == 200,
+                is_redirect=False,
+                is_error=crawl_result["data"].get("http", {}).get("status_code", 0) >= 400,
+            )
+            page = await crawl_page_repo.create(page)
+
+            # 2c: Persist HTML snapshot
+            await snapshot_repo.save_snapshot(page_id=page.id, html_content=html)
+
+            # 2d: Persist SEO data
+            await seo_repo.upsert(PageSEOData(
+                page_id=page.id,
+                title=metadata.get("title", ""),
+                title_length=metadata.get("title_length", 0),
+                meta_description=metadata.get("meta_description", ""),
+                meta_description_length=metadata.get("meta_description_length", 0),
+                canonical=metadata.get("canonical", ""),
+                robots_meta=metadata.get("robots_meta", ""),
+                language=metadata.get("language", "") or metadata.get("page_language", ""),
+                charset=metadata.get("charset", ""),
+                viewport=metadata.get("viewport", ""),
+                favicon=metadata.get("favicon", ""),
+                word_count=content_data.get("word_count", 0),
+                content_hash=content_data.get("content_hash", ""),
+                content=content_data,
+                structured_data={"exists": len(parsed_dict.get("schemas", [])) > 0},
+                social=parsed_dict.get("social", {}) or {},
+                accessibility={},
+                page_metadata={},
+            ))
+
+            # 2e: Persist network data
+            http_data = crawl_result["data"].get("http", {})
+            await network_repo.upsert(PageNetworkData(
+                page_id=page.id,
+                status_code=http_data.get("status_code", 0),
+                content_type=http_data.get("content_type", ""),
+                content_length=http_data.get("content_size", 0),
+                response_time_ms=http_data.get("response_time_ms", 0),
+                headers=http_data.get("headers", {}),
+                redirects=http_data.get("redirect_chain", []),
+                security={},
+                performance={},
+            ))
+
+        # 2f: Update CrawlJob status to completed
         db_crawl_job.status = "completed"
         db_crawl_job.completed_at = datetime.now(timezone.utc)
         await CrawlJobRepository(db).update(db_crawl_job)
-        
-        logger.info(f"DB persistence completed: crawl_id={crawl_id}, page_id={page.id}")
-        
-        # Step 5: DB-backed parse (reads snapshot from DB, saves ParsedPageFact)
-        logger.info("Step 5: Starting DB-backed parse phase")
+
+        logger.info(f"DB persistence completed: crawl_id={crawl_id}")
+
+        # Step 3: DB-backed parse (reads snapshot from DB, saves ParsedPageFact)
+        logger.info("Step 3: Starting DB-backed parse phase")
         db_parser = DBParserService(db)
         parse_result = await db_parser.parse_crawl(project_id, crawl_id, force=True)
         logger.info(
             f"DB parse: {parse_result['pages_parsed']} pages parsed, "
             f"{parse_result['pages_failed']} failed"
         )
-        
-        # Step 6: DB-backed rule evaluation
-        logger.info("Step 6: Starting DB-backed rule evaluation")
+
+        # Step 4: DB-backed rule evaluation
+        logger.info("Step 4: Starting DB-backed rule evaluation")
         evaluator = RuleEvaluatorService(db)
         eval_result = await evaluator.evaluate_crawl(project_id, crawl_id, force=True)
         logger.info(
             f"DB evaluate: {eval_result['rules_run']} rules run, "
             f"{eval_result['total_results']} results, {len(eval_result['errors'])} errors"
         )
-        
-        # Step 7: DB-backed scoring
-        logger.info("Step 7: Starting DB-backed scoring")
+
+        # Step 5: DB-backed scoring
+        logger.info("Step 5: Starting DB-backed scoring")
         db_scorer = AnalysisScorerService(db)
         db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
         logger.info(
             f"DB scoring completed: Score={db_score_report['overall_score']}/100 "
             f"(Grade: {db_score_report['grade']})"
         )
-        
-        # Step 8: Enrich parsed_data with links analysis
-        logger.info("Step 8: Starting links analysis enrichment")
-        parsed_links = parsed_data.get("links", []) or []
-        external_links = [
-            l for l in parsed_links
-            if l.get("external", False) or l.get("link_type", "") == "external"
-        ]
-        internal_links = [
-            l for l in parsed_links
-            if not l.get("external", False) and l.get("link_type", "") != "external"
-        ]
 
-        # Map rule results to affected links by matching URLs/domains
-        rule_results_for_links = []
-        all_rule_results = db_score_report.get("per_page", [{}])[0].get("rule_results", [])
-        for rr in all_rule_results:
-            if not rr.get("passed", True):
-                rule_results_for_links.append({
-                    "rule_id": rr.get("rule_id"),
-                    "category": rr.get("category"),
-                    "severity": rr.get("severity"),
-                    "message": rr.get("message"),
-                    "page_url": rr.get("page_url"),
-                })
+        # Strip per_page/page_details from seo_score — they're now
+        # represented by the top-level per_page field to avoid duplication
+        db_score_report.pop("per_page", None)
+        db_score_report.pop("page_details", None)
 
-        def summarize_link(link: dict) -> dict:
-            """Extract core link details with page URL context."""
-            return {
-                "page_url": body.url,
-                "url": link.get("url", link.get("href", "")),
-                "label": link.get("label", link.get("text", "")),
-                "link_type": link.get("link_type", "internal" if not link.get("external", False) else "external"),
-                "external": link.get("external", False),
-                "nofollow": link.get("nofollow", False),
-                "anchor_text": link.get("label", link.get("text", "")),
-            }
+        # Step 6: Build per-page response using shared builder
+        logger.info("Step 6: Building per-page response")
+        per_page = await build_per_page_breakdown(db, project_id, crawl_id)
+        logger.info(f"Built {len(per_page)} per-page entries in response")
 
-        links_analysis = {
-            "total_links": {
-                "count": len(parsed_links),
-                "external_count": len(external_links),
-                "internal_count": len(internal_links),
-                "links": [summarize_link(l) for l in parsed_links],
-            },
-            "external_links": [summarize_link(l) for l in external_links],
-            "internal_links": [summarize_link(l) for l in internal_links],
-            "related_issues": rule_results_for_links,
-        }
-        parsed_data["links_analysis"] = links_analysis
-        logger.info(
-            f"Links analysis: {len(parsed_links)} total "
-            f"({len(external_links)} external, {len(internal_links)} internal)"
-        )
-        
-        # Step 9: Build page-centric grouping
-        logger.info("Step 9: Building page-centric response grouping")
-        pages_response = []
-        for pp in db_score_report.get("per_page", []):
-            page_id = pp.get("page_id")
-            page_url = pp.get("url")
-            # Find matching page_details
-            page_detail = next(
-                (pd for pd in db_score_report.get("page_details", [])
-                 if pd.get("page_id") == page_id),
-                {},
-            )
-            pages_response.append({
-                "page_id": page_id,
-                "page_url": page_url,
-                "page_score": {
-                    "overall_score": pp.get("overall_score"),
-                    "grade": pp.get("grade"),
-                    "rules_passed": pp.get("rules_passed", 0),
-                    "rules_failed": pp.get("rules_failed", 0),
-                },
-                "rule_results": pp.get("rule_results", []),
-                "crawl_details": {
-                    "status_code": page_detail.get("status_code"),
-                    "response_time_ms": page_detail.get("response_time_ms"),
-                    "content_length": page_detail.get("content_length"),
-                    "content_type": page_detail.get("content_type"),
-                    "is_success": page_detail.get("is_success"),
-                    "depth": page_detail.get("depth"),
-                    "normalized_url": page_detail.get("normalized_url"),
-                },
-                "parsed_info": page_detail.get("parsed_data_snapshot") or {},
-                "links_analysis": links_analysis,
-            })
-        logger.info(f"Built {len(pages_response)} page entries in response")
-        
         return AuditAnalyzeResponse(
             success=True,
-            message="SEO audit completed successfully",
-            url=crawl_result["url"],
-            domain=crawl_result["domain"],
+            message=f"SEO audit completed successfully ({len(per_page)} pages analyzed)",
+            url=first_result["url"],
+            domain=first_result["domain"],
             crawl=crawl_summary,
             seo_score=db_score_report,
-            parsed_data=parsed_data,
-            pages=pages_response,
+            per_page=per_page,
         )
-        
+
     except ValueError as e:
-        # Invalid URL or validation error
         logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid URL: {str(e)}"
         )
     except HTTPException:
-        # Re-raise HTTP exceptions as-is
         raise
-    except RuntimeError as e:
-        # Crawl or parse failed
-        logger.error(f"Audit pipeline failed for URL: {body.url} - {str(e)}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Audit failed: {str(e)}"
-        )
     except Exception as e:
-        # Unexpected error
         logger.error(f"Unexpected error during audit for URL: {body.url}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

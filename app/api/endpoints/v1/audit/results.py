@@ -8,11 +8,11 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 from typing import List, Optional
-from collections import defaultdict
 
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.security import get_current_user
+from app.modules.audit.services.response_builder import build_per_page_breakdown
 from app.modules.audit.schemas.analysis_schemas import (
     SeoAnalysisResponse,
     PaginatedAnalyses,
@@ -26,7 +26,6 @@ from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRu
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
 from app.modules.auth.models.users import User
 
 router = APIRouter()
@@ -73,58 +72,8 @@ async def get_analysis_result(
                 detail=f"No analysis run found for project_id={project_id}",
             )
 
-        # Build per-page breakdown
-        from app.modules.scorer.services.score_calculator import ScoreCalculator
-        from app.modules.rule_engine.models.rule_result import RuleResult as RR, Severity
-
-        rule_eval_repo = RuleEvaluationResultRepository(db)
-        all_results = await rule_eval_repo.get_by_project_id(project_id)
-        crawl_results = [r for r in all_results if str(r.crawl_id) == str(crawl_id)]
-
-        page_groups = defaultdict(list)
-        for er in crawl_results:
-            page_groups[er.page_id].append(er)
-
-        crawl_page_repo = CrawlPageRepository(db)
-        pages = await crawl_page_repo.get_by_crawl_id(crawl_id)
-        page_url_map = {p.id: p.url or p.normalized_url for p in pages}
-
-        calculator = ScoreCalculator()
-        per_page = []
-        for page_id, results in page_groups.items():
-            rule_results = [
-                RR(
-                    rule_id=r.rule_id,
-                    name=r.rule_name,
-                    category=r.category,
-                    severity=Severity(r.severity),
-                    passed=r.passed,
-                    score_impact=r.score_impact,
-                    message=r.message,
-                    recommendation=r.recommendation,
-                    data=r.rule_data,
-                    tags=r.tags or [],
-                )
-                for r in results
-            ]
-            scorable = [r for r in rule_results if r.severity != Severity.ERROR]
-            if scorable:
-                page_score = calculator.calculate_score(scorable)
-            else:
-                page_score = {
-                    "overall_score": 0.0, "grade": "F",
-                    "total_passed": 0, "total_failed": len(rule_results),
-                    "critical_issues": 0,
-                }
-            per_page.append({
-                "page_id": str(page_id),
-                "url": page_url_map.get(page_id, str(page_id)),
-                "overall_score": page_score.get("overall_score", 0.0),
-                "grade": page_score.get("grade", "F"),
-                "rules_passed": page_score.get("total_passed", 0),
-                "rules_failed": page_score.get("total_failed", 0),
-                "critical_issues": page_score.get("critical_issues", 0),
-            })
+        # Build per-page breakdown using shared builder
+        per_page = await build_per_page_breakdown(db, project_id, crawl_id)
 
         return SeoAnalysisResponse(
             project_id=str(run.project_id),

@@ -83,6 +83,20 @@ class AuditAnalyzeRequest(BaseModel):
         description="URL to audit (e.g., 'https://example.com')",
         examples=["https://example.com"]
     )
+    max_pages: int = Field(
+        default=20,
+        ge=1,
+        le=100,
+        description="Maximum number of pages to crawl and audit",
+        examples=[20],
+    )
+    max_depth: int = Field(
+        default=2,
+        ge=0,
+        le=10,
+        description="Maximum link depth from the start URL to follow",
+        examples=[2],
+    )
     
     @field_validator("url")
     @classmethod
@@ -109,6 +123,8 @@ class CrawlSummarySchema(BaseModel):
     test_number: int
     file_path: str
     crawled_at: str
+    pages_discovered: int = Field(default=1, description="Total pages discovered during crawl")
+    pages_crawled: int = Field(default=1, description="Total pages successfully crawled")
 
 
 class RuleResultSchema(BaseModel):
@@ -162,10 +178,25 @@ class AuditAnalyzeResponse(BaseModel):
     domain: str = Field(..., description="Extracted domain name")
     crawl: CrawlSummarySchema = Field(..., description="Crawl phase summary")
     seo_score: Dict[str, Any] = Field(..., description="SEO scoring results")
-    parsed_data: Optional[Dict[str, Any]] = Field(None, description="Full parsed data")
-    pages: Optional[List[Dict[str, Any]]] = Field(
-        None, description="Page-centric grouping of results, one entry per crawled page"
+    per_page: List["PerPageResult"] = Field(
+        default_factory=list,
+        description="Per-page breakdown of results, one entry per crawled URL"
     )
+
+class PerPageResult(BaseModel):
+    """Per-page audit result with score, rule results, and crawl details."""
+    
+    page_id: str
+    url: str
+    overall_score: float
+    grade: str
+    rules_passed: int
+    rules_failed: int
+    critical_issues: int
+    rule_results: List[Dict[str, Any]] = Field(default_factory=list)
+    crawl_details: Dict[str, Any] = Field(default_factory=dict)
+    parsed_info: Dict[str, Any] = Field(default_factory=dict)
+    links_analysis: Dict[str, Any] = Field(default_factory=dict)
 
 
 class AuditAnalyzeError(BaseModel):

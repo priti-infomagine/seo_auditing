@@ -84,6 +84,11 @@ async def get_crawl_status(
             completed_at=job.completed_at.isoformat() if job.completed_at else None,
             duration_ms=job.duration_ms,
             pages_crawled=pages_count,
+            pages_discovered=job.pages_discovered,
+            pages_failed=job.pages_failed,
+            total_pages=job.total_pages,
+            current_page=job.current_page,
+            progress_percent=job.progress_percent,
             total_errors=errors_count,
         )
         

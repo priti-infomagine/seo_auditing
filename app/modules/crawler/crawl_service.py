@@ -6,11 +6,15 @@ to disk in ``app/storage/crawler/<domain>/``.  Returns a dict that
 the API layer and tests expect.
 """
 import json
+from collections import deque
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
+from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
+from app.modules.crawler.utils.url import normalize_url_canonical
+from app.modules.crawler.utils.url_classifier import classify_url, UrlClassification
 from app.shared.utils.url_utils import get_domain, normalize_url
 
 # Project root is three levels above this file:
@@ -95,7 +99,140 @@ class CrawlerService:
             "data": data,
         }
 
+    # -- multi-page crawling ------------------------------------------------
+
+    async def crawl_site(
+        self,
+        start_url: str,
+        max_pages: int = 20,
+        max_depth: int = 2,
+    ) -> list[dict]:
+        """
+        Discover and crawl pages from ``start_url`` using a sitemap-first,
+        BFS-fallback strategy.
+
+        Phase 1 — sitemap discovery: uses ``SiteDiscoveryService`` to fetch
+        robots.txt and sitemap(s), extracting up to ``max_pages`` URLs.
+
+        Phase 2 — BFS link discovery: if the sitemap yielded fewer than
+        ``max_pages`` URLs (or none), the start page is crawled and
+        ``URLDiscoverer.discover_from_html`` is used to traverse internal
+        links up to ``max_depth`` hops.
+
+        Each discovered URL is then crawled via the existing
+        ``crawl_url()`` method.  The start URL is always crawled first.
+
+        Reuses existing crawler utilities — no sitemap/URL-discovery logic
+        is duplicated.
+
+        Args:
+            start_url: Seed URL to begin crawling from.
+            max_pages: Hard cap on the total number of pages to crawl.
+            max_depth: Maximum link-hops from the start URL to follow.
+
+        Returns:
+            List of crawl_result dicts (same shape as ``crawl_url()``),
+            one per successfully crawled URL.
+        """
+        normalized = normalize_url(start_url)
+        domain = get_domain(normalized)
+        if not domain:
+            raise ValueError(f"Invalid URL: {start_url} - could not extract domain")
+
+        visited: set[str] = set()
+        crawl_results: list[dict] = []
+        queue: deque[tuple[str, int]] = deque()
+
+        # --- Phase 1: Sitemap-based discovery ---
+        sitemap_urls = await self._discover_sitemap_urls(normalized, domain, max_pages)
+
+        if sitemap_urls:
+            for url in sitemap_urls:
+                if len(queue) >= max_pages:
+                    break
+                norm = normalize_url_canonical(url)
+                if norm not in visited:
+                    visited.add(norm)
+                    queue.append((url, 0))
+
+        # --- Phase 2: BFS fallback (seed + internal links) ---
+        seed_norm = normalize_url_canonical(normalized)
+        if seed_norm not in visited:
+            visited.add(seed_norm)
+            queue.append((normalized, 0))
+
+        # BFS traversal: crawl each queued URL, extract links, enqueue new ones
+        while queue and len(crawl_results) < max_pages:
+            url, depth = queue.popleft()
+
+            # Normalize for crawl_url (it handles normalization internally too)
+            try:
+                result = await self.crawl_url(url)
+            except Exception:
+                continue
+
+            crawl_results.append(result)
+
+            # If we haven't hit the cap and can go deeper, discover links
+            if len(crawl_results) < max_pages and depth < max_depth:
+                html = result["data"].get("html", "")
+                if html:
+                    page_url = result["url"]
+                    discovered = self._discover_links_from_html(html, page_url, domain, depth)
+                    for d in discovered:
+                        if len(visited) >= max_pages:
+                            break
+                        norm = normalize_url_canonical(d.normalized_url)
+                        if norm not in visited:
+                            visited.add(norm)
+                            queue.append((d.normalized_url, depth + 1))
+
+        return crawl_results
+
     # -- private helpers ------------------------------------------------
+
+    async def _discover_sitemap_urls(
+        self,
+        start_url: str,
+        domain: str,
+        max_pages: int,
+    ) -> list[str]:
+        """
+        Use SiteDiscoveryService to fetch robots.txt + sitemap(s) and return
+        same-domain URLs extracted from sitemaps.
+        """
+        sitemap_urls: list[str] = []
+        try:
+            discovery = SiteDiscoveryService(start_url)
+            result = await discovery.discover()
+            for url in result.discovered_urls[:max_pages]:
+                try:
+                    classification, _ = classify_url(url, base_domain=domain)
+                    if classification == UrlClassification.HTML:
+                        sitemap_urls.append(url)
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        return sitemap_urls
+
+    def _discover_links_from_html(
+        self,
+        html: str,
+        source_url: str,
+        base_domain: str,
+        depth: int,
+    ) -> list:
+        """Use URLDiscoverer to extract internal URLs from a page's HTML."""
+        from app.modules.crawler.utils.url_discoverer import URLDiscoverer
+
+        discoverer = URLDiscoverer()
+        return discoverer.discover_from_html(
+            html=html,
+            source_url=source_url,
+            base_domain=base_domain,
+            depth=depth,
+        )
 
     def _get_next_test_number(self, domain: str) -> int:
         """Find the next incremental test number for a domain."""

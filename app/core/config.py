@@ -32,6 +32,8 @@ class Settings(BaseSettings):
 
     # ── Redis / Cache ────────────────────────────────────────────────
     REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_BROKER_URL: str = "redis://localhost:6379/0"
+    REDIS_BACKEND_URL: str = "redis://localhost:6379/1"
 
     # ── Email (SMTP) ─────────────────────────────────────────────────
     SMTP_HOST: str = "smtp.gmail.com"

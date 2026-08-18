@@ -2,8 +2,8 @@ from celery import Celery
 
 from app.core.config import settings
 
-broker_url = str(settings.REDIS_URL)
-backend_url = broker_url.rsplit("/", 1)[0] + "/1"
+broker_url = str(settings.REDIS_BROKER_URL)
+backend_url = str(settings.REDIS_BACKEND_URL)
 
 celery_app = Celery(
     "seo_tool",
@@ -12,6 +12,7 @@ celery_app = Celery(
     include=[
         "app.modules.auth.tasks",
         "app.modules.crawler.tasks",
+        "app.modules.audit.tasks",
     ],
 )
 
@@ -27,6 +28,7 @@ celery_app.conf.update(
     task_default_queue="default",
     task_default_exchange="default",
     task_default_routing_key="default",
+    task_track_started=True,
     task_acks_late=True,
     worker_prefetch_multiplier=1,
     task_default_retry_delay=60,

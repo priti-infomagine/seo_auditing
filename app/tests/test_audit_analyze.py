@@ -29,14 +29,14 @@ async def test_audit_analyze_success():
 
     data = response.json()
     assert data["success"] is True
-    assert data["message"] == "SEO audit completed successfully"
+    assert "SEO audit completed successfully" in data["message"]
     assert data["url"] == "https://www.reddit.com/"
-    assert data["domain"] == "cyfuture.com"
+    assert data["domain"] == "www.reddit.com"
 
     # Verify crawl summary
     crawl = data["crawl"]
     assert crawl["url"] == "https://www.reddit.com/"
-    assert crawl["domain"] == "cyfuture.com"
+    assert crawl["domain"] == "www.reddit.com"
     assert crawl["status_code"] == 200
     assert crawl["response_time"] > 0
     assert crawl["html_size_bytes"] > 0
@@ -48,15 +48,42 @@ async def test_audit_analyze_success():
     seo_score = data["seo_score"]
     assert "overall_score" in seo_score
     assert "grade" in seo_score
-    assert "categories" in seo_score
-    assert "total_rules" in seo_score
-    assert seo_score["total_rules"] > 0
+    assert "category_scores" in seo_score
+    assert "total_rules_evaluated" in seo_score
+    assert seo_score["total_rules_evaluated"] > 0
     assert 0 <= seo_score["overall_score"] <= 100
     assert seo_score["grade"] in ["A", "B", "C", "D", "F"]
 
-    # Verify parsed data is included
-    assert "parsed_data" in data
-    assert data["parsed_data"] is not None
+    # Verify per_page response (replaces old parsed_data/pages fields)
+    assert "per_page" in data
+    assert isinstance(data["per_page"], list)
+    assert len(data["per_page"]) > 0
+
+    # Each per-page entry should have correct URL (not all homepage)
+    for page_entry in data["per_page"]:
+        assert "page_id" in page_entry
+        assert "url" in page_entry
+        assert "overall_score" in page_entry
+        assert "grade" in page_entry
+        assert "rules_passed" in page_entry
+        assert "rules_failed" in page_entry
+        assert "critical_issues" in page_entry
+        assert "rule_results" in page_entry
+        assert "crawl_details" in page_entry
+        assert "parsed_info" in page_entry
+        assert "links_analysis" in page_entry
+
+    # Verify no duplicate arrays in links_analysis
+    for page_entry in data["per_page"]:
+        links_analysis = page_entry.get("links_analysis", {})
+        if links_analysis:
+            # Should use a single links array with counts, not duplicate arrays
+            assert "links" in links_analysis
+            assert "total_count" in links_analysis
+            # Should NOT have total_links/external_links/internal_links as separate arrays
+            assert "total_links" not in links_analysis or isinstance(
+                links_analysis.get("total_links"), dict
+            )
 
 
 @pytest.mark.asyncio

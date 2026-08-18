@@ -81,6 +81,27 @@ class CrawlPersistenceService:
             logger.error(f"CrawlPersistenceService.update_job_status: error: {exc}", exc_info=True)
             raise
 
+    async def update_progress(
+        self,
+        current_page: int,
+        total_pages: Optional[int] = None,
+    ) -> None:
+        """Update crawl job progress fields and report to subscribers."""
+        try:
+            job = await self.job_repo.get_by_id(self.crawl_job_id)
+            if not job:
+                return
+            if total_pages is not None:
+                job.total_pages = total_pages
+            job.current_page = current_page
+            if total_pages and total_pages > 0:
+                job.progress_percent = min(100, int((current_page / total_pages) * 100))
+            else:
+                job.progress_percent = None
+            await self.job_repo.update(job)
+        except Exception as exc:
+            logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
+
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
         """Persist a crawl page."""
         try:

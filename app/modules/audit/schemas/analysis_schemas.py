@@ -132,7 +132,7 @@ class SeoAnalysisResponse(BaseModel):
     summary: str
     category_scores: Dict[str, Any]
     top_issues: List[Dict[str, Any]]
-    per_page: List[PageScoreDetail]
+    per_page: List[Dict[str, Any]]
     output_file_path: Optional[str] = None
     scored_at: str
     analysis_status: str
