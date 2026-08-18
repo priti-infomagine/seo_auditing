@@ -22,9 +22,7 @@ from app.core.logger import logger
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeResponse,
-    CrawlSummarySchema,
 )
-from app.modules.audit.services.response_builder import build_per_page_breakdown
 from app.modules.crawler.crawl_service import CrawlerService
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -94,20 +92,8 @@ async def analyze_website(
 
         logger.info(f"Crawl phase completed: {len(crawl_results)} pages crawled")
 
-        # Use first result for crawl summary
+        # Use first result for project/domain setup
         first_result = crawl_results[0]
-        crawl_summary = CrawlSummarySchema(
-            url=first_result["url"],
-            domain=first_result["domain"],
-            status_code=first_result["data"].get("status_code", 0),
-            response_time=first_result["data"].get("response_time", 0.0),
-            html_size_bytes=first_result["data"].get("html_size", 0),
-            test_number=first_result["test_number"],
-            file_path=first_result["file_path"],
-            crawled_at=first_result["crawled_at"],
-            pages_discovered=len(crawl_results),
-            pages_crawled=len(crawl_results),
-        )
 
         # Step 2: Create CrawlJob and persist each crawled page
         logger.info("Step 2: Starting DB persistence phase")
@@ -246,34 +232,16 @@ async def analyze_website(
             f"{eval_result['total_results']} results, {len(eval_result['errors'])} errors"
         )
 
-        # Step 5: DB-backed scoring
+        # Step 5: DB-backed scoring (returns the unified audit response)
         logger.info("Step 5: Starting DB-backed scoring")
         db_scorer = AnalysisScorerService(db)
-        db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
+        unified = await db_scorer.score_project(project_id, crawl_id, force=True)
         logger.info(
-            f"DB scoring completed: Score={db_score_report['overall_score']}/100 "
-            f"(Grade: {db_score_report['grade']})"
+            f"DB scoring completed: Score={unified['summary']['overall_score']}/100 "
+            f"(Health: {unified['summary']['health']})"
         )
 
-        # Strip per_page/page_details from seo_score — they're now
-        # represented by the top-level per_page field to avoid duplication
-        db_score_report.pop("per_page", None)
-        db_score_report.pop("page_details", None)
-
-        # Step 6: Build per-page response using shared builder
-        logger.info("Step 6: Building per-page response")
-        per_page = await build_per_page_breakdown(db, project_id, crawl_id)
-        logger.info(f"Built {len(per_page)} per-page entries in response")
-
-        return AuditAnalyzeResponse(
-            success=True,
-            message=f"SEO audit completed successfully ({len(per_page)} pages analyzed)",
-            url=first_result["url"],
-            domain=first_result["domain"],
-            crawl=crawl_summary,
-            seo_score=db_score_report,
-            per_page=per_page,
-        )
+        return unified
 
     except ValueError as e:
         logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")

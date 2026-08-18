@@ -7,6 +7,8 @@ from typing import Optional, Dict, Any, List
 from uuid import UUID
 from pydantic import BaseModel, Field
 
+from app.modules.audit.schemas.audit_response_schemas import UnifiedAuditResponse
+
 
 class ParseTriggerRequest(BaseModel):
     """Request to trigger DB-backed parsing for a crawl."""
@@ -113,29 +115,10 @@ class PageScoreDetail(BaseModel):
     critical_issues: int
 
 
-class SeoAnalysisResponse(BaseModel):
-    """Full SEO analysis result for a project."""
-
-    project_id: str
-    crawl_id: str
-    domain: str
-    overall_score: float
-    grade: str
-    total_pages_scored: int
-    total_rules_evaluated: int
-    total_passed: int
-    total_failed: int
-    critical_issues: int
-    warnings: int
-    error_pages: int
-    error_summary: Optional[Dict[str, Any]] = None
-    summary: str
-    category_scores: Dict[str, Any]
-    top_issues: List[Dict[str, Any]]
-    per_page: List[Dict[str, Any]]
-    output_file_path: Optional[str] = None
-    scored_at: str
-    analysis_status: str
+# The audit endpoints now return the unified response shape
+# (audit, summary, categories, issues, category_results, ...). SeoAnalysisResponse
+# is kept as an alias for backward compatibility with existing imports.
+SeoAnalysisResponse = UnifiedAuditResponse
 
 
 class SeoAnalysisSummary(BaseModel):

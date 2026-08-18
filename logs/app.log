@@ -6118,3 +6118,399 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 2026-08-18 15:35:21,706 | INFO | build_per_page_breakdown: project_id=772ca923-ba2e-481f-bf13-e477460aabef, crawl_id=ffafe690-5e23-42d4-95d6-8ff800f4a5e3
 2026-08-18 15:35:21,941 | INFO | build_per_page_breakdown: built 20 page entries for project_id=772ca923-ba2e-481f-bf13-e477460aabef
 2026-08-18 15:35:21,946 | INFO | Built 20 per-page entries in response
+2026-08-18 16:44:41,779 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 16:50:35,421 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 16:51:26,878 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 16:51:48,572 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 16:52:16,078 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,081 | INFO | Starting SEO scoring...
+2026-08-18 16:52:16,084 | INFO | Completed 70 rule evaluations
+2026-08-18 16:52:16,084 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 16:52:16,087 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,088 | INFO | Starting SEO scoring...
+2026-08-18 16:52:16,089 | INFO | Completed 70 rule evaluations
+2026-08-18 16:52:16,090 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 16:52:16,092 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,095 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,097 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,102 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,105 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,108 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,230 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,230 | INFO | Scoring provided parsed data
+2026-08-18 16:52:16,230 | INFO | Starting SEO scoring...
+2026-08-18 16:52:16,231 | INFO | Completed 70 rule evaluations
+2026-08-18 16:52:16,232 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-18 16:52:16,247 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,259 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:16,273 | INFO | Loaded 70 scoring rules
+2026-08-18 16:52:47,957 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 16:52:47,957 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:53:17,501 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:53:17,502 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:53:18,555 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:53:18,556 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:53:19,470 | INFO | DB persistence completed: crawl_id=8b425a07-a287-47a2-8812-b79a2294d7c8
+2026-08-18 16:53:19,471 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:53:19,471 | INFO | DBParserService.parse_crawl: project_id=d5168548-a765-4800-ad00-245916cd816a, crawl_id=8b425a07-a287-47a2-8812-b79a2294d7c8, force=True
+2026-08-18 16:53:19,576 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=d5168548-a765-4800-ad00-245916cd816a
+2026-08-18 16:53:19,576 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:53:19,576 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:53:19,576 | INFO | Loaded 70 scoring rules
+2026-08-18 16:53:19,576 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d5168548-a765-4800-ad00-245916cd816a, crawl_id=8b425a07-a287-47a2-8812-b79a2294d7c8, force=True
+2026-08-18 16:53:19,887 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=d5168548-a765-4800-ad00-245916cd816a
+2026-08-18 16:53:19,887 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:53:19,887 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:53:19,887 | INFO | AnalysisScorerService.score_project: project_id=d5168548-a765-4800-ad00-245916cd816a, crawl_id=8b425a07-a287-47a2-8812-b79a2294d7c8, force=True
+2026-08-18 16:53:19,887 | ERROR | AnalysisScorerService.score_project: unhandled error for project_id=d5168548-a765-4800-ad00-245916cd816a: name 'PageNetworkDataRepository' is not defined
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 73, in score_project
+    builder = AuditResponseBuilder(self.db)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 69, in __init__
+    self.network_repo = PageNetworkDataRepository(db)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'PageNetworkDataRepository' is not defined
+2026-08-18 16:53:19,898 | ERROR | Unexpected error during audit for URL: https://www.reddit.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 73, in score_project
+    builder = AuditResponseBuilder(self.db)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 69, in __init__
+    self.network_repo = PageNetworkDataRepository(db)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'PageNetworkDataRepository' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 238, in analyze_website
+    unified = await db_scorer.score_project(project_id, crawl_id, force=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 138, in score_project
+    raise ScoringError(f"Project scoring failed: {exc}") from exc
+app.shared.exceptions.ScoringError: Project scoring failed: name 'PageNetworkDataRepository' is not defined
+2026-08-18 16:54:38,211 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:54:38,212 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:54:38,959 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:54:38,959 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:54:39,279 | INFO | DB persistence completed: crawl_id=f4070e21-6355-4214-83cd-9f03483a6634
+2026-08-18 16:54:39,279 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:54:39,280 | INFO | DBParserService.parse_crawl: project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4, crawl_id=f4070e21-6355-4214-83cd-9f03483a6634, force=True
+2026-08-18 16:54:39,323 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4
+2026-08-18 16:54:39,323 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:54:39,327 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:54:39,327 | INFO | Loaded 70 scoring rules
+2026-08-18 16:54:39,327 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4, crawl_id=f4070e21-6355-4214-83cd-9f03483a6634, force=True
+2026-08-18 16:54:39,516 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4
+2026-08-18 16:54:39,516 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:54:39,516 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:54:39,516 | INFO | AnalysisScorerService.score_project: project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4, crawl_id=f4070e21-6355-4214-83cd-9f03483a6634, force=True
+2026-08-18 16:54:39,521 | INFO | AuditResponseBuilder.build: project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4 crawl_id=f4070e21-6355-4214-83cd-9f03483a6634
+2026-08-18 16:54:39,537 | ERROR | AnalysisScorerService.score_project: unhandled error for project_id=daa585f2-ee06-4602-b14c-f03fed6f05d4: name 'ttfb_values' is not defined
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 74, in score_project
+    unified: Dict[str, Any] = await builder.build(project_id, crawl_id)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 223, in build
+    performance = await self._build_performance(parsed_facts)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 453, in _build_performance
+    ttfb_value = round(sum(ttfb_ms_values) / len(ttfb_values), 1) if ttfb_values else None
+                                                                     ^^^^^^^^^^^
+NameError: name 'ttfb_values' is not defined
+2026-08-18 16:54:39,537 | ERROR | Unexpected error during audit for URL: https://www.reddit.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 74, in score_project
+    unified: Dict[str, Any] = await builder.build(project_id, crawl_id)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 223, in build
+    performance = await self._build_performance(parsed_facts)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\audit_response_builder.py", line 453, in _build_performance
+    ttfb_value = round(sum(ttfb_ms_values) / len(ttfb_values), 1) if ttfb_values else None
+                                                                     ^^^^^^^^^^^
+NameError: name 'ttfb_values' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 238, in analyze_website
+    unified = await db_scorer.score_project(project_id, crawl_id, force=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 138, in score_project
+    raise ScoringError(f"Project scoring failed: {exc}") from exc
+app.shared.exceptions.ScoringError: Project scoring failed: name 'ttfb_values' is not defined
+2026-08-18 16:55:54,790 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:55:54,790 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:55:55,561 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:55:55,561 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:55:56,089 | INFO | DB persistence completed: crawl_id=d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d
+2026-08-18 16:55:56,090 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:55:56,090 | INFO | DBParserService.parse_crawl: project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f, crawl_id=d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d, force=True
+2026-08-18 16:55:56,156 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f
+2026-08-18 16:55:56,156 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:55:56,156 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:55:56,157 | INFO | Loaded 70 scoring rules
+2026-08-18 16:55:56,157 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f, crawl_id=d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d, force=True
+2026-08-18 16:55:56,403 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f
+2026-08-18 16:55:56,403 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:55:56,403 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:55:56,403 | INFO | AnalysisScorerService.score_project: project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f, crawl_id=d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d, force=True
+2026-08-18 16:55:56,403 | INFO | AuditResponseBuilder.build: project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f crawl_id=d2df1a20-7f58-4b1f-9bbf-9e3a0fb3d97d
+2026-08-18 16:55:56,454 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=860f29af-45d6-43bd-bcfc-4cf638e67c2f
+2026-08-18 16:55:56,454 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 16:56:47,594 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:56:47,594 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:56:49,114 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:56:49,117 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:56:49,890 | INFO | DB persistence completed: crawl_id=eabb23b4-b5dc-4656-bc8a-28050fcbb3d9
+2026-08-18 16:56:49,890 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:56:49,890 | INFO | DBParserService.parse_crawl: project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a, crawl_id=eabb23b4-b5dc-4656-bc8a-28050fcbb3d9, force=True
+2026-08-18 16:56:49,949 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a
+2026-08-18 16:56:49,949 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:56:49,949 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:56:49,949 | INFO | Loaded 70 scoring rules
+2026-08-18 16:56:49,949 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a, crawl_id=eabb23b4-b5dc-4656-bc8a-28050fcbb3d9, force=True
+2026-08-18 16:56:50,269 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a
+2026-08-18 16:56:50,269 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:56:50,269 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:56:50,269 | INFO | AnalysisScorerService.score_project: project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a, crawl_id=eabb23b4-b5dc-4656-bc8a-28050fcbb3d9, force=True
+2026-08-18 16:56:50,278 | INFO | AuditResponseBuilder.build: project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a crawl_id=eabb23b4-b5dc-4656-bc8a-28050fcbb3d9
+2026-08-18 16:56:50,342 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=20ff8936-8236-4a3b-9f84-b2e3f3ef618a
+2026-08-18 16:56:50,342 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 16:58:35,533 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:58:35,533 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:58:36,221 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:58:36,237 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:58:36,755 | INFO | DB persistence completed: crawl_id=14e8e788-2586-482e-8e3d-3f560cd0f2b8
+2026-08-18 16:58:36,755 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:58:36,755 | INFO | DBParserService.parse_crawl: project_id=7f967ccf-8f11-4877-808f-7bf9348e520e, crawl_id=14e8e788-2586-482e-8e3d-3f560cd0f2b8, force=True
+2026-08-18 16:58:36,811 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=7f967ccf-8f11-4877-808f-7bf9348e520e
+2026-08-18 16:58:36,811 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:58:36,811 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:58:36,811 | INFO | Loaded 70 scoring rules
+2026-08-18 16:58:36,811 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=7f967ccf-8f11-4877-808f-7bf9348e520e, crawl_id=14e8e788-2586-482e-8e3d-3f560cd0f2b8, force=True
+2026-08-18 16:58:37,061 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=7f967ccf-8f11-4877-808f-7bf9348e520e
+2026-08-18 16:58:37,061 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:58:37,061 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:58:37,061 | INFO | AnalysisScorerService.score_project: project_id=7f967ccf-8f11-4877-808f-7bf9348e520e, crawl_id=14e8e788-2586-482e-8e3d-3f560cd0f2b8, force=True
+2026-08-18 16:58:37,066 | INFO | AuditResponseBuilder.build: project_id=7f967ccf-8f11-4877-808f-7bf9348e520e crawl_id=14e8e788-2586-482e-8e3d-3f560cd0f2b8
+2026-08-18 16:58:37,112 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=7f967ccf-8f11-4877-808f-7bf9348e520e
+2026-08-18 16:58:37,112 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 16:59:09,962 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-18 16:59:11,599 | ERROR | Worker 0: error processing https://example.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-18 16:59:14,530 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-18 16:59:15,550 | ERROR | Worker 0: error processing https://example.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-18 16:59:18,206 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-18 16:59:18,965 | ERROR | Worker 0: error processing https://example.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-18 16:59:24,994 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-18 16:59:25,802 | ERROR | Worker 0: error processing https://example.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-18 16:59:25,943 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 16:59:25,999 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 16:59:25,999 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:59:26,970 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 16:59:26,970 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 16:59:27,066 | INFO | DB persistence completed: crawl_id=52a78758-69fc-4f5c-9f76-8020eeec3c08
+2026-08-18 16:59:27,066 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 16:59:27,066 | INFO | DBParserService.parse_crawl: project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797, crawl_id=52a78758-69fc-4f5c-9f76-8020eeec3c08, force=True
+2026-08-18 16:59:27,124 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797
+2026-08-18 16:59:27,124 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 16:59:27,124 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 16:59:27,124 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:27,124 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797, crawl_id=52a78758-69fc-4f5c-9f76-8020eeec3c08, force=True
+2026-08-18 16:59:27,374 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797
+2026-08-18 16:59:27,374 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 16:59:27,374 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 16:59:27,374 | INFO | AnalysisScorerService.score_project: project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797, crawl_id=52a78758-69fc-4f5c-9f76-8020eeec3c08, force=True
+2026-08-18 16:59:27,374 | INFO | AuditResponseBuilder.build: project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797 crawl_id=52a78758-69fc-4f5c-9f76-8020eeec3c08
+2026-08-18 16:59:27,438 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=dd9e54a2-a636-47e9-a784-85d79ca9d797
+2026-08-18 16:59:27,438 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 16:59:27,462 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 16:59:27,462 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 16:59:52,544 | INFO | POST /auth/register - Register endpoint called
+2026-08-18 16:59:55,621 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,624 | INFO | Starting SEO scoring...
+2026-08-18 16:59:55,624 | INFO | Completed 70 rule evaluations
+2026-08-18 16:59:55,624 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 16:59:55,624 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,624 | INFO | Starting SEO scoring...
+2026-08-18 16:59:55,624 | INFO | Completed 70 rule evaluations
+2026-08-18 16:59:55,624 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 16:59:55,624 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,624 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,624 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,644 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,648 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,651 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,691 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,691 | INFO | Scoring provided parsed data
+2026-08-18 16:59:55,691 | INFO | Starting SEO scoring...
+2026-08-18 16:59:55,691 | INFO | Completed 70 rule evaluations
+2026-08-18 16:59:55,693 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-18 16:59:55,706 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,718 | INFO | Loaded 70 scoring rules
+2026-08-18 16:59:55,733 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:33,042 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 17:00:33,042 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:00:33,649 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 17:00:33,649 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 17:00:33,969 | INFO | DB persistence completed: crawl_id=b28c969c-89ee-4d71-a155-83f475ed326d
+2026-08-18 17:00:33,969 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 17:00:33,969 | INFO | DBParserService.parse_crawl: project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc, crawl_id=b28c969c-89ee-4d71-a155-83f475ed326d, force=True
+2026-08-18 17:00:33,995 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc
+2026-08-18 17:00:34,008 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 17:00:34,008 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 17:00:34,008 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:34,008 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc, crawl_id=b28c969c-89ee-4d71-a155-83f475ed326d, force=True
+2026-08-18 17:00:34,156 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc
+2026-08-18 17:00:34,156 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 17:00:34,156 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 17:00:34,156 | INFO | AnalysisScorerService.score_project: project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc, crawl_id=b28c969c-89ee-4d71-a155-83f475ed326d, force=True
+2026-08-18 17:00:34,156 | INFO | AuditResponseBuilder.build: project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc crawl_id=b28c969c-89ee-4d71-a155-83f475ed326d
+2026-08-18 17:00:34,193 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=3e7deaa1-2516-412d-bec3-cc7bbdc44acc
+2026-08-18 17:00:34,198 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 17:00:34,215 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 17:00:34,216 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:00:47,047 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,049 | INFO | Starting SEO scoring...
+2026-08-18 17:00:47,049 | INFO | Completed 70 rule evaluations
+2026-08-18 17:00:47,049 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 17:00:47,049 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,049 | INFO | Starting SEO scoring...
+2026-08-18 17:00:47,049 | INFO | Completed 70 rule evaluations
+2026-08-18 17:00:47,049 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 17:00:47,049 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,061 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,064 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,064 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,073 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,077 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,100 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,100 | INFO | Scoring provided parsed data
+2026-08-18 17:00:47,100 | INFO | Starting SEO scoring...
+2026-08-18 17:00:47,106 | INFO | Completed 70 rule evaluations
+2026-08-18 17:00:47,106 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-18 17:00:47,115 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,125 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,125 | INFO | Loaded 70 scoring rules
+2026-08-18 17:00:47,141 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 17:00:59,317 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-08-18 17:00:59,844 | ERROR | Worker 0: error processing https://example.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-18 17:03:54,328 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.reddit.com/
+2026-08-18 17:03:54,328 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:03:55,126 | INFO | Crawl phase completed: 1 pages crawled
+2026-08-18 17:03:55,126 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 17:03:55,711 | INFO | DB persistence completed: crawl_id=bad1eb3b-7989-43f8-9c26-5c845a633ba1
+2026-08-18 17:03:55,711 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 17:03:55,711 | INFO | DBParserService.parse_crawl: project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1, crawl_id=bad1eb3b-7989-43f8-9c26-5c845a633ba1, force=True
+2026-08-18 17:03:55,778 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1
+2026-08-18 17:03:55,778 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 17:03:55,778 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 17:03:55,778 | INFO | Loaded 70 scoring rules
+2026-08-18 17:03:55,778 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1, crawl_id=bad1eb3b-7989-43f8-9c26-5c845a633ba1, force=True
+2026-08-18 17:03:56,093 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1
+2026-08-18 17:03:56,093 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 17:03:56,093 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 17:03:56,093 | INFO | AnalysisScorerService.score_project: project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1, crawl_id=bad1eb3b-7989-43f8-9c26-5c845a633ba1, force=True
+2026-08-18 17:03:56,110 | INFO | AuditResponseBuilder.build: project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1 crawl_id=bad1eb3b-7989-43f8-9c26-5c845a633ba1
+2026-08-18 17:03:56,163 | INFO | AnalysisScorerService.score_project: score=82.4, grade=B, pages=1, project_id=a0da5e52-7365-4f5e-800f-d921c0c455b1
+2026-08-18 17:03:56,163 | INFO | DB scoring completed: Score=82.4/100 (Health: good)
+2026-08-18 17:03:56,177 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://not-a-valid-url
+2026-08-18 17:03:56,177 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:04:09,312 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,313 | INFO | Starting SEO scoring...
+2026-08-18 17:04:09,314 | INFO | Completed 70 rule evaluations
+2026-08-18 17:04:09,316 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 17:04:09,318 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,319 | INFO | Starting SEO scoring...
+2026-08-18 17:04:09,321 | INFO | Completed 70 rule evaluations
+2026-08-18 17:04:09,321 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-18 17:04:09,323 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,327 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,330 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,334 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,336 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,342 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,378 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,378 | INFO | Scoring provided parsed data
+2026-08-18 17:04:09,378 | INFO | Starting SEO scoring...
+2026-08-18 17:04:09,378 | INFO | Completed 70 rule evaluations
+2026-08-18 17:04:09,383 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-18 17:04:09,400 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,411 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,413 | INFO | Loaded 70 scoring rules
+2026-08-18 17:04:09,427 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-18 17:20:03,685 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-18 17:20:03,686 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:20:12,884 | INFO | Crawl phase completed: 20 pages crawled
+2026-08-18 17:20:12,885 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 17:20:15,382 | INFO | DB persistence completed: crawl_id=10da4e02-5534-4072-8028-158ecaff5e25
+2026-08-18 17:20:15,382 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 17:20:15,382 | INFO | DBParserService.parse_crawl: project_id=51c4fa00-66bf-4264-b693-168d9ab239fa, crawl_id=10da4e02-5534-4072-8028-158ecaff5e25, force=True
+2026-08-18 17:20:17,228 | INFO | DBParserService.parse_crawl: parsed=20, failed=0, skipped=0 for project_id=51c4fa00-66bf-4264-b693-168d9ab239fa
+2026-08-18 17:20:17,228 | INFO | DB parse: 20 pages parsed, 0 failed
+2026-08-18 17:20:17,228 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 17:20:17,228 | INFO | Loaded 70 scoring rules
+2026-08-18 17:20:17,228 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=51c4fa00-66bf-4264-b693-168d9ab239fa, crawl_id=10da4e02-5534-4072-8028-158ecaff5e25, force=True
+2026-08-18 17:20:20,345 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=20, rules_run=1400, total_results=1400, errors=0 for project_id=51c4fa00-66bf-4264-b693-168d9ab239fa
+2026-08-18 17:20:20,357 | INFO | DB evaluate: 1400 rules run, 1400 results, 0 errors
+2026-08-18 17:20:20,358 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 17:20:20,358 | INFO | AnalysisScorerService.score_project: project_id=51c4fa00-66bf-4264-b693-168d9ab239fa, crawl_id=10da4e02-5534-4072-8028-158ecaff5e25, force=True
+2026-08-18 17:20:20,361 | INFO | AuditResponseBuilder.build: project_id=51c4fa00-66bf-4264-b693-168d9ab239fa crawl_id=10da4e02-5534-4072-8028-158ecaff5e25
+2026-08-18 17:20:20,704 | INFO | AnalysisScorerService.score_project: score=87.5, grade=B+, pages=20, project_id=51c4fa00-66bf-4264-b693-168d9ab239fa
+2026-08-18 17:20:20,705 | INFO | DB scoring completed: Score=87.5/100 (Health: good)
+2026-08-18 17:20:34,589 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-18 17:20:34,602 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:20:43,341 | INFO | Crawl phase completed: 20 pages crawled
+2026-08-18 17:20:43,341 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 17:20:45,271 | INFO | DB persistence completed: crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6
+2026-08-18 17:20:45,271 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 17:20:45,271 | INFO | DBParserService.parse_crawl: project_id=80243dae-6b7b-455d-8be9-cbf7975117e5, crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6, force=True
+2026-08-18 17:20:47,259 | INFO | DBParserService.parse_crawl: parsed=20, failed=0, skipped=0 for project_id=80243dae-6b7b-455d-8be9-cbf7975117e5
+2026-08-18 17:20:47,259 | INFO | DB parse: 20 pages parsed, 0 failed
+2026-08-18 17:20:47,260 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 17:20:47,260 | INFO | Loaded 70 scoring rules
+2026-08-18 17:20:47,260 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=80243dae-6b7b-455d-8be9-cbf7975117e5, crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6, force=True
+2026-08-18 17:20:50,722 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=20, rules_run=1400, total_results=1400, errors=0 for project_id=80243dae-6b7b-455d-8be9-cbf7975117e5
+2026-08-18 17:20:50,738 | INFO | DB evaluate: 1400 rules run, 1400 results, 0 errors
+2026-08-18 17:20:50,738 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 17:20:50,738 | INFO | AnalysisScorerService.score_project: project_id=80243dae-6b7b-455d-8be9-cbf7975117e5, crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6, force=True
+2026-08-18 17:20:50,744 | INFO | AuditResponseBuilder.build: project_id=80243dae-6b7b-455d-8be9-cbf7975117e5 crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6
+2026-08-18 17:20:50,990 | INFO | AnalysisScorerService.score_project: score=87.5, grade=B+, pages=20, project_id=80243dae-6b7b-455d-8be9-cbf7975117e5
+2026-08-18 17:20:50,990 | INFO | DB scoring completed: Score=87.5/100 (Health: good)

@@ -1,11 +1,11 @@
 {
   "audit": {
-    "audit_id": "e4706ea8-d40f-4204-8a0b-2345e7ed9ed6",
-    "project_id": "80243dae-6b7b-455d-8be9-cbf7975117e5",
+    "audit_id": "10da4e02-5534-4072-8028-158ecaff5e25",
+    "project_id": "51c4fa00-66bf-4264-b693-168d9ab239fa",
     "url": "https://replit.com/",
     "domain": "replit.com",
-    "started_at": "2026-08-18T11:50:43.349914+00:00",
-    "completed_at": "2026-08-18T11:50:45.265420+00:00",
+    "started_at": "2026-08-18T11:50:12.957443+00:00",
+    "completed_at": "2026-08-18T11:50:15.367179+00:00",
     "status": "completed",
     "pages_discovered": 20,
     "pages_crawled": 20,
@@ -125,179 +125,267 @@
   ],
   "issues": [
     {
-      "page_url": "https://replit.com/",
-      "affected_part": "heading_structure"
-    },
-    {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "link_text"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "paragraph_structure"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "duplicate_content"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "content_freshness"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "image_formats"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "external_links"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "anchor_text"
     },
     {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "meta_description"
     },
     {
-      "page_url": "https://replit.com/",
-      "affected_part": "h1"
-    },
-    {
-      "page_url": "https://replit.com/",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "canonical"
     },
     {
-      "page_url": "https://replit.com/",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "open_graph"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "organization_schema"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "breadcrumb_schema"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "article_schema"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "product_schema"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "security_headers"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "ssl_certificate"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "xss_protection"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "social_media_links"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "facebook_domain"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "ssl_certificate"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "viewport"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
       "affected_part": "doctype"
     },
     {
-      "page_url": "https://replit.com/usecases/founders",
+      "page_url": "https://replit.com/usecases/software-engineers",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/product-managers",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/smb",
       "affected_part": "sitemap"
     },
     {
@@ -401,6 +489,834 @@
       "affected_part": "sitemap"
     },
     {
+      "page_url": "https://replit.com/design",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "title"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "open_graph"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/design",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "responsive_images"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "open_graph"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/mobile-apps",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "heading_structure"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "word_count"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "internal_links"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "h1"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/community",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/pro",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/products/mobile",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "responsive_images"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/enterprise",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/founders",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/designers",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "word_count"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/products/database",
+      "affected_part": "sitemap"
+    },
+    {
       "page_url": "https://replit.com/products/agent",
       "affected_part": "image_alt_text"
     },
@@ -497,91 +1413,459 @@
       "affected_part": "sitemap"
     },
     {
-      "page_url": "https://replit.com/pro",
-      "affected_part": "link_text"
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "heading_structure"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "word_count"
+    },
+    {
+      "page_url": "https://replit.com/integrations",
       "affected_part": "paragraph_structure"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "duplicate_content"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "content_freshness"
     },
     {
-      "page_url": "https://replit.com/pro",
-      "affected_part": "image_formats"
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "internal_links"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "external_links"
     },
     {
-      "page_url": "https://replit.com/pro",
-      "affected_part": "anchor_text"
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "h1"
     },
     {
-      "page_url": "https://replit.com/pro",
-      "affected_part": "meta_description"
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "heading_hierarchy"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "canonical"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "organization_schema"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "breadcrumb_schema"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "article_schema"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "product_schema"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "security_headers"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "ssl_certificate"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "xss_protection"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "social_media_links"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "facebook_domain"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "ssl_certificate"
     },
     {
-      "page_url": "https://replit.com/pro",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
       "affected_part": "doctype"
     },
     {
-      "page_url": "https://replit.com/pro",
+      "page_url": "https://replit.com/integrations",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/rapid-prototyping",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/business-apps",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "heading_structure"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "h1"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "open_graph"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "sitemap"
+    },
+    {
+      "page_url": "https://replit.com/",
+      "affected_part": "structured_data"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "link_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "content_freshness"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "image_formats"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "external_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "anchor_text"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "meta_description"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "canonical"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "organization_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "article_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "product_schema"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "security_headers"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "xss_protection"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "social_media_links"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "viewport"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
+      "affected_part": "doctype"
+    },
+    {
+      "page_url": "https://replit.com/usecases/operations",
       "affected_part": "sitemap"
     },
     {
@@ -682,1290 +1966,6 @@
     },
     {
       "page_url": "https://replit.com/customers",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/operations",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/business-apps",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "word_count"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/products/database",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/products/mobile",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "responsive_images"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/enterprise",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/software-engineers",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "responsive_images"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "open_graph"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/mobile-apps",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "title"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "open_graph"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/design",
-      "affected_part": "structured_data"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/rapid-prototyping",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/designers",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "heading_structure"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "word_count"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "internal_links"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "h1"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/community",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/smb",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "link_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "image_formats"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "anchor_text"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "meta_description"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "viewport"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/usecases/product-managers",
-      "affected_part": "sitemap"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "heading_structure"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "word_count"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "content_freshness"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "internal_links"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "external_links"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "h1"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "canonical"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "organization_schema"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "article_schema"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "product_schema"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "security_headers"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "xss_protection"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "social_media_links"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
-      "affected_part": "doctype"
-    },
-    {
-      "page_url": "https://replit.com/integrations",
       "affected_part": "sitemap"
     }
   ],
@@ -2381,8 +2381,8 @@
     "status_codes": {
       "200": 20
     },
-    "started_at": "2026-08-18T11:50:43.349914+00:00",
-    "completed_at": "2026-08-18T11:50:45.265420+00:00"
+    "started_at": "2026-08-18T11:50:12.957443+00:00",
+    "completed_at": "2026-08-18T11:50:15.367179+00:00"
   },
   "indexation": {
     "indexable": 20,
@@ -2404,7 +2404,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 322.1,
+      "value": 303.8,
       "unit": "milliseconds",
       "status": "excellent",
       "reason": null
@@ -2521,14 +2521,6 @@
   "recommendations": [
     {
       "priority": 1,
-      "rule_id": "on_page_003",
-      "title": "Missing or multiple H1 tags",
-      "action": "Add a single <h1> containing your primary keyword.",
-      "effort": "low",
-      "affected_pages": 3
-    },
-    {
-      "priority": 1,
       "rule_id": "technical_001",
       "title": "Not using HTTPS",
       "action": "Enable HTTPS and redirect all traffic to HTTPS.",
@@ -2542,6 +2534,14 @@
       "action": "Add <!DOCTYPE html> at the start of every HTML document.",
       "effort": "low",
       "affected_pages": 20
+    },
+    {
+      "priority": 1,
+      "rule_id": "on_page_003",
+      "title": "Missing or multiple H1 tags",
+      "action": "Add a single <h1> containing your primary keyword.",
+      "effort": "low",
+      "affected_pages": 3
     },
     {
       "priority": 2,
@@ -2569,22 +2569,6 @@
     },
     {
       "priority": 2,
-      "rule_id": "schema_001",
-      "title": "Missing schema markup",
-      "action": "Add JSON-LD structured data for key page types.",
-      "effort": "medium",
-      "affected_pages": 3
-    },
-    {
-      "priority": 2,
-      "rule_id": "technical_010",
-      "title": "Missing structured data / schema markup",
-      "action": "Add Schema.org JSON-LD markup to enable rich results.",
-      "effort": "medium",
-      "affected_pages": 3
-    },
-    {
-      "priority": 2,
       "rule_id": "content_001",
       "title": "Thin or overly long content",
       "action": "Expand thin pages to at least 300 words of useful content.",
@@ -2608,20 +2592,28 @@
       "affected_pages": 4
     },
     {
+      "priority": 2,
+      "rule_id": "schema_001",
+      "title": "Missing schema markup",
+      "action": "Add JSON-LD structured data for key page types.",
+      "effort": "medium",
+      "affected_pages": 3
+    },
+    {
+      "priority": 2,
+      "rule_id": "technical_010",
+      "title": "Missing structured data / schema markup",
+      "action": "Add Schema.org JSON-LD markup to enable rich results.",
+      "effort": "medium",
+      "affected_pages": 3
+    },
+    {
       "priority": 3,
       "rule_id": "on_page_002",
       "title": "Missing or poorly sized meta description",
       "action": "Add a unique, relevant meta description (150-160 chars).",
       "effort": "low",
       "affected_pages": 17
-    },
-    {
-      "priority": 3,
-      "rule_id": "social_001",
-      "title": "Missing Open Graph tags",
-      "action": "Add required Open Graph meta tags for social sharing.",
-      "effort": "low",
-      "affected_pages": 3
     },
     {
       "priority": 3,
@@ -2638,6 +2630,14 @@
       "action": "Add a descriptive <title> (30-70 chars).",
       "effort": "low",
       "affected_pages": 2
+    },
+    {
+      "priority": 3,
+      "rule_id": "social_001",
+      "title": "Missing Open Graph tags",
+      "action": "Add required Open Graph meta tags for social sharing.",
+      "effort": "low",
+      "affected_pages": 3
     },
     {
       "priority": 3,

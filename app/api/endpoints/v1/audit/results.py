@@ -12,7 +12,7 @@ from typing import List, Optional
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.security import get_current_user
-from app.modules.audit.services.response_builder import build_per_page_breakdown
+from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
 from app.modules.audit.schemas.analysis_schemas import (
     SeoAnalysisResponse,
     PaginatedAnalyses,
@@ -72,31 +72,10 @@ async def get_analysis_result(
                 detail=f"No analysis run found for project_id={project_id}",
             )
 
-        # Build per-page breakdown using shared builder
-        per_page = await build_per_page_breakdown(db, project_id, crawl_id)
-
-        return SeoAnalysisResponse(
-            project_id=str(run.project_id),
-            crawl_id=str(run.crawl_id),
-            domain=run.domain,
-            overall_score=float(run.overall_score) if run.overall_score else 0.0,
-            grade=run.grade or "F",
-            total_pages_scored=run.total_pages_scored,
-            total_rules_evaluated=run.total_rules_evaluated,
-            total_passed=run.total_passed,
-            total_failed=run.total_failed,
-            critical_issues=run.critical_issues,
-            warnings=run.warnings,
-            error_pages=run.error_pages,
-            error_summary=run.error_summary,
-            summary=run.summary or "",
-            category_scores=run.category_scores or {},
-            top_issues=run.top_issues or [],
-            per_page=per_page,
-            output_file_path=run.output_file_path,
-            scored_at=run.scored_at.isoformat() if run.scored_at else None,
-            analysis_status=run.analysis_status,
-        )
+        # Rebuild the unified response from persisted DB rows
+        builder = AuditResponseBuilder(db)
+        unified = await builder.build(project_id, crawl_id)
+        return unified
 
     except HTTPException:
         raise

@@ -2,8 +2,8 @@
 Integration tests for the Audit Analyze API endpoint.
 
 Tests the POST /api/v1/audit/analyze endpoint:
-1. Successful complete crawl → parse → score pipeline
-2. Invalid URL returns validation error
+1. Successful complete crawl → parse → score pipeline (returns unified response)
+2. Invalid URL returns validation error / runtime error
 """
 import pytest
 from httpx import ASGITransport, AsyncClient
@@ -15,6 +15,8 @@ from app.main import app
 async def test_audit_analyze_success():
     """
     Test successful complete audit pipeline with a valid URL.
+    Verifies the unified response shape: audit, summary, categories, issues,
+    category_results, crawl, indexation, errors, metadata.
     """
     async with AsyncClient(
         transport=ASGITransport(app=app),
@@ -28,62 +30,76 @@ async def test_audit_analyze_success():
     assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
 
     data = response.json()
-    assert data["success"] is True
-    assert "SEO audit completed successfully" in data["message"]
-    assert data["url"] == "https://www.reddit.com/"
-    assert data["domain"] == "www.reddit.com"
 
-    # Verify crawl summary
+    # --- audit block ---
+    audit = data["audit"]
+    assert audit["domain"] == "www.reddit.com"
+    assert audit["url"] == "https://www.reddit.com/"
+    assert audit["pages_crawled"] >= 1
+    assert audit["pages_analyzed"] >= 1
+    assert audit["pages_discovered"] >= 1
+    assert audit["status"] == "completed"
+
+    # --- summary (4-tier severity counts) ---
+    summary = data["summary"]
+    assert "overall_score" in summary
+    assert 0 <= summary["overall_score"] <= 100
+    assert summary["health"] in {"excellent", "good", "needs_attention", "poor", "critical"}
+    for key in ("critical_issues", "high_issues", "medium_issues", "low_issues"):
+        assert isinstance(summary[key], int)
+    assert summary["passed_checks"] >= 0
+    assert summary["failed_checks"] >= 0
+
+    # --- categories ---
+    categories = data["categories"]
+    assert isinstance(categories, list)
+    assert len(categories) >= 1
+    cat_ids = {c["id"] for c in categories}
+    for expected in ("on_page", "technical_seo", "content_quality", "performance"):
+        assert expected in cat_ids, f"missing category {expected}"
+    for c in categories:
+        assert {"id", "name", "score", "status", "checks_total",
+                "checks_passed", "checks_failed", "issues"} <= set(c.keys())
+        assert c["issues"] == []  # detail lives in top-level issues[] + category_results
+
+    # --- issues: strict slim shape {page_url, affected_part} ---
+    issues = data["issues"]
+    assert isinstance(issues, list)
+    for issue in issues:
+        assert set(issue.keys()) == {"page_url", "affected_part"}
+        assert issue["page_url"]
+        assert issue["affected_part"]
+
+    # --- category_results ---
+    category_results = data["category_results"]
+    assert isinstance(category_results, dict)
+    assert "on_page" in category_results
+    # every sub-check has a status
+    for cat_id, subchecks in category_results.items():
+        for sub, check in subchecks.items():
+            assert "status" in check
+            assert "score" in check
+
+    # --- crawl / indexation ---
     crawl = data["crawl"]
-    assert crawl["url"] == "https://www.reddit.com/"
-    assert crawl["domain"] == "www.reddit.com"
-    assert crawl["status_code"] == 200
-    assert crawl["response_time"] > 0
-    assert crawl["html_size_bytes"] > 0
-    assert crawl["test_number"] >= 1
-    assert crawl["file_path"] is not None
-    assert crawl["crawled_at"] is not None
+    assert crawl["pages_discovered"] >= 1
+    assert "status_codes" in crawl
+    assert "blocked_by_robots" in crawl
+    indexation = data["indexation"]
+    assert "indexable" in indexation
+    assert "noindex" in indexation
 
-    # Verify SEO score report
-    seo_score = data["seo_score"]
-    assert "overall_score" in seo_score
-    assert "grade" in seo_score
-    assert "category_scores" in seo_score
-    assert "total_rules_evaluated" in seo_score
-    assert seo_score["total_rules_evaluated"] > 0
-    assert 0 <= seo_score["overall_score"] <= 100
-    assert seo_score["grade"] in ["A", "B", "C", "D", "F"]
+    # --- priorities + recommendations ---
+    priorities = data["priorities"]
+    assert {"critical", "high", "medium", "low"} <= set(priorities.keys())
+    recommendations = data["recommendations"]
+    assert isinstance(recommendations, list)
+    for rec in recommendations:
+        assert {"priority", "rule_id", "title", "action", "effort", "affected_pages"} <= set(rec.keys())
 
-    # Verify per_page response (replaces old parsed_data/pages fields)
-    assert "per_page" in data
-    assert isinstance(data["per_page"], list)
-    assert len(data["per_page"]) > 0
-
-    # Each per-page entry should have correct URL (not all homepage)
-    for page_entry in data["per_page"]:
-        assert "page_id" in page_entry
-        assert "url" in page_entry
-        assert "overall_score" in page_entry
-        assert "grade" in page_entry
-        assert "rules_passed" in page_entry
-        assert "rules_failed" in page_entry
-        assert "critical_issues" in page_entry
-        assert "rule_results" in page_entry
-        assert "crawl_details" in page_entry
-        assert "parsed_info" in page_entry
-        assert "links_analysis" in page_entry
-
-    # Verify no duplicate arrays in links_analysis
-    for page_entry in data["per_page"]:
-        links_analysis = page_entry.get("links_analysis", {})
-        if links_analysis:
-            # Should use a single links array with counts, not duplicate arrays
-            assert "links" in links_analysis
-            assert "total_count" in links_analysis
-            # Should NOT have total_links/external_links/internal_links as separate arrays
-            assert "total_links" not in links_analysis or isinstance(
-                links_analysis.get("total_links"), dict
-            )
+    # --- errors + metadata ---
+    assert isinstance(data["errors"], list)
+    assert data["metadata"]["output_shape"] == "unified_v1"
 
 
 @pytest.mark.asyncio
