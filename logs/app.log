@@ -5560,3 +5560,188 @@ app.shared.exceptions.ScoringError: Project scoring failed: (builtins.TypeError)
 2026-08-17 18:15:38,763 | INFO | AnalysisScorerService.score_project: project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f, crawl_id=40d44f03-04f1-46b3-bd7f-bf338b7d83d2, force=True
 2026-08-17 18:15:38,834 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=052e5352-8200-48c5-a78f-f850e5ed0d7f
 2026-08-17 18:15:38,834 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-18 10:48:49,491 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-18 10:48:49,492 | INFO | Step 1: Starting crawl phase
+2026-08-18 10:48:51,448 | INFO | Step 2: Starting parse phase
+2026-08-18 10:48:51,589 | INFO | Step 3: Starting scoring phase
+2026-08-18 10:48:51,589 | INFO | Loaded 70 scoring rules
+2026-08-18 10:48:51,590 | INFO | Starting SEO scoring...
+2026-08-18 10:48:51,591 | INFO | Completed 70 rule evaluations
+2026-08-18 10:48:51,591 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-18 10:48:51,591 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-18 10:48:51,591 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 10:48:51,872 | INFO | DB persistence completed: crawl_id=b1e1cd6c-e3cf-4335-b733-b99f0ebe34b8, page_id=7c369449-43ec-4ecd-bf09-88ec07894f23
+2026-08-18 10:48:51,872 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 10:48:51,872 | INFO | DBParserService.parse_crawl: project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494, crawl_id=b1e1cd6c-e3cf-4335-b733-b99f0ebe34b8, force=True
+2026-08-18 10:48:52,020 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494
+2026-08-18 10:48:52,020 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 10:48:52,020 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 10:48:52,020 | INFO | Loaded 70 scoring rules
+2026-08-18 10:48:52,020 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494, crawl_id=b1e1cd6c-e3cf-4335-b733-b99f0ebe34b8, force=True
+2026-08-18 10:48:52,204 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494
+2026-08-18 10:48:52,204 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 10:48:52,204 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 10:48:52,204 | INFO | AnalysisScorerService.score_project: project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494, crawl_id=b1e1cd6c-e3cf-4335-b733-b99f0ebe34b8, force=True
+2026-08-18 10:48:52,288 | INFO | AnalysisScorerService.score_project: score=83.5, grade=B, pages=1, project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494
+2026-08-18 10:48:52,294 | ERROR | AnalysisScorerService.score_project: unhandled error for project_id=0c18190c-8b45-4a1c-965f-40c69dbfd494: 'AnalysisScorerService' object has no attribute 'seo_repo'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 319, in score_project
+    return await self._run_to_dict(run, project_id, crawl_id, per_page_scores)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 553, in _run_to_dict
+    seo_data = await self.seo_repo.get_by_page_id(p.id)
+                     ^^^^^^^^^^^^^
+AttributeError: 'AnalysisScorerService' object has no attribute 'seo_repo'
+2026-08-18 10:48:52,294 | ERROR | Unexpected error during audit for URL: https://radonindia.com
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 319, in score_project
+    return await self._run_to_dict(run, project_id, crawl_id, per_page_scores)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 553, in _run_to_dict
+    seo_data = await self.seo_repo.get_by_page_id(p.id)
+                     ^^^^^^^^^^^^^
+AttributeError: 'AnalysisScorerService' object has no attribute 'seo_repo'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 274, in analyze_website
+    db_score_report = await db_scorer.score_project(project_id, crawl_id, force=True)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\services\analysis_scorer_service.py", line 329, in score_project
+    raise ScoringError(f"Project scoring failed: {exc}") from exc
+app.shared.exceptions.ScoringError: Project scoring failed: 'AnalysisScorerService' object has no attribute 'seo_repo'
+2026-08-18 10:50:10,248 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-18 10:50:10,248 | INFO | Step 1: Starting crawl phase
+2026-08-18 10:50:11,412 | INFO | Step 2: Starting parse phase
+2026-08-18 10:50:11,537 | INFO | Step 3: Starting scoring phase
+2026-08-18 10:50:11,537 | INFO | Loaded 70 scoring rules
+2026-08-18 10:50:11,537 | INFO | Starting SEO scoring...
+2026-08-18 10:50:11,553 | INFO | Completed 70 rule evaluations
+2026-08-18 10:50:11,553 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-18 10:50:11,553 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-18 10:50:11,553 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 10:50:11,648 | INFO | DB persistence completed: crawl_id=9eae16aa-c387-4e90-bf01-d177948c50a4, page_id=9bd75b30-4863-4841-872b-66b2c881214f
+2026-08-18 10:50:11,648 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 10:50:11,648 | INFO | DBParserService.parse_crawl: project_id=530484a9-e580-401f-b00d-b51eed17aaab, crawl_id=9eae16aa-c387-4e90-bf01-d177948c50a4, force=True
+2026-08-18 10:50:11,766 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=530484a9-e580-401f-b00d-b51eed17aaab
+2026-08-18 10:50:11,766 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 10:50:11,766 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 10:50:11,766 | INFO | Loaded 70 scoring rules
+2026-08-18 10:50:11,766 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=530484a9-e580-401f-b00d-b51eed17aaab, crawl_id=9eae16aa-c387-4e90-bf01-d177948c50a4, force=True
+2026-08-18 10:50:11,902 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=530484a9-e580-401f-b00d-b51eed17aaab
+2026-08-18 10:50:11,902 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 10:50:11,902 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 10:50:11,902 | INFO | AnalysisScorerService.score_project: project_id=530484a9-e580-401f-b00d-b51eed17aaab, crawl_id=9eae16aa-c387-4e90-bf01-d177948c50a4, force=True
+2026-08-18 10:50:11,966 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=530484a9-e580-401f-b00d-b51eed17aaab
+2026-08-18 10:50:11,966 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-18 10:50:11,966 | INFO | Step 8: Starting links analysis enrichment
+2026-08-18 10:50:11,966 | INFO | Links analysis: 56 total (0 external, 56 internal)
+2026-08-18 10:51:42,856 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-18 10:51:42,856 | INFO | Step 1: Starting crawl phase
+2026-08-18 10:51:43,985 | INFO | Step 2: Starting parse phase
+2026-08-18 10:51:44,278 | INFO | Step 3: Starting scoring phase
+2026-08-18 10:51:44,278 | INFO | Loaded 70 scoring rules
+2026-08-18 10:51:44,280 | INFO | Starting SEO scoring...
+2026-08-18 10:51:44,282 | INFO | Completed 70 rule evaluations
+2026-08-18 10:51:44,282 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-18 10:51:44,284 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-18 10:51:44,284 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 10:51:44,469 | INFO | DB persistence completed: crawl_id=42442198-f883-4d4e-adce-6950eff27964, page_id=c66dd966-11c7-4f64-a09c-fe3d2c16fc51
+2026-08-18 10:51:44,469 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 10:51:44,470 | INFO | DBParserService.parse_crawl: project_id=d2868766-fafd-4b57-83a4-882e5b152ea8, crawl_id=42442198-f883-4d4e-adce-6950eff27964, force=True
+2026-08-18 10:51:44,656 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=d2868766-fafd-4b57-83a4-882e5b152ea8
+2026-08-18 10:51:44,656 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 10:51:44,656 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 10:51:44,657 | INFO | Loaded 70 scoring rules
+2026-08-18 10:51:44,657 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d2868766-fafd-4b57-83a4-882e5b152ea8, crawl_id=42442198-f883-4d4e-adce-6950eff27964, force=True
+2026-08-18 10:51:44,907 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=d2868766-fafd-4b57-83a4-882e5b152ea8
+2026-08-18 10:51:44,907 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 10:51:44,908 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 10:51:44,908 | INFO | AnalysisScorerService.score_project: project_id=d2868766-fafd-4b57-83a4-882e5b152ea8, crawl_id=42442198-f883-4d4e-adce-6950eff27964, force=True
+2026-08-18 10:51:44,965 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=d2868766-fafd-4b57-83a4-882e5b152ea8
+2026-08-18 10:51:44,972 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-18 10:51:44,972 | INFO | Step 8: Starting links analysis enrichment
+2026-08-18 10:51:44,973 | INFO | Links analysis: 56 total (0 external, 56 internal)
+2026-08-18 11:05:24,703 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in
+2026-08-18 11:05:24,703 | INFO | Step 1: Starting crawl phase
+2026-08-18 11:05:26,139 | INFO | Step 2: Starting parse phase
+2026-08-18 11:05:26,177 | INFO | Step 3: Starting scoring phase
+2026-08-18 11:05:26,188 | INFO | Loaded 70 scoring rules
+2026-08-18 11:05:26,189 | INFO | Starting SEO scoring...
+2026-08-18 11:05:26,204 | INFO | Completed 70 rule evaluations
+2026-08-18 11:05:26,209 | INFO | SEO Score calculated: 81.2/100 (Grade B)
+2026-08-18 11:05:26,211 | INFO | Audit pipeline completed successfully for URL: https://infomagine.in - SEO Score: 81.2/100 (Grade: B)
+2026-08-18 11:05:26,213 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 11:05:26,590 | INFO | DB persistence completed: crawl_id=09f54485-bde6-48e3-a5b9-aade01c9d733, page_id=7e97c637-45a5-4124-9772-f1d8e0a2eb4c
+2026-08-18 11:05:26,590 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 11:05:26,590 | INFO | DBParserService.parse_crawl: project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66, crawl_id=09f54485-bde6-48e3-a5b9-aade01c9d733, force=True
+2026-08-18 11:05:26,642 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66
+2026-08-18 11:05:26,642 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 11:05:26,642 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 11:05:26,642 | INFO | Loaded 70 scoring rules
+2026-08-18 11:05:26,642 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66, crawl_id=09f54485-bde6-48e3-a5b9-aade01c9d733, force=True
+2026-08-18 11:05:27,523 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66
+2026-08-18 11:05:27,524 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 11:05:27,525 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 11:05:27,527 | INFO | AnalysisScorerService.score_project: project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66, crawl_id=09f54485-bde6-48e3-a5b9-aade01c9d733, force=True
+2026-08-18 11:05:27,641 | INFO | AnalysisScorerService.score_project: score=82.9, grade=B, pages=1, project_id=d99e07f6-80d4-4c2f-b82b-239efde21c66
+2026-08-18 11:05:27,648 | INFO | DB scoring completed: Score=82.9/100 (Grade: B)
+2026-08-18 11:05:27,649 | INFO | Step 8: Starting links analysis enrichment
+2026-08-18 11:05:27,649 | INFO | Links analysis: 0 total (0 external, 0 internal)
+2026-08-18 11:08:44,359 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-18 11:08:44,359 | INFO | Step 1: Starting crawl phase
+2026-08-18 11:08:46,510 | INFO | Step 2: Starting parse phase
+2026-08-18 11:08:46,810 | INFO | Step 3: Starting scoring phase
+2026-08-18 11:08:46,810 | INFO | Loaded 70 scoring rules
+2026-08-18 11:08:46,810 | INFO | Starting SEO scoring...
+2026-08-18 11:08:46,810 | INFO | Completed 70 rule evaluations
+2026-08-18 11:08:46,810 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-18 11:08:46,810 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-18 11:08:46,810 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 11:08:47,043 | INFO | DB persistence completed: crawl_id=a0c40bf9-a4bf-4a04-82c6-33fe0d075ce0, page_id=2c383021-828f-4483-8097-5caf47cdfbe9
+2026-08-18 11:08:47,043 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 11:08:47,043 | INFO | DBParserService.parse_crawl: project_id=e057f35d-a21d-4ddc-8228-e57abead349b, crawl_id=a0c40bf9-a4bf-4a04-82c6-33fe0d075ce0, force=True
+2026-08-18 11:08:47,209 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=e057f35d-a21d-4ddc-8228-e57abead349b
+2026-08-18 11:08:47,209 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 11:08:47,209 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 11:08:47,209 | INFO | Loaded 70 scoring rules
+2026-08-18 11:08:47,209 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=e057f35d-a21d-4ddc-8228-e57abead349b, crawl_id=a0c40bf9-a4bf-4a04-82c6-33fe0d075ce0, force=True
+2026-08-18 11:08:47,442 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=e057f35d-a21d-4ddc-8228-e57abead349b
+2026-08-18 11:08:47,442 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 11:08:47,442 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 11:08:47,442 | INFO | AnalysisScorerService.score_project: project_id=e057f35d-a21d-4ddc-8228-e57abead349b, crawl_id=a0c40bf9-a4bf-4a04-82c6-33fe0d075ce0, force=True
+2026-08-18 11:08:47,511 | INFO | AnalysisScorerService.score_project: score=83.8, grade=B, pages=1, project_id=e057f35d-a21d-4ddc-8228-e57abead349b
+2026-08-18 11:08:47,519 | INFO | DB scoring completed: Score=83.8/100 (Grade: B)
+2026-08-18 11:08:47,519 | INFO | Step 8: Starting links analysis enrichment
+2026-08-18 11:08:47,519 | INFO | Links analysis: 56 total (0 external, 56 internal)
+2026-08-18 11:08:47,519 | INFO | Step 9: Building page-centric response grouping
+2026-08-18 11:08:47,519 | INFO | Built 1 page entries in response
+2026-08-18 11:19:49,616 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com
+2026-08-18 11:19:49,616 | INFO | Step 1: Starting crawl phase
+2026-08-18 11:19:52,016 | INFO | Step 2: Starting parse phase
+2026-08-18 11:19:52,122 | INFO | Step 3: Starting scoring phase
+2026-08-18 11:19:52,122 | INFO | Loaded 70 scoring rules
+2026-08-18 11:19:52,128 | INFO | Starting SEO scoring...
+2026-08-18 11:19:52,128 | INFO | Completed 70 rule evaluations
+2026-08-18 11:19:52,128 | INFO | SEO Score calculated: 79.7/100 (Grade C+)
+2026-08-18 11:19:52,128 | INFO | Audit pipeline completed successfully for URL: https://radonindia.com - SEO Score: 79.7/100 (Grade: C+)
+2026-08-18 11:19:52,128 | INFO | Step 4: Starting DB persistence phase
+2026-08-18 11:19:52,336 | INFO | DB persistence completed: crawl_id=54b3a2ec-0266-4397-94d1-1989442f7df8, page_id=a919599d-6d93-4f19-a675-321b658418ce
+2026-08-18 11:19:52,336 | INFO | Step 5: Starting DB-backed parse phase
+2026-08-18 11:19:52,336 | INFO | DBParserService.parse_crawl: project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a, crawl_id=54b3a2ec-0266-4397-94d1-1989442f7df8, force=True
+2026-08-18 11:19:52,452 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a
+2026-08-18 11:19:52,452 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-18 11:19:52,452 | INFO | Step 6: Starting DB-backed rule evaluation
+2026-08-18 11:19:52,452 | INFO | Loaded 70 scoring rules
+2026-08-18 11:19:52,452 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a, crawl_id=54b3a2ec-0266-4397-94d1-1989442f7df8, force=True
+2026-08-18 11:19:52,620 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a
+2026-08-18 11:19:52,620 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-18 11:19:52,620 | INFO | Step 7: Starting DB-backed scoring
+2026-08-18 11:19:52,620 | INFO | AnalysisScorerService.score_project: project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a, crawl_id=54b3a2ec-0266-4397-94d1-1989442f7df8, force=True
+2026-08-18 11:19:52,707 | INFO | AnalysisScorerService.score_project: score=83.5, grade=B, pages=1, project_id=e1da885d-ba5c-48fb-9131-73d46e969b0a
+2026-08-18 11:19:52,713 | INFO | DB scoring completed: Score=83.5/100 (Grade: B)
+2026-08-18 11:19:52,714 | INFO | Step 8: Starting links analysis enrichment
+2026-08-18 11:19:52,716 | INFO | Links analysis: 56 total (0 external, 56 internal)
+2026-08-18 11:19:52,718 | INFO | Step 9: Building page-centric response grouping
+2026-08-18 11:19:52,718 | INFO | Built 1 page entries in response

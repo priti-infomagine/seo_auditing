@@ -26,6 +26,8 @@ from app.modules.audit.repositories.rule_evaluation_repository import RuleEvalua
 from app.modules.audit.models.seo_analysis_runs import SeoAnalysisRun
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
+from app.modules.crawler.repositories.page_seo_data_repository import PageSEODataRepository
+from app.modules.crawler.repositories.page_network_data_repository import PageNetworkDataRepository
 from app.modules.scorer.services.score_calculator import ScoreCalculator
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.shared.exceptions import ScoringError
@@ -43,6 +45,8 @@ class AnalysisScorerService:
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.crawl_job_repo = CrawlJobRepository(db)
         self.crawl_page_repo = CrawlPageRepository(db)
+        self.seo_repo = PageSEODataRepository(db)
+        self.network_repo = PageNetworkDataRepository(db)
         self.calculator = ScoreCalculator()
 
     async def score_project(
@@ -132,7 +136,7 @@ class AnalysisScorerService:
             # Score each page
             per_page_scores: List[Dict[str, Any]] = []
             all_category_results: Dict[str, List[RuleResult]] = {}
-            all_rule_results: List[RuleResult] = []
+            all_rule_results: List[tuple] = []
             error_pages: List[Dict[str, Any]] = []
             rules_with_errors: set = set()
 
@@ -178,7 +182,14 @@ class AnalysisScorerService:
                     "rules_passed": page_score_dict.get("total_passed", 0),
                     "rules_failed": page_score_dict.get("total_failed", 0),
                     "critical_issues": page_score_dict.get("critical_issues", 0),
-                    "rule_results": [self._rule_result_to_dict(r) for r in page_rule_results],
+                    "rule_results": [
+                        {
+                            **self._rule_result_to_dict(r),
+                            "page_url": url,
+                            "page_id": str(page_id),
+                        }
+                        for r in page_rule_results
+                    ],
                 })
 
                 # Collect category results for aggregate scoring
@@ -202,7 +213,8 @@ class AnalysisScorerService:
                                 self._dict_to_rule_result(issue)
                             )
 
-                all_rule_results.extend(page_rule_results)
+                for r in page_rule_results:
+                    all_rule_results.append((r, str(page_id), url))
 
             # Compute aggregate score
             # Weight pages: homepage weight=2.0, others=1.0
@@ -235,13 +247,13 @@ class AnalysisScorerService:
 
             # Get top issues (across all pages, sorted by score_impact asc = most negative first)
             top_issues = sorted(
-                [r for r in all_rule_results
-                 if not r.passed and r.severity != Severity.ERROR],
-                key=lambda r: r.score_impact,
+                [item for item in all_rule_results
+                 if not item[0].passed and item[0].severity != Severity.ERROR],
+                key=lambda item: item[0].score_impact,
             )[:10]
 
             total_rules_evaluated = len(all_rule_results)
-            total_passed_rules = sum(1 for r in all_rule_results if r.passed)
+            total_passed_rules = sum(1 for item in all_rule_results if item[0].passed)
             total_failed_rules = total_rules_evaluated - total_passed_rules
 
             # Build category scores (flat aggregate from calculator)
@@ -278,7 +290,14 @@ class AnalysisScorerService:
                 error_pages=len(error_pages),
                 error_summary=error_summary,
                 category_scores=category_scores,
-                top_issues=[self._rule_result_to_dict(r) for r in top_issues],
+                top_issues=[
+                    {
+                        **self._rule_result_to_dict(r),
+                        "page_url": url,
+                        "page_id": pid,
+                    }
+                    for r, pid, url in top_issues
+                ],
                 summary=summary,
                 analysis_status="completed",
                 scored_at=scored_at,
@@ -301,7 +320,7 @@ class AnalysisScorerService:
             )
 
             # Return as dict
-            return await self._run_to_dict(run)
+            return await self._run_to_dict(run, project_id, crawl_id, per_page_scores)
 
         except ScoringError:
             raise
@@ -353,7 +372,7 @@ class AnalysisScorerService:
             run.output_file_path = output_file_path
 
             await self.analysis_repo.upsert(run)
-            return await self._run_to_dict(run)
+            return await self._run_to_dict(run, project_id, crawl_id, [])
         except Exception as exc:
             logger.error(f"Failed to create empty analysis: {exc}", exc_info=True)
             raise ScoringError(f"Failed to create empty analysis: {exc}") from exc
@@ -397,6 +416,7 @@ class AnalysisScorerService:
                 "category_scores": run.category_scores,
                 "top_issues": run.top_issues,
                 "per_page": per_page,
+                "page_details": await self._load_page_details(crawl_id),
             }
 
             with open(filepath, "w", encoding="utf-8") as f:
@@ -498,9 +518,15 @@ class AnalysisScorerService:
         else:
             return f"Critical. Your site scores {score:.1f}/100 (Grade {grade}). Major SEO issues require immediate attention."
 
-    async def _run_to_dict(self, run: SeoAnalysisRun) -> Dict[str, Any]:
+    async def _run_to_dict(
+        self,
+        run: SeoAnalysisRun,
+        project_id: UUID = None,
+        crawl_id: UUID = None,
+        per_page: List[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         """Convert SeoAnalysisRun to a response dict."""
-        return {
+        result: Dict[str, Any] = {
             "project_id": str(run.project_id),
             "crawl_id": str(run.crawl_id),
             "domain": run.domain,
@@ -520,4 +546,50 @@ class AnalysisScorerService:
             "output_file_path": run.output_file_path,
             "scored_at": run.scored_at.isoformat() if run.scored_at else None,
             "analysis_status": run.analysis_status,
+            "per_page": per_page or [],
+            "page_details": [],
         }
+
+        # Load page details from DB
+        if crawl_id:
+            result["page_details"] = await self._load_page_details(crawl_id)
+
+        return result
+
+    async def _load_page_details(self, crawl_id: UUID) -> List[Dict[str, Any]]:
+        """Load page details (crawl + SEO + network) from DB for a crawl job."""
+        if not crawl_id:
+            return []
+        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(crawl_id)
+        page_details = []
+        for p in crawl_pages:
+            seo_data = await self.seo_repo.get_by_page_id(p.id)
+            network_data = await self.network_repo.get_by_page_id(p.id)
+            page_detail = {
+                "page_id": str(p.id),
+                "url": p.url or p.normalized_url,
+                "normalized_url": p.normalized_url,
+                "status_code": p.status_code,
+                "response_time_ms": p.response_time_ms,
+                "content_length": p.content_length,
+                "content_type": p.content_type,
+                "is_success": p.is_success,
+                "depth": p.depth,
+                "parsed_data_snapshot": {
+                    "title": seo_data.title if seo_data else "",
+                    "meta_description": seo_data.meta_description if seo_data else "",
+                    "word_count": seo_data.word_count if seo_data else 0,
+                    "language": seo_data.language if seo_data else "",
+                    "canonical": seo_data.canonical if seo_data else "",
+                    "structured_data": seo_data.structured_data if seo_data else {},
+                    "social": seo_data.social if seo_data else {},
+                } if seo_data else None,
+                "network": {
+                    "status_code": network_data.status_code if network_data else 0,
+                    "response_time_ms": network_data.response_time_ms if network_data else 0,
+                    "content_length": network_data.content_length if network_data else 0,
+                    "headers": network_data.headers if network_data else {},
+                } if network_data else None,
+            }
+            page_details.append(page_detail)
+        return page_details

@@ -163,6 +163,9 @@ class AuditAnalyzeResponse(BaseModel):
     crawl: CrawlSummarySchema = Field(..., description="Crawl phase summary")
     seo_score: Dict[str, Any] = Field(..., description="SEO scoring results")
     parsed_data: Optional[Dict[str, Any]] = Field(None, description="Full parsed data")
+    pages: Optional[List[Dict[str, Any]]] = Field(
+        None, description="Page-centric grouping of results, one entry per crawled page"
+    )
 
 
 class AuditAnalyzeError(BaseModel):

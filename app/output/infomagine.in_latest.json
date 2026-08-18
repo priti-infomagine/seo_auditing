@@ -1,32 +1,32 @@
 {
-  "project_id": "c340376e-0eb7-4f08-9dab-3fe887eac5d2",
-  "crawl_id": "a241eecd-16de-4c09-b1ad-ab58fca17947",
-  "domain": "radonindia.com",
-  "scored_at": "2026-08-17T12:34:42.247002+00:00",
-  "overall_score": 83.8,
+  "project_id": "d99e07f6-80d4-4c2f-b82b-239efde21c66",
+  "crawl_id": "09f54485-bde6-48e3-a5b9-aade01c9d733",
+  "domain": "infomagine.in",
+  "scored_at": "2026-08-18T05:35:27.543807+00:00",
+  "overall_score": 82.9,
   "grade": "B",
   "total_pages_scored": 1,
   "total_rules_evaluated": 67,
-  "total_passed": 44,
-  "total_failed": 23,
+  "total_passed": 42,
+  "total_failed": 25,
   "critical_issues": 4,
   "warnings": 12,
   "error_pages": 0,
   "error_summary": null,
-  "summary": "Good! Your site scores 83.8/100 (Grade B). Minor improvements recommended.",
+  "summary": "Good! Your site scores 82.9/100 (Grade B). Minor improvements recommended.",
   "category_scores": {
     "accessibility": {
-      "overall_score": 87.0,
-      "grade": "B+",
+      "overall_score": 95.0,
+      "grade": "A+",
       "categories": {
         "accessibility": {
           "category": "accessibility",
-          "score": 87.0,
+          "score": 95.0,
           "max_score": 100.0,
           "weight": 0.05,
-          "rules_checked": 2,
+          "rules_checked": 1,
           "rules_passed": 0,
-          "rules_failed": 2,
+          "rules_failed": 1,
           "issues": [],
           "warnings": [
             {
@@ -44,54 +44,18 @@
                 "accessibility",
                 "headings"
               ]
-            },
-            {
-              "rule_id": "a11y_004",
-              "name": "Link Text",
-              "category": "accessibility",
-              "severity": "warning",
-              "passed": false,
-              "score_impact": -8.0,
-              "message": "56 links have non-descriptive text",
-              "recommendation": "Use descriptive link text for better accessibility and SEO",
-              "data": {
-                "problematic_count": 56
-              },
-              "tags": [
-                "warning",
-                "accessibility",
-                "links"
-              ]
             }
           ],
           "passed_rules": []
         }
       },
-      "total_rules": 2,
+      "total_rules": 1,
       "total_passed": 0,
-      "total_failed": 2,
+      "total_failed": 1,
       "critical_issues": 0,
-      "warnings": 2,
-      "summary": "Good! Your site scores 87.0/100 (Grade B+). Minor improvements recommended.",
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
       "top_issues": [
-        {
-          "rule_id": "a11y_004",
-          "name": "Link Text",
-          "category": "accessibility",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -8.0,
-          "message": "56 links have non-descriptive text",
-          "recommendation": "Use descriptive link text for better accessibility and SEO",
-          "data": {
-            "problematic_count": 56
-          },
-          "tags": [
-            "warning",
-            "accessibility",
-            "links"
-          ]
-        },
         {
           "rule_id": "a11y_003",
           "name": "Heading Structure",
@@ -111,19 +75,37 @@
       ]
     },
     "content": {
-      "overall_score": 91.0,
-      "grade": "A",
+      "overall_score": 83.0,
+      "grade": "B",
       "categories": {
         "content": {
           "category": "content",
-          "score": 91.0,
+          "score": 83.0,
           "max_score": 100.0,
           "weight": 0.2,
-          "rules_checked": 3,
+          "rules_checked": 4,
           "rules_passed": 0,
-          "rules_failed": 3,
+          "rules_failed": 4,
           "issues": [],
           "warnings": [
+            {
+              "rule_id": "content_001",
+              "name": "Word Count",
+              "category": "content",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -8.0,
+              "message": "Thin content: 10 words (recommended: 300+)",
+              "recommendation": "Increase content to at least 300 words (currently 10)",
+              "data": {
+                "word_count": 10
+              },
+              "tags": [
+                "critical",
+                "content",
+                "quality"
+              ]
+            },
             {
               "rule_id": "content_003",
               "name": "Paragraph Structure",
@@ -176,13 +158,31 @@
           "passed_rules": []
         }
       },
-      "total_rules": 3,
+      "total_rules": 4,
       "total_passed": 0,
-      "total_failed": 3,
+      "total_failed": 4,
       "critical_issues": 0,
-      "warnings": 2,
-      "summary": "Excellent! Your site scores 91.0/100 (Grade A). Your website follows SEO best practices.",
+      "warnings": 3,
+      "summary": "Good! Your site scores 83.0/100 (Grade B). Minor improvements recommended.",
       "top_issues": [
+        {
+          "rule_id": "content_001",
+          "name": "Word Count",
+          "category": "content",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Thin content: 10 words (recommended: 300+)",
+          "recommendation": "Increase content to at least 300 words (currently 10)",
+          "data": {
+            "word_count": 10
+          },
+          "tags": [
+            "critical",
+            "content",
+            "quality"
+          ]
+        },
         {
           "rule_id": "content_003",
           "name": "Paragraph Structure",
@@ -233,78 +233,13 @@
         }
       ]
     },
-    "images": {
-      "overall_score": 98.0,
-      "grade": "A+",
-      "categories": {
-        "images": {
-          "category": "images",
-          "score": 98.0,
-          "max_score": 100.0,
-          "weight": 0.05,
-          "rules_checked": 1,
-          "rules_passed": 0,
-          "rules_failed": 1,
-          "issues": [],
-          "warnings": [
-            {
-              "rule_id": "images_004",
-              "name": "Image Dimensions",
-              "category": "images",
-              "severity": "warning",
-              "passed": false,
-              "score_impact": -2.0,
-              "message": "7 images missing width/height attributes",
-              "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
-              "data": {
-                "missing_dimensions": 7
-              },
-              "tags": [
-                "warning",
-                "images",
-                "ux",
-                "core_web_vitals"
-              ]
-            }
-          ],
-          "passed_rules": []
-        }
-      },
-      "total_rules": 1,
-      "total_passed": 0,
-      "total_failed": 1,
-      "critical_issues": 0,
-      "warnings": 1,
-      "summary": "Excellent! Your site scores 98.0/100 (Grade A+). Your website follows SEO best practices.",
-      "top_issues": [
-        {
-          "rule_id": "images_004",
-          "name": "Image Dimensions",
-          "category": "images",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -2.0,
-          "message": "7 images missing width/height attributes",
-          "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
-          "data": {
-            "missing_dimensions": 7
-          },
-          "tags": [
-            "warning",
-            "images",
-            "ux",
-            "core_web_vitals"
-          ]
-        }
-      ]
-    },
     "links": {
-      "overall_score": 91.0,
+      "overall_score": 94.0,
       "grade": "A",
       "categories": {
         "links": {
           "category": "links",
-          "score": 91.0,
+          "score": 94.0,
           "max_score": 100.0,
           "weight": 0.1,
           "rules_checked": 2,
@@ -312,6 +247,22 @@
           "rules_failed": 2,
           "issues": [],
           "warnings": [
+            {
+              "rule_id": "links_001",
+              "name": "Internal Links",
+              "category": "links",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No internal links found",
+              "recommendation": "Add internal links to other pages on your website",
+              "data": null,
+              "tags": [
+                "warning",
+                "links",
+                "navigation"
+              ]
+            },
             {
               "rule_id": "links_002",
               "name": "External Links",
@@ -327,25 +278,6 @@
                 "links",
                 "outbound"
               ]
-            },
-            {
-              "rule_id": "links_004",
-              "name": "Anchor Text",
-              "category": "links",
-              "severity": "warning",
-              "passed": false,
-              "score_impact": -8.0,
-              "message": "56 links have generic/non-descriptive anchor text",
-              "recommendation": "Use descriptive anchor text for better SEO and accessibility",
-              "data": {
-                "total_links": 56,
-                "generic_count": 56
-              },
-              "tags": [
-                "warning",
-                "links",
-                "ux"
-              ]
             }
           ],
           "passed_rules": []
@@ -356,25 +288,22 @@
       "total_failed": 2,
       "critical_issues": 0,
       "warnings": 1,
-      "summary": "Excellent! Your site scores 91.0/100 (Grade A). Your website follows SEO best practices.",
+      "summary": "Excellent! Your site scores 94.0/100 (Grade A). Your website follows SEO best practices.",
       "top_issues": [
         {
-          "rule_id": "links_004",
-          "name": "Anchor Text",
+          "rule_id": "links_001",
+          "name": "Internal Links",
           "category": "links",
           "severity": "warning",
           "passed": false,
-          "score_impact": -8.0,
-          "message": "56 links have generic/non-descriptive anchor text",
-          "recommendation": "Use descriptive anchor text for better SEO and accessibility",
-          "data": {
-            "total_links": 56,
-            "generic_count": 56
-          },
+          "score_impact": -5.0,
+          "message": "No internal links found",
+          "recommendation": "Add internal links to other pages on your website",
+          "data": null,
           "tags": [
             "warning",
             "links",
-            "ux"
+            "navigation"
           ]
         },
         {
@@ -396,34 +325,18 @@
       ]
     },
     "on_page": {
-      "overall_score": 65.0,
-      "grade": "D",
+      "overall_score": 73.0,
+      "grade": "C",
       "categories": {
         "on_page": {
           "category": "on_page",
-          "score": 65.0,
+          "score": 73.0,
           "max_score": 100.0,
           "weight": 0.2,
           "rules_checked": 5,
           "rules_passed": 0,
           "rules_failed": 5,
           "issues": [
-            {
-              "rule_id": "on_page_002",
-              "name": "Meta Description",
-              "category": "on_page",
-              "severity": "critical",
-              "passed": false,
-              "score_impact": -12.0,
-              "message": "Missing meta description",
-              "recommendation": "Add a compelling meta description (150-160 characters)",
-              "data": null,
-              "tags": [
-                "critical",
-                "on_page",
-                "meta"
-              ]
-            },
             {
               "rule_id": "on_page_003",
               "name": "H1 Tag",
@@ -449,13 +362,29 @@
               "severity": "warning",
               "passed": false,
               "score_impact": -5.0,
-              "message": "Title length is 11 characters (recommended: 30-60) - too short",
+              "message": "Title length is 64 characters (recommended: 30-60) - too long",
               "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
               "data": null,
               "tags": [
                 "critical",
                 "on_page",
                 "title"
+              ]
+            },
+            {
+              "rule_id": "on_page_002",
+              "name": "Meta Description",
+              "category": "on_page",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -4.0,
+              "message": "Meta description length is 164 characters (recommended: 150-160)",
+              "recommendation": "Adjust meta description to 150-160 characters for optimal SERP display",
+              "data": null,
+              "tags": [
+                "critical",
+                "on_page",
+                "meta"
               ]
             },
             {
@@ -469,8 +398,8 @@
               "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
               "data": {
                 "h1": 0,
-                "h2": 18,
-                "h3": 14,
+                "h2": 0,
+                "h3": 0,
                 "issues": [
                   "Missing H1"
                 ]
@@ -504,26 +433,10 @@
       "total_rules": 5,
       "total_passed": 0,
       "total_failed": 5,
-      "critical_issues": 2,
-      "warnings": 3,
-      "summary": "Poor. Your site scores 65.0/100 (Grade D). Significant improvements needed (2 critical issues).",
+      "critical_issues": 1,
+      "warnings": 4,
+      "summary": "Fair. Your site scores 73.0/100 (Grade C). 4 warnings and 1 critical issues need attention.",
       "top_issues": [
-        {
-          "rule_id": "on_page_002",
-          "name": "Meta Description",
-          "category": "on_page",
-          "severity": "critical",
-          "passed": false,
-          "score_impact": -12.0,
-          "message": "Missing meta description",
-          "recommendation": "Add a compelling meta description (150-160 characters)",
-          "data": null,
-          "tags": [
-            "critical",
-            "on_page",
-            "meta"
-          ]
-        },
         {
           "rule_id": "on_page_003",
           "name": "H1 Tag",
@@ -547,7 +460,7 @@
           "severity": "warning",
           "passed": false,
           "score_impact": -5.0,
-          "message": "Title length is 11 characters (recommended: 30-60) - too short",
+          "message": "Title length is 64 characters (recommended: 30-60) - too long",
           "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
           "data": null,
           "tags": [
@@ -573,6 +486,22 @@
           ]
         },
         {
+          "rule_id": "on_page_002",
+          "name": "Meta Description",
+          "category": "on_page",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -4.0,
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "recommendation": "Adjust meta description to 150-160 characters for optimal SERP display",
+          "data": null,
+          "tags": [
+            "critical",
+            "on_page",
+            "meta"
+          ]
+        },
+        {
           "rule_id": "on_page_004",
           "name": "Heading Hierarchy",
           "category": "on_page",
@@ -583,8 +512,8 @@
           "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
           "data": {
             "h1": 0,
-            "h2": 18,
-            "h3": 14,
+            "h2": 0,
+            "h3": 0,
             "issues": [
               "Missing H1"
             ]
@@ -657,77 +586,167 @@
       ]
     },
     "schema": {
-      "overall_score": 95.0,
+      "overall_score": 97.0,
       "grade": "A+",
       "categories": {
         "schema": {
           "category": "schema",
-          "score": 95.0,
+          "score": 97.0,
           "max_score": 100.0,
           "weight": 0.05,
-          "rules_checked": 1,
+          "rules_checked": 3,
           "rules_passed": 0,
-          "rules_failed": 1,
+          "rules_failed": 3,
           "issues": [],
           "warnings": [
             {
-              "rule_id": "schema_001",
-              "name": "Schema Markup",
+              "rule_id": "schema_003",
+              "name": "Breadcrumb Schema",
               "category": "schema",
-              "severity": "warning",
+              "severity": "info",
               "passed": false,
-              "score_impact": -5.0,
-              "message": "No structured data / schema markup found",
-              "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+              "score_impact": -1.0,
+              "message": "No breadcrumb schema found",
+              "recommendation": "Add BreadcrumbList schema for better navigation display",
               "data": null,
               "tags": [
-                "warning",
+                "info",
                 "schema",
-                "rich_snippets"
+                "navigation"
+              ]
+            },
+            {
+              "rule_id": "schema_004",
+              "name": "Article Schema",
+              "category": "schema",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No Article schema found",
+              "recommendation": "Add Article or BlogPosting schema for content pages",
+              "data": null,
+              "tags": [
+                "info",
+                "schema",
+                "content"
+              ]
+            },
+            {
+              "rule_id": "schema_005",
+              "name": "Product Schema",
+              "category": "schema",
+              "severity": "info",
+              "passed": false,
+              "score_impact": -1.0,
+              "message": "No Product schema found",
+              "recommendation": "Add Product schema for e-commerce pages",
+              "data": null,
+              "tags": [
+                "info",
+                "schema",
+                "ecommerce"
               ]
             }
           ],
           "passed_rules": []
         }
       },
-      "total_rules": 1,
+      "total_rules": 3,
       "total_passed": 0,
-      "total_failed": 1,
+      "total_failed": 3,
       "critical_issues": 0,
-      "warnings": 1,
-      "summary": "Excellent! Your site scores 95.0/100 (Grade A+). Your website follows SEO best practices.",
+      "warnings": 0,
+      "summary": "Excellent! Your site scores 97.0/100 (Grade A+). Your website follows SEO best practices.",
       "top_issues": [
         {
-          "rule_id": "schema_001",
-          "name": "Schema Markup",
+          "rule_id": "schema_003",
+          "name": "Breadcrumb Schema",
           "category": "schema",
-          "severity": "warning",
+          "severity": "info",
           "passed": false,
-          "score_impact": -5.0,
-          "message": "No structured data / schema markup found",
-          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+          "score_impact": -1.0,
+          "message": "No breadcrumb schema found",
+          "recommendation": "Add BreadcrumbList schema for better navigation display",
           "data": null,
           "tags": [
-            "warning",
+            "info",
             "schema",
-            "rich_snippets"
+            "navigation"
+          ]
+        },
+        {
+          "rule_id": "schema_004",
+          "name": "Article Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Article schema found",
+          "recommendation": "Add Article or BlogPosting schema for content pages",
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "content"
+          ]
+        },
+        {
+          "rule_id": "schema_005",
+          "name": "Product Schema",
+          "category": "schema",
+          "severity": "info",
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Product schema found",
+          "recommendation": "Add Product schema for e-commerce pages",
+          "data": null,
+          "tags": [
+            "info",
+            "schema",
+            "ecommerce"
           ]
         }
       ]
     },
     "security": {
-      "overall_score": 93.0,
-      "grade": "A",
+      "overall_score": 70.0,
+      "grade": "C",
       "categories": {
         "security": {
           "category": "security",
-          "score": 93.0,
+          "score": 70.0,
           "max_score": 100.0,
           "weight": 0.1,
-          "rules_checked": 2,
+          "rules_checked": 4,
           "rules_passed": 0,
-          "rules_failed": 2,
-          "issues": [],
+          "rules_failed": 4,
+          "issues": [
+            {
+              "rule_id": "security_003",
+              "name": "Security Headers",
+              "category": "security",
+              "severity": "critical",
+              "passed": false,
+              "score_impact": -15.0,
+              "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+              "recommendation": "Add missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+              "data": {
+                "missing": [
+                  "x-frame-options",
+                  "x-content-type-options",
+                  "strict-transport-security",
+                  "content-security-policy",
+                  "x-xss-protection"
+                ],
+                "present": []
+              },
+              "tags": [
+                "critical",
+                "security",
+                "headers"
+              ]
+            }
+          ],
           "warnings": [
             {
               "rule_id": "security_004",
@@ -749,31 +768,70 @@
               "rule_id": "security_005",
               "name": "HSTS",
               "category": "security",
-              "severity": "info",
+              "severity": "warning",
               "passed": false,
-              "score_impact": -2.0,
-              "message": "HSTS present but may need adjustment: max-age=7889238",
-              "recommendation": "Set HSTS max-age to at least 1 year (31536000)",
-              "data": {
-                "hsts": "max-age=7889238"
-              },
+              "score_impact": -5.0,
+              "message": "HSTS header not found",
+              "recommendation": "Add Strict-Transport-Security header",
+              "data": null,
               "tags": [
                 "warning",
                 "security",
                 "headers"
+              ]
+            },
+            {
+              "rule_id": "security_006",
+              "name": "XSS Protection",
+              "category": "security",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "No XSS protection headers found",
+              "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+              "data": null,
+              "tags": [
+                "warning",
+                "security",
+                "xss"
               ]
             }
           ],
           "passed_rules": []
         }
       },
-      "total_rules": 2,
+      "total_rules": 4,
       "total_passed": 0,
-      "total_failed": 2,
-      "critical_issues": 0,
-      "warnings": 1,
-      "summary": "Excellent! Your site scores 93.0/100 (Grade A). Your website follows SEO best practices.",
+      "total_failed": 4,
+      "critical_issues": 1,
+      "warnings": 3,
+      "summary": "Fair. Your site scores 70.0/100 (Grade C). 3 warnings and 1 critical issues need attention.",
       "top_issues": [
+        {
+          "rule_id": "security_003",
+          "name": "Security Headers",
+          "category": "security",
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -15.0,
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "recommendation": "Add missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "data": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          },
+          "tags": [
+            "critical",
+            "security",
+            "headers"
+          ]
+        },
         {
           "rule_id": "security_004",
           "name": "SSL Certificate",
@@ -794,18 +852,32 @@
           "rule_id": "security_005",
           "name": "HSTS",
           "category": "security",
-          "severity": "info",
+          "severity": "warning",
           "passed": false,
-          "score_impact": -2.0,
-          "message": "HSTS present but may need adjustment: max-age=7889238",
-          "recommendation": "Set HSTS max-age to at least 1 year (31536000)",
-          "data": {
-            "hsts": "max-age=7889238"
-          },
+          "score_impact": -5.0,
+          "message": "HSTS header not found",
+          "recommendation": "Add Strict-Transport-Security header",
+          "data": null,
           "tags": [
             "warning",
             "security",
             "headers"
+          ]
+        },
+        {
+          "rule_id": "security_006",
+          "name": "XSS Protection",
+          "category": "security",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No XSS protection headers found",
+          "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+          "data": null,
+          "tags": [
+            "warning",
+            "security",
+            "xss"
           ]
         }
       ]
@@ -902,17 +974,17 @@
       ]
     },
     "technical": {
-      "overall_score": 68.0,
-      "grade": "D",
+      "overall_score": 73.0,
+      "grade": "C",
       "categories": {
         "technical": {
           "category": "technical",
-          "score": 68.0,
+          "score": 73.0,
           "max_score": 100.0,
           "weight": 0.15,
-          "rules_checked": 4,
+          "rules_checked": 3,
           "rules_passed": 0,
-          "rules_failed": 4,
+          "rules_failed": 3,
           "issues": [
             {
               "rule_id": "technical_001",
@@ -964,33 +1036,17 @@
                 "technical",
                 "indexing"
               ]
-            },
-            {
-              "rule_id": "technical_010",
-              "name": "Structured Data",
-              "category": "technical",
-              "severity": "warning",
-              "passed": false,
-              "score_impact": -5.0,
-              "message": "No structured data / schema markup found",
-              "recommendation": "Add Schema.org markup to enable rich snippets in search results",
-              "data": null,
-              "tags": [
-                "warning",
-                "technical",
-                "rich_snippets"
-              ]
             }
           ],
           "passed_rules": []
         }
       },
-      "total_rules": 4,
+      "total_rules": 3,
       "total_passed": 0,
-      "total_failed": 4,
+      "total_failed": 3,
       "critical_issues": 2,
-      "warnings": 1,
-      "summary": "Poor. Your site scores 68.0/100 (Grade D). Significant improvements needed (2 critical issues).",
+      "warnings": 0,
+      "summary": "Fair. Your site scores 73.0/100 (Grade C). 0 warnings and 2 critical issues need attention.",
       "top_issues": [
         {
           "rule_id": "technical_001",
@@ -1026,22 +1082,6 @@
           ]
         },
         {
-          "rule_id": "technical_010",
-          "name": "Structured Data",
-          "category": "technical",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -5.0,
-          "message": "No structured data / schema markup found",
-          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
-          "data": null,
-          "tags": [
-            "warning",
-            "technical",
-            "rich_snippets"
-          ]
-        },
-        {
           "rule_id": "technical_009",
           "name": "XML Sitemap",
           "category": "technical",
@@ -1062,6 +1102,33 @@
   },
   "top_issues": [
     {
+      "rule_id": "security_003",
+      "name": "Security Headers",
+      "category": "security",
+      "severity": "critical",
+      "passed": false,
+      "score_impact": -15.0,
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "recommendation": "Add missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+      "data": {
+        "missing": [
+          "x-frame-options",
+          "x-content-type-options",
+          "strict-transport-security",
+          "content-security-policy",
+          "x-xss-protection"
+        ],
+        "present": []
+      },
+      "tags": [
+        "critical",
+        "security",
+        "headers"
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
+    },
+    {
       "rule_id": "technical_001",
       "name": "SSL Certificate",
       "category": "technical",
@@ -1077,23 +1144,9 @@
         "critical",
         "technical",
         "security"
-      ]
-    },
-    {
-      "rule_id": "on_page_002",
-      "name": "Meta Description",
-      "category": "on_page",
-      "severity": "critical",
-      "passed": false,
-      "score_impact": -12.0,
-      "message": "Missing meta description",
-      "recommendation": "Add a compelling meta description (150-160 characters)",
-      "data": null,
-      "tags": [
-        "critical",
-        "on_page",
-        "meta"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "on_page_003",
@@ -1109,7 +1162,9 @@
         "critical",
         "on_page",
         "headings"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "technical_005",
@@ -1124,44 +1179,29 @@
       "tags": [
         "critical",
         "technical"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
-      "rule_id": "a11y_004",
-      "name": "Link Text",
-      "category": "accessibility",
+      "rule_id": "content_001",
+      "name": "Word Count",
+      "category": "content",
       "severity": "warning",
       "passed": false,
       "score_impact": -8.0,
-      "message": "56 links have non-descriptive text",
-      "recommendation": "Use descriptive link text for better accessibility and SEO",
+      "message": "Thin content: 10 words (recommended: 300+)",
+      "recommendation": "Increase content to at least 300 words (currently 10)",
       "data": {
-        "problematic_count": 56
+        "word_count": 10
       },
       "tags": [
-        "warning",
-        "accessibility",
-        "links"
-      ]
-    },
-    {
-      "rule_id": "links_004",
-      "name": "Anchor Text",
-      "category": "links",
-      "severity": "warning",
-      "passed": false,
-      "score_impact": -8.0,
-      "message": "56 links have generic/non-descriptive anchor text",
-      "recommendation": "Use descriptive anchor text for better SEO and accessibility",
-      "data": {
-        "total_links": 56,
-        "generic_count": 56
-      },
-      "tags": [
-        "warning",
-        "links",
-        "ux"
-      ]
+        "critical",
+        "content",
+        "quality"
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "a11y_003",
@@ -1177,7 +1217,9 @@
         "warning",
         "accessibility",
         "headings"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "content_003",
@@ -1193,7 +1235,27 @@
         "warning",
         "content",
         "readability"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
+    },
+    {
+      "rule_id": "links_001",
+      "name": "Internal Links",
+      "category": "links",
+      "severity": "warning",
+      "passed": false,
+      "score_impact": -5.0,
+      "message": "No internal links found",
+      "recommendation": "Add internal links to other pages on your website",
+      "data": null,
+      "tags": [
+        "warning",
+        "links",
+        "navigation"
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "on_page_001",
@@ -1202,14 +1264,16 @@
       "severity": "warning",
       "passed": false,
       "score_impact": -5.0,
-      "message": "Title length is 11 characters (recommended: 30-60) - too short",
+      "message": "Title length is 64 characters (recommended: 30-60) - too long",
       "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
       "data": null,
       "tags": [
         "critical",
         "on_page",
         "title"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     },
     {
       "rule_id": "on_page_006",
@@ -1225,37 +1289,38 @@
         "critical",
         "on_page",
         "duplicate_content"
-      ]
+      ],
+      "page_url": "https://infomagine.in/",
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
     }
   ],
   "per_page": [
     {
-      "page_id": "697f826d-067b-498b-b4cb-1197cde34650",
-      "url": "https://radonindia.com/",
-      "overall_score": 83.8,
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c",
+      "url": "https://infomagine.in/",
+      "overall_score": 82.9,
       "grade": "B",
-      "rules_passed": 44,
-      "rules_failed": 23,
+      "rules_passed": 42,
+      "rules_failed": 25,
       "critical_issues": 4,
       "rule_results": [
         {
           "rule_id": "a11y_001",
           "name": "Image Alt Text",
           "category": "accessibility",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Good alt text coverage: 90.9%",
+          "message": "No images to check",
           "recommendation": null,
-          "data": {
-            "missing": 1,
-            "coverage": 90.9090909090909
-          },
+          "data": null,
           "tags": [
             "critical",
             "accessibility",
             "images"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_002",
@@ -1273,7 +1338,9 @@
             "critical",
             "accessibility",
             "language"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_003",
@@ -1289,25 +1356,27 @@
             "warning",
             "accessibility",
             "headings"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_004",
           "name": "Link Text",
           "category": "accessibility",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -8.0,
-          "message": "56 links have non-descriptive text",
-          "recommendation": "Use descriptive link text for better accessibility and SEO",
-          "data": {
-            "problematic_count": 56
-          },
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No links to check",
+          "recommendation": null,
+          "data": null,
           "tags": [
             "warning",
             "accessibility",
             "links"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_005",
@@ -1323,7 +1392,9 @@
             "warning",
             "accessibility",
             "contrast"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_006",
@@ -1339,7 +1410,9 @@
             "info",
             "accessibility",
             "keyboard"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_007",
@@ -1355,7 +1428,9 @@
             "info",
             "accessibility",
             "aria"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "a11y_008",
@@ -1371,25 +1446,29 @@
             "warning",
             "accessibility",
             "forms"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_001",
           "name": "Word Count",
           "category": "content",
-          "severity": "passed",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "Good content length: 661 words",
-          "recommendation": null,
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -8.0,
+          "message": "Thin content: 10 words (recommended: 300+)",
+          "recommendation": "Increase content to at least 300 words (currently 10)",
           "data": {
-            "word_count": 661
+            "word_count": 10
           },
           "tags": [
             "critical",
             "content",
             "quality"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_002",
@@ -1405,7 +1484,9 @@
             "info",
             "content",
             "ux"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_003",
@@ -1421,7 +1502,9 @@
             "warning",
             "content",
             "readability"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_004",
@@ -1437,7 +1520,9 @@
             "warning",
             "content",
             "quality"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_005",
@@ -1453,7 +1538,9 @@
             "critical",
             "content",
             "keywords"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_006",
@@ -1469,7 +1556,9 @@
             "warning",
             "content",
             "duplicate"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "content_007",
@@ -1485,130 +1574,136 @@
             "info",
             "content",
             "freshness"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_001",
           "name": "Image Alt Text",
           "category": "images",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Good alt text coverage: 90.9% (1 missing)",
+          "message": "No images found on page",
           "recommendation": null,
-          "data": {
-            "coverage": 90.9090909090909,
-            "total_count": 11,
-            "without_alt": 1
-          },
+          "data": null,
           "tags": [
             "critical",
             "images",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_002",
           "name": "Image File Size",
           "category": "images",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "All images are reasonably sized",
+          "message": "No image size data available",
           "recommendation": null,
           "data": null,
           "tags": [
             "warning",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_003",
           "name": "Lazy Loading",
           "category": "images",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
-          "score_impact": 1.0,
-          "message": "Lazy loading is implemented",
+          "score_impact": 0.0,
+          "message": "No images found",
           "recommendation": null,
-          "data": {
-            "lazy_loading": true
-          },
+          "data": null,
           "tags": [
             "info",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_004",
           "name": "Image Dimensions",
           "category": "images",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -2.0,
-          "message": "7 images missing width/height attributes",
-          "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
-          "data": {
-            "missing_dimensions": 7
-          },
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No image dimension data available",
+          "recommendation": null,
+          "data": null,
           "tags": [
             "warning",
             "images",
             "ux",
             "core_web_vitals"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_005",
           "name": "Responsive Images",
           "category": "images",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Responsive images (srcset) detected",
+          "message": "No image data available",
           "recommendation": null,
           "data": null,
           "tags": [
             "info",
             "images",
             "responsive"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "images_006",
           "name": "Modern Image Formats",
           "category": "images",
-          "severity": "passed",
+          "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Modern image formats detected (WebP/AVIF)",
+          "message": "No image data available",
           "recommendation": null,
           "data": null,
           "tags": [
             "info",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "links_001",
           "name": "Internal Links",
           "category": "links",
-          "severity": "passed",
-          "passed": true,
-          "score_impact": 1.0,
-          "message": "Good internal linking (56 internal links)",
-          "recommendation": null,
-          "data": {
-            "internal_count": 56
-          },
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No internal links found",
+          "recommendation": "Add internal links to other pages on your website",
+          "data": null,
           "tags": [
             "warning",
             "links",
             "navigation"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "links_002",
@@ -1624,7 +1719,9 @@
             "info",
             "links",
             "outbound"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "links_003",
@@ -1640,26 +1737,27 @@
             "critical",
             "links",
             "errors"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "links_004",
           "name": "Anchor Text",
           "category": "links",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -8.0,
-          "message": "56 links have generic/non-descriptive anchor text",
-          "recommendation": "Use descriptive anchor text for better SEO and accessibility",
-          "data": {
-            "total_links": 56,
-            "generic_count": 56
-          },
+          "severity": "info",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "No links to analyze",
+          "recommendation": null,
+          "data": null,
           "tags": [
             "warning",
             "links",
             "ux"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "links_005",
@@ -1668,17 +1766,16 @@
           "severity": "info",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Nofollow links: 0/56",
+          "message": "No links found",
           "recommendation": null,
-          "data": {
-            "total_count": 56,
-            "nofollow_count": 0
-          },
+          "data": null,
           "tags": [
             "info",
             "links",
             "crawling"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_001",
@@ -1687,30 +1784,34 @@
           "severity": "warning",
           "passed": false,
           "score_impact": -5.0,
-          "message": "Title length is 11 characters (recommended: 30-60) - too short",
+          "message": "Title length is 64 characters (recommended: 30-60) - too long",
           "recommendation": "Adjust title length to 30-60 characters for optimal SERP display",
           "data": null,
           "tags": [
             "critical",
             "on_page",
             "title"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_002",
           "name": "Meta Description",
           "category": "on_page",
-          "severity": "critical",
+          "severity": "warning",
           "passed": false,
-          "score_impact": -12.0,
-          "message": "Missing meta description",
-          "recommendation": "Add a compelling meta description (150-160 characters)",
+          "score_impact": -4.0,
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "recommendation": "Adjust meta description to 150-160 characters for optimal SERP display",
           "data": null,
           "tags": [
             "critical",
             "on_page",
             "meta"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_003",
@@ -1726,7 +1827,9 @@
             "critical",
             "on_page",
             "headings"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_004",
@@ -1739,8 +1842,8 @@
           "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
           "data": {
             "h1": 0,
-            "h2": 18,
-            "h3": 14,
+            "h2": 0,
+            "h3": 0,
             "issues": [
               "Missing H1"
             ]
@@ -1749,7 +1852,9 @@
             "warning",
             "on_page",
             "headings"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_005",
@@ -1765,7 +1870,9 @@
             "info",
             "on_page",
             "meta"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_006",
@@ -1781,7 +1888,9 @@
             "critical",
             "on_page",
             "duplicate_content"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "on_page_007",
@@ -1797,7 +1906,9 @@
             "warning",
             "on_page",
             "indexing"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_001",
@@ -1806,16 +1917,18 @@
           "severity": "passed",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Good response time: 0.38s",
+          "message": "Good response time: 0.23s",
           "recommendation": null,
           "data": {
-            "response_time": 0.377
+            "response_time": 0.229
           },
           "tags": [
             "critical",
             "performance",
             "core_web_vitals"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_002",
@@ -1831,7 +1944,9 @@
             "warning",
             "performance",
             "size"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_003",
@@ -1847,7 +1962,9 @@
             "info",
             "performance",
             "optimization"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_004",
@@ -1863,7 +1980,9 @@
             "warning",
             "performance",
             "resources"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_005",
@@ -1879,7 +1998,9 @@
             "warning",
             "performance",
             "caching"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_006",
@@ -1897,7 +2018,9 @@
             "warning",
             "performance",
             "compression"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_007",
@@ -1913,7 +2036,9 @@
             "warning",
             "performance",
             "size"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "perf_008",
@@ -1929,87 +2054,104 @@
             "critical",
             "performance",
             "javascript"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_001",
           "name": "Schema Markup",
           "category": "schema",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -5.0,
-          "message": "No structured data / schema markup found",
-          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
-          "data": null,
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Structured data found (1 items): Organization",
+          "recommendation": null,
+          "data": {
+            "types": [
+              "Organization"
+            ],
+            "schema_count": 1
+          },
           "tags": [
             "warning",
             "schema",
             "rich_snippets"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_002",
           "name": "Organization Schema",
           "category": "schema",
-          "severity": "info",
+          "severity": "passed",
           "passed": true,
           "score_impact": 0.0,
-          "message": "No schema markup to analyze",
+          "message": "Organization schema found",
           "recommendation": null,
           "data": null,
           "tags": [
             "info",
             "schema",
             "branding"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_003",
           "name": "Breadcrumb Schema",
           "category": "schema",
           "severity": "info",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "No schema markup to analyze",
-          "recommendation": null,
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No breadcrumb schema found",
+          "recommendation": "Add BreadcrumbList schema for better navigation display",
           "data": null,
           "tags": [
             "info",
             "schema",
             "navigation"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_004",
           "name": "Article Schema",
           "category": "schema",
           "severity": "info",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "No schema markup to analyze",
-          "recommendation": null,
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Article schema found",
+          "recommendation": "Add Article or BlogPosting schema for content pages",
           "data": null,
           "tags": [
             "info",
             "schema",
             "content"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_005",
           "name": "Product Schema",
           "category": "schema",
           "severity": "info",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "No schema markup to analyze",
-          "recommendation": null,
+          "passed": false,
+          "score_impact": -1.0,
+          "message": "No Product schema found",
+          "recommendation": "Add Product schema for e-commerce pages",
           "data": null,
           "tags": [
             "info",
             "schema",
             "ecommerce"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "schema_006",
@@ -2025,7 +2167,9 @@
             "info",
             "schema",
             "format"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_001",
@@ -2041,7 +2185,9 @@
             "critical",
             "security",
             "https"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_002",
@@ -2057,31 +2203,36 @@
             "critical",
             "security",
             "https"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_003",
           "name": "Security Headers",
           "category": "security",
-          "severity": "passed",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "All critical security headers present (5/5)",
-          "recommendation": null,
+          "severity": "critical",
+          "passed": false,
+          "score_impact": -15.0,
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "recommendation": "Add missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
           "data": {
-            "present": [
+            "missing": [
               "x-frame-options",
               "x-content-type-options",
               "strict-transport-security",
               "content-security-policy",
               "x-xss-protection"
-            ]
+            ],
+            "present": []
           },
           "tags": [
             "critical",
             "security",
             "headers"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_004",
@@ -2097,44 +2248,45 @@
             "critical",
             "security",
             "ssl"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_005",
           "name": "HSTS",
           "category": "security",
-          "severity": "info",
+          "severity": "warning",
           "passed": false,
-          "score_impact": -2.0,
-          "message": "HSTS present but may need adjustment: max-age=7889238",
-          "recommendation": "Set HSTS max-age to at least 1 year (31536000)",
-          "data": {
-            "hsts": "max-age=7889238"
-          },
+          "score_impact": -5.0,
+          "message": "HSTS header not found",
+          "recommendation": "Add Strict-Transport-Security header",
+          "data": null,
           "tags": [
             "warning",
             "security",
             "headers"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "security_006",
           "name": "XSS Protection",
           "category": "security",
-          "severity": "passed",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "XSS protection headers present",
-          "recommendation": null,
-          "data": {
-            "csp": "block-all-mixed-content; frame-ancestors 'none'; upgrade-insecure-requests;",
-            "x_xss_protection": "1; mode=block"
-          },
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "No XSS protection headers found",
+          "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+          "data": null,
           "tags": [
             "warning",
             "security",
             "xss"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "social_001",
@@ -2143,7 +2295,7 @@
           "severity": "passed",
           "passed": true,
           "score_impact": 0.0,
-          "message": "All required Open Graph tags present (9 total)",
+          "message": "All required Open Graph tags present (5 total)",
           "recommendation": null,
           "data": {
             "og_tags": [
@@ -2151,18 +2303,16 @@
               "og:type",
               "og:image",
               "og:title",
-              "og:site_name",
-              "og:description",
-              "og:image:width",
-              "og:image:height",
-              "og:image:secure_url"
+              "og:description"
             ]
           },
           "tags": [
             "info",
             "social",
             "sharing"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "social_002",
@@ -2178,7 +2328,9 @@
             "info",
             "social",
             "twitter"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "social_003",
@@ -2194,7 +2346,9 @@
             "info",
             "social",
             "links"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "social_004",
@@ -2210,7 +2364,9 @@
             "info",
             "social",
             "facebook"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "social_005",
@@ -2223,14 +2379,16 @@
           "recommendation": null,
           "data": {
             "image_url": [
-              "http://radonindia.com/cdn/shop/files/Radon_India.jpg?v=1764236327"
+              "https://infomagine.in/assets/infomagine%20logo-BsvjEvw5.png"
             ]
           },
           "tags": [
             "warning",
             "social",
             "images"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_001",
@@ -2248,7 +2406,9 @@
             "critical",
             "technical",
             "security"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_002",
@@ -2260,13 +2420,15 @@
           "message": "Viewport meta tag is properly configured",
           "recommendation": null,
           "data": {
-            "viewport": "width=device-width,initial-scale=1"
+            "viewport": "width=device-width, initial-scale=1.0"
           },
           "tags": [
             "critical",
             "technical",
             "mobile"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_003",
@@ -2284,7 +2446,9 @@
             "warning",
             "technical",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_004",
@@ -2293,15 +2457,17 @@
           "severity": "passed",
           "passed": true,
           "score_impact": 0.0,
-          "message": "Character encoding declared: utf-8",
+          "message": "Character encoding declared: UTF-8",
           "recommendation": null,
           "data": {
-            "charset": "utf-8"
+            "charset": "UTF-8"
           },
           "tags": [
             "warning",
             "technical"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_005",
@@ -2316,7 +2482,9 @@
           "tags": [
             "critical",
             "technical"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_006",
@@ -2334,7 +2502,9 @@
             "warning",
             "technical",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_008",
@@ -2350,7 +2520,9 @@
             "info",
             "technical",
             "crawling"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_009",
@@ -2366,25 +2538,112 @@
             "info",
             "technical",
             "indexing"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         },
         {
           "rule_id": "technical_010",
           "name": "Structured Data",
           "category": "technical",
-          "severity": "warning",
-          "passed": false,
-          "score_impact": -5.0,
-          "message": "No structured data / schema markup found",
-          "recommendation": "Add Schema.org markup to enable rich snippets in search results",
-          "data": null,
+          "severity": "passed",
+          "passed": true,
+          "score_impact": 0.0,
+          "message": "Structured data found (1 items): Organization",
+          "recommendation": null,
+          "data": {
+            "types": [
+              "Organization"
+            ],
+            "schema_count": 1
+          },
           "tags": [
             "warning",
             "technical",
             "rich_snippets"
-          ]
+          ],
+          "page_url": "https://infomagine.in/",
+          "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c"
         }
       ]
+    }
+  ],
+  "page_details": [
+    {
+      "page_id": "7e97c637-45a5-4124-9772-f1d8e0a2eb4c",
+      "url": "https://infomagine.in/",
+      "normalized_url": "https://infomagine.in/",
+      "status_code": 200,
+      "response_time_ms": 229,
+      "content_length": 3778,
+      "content_type": "text/html",
+      "is_success": true,
+      "depth": 0,
+      "parsed_data_snapshot": {
+        "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+        "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+        "word_count": 10,
+        "language": "en",
+        "canonical": "https://www.infomagine.in/",
+        "structured_data": {
+          "exists": true
+        },
+        "social": {
+          "twitter": {
+            "tags": {
+              "twitter:card": [
+                "summary_large_image"
+              ],
+              "twitter:image": [
+                "https://infomagine.in/assets/infomagine%20logo-BsvjEvw5.png"
+              ],
+              "twitter:title": [
+                "Custom Software & Web Development Company | Infomagine"
+              ],
+              "twitter:description": [
+                "Leading software company in Jaipur providing custom web & mobile solutions."
+              ]
+            }
+          },
+          "open_graph": {
+            "tags": {
+              "og:url": [
+                "https://www.infomagine.in/"
+              ],
+              "og:type": [
+                "website"
+              ],
+              "og:image": [
+                "https://infomagine.in/assets/infomagine%20logo-BsvjEvw5.png"
+              ],
+              "og:title": [
+                "Custom Software & Web Development Company | Infomagine"
+              ],
+              "og:description": [
+                "Trusted IT company in Jaipur offering custom software, web & mobile app development solutions."
+              ]
+            }
+          }
+        }
+      },
+      "network": {
+        "status_code": 200,
+        "response_time_ms": 229,
+        "content_length": 3778,
+        "headers": {
+          "date": "Tue, 18 Aug 2026 05:35:26 GMT",
+          "etag": "\"ec2-657bf277ae740-gzip\"",
+          "vary": "Accept-Encoding",
+          "server": "Apache",
+          "connection": "Keep-Alive",
+          "keep-alive": "timeout=5, max=100",
+          "content-type": "text/html",
+          "accept-ranges": "bytes",
+          "last-modified": "Wed, 29 Jul 2026 12:32:53 GMT",
+          "content-length": "1476",
+          "content-encoding": "gzip"
+        }
+      }
     }
   ]
 }

@@ -1,19 +1,19 @@
 {
-  "project_id": "052e5352-8200-48c5-a78f-f850e5ed0d7f",
-  "crawl_id": "40d44f03-04f1-46b3-bd7f-bf338b7d83d2",
+  "project_id": "e1da885d-ba5c-48fb-9131-73d46e969b0a",
+  "crawl_id": "54b3a2ec-0266-4397-94d1-1989442f7df8",
   "domain": "radonindia.com",
-  "scored_at": "2026-08-17T12:45:38.776605+00:00",
-  "overall_score": 83.8,
+  "scored_at": "2026-08-18T05:49:52.634000+00:00",
+  "overall_score": 83.5,
   "grade": "B",
   "total_pages_scored": 1,
   "total_rules_evaluated": 67,
-  "total_passed": 44,
-  "total_failed": 23,
+  "total_passed": 43,
+  "total_failed": 24,
   "critical_issues": 4,
-  "warnings": 12,
+  "warnings": 13,
   "error_pages": 0,
   "error_summary": null,
-  "summary": "Good! Your site scores 83.8/100 (Grade B). Minor improvements recommended.",
+  "summary": "Good! Your site scores 83.5/100 (Grade B). Minor improvements recommended.",
   "category_scores": {
     "accessibility": {
       "overall_score": 87.0,
@@ -598,19 +598,37 @@
       ]
     },
     "performance": {
-      "overall_score": 98.0,
-      "grade": "A+",
+      "overall_score": 93.0,
+      "grade": "A",
       "categories": {
         "performance": {
           "category": "performance",
-          "score": 98.0,
+          "score": 93.0,
           "max_score": 100.0,
           "weight": 0.05,
-          "rules_checked": 1,
+          "rules_checked": 2,
           "rules_passed": 0,
-          "rules_failed": 1,
+          "rules_failed": 2,
           "issues": [],
           "warnings": [
+            {
+              "rule_id": "perf_001",
+              "name": "Response Time",
+              "category": "performance",
+              "severity": "warning",
+              "passed": false,
+              "score_impact": -5.0,
+              "message": "Slow response time: 0.53s (should be <200ms)",
+              "recommendation": "Optimize server response time to under 200ms",
+              "data": {
+                "response_time": 0.527
+              },
+              "tags": [
+                "critical",
+                "performance",
+                "core_web_vitals"
+              ]
+            },
             {
               "rule_id": "perf_005",
               "name": "Browser Caching",
@@ -631,13 +649,31 @@
           "passed_rules": []
         }
       },
-      "total_rules": 1,
+      "total_rules": 2,
       "total_passed": 0,
-      "total_failed": 1,
+      "total_failed": 2,
       "critical_issues": 0,
-      "warnings": 0,
-      "summary": "Excellent! Your site scores 98.0/100 (Grade A+). Your website follows SEO best practices.",
+      "warnings": 1,
+      "summary": "Excellent! Your site scores 93.0/100 (Grade A). Your website follows SEO best practices.",
       "top_issues": [
+        {
+          "rule_id": "perf_001",
+          "name": "Response Time",
+          "category": "performance",
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Slow response time: 0.53s (should be <200ms)",
+          "recommendation": "Optimize server response time to under 200ms",
+          "data": {
+            "response_time": 0.527
+          },
+          "tags": [
+            "critical",
+            "performance",
+            "core_web_vitals"
+          ]
+        },
         {
           "rule_id": "perf_005",
           "name": "Browser Caching",
@@ -1077,7 +1113,9 @@
         "critical",
         "technical",
         "security"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "on_page_002",
@@ -1093,7 +1131,9 @@
         "critical",
         "on_page",
         "meta"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "on_page_003",
@@ -1109,7 +1149,9 @@
         "critical",
         "on_page",
         "headings"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "technical_005",
@@ -1124,7 +1166,9 @@
       "tags": [
         "critical",
         "technical"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "a11y_004",
@@ -1142,7 +1186,9 @@
         "warning",
         "accessibility",
         "links"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "links_004",
@@ -1161,7 +1207,9 @@
         "warning",
         "links",
         "ux"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "a11y_003",
@@ -1177,7 +1225,9 @@
         "warning",
         "accessibility",
         "headings"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "content_003",
@@ -1193,7 +1243,9 @@
         "warning",
         "content",
         "readability"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "on_page_001",
@@ -1209,7 +1261,9 @@
         "critical",
         "on_page",
         "title"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     },
     {
       "rule_id": "on_page_006",
@@ -1225,17 +1279,19 @@
         "critical",
         "on_page",
         "duplicate_content"
-      ]
+      ],
+      "page_url": "https://radonindia.com/",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
     }
   ],
   "per_page": [
     {
-      "page_id": "a4851ba5-475f-4671-a23e-b54a97c0da8f",
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce",
       "url": "https://radonindia.com/",
-      "overall_score": 83.8,
+      "overall_score": 83.5,
       "grade": "B",
-      "rules_passed": 44,
-      "rules_failed": 23,
+      "rules_passed": 43,
+      "rules_failed": 24,
       "critical_issues": 4,
       "rule_results": [
         {
@@ -1255,7 +1311,9 @@
             "critical",
             "accessibility",
             "images"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_002",
@@ -1273,7 +1331,9 @@
             "critical",
             "accessibility",
             "language"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_003",
@@ -1289,7 +1349,9 @@
             "warning",
             "accessibility",
             "headings"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_004",
@@ -1307,7 +1369,9 @@
             "warning",
             "accessibility",
             "links"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_005",
@@ -1323,7 +1387,9 @@
             "warning",
             "accessibility",
             "contrast"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_006",
@@ -1339,7 +1405,9 @@
             "info",
             "accessibility",
             "keyboard"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_007",
@@ -1355,7 +1423,9 @@
             "info",
             "accessibility",
             "aria"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "a11y_008",
@@ -1371,7 +1441,9 @@
             "warning",
             "accessibility",
             "forms"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_001",
@@ -1389,7 +1461,9 @@
             "critical",
             "content",
             "quality"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_002",
@@ -1405,7 +1479,9 @@
             "info",
             "content",
             "ux"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_003",
@@ -1421,7 +1497,9 @@
             "warning",
             "content",
             "readability"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_004",
@@ -1437,7 +1515,9 @@
             "warning",
             "content",
             "quality"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_005",
@@ -1453,7 +1533,9 @@
             "critical",
             "content",
             "keywords"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_006",
@@ -1469,7 +1551,9 @@
             "warning",
             "content",
             "duplicate"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "content_007",
@@ -1485,7 +1569,9 @@
             "info",
             "content",
             "freshness"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_001",
@@ -1505,7 +1591,9 @@
             "critical",
             "images",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_002",
@@ -1521,7 +1609,9 @@
             "warning",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_003",
@@ -1539,7 +1629,9 @@
             "info",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_004",
@@ -1558,7 +1650,9 @@
             "images",
             "ux",
             "core_web_vitals"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_005",
@@ -1574,7 +1668,9 @@
             "info",
             "images",
             "responsive"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "images_006",
@@ -1590,7 +1686,9 @@
             "info",
             "images",
             "performance"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "links_001",
@@ -1608,7 +1706,9 @@
             "warning",
             "links",
             "navigation"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "links_002",
@@ -1624,7 +1724,9 @@
             "info",
             "links",
             "outbound"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "links_003",
@@ -1640,7 +1742,9 @@
             "critical",
             "links",
             "errors"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "links_004",
@@ -1659,7 +1763,9 @@
             "warning",
             "links",
             "ux"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "links_005",
@@ -1678,7 +1784,9 @@
             "info",
             "links",
             "crawling"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_001",
@@ -1694,7 +1802,9 @@
             "critical",
             "on_page",
             "title"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_002",
@@ -1710,7 +1820,9 @@
             "critical",
             "on_page",
             "meta"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_003",
@@ -1726,7 +1838,9 @@
             "critical",
             "on_page",
             "headings"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_004",
@@ -1749,7 +1863,9 @@
             "warning",
             "on_page",
             "headings"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_005",
@@ -1765,7 +1881,9 @@
             "info",
             "on_page",
             "meta"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_006",
@@ -1781,7 +1899,9 @@
             "critical",
             "on_page",
             "duplicate_content"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "on_page_007",
@@ -1797,25 +1917,29 @@
             "warning",
             "on_page",
             "indexing"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_001",
           "name": "Response Time",
           "category": "performance",
-          "severity": "passed",
-          "passed": true,
-          "score_impact": 0.0,
-          "message": "Good response time: 0.48s",
-          "recommendation": null,
+          "severity": "warning",
+          "passed": false,
+          "score_impact": -5.0,
+          "message": "Slow response time: 0.53s (should be <200ms)",
+          "recommendation": "Optimize server response time to under 200ms",
           "data": {
-            "response_time": 0.483
+            "response_time": 0.527
           },
           "tags": [
             "critical",
             "performance",
             "core_web_vitals"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_002",
@@ -1831,7 +1955,9 @@
             "warning",
             "performance",
             "size"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_003",
@@ -1847,7 +1973,9 @@
             "info",
             "performance",
             "optimization"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_004",
@@ -1863,7 +1991,9 @@
             "warning",
             "performance",
             "resources"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_005",
@@ -1879,7 +2009,9 @@
             "warning",
             "performance",
             "caching"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_006",
@@ -1897,7 +2029,9 @@
             "warning",
             "performance",
             "compression"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_007",
@@ -1913,7 +2047,9 @@
             "warning",
             "performance",
             "size"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "perf_008",
@@ -1929,7 +2065,9 @@
             "critical",
             "performance",
             "javascript"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_001",
@@ -1945,7 +2083,9 @@
             "warning",
             "schema",
             "rich_snippets"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_002",
@@ -1961,7 +2101,9 @@
             "info",
             "schema",
             "branding"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_003",
@@ -1977,7 +2119,9 @@
             "info",
             "schema",
             "navigation"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_004",
@@ -1993,7 +2137,9 @@
             "info",
             "schema",
             "content"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_005",
@@ -2009,7 +2155,9 @@
             "info",
             "schema",
             "ecommerce"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "schema_006",
@@ -2025,7 +2173,9 @@
             "info",
             "schema",
             "format"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_001",
@@ -2041,7 +2191,9 @@
             "critical",
             "security",
             "https"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_002",
@@ -2057,7 +2209,9 @@
             "critical",
             "security",
             "https"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_003",
@@ -2081,7 +2235,9 @@
             "critical",
             "security",
             "headers"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_004",
@@ -2097,7 +2253,9 @@
             "critical",
             "security",
             "ssl"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_005",
@@ -2115,7 +2273,9 @@
             "warning",
             "security",
             "headers"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "security_006",
@@ -2134,7 +2294,9 @@
             "warning",
             "security",
             "xss"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "social_001",
@@ -2162,7 +2324,9 @@
             "info",
             "social",
             "sharing"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "social_002",
@@ -2178,7 +2342,9 @@
             "info",
             "social",
             "twitter"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "social_003",
@@ -2194,7 +2360,9 @@
             "info",
             "social",
             "links"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "social_004",
@@ -2210,7 +2378,9 @@
             "info",
             "social",
             "facebook"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "social_005",
@@ -2230,7 +2400,9 @@
             "warning",
             "social",
             "images"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_001",
@@ -2248,7 +2420,9 @@
             "critical",
             "technical",
             "security"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_002",
@@ -2266,7 +2440,9 @@
             "critical",
             "technical",
             "mobile"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_003",
@@ -2284,7 +2460,9 @@
             "warning",
             "technical",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_004",
@@ -2301,7 +2479,9 @@
           "tags": [
             "warning",
             "technical"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_005",
@@ -2316,7 +2496,9 @@
           "tags": [
             "critical",
             "technical"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_006",
@@ -2334,7 +2516,9 @@
             "warning",
             "technical",
             "accessibility"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_008",
@@ -2350,7 +2534,9 @@
             "info",
             "technical",
             "crawling"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_009",
@@ -2366,7 +2552,9 @@
             "info",
             "technical",
             "indexing"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         },
         {
           "rule_id": "technical_010",
@@ -2382,9 +2570,116 @@
             "warning",
             "technical",
             "rich_snippets"
-          ]
+          ],
+          "page_url": "https://radonindia.com/",
+          "page_id": "a919599d-6d93-4f19-a675-321b658418ce"
         }
       ]
+    }
+  ],
+  "page_details": [
+    {
+      "page_id": "a919599d-6d93-4f19-a675-321b658418ce",
+      "url": "https://radonindia.com/",
+      "normalized_url": "https://radonindia.com/",
+      "status_code": 200,
+      "response_time_ms": 527,
+      "content_length": 206924,
+      "content_type": "text/html; charset=utf-8",
+      "is_success": true,
+      "depth": 0,
+      "parsed_data_snapshot": {
+        "title": "Radon India",
+        "meta_description": "",
+        "word_count": 661,
+        "language": "en",
+        "canonical": "https://radonindia.com/",
+        "structured_data": {
+          "exists": false
+        },
+        "social": {
+          "twitter": {
+            "tags": {
+              "twitter:card": [
+                "summary_large_image"
+              ],
+              "twitter:title": [
+                "Radon India"
+              ],
+              "twitter:description": [
+                "Radon India"
+              ]
+            }
+          },
+          "open_graph": {
+            "tags": {
+              "og:url": [
+                "https://radonindia.com/"
+              ],
+              "og:type": [
+                "website"
+              ],
+              "og:image": [
+                "http://radonindia.com/cdn/shop/files/Radon_India.jpg?v=1764236327"
+              ],
+              "og:title": [
+                "Radon India"
+              ],
+              "og:site_name": [
+                "Radon India"
+              ],
+              "og:description": [
+                "Radon India"
+              ],
+              "og:image:width": [
+                "1200"
+              ],
+              "og:image:height": [
+                "628"
+              ],
+              "og:image:secure_url": [
+                "https://radonindia.com/cdn/shop/files/Radon_India.jpg?v=1764236327"
+              ]
+            }
+          }
+        }
+      },
+      "network": {
+        "status_code": 200,
+        "response_time_ms": 527,
+        "content_length": 207014,
+        "headers": {
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.01,\"max_age\":604800}",
+          "date": "Tue, 18 Aug 2026 05:49:51 GMT",
+          "etag": "W/\"page_cache:76001607925:IndexController:c778b728f626426be3b9513be0f89d66\"",
+          "link": "<https://cdn.shopify.com>; rel=\"preconnect\", <https://cdn.shopify.com>; rel=\"preconnect\"; crossorigin, <//radonindia.com/cdn/shop/t/2/assets/base.css?v=133767959582052124241776331887>; as=\"style\"; rel=\"preload\", <//radonindia.com/cdn/shop/t/2/assets/view-transitions.js?v=84877080446900032951753511876>; as=\"script\"; rel=\"preload\", <//radonindia.com/cdn/shop/t/2/assets/overflow-list.css?v=168694168152117541881753511876>; as=\"style\"; rel=\"preload\", <//radonindia.com/cdn/shop/t/2/compiled_assets/styles.css?v=140540915286495390611785313966>; as=\"style\"; rel=\"preload\", <//radonindia.com/cdn/shop/t/2/assets/critical.js?v=85414696979434699111753511876>; as=\"script\"; rel=\"preload\"",
+          "vary": "Accept, accept-encoding",
+          "x-dc": "gcp-asia-southeast1,gcp-asia-southeast1,gcp-asia-southeast1",
+          "cf-ray": "a2cea33dc8b4fd2e-SIN",
+          "server": "cloudflare",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=u2n%2BcbmQNT6PqxV6Lx6izgrR2AvtCCE641Df%2F8GKSliyzWQTueKspHb1bxp7YPtIiPnF15l6yBs0n0xjz3qHnN07tyDkLQvpMQEzjlU4tKDUufB4t4rCnm9syhhbIARfpTmhCCdGXV3hMJEU\"}]}",
+          "connection": "keep-alive",
+          "powered-by": "Shopify",
+          "set-cookie": "localization=IN; path=/; expires=Wed, 18 Aug 2027 05:49:51 GMT, _shopify_y=f2406ee4-2e12-4ed9-bc1a-1d3bc839fcdf; domain=radonindia.com; path=/; expires=Wed, 18 Aug 2027 11:49:51 GMT; SameSite=Lax, _shopify_s=69f95318-52dd-4c93-bbdb-cdd981500e57; domain=radonindia.com; path=/; expires=Tue, 18 Aug 2026 06:19:51 GMT; SameSite=Lax, _shopify_essential=:AaATa0LQAAEAmmkWG__YI4saSfnWRwROHx6Bc1JwSZOQVumpx8_reCApiourtNho80fW6MZWJIa6hpBpnyy0kGpewhdxRPeX9zHRsArzuabxIzfvDfpZnz4IwYmLy2xVDSwHZ9X4VhUp_TECrDZ8I948sCE2omwK9hK2oSnQkKxXjNgLw9qiBzjMHNVJLNVnqhzEhuVzQhqs8h-n4RtPrDSykVUT4Yp9m4ziOW_8VxiY5fs3rZycWJDb3ezkPf8IZN3TsFqezwVXor5fiKyVusmRaU8fnO4e8H9EBMSgP6D_hGlswB9pG93h_yX01fS_apvSxuxBRER2OpM_hzpnPrAQm7IEnvHzjCoS9oW_2PcTHGiK3DmLNRgeDJTJtit2l3wgjV40iiW1phALTFf7deX-QrFmR8qt44780u1lmItZ1t2HUJuUgz5iodvYM9_S65_ZVbKV6SuC1jehkndfq4UkfnQYStmZAOipVJXJGCmVNeLPxf1zT8DRV1yTLXN_BtgNJYBH_sgFnMZTuxrnaaNDdJHGp7o-y-ecSNkiinOWU8o_r4DR5Fo:; Max-Age=31536000; Path=/; HttpOnly; Secure; Priority=High; SameSite=Lax, _shopify_analytics=:AaATa0LvAAEAVwA6zNi6OVy90EgQu-6WeADxD7vMaYQBv6_RZteWtDtysjHxpsgD0HLO3Cy_QT9tmvlV-4rDFwWpz8N40NRS_egX72kQIJH64FRyTKdEm2jcGJvZsAFZ2a2Dlt9WgtMXFob_:; Max-Age=31536000; Path=/; HttpOnly; Secure; Priority=High; SameSite=Lax, _shopify_marketing=:AaATa0LwAAEAQCvNs_wn9BpHXOBWdt2VQqYxd271BfJhvf1awzeD_p_YjcZB973G76p07ThbooO0RIK2MPZvn7AA8IleAay8EnBRDa13B5sN6aw1jk92jczofTwMtEl-NZYu:; Max-Age=31536000; Path=/; HttpOnly; Secure; Priority=High; SameSite=Lax",
+          "content-type": "text/html; charset=utf-8",
+          "x-request-id": "c030368c-a0ce-4946-b8b7-b04151131d8f-1787032191",
+          "server-timing": "processing;dur=50, db;dur=18, asn;desc=\"18209\", edge;desc=\"SIN\", country;desc=\"IN\", theme;desc=\"151521689845\", pageType;desc=\"index\", servedBy;desc=\"8n6v\", requestID;desc=\"c030368c-a0ce-4946-b8b7-b04151131d8f-1787032191\", _y;desc=\"f2406ee4-2e12-4ed9-bc1a-1d3bc839fcdf\", _s;desc=\"69f95318-52dd-4c93-bbdb-cdd981500e57\", _cmp;desc=\"3.AMPS_INRJ_f_f_SuAvBYPtRdGcEeJc5dVXVA\", compressionLevel;desc=\"5\", ipv6",
+          "cf-cache-status": "DYNAMIC",
+          "x-frame-options": "DENY",
+          "content-encoding": "gzip",
+          "content-language": "en-IN",
+          "x-xss-protection": "1; mode=block",
+          "transfer-encoding": "chunked",
+          "x-download-options": "noopen",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "block-all-mixed-content; frame-ancestors 'none'; upgrade-insecure-requests;",
+          "shopify-complexity-score": "440",
+          "strict-transport-security": "max-age=7889238",
+          "shopify-complexity-score-v2": "44",
+          "x-permitted-cross-domain-policies": "none"
+        }
+      }
     }
   ]
 }

@@ -135,6 +135,11 @@ async def analyze_website(
                 detail="Parsing produced no data"
             )
         
+        # Attach page URL to parsed data
+        parsed_data["page_url"] = body.url
+        if isinstance(parsed_data.get("crawl_context"), dict):
+            parsed_data["crawl_context"]["page_url"] = body.url
+        
         # Step 3: Score the parsed data
         logger.info("Step 3: Starting scoring phase")
         scorer_service = ScorerService()
@@ -277,6 +282,96 @@ async def analyze_website(
             f"(Grade: {db_score_report['grade']})"
         )
         
+        # Step 8: Enrich parsed_data with links analysis
+        logger.info("Step 8: Starting links analysis enrichment")
+        parsed_links = parsed_data.get("links", []) or []
+        external_links = [
+            l for l in parsed_links
+            if l.get("external", False) or l.get("link_type", "") == "external"
+        ]
+        internal_links = [
+            l for l in parsed_links
+            if not l.get("external", False) and l.get("link_type", "") != "external"
+        ]
+
+        # Map rule results to affected links by matching URLs/domains
+        rule_results_for_links = []
+        all_rule_results = db_score_report.get("per_page", [{}])[0].get("rule_results", [])
+        for rr in all_rule_results:
+            if not rr.get("passed", True):
+                rule_results_for_links.append({
+                    "rule_id": rr.get("rule_id"),
+                    "category": rr.get("category"),
+                    "severity": rr.get("severity"),
+                    "message": rr.get("message"),
+                    "page_url": rr.get("page_url"),
+                })
+
+        def summarize_link(link: dict) -> dict:
+            """Extract core link details with page URL context."""
+            return {
+                "page_url": body.url,
+                "url": link.get("url", link.get("href", "")),
+                "label": link.get("label", link.get("text", "")),
+                "link_type": link.get("link_type", "internal" if not link.get("external", False) else "external"),
+                "external": link.get("external", False),
+                "nofollow": link.get("nofollow", False),
+                "anchor_text": link.get("label", link.get("text", "")),
+            }
+
+        links_analysis = {
+            "total_links": {
+                "count": len(parsed_links),
+                "external_count": len(external_links),
+                "internal_count": len(internal_links),
+                "links": [summarize_link(l) for l in parsed_links],
+            },
+            "external_links": [summarize_link(l) for l in external_links],
+            "internal_links": [summarize_link(l) for l in internal_links],
+            "related_issues": rule_results_for_links,
+        }
+        parsed_data["links_analysis"] = links_analysis
+        logger.info(
+            f"Links analysis: {len(parsed_links)} total "
+            f"({len(external_links)} external, {len(internal_links)} internal)"
+        )
+        
+        # Step 9: Build page-centric grouping
+        logger.info("Step 9: Building page-centric response grouping")
+        pages_response = []
+        for pp in db_score_report.get("per_page", []):
+            page_id = pp.get("page_id")
+            page_url = pp.get("url")
+            # Find matching page_details
+            page_detail = next(
+                (pd for pd in db_score_report.get("page_details", [])
+                 if pd.get("page_id") == page_id),
+                {},
+            )
+            pages_response.append({
+                "page_id": page_id,
+                "page_url": page_url,
+                "page_score": {
+                    "overall_score": pp.get("overall_score"),
+                    "grade": pp.get("grade"),
+                    "rules_passed": pp.get("rules_passed", 0),
+                    "rules_failed": pp.get("rules_failed", 0),
+                },
+                "rule_results": pp.get("rule_results", []),
+                "crawl_details": {
+                    "status_code": page_detail.get("status_code"),
+                    "response_time_ms": page_detail.get("response_time_ms"),
+                    "content_length": page_detail.get("content_length"),
+                    "content_type": page_detail.get("content_type"),
+                    "is_success": page_detail.get("is_success"),
+                    "depth": page_detail.get("depth"),
+                    "normalized_url": page_detail.get("normalized_url"),
+                },
+                "parsed_info": page_detail.get("parsed_data_snapshot") or {},
+                "links_analysis": links_analysis,
+            })
+        logger.info(f"Built {len(pages_response)} page entries in response")
+        
         return AuditAnalyzeResponse(
             success=True,
             message="SEO audit completed successfully",
@@ -285,6 +380,7 @@ async def analyze_website(
             crawl=crawl_summary,
             seo_score=db_score_report,
             parsed_data=parsed_data,
+            pages=pages_response,
         )
         
     except ValueError as e:
