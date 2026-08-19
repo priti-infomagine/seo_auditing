@@ -1,4 +1,4 @@
-﻿"""
+"""
 Crawl persistence service - persists all structured crawl facts to PostgreSQL.
 
 This service:
@@ -44,6 +44,8 @@ from app.modules.crawler.repositories.page_snapshot_repository import PageSnapsh
 from app.modules.crawler.repositories.crawl_error_repository import CrawlErrorRepository
 from app.modules.crawler.repositories.page_link_repository import PageLinkRepository
 
+import asyncio
+
 
 class CrawlPersistenceService:
     """Service for persisting crawl data."""
@@ -51,6 +53,7 @@ class CrawlPersistenceService:
     def __init__(self, db, crawl_job_id: UUID):
         self.db = db
         self.crawl_job_id = crawl_job_id
+        self._write_lock = asyncio.Lock()
         self.job_repo = CrawlJobRepository(db)
         self.page_repo = CrawlPageRepository(db)
         self.seo_repo = PageSEODataRepository(db)
@@ -105,13 +108,14 @@ class CrawlPersistenceService:
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
         """Persist a crawl page."""
         try:
-            existing = await self.page_repo.get_by_url(page.crawl_id, page.normalized_url)
-            if existing:
-                for key, value in page.__dict__.items():
-                    if key not in ("id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"):
-                        setattr(existing, key, value)
-                return await self.page_repo.update(existing)
-            return await self.page_repo.create(page)
+            async with self._write_lock:
+                existing = await self.page_repo.get_by_url(page.crawl_id, page.normalized_url)
+                if existing:
+                    for key, value in page.__dict__.items():
+                        if key not in ("id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"):
+                            setattr(existing, key, value)
+                    return await self.page_repo.update(existing)
+                return await self.page_repo.create(page)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_page: error: {exc}", exc_info=True)
             raise
@@ -119,7 +123,8 @@ class CrawlPersistenceService:
     async def persist_seo_data(self, seo_data: PageSEOData) -> PageSEOData:
         """Persist SEO data."""
         try:
-            return await self.seo_repo.upsert(seo_data)
+            async with self._write_lock:
+                return await self.seo_repo.upsert(seo_data)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_seo_data: error: {exc}", exc_info=True)
             raise
@@ -166,7 +171,8 @@ class CrawlPersistenceService:
                 )
                 resource_objects.append(resource)
 
-            return await self.resource_repo.create_batch(resource_objects)
+            async with self._write_lock:
+                return await self.resource_repo.create_batch(resource_objects)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_resources: error: {exc}", exc_info=True)
             raise
@@ -174,7 +180,8 @@ class CrawlPersistenceService:
     async def persist_network_data(self, network_data: PageNetworkData) -> PageNetworkData:
         """Persist network data."""
         try:
-            return await self.network_repo.upsert(network_data)
+            async with self._write_lock:
+                return await self.network_repo.upsert(network_data)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_network_data: error: {exc}", exc_info=True)
             raise
@@ -182,7 +189,8 @@ class CrawlPersistenceService:
     async def persist_site_data(self, site_data: CrawlSiteData) -> CrawlSiteData:
         """Persist site data."""
         try:
-            return await self.site_repo.upsert(site_data)
+            async with self._write_lock:
+                return await self.site_repo.upsert(site_data)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_site_data: error: {exc}", exc_info=True)
             raise
@@ -196,7 +204,8 @@ class CrawlPersistenceService:
             if should_compress(html_content):
                 content_to_store = compress_html(html_content)
                 compressed = True
-            return await self.snapshot_repo.save_snapshot(page_id, content_to_store, compressed)
+            async with self._write_lock:
+                return await self.snapshot_repo.save_snapshot(page_id, content_to_store, compressed)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_snapshot: error: {exc}", exc_info=True)
             raise
@@ -209,13 +218,14 @@ class CrawlPersistenceService:
     ) -> CrawlError:
         """Persist crawl error."""
         try:
-            error = CrawlError(
-                crawl_id=self.crawl_job_id,
-                page_id=page_id,
-                error_type=error_type,
-                error_message=error_message,
-            )
-            return await self.error_repo.create(error)
+            async with self._write_lock:
+                error = CrawlError(
+                    crawl_id=self.crawl_job_id,
+                    page_id=page_id,
+                    error_type=error_type,
+                    error_message=error_message,
+                )
+                return await self.error_repo.create(error)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_error: error: {exc}", exc_info=True)
             raise
@@ -244,7 +254,8 @@ class CrawlPersistenceService:
                 for link in links
                 if isinstance(link, dict)
             ]
-            return await self.link_repo.create_batch(link_objects)
+            async with self._write_lock:
+                return await self.link_repo.create_batch(link_objects)
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_links: error: {exc}", exc_info=True)
             raise
