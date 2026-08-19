@@ -11,14 +11,23 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class SEOIssueResponse(BaseModel):
     """
-    Public projection of an issue. STRICT: only page_url + affected_part.
+    Public projection of an issue.
 
-    rule_id / severity / evidence live in the internal SEOIssue and in
-    `category_results` / `priorities` / `recommendations` — never here.
+    Carries the rule_id scheme (e.g. 'on_page_002') so every entry is
+    traceable to `recommendations[]` / `priorities{}`; `severity` matches the
+    priorities buckets (critical/high/medium/low) and `message` is a short
+    human-readable description.
     """
 
     model_config = ConfigDict(extra="forbid")
 
+    rule_id: str = Field(..., description="Stable machine identifier, e.g. 'on_page_002'")
+    severity: str = Field(
+        ..., description="critical | high | medium | low (matches priorities buckets)"
+    )
+    message: Optional[str] = Field(
+        None, description="Short human-readable description of the issue"
+    )
     page_url: str = Field(..., description="URL of the page with the issue")
     affected_part: str = Field(
         ..., description="Specific element/location affected, e.g. 'meta_description'"

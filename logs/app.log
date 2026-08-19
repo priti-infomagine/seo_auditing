@@ -6514,3 +6514,212 @@ TypeError: 'TechnicalAnalysisService' object is not callable
 2026-08-18 17:20:50,744 | INFO | AuditResponseBuilder.build: project_id=80243dae-6b7b-455d-8be9-cbf7975117e5 crawl_id=e4706ea8-d40f-4204-8a0b-2345e7ed9ed6
 2026-08-18 17:20:50,990 | INFO | AnalysisScorerService.score_project: score=87.5, grade=B+, pages=20, project_id=80243dae-6b7b-455d-8be9-cbf7975117e5
 2026-08-18 17:20:50,990 | INFO | DB scoring completed: Score=87.5/100 (Health: good)
+2026-08-18 17:39:29,748 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-18 17:39:29,752 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-18 17:39:31,080 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-18 17:39:31,080 | INFO | Step 2: Starting DB persistence phase
+2026-08-18 17:39:31,399 | INFO | DB persistence completed: crawl_id=c99dd663-444d-45bd-9cee-5d394bf331fd
+2026-08-18 17:39:31,399 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-18 17:39:31,399 | INFO | DBParserService.parse_crawl: project_id=1665bfe6-0924-4143-a6be-e6e8382387bf, crawl_id=c99dd663-444d-45bd-9cee-5d394bf331fd, force=True
+2026-08-18 17:39:31,532 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=1665bfe6-0924-4143-a6be-e6e8382387bf
+2026-08-18 17:39:31,532 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-18 17:39:31,532 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-18 17:39:31,532 | INFO | Loaded 70 scoring rules
+2026-08-18 17:39:31,532 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=1665bfe6-0924-4143-a6be-e6e8382387bf, crawl_id=c99dd663-444d-45bd-9cee-5d394bf331fd, force=True
+2026-08-18 17:39:31,963 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=1665bfe6-0924-4143-a6be-e6e8382387bf
+2026-08-18 17:39:31,963 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-18 17:39:31,963 | INFO | Step 5: Starting DB-backed scoring
+2026-08-18 17:39:31,967 | INFO | AnalysisScorerService.score_project: project_id=1665bfe6-0924-4143-a6be-e6e8382387bf, crawl_id=c99dd663-444d-45bd-9cee-5d394bf331fd, force=True
+2026-08-18 17:39:31,967 | INFO | AuditResponseBuilder.build: project_id=1665bfe6-0924-4143-a6be-e6e8382387bf crawl_id=c99dd663-444d-45bd-9cee-5d394bf331fd
+2026-08-18 17:39:32,034 | INFO | AnalysisScorerService.score_project: score=83.0, grade=B, pages=2, project_id=1665bfe6-0924-4143-a6be-e6e8382387bf
+2026-08-18 17:39:32,035 | INFO | DB scoring completed: Score=83.0/100 (Health: good)
+2026-08-19 11:12:09,705 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,714 | INFO | Starting SEO scoring...
+2026-08-19 11:12:09,714 | INFO | Completed 70 rule evaluations
+2026-08-19 11:12:09,714 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 11:12:09,721 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,721 | INFO | Starting SEO scoring...
+2026-08-19 11:12:09,721 | INFO | Completed 70 rule evaluations
+2026-08-19 11:12:09,721 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 11:12:09,726 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,730 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,732 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,736 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,737 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,737 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,786 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,786 | INFO | Scoring provided parsed data
+2026-08-19 11:12:09,786 | INFO | Starting SEO scoring...
+2026-08-19 11:12:09,788 | INFO | Completed 70 rule evaluations
+2026-08-19 11:12:09,788 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-19 11:12:09,798 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,806 | INFO | Loaded 70 scoring rules
+2026-08-19 11:12:09,814 | INFO | Loaded 70 scoring rules
+2026-08-19 11:15:21,884 | INFO | Loaded 70 scoring rules
+2026-08-19 11:15:21,884 | INFO | Starting SEO scoring...
+2026-08-19 11:15:21,886 | INFO | Completed 70 rule evaluations
+2026-08-19 11:15:21,887 | INFO | SEO Score calculated: 76.0/100 (Grade C+)
+2026-08-19 11:20:07,026 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 11:20:07,031 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 11:20:08,722 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 11:20:08,722 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 11:20:09,263 | INFO | DB persistence completed: crawl_id=bbdfdd93-68f4-497a-8e85-db3dc297312a
+2026-08-19 11:20:09,263 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 11:20:09,263 | INFO | DBParserService.parse_crawl: project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4, crawl_id=bbdfdd93-68f4-497a-8e85-db3dc297312a, force=True
+2026-08-19 11:20:09,359 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4
+2026-08-19 11:20:09,359 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 11:20:09,359 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 11:20:09,374 | INFO | Loaded 70 scoring rules
+2026-08-19 11:20:09,374 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4, crawl_id=bbdfdd93-68f4-497a-8e85-db3dc297312a, force=True
+2026-08-19 11:20:09,796 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4
+2026-08-19 11:20:09,796 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 11:20:09,796 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 11:20:09,796 | INFO | AnalysisScorerService.score_project: project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4, crawl_id=bbdfdd93-68f4-497a-8e85-db3dc297312a, force=True
+2026-08-19 11:20:09,810 | INFO | AuditResponseBuilder.build: project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4 crawl_id=bbdfdd93-68f4-497a-8e85-db3dc297312a
+2026-08-19 11:20:10,138 | INFO | AnalysisScorerService.score_project: score=83.0, grade=B, pages=2, project_id=25f5e2bd-a90a-49c6-b494-67119ab810a4
+2026-08-19 11:20:10,138 | INFO | DB scoring completed: Score=83.0/100 (Health: good)
+2026-08-19 11:25:16,983 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 11:25:16,983 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 11:25:18,199 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 11:25:18,199 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 11:25:18,540 | INFO | DB persistence completed: crawl_id=50c24cc6-60be-4396-b545-229abd77e41f
+2026-08-19 11:25:18,540 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 11:25:18,542 | INFO | DBParserService.parse_crawl: project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977, crawl_id=50c24cc6-60be-4396-b545-229abd77e41f, force=True
+2026-08-19 11:25:18,728 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977
+2026-08-19 11:25:18,728 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 11:25:18,728 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 11:25:18,733 | INFO | Loaded 70 scoring rules
+2026-08-19 11:25:18,734 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977, crawl_id=50c24cc6-60be-4396-b545-229abd77e41f, force=True
+2026-08-19 11:25:19,105 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977
+2026-08-19 11:25:19,105 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 11:25:19,105 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 11:25:19,105 | INFO | AnalysisScorerService.score_project: project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977, crawl_id=50c24cc6-60be-4396-b545-229abd77e41f, force=True
+2026-08-19 11:25:19,121 | INFO | AuditResponseBuilder.build: project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977 crawl_id=50c24cc6-60be-4396-b545-229abd77e41f
+2026-08-19 11:25:19,154 | INFO | AnalysisScorerService.score_project: score=82.9, grade=B, pages=2, project_id=8f3ddafd-b61e-48db-ba2d-80c0e664b977
+2026-08-19 11:25:19,154 | INFO | DB scoring completed: Score=82.9/100 (Health: good)
+2026-08-19 11:37:06,205 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 11:37:06,209 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 11:37:06,943 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 11:37:06,944 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 11:37:07,114 | INFO | DB persistence completed: crawl_id=6f8a1c9c-24c9-4fe9-9505-a65b4564bb8d
+2026-08-19 11:37:07,114 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 11:37:07,115 | INFO | DBParserService.parse_crawl: project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7, crawl_id=6f8a1c9c-24c9-4fe9-9505-a65b4564bb8d, force=True
+2026-08-19 11:37:07,192 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7
+2026-08-19 11:37:07,194 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 11:37:07,194 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 11:37:07,196 | INFO | Loaded 70 scoring rules
+2026-08-19 11:37:07,196 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7, crawl_id=6f8a1c9c-24c9-4fe9-9505-a65b4564bb8d, force=True
+2026-08-19 11:37:07,639 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7
+2026-08-19 11:37:07,655 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 11:37:07,655 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 11:37:07,655 | INFO | AnalysisScorerService.score_project: project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7, crawl_id=6f8a1c9c-24c9-4fe9-9505-a65b4564bb8d, force=True
+2026-08-19 11:37:07,657 | INFO | AuditResponseBuilder.build: project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7 crawl_id=6f8a1c9c-24c9-4fe9-9505-a65b4564bb8d
+2026-08-19 11:37:07,691 | INFO | AnalysisScorerService.score_project: score=83.0, grade=B, pages=2, project_id=f27ff173-d809-4c39-95ec-7a5fde2fdaf7
+2026-08-19 11:37:07,691 | INFO | DB scoring completed: Score=83.0/100 (Health: good)
+2026-08-19 12:21:09,740 | INFO | AuditResponseBuilder.build: project_id=8990553b-976d-4dd1-bcf0-6a34874d4200 crawl_id=fad92d7b-152e-4b8b-a488-a53604b0427a
+2026-08-19 12:21:29,858 | INFO | AuditResponseBuilder.build: project_id=9f81b7ad-1705-4cd5-bc9e-68812dae3b66 crawl_id=53a3e654-8f15-486c-b48f-3d12fbb48e33
+2026-08-19 12:22:00,177 | INFO | AuditResponseBuilder.build: project_id=10eeb1dd-3648-4aab-be80-58c0ee3c0e7a crawl_id=5ee32f9f-e455-4396-ba35-fc8cfe3ec5b7
+2026-08-19 12:22:30,273 | INFO | AuditResponseBuilder.build: project_id=d6723da5-b7d7-4ca1-bf33-ee91df7c969b crawl_id=81056510-a8c0-467a-bddd-2d9370cf6d0c
+2026-08-19 12:24:53,884 | INFO | AuditResponseBuilder.build: project_id=213c232b-6dbf-45d1-b9e7-27653569b5a2 crawl_id=d9137488-f4c1-4016-b37e-c38b1ae87461
+2026-08-19 12:25:24,960 | INFO | AuditResponseBuilder.build: project_id=4b071de1-f5af-4b29-927b-98c713a97263 crawl_id=d3741849-137a-42da-8267-e9c3c0972c97
+2026-08-19 12:25:47,806 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,822 | INFO | Starting SEO scoring...
+2026-08-19 12:25:47,822 | INFO | Completed 70 rule evaluations
+2026-08-19 12:25:47,822 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 12:25:47,827 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,829 | INFO | Starting SEO scoring...
+2026-08-19 12:25:47,831 | INFO | Completed 70 rule evaluations
+2026-08-19 12:25:47,831 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 12:25:47,833 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,837 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,840 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,842 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,846 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,848 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,887 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,887 | INFO | Scoring provided parsed data
+2026-08-19 12:25:47,887 | INFO | Starting SEO scoring...
+2026-08-19 12:25:47,887 | INFO | Completed 70 rule evaluations
+2026-08-19 12:25:47,887 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-19 12:25:47,907 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,916 | INFO | Loaded 70 scoring rules
+2026-08-19 12:25:47,927 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,563 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,579 | INFO | Starting SEO scoring...
+2026-08-19 12:27:21,581 | INFO | Completed 70 rule evaluations
+2026-08-19 12:27:21,581 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 12:27:21,581 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,581 | INFO | Starting SEO scoring...
+2026-08-19 12:27:21,581 | INFO | Completed 70 rule evaluations
+2026-08-19 12:27:21,581 | INFO | SEO Score calculated: 73.9/100 (Grade C)
+2026-08-19 12:27:21,592 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,595 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,598 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,598 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,609 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,612 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,682 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,682 | INFO | Scoring provided parsed data
+2026-08-19 12:27:21,682 | INFO | Starting SEO scoring...
+2026-08-19 12:27:21,687 | INFO | Completed 70 rule evaluations
+2026-08-19 12:27:21,689 | INFO | SEO Score calculated: 71.8/100 (Grade C)
+2026-08-19 12:27:21,705 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,715 | INFO | Loaded 70 scoring rules
+2026-08-19 12:27:21,730 | INFO | Loaded 70 scoring rules
+2026-08-19 12:29:10,065 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 12:29:10,065 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 12:29:11,361 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 12:29:11,361 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 12:29:11,776 | INFO | DB persistence completed: crawl_id=4d1fef41-6308-4050-8d42-7fe47ed06ca7
+2026-08-19 12:29:11,776 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 12:29:11,776 | INFO | DBParserService.parse_crawl: project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1, crawl_id=4d1fef41-6308-4050-8d42-7fe47ed06ca7, force=True
+2026-08-19 12:29:11,860 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1
+2026-08-19 12:29:11,860 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 12:29:11,860 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 12:29:11,860 | INFO | Loaded 70 scoring rules
+2026-08-19 12:29:11,860 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1, crawl_id=4d1fef41-6308-4050-8d42-7fe47ed06ca7, force=True
+2026-08-19 12:29:12,180 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1
+2026-08-19 12:29:12,180 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 12:29:12,180 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 12:29:12,180 | INFO | AnalysisScorerService.score_project: project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1, crawl_id=4d1fef41-6308-4050-8d42-7fe47ed06ca7, force=True
+2026-08-19 12:29:12,193 | INFO | AuditResponseBuilder.build: project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1 crawl_id=4d1fef41-6308-4050-8d42-7fe47ed06ca7
+2026-08-19 12:29:12,380 | INFO | AnalysisScorerService.score_project: score=83.0, grade=B, pages=1, project_id=9332e5c1-4026-4eec-8586-1346fb35f0f1
+2026-08-19 12:29:12,380 | INFO | DB scoring completed: Score=83.0/100 (Health: good)
+2026-08-19 12:33:21,577 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://radonindia.com/
+2026-08-19 12:33:21,582 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 12:34:15,054 | INFO | Crawl phase completed: 79 pages crawled
+2026-08-19 12:34:15,054 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 12:34:25,974 | INFO | DB persistence completed: crawl_id=f3c236f6-149b-4bea-bc3e-d4c415a4ca45
+2026-08-19 12:34:25,974 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 12:34:25,974 | INFO | DBParserService.parse_crawl: project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf, crawl_id=f3c236f6-149b-4bea-bc3e-d4c415a4ca45, force=True
+2026-08-19 12:34:35,585 | INFO | DBParserService.parse_crawl: parsed=77, failed=0, skipped=0 for project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf
+2026-08-19 12:34:35,592 | INFO | DB parse: 77 pages parsed, 0 failed
+2026-08-19 12:34:35,592 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 12:34:35,592 | INFO | Loaded 70 scoring rules
+2026-08-19 12:34:35,592 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf, crawl_id=f3c236f6-149b-4bea-bc3e-d4c415a4ca45, force=True
+2026-08-19 12:34:48,415 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=77, rules_run=5390, total_results=5390, errors=0 for project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf
+2026-08-19 12:34:48,437 | INFO | DB evaluate: 5390 rules run, 5390 results, 0 errors
+2026-08-19 12:34:48,438 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 12:34:48,438 | INFO | AnalysisScorerService.score_project: project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf, crawl_id=f3c236f6-149b-4bea-bc3e-d4c415a4ca45, force=True
+2026-08-19 12:34:48,439 | INFO | AuditResponseBuilder.build: project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf crawl_id=f3c236f6-149b-4bea-bc3e-d4c415a4ca45
+2026-08-19 12:34:49,153 | INFO | AnalysisScorerService.score_project: score=84.9, grade=B, pages=75, project_id=b9eabd50-59b8-4222-a700-6ce21bc21fbf
+2026-08-19 12:34:49,153 | INFO | DB scoring completed: Score=84.9/100 (Health: good)
+2026-08-19 12:43:10,665 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://vivo.com/
+2026-08-19 12:43:10,666 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 12:43:15,585 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 12:43:15,587 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 12:43:17,266 | INFO | DB persistence completed: crawl_id=5423f90b-05b4-4eef-9431-10c81772672d
+2026-08-19 12:43:17,266 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 12:43:17,270 | INFO | DBParserService.parse_crawl: project_id=9193f161-69eb-4a35-b384-c23b8aacd75e, crawl_id=5423f90b-05b4-4eef-9431-10c81772672d, force=True
+2026-08-19 12:43:17,529 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=9193f161-69eb-4a35-b384-c23b8aacd75e
+2026-08-19 12:43:17,529 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 12:43:17,529 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 12:43:17,539 | INFO | Loaded 70 scoring rules
+2026-08-19 12:43:17,539 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=9193f161-69eb-4a35-b384-c23b8aacd75e, crawl_id=5423f90b-05b4-4eef-9431-10c81772672d, force=True
+2026-08-19 12:43:18,134 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=9193f161-69eb-4a35-b384-c23b8aacd75e
+2026-08-19 12:43:18,136 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 12:43:18,136 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 12:43:18,138 | INFO | AnalysisScorerService.score_project: project_id=9193f161-69eb-4a35-b384-c23b8aacd75e, crawl_id=5423f90b-05b4-4eef-9431-10c81772672d, force=True
+2026-08-19 12:43:18,138 | INFO | AuditResponseBuilder.build: project_id=9193f161-69eb-4a35-b384-c23b8aacd75e crawl_id=5423f90b-05b4-4eef-9431-10c81772672d
+2026-08-19 12:43:18,211 | INFO | AnalysisScorerService.score_project: score=79.4, grade=C+, pages=1, project_id=9193f161-69eb-4a35-b384-c23b8aacd75e
+2026-08-19 12:43:18,211 | INFO | DB scoring completed: Score=79.4/100 (Health: poor)

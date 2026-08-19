@@ -23,6 +23,7 @@ import logging
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -41,6 +42,7 @@ from app.modules.crawler.repositories.page_seo_data_repository import (
 )
 from app.modules.rule_engine.models.rule_evidence_map import (
     CATEGORY_DISPLAY,
+    CHECK_KEY_TO_RULE_IDS,
     RECOMMENDATIONS,
     RULE_TITLES,
     SUBCATEGORY_NOT_AVAILABLE,
@@ -51,7 +53,11 @@ from app.modules.rule_engine.models.seo_issue import SEOIssue, SeverityTier
 from app.modules.rule_engine.services.issue_factory import (
     RuleResultToSEOIssueConverter,
 )
-from app.modules.scorer.services.score_calculator import ScoreCalculator
+from app.modules.scorer.services.score_calculator import (
+    ScoreCalculator,
+    get_status,
+    PASS_THRESHOLD,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -140,33 +146,129 @@ class AuditResponseBuilder:
                     "error": er.message,
                 })
 
-        # Group rule results by page
-        page_rule_results: Dict[UUID, List[RuleResult]] = defaultdict(list)
+        # --- Canonical page ingestion (Section 1) -----------------------------
+        # Collapse www / non-www + trailing-slash variants of the same logical
+        # page into ONE canonical page so issues are never duplicated across the
+        # two host variants. If both variants are crawled as separate pages
+        # (neither redirects to the other), emit ONE site-level
+        # missing_www_redirect issue instead of duplicating every check.
+        canonical_of_page: Dict[UUID, str] = {}
+        canonical_groups: Dict[str, List[UUID]] = defaultdict(list)
+        canonical_url: Dict[str, str] = {}
+        www_roots: set = set()
+        nonwww_roots: set = set()
+        for p in crawl_pages:
+            url = p.url or p.normalized_url or ""
+            parsed = urlparse(url)
+            host = (parsed.hostname or "").lower()
+            if not host:
+                continue
+            host_nw = host[4:] if host.startswith("www.") else host
+            if host.startswith("www."):
+                www_roots.add(host_nw)
+            else:
+                nonwww_roots.add(host_nw)
+            path = parsed.path or "/"
+            if path != "/" and path.endswith("/"):
+                path = path.rstrip("/")
+            key = f"{host_nw}{path}"
+            canonical_of_page[p.id] = key
+            if key not in canonical_url:
+                canonical_url[key] = url
+            canonical_groups[key].append(p.id)
+
+        www_redirect_issue: Optional[SEOIssue] = None
+        if www_roots & nonwww_roots:
+            # Both www and non-www crawled for the same root -> one advisory issue.
+            all_errors.append({
+                "rule_id": "missing_www_redirect", "page_id": "",
+                "url": "", "error": "Both www and non-www host variants resolve",
+            })
+            www_redirect_issue = SEOIssue(
+                rule_id="missing_www_redirect",
+                severity=SeverityTier.MEDIUM,
+                category="technical",
+                status="failed",
+                page_url=domain or "",
+                affected_part="canonical",
+                evidence={"www_and_nonwww": sorted(www_roots & nonwww_roots)},
+                score_impact=0.0,
+                message=(
+                    "Both www and non-www host variants resolve without a single "
+                    "canonical redirect; pick one and 301-redirect the other."
+                ),
+                recommendation=(
+                    "Choose one canonical host (www or non-www) and 301-redirect the other."
+                ),
+                page_id=None, crawl_id=str(crawl_id), project_id=str(project_id),
+            )
+
+        # Dedupe parsed_facts to one per canonical page so top-level link/image/
+        # schema counts reflect the deduped page set (Section 5).
+        _seen_canon = set()
+        canonical_parsed_facts: List = []
+        for f in parsed_facts:
+            ck = canonical_of_page.get(f.page_id, str(f.page_id))
+            if ck in _seen_canon:
+                continue
+            _seen_canon.add(ck)
+            canonical_parsed_facts.append(f)
+
+        # Group rule results by canonical page (merge underlying page_ids).
+        # Within a canonical page, keep ONE result per rule_id (worst verdict wins)
+        # so the same check is never duplicated when www + non-www resolve to the
+        # same logical page (Section 1).
+        canonical_results: Dict[str, Dict[str, RuleResult]] = defaultdict(dict)
         for er in eval_rows:
             if er.severity == Severity.ERROR.value:
                 continue  # errors excluded from scoring/issues
-            page_rule_results[er.page_id].append(
-                RuleResult(
-                    rule_id=er.rule_id,
-                    name=er.rule_name,
-                    category=er.category,
-                    severity=Severity(er.severity),
-                    passed=er.passed,
-                    score_impact=er.score_impact,
-                    message=er.message,
-                    recommendation=er.recommendation,
-                    data=er.rule_data,
-                    tags=er.tags or [],
-                )
+            key = canonical_of_page.get(er.page_id, str(er.page_id))
+            rule_id = er.rule_id
+            new_rr = RuleResult(
+                rule_id=rule_id,
+                name=er.rule_name,
+                category=er.category,
+                severity=Severity(er.severity),
+                passed=er.passed,
+                score_impact=er.score_impact,
+                message=er.message,
+                recommendation=er.recommendation,
+                data=er.rule_data,
+                tags=er.tags or [],
             )
+            existing = canonical_results[key].get(rule_id)
+            if existing is None or (not new_rr.passed and existing.passed):
+                canonical_results[key][rule_id] = new_rr
+        canonical_results: Dict[str, List[RuleResult]] = {
+            k: list(v.values()) for k, v in canonical_results.items()
+        }
 
-        total_pages_analyzed = len(page_rule_results)
+        total_pages_analyzed = len(canonical_groups)
 
-        # --- Per-page scoring (homepage weighted 2x, like AnalysisScorerService) ---
+        # --- Shared check-result cache (Section 2) ----------------------------
+        # ONE canonical verdict per (canonical page, check_key). check_key is the
+        # subcategory a rule rolls up into (SUBCATEGORY_OF). Multiple rules may map
+        # to the same check_key; the worst (failed) verdict wins so the same check
+        # can never contradict itself across categories.
+        check_cache: Dict[str, Dict[str, bool]] = defaultdict(dict)
+        check_rule_ids: Dict[str, set] = defaultdict(set)
+        check_cats: Dict[str, set] = defaultdict(set)
+        cat_checks: Dict[str, set] = defaultdict(set)
+        for key, results in canonical_results.items():
+            for r in results:
+                sub = SUBCATEGORY_OF.get(r.rule_id, r.rule_id)
+                existing = check_cache[key].get(sub)
+                if existing is None or not r.passed:
+                    check_cache[key][sub] = bool(r.passed)
+                check_rule_ids[sub].add(r.rule_id)
+                check_cats[sub].add(r.category)
+                cat_checks[r.category].add(sub)
+
+        # --- Per-page scoring (homepage weighted 2x) --------------------------
         per_page_scores: List[Dict[str, Any]] = []
-        for page_id, results in page_rule_results.items():
+        for key, results in canonical_results.items():
             scorable = [r for r in results if r.severity != Severity.ERROR]
-            url = page_url_map.get(page_id, str(page_id))
+            url = canonical_url.get(key, key)
             if scorable:
                 page_score = self.calculator.calculate_score(scorable)
             else:
@@ -177,9 +279,9 @@ class AuditResponseBuilder:
                     "total_failed": len(results),
                     "critical_issues": 0,
                 }
-            weight = 2.0 if page_id in homepage_ids else 1.0
+            weight = 2.0 if any(pid in homepage_ids for pid in canonical_groups[key]) else 1.0
             per_page_scores.append({
-                "page_id": str(page_id),
+                "page_id": key,
                 "url": url,
                 "overall_score": page_score.get("overall_score", 0.0),
                 "grade": page_score.get("grade", "F"),
@@ -207,30 +309,34 @@ class AuditResponseBuilder:
                 )
                 if issue is not None:
                     all_seo_issues.append(issue)
+        if www_redirect_issue is not None:
+            all_seo_issues.append(www_redirect_issue)
 
         # --- Assemble sections ---
         summary = self._build_summary(overall_score, all_seo_issues)
-        categories = self._build_categories(all_seo_issues, page_rule_results)
+        categories = self._build_categories(
+            all_seo_issues, cat_checks, check_cache, total_pages_analyzed
+        )
         issues = self._build_issues(all_seo_issues)
         category_results = self._build_category_results(
-            all_seo_issues, total_pages_analyzed
+            all_seo_issues, check_cache, total_pages_analyzed
         )
         crawl = await self._build_crawl_section(
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
         )
-        indexation = await self._build_indexation(crawl_pages, parsed_facts)
-        performance = await self._build_performance(parsed_facts)
-        structured_data = self._build_structured_data(parsed_facts)
-        links = await self._build_links(parsed_facts)
-        images = self._build_images(parsed_facts)
-        content = self._build_content(parsed_facts)
+        indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts)
+        performance = await self._build_performance(canonical_parsed_facts)
+        structured_data = self._build_structured_data(canonical_parsed_facts)
+        links = await self._build_links(canonical_parsed_facts)
+        images = self._build_images(canonical_parsed_facts)
+        content = self._build_content(canonical_parsed_facts)
         priorities = self._build_priorities(all_seo_issues)
         recommendations = self._build_recommendations(all_seo_issues)
         external_deps = self._build_external_dependencies()
         errors = all_errors
         metadata = self._build_metadata(
-            total_issues=len(all_seo_issues),
+            total_issues=len([i for i in all_seo_issues if i.status == "failed"]),
             total_rules_evaluated=sum(len(p["results"]) for p in per_page_scores),
         )
         audit = self._build_audit_block(
@@ -272,7 +378,7 @@ class AuditResponseBuilder:
 
         return {
             "overall_score": overall_score,
-            "health": _health_from_score(overall_score),
+            "health": get_status(overall_score),
             "critical_issues": tier_counts["critical"],
             "high_issues": tier_counts["high"],
             "medium_issues": tier_counts["medium"],
@@ -285,51 +391,72 @@ class AuditResponseBuilder:
     def _build_categories(
         self,
         all_seo_issues: List[SEOIssue],
-        page_rule_results: Dict[UUID, List[RuleResult]],
+        cat_checks: Dict[str, set],
+        check_cache: Dict[str, Dict[str, bool]],
+        total_pages: int,
     ) -> List[Dict[str, Any]]:
-        # Count passed/failed per internal category
-        cat_rules: Dict[str, set] = defaultdict(set)
-        cat_passed: Dict[str, int] = defaultdict(int)
-        cat_failed: Dict[str, int] = defaultdict(int)
-        for page_id, results in page_rule_results.items():
-            for r in results:
-                cat_rules[r.category].add(r.rule_id)
-                if r.passed:
-                    cat_passed[r.category] += 1
-                else:
-                    cat_failed[r.category] += 1
-
-        # Per-category score from ScoreCalculator (aggregate all results in category)
-        cat_score: Dict[str, float] = {}
-        for cat, results in _group_results_by_category(page_rule_results).items():
-            scorable = [r for r in results if r.severity != Severity.ERROR]
-            if scorable:
-                cat_score[cat] = self.calculator.calculate_score(scorable)["overall_score"]
-            else:
-                cat_score[cat] = 0.0
+        # Per check_key: pass-rate across canonical pages (Section 3).
+        #   check_score = 100 * pages_passing / total_pages_checked
+        #   checks_passed = #checks with check_score >= PASS_THRESHOLD
+        # categories[].issues carries that category's failed issues (Section 8);
+        # the key is omitted entirely when a category has no failures.
+        issues_by_cat: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+        for i in all_seo_issues:
+            if i.status == "failed":
+                issues_by_cat[i.category].append({
+                    "rule_id": i.rule_id,
+                    "severity": i.severity.value,
+                    "message": i.message or i.affected_part,
+                    "page_url": i.page_url,
+                    "affected_part": i.affected_part,
+                })
 
         out: List[Dict[str, Any]] = []
         for cat, display in CATEGORY_DISPLAY.items():
-            checks = len(cat_rules.get(cat, set()))
-            checks_passed = cat_passed.get(cat, 0)
-            checks_failed = cat_failed.get(cat, 0)
-            out.append({
+            checks = cat_checks.get(cat, set())
+            checks_total = len(checks)
+            check_scores: List[float] = []
+            checks_passed = 0
+            for sub in checks:
+                passed_pages = sum(
+                    1 for ck in check_cache
+                    if check_cache[ck].get(sub) is not False
+                )
+                check_score = round(100.0 * passed_pages / total_pages, 1) if total_pages else 0.0
+                check_scores.append(check_score)
+                if check_score >= PASS_THRESHOLD:
+                    checks_passed += 1
+            checks_failed = checks_total - checks_passed
+            # Invariant (Section 3): every category satisfies
+            #   checks_total == checks_passed + checks_failed
+            category_score = round(sum(check_scores) / len(check_scores), 1) if check_scores else 0.0
+            entry: Dict[str, Any] = {
                 "id": display["id"],
                 "name": display["name"],
-                "score": round(cat_score.get(cat, 0.0), 1),
-                "status": _health_from_score(cat_score.get(cat, 0.0)),
-                "checks_total": checks,
+                "score": category_score,
+                "status": get_status(category_score),
+                "checks_total": checks_total,
                 "checks_passed": checks_passed,
                 "checks_failed": checks_failed,
-                "issues": [],  # detail lives in issues[] + category_results
-            })
+            }
+            cat_issues = issues_by_cat.get(cat)
+            if cat_issues:
+                entry["issues"] = cat_issues
+            out.append(entry)
         return out
 
     # ------------------------------------------------------------------ issues
-    def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, str]]:
-        # STRICT: only page_url + affected_part, failed only.
+    def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
+        # One entry per failed issue, carrying the rule_id scheme (Section 6) so
+        # every entry is traceable to recommendations[] / priorities{}.
         return [
-            {"page_url": i.page_url, "affected_part": i.affected_part}
+            {
+                "rule_id": i.rule_id,
+                "severity": i.severity.value,
+                "message": i.message or i.affected_part,
+                "page_url": i.page_url,
+                "affected_part": i.affected_part,
+            }
             for i in all_seo_issues
             if i.status == "failed"
         ]
@@ -338,34 +465,28 @@ class AuditResponseBuilder:
     def _build_category_results(
         self,
         all_seo_issues: List[SEOIssue],
+        check_cache: Dict[str, Dict[str, bool]],
         total_pages: int,
     ) -> Dict[str, Any]:
-        # Group failed issues by response-category -> subcategory -> set(page_id)
-        affected: Dict[str, Dict[str, set]] = defaultdict(
-            lambda: defaultdict(set)
-        )
-        for issue in all_seo_issues:
-            if issue.status != "failed":
-                continue
-            resp_cat = CATEGORY_DISPLAY.get(issue.category, {}).get("id", issue.category)
-            sub = SUBCATEGORY_OF.get(issue.rule_id)
-            if sub is None:
-                sub = "unknown"
-            affected[resp_cat][sub].add(issue.page_id)
+        # Affected (failed) canonical pages per subcheck, derived from the shared
+        # check-result cache (Section 5) — the same source the categories use.
+        subcat_failed: Dict[str, set] = defaultdict(set)
+        for ck, subs in check_cache.items():
+            for sub, passed in subs.items():
+                if not passed:
+                    subcat_failed[sub].add(ck)
 
         result: Dict[str, Any] = {}
         # Ensure every response category appears, even with no failures
         for cat, display in CATEGORY_DISPLAY.items():
             resp_id = display["id"]
-            result[resp_id] = self._build_subchecks(
-                resp_id, affected.get(resp_id, {}), total_pages
-            )
+            result[resp_id] = self._build_subchecks(resp_id, subcat_failed, total_pages)
         return result
 
     def _build_subchecks(
         self,
         resp_category_id: str,
-        subcat_affected: Dict[str, set],
+        subcat_failed: Dict[str, set],
         total_pages: int,
     ) -> Dict[str, Any]:
         out: Dict[str, Any] = {}
@@ -375,13 +496,10 @@ class AuditResponseBuilder:
             if sub in SUBCATEGORY_NOT_AVAILABLE:
                 out[sub] = _unavailable("check_not_implemented")
                 continue
-            affected_pages = len(subcat_affected.get(sub, set()))
-            if affected_pages == 0 and total_pages > 0:
-                score = 100.0
-                status = "passed"
-            elif total_pages > 0:
+            affected_pages = len(subcat_failed.get(sub, set()))
+            if total_pages > 0:
                 score = round(100.0 * (total_pages - affected_pages) / total_pages, 1)
-                status = "failed" if affected_pages > 0 else "passed"
+                status = get_status(score)
             else:
                 score = None
                 status = "not_available"
@@ -458,7 +576,7 @@ class AuditResponseBuilder:
             "available": ttfb_value is not None,
             "value": ttfb_value,
             "unit": "milliseconds",
-            "status": _health_from_score(_ttbf_bucket(ttfb_value)) if ttfb_value else "unknown",
+                "status": get_status(_ttbf_bucket(ttfb_value)) if ttfb_value else "unknown",
             "reason": None if ttfb_value else "response_time_ms_not_available",
         }
         return {
@@ -486,7 +604,11 @@ class AuditResponseBuilder:
             for s in schemas:
                 t = None
                 if isinstance(s, dict):
-                    t = s.get("type") or (s.get("@type"))
+                    t = s.get("type") or s.get("@type")
+                    if not t and isinstance(s.get("types"), list) and s["types"]:
+                        t = s["types"][0]
+                    if not t and isinstance(s.get("parsed"), dict):
+                        t = s["parsed"].get("@type") or s["parsed"].get("type")
                 if t:
                     type_counts[str(t)] += 1
         return {
@@ -504,19 +626,25 @@ class AuditResponseBuilder:
         total = 0
         for fact in parsed_facts:
             parsed_data = fact.parsed_data or {}
-            links = parsed_data.get("links", []) or []
-            for link in links:
-                if not isinstance(link, dict):
-                    continue
-                total += 1
-                is_ext = (
-                    link.get("link_type") == "external"
-                    or link.get("is_external", False)
-                )
-                if is_ext:
-                    external += 1
-                else:
-                    internal += 1
+            links = parsed_data.get("links") or {}
+            if isinstance(links, dict):
+                # rule_evaluator stores a summary: {internal_count, external_count, total_links}
+                internal += int(links.get("internal_count", 0) or 0)
+                external += int(links.get("external_count", 0) or 0)
+                total += int(links.get("total_links", 0) or 0)
+            elif isinstance(links, list):
+                for link in links:
+                    if not isinstance(link, dict):
+                        continue
+                    total += 1
+                    is_ext = (
+                        link.get("link_type") == "external"
+                        or link.get("is_external", False)
+                    )
+                    if is_ext:
+                        external += 1
+                    else:
+                        internal += 1
         return {
             "internal": {"total": internal, "broken": _unavailable("live_link_check_not_enabled")},
             "external": {"total": external, "broken": _unavailable("live_link_check_not_enabled")},
@@ -535,26 +663,44 @@ class AuditResponseBuilder:
         lazy_loading = 0
         for fact in parsed_facts:
             parsed_data = fact.parsed_data or {}
-            images = parsed_data.get("images", []) or []
-            for img in images:
-                if not isinstance(img, dict):
-                    continue
-                total += 1
-                alt = img.get("alt", "")
-                if not alt or (isinstance(alt, str) and not alt.strip()):
-                    missing_alt += 1
-                elif isinstance(alt, str) and alt.strip() == "":
-                    empty_alt += 1
-                if not img.get("width") and not img.get("height"):
-                    missing_dimensions += 1
-                fmt = (img.get("format") or img.get("url", "") or "").lower()
-                if any(ext in fmt for ext in (".webp", ".avif", ".heic")):
-                    modern_format += 1
-                if (img.get("loading") or "").strip().lower() == "lazy":
-                    lazy_loading += 1
-                size = img.get("file_size") or 0
-                if isinstance(size, (int, float)) and size > 100 * 1024:
-                    oversized += 1
+            images = parsed_data.get("images") or {}
+            if isinstance(images, dict):
+                # rule_evaluator stores a summary: {total_count, without_alt, sample:[...]}
+                total += int(images.get("total_count", 0) or 0)
+                missing_alt += int(images.get("without_alt", 0) or 0)
+                for img in images.get("sample", []) or []:
+                    if not isinstance(img, dict):
+                        continue
+                    if not img.get("width") and not img.get("height"):
+                        missing_dimensions += 1
+                    fmt = (img.get("format") or img.get("url", "") or "").lower()
+                    if any(ext in fmt for ext in (".webp", ".avif", ".heic")):
+                        modern_format += 1
+                    if (img.get("loading") or "").strip().lower() == "lazy":
+                        lazy_loading += 1
+                    size = img.get("file_size") or 0
+                    if isinstance(size, (int, float)) and size > 100 * 1024:
+                        oversized += 1
+            elif isinstance(images, list):
+                for img in images:
+                    if not isinstance(img, dict):
+                        continue
+                    total += 1
+                    alt = img.get("alt", "")
+                    if not alt or (isinstance(alt, str) and not alt.strip()):
+                        missing_alt += 1
+                    elif isinstance(alt, str) and alt.strip() == "":
+                        empty_alt += 1
+                    if not img.get("width") and not img.get("height"):
+                        missing_dimensions += 1
+                    fmt = (img.get("format") or img.get("url", "") or "").lower()
+                    if any(ext in fmt for ext in (".webp", ".avif", ".heic")):
+                        modern_format += 1
+                    if (img.get("loading") or "").strip().lower() == "lazy":
+                        lazy_loading += 1
+                    size = img.get("file_size") or 0
+                    if isinstance(size, (int, float)) and size > 100 * 1024:
+                        oversized += 1
         return {
             "total": total,
             "missing_alt": missing_alt,
@@ -706,15 +852,9 @@ def _unavailable(reason: str) -> Dict[str, Any]:
 
 
 def _health_from_score(score: float) -> str:
-    if score >= 90:
-        return "excellent"
-    if score >= 80:
-        return "good"
-    if score >= 70:
-        return "needs_attention"
-    if score >= 60:
-        return "poor"
-    return "critical"
+    # Kept as a thin delegate so any legacy caller stays consistent with the
+    # single authoritative status helper (Section 4).
+    return get_status(score)
 
 
 def _tier_priority(tier: SeverityTier) -> int:

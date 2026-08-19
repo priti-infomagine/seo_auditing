@@ -187,7 +187,10 @@ async def analyze_website(
                 word_count=content_data.get("word_count", 0),
                 content_hash=content_data.get("content_hash", ""),
                 content=content_data,
-                structured_data={"exists": len(parsed_dict.get("schemas", [])) > 0},
+                structured_data={
+                    "schemas": parsed_dict.get("schemas", []),
+                    "exists": len(parsed_dict.get("schemas", [])) > 0,
+                },
                 social=parsed_dict.get("social", {}) or {},
                 accessibility={},
                 page_metadata={},

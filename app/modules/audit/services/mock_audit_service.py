@@ -40,7 +40,7 @@ class MockAuditService:
         rng = random.Random(seed)
 
         # ── Mock Crawl Phase ──────────────────────────────────────────
-        pages_crawled = 5 if not deep_crawl else rng.randint(15, 50)
+        pages_crawled = 5 if not deep_crawl else 2
         html_size = rng.randint(40_000, 250_000)
         response_time = round(rng.uniform(0.5, 4.5), 2)
 

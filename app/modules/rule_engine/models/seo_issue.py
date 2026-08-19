@@ -46,6 +46,12 @@ class SEOIssue(BaseModel):
         default_factory=dict, description="Factual evidence from crawler/parser (minimal)"
     )
     score_impact: float = Field(default=0.0, description="Penalty applied to score")
+    message: Optional[str] = Field(
+        default=None, description="Short human-readable description of the issue"
+    )
+    recommendation: Optional[str] = Field(
+        default=None, description="Suggested fix text"
+    )
 
     page_id: Optional[str] = Field(default=None, description="DB page uuid (internal)")
     crawl_id: Optional[str] = Field(default=None, description="DB crawl uuid (internal)")

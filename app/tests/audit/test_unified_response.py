@@ -2,12 +2,21 @@
 Unit tests for the unified audit response assembly.
 
 Tests AuditResponseBuilder's pure (non-DB) methods: summary, issues, priorities,
-category_results, and recommendations. A stub DB session is supplied so the
+category_results, categories, and recommendations. A stub DB session is supplied so the
 constructor can be instantiated without a real database.
+
+NOTE: these tests reflect the post-fix contracts:
+  * issues[] carries {rule_id, severity, message, page_url, affected_part} (Section 6)
+  * status is score-derived via get_status -> excellent/good/poor/critical (Section 4)
+  * categories[] pass the checks_total == checks_passed + checks_failed invariant and
+    carry an `issues` list only when they have failures (Section 3 / Section 8)
 """
+from collections import defaultdict
+
 import pytest
 
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
+from app.modules.rule_engine.models.rule_evidence_map import SUBCATEGORY_OF
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.rule_engine.services.issue_factory import RuleResultToSEOIssueConverter
 
@@ -41,6 +50,22 @@ def _issues():
     ] if i]
 
 
+def _check_cache(issues):
+    """Build the shared check-result cache shape _build_category_results expects."""
+    cache = defaultdict(dict)
+    for i in issues:
+        sub = SUBCATEGORY_OF.get(i.rule_id, i.rule_id)
+        cache[i.page_url][sub] = (i.status != "failed")
+    return cache
+
+
+def _cat_checks(issues):
+    cat_checks = defaultdict(set)
+    for i in issues:
+        cat_checks[i.category].add(SUBCATEGORY_OF.get(i.rule_id, i.rule_id))
+    return cat_checks
+
+
 def test_summary_tier_counts(builder):
     issues = _issues()
     s = builder._build_summary(85.0, issues)
@@ -57,14 +82,17 @@ def test_summary_health_thresholds(builder):
     only_pass = _issues()[-1:]  # single passed issue
     assert builder._build_summary(95.0, only_pass)["health"] == "excellent"
     assert builder._build_summary(82.0, only_pass)["health"] == "good"
-    assert builder._build_summary(75.0, only_pass)["health"] == "needs_attention"
+    assert builder._build_summary(75.0, only_pass)["health"] == "poor"
     assert builder._build_summary(59.0, only_pass)["health"] == "critical"
 
 
-def test_issues_slim_shape(builder):
+def test_issues_enriched_shape(builder):
     issues = builder._build_issues(_issues())
-    assert all(set(i.keys()) == {"page_url", "affected_part"} for i in issues)
+    for i in issues:
+        assert set(i.keys()) == {"rule_id", "severity", "message", "page_url", "affected_part"}
     assert len(issues) == 4  # passed excluded
+    # rule_id scheme is traceable to recommendations[]
+    assert all(isinstance(i["rule_id"], str) for i in issues)
 
 
 def test_priorities_by_tier(builder):
@@ -77,32 +105,47 @@ def test_priorities_by_tier(builder):
 
 def test_category_results_pass_rate(builder):
     issues = _issues()
-    cr = builder._build_category_results(issues, 3)
+    cr = builder._build_category_results(issues, _check_cache(issues), 3)
     titles = cr["on_page"]["titles"]
-    # on_page_001 failed on http://x/a -> 1 affected page
-    assert titles["status"] == "failed"
-    assert titles["affected_pages"] == 2 - 1  # == 1
+    # on_page_001 failed on http://x/a -> 1 affected page of 3
+    assert titles["affected_pages"] == 1
     assert titles["score"] == round(100 * (3 - 1) / 3, 1)
+    assert titles["status"] == "poor"  # score-derived (Section 4)
     h1 = cr["on_page"]["h1"]
-    assert h1["status"] == "passed"
+    assert h1["affected_pages"] == 0
     assert h1["score"] == 100.0
+    assert h1["status"] == "excellent"
 
 
 def test_category_results_all_passed_when_clean(builder):
-    cr = builder._build_category_results([], 3)
+    cr = builder._build_category_results([], {}, 3)
     for subchecks in cr.values():
         for name, chk in subchecks.items():
-            assert chk["status"] == "passed"
+            assert chk["status"] == "excellent"
             assert chk["score"] == 100.0
             assert chk["affected_pages"] == 0
 
 
 def test_category_results_has_status_and_score(builder):
-    cr = builder._build_category_results(_issues(), 3)
+    issues = _issues()
+    cr = builder._build_category_results(issues, _check_cache(issues), 3)
     for cat_id, subchecks in cr.items():
         for name, chk in subchecks.items():
             assert "status" in chk
             assert "score" in chk
+            assert chk["status"] in ("excellent", "good", "poor", "critical", "not_available")
+
+
+def test_categories_pass_rate_invariant_and_issues(builder):
+    issues = _issues()
+    cats = builder._build_categories(issues, _cat_checks(issues), _check_cache(issues), 3)
+    for c in cats:
+        assert c["checks_total"] == c["checks_passed"] + c["checks_failed"]
+        assert c["status"] in ("excellent", "good", "poor", "critical", "not_available")
+    onpage = next(c for c in cats if c["id"] == "on_page")
+    assert "issues" in onpage and onpage["issues"]  # has failures -> issues present
+    perf = next(c for c in cats if c["id"] == "performance")
+    assert "issues" not in perf  # no failures -> key omitted (Section 8)
 
 
 def test_recommendations_priority_ordering(builder):

@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+from app.core.logger import logger
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.utils.url import normalize_url_canonical
@@ -104,8 +105,8 @@ class CrawlerService:
     async def crawl_site(
         self,
         start_url: str,
-        max_pages: int = 20,
-        max_depth: int = 2,
+        max_pages: int = 1000,
+        max_depth: int = 3,
     ) -> list[dict]:
         """
         Discover and crawl pages from ``start_url`` using a sitemap-first,
@@ -212,9 +213,14 @@ class CrawlerService:
                         sitemap_urls.append(url)
                 except Exception:
                     continue
-        except Exception:
-            pass
-        return sitemap_urls
+        except Exception as exc:
+            # Discovery failure must NOT silently cap the crawl at the seed page.
+            # Log and fall back to BFS from the seed URL.
+            logger.warning(
+                "CrawlerService._discover_sitemap_urls: sitemap/robots discovery failed "
+                "for %s: %s — falling back to BFS link discovery",
+                start_url, exc,
+            )
 
     def _discover_links_from_html(
         self,

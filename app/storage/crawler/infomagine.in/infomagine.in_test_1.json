@@ -1,0 +1,28 @@
+{
+  "requested_url": "https://infomagine.in/",
+  "final_url": "https://infomagine.in/",
+  "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n\n  <!-- Basic SEO -->\n  <title>Custom Software & Web Development Company in Jaipur | Infomagine</title>\n\n  <meta name=\"description\" content=\"Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.\" />\n\n  <meta name=\"keywords\" content=\"Custom Software Development, Web Development Company Jaipur, Mobile App Development India, IT Company in Jaipur, Software Development Services India\" />\n\n  <meta name=\"author\" content=\"Infomagine Technologies\" />\n\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\n  <meta name=\"robots\" content=\"index, follow\" />\n\n  <link rel=\"canonical\" href=\"https://www.infomagine.in/\" />\n\n  <meta name=\"theme-color\" content=\"#FF5722\" />\n\n  <!-- Open Graph (Facebook & LinkedIn) -->\n  <meta property=\"og:type\" content=\"website\" />\n  <meta property=\"og:title\" content=\"Custom Software & Web Development Company | Infomagine\" />\n  <meta property=\"og:description\" content=\"Trusted IT company in Jaipur offering custom software, web & mobile app development solutions.\" />\n  <meta property=\"og:url\" content=\"https://www.infomagine.in/\" />\n  <meta property=\"og:image\" content=\"https://infomagine.in/assets/infomagine%20logo-BsvjEvw5.png\" />\n\n  <!-- Twitter Card -->\n  <meta name=\"twitter:card\" content=\"summary_large_image\" />\n  <meta name=\"twitter:title\" content=\"Custom Software & Web Development Company | Infomagine\" />\n  <meta name=\"twitter:description\" content=\"Leading software company in Jaipur providing custom web & mobile solutions.\" />\n  <meta name=\"twitter:image\" content=\"https://infomagine.in/assets/infomagine%20logo-BsvjEvw5.png\" />\n\n  <!-- Favicon -->\n  <link rel=\"icon\" type=\"image/png\" href=\"/infomagine64.png\" />\n  <link rel=\"apple-touch-icon\" href=\"/infomagine64.png\" />\n\n  <!-- Performance Optimization -->\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n\n  <link href=\"https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap\" rel=\"stylesheet\">\n\n  <!-- Structured Data (VERY IMPORTANT FOR SEO) -->\n  <script type=\"application/ld+json\">\n  {\n    \"@context\": \"https://schema.org\",\n    \"@type\": \"Organization\",\n    \"name\": \"Infomagine\",\n    \"url\": \"https://www.infomagine.in/\",\n    \"logo\": \"https://www.infomagine.in/infomagine64.png\",\n    \"description\": \"Custom software development, web development & mobile app development company in Jaipur, India.\",\n    \"sameAs\": [\n      \"https://www.facebook.com/Infomaginesoftwares\",\n      \"https://www.linkedin.com/company/13313914/admin/dashboard/\"\n    ]\n  }\n  </script>\n\n  <!-- Your Existing Tracking Codes (Keep them below SEO tags) -->\n\n  <!-- Google Tag Manager -->\n  <script>\n    (function (w, d, s, l, i) {\n      w[l] = w[l] || [];\n      w[l].push({ \"gtm.start\": new Date().getTime(), event: \"gtm.js\" });\n      var f = d.getElementsByTagName(s)[0],\n        j = d.createElement(s),\n        dl = l != \"dataLayer\" ? \"&l=\" + l : \"\";\n      j.async = true;\n      j.src = \"https://www.googletagmanager.com/gtm.js?id=\" + i + dl;\n      f.parentNode.insertBefore(j, f);\n    })(window, document, \"script\", \"dataLayer\", \"GTM-N8KTW59L\");\n  </script>\n\n  <script type=\"module\" crossorigin src=\"/assets/index-DKQdZYg5.js\"></script>\n  <link rel=\"stylesheet\" crossorigin href=\"/assets/index-C2q2w--l.css\">\n</head>\n<body>\n\n  <!-- Google Tag Manager (noscript) -->\n  <noscript>\n    <iframe\n      src=\"https://www.googletagmanager.com/ns.html?id=GTM-N8KTW59L\"\n      height=\"0\"\n      width=\"0\"\n      style=\"display:none;visibility:hidden\">\n    </iframe>\n  </noscript>\n\n  <div id=\"root\"></div>\n\n</body>\n</html>",
+  "http": {
+    "status_code": 200,
+    "response_time": 0.15,
+    "response_time_ms": 150,
+    "content_type": "text/html",
+    "content_size": 3778,
+    "headers": {
+      "date": "Wed, 19 Aug 2026 06:59:11 GMT",
+      "server": "Apache",
+      "last-modified": "Wed, 29 Jul 2026 12:32:53 GMT",
+      "etag": "\"ec2-657bf277ae740-gzip\"",
+      "accept-ranges": "bytes",
+      "vary": "Accept-Encoding",
+      "content-encoding": "gzip",
+      "content-length": "1476",
+      "keep-alive": "timeout=5, max=100",
+      "connection": "Keep-Alive",
+      "content-type": "text/html"
+    }
+  },
+  "domain": "infomagine.in",
+  "test_number": 1,
+  "crawled_at": "2026-08-19T06:59:10.960518+00:00"
+}

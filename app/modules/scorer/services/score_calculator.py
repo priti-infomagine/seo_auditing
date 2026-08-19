@@ -1,7 +1,7 @@
 """
 Score Calculator - Computes weighted SEO scores from rule results.
 """
-from typing import Dict, List, Any 
+from typing import Dict, List, Any, Optional 
 from app.modules.rule_engine.models.rule_result import RuleResult, CategoryScore, Severity
 
 
@@ -219,5 +219,146 @@ class ScoreCalculator:
         else:
             summary = f"Critical. Your site scores {score:.1f}/100 (Grade {grade}). "
             summary += "Major SEO issues require immediate attention."
-        
+
         return summary
+
+
+# ---------------------------------------------------------------------------
+# Report-assembly configuration (category-first SEO audit report).
+#
+# These constants drive `app/modules/scorer/report_assembler.py`. They live here
+# (in the scorer's weights/compute module) per project convention that scoring +
+# report-structure config stays in one place, so report logic never hardcodes
+# category order or status thresholds.
+# ---------------------------------------------------------------------------
+
+# Response-category order. `overall_summary` (order 1) is reserved as the report
+# header and is never emitted as a real category. Remaining ids are sorted ascending
+# when building the `categories` list.
+CATEGORY_ORDER: Dict[str, int] = {
+    "overall_summary": 1,
+    "technical_seo": 2,
+    "on_page_seo": 3,
+    "content": 4,
+    "off_page_seo": 5,
+    "local_seo": 6,
+    "geo_ai_readiness": 7,
+    "headers": 8,
+    "images": 9,
+    "social": 10,
+    "performance": 11,
+    "security": 12,
+    "accessibility": 13,
+    "mobile": 14,
+}
+
+# Category status thresholds (minimum inclusive score per tier):
+#   score >= good        -> "good"
+#   score >= needs_attention -> "needs_attention"
+#   otherwise           -> "critical"  (i.e. score >= critical)
+STATUS_THRESHOLDS: Dict[str, float] = {
+    "good": 80.0,
+    "needs_attention": 50.0,
+    "critical": 0.0,
+}
+
+# Source severity -> issue triage priority. Includes 'error' (rule-infra failures)
+# so an unverified check is still triaged as high priority.
+SEVERITY_PRIORITY_MAP: Dict[str, str] = {
+    "critical": "high",
+    "error": "high",
+    "warning": "medium",
+    "info": "low",
+    "passed": "low",
+}
+
+# |score_impact| tiers -> estimated_impact. score_impact is negative (a penalty),
+# so we compare its absolute value.
+ESTIMATED_IMPACT_TIERS: Dict[str, float] = {
+    "high": 10.0,
+    "medium": 4.0,
+}
+
+# Real scorer internal category id -> report response category id.
+# The engine uses short ids (on_page, technical, ...); the report uses friendly ids.
+INTERNAL_TO_RESPONSE: Dict[str, str] = {
+    "on_page": "on_page_seo",
+    "technical": "technical_seo",
+    "content": "content",
+    "links": "off_page_seo",
+    "images": "images",
+    "schema": "technical_seo",
+    "social": "social",
+    "security": "security",
+    "accessibility": "accessibility",
+    "performance": "performance",
+}
+
+# Response category id -> site_categories for which the category is relevant.
+# Absent key => relevant for every site_category. Drives reason_not_applicable.
+# (e.g. local_business sites need Local SEO; ecommerce/blog sites do not.)
+CATEGORY_SITE_APPLICABILITY: Dict[str, List[str]] = {
+    "local_seo": ["local_business"],
+    "geo_ai_readiness": ["blog", "news", "local_business", "portfolio", "ecommerce"],
+}
+
+# Response category id -> human-readable label.
+CATEGORY_LABELS: Dict[str, str] = {
+    "overall_summary": "Overall Summary",
+    "technical_seo": "Technical SEO",
+    "on_page_seo": "On-Page SEO",
+    "content": "Content Quality",
+    "off_page_seo": "Off-Page SEO",
+    "local_seo": "Local SEO",
+    "geo_ai_readiness": "Geo & AI Readiness",
+    "headers": "Security Headers",
+    "images": "Images & Media",
+    "social": "Social Signals",
+    "performance": "Performance",
+    "security": "Security",
+    "accessibility": "Accessibility",
+    "mobile": "Mobile",
+}
+
+
+# ---------------------------------------------------------------------------
+# Pass-rate scoring + status helper (consumed by audit_response_builder).
+# ---------------------------------------------------------------------------
+
+# Default pass threshold for a check: a check counts as "passed" only when 100%
+# of pages pass it. Lower this to treat partial pass-through as passing.
+PASS_THRESHOLD: float = 100.0
+
+# Single source of truth for category status tiers (minimum inclusive score).
+# Every category's `status` field must be derived from this table via get_status().
+STATUS_THRESHOLDS_EXCELLENT: Dict[str, float] = {
+    "excellent": 90.0,
+    "good": 80.0,
+    "poor": 60.0,
+    "critical": 0.0,
+}
+
+
+def get_status(score: Optional[float]) -> str:
+    """Map a 0-100 score to a single status label (excellent/good/poor/critical).
+
+    One authoritative helper so no category-specific status override logic exists
+    anywhere else in the codebase.
+    """
+    if score is None:
+        return "not_available"
+    try:
+        score = float(score)
+    except (TypeError, ValueError):
+        return "not_available"
+    if score >= STATUS_THRESHOLDS_EXCELLENT["excellent"]:
+        return "excellent"
+    if score >= STATUS_THRESHOLDS_EXCELLENT["good"]:
+        return "good"
+    if score >= STATUS_THRESHOLDS_EXCELLENT["poor"]:
+        return "poor"
+    return "critical"
+
+
+# Category weights used by the pass-rate model (alias of ScoreCalculator.DEFAULT_WEIGHTS).
+CATEGORY_WEIGHTS = ScoreCalculator.DEFAULT_WEIGHTS

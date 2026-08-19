@@ -90,6 +90,8 @@ class RuleResultToSEOIssueConverter:
             affected_part=cls.affected_part(result.rule_id),
             evidence=_minify_evidence(result.data),
             score_impact=result.score_impact,
+            message=result.message if isinstance(result.message, str) else None,
+            recommendation=result.recommendation if isinstance(result.recommendation, str) else None,
             page_id=page_id,
             crawl_id=crawl_id,
             project_id=project_id,

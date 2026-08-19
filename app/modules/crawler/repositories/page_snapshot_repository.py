@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.modules.crawler.models.page_snapshots import PageSnapshot
 from app.modules.crawler.models.crawl_pages import CrawlPage
+from app.shared.utils.html_compressor import compress_html
 
 
 class PageSnapshotRepository:
@@ -27,16 +28,16 @@ class PageSnapshotRepository:
         # Check for existing snapshot (unique constraint on page_id)
         existing = await self.get_by_page_id(page_id)
         if existing:
-            existing.content = html_content
-            existing.compressed = compressed
+            existing.content = compress_html(html_content) if compressed else html_content
+            existing.compressed = True if compressed else False
             await self.db.flush()
             await self.db.refresh(existing)
             return existing
 
         snapshot = PageSnapshot(
             page_id=page_id,
-            content=html_content,
-            compressed=compressed,
+            content=compress_html(html_content) if compressed else html_content,
+            compressed=True if compressed else False,
         )
         self.db.add(snapshot)
         await self.db.flush()

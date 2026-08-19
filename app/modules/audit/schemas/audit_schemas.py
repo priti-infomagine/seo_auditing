@@ -87,22 +87,21 @@ class AuditAnalyzeRequest(BaseModel):
 
     url: str = Field(
         ...,
-        description="URL to audit (e.g., 'https://example.com')",
+
         examples=["https://example.com"]
     )
     max_pages: int = Field(
-        default=20,
-        ge=1,
-        le=100,
-        description="Maximum number of pages to crawl and audit",
-        examples=[20],
+        default=1000,
+        ge=20,
+        le=10000,
+        description="Maximum number of pages to crawl and analyze",
     )
     max_depth: int = Field(
-        default=2,
+        default=5,
         ge=0,
         le=10,
         description="Maximum link depth from the start URL to follow",
-        examples=[2],
+        examples=[5],
     )
 
     @field_validator("url")

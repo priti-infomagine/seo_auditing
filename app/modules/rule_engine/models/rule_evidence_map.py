@@ -11,7 +11,7 @@ A single source of truth mapping rule_ids to:
 If a rule_id is absent from RULE_AFFECTED_PART the converter emits
 affected_part="unknown" and logs it for correction.
 """
-from typing import Dict
+from typing import Dict, List
 
 # ---------------------------------------------------------------------------
 # rule_id -> affected_part (the specific thing inspected on the page)
@@ -97,6 +97,9 @@ RULE_AFFECTED_PART: Dict[str, str] = {
     "technical_008": "robots_txt",
     "technical_009": "sitemap",
     "technical_010": "structured_data",
+    # Synthesized at the site level when www and non-www both resolve
+    # without redirecting to a single canonical host (see audit_response_builder).
+    "missing_www_redirect": "canonical",
 }
 
 # WARNING rules whose failure is high-impact and therefore promoted to 'high'.
@@ -188,6 +191,17 @@ SUBCATEGORY_OF: Dict[str, str] = {
     "a11y_004": "link_text",
 }
 
+# ---------------------------------------------------------------------------
+# canonical check_key -> list of rule_ids that roll up into it.
+# Built as the inverse of SUBCATEGORY_OF. A single check_key may be produced by
+# more than one rule (e.g. "https" <- technical_001 + security_001); the audit
+# builder uses this to keep ONE canonical verdict per (page, check_key) so the
+# same check never contradicts itself across categories.
+# ---------------------------------------------------------------------------
+CHECK_KEY_TO_RULE_IDS: Dict[str, List[str]] = {}
+for _rid, _sub in SUBCATEGORY_OF.items():
+    CHECK_KEY_TO_RULE_IDS.setdefault(_sub, []).append(_rid)
+
 # Sub-checks that have no rule backing them (rendered as not_available).
 SUBCATEGORY_NOT_AVAILABLE: set = {
     "redirects",             # requires redirect-chain rule
@@ -217,6 +231,7 @@ RECOMMENDATIONS: Dict[str, Dict[str, str]] = {
     "technical_005": {"action": "Add <!DOCTYPE html> at the start of every HTML document.", "effort": "low"},
     "technical_007": {"action": "Set HSTS, X-Content-Type-Options, X-Frame-Options, Content-Security-Policy headers.", "effort": "medium"},
     "technical_010": {"action": "Add Schema.org JSON-LD markup to enable rich results.", "effort": "medium"},
+    "missing_www_redirect": {"action": "Choose one canonical host (www or non-www) and 301-redirect the other to it.", "effort": "medium"},
     "links_003": {"action": "Fix or remove broken internal links.", "effort": "medium"},
     "links_004": {"action": "Replace generic anchor text (e.g. 'click here') with descriptive text.", "effort": "medium"},
     "images_001": {"action": "Add descriptive alt text to images missing it.", "effort": "medium"},
@@ -252,4 +267,5 @@ RULE_TITLES: Dict[str, str] = {
     "social_001": "Missing Open Graph tags",
     "security_002": "Mixed content detected",
     "security_004": "SSL certificate issue",
+    "missing_www_redirect": "Missing or inconsistent www canonicalization",
 }
