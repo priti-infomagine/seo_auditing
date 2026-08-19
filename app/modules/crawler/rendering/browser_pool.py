@@ -34,15 +34,24 @@ class BrowserPool:
         if cls._instance is None:
             cls._instance = cls(config)
         return cls._instance
-
+    
     async def _ensure_browser(self) -> Optional[Browser]:
         if not PLAYWRIGHT_AVAILABLE:
             return None
+
+        loop = asyncio.get_running_loop()
+
+        print("=" * 60)
+        print("PLAYWRIGHT DEBUG")
+        print("Loop:", type(loop).__name__)
+        print("Policy:", type(asyncio.get_event_loop_policy()).__name__)
+        print("=" * 60)
 
         async with self._lock:
             if self._browser is None or not self._browser.is_connected():
                 try:
                     self._playwright = await async_playwright().start()
+
                     self._browser = await self._playwright.chromium.launch(
                         headless=True,
                         args=[
@@ -52,9 +61,34 @@ class BrowserPool:
                             "--disable-gpu",
                         ],
                     )
-                except Exception:
-                    self._browser = None
+
+                except Exception as exc:
+                    print("PLAYWRIGHT START FAILED:")
+                    print(repr(exc))
+                    raise
+
             return self._browser
+    
+    # async def _ensure_browser(self) -> Optional[Browser]:
+    #     if not PLAYWRIGHT_AVAILABLE:
+    #         return None
+
+    #     async with self._lock:
+    #         if self._browser is None or not self._browser.is_connected():
+    #             try:
+    #                 self._playwright = await async_playwright().start()
+    #                 self._browser = await self._playwright.chromium.launch(
+    #                     headless=True,
+    #                     args=[
+    #                         "--no-sandbox",
+    #                         "--disable-setuid-sandbox",
+    #                         "--disable-dev-shm-usage",
+    #                         "--disable-gpu",
+    #                     ],
+    #                 )
+    #             except Exception:
+    #                 self._browser = None
+    #         return self._browser
 
     @asynccontextmanager
     async def get_page(self) -> AsyncGenerator[Optional[Page], None]:

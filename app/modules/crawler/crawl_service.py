@@ -191,36 +191,70 @@ class CrawlerService:
         return crawl_results
 
     # -- private helpers ------------------------------------------------
-
     async def _discover_sitemap_urls(
-        self,
-        start_url: str,
-        domain: str,
-        max_pages: int,
+    self,
+    start_url: str,
+    domain: str,
+    max_pages: int,
     ) -> list[str]:
-        """
-        Use SiteDiscoveryService to fetch robots.txt + sitemap(s) and return
-        same-domain URLs extracted from sitemaps.
-        """
         sitemap_urls: list[str] = []
-        try:
-            discovery = SiteDiscoveryService(start_url)
-            result = await discovery.discover()
-            for url in result.discovered_urls[:max_pages]:
-                try:
-                    classification, _ = classify_url(url, base_domain=domain)
-                    if classification == UrlClassification.HTML:
-                        sitemap_urls.append(url)
-                except Exception:
-                    continue
-        except Exception as exc:
-            # Discovery failure must NOT silently cap the crawl at the seed page.
-            # Log and fall back to BFS from the seed URL.
-            logger.warning(
-                "CrawlerService._discover_sitemap_urls: sitemap/robots discovery failed "
-                "for %s: %s — falling back to BFS link discovery",
-                start_url, exc,
-            )
+
+    try:
+        discovery = SiteDiscoveryService(start_url)
+        result = await discovery.discover()
+
+        for url in result.discovered_urls[:max_pages]:
+            try:
+                classification, _ = classify_url(
+                    url,
+                    base_domain=domain,
+                )
+
+                if classification == UrlClassification.HTML:
+                    sitemap_urls.append(url)
+
+            except Exception:
+                continue
+
+    except Exception as exc:
+        logger.warning(
+            "CrawlerService._discover_sitemap_urls: "
+            "sitemap/robots discovery failed for %s: %s "
+            "— falling back to BFS link discovery",
+            start_url,
+            exc,
+        )
+
+     return sitemap_urls
+    # async def _discover_sitemap_urls(
+    #     self,
+    #     start_url: str,
+    #     domain: str,
+    #     max_pages: int,
+    # ) -> list[str]:
+    #     """
+    #     Use SiteDiscoveryService to fetch robots.txt + sitemap(s) and return
+    #     same-domain URLs extracted from sitemaps.
+    #     """
+    #     sitemap_urls: list[str] = []
+    #     try:
+    #         discovery = SiteDiscoveryService(start_url)
+    #         result = await discovery.discover()
+    #         for url in result.discovered_urls[:max_pages]:
+    #             try:
+    #                 classification, _ = classify_url(url, base_domain=domain)
+    #                 if classification == UrlClassification.HTML:
+    #                     sitemap_urls.append(url)
+    #             except Exception:
+    #                 continue
+    #     except Exception as exc:
+    #         # Discovery failure must NOT silently cap the crawl at the seed page.
+    #         # Log and fall back to BFS from the seed URL.
+    #         logger.warning(
+    #             "CrawlerService._discover_sitemap_urls: sitemap/robots discovery failed "
+    #             "for %s: %s — falling back to BFS link discovery",
+    #             start_url, exc,
+    #         )
 
     def _discover_links_from_html(
         self,

@@ -1,25 +1,25 @@
 {
   "audit": {
-    "audit_id": "49d738e9-8575-4210-a3eb-b3410428cee7",
-    "project_id": "d855c8f4-04e9-4d3f-928b-f16f6436cd94",
-    "url": "https://infomagine.in/",
-    "domain": "infomagine.in",
-    "started_at": "2026-08-19T09:06:24.139611+00:00",
-    "completed_at": "2026-08-19T09:06:24.395512+00:00",
+    "audit_id": "00dfc045-6283-4286-bd85-511e2e8d61a0",
+    "project_id": "9de52a93-2206-4cd3-8575-2476f77b05f9",
+    "url": "http://vivo.com/",
+    "domain": "vivo.com",
+    "started_at": "2026-08-19T08:52:45.459413+00:00",
+    "completed_at": "2026-08-19T08:52:45.855227+00:00",
     "status": "completed",
     "pages_discovered": 2,
     "pages_crawled": 2,
     "pages_analyzed": 1
   },
   "summary": {
-    "overall_score": 82.9,
-    "health": "good",
-    "critical_issues": 4,
-    "high_issues": 4,
-    "medium_issues": 9,
+    "overall_score": 77.9,
+    "health": "poor",
+    "critical_issues": 6,
+    "high_issues": 10,
+    "medium_issues": 12,
     "low_issues": 9,
-    "passed_checks": 42,
-    "failed_checks": 26
+    "passed_checks": 31,
+    "failed_checks": 37
   },
   "categories": [
     {
@@ -34,36 +34,36 @@
         {
           "rule_id": "on_page_001",
           "severity": "medium",
-          "message": "Title length is 64 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/",
+          "message": "Title length is 62 characters (recommended: 30-60) - too long",
+          "page_url": "http://vivo.com/",
           "affected_part": "title"
         },
         {
           "rule_id": "on_page_002",
           "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/",
+          "message": "Meta description length is 177 characters (recommended: 150-160)",
+          "page_url": "http://vivo.com/",
           "affected_part": "meta_description"
         },
         {
           "rule_id": "on_page_003",
           "severity": "critical",
           "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "h1"
         },
         {
           "rule_id": "on_page_004",
           "severity": "medium",
           "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "heading_hierarchy"
         },
         {
           "rule_id": "on_page_006",
           "severity": "high",
           "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "canonical"
         }
       ]
@@ -71,38 +71,45 @@
     {
       "id": "technical_seo",
       "name": "Technical SEO",
-      "score": 66.7,
-      "status": "poor",
+      "score": 55.6,
+      "status": "critical",
       "checks_total": 9,
-      "checks_passed": 6,
-      "checks_failed": 3,
+      "checks_passed": 5,
+      "checks_failed": 4,
       "issues": [
         {
           "rule_id": "technical_001",
           "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/",
+          "message": "Website is not using HTTPS",
+          "page_url": "http://vivo.com/",
           "affected_part": "ssl_certificate"
         },
         {
           "rule_id": "technical_005",
           "severity": "critical",
           "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "doctype"
         },
         {
           "rule_id": "technical_009",
           "severity": "low",
           "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_010",
+          "severity": "high",
+          "message": "No structured data / schema markup found",
+          "page_url": "http://vivo.com/",
+          "affected_part": "structured_data"
         },
         {
           "rule_id": "missing_www_redirect",
           "severity": "medium",
           "message": "Both www and non-www host variants resolve without a single canonical redirect; pick one and 301-redirect the other.",
-          "page_url": "infomagine.in",
+          "page_url": "vivo.com",
           "affected_part": "canonical"
         }
       ]
@@ -119,29 +126,29 @@
         {
           "rule_id": "content_001",
           "severity": "high",
-          "message": "Thin content: 10 words (recommended: 300+)",
-          "page_url": "https://infomagine.in/",
+          "message": "Thin content: 13 words (recommended: 300+)",
+          "page_url": "http://vivo.com/",
           "affected_part": "word_count"
         },
         {
           "rule_id": "content_003",
           "severity": "medium",
           "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "paragraph_structure"
         },
         {
           "rule_id": "content_006",
           "severity": "high",
           "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "duplicate_content"
         },
         {
           "rule_id": "content_007",
           "severity": "low",
           "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "content_freshness"
         }
       ]
@@ -149,91 +156,135 @@
     {
       "id": "internal_linking",
       "name": "Internal Linking",
-      "score": 60.0,
-      "status": "poor",
+      "score": 40.0,
+      "status": "critical",
       "checks_total": 5,
-      "checks_passed": 3,
-      "checks_failed": 2,
+      "checks_passed": 2,
+      "checks_failed": 3,
       "issues": [
         {
           "rule_id": "links_001",
           "severity": "medium",
-          "message": "No internal links found",
-          "page_url": "https://infomagine.in/",
+          "message": "Few internal links (4, recommended: 10+)",
+          "page_url": "http://vivo.com/",
           "affected_part": "internal_links"
         },
         {
           "rule_id": "links_002",
           "severity": "low",
           "message": "No external links found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "4 links have generic/non-descriptive anchor text",
+          "page_url": "http://vivo.com/",
+          "affected_part": "anchor_text"
         }
       ]
     },
     {
       "id": "images_media",
       "name": "Images & Media",
-      "score": 100.0,
-      "status": "excellent",
+      "score": 16.7,
+      "status": "critical",
       "checks_total": 6,
-      "checks_passed": 6,
-      "checks_failed": 0
+      "checks_passed": 1,
+      "checks_failed": 5,
+      "issues": [
+        {
+          "rule_id": "images_001",
+          "severity": "high",
+          "message": "2/2 images missing alt text (0.0% coverage)",
+          "page_url": "http://vivo.com/",
+          "affected_part": "image_alt_text"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "http://vivo.com/",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "2 images missing width/height attributes",
+          "page_url": "http://vivo.com/",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "http://vivo.com/",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "http://vivo.com/",
+          "affected_part": "image_formats"
+        }
+      ]
     },
     {
       "id": "structured_data",
       "name": "Structured Data",
-      "score": 50.0,
-      "status": "critical",
+      "score": 83.3,
+      "status": "good",
       "checks_total": 6,
-      "checks_passed": 3,
-      "checks_failed": 3,
+      "checks_passed": 5,
+      "checks_failed": 1,
       "issues": [
         {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "product_schema"
+          "rule_id": "schema_001",
+          "severity": "high",
+          "message": "No structured data / schema markup found",
+          "page_url": "http://vivo.com/",
+          "affected_part": "structured_data"
         }
       ]
     },
     {
       "id": "social",
       "name": "Social",
-      "score": 60.0,
-      "status": "poor",
+      "score": 20.0,
+      "status": "critical",
       "checks_total": 5,
-      "checks_passed": 3,
-      "checks_failed": 2,
+      "checks_passed": 1,
+      "checks_failed": 4,
       "issues": [
+        {
+          "rule_id": "social_001",
+          "severity": "medium",
+          "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "page_url": "http://vivo.com/",
+          "affected_part": "open_graph"
+        },
         {
           "rule_id": "social_003",
           "severity": "low",
           "message": "No social media links found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "social_media_links"
         },
         {
           "rule_id": "social_004",
           "severity": "low",
           "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_005",
+          "severity": "medium",
+          "message": "No social media image specified",
+          "page_url": "http://vivo.com/",
+          "affected_part": "social_image"
         }
       ]
     },
@@ -247,31 +298,38 @@
       "checks_failed": 5,
       "issues": [
         {
+          "rule_id": "security_001",
+          "severity": "critical",
+          "message": "Website does not use HTTPS",
+          "page_url": "http://vivo.com/",
+          "affected_part": "https"
+        },
+        {
           "rule_id": "security_003",
           "severity": "critical",
           "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "security_headers"
         },
         {
           "rule_id": "security_004",
           "severity": "high",
           "message": "No SSL certificate information available",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "ssl_certificate"
         },
         {
           "rule_id": "security_005",
           "severity": "medium",
           "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "hsts"
         },
         {
           "rule_id": "security_006",
           "severity": "medium",
           "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "xss_protection"
         }
       ]
@@ -279,35 +337,56 @@
     {
       "id": "accessibility",
       "name": "Accessibility",
-      "score": 87.5,
-      "status": "good",
+      "score": 62.5,
+      "status": "poor",
       "checks_total": 8,
-      "checks_passed": 7,
-      "checks_failed": 1,
+      "checks_passed": 5,
+      "checks_failed": 3,
       "issues": [
+        {
+          "rule_id": "a11y_001",
+          "severity": "high",
+          "message": "2 images missing alt text (0.0% coverage)",
+          "page_url": "http://vivo.com/",
+          "affected_part": "image_alt_text"
+        },
         {
           "rule_id": "a11y_003",
           "severity": "medium",
           "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "heading_structure"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "4 links have non-descriptive text",
+          "page_url": "http://vivo.com/",
+          "affected_part": "link_text"
         }
       ]
     },
     {
       "id": "performance",
       "name": "Performance",
-      "score": 87.5,
-      "status": "good",
+      "score": 75.0,
+      "status": "poor",
       "checks_total": 8,
-      "checks_passed": 7,
-      "checks_failed": 1,
+      "checks_passed": 6,
+      "checks_failed": 2,
       "issues": [
+        {
+          "rule_id": "perf_001",
+          "severity": "critical",
+          "message": "Very slow response time: 2.27s",
+          "page_url": "http://vivo.com/",
+          "affected_part": "response_time"
+        },
         {
           "rule_id": "perf_005",
           "severity": "low",
           "message": "No cache headers found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "http://vivo.com/",
           "affected_part": "browser_caching"
         }
       ]
@@ -315,185 +394,262 @@
   ],
   "issues": [
     {
+      "rule_id": "a11y_001",
+      "severity": "high",
+      "message": "2 images missing alt text (0.0% coverage)",
+      "page_url": "http://vivo.com/",
+      "affected_part": "image_alt_text"
+    },
+    {
       "rule_id": "a11y_003",
       "severity": "medium",
       "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "4 links have non-descriptive text",
+      "page_url": "http://vivo.com/",
+      "affected_part": "link_text"
     },
     {
       "rule_id": "content_001",
       "severity": "high",
-      "message": "Thin content: 10 words (recommended: 300+)",
-      "page_url": "https://infomagine.in/",
+      "message": "Thin content: 13 words (recommended: 300+)",
+      "page_url": "http://vivo.com/",
       "affected_part": "word_count"
     },
     {
       "rule_id": "content_003",
       "severity": "medium",
       "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "paragraph_structure"
     },
     {
       "rule_id": "content_006",
       "severity": "high",
       "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "duplicate_content"
     },
     {
       "rule_id": "content_007",
       "severity": "low",
       "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_001",
+      "severity": "high",
+      "message": "2/2 images missing alt text (0.0% coverage)",
+      "page_url": "http://vivo.com/",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "http://vivo.com/",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "2 images missing width/height attributes",
+      "page_url": "http://vivo.com/",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "http://vivo.com/",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "http://vivo.com/",
+      "affected_part": "image_formats"
     },
     {
       "rule_id": "links_001",
       "severity": "medium",
-      "message": "No internal links found",
-      "page_url": "https://infomagine.in/",
+      "message": "Few internal links (4, recommended: 10+)",
+      "page_url": "http://vivo.com/",
       "affected_part": "internal_links"
     },
     {
       "rule_id": "links_002",
       "severity": "low",
       "message": "No external links found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "4 links have generic/non-descriptive anchor text",
+      "page_url": "http://vivo.com/",
+      "affected_part": "anchor_text"
     },
     {
       "rule_id": "on_page_001",
       "severity": "medium",
-      "message": "Title length is 64 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/",
+      "message": "Title length is 62 characters (recommended: 30-60) - too long",
+      "page_url": "http://vivo.com/",
       "affected_part": "title"
     },
     {
       "rule_id": "on_page_002",
       "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/",
+      "message": "Meta description length is 177 characters (recommended: 150-160)",
+      "page_url": "http://vivo.com/",
       "affected_part": "meta_description"
     },
     {
       "rule_id": "on_page_003",
       "severity": "critical",
       "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "h1"
     },
     {
       "rule_id": "on_page_004",
       "severity": "medium",
       "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "heading_hierarchy"
     },
     {
       "rule_id": "on_page_006",
       "severity": "high",
       "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_001",
+      "severity": "critical",
+      "message": "Very slow response time: 2.27s",
+      "page_url": "http://vivo.com/",
+      "affected_part": "response_time"
     },
     {
       "rule_id": "perf_005",
       "severity": "low",
       "message": "No cache headers found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "browser_caching"
     },
     {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "breadcrumb_schema"
+      "rule_id": "schema_001",
+      "severity": "high",
+      "message": "No structured data / schema markup found",
+      "page_url": "http://vivo.com/",
+      "affected_part": "structured_data"
     },
     {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "product_schema"
+      "rule_id": "security_001",
+      "severity": "critical",
+      "message": "Website does not use HTTPS",
+      "page_url": "http://vivo.com/",
+      "affected_part": "https"
     },
     {
       "rule_id": "security_003",
       "severity": "critical",
       "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "security_headers"
     },
     {
       "rule_id": "security_004",
       "severity": "high",
       "message": "No SSL certificate information available",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "ssl_certificate"
     },
     {
       "rule_id": "security_005",
       "severity": "medium",
       "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "hsts"
     },
     {
       "rule_id": "security_006",
       "severity": "medium",
       "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_001",
+      "severity": "medium",
+      "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+      "page_url": "http://vivo.com/",
+      "affected_part": "open_graph"
     },
     {
       "rule_id": "social_003",
       "severity": "low",
       "message": "No social media links found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "social_media_links"
     },
     {
       "rule_id": "social_004",
       "severity": "low",
       "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "social_005",
+      "severity": "medium",
+      "message": "No social media image specified",
+      "page_url": "http://vivo.com/",
+      "affected_part": "social_image"
     },
     {
       "rule_id": "technical_001",
       "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/",
+      "message": "Website is not using HTTPS",
+      "page_url": "http://vivo.com/",
       "affected_part": "ssl_certificate"
     },
     {
       "rule_id": "technical_005",
       "severity": "critical",
       "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "doctype"
     },
     {
       "rule_id": "technical_009",
       "severity": "low",
       "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/",
+      "page_url": "http://vivo.com/",
       "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "technical_010",
+      "severity": "high",
+      "message": "No structured data / schema markup found",
+      "page_url": "http://vivo.com/",
+      "affected_part": "structured_data"
     },
     {
       "rule_id": "missing_www_redirect",
       "severity": "medium",
       "message": "Both www and non-www host variants resolve without a single canonical redirect; pick one and 301-redirect the other.",
-      "page_url": "infomagine.in",
+      "page_url": "vivo.com",
       "affected_part": "canonical"
     }
   ],
@@ -525,9 +681,9 @@
         "affected_pages": 0
       },
       "open_graph": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "robots": {
         "status": "excellent",
@@ -602,9 +758,9 @@
         "affected_pages": 1
       },
       "structured_data": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "viewport": {
         "status": "excellent",
@@ -656,9 +812,9 @@
     },
     "internal_linking": {
       "anchor_text": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "broken_links": {
         "status": "excellent",
@@ -688,9 +844,9 @@
         "affected_pages": 0
       },
       "image_dimensions": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "image_file_size": {
         "status": "excellent",
@@ -698,19 +854,19 @@
         "affected_pages": 0
       },
       "image_formats": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "lazy_loading": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "responsive_images": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       }
     },
     "structured_data": {
@@ -740,9 +896,9 @@
         "affected_pages": 0
       },
       "structured_data": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       }
     },
     "social": {
@@ -752,9 +908,9 @@
         "affected_pages": 0
       },
       "open_graph": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "social_image": {
         "status": "excellent",
@@ -841,9 +997,9 @@
         "affected_pages": 0
       },
       "link_text": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       }
     },
     "performance": {
@@ -878,9 +1034,9 @@
         "affected_pages": 0
       },
       "response_time": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "total_page_size": {
         "status": "excellent",
@@ -909,8 +1065,8 @@
     "status_codes": {
       "200": 2
     },
-    "started_at": "2026-08-19T09:06:24.139611+00:00",
-    "completed_at": "2026-08-19T09:06:24.395512+00:00"
+    "started_at": "2026-08-19T08:52:45.459413+00:00",
+    "completed_at": "2026-08-19T08:52:45.855227+00:00"
   },
   "indexation": {
     "indexable": 2,
@@ -932,24 +1088,22 @@
     },
     "ttfb": {
       "available": true,
-      "value": 277.0,
+      "value": 2272.0,
       "unit": "milliseconds",
-      "status": "excellent",
+      "status": "critical",
       "reason": null
     }
   },
   "structured_data": {
-    "pages_with_schema": 1,
-    "pages_without_schema": 0,
-    "valid": 1,
-    "invalid": 0,
-    "types": {
-      "Organization": 1
-    }
+    "pages_with_schema": 0,
+    "pages_without_schema": 1,
+    "valid": 0,
+    "invalid": 1,
+    "types": {}
   },
   "links": {
     "internal": {
-      "total": 0,
+      "total": 4,
       "broken": {
         "available": false,
         "value": null,
@@ -969,13 +1123,13 @@
       "value": null,
       "reason": "link_graph_analysis_not_implemented"
     },
-    "total_links": 0
+    "total_links": 4
   },
   "images": {
-    "total": 0,
-    "missing_alt": 0,
+    "total": 2,
+    "missing_alt": 2,
     "empty_alt": 0,
-    "missing_dimensions": 0,
+    "missing_dimensions": 2,
     "oversized": 0,
     "modern_format": 0,
     "lazy_loading": 0
@@ -1003,18 +1157,27 @@
   "priorities": {
     "critical": [
       "on_page_003",
+      "perf_001",
+      "security_001",
       "security_003",
       "technical_001",
       "technical_005"
     ],
     "high": [
+      "a11y_001",
       "content_001",
       "content_006",
+      "images_001",
+      "images_004",
+      "links_004",
       "on_page_006",
-      "security_004"
+      "schema_001",
+      "security_004",
+      "technical_010"
     ],
     "medium": [
       "a11y_003",
+      "a11y_004",
       "content_003",
       "links_001",
       "missing_www_redirect",
@@ -1022,15 +1185,17 @@
       "on_page_002",
       "on_page_004",
       "security_005",
-      "security_006"
+      "security_006",
+      "social_001",
+      "social_005"
     ],
     "low": [
       "content_007",
+      "images_003",
+      "images_005",
+      "images_006",
       "links_002",
       "perf_005",
-      "schema_003",
-      "schema_004",
-      "schema_005",
       "social_003",
       "social_004",
       "technical_009"
@@ -1043,6 +1208,14 @@
       "title": "Missing or multiple H1 tags",
       "action": "Add a single <h1> containing your primary keyword.",
       "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 1,
+      "rule_id": "perf_001",
+      "title": "Slow server response time (TTFB)",
+      "action": "Reduce server response time (optimize queries, use caching, CDN).",
+      "effort": "medium",
       "affected_pages": 1
     },
     {
@@ -1079,10 +1252,50 @@
     },
     {
       "priority": 2,
+      "rule_id": "images_001",
+      "title": "Images missing alt text",
+      "action": "Add descriptive alt text to images missing it.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "images_004",
+      "title": "Images missing width/height dimensions",
+      "action": "Specify width/height attributes to prevent Cumulative Layout Shift.",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "links_004",
+      "title": "Generic or non-descriptive anchor text",
+      "action": "Replace generic anchor text (e.g. 'click here') with descriptive text.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
       "rule_id": "on_page_006",
       "title": "Missing canonical URL",
       "action": "Add <link rel='canonical'> to the preferred URL.",
       "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "schema_001",
+      "title": "Missing schema markup",
+      "action": "Add JSON-LD structured data for key page types.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "technical_010",
+      "title": "Missing structured data / schema markup",
+      "action": "Add Schema.org JSON-LD markup to enable rich results.",
+      "effort": "medium",
       "affected_pages": 1
     },
     {
@@ -1106,6 +1319,14 @@
       "rule_id": "on_page_004",
       "title": "Illogical heading hierarchy",
       "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 3,
+      "rule_id": "social_001",
+      "title": "Missing Open Graph tags",
+      "action": "Add required Open Graph meta tags for social sharing.",
       "effort": "low",
       "affected_pages": 1
     },
@@ -1153,7 +1374,7 @@
     "parser_version": "unknown",
     "rule_engine_version": "1.0.0",
     "rules_executed": 67,
-    "total_issues": 26,
+    "total_issues": 37,
     "output_shape": "unified_v1"
   }
 }

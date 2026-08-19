@@ -6723,3 +6723,457 @@ TypeError: 'TechnicalAnalysisService' object is not callable
 2026-08-19 12:43:18,138 | INFO | AuditResponseBuilder.build: project_id=9193f161-69eb-4a35-b384-c23b8aacd75e crawl_id=5423f90b-05b4-4eef-9431-10c81772672d
 2026-08-19 12:43:18,211 | INFO | AnalysisScorerService.score_project: score=79.4, grade=C+, pages=1, project_id=9193f161-69eb-4a35-b384-c23b8aacd75e
 2026-08-19 12:43:18,211 | INFO | DB scoring completed: Score=79.4/100 (Health: poor)
+2026-08-19 13:54:06,031 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://www.vivo.com/
+2026-08-19 13:54:06,040 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:16:13,998 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://vivo.vom/
+2026-08-19 14:16:13,998 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:16:25,755 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://vivo.com/
+2026-08-19 14:16:25,771 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:16:30,793 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 14:16:30,793 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:16:31,200 | INFO | DB persistence completed: crawl_id=68f50dba-12c0-43f7-b570-72dc8fe690ed
+2026-08-19 14:16:31,200 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:16:31,200 | INFO | DBParserService.parse_crawl: project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8, crawl_id=68f50dba-12c0-43f7-b570-72dc8fe690ed, force=True
+2026-08-19 14:16:31,311 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8
+2026-08-19 14:16:31,311 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 14:16:31,311 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:16:31,311 | INFO | Loaded 70 scoring rules
+2026-08-19 14:16:31,311 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8, crawl_id=68f50dba-12c0-43f7-b570-72dc8fe690ed, force=True
+2026-08-19 14:16:31,884 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8
+2026-08-19 14:16:31,884 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 14:16:31,884 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:16:31,884 | INFO | AnalysisScorerService.score_project: project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8, crawl_id=68f50dba-12c0-43f7-b570-72dc8fe690ed, force=True
+2026-08-19 14:16:31,884 | INFO | AuditResponseBuilder.build: project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8 crawl_id=68f50dba-12c0-43f7-b570-72dc8fe690ed
+2026-08-19 14:16:32,040 | INFO | AnalysisScorerService.score_project: score=79.4, grade=C+, pages=1, project_id=b5113233-b511-4f6e-8f98-6935e55bc8f8
+2026-08-19 14:16:32,040 | INFO | DB scoring completed: Score=79.4/100 (Health: poor)
+2026-08-19 14:17:22,349 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://radonindia.com/
+2026-08-19 14:17:22,349 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:19:20,318 | INFO | Crawl phase completed: 157 pages crawled
+2026-08-19 14:19:20,318 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:20:03,099 | INFO | DB persistence completed: crawl_id=fc4ff290-8079-41b7-8283-dd4030c2b37b
+2026-08-19 14:20:03,099 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:20:03,099 | INFO | DBParserService.parse_crawl: project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19, crawl_id=fc4ff290-8079-41b7-8283-dd4030c2b37b, force=True
+2026-08-19 14:20:34,257 | INFO | DBParserService.parse_crawl: parsed=154, failed=0, skipped=0 for project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19
+2026-08-19 14:20:34,258 | INFO | DB parse: 154 pages parsed, 0 failed
+2026-08-19 14:20:34,258 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:20:34,258 | INFO | Loaded 70 scoring rules
+2026-08-19 14:20:34,258 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19, crawl_id=fc4ff290-8079-41b7-8283-dd4030c2b37b, force=True
+2026-08-19 14:21:21,559 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=154, rules_run=10780, total_results=10780, errors=0 for project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19
+2026-08-19 14:21:21,607 | INFO | DB evaluate: 10780 rules run, 10780 results, 0 errors
+2026-08-19 14:21:21,610 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:21:21,610 | INFO | AnalysisScorerService.score_project: project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19, crawl_id=fc4ff290-8079-41b7-8283-dd4030c2b37b, force=True
+2026-08-19 14:21:21,614 | INFO | AuditResponseBuilder.build: project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19 crawl_id=fc4ff290-8079-41b7-8283-dd4030c2b37b
+2026-08-19 14:21:24,246 | INFO | AnalysisScorerService.score_project: score=83.4, grade=B, pages=75, project_id=fceeab71-c647-4aca-ab16-2f328c6a5d19
+2026-08-19 14:21:24,246 | INFO | DB scoring completed: Score=83.4/100 (Health: good)
+2026-08-19 14:22:40,231 | INFO | POST /audit/analyze - Full audit pipeline started for URL: http://vivo.com/
+2026-08-19 14:22:40,231 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:22:45,433 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 14:22:45,435 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:22:45,856 | INFO | DB persistence completed: crawl_id=00dfc045-6283-4286-bd85-511e2e8d61a0
+2026-08-19 14:22:45,856 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:22:45,856 | INFO | DBParserService.parse_crawl: project_id=9de52a93-2206-4cd3-8575-2476f77b05f9, crawl_id=00dfc045-6283-4286-bd85-511e2e8d61a0, force=True
+2026-08-19 14:22:46,088 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=9de52a93-2206-4cd3-8575-2476f77b05f9
+2026-08-19 14:22:46,088 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 14:22:46,093 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:22:46,093 | INFO | Loaded 70 scoring rules
+2026-08-19 14:22:46,093 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=9de52a93-2206-4cd3-8575-2476f77b05f9, crawl_id=00dfc045-6283-4286-bd85-511e2e8d61a0, force=True
+2026-08-19 14:22:46,747 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=9de52a93-2206-4cd3-8575-2476f77b05f9
+2026-08-19 14:22:46,747 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 14:22:46,747 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:22:46,749 | INFO | AnalysisScorerService.score_project: project_id=9de52a93-2206-4cd3-8575-2476f77b05f9, crawl_id=00dfc045-6283-4286-bd85-511e2e8d61a0, force=True
+2026-08-19 14:22:46,750 | INFO | AuditResponseBuilder.build: project_id=9de52a93-2206-4cd3-8575-2476f77b05f9 crawl_id=00dfc045-6283-4286-bd85-511e2e8d61a0
+2026-08-19 14:22:46,780 | INFO | AnalysisScorerService.score_project: score=77.9, grade=C+, pages=1, project_id=9de52a93-2206-4cd3-8575-2476f77b05f9
+2026-08-19 14:22:46,788 | INFO | DB scoring completed: Score=77.9/100 (Health: poor)
+2026-08-19 14:25:35,400 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://vivo.com/
+2026-08-19 14:25:35,404 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:25:40,117 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 14:25:40,117 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:25:40,421 | INFO | DB persistence completed: crawl_id=87001f18-21b2-4389-8d4f-92ba0f60eca6
+2026-08-19 14:25:40,421 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:25:40,421 | INFO | DBParserService.parse_crawl: project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c, crawl_id=87001f18-21b2-4389-8d4f-92ba0f60eca6, force=True
+2026-08-19 14:25:40,630 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c
+2026-08-19 14:25:40,633 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 14:25:40,633 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:25:40,645 | INFO | Loaded 70 scoring rules
+2026-08-19 14:25:40,645 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c, crawl_id=87001f18-21b2-4389-8d4f-92ba0f60eca6, force=True
+2026-08-19 14:25:42,574 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c
+2026-08-19 14:25:42,583 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 14:25:42,583 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:25:42,583 | INFO | AnalysisScorerService.score_project: project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c, crawl_id=87001f18-21b2-4389-8d4f-92ba0f60eca6, force=True
+2026-08-19 14:25:42,583 | INFO | AuditResponseBuilder.build: project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c crawl_id=87001f18-21b2-4389-8d4f-92ba0f60eca6
+2026-08-19 14:25:42,642 | INFO | AnalysisScorerService.score_project: score=79.4, grade=C+, pages=1, project_id=5b49d56b-b17f-47db-82e0-27d3c5f06d6c
+2026-08-19 14:25:42,642 | INFO | DB scoring completed: Score=79.4/100 (Health: poor)
+2026-08-19 14:26:01,087 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://oppo.com/
+2026-08-19 14:26:01,089 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:27:00,576 | INFO | Crawl phase completed: 84 pages crawled
+2026-08-19 14:27:00,591 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:27:00,878 | ERROR | Unexpected error during audit for URL: https://oppo.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 139, in analyze_website
+    parsed = parser.parse(html=html, url=crawl_result["url"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\parser\services\parser_orchestrator.py", line 71, in parse
+    images = self.extractors["image"].extract(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\parser\extractors\image_extractor.py", line 44, in extract
+    url=str(source.get("srcset", "")).strip().split(",")[0].split()[0],
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+2026-08-19 14:32:33,960 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://oppo.com/
+2026-08-19 14:32:33,960 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:33:36,578 | INFO | Crawl phase completed: 84 pages crawled
+2026-08-19 14:33:36,578 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:34:15,359 | INFO | DB persistence completed: crawl_id=fa8b631b-f9dc-4684-80b8-5607ce6acc15
+2026-08-19 14:34:15,359 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:34:15,359 | INFO | DBParserService.parse_crawl: project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac, crawl_id=fa8b631b-f9dc-4684-80b8-5607ce6acc15, force=True
+2026-08-19 14:34:54,029 | INFO | DBParserService.parse_crawl: parsed=84, failed=0, skipped=0 for project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac
+2026-08-19 14:34:54,031 | INFO | DB parse: 84 pages parsed, 0 failed
+2026-08-19 14:34:54,031 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:34:54,031 | INFO | Loaded 70 scoring rules
+2026-08-19 14:34:54,031 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac, crawl_id=fa8b631b-f9dc-4684-80b8-5607ce6acc15, force=True
+2026-08-19 14:35:39,307 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=84, rules_run=5880, total_results=5880, errors=0 for project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac
+2026-08-19 14:35:39,429 | INFO | DB evaluate: 5880 rules run, 5880 results, 0 errors
+2026-08-19 14:35:39,444 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:35:39,444 | INFO | AnalysisScorerService.score_project: project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac, crawl_id=fa8b631b-f9dc-4684-80b8-5607ce6acc15, force=True
+2026-08-19 14:35:39,447 | INFO | AuditResponseBuilder.build: project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac crawl_id=fa8b631b-f9dc-4684-80b8-5607ce6acc15
+2026-08-19 14:35:43,434 | INFO | AnalysisScorerService.score_project: score=85.9, grade=B+, pages=84, project_id=cc1f5e6f-37ec-4e3e-919e-726a7386ddac
+2026-08-19 14:35:43,436 | INFO | DB scoring completed: Score=85.9/100 (Health: good)
+2026-08-19 14:36:21,387 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 14:36:21,388 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:36:24,120 | INFO | Crawl phase completed: 2 pages crawled
+2026-08-19 14:36:24,120 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:36:24,401 | INFO | DB persistence completed: crawl_id=49d738e9-8575-4210-a3eb-b3410428cee7
+2026-08-19 14:36:24,401 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:36:24,401 | INFO | DBParserService.parse_crawl: project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94, crawl_id=49d738e9-8575-4210-a3eb-b3410428cee7, force=True
+2026-08-19 14:36:24,625 | INFO | DBParserService.parse_crawl: parsed=2, failed=0, skipped=0 for project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94
+2026-08-19 14:36:24,625 | INFO | DB parse: 2 pages parsed, 0 failed
+2026-08-19 14:36:24,628 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:36:24,628 | INFO | Loaded 70 scoring rules
+2026-08-19 14:36:24,628 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94, crawl_id=49d738e9-8575-4210-a3eb-b3410428cee7, force=True
+2026-08-19 14:36:25,709 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=2, rules_run=140, total_results=140, errors=0 for project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94
+2026-08-19 14:36:25,717 | INFO | DB evaluate: 140 rules run, 140 results, 0 errors
+2026-08-19 14:36:25,719 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:36:25,730 | INFO | AnalysisScorerService.score_project: project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94, crawl_id=49d738e9-8575-4210-a3eb-b3410428cee7, force=True
+2026-08-19 14:36:25,739 | INFO | AuditResponseBuilder.build: project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94 crawl_id=49d738e9-8575-4210-a3eb-b3410428cee7
+2026-08-19 14:36:25,842 | INFO | AnalysisScorerService.score_project: score=82.9, grade=B, pages=1, project_id=d855c8f4-04e9-4d3f-928b-f16f6436cd94
+2026-08-19 14:36:25,852 | INFO | DB scoring completed: Score=82.9/100 (Health: good)
+2026-08-19 14:37:20,784 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-19 14:37:20,784 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:48:28,300 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://replit.com/
+2026-08-19 14:48:28,307 | INFO | Step 1: Starting crawl phase (multi-page)
+2026-08-19 14:53:05,349 | INFO | Crawl phase completed: 309 pages crawled
+2026-08-19 14:53:05,363 | INFO | Step 2: Starting DB persistence phase
+2026-08-19 14:54:34,169 | INFO | DB persistence completed: crawl_id=6d60b76f-552e-47e9-9056-2be005c2da10
+2026-08-19 14:54:34,171 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 14:54:34,175 | INFO | DBParserService.parse_crawl: project_id=b68abf69-ca14-458c-a368-fd78a3379128, crawl_id=6d60b76f-552e-47e9-9056-2be005c2da10, force=True
+2026-08-19 14:56:03,059 | INFO | DBParserService.parse_crawl: parsed=265, failed=0, skipped=0 for project_id=b68abf69-ca14-458c-a368-fd78a3379128
+2026-08-19 14:56:03,068 | INFO | DB parse: 265 pages parsed, 0 failed
+2026-08-19 14:56:03,068 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 14:56:03,068 | INFO | Loaded 70 scoring rules
+2026-08-19 14:56:03,070 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=b68abf69-ca14-458c-a368-fd78a3379128, crawl_id=6d60b76f-552e-47e9-9056-2be005c2da10, force=True
+2026-08-19 14:59:26,183 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=265, rules_run=18550, total_results=18550, errors=0 for project_id=b68abf69-ca14-458c-a368-fd78a3379128
+2026-08-19 14:59:26,702 | INFO | DB evaluate: 18550 rules run, 18550 results, 0 errors
+2026-08-19 14:59:26,704 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 14:59:26,704 | INFO | AnalysisScorerService.score_project: project_id=b68abf69-ca14-458c-a368-fd78a3379128, crawl_id=6d60b76f-552e-47e9-9056-2be005c2da10, force=True
+2026-08-19 14:59:26,716 | INFO | AuditResponseBuilder.build: project_id=b68abf69-ca14-458c-a368-fd78a3379128 crawl_id=6d60b76f-552e-47e9-9056-2be005c2da10
+2026-08-19 14:59:35,488 | INFO | AnalysisScorerService.score_project: score=86.3, grade=B+, pages=294, project_id=b68abf69-ca14-458c-a368-fd78a3379128
+2026-08-19 14:59:35,492 | INFO | DB scoring completed: Score=86.3/100 (Health: good)
+2026-08-19 15:55:57,030 | ERROR | Worker 0: error processing https://vivo.com/: 'TechnicalAnalysisService' object is not callable
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 266, in _crawl_page
+    technical_analysis = self.technical_analysis_service()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'TechnicalAnalysisService' object is not callable
+2026-08-19 15:57:14,269 | ERROR | Worker 0: error processing https://vivo.com/: name 'PageNetworkData' is not defined
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 303, in _crawl_page
+    page_network_data=PageNetworkData(
+                      ^^^^^^^^^^^^^^^
+NameError: name 'PageNetworkData' is not defined
+2026-08-19 15:58:08,470 | ERROR | Worker 0: error processing https://vivo.com/: CrawlPersistenceService.persist_network_data() got an unexpected keyword argument 'page_network_data'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 304, in _crawl_page
+    await self.persistence.persist_network_data(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: CrawlPersistenceService.persist_network_data() got an unexpected keyword argument 'page_network_data'
+2026-08-19 16:00:33,324 | ERROR | Worker 0: error processing https://vivo.com/: 'MetadataFacts' object has no attribute 'meta_tags'
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 321, in _crawl_page
+    for t in (page_facts.metadata.meta_tags or [])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MetadataFacts' object has no attribute 'meta_tags'
+2026-08-19 16:02:28,545 | ERROR | CrawlPersistenceService.persist_resources: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+[SQL: INSERT INTO page_resources (id, page_id, resource_type, url, normalized_url, mime_type, status_code, size_bytes, alt, width, height, loading, srcset, sizes, is_lazy, is_mixed_content) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, ... 1937 characters truncated ... AN, $144::BOOLEAN) RETURNING page_resources.created_at, page_resources.updated_at, page_resources.id]
+[parameters: (UUID('c5aea067-5624-4bd5-9fcf-379cbb77cc61'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', '', '', None, None, None, '', '', '', '', '', '', False, False, UUID('de006d9a-5bc4-4d19-a3b1-8823eb73cb9b'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', None, None, None, '', '', '', 'eager', '', '', False, False, UUID('d9bddec9-42bf-4fce-8477-2671930d91b3'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'script', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', None, None, None, '', '', '', '', '', '', False, False, UUID('de9e81ed-33cf-43ff-aea7-e143aca2e1b5'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17') ... 44 parameters truncated ... False, False, UUID('40c372e2-11c8-4b03-9a67-2169c4ab9c79'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', None, None, None, '', '', '', '', '', '', False, False, UUID('b0eb7dae-0eef-420d-9d82-78de7a52c5dc'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', None, None, None, '', '', '', '', '', '', False, False, UUID('d16ce2ec-aba7-4b46-90d9-d4c2d7ad4993'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', None, None, None, '', '', '', '', '', '', False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 175, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+  File "asyncpg/protocol/codecs/base.pyx", line 251, in asyncpg.protocol.protocol.Codec.encode
+  File "asyncpg/protocol/codecs/base.pyx", line 153, in asyncpg.protocol.protocol.Codec.encode_scalar
+  File "asyncpg/pgproto/codecs/int.pyx", line 54, in asyncpg.pgproto.pgproto.int4_encode
+TypeError: 'str' object cannot be interpreted as an integer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 184, in bind_execute
+  File "asyncpg/protocol/prepared_stmt.pyx", line 204, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+asyncpg.exceptions.DataError: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 158, in persist_resources
+    return await self.resource_repo.create_batch(resource_objects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\page_resource_repository.py", line 29, in create_batch
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1144, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+[SQL: INSERT INTO page_resources (id, page_id, resource_type, url, normalized_url, mime_type, status_code, size_bytes, alt, width, height, loading, srcset, sizes, is_lazy, is_mixed_content) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, ... 1937 characters truncated ... AN, $144::BOOLEAN) RETURNING page_resources.created_at, page_resources.updated_at, page_resources.id]
+[parameters: (UUID('c5aea067-5624-4bd5-9fcf-379cbb77cc61'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', '', '', None, None, None, '', '', '', '', '', '', False, False, UUID('de006d9a-5bc4-4d19-a3b1-8823eb73cb9b'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', None, None, None, '', '', '', 'eager', '', '', False, False, UUID('d9bddec9-42bf-4fce-8477-2671930d91b3'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'script', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', None, None, None, '', '', '', '', '', '', False, False, UUID('de9e81ed-33cf-43ff-aea7-e143aca2e1b5'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17') ... 44 parameters truncated ... False, False, UUID('40c372e2-11c8-4b03-9a67-2169c4ab9c79'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', None, None, None, '', '', '', '', '', '', False, False, UUID('b0eb7dae-0eef-420d-9d82-78de7a52c5dc'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', None, None, None, '', '', '', '', '', '', False, False, UUID('d16ce2ec-aba7-4b46-90d9-d4c2d7ad4993'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', None, None, None, '', '', '', '', '', '', False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-19 16:02:28,673 | ERROR | Worker 0: error processing https://vivo.com/: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+[SQL: INSERT INTO page_resources (id, page_id, resource_type, url, normalized_url, mime_type, status_code, size_bytes, alt, width, height, loading, srcset, sizes, is_lazy, is_mixed_content) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, ... 1937 characters truncated ... AN, $144::BOOLEAN) RETURNING page_resources.created_at, page_resources.updated_at, page_resources.id]
+[parameters: (UUID('c5aea067-5624-4bd5-9fcf-379cbb77cc61'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', '', '', None, None, None, '', '', '', '', '', '', False, False, UUID('de006d9a-5bc4-4d19-a3b1-8823eb73cb9b'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', None, None, None, '', '', '', 'eager', '', '', False, False, UUID('d9bddec9-42bf-4fce-8477-2671930d91b3'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'script', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', None, None, None, '', '', '', '', '', '', False, False, UUID('de9e81ed-33cf-43ff-aea7-e143aca2e1b5'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17') ... 44 parameters truncated ... False, False, UUID('40c372e2-11c8-4b03-9a67-2169c4ab9c79'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', None, None, None, '', '', '', '', '', '', False, False, UUID('b0eb7dae-0eef-420d-9d82-78de7a52c5dc'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', None, None, None, '', '', '', '', '', '', False, False, UUID('d16ce2ec-aba7-4b46-90d9-d4c2d7ad4993'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', None, None, None, '', '', '', '', '', '', False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 175, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+  File "asyncpg/protocol/codecs/base.pyx", line 251, in asyncpg.protocol.protocol.Codec.encode
+  File "asyncpg/protocol/codecs/base.pyx", line 153, in asyncpg.protocol.protocol.Codec.encode_scalar
+  File "asyncpg/pgproto/codecs/int.pyx", line 54, in asyncpg.pgproto.pgproto.int4_encode
+TypeError: 'str' object cannot be interpreted as an integer
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 184, in bind_execute
+  File "asyncpg/protocol/prepared_stmt.pyx", line 204, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+asyncpg.exceptions.DataError: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 153, in _worker_loop
+    await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 378, in _crawl_page
+    await self.persistence.persist_resources(page.id, page_facts.resources.resources, page_url=normalized_url)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 158, in persist_resources
+    return await self.resource_repo.create_batch(resource_objects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\page_resource_repository.py", line 29, in create_batch
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1144, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $10: '' ('str' object cannot be interpreted as an integer)
+[SQL: INSERT INTO page_resources (id, page_id, resource_type, url, normalized_url, mime_type, status_code, size_bytes, alt, width, height, loading, srcset, sizes, is_lazy, is_mixed_content) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, ... 1937 characters truncated ... AN, $144::BOOLEAN) RETURNING page_resources.created_at, page_resources.updated_at, page_resources.id]
+[parameters: (UUID('c5aea067-5624-4bd5-9fcf-379cbb77cc61'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', '', '', None, None, None, '', '', '', '', '', '', False, False, UUID('de006d9a-5bc4-4d19-a3b1-8823eb73cb9b'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'image', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', 'https://eu-exstatic-vivofs.vivo.com/8Xa6evfY85lu15Pb/1715076419785/cfb2513380811c4ded1fb1bce7feb105.jpg', None, None, None, '', '', '', 'eager', '', '', False, False, UUID('d9bddec9-42bf-4fce-8477-2671930d91b3'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'script', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', 'https://portalstatic-ex.vivo.com/_nuxt/CG-JrTNO.js', None, None, None, '', '', '', '', '', '', False, False, UUID('de9e81ed-33cf-43ff-aea7-e143aca2e1b5'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17') ... 44 parameters truncated ... False, False, UUID('40c372e2-11c8-4b03-9a67-2169c4ab9c79'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', 'https://portalstatic-ex.vivo.com/_nuxt/entry.D0e9a9_I.css', None, None, None, '', '', '', '', '', '', False, False, UUID('b0eb7dae-0eef-420d-9d82-78de7a52c5dc'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', 'https://portalstatic-ex.vivo.com/_nuxt/default.YvNR40nD.css', None, None, None, '', '', '', '', '', '', False, False, UUID('d16ce2ec-aba7-4b46-90d9-d4c2d7ad4993'), UUID('02c0c9cc-f706-4be6-ad0a-2153756b0d17'), 'stylesheet', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', 'https://portalstatic-ex.vivo.com/_nuxt/index.CBfn0AWK.css', None, None, None, '', '', '', '', '', '', False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-19 16:08:08,469 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 407, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 231, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-19 16:08:58,463 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 407, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 231, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-19 16:12:30,120 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 407, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 231, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down

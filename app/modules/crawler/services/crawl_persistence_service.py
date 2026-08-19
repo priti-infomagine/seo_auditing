@@ -124,6 +124,15 @@ class CrawlPersistenceService:
             logger.error(f"CrawlPersistenceService.persist_seo_data: error: {exc}", exc_info=True)
             raise
 
+    def _coerce_int(self, value):
+        """Return an int, or None for empty/invalid values (DB Integer columns)."""
+        if value is None or value == "":
+            return None
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return None
+
     async def persist_resources(self, page_id: UUID, resources: list, page_url: str = "") -> list:
         """Persist page resources with mixed-content detection."""
         try:
@@ -141,8 +150,10 @@ class CrawlPersistenceService:
                     url=r.get("url", ""),
                     normalized_url=r.get("url"),
                     alt=r.get("alt"),
-                    width=r.get("width"),
-                    height=r.get("height"),
+                    width=self._coerce_int(r.get("width")),
+                    height=self._coerce_int(r.get("height")),
+                    status_code=self._coerce_int(r.get("status_code")),
+                    size_bytes=self._coerce_int(r.get("size_bytes")),
                     loading=r.get("loading"),
                     srcset=r.get("srcset"),
                     sizes=r.get("sizes"),

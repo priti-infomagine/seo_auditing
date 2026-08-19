@@ -20,7 +20,33 @@ from app.modules.audit.services.analysis_scorer_service import AnalysisScorerSer
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
 
+import asyncio
+import os
+import sys
 
+
+# @celery_app.task
+# def your_task(...):
+#     print("=" * 70)
+#     print("CELERY RUNTIME")
+#     print("PID:", os.getpid())
+#     print("Platform:", sys.platform)
+#     print(
+#         "Policy:",
+#         type(asyncio.get_event_loop_policy()).__name__,
+#     )
+
+#     try:
+#         loop = asyncio.get_running_loop()
+#         print("Running loop:", type(loop).__name__)
+#     except RuntimeError:
+#         print("Running loop: NONE")
+
+#     print("=" * 70)
+
+#     ...
+    
+    
 @celery_app.task(
     name="audit.parse_crawl",
     queue="audit",
@@ -46,6 +72,25 @@ def parse_crawl(project_id: str, crawl_id: str) -> dict:
     """
 
     async def _run():
+   
+        print("=" * 70)
+        print("CELERY RUNTIME")
+        print("PID:", os.getpid())
+        print("Platform:", sys.platform)
+        print(
+            "Policy:",
+            type(asyncio.get_event_loop_policy()).__name__,
+        )
+
+        try:
+            loop = asyncio.get_running_loop()
+            print("Running loop:", type(loop).__name__)
+        except RuntimeError:
+            print("Running loop: NONE")
+
+        print("=" * 70)
+
+        
         from app.core.database import async_session_factory
         async with async_session_factory() as db:
             service = DBParserService(db)

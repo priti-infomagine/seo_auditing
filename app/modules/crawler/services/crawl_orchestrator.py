@@ -18,9 +18,12 @@ from urllib.parse import urlparse
 from uuid import UUID
 
 from app.modules.crawler.config import CrawlConfig
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.crawl_site_data import CrawlSiteData
+from app.modules.crawler.models.page_seo_data import PageSEOData
+from app.modules.crawler.models.page_network_data import PageNetworkData
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_scheduler import CrawlScheduler
 from app.modules.crawler.services.crawl_persistence_service import CrawlPersistenceService
@@ -47,7 +50,7 @@ class CrawlOrchestrator:
         self.page_crawl_service = PageCrawlService()
         self.page_extraction_service = PageExtractionService()
         self.link_analysis_service = LinkAnalysisService
-        self.technical_analysis_service = TechnicalAnalysisService()
+        self.technical_analysis_service = TechnicalAnalysisService
         self.redirect_service_factory = lambda page_id: RedirectService(db, page_id)
         self.config: Optional[CrawlConfig] = None
         self.event_bus = CrawlPipelineBus()
@@ -299,7 +302,7 @@ class CrawlOrchestrator:
         await self.persistence.persist_snapshot(page.id, document.raw_html)
 
         await self.persistence.persist_network_data(
-            page_network_data=PageNetworkData(
+            network_data=PageNetworkData(
                 page_id=page.id,
                 status_code=technical_result.status_code,
                 content_type=technical_result.content_type,
@@ -313,10 +316,14 @@ class CrawlOrchestrator:
         )
 
         page_metadata = {
-            "meta_tags": [
-                {"name": t.name, "content": t.content}
-                for t in (page_facts.metadata.meta_tags or [])
-            ],
+            "title": page_facts.metadata.title,
+            "meta_description": page_facts.metadata.meta_description,
+            "canonical": page_facts.metadata.canonical,
+            "robots_meta": page_facts.metadata.robots_meta,
+            "googlebot": page_facts.metadata.googlebot,
+            "viewport": page_facts.metadata.viewport,
+            "charset": page_facts.metadata.charset,
+            "favicon": page_facts.metadata.favicon,
             "open_graph": page_facts.metadata.open_graph or {},
             "twitter": page_facts.metadata.twitter or {},
             "hreflang": [
@@ -324,16 +331,9 @@ class CrawlOrchestrator:
                 for h in (page_facts.metadata.hreflang or [])
             ],
         }
-        googlebot_content = ""
-        for t in (page_facts.metadata.robots or []):
-            if t.name == "googlebot":
-                googlebot_content = t.content
-                break
-        if googlebot_content:
-            page_metadata["googlebot"] = googlebot_content
 
         await self.persistence.persist_seo_data(
-            page_seo_data=PageSEOData(
+            seo_data=PageSEOData(
                 page_id=page.id,
                 title=page_facts.metadata.title,
                 title_length=page_facts.metadata.title_length,
@@ -341,7 +341,7 @@ class CrawlOrchestrator:
                 meta_description_length=page_facts.metadata.meta_description_length,
                 canonical=page_facts.metadata.canonical,
                 robots_meta=page_facts.metadata.robots_meta,
-                language=page_facts.metadata.language or document.language,
+                language=document.language,
                 charset=page_facts.metadata.charset or document.charset,
                 viewport=page_facts.metadata.viewport,
                 favicon=page_facts.metadata.favicon,
