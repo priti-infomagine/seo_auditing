@@ -18706,3 +18706,21 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 [SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
 [parameters: (UUID('6137ca56-5230-4fed-ae44-c3d3263acd02'), UUID('05207ec9-ec6c-4329-8ad2-4b35157f60e7'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
 (Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-08-19 18:00:51,470 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-19 18:00:51,470 | INFO | Step 1: Creating CrawlJob
+2026-08-19 18:00:51,787 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-19 18:00:52,930 | INFO | Crawl phase completed: 1 pages crawled, 1 pages discovered
+2026-08-19 18:00:52,930 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-19 18:00:52,930 | INFO | DBParserService.parse_crawl: project_id=da336a2e-a6e9-4611-8b62-2355bc85b609, crawl_id=902b5150-9de6-4d87-b745-fa88ec20fdbc, force=True
+2026-08-19 18:00:53,003 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=da336a2e-a6e9-4611-8b62-2355bc85b609
+2026-08-19 18:00:53,003 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-19 18:00:53,003 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-19 18:00:53,003 | INFO | Loaded 70 scoring rules
+2026-08-19 18:00:53,010 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=da336a2e-a6e9-4611-8b62-2355bc85b609, crawl_id=902b5150-9de6-4d87-b745-fa88ec20fdbc, force=True
+2026-08-19 18:00:53,183 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=da336a2e-a6e9-4611-8b62-2355bc85b609
+2026-08-19 18:00:53,183 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-19 18:00:53,183 | INFO | Step 5: Starting DB-backed scoring
+2026-08-19 18:00:53,183 | INFO | AnalysisScorerService.score_project: project_id=da336a2e-a6e9-4611-8b62-2355bc85b609, crawl_id=902b5150-9de6-4d87-b745-fa88ec20fdbc, force=True
+2026-08-19 18:00:53,183 | INFO | AuditResponseBuilder.build: project_id=da336a2e-a6e9-4611-8b62-2355bc85b609 crawl_id=902b5150-9de6-4d87-b745-fa88ec20fdbc
+2026-08-19 18:00:53,236 | INFO | AnalysisScorerService.score_project: score=80.2, grade=B, pages=1, project_id=da336a2e-a6e9-4611-8b62-2355bc85b609
+2026-08-19 18:00:53,236 | INFO | DB scoring completed: Score=80.2/100 (Health: good)
