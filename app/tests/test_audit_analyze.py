@@ -59,14 +59,14 @@ async def test_audit_analyze_success():
         assert expected in cat_ids, f"missing category {expected}"
     for c in categories:
         assert {"id", "name", "score", "status", "checks_total",
-                "checks_passed", "checks_failed", "issues"} <= set(c.keys())
-        assert c["issues"] == []  # detail lives in top-level issues[] + category_results
+                "checks_passed", "checks_failed"} <= set(c.keys())
+        assert isinstance(c.get("issues", []), list)  # category-level issues may be populated by rule engine (orchestrator provides real accessibility/structured_data)
 
     # --- issues: strict slim shape {page_url, affected_part} ---
     issues = data["issues"]
     assert isinstance(issues, list)
     for issue in issues:
-        assert set(issue.keys()) == {"page_url", "affected_part"}
+        assert {"page_url", "affected_part", "rule_id", "severity", "message"} <= set(issue.keys())
         assert issue["page_url"]
         assert issue["affected_part"]
 
@@ -137,4 +137,82 @@ async def test_audit_analyze_empty_url():
 
     # Pydantic validation should catch this
     assert response.status_code == 422
+    assert "detail" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_audit_analyze_multi_page_crawl():
+    """
+    Crawl a multi-page site and assert pages_crawled >= 20.
+    The old broken crawl_site() path capped at ~2 pages; CrawlOrchestrator
+    with live BFS should discover many more.
+    """
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test"
+    ) as client:
+        response = await client.post(
+                "/api/v1/audit/analyze",
+                json={
+                    "url": "https://en.wikipedia.org/wiki/Main_Page",
+                    "max_pages": 100,
+                    "max_depth": 2,
+                    "concurrency": 10,
+                },
+            )
+
+    assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
+
+    data = response.json()
+    assert data["crawl"]["pages_crawled"] >= 20, (
+        f"Expected >= 20 pages crawled, got {data['crawl']['pages_crawled']}"
+    )
+    assert data["crawl"]["pages_discovered"] >= 20
+
+
+@pytest.mark.asyncio
+async def test_audit_analyze_max_pages_floor_validation():
+    """
+    max_pages below the schema floor (ge=20) must return 422 before
+    reaching the orchestrator.
+    """
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/api/v1/audit/analyze",
+            json={
+                "url": "https://www.reddit.com/",
+                "max_pages": 5,
+            },
+        )
+
+    assert response.status_code == 422
+    assert "detail" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_audit_analyze_unreachable_domain_returns_500():
+    """
+    A URL that cannot be resolved must surface as a 500 error with a
+    detail message.  The failure may trigger either the orchestrator's
+    status=="failed" path or the pages_crawled==0 guard — both are valid;
+    assert only on the observable HTTP contract.
+    """
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test",
+        timeout=120.0,
+    ) as client:
+        response = await client.post(
+            "/api/v1/audit/analyze",
+            json={
+                "url": "https://this-domain-does-not-exist-123456789.com/",
+                "max_pages": 20,
+                "max_depth": 2,
+            },
+        )
+
+    assert response.status_code == 500
     assert "detail" in response.json()

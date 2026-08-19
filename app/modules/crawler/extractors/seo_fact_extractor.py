@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
+from urllib.parse import urlparse
 
 from app.modules.crawler.extractors.asset_extractor import ResourceFacts
 from app.modules.crawler.extractors.content_extractor import ContentFacts
@@ -163,18 +164,31 @@ def parsed_document_to_page_facts(
         hreflang=hreflang_list,
     )
 
+    page_url = doc_info.url or ""
+    page_domain = urlparse(page_url).netloc.lower() if page_url else ""
+
     link_list = []
     internal_count = 0
     external_count = 0
     for l in links:
+        link_url = l.absolute_url or l.href or ""
+        link_domain = urlparse(link_url).netloc.lower() if link_url else ""
+        is_internal = bool(page_domain) and bool(link_domain) and link_domain == page_domain
+        is_external = bool(link_domain) and not is_internal
+
+        if is_internal:
+            internal_count += 1
+        elif is_external:
+            external_count += 1
+
         link_list.append(
             {
-                "url": l.absolute_url or l.href,
+                "url": link_url,
                 "anchor_text": l.text,
                 "rel": " ".join(l.rel) if l.rel else "",
                 "link_type": "anchor",
-                "is_internal": False,
-                "is_external": False,
+                "is_internal": is_internal,
+                "is_external": is_external,
                 "nofollow": "nofollow" in [r.lower() for r in l.rel],
                 "ugc": "ugc" in [r.lower() for r in l.rel],
                 "sponsored": "sponsored" in [r.lower() for r in l.rel],

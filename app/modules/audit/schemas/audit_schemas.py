@@ -103,6 +103,12 @@ class AuditAnalyzeRequest(BaseModel):
         description="Maximum link depth from the start URL to follow",
         examples=[5],
     )
+    concurrency: int = Field(
+        default=10,
+        ge=1,
+        le=50,
+        description="Number of concurrent crawl workers",
+    )
 
     @field_validator("url")
     @classmethod

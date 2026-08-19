@@ -61,7 +61,7 @@ class PlaywrightRenderer:
             page.on("pageerror", lambda exc: js_errors.append(str(exc)))
             page.on("requestfailed", lambda req: failed_requests.append({
                 "url": req.url,
-                "failure": req.failure.error_text if req.failure else "unknown",
+                "failure": req.failure.error_text if (req.failure and hasattr(req.failure, "error_text")) else (str(req.failure) if req.failure else "unknown"),
             }))
 
             try:

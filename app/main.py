@@ -1,10 +1,18 @@
 import asyncio
 import sys
 
-# Windows + Playwright:
-# Playwright's async API requires a Proactor event loop
 if sys.platform == "win32":
+    # Playwright's async API requires a Proactor event loop on Windows —
+    # the default Windows Selector loop can't launch subprocesses.
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+else:
+    # Linux/macOS (incl. Docker deployment target): use uvloop if available
+    # for faster I/O dispatch; fall back to stock asyncio loop otherwise.
+    try:
+        import uvloop
+        uvloop.install()
+    except ImportError:
+        pass
 
 from contextlib import asynccontextmanager
 

@@ -1,25 +1,25 @@
 {
   "audit": {
-    "audit_id": "3b024737-cb04-49ac-a4f0-49430e79ad4d",
-    "project_id": "4eb12655-bf30-411d-b7e8-b23426fc682f",
-    "url": "https://infomagine.in/",
-    "domain": "infomagine.in",
-    "started_at": "2026-08-19T12:11:18.755175+00:00",
-    "completed_at": "2026-08-19T12:11:20.248064+00:00",
+    "audit_id": "d68bf112-5415-4fbf-a6e7-af027d0e0ace",
+    "project_id": "adb27846-9d0f-4a27-aefc-f6f320d455fa",
+    "url": "https://www.reddit.com/",
+    "domain": "www.reddit.com",
+    "started_at": "2026-08-19T12:03:30.523556+00:00",
+    "completed_at": "2026-08-19T12:03:34.252911+00:00",
     "status": "completed",
     "pages_discovered": 1,
     "pages_crawled": 1,
     "pages_analyzed": 1
   },
   "summary": {
-    "overall_score": 80.2,
-    "health": "good",
+    "overall_score": 79.5,
+    "health": "poor",
     "critical_issues": 6,
-    "high_issues": 3,
+    "high_issues": 5,
     "medium_issues": 10,
-    "low_issues": 9,
-    "passed_checks": 39,
-    "failed_checks": 28
+    "low_issues": 5,
+    "passed_checks": 41,
+    "failed_checks": 26
   },
   "categories": [
     {
@@ -34,36 +34,36 @@
         {
           "rule_id": "on_page_001",
           "severity": "medium",
-          "message": "Title length is 64 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/",
+          "message": "Title length is 6 characters (recommended: 30-60) - too short",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "title"
         },
         {
           "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/",
+          "severity": "critical",
+          "message": "Missing meta description",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "meta_description"
         },
         {
           "rule_id": "on_page_003",
           "severity": "critical",
           "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "h1"
         },
         {
           "rule_id": "on_page_004",
           "severity": "medium",
           "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "heading_hierarchy"
         },
         {
           "rule_id": "on_page_006",
           "severity": "high",
           "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "canonical"
         }
       ]
@@ -71,46 +71,53 @@
     {
       "id": "technical_seo",
       "name": "Technical SEO",
-      "score": 44.4,
+      "score": 33.3,
       "status": "critical",
       "checks_total": 9,
-      "checks_passed": 4,
-      "checks_failed": 5,
+      "checks_passed": 3,
+      "checks_failed": 6,
       "issues": [
         {
           "rule_id": "technical_001",
           "severity": "critical",
           "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "ssl_certificate"
         },
         {
           "rule_id": "technical_003",
           "severity": "medium",
           "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "language"
         },
         {
           "rule_id": "technical_005",
           "severity": "critical",
           "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "doctype"
         },
         {
           "rule_id": "technical_006",
           "severity": "medium",
           "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "html_lang"
         },
         {
           "rule_id": "technical_009",
           "severity": "low",
           "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_010",
+          "severity": "high",
+          "message": "No structured data / schema markup found",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "structured_data"
         }
       ]
     },
@@ -126,29 +133,29 @@
         {
           "rule_id": "content_001",
           "severity": "high",
-          "message": "Thin content: 10 words (recommended: 300+)",
-          "page_url": "https://infomagine.in/",
+          "message": "Thin content: 1 words (recommended: 300+)",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "word_count"
         },
         {
           "rule_id": "content_003",
           "severity": "medium",
           "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "paragraph_structure"
         },
         {
           "rule_id": "content_006",
           "severity": "high",
           "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "duplicate_content"
         },
         {
           "rule_id": "content_007",
           "severity": "low",
           "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "content_freshness"
         }
       ]
@@ -166,14 +173,14 @@
           "rule_id": "links_001",
           "severity": "medium",
           "message": "No internal links found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "internal_links"
         },
         {
           "rule_id": "links_002",
           "severity": "low",
           "message": "No external links found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "external_links"
         }
       ]
@@ -190,96 +197,75 @@
     {
       "id": "structured_data",
       "name": "Structured Data",
-      "score": 50.0,
-      "status": "critical",
+      "score": 83.3,
+      "status": "good",
       "checks_total": 6,
-      "checks_passed": 3,
-      "checks_failed": 3,
+      "checks_passed": 5,
+      "checks_failed": 1,
       "issues": [
         {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "product_schema"
+          "rule_id": "schema_001",
+          "severity": "high",
+          "message": "No structured data / schema markup found",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "structured_data"
         }
       ]
     },
     {
       "id": "social",
       "name": "Social",
-      "score": 60.0,
-      "status": "poor",
+      "score": 20.0,
+      "status": "critical",
       "checks_total": 5,
-      "checks_passed": 3,
-      "checks_failed": 2,
+      "checks_passed": 1,
+      "checks_failed": 4,
       "issues": [
+        {
+          "rule_id": "social_001",
+          "severity": "medium",
+          "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "open_graph"
+        },
         {
           "rule_id": "social_003",
           "severity": "low",
           "message": "No social media links found",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "social_media_links"
         },
         {
           "rule_id": "social_004",
           "severity": "low",
           "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_005",
+          "severity": "medium",
+          "message": "No social media image specified",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "social_image"
         }
       ]
     },
     {
       "id": "security_trust",
       "name": "Security & Trust",
-      "score": 16.7,
-      "status": "critical",
+      "score": 66.7,
+      "status": "poor",
       "checks_total": 6,
-      "checks_passed": 1,
-      "checks_failed": 5,
+      "checks_passed": 4,
+      "checks_failed": 2,
       "issues": [
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "security_headers"
-        },
         {
           "rule_id": "security_004",
           "severity": "critical",
           "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "xss_protection"
         }
       ]
     },
@@ -296,14 +282,14 @@
           "rule_id": "a11y_002",
           "severity": "critical",
           "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "language"
         },
         {
           "rule_id": "a11y_003",
           "severity": "medium",
           "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/",
+          "page_url": "https://www.reddit.com/",
           "affected_part": "heading_structure"
         }
       ]
@@ -318,11 +304,11 @@
       "checks_failed": 1,
       "issues": [
         {
-          "rule_id": "perf_005",
-          "severity": "low",
-          "message": "No cache headers found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "browser_caching"
+          "rule_id": "perf_006",
+          "severity": "medium",
+          "message": "No compression detected",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "compression"
         }
       ]
     }
@@ -332,197 +318,183 @@
       "rule_id": "a11y_002",
       "severity": "critical",
       "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "language"
     },
     {
       "rule_id": "a11y_003",
       "severity": "medium",
       "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "heading_structure"
     },
     {
       "rule_id": "content_001",
       "severity": "high",
-      "message": "Thin content: 10 words (recommended: 300+)",
-      "page_url": "https://infomagine.in/",
+      "message": "Thin content: 1 words (recommended: 300+)",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "word_count"
     },
     {
       "rule_id": "content_003",
       "severity": "medium",
       "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "paragraph_structure"
     },
     {
       "rule_id": "content_006",
       "severity": "high",
       "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "duplicate_content"
     },
     {
       "rule_id": "content_007",
       "severity": "low",
       "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "content_freshness"
     },
     {
       "rule_id": "links_001",
       "severity": "medium",
       "message": "No internal links found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "internal_links"
     },
     {
       "rule_id": "links_002",
       "severity": "low",
       "message": "No external links found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "external_links"
     },
     {
       "rule_id": "on_page_001",
       "severity": "medium",
-      "message": "Title length is 64 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/",
+      "message": "Title length is 6 characters (recommended: 30-60) - too short",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "title"
     },
     {
       "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/",
+      "severity": "critical",
+      "message": "Missing meta description",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "meta_description"
     },
     {
       "rule_id": "on_page_003",
       "severity": "critical",
       "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "h1"
     },
     {
       "rule_id": "on_page_004",
       "severity": "medium",
       "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "heading_hierarchy"
     },
     {
       "rule_id": "on_page_006",
       "severity": "high",
       "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "canonical"
     },
     {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "browser_caching"
+      "rule_id": "perf_006",
+      "severity": "medium",
+      "message": "No compression detected",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "compression"
     },
     {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "security_headers"
+      "rule_id": "schema_001",
+      "severity": "high",
+      "message": "No structured data / schema markup found",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "structured_data"
     },
     {
       "rule_id": "security_004",
       "severity": "critical",
       "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "ssl_certificate"
     },
     {
-      "rule_id": "security_005",
+      "rule_id": "social_001",
       "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "xss_protection"
+      "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "open_graph"
     },
     {
       "rule_id": "social_003",
       "severity": "low",
       "message": "No social media links found",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "social_media_links"
     },
     {
       "rule_id": "social_004",
       "severity": "low",
       "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "social_005",
+      "severity": "medium",
+      "message": "No social media image specified",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "social_image"
     },
     {
       "rule_id": "technical_001",
       "severity": "critical",
       "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "ssl_certificate"
     },
     {
       "rule_id": "technical_003",
       "severity": "medium",
       "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "language"
     },
     {
       "rule_id": "technical_005",
       "severity": "critical",
       "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "doctype"
     },
     {
       "rule_id": "technical_006",
       "severity": "medium",
       "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "html_lang"
     },
     {
       "rule_id": "technical_009",
       "severity": "low",
       "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/",
+      "page_url": "https://www.reddit.com/",
       "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "technical_010",
+      "severity": "high",
+      "message": "No structured data / schema markup found",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "structured_data"
     }
   ],
   "category_results": {
@@ -553,9 +525,9 @@
         "affected_pages": 0
       },
       "open_graph": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "robots": {
         "status": "excellent",
@@ -585,9 +557,9 @@
         "affected_pages": 1
       },
       "hsts": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "html_lang": {
         "status": "critical",
@@ -615,9 +587,9 @@
         "affected_pages": 0
       },
       "security_headers": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "sitemap": {
         "status": "critical",
@@ -630,9 +602,9 @@
         "affected_pages": 1
       },
       "structured_data": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "viewport": {
         "status": "excellent",
@@ -640,9 +612,9 @@
         "affected_pages": 0
       },
       "xss_protection": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       }
     },
     "content_quality": {
@@ -768,9 +740,9 @@
         "affected_pages": 0
       },
       "structured_data": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       }
     },
     "social": {
@@ -780,9 +752,9 @@
         "affected_pages": 0
       },
       "open_graph": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "social_image": {
         "status": "excellent",
@@ -802,9 +774,9 @@
     },
     "security_trust": {
       "hsts": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "https": {
         "status": "critical",
@@ -817,9 +789,9 @@
         "affected_pages": 0
       },
       "security_headers": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "ssl_certificate": {
         "status": "critical",
@@ -827,9 +799,9 @@
         "affected_pages": 1
       },
       "xss_protection": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       }
     },
     "accessibility": {
@@ -886,9 +858,9 @@
         "affected_pages": 0
       },
       "compression": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "html_document_size": {
         "status": "excellent",
@@ -937,13 +909,13 @@
     "status_codes": {
       "200": 1
     },
-    "started_at": "2026-08-19T12:11:18.755175+00:00",
-    "completed_at": "2026-08-19T12:11:20.248064+00:00"
+    "started_at": "2026-08-19T12:03:30.523556+00:00",
+    "completed_at": "2026-08-19T12:03:34.252911+00:00"
   },
   "indexation": {
     "indexable": 1,
     "noindex": 0,
-    "canonicalized": 1,
+    "canonicalized": 0,
     "blocked_by_robots": {
       "available": false,
       "value": null,
@@ -960,20 +932,18 @@
     },
     "ttfb": {
       "available": true,
-      "value": 170.0,
+      "value": 101.0,
       "unit": "milliseconds",
       "status": "excellent",
       "reason": null
     }
   },
   "structured_data": {
-    "pages_with_schema": 1,
-    "pages_without_schema": 0,
-    "valid": 1,
-    "invalid": 0,
-    "types": {
-      "Organization": 1
-    }
+    "pages_with_schema": 0,
+    "pages_without_schema": 1,
+    "valid": 0,
+    "invalid": 1,
+    "types": {}
   },
   "links": {
     "internal": {
@@ -1031,8 +1001,8 @@
   "priorities": {
     "critical": [
       "a11y_002",
+      "on_page_002",
       "on_page_003",
-      "security_003",
       "security_004",
       "technical_001",
       "technical_005"
@@ -1040,33 +1010,39 @@
     "high": [
       "content_001",
       "content_006",
-      "on_page_006"
+      "on_page_006",
+      "schema_001",
+      "technical_010"
     ],
     "medium": [
       "a11y_003",
       "content_003",
       "links_001",
       "on_page_001",
-      "on_page_002",
       "on_page_004",
-      "security_005",
-      "security_006",
+      "perf_006",
+      "social_001",
+      "social_005",
       "technical_003",
       "technical_006"
     ],
     "low": [
       "content_007",
       "links_002",
-      "perf_005",
-      "schema_003",
-      "schema_004",
-      "schema_005",
       "social_003",
       "social_004",
       "technical_009"
     ]
   },
   "recommendations": [
+    {
+      "priority": 1,
+      "rule_id": "on_page_002",
+      "title": "Missing or poorly sized meta description",
+      "action": "Add a unique, relevant meta description (150-160 chars).",
+      "effort": "low",
+      "affected_pages": 1
+    },
     {
       "priority": 1,
       "rule_id": "on_page_003",
@@ -1116,6 +1092,22 @@
       "affected_pages": 1
     },
     {
+      "priority": 2,
+      "rule_id": "schema_001",
+      "title": "Missing schema markup",
+      "action": "Add JSON-LD structured data for key page types.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "technical_010",
+      "title": "Missing structured data / schema markup",
+      "action": "Add Schema.org JSON-LD markup to enable rich results.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
       "priority": 3,
       "rule_id": "on_page_001",
       "title": "Missing or poor page title",
@@ -1125,17 +1117,17 @@
     },
     {
       "priority": 3,
-      "rule_id": "on_page_002",
-      "title": "Missing or poorly sized meta description",
-      "action": "Add a unique, relevant meta description (150-160 chars).",
+      "rule_id": "on_page_004",
+      "title": "Illogical heading hierarchy",
+      "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
       "effort": "low",
       "affected_pages": 1
     },
     {
       "priority": 3,
-      "rule_id": "on_page_004",
-      "title": "Illogical heading hierarchy",
-      "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
+      "rule_id": "social_001",
+      "title": "Missing Open Graph tags",
+      "action": "Add required Open Graph meta tags for social sharing.",
       "effort": "low",
       "affected_pages": 1
     }
@@ -1168,7 +1160,7 @@
     "parser_version": "unknown",
     "rule_engine_version": "1.0.0",
     "rules_executed": 67,
-    "total_issues": 28,
+    "total_issues": 26,
     "output_shape": "unified_v1"
   }
 }

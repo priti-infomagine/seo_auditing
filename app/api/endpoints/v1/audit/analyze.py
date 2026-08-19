@@ -7,12 +7,7 @@ Takes a URL as input, performs the full pipeline:
 3. DB-backed parse → rule evaluation → scoring
 4. Returns per-page breakdown with scores, rule results, and links analysis
 """
-import hashlib
 import uuid
-from datetime import datetime, timezone
-from pathlib import Path
-from urllib.parse import urlparse
-from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,27 +18,13 @@ from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeResponse,
 )
-from app.modules.crawler.crawl_service import CrawlerService
-from app.modules.crawler.models.crawl_jobs import CrawlJob
-from app.modules.crawler.models.crawl_pages import CrawlPage
-from app.modules.crawler.models.page_network_data import PageNetworkData
-from app.modules.crawler.models.page_seo_data import PageSEOData
-from app.modules.crawler.models.page_snapshots import PageSnapshot
-from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
-from app.modules.crawler.repositories.page_network_data_repository import (
-    PageNetworkDataRepository,
-)
-from app.modules.crawler.repositories.page_seo_data_repository import (
-    PageSEODataRepository,
-)
-from app.modules.crawler.repositories.page_snapshot_repository import (
-    PageSnapshotRepository,
-)
-from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
+from app.modules.crawler.models.crawl_jobs import CrawlJob
+from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+from app.shared.utils.url_utils import get_domain
 
 router = APIRouter()
 
@@ -75,147 +56,69 @@ async def analyze_website(
     logger.info(f"POST /audit/analyze - Full audit pipeline started for URL: {body.url}")
 
     try:
-        # Step 1: Multi-page crawl
-        logger.info("Step 1: Starting crawl phase (multi-page)")
-        crawler_service = CrawlerService()
-        crawl_results = await crawler_service.crawl_site(
-            body.url,
-            max_pages=body.max_pages,
-            max_depth=body.max_depth,
-        )
-
-        if not crawl_results:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Crawl produced no results"
-            )
-
-        logger.info(f"Crawl phase completed: {len(crawl_results)} pages crawled")
-
-        # Use first result for project/domain setup
-        first_result = crawl_results[0]
-
-        # Step 2: Create CrawlJob and persist each crawled page
-        logger.info("Step 2: Starting DB persistence phase")
+        # Step 1: Create CrawlJob (queued) before crawling starts
+        logger.info("Step 1: Creating CrawlJob")
         project_id = uuid.uuid4()
         test_user_id = uuid.UUID("00000000-0000-0000-0000-000000000000")
+        domain = get_domain(body.url)
+        if not domain:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid URL: {body.url} - could not extract domain",
+            )
 
-        # 2a: Create CrawlJob in DB
-        domain = first_result["domain"]
         crawl_config_dict = {
             "max_pages": body.max_pages,
             "max_depth": body.max_depth,
-            "concurrency": 1,
+            "concurrency": body.concurrency,
+            "request_timeout": 30,
+            "delay_ms": 0,
+            "follow_redirects": True,
+            "respect_robots": True,
         }
         db_crawl_job = CrawlJob(
             project_id=project_id,
             user_id=test_user_id,
             url=body.url,
             domain=domain,
-            status="crawling",
+            status="queued",
             max_pages=body.max_pages,
             max_depth=body.max_depth,
             crawl_config=crawl_config_dict,
-            pages_discovered=len(crawl_results),
-            pages_crawled=len(crawl_results),
         )
         db_crawl_job = await CrawlJobRepository(db).create(db_crawl_job)
         crawl_id = db_crawl_job.id
 
-        # 2b-2e: Create CrawlPage + persist snapshot/SEO/network data for each page
-        parser = ParserOrchestrator()
-        crawl_page_repo = CrawlPageRepository(db)
-        snapshot_repo = PageSnapshotRepository(db)
-        seo_repo = PageSEODataRepository(db)
-        network_repo = PageNetworkDataRepository(db)
+        # Step 2: Run the crawl via CrawlOrchestrator (handles all persistence internally)
+        logger.info("Step 2: Running CrawlOrchestrator (multi-page, concurrent)")
+        orchestrator = CrawlOrchestrator(db, crawl_id)
+        orchestrator_result = await orchestrator.run(
+            start_url=body.url,
+            max_depth=body.max_depth,
+            max_pages=body.max_pages,
+            concurrency=body.concurrency,
+        )
 
-        for idx, crawl_result in enumerate(crawl_results):
-            html = crawl_result["data"].get("html", "")
-            if not html:
-                logger.warning(f"Page {idx} ({crawl_result['url']}): no HTML, skipping persistence")
-                continue
-
-            # Parse HTML to extract SEO-relevant metadata
-            parsed = parser.parse(html=html, url=crawl_result["url"])
-            parsed_dict = parsed.model_dump(mode="json") if hasattr(parsed, "model_dump") else {}
-            metadata = parsed_dict.get("metadata", {}) or {}
-            content_data = parsed_dict.get("content", {}) or {}
-
-            # 2b: Create CrawlPage in DB
-            page_url = crawl_result["url"]
-            parsed_url = urlparse(page_url)
-            page = CrawlPage(
-                crawl_id=crawl_id,
-                url=page_url,
-                normalized_url=page_url,
-                url_hash=hashlib.md5(page_url.encode()).hexdigest(),
-                scheme=parsed_url.scheme,
-                host=parsed_url.netloc,
-                path=parsed_url.path,
-                query=parsed_url.query,
-                final_url=page_url,
-                status_code=crawl_result["data"].get("http", {}).get("status_code", 0),
-                content_type=crawl_result["data"].get("http", {}).get("content_type", ""),
-                content_length=len(html),
-                response_time_ms=int(
-                    crawl_result["data"].get("http", {}).get("response_time_ms", 0)
-                ),
-                depth=idx,  # 0 = start page, 1+ = discovered via links
-                is_crawled=True,
-                is_success=crawl_result["data"].get("http", {}).get("status_code", 0) == 200,
-                is_redirect=False,
-                is_error=crawl_result["data"].get("http", {}).get("status_code", 0) >= 400,
+        if orchestrator_result.get("status") == "failed":
+            logger.error(f"Crawl failed for {body.url}: {orchestrator_result}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Crawl failed — see logs for details",
             )
-            page = await crawl_page_repo.create(page)
 
-            # 2c: Persist HTML snapshot
-            await snapshot_repo.save_snapshot(page_id=page.id, html_content=html)
+        pages_crawled = orchestrator_result.get("pages_crawled", 0)
+        pages_discovered = orchestrator_result.get("pages_discovered", 0)
 
-            # 2d: Persist SEO data
-            await seo_repo.upsert(PageSEOData(
-                page_id=page.id,
-                title=metadata.get("title", ""),
-                title_length=metadata.get("title_length", 0),
-                meta_description=metadata.get("meta_description", ""),
-                meta_description_length=metadata.get("meta_description_length", 0),
-                canonical=metadata.get("canonical", ""),
-                robots_meta=metadata.get("robots_meta", ""),
-                language=metadata.get("language", "") or metadata.get("page_language", ""),
-                charset=metadata.get("charset", ""),
-                viewport=metadata.get("viewport", ""),
-                favicon=metadata.get("favicon", ""),
-                word_count=content_data.get("word_count", 0),
-                content_hash=content_data.get("content_hash", ""),
-                content=content_data,
-                structured_data={
-                    "schemas": parsed_dict.get("schemas", []),
-                    "exists": len(parsed_dict.get("schemas", [])) > 0,
-                },
-                social=parsed_dict.get("social", {}) or {},
-                accessibility={},
-                page_metadata={},
-            ))
+        if pages_crawled == 0:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Crawl produced no results",
+            )
 
-            # 2e: Persist network data
-            http_data = crawl_result["data"].get("http", {})
-            await network_repo.upsert(PageNetworkData(
-                page_id=page.id,
-                status_code=http_data.get("status_code", 0),
-                content_type=http_data.get("content_type", ""),
-                content_length=http_data.get("content_size", 0),
-                response_time_ms=http_data.get("response_time_ms", 0),
-                headers=http_data.get("headers", {}),
-                redirects=http_data.get("redirect_chain", []),
-                security={},
-                performance={},
-            ))
-
-        # 2f: Update CrawlJob status to completed
-        db_crawl_job.status = "completed"
-        db_crawl_job.completed_at = datetime.now(timezone.utc)
-        await CrawlJobRepository(db).update(db_crawl_job)
-
-        logger.info(f"DB persistence completed: crawl_id={crawl_id}")
+        logger.info(
+            f"Crawl phase completed: {pages_crawled} pages crawled, "
+            f"{pages_discovered} pages discovered"
+        )
 
         # Step 3: DB-backed parse (reads snapshot from DB, saves ParsedPageFact)
         logger.info("Step 3: Starting DB-backed parse phase")
