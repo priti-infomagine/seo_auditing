@@ -90,6 +90,7 @@ class CrawlOrchestrator:
         await self.job_repository.update(job)
 
         start_domain = get_domain(start_url)
+        site_result = None
 
         await self.event_bus.emit(
             CrawlPipelineEvent.SCHEDULER_START,
@@ -134,6 +135,18 @@ class CrawlOrchestrator:
         self._scheduler = scheduler
         scheduler.submit_seed(start_url)
 
+        # Submit sitemap-discovered page URLs into the crawl queue so they
+        # participate in the same safety checks as link-discovered URLs.
+        if site_result and site_result.discovered_urls:
+            sitemap_submitted = scheduler.submit_sitemap_urls(
+                site_result.discovered_urls,
+                source_url=start_url,
+            )
+            logger.info(
+                f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
+                f"(total discovered: {len(site_result.discovered_urls)})"
+            )
+
         try:
             await scheduler.run()
         except Exception as exc:
@@ -162,11 +175,16 @@ class CrawlOrchestrator:
             duration_ms=duration_ms,
         )
 
+        url_diagnostics = (
+            scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
+        )
+
         return {
             "status": "completed",
             "crawl_id": str(self.crawl_job_id),
             "pages_crawled": pages_crawled_count,
             "pages_discovered": pages_discovered_count,
+            "url_diagnostics": url_diagnostics,
         }
 
     async def crawl_page(
@@ -234,12 +252,27 @@ class CrawlOrchestrator:
         fetch_result = crawl_result.fetch_result
         normalized_url = crawl_result.normalized_url
 
+        # Redirect-aware: resolve all processing against the effective (final)
+        # URL so that relative links are resolved against the post-redirect
+        # host/path rather than the originally requested URL.
+        effective_url = fetch_result.final_url or normalized_url
+        try:
+            effective_url = normalize_url(effective_url)
+        except Exception:
+            effective_url = normalized_url
+
+        # Update the scheduler's base host from the effective URL so that
+        # subsequent child URLs are classified against the correct site
+        # (handles apex <-> www and HTTP -> HTTPS redirects).
+        if self._scheduler is not None:
+            self._scheduler.set_base_domain_from_url(effective_url)
+
         from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
         parser = ParserOrchestrator()
         parsed = parser.parse(
             html=document.raw_html,
-            url=normalized_url,
+            url=effective_url,
         )
 
         page_facts = self.page_extraction_service.extract_from_parsed(
@@ -261,7 +294,7 @@ class CrawlOrchestrator:
                 len([s for s in parsed.content.text.replace("!", ".").replace("?", ".").split(".") if s.strip()])
             )
 
-        link_analysis = self.link_analysis_service(item.normalized_url)
+        link_analysis = self.link_analysis_service(effective_url)
         link_result = await link_analysis.analyze(page_facts.links)
 
         redirect_chain = fetch_result.redirect_chain
@@ -270,7 +303,7 @@ class CrawlOrchestrator:
         technical_result = await technical_analysis.analyze(
             page_facts.technical,
             content_bytes=fetch_result.content,
-            url=normalized_url,
+            url=effective_url,
         )
 
         parsed_url = urlparse(normalized_url)
@@ -375,7 +408,7 @@ class CrawlOrchestrator:
             )
         )
 
-        await self.persistence.persist_resources(page.id, page_facts.resources.resources, page_url=normalized_url)
+        await self.persistence.persist_resources(page.id, page_facts.resources.resources, page_url=effective_url)
         await self.persistence.persist_links(page.id, link_result.links)
 
         redirect_links = link_result.redirect_links
@@ -384,7 +417,7 @@ class CrawlOrchestrator:
             await redirect_service.process_and_save_redirects(redirect_links)
 
         if document.is_html:
-            self._enqueue_links(link_result.links, page.id, item.normalized_url, item.depth)
+            self._enqueue_links(link_result.links, page.id, effective_url, item.depth)
 
         await self.event_bus.emit(
             CrawlPipelineEvent.PAGE_PERSISTED,

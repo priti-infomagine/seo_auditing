@@ -1,11 +1,11 @@
 {
   "audit": {
-    "audit_id": "902b5150-9de6-4d87-b745-fa88ec20fdbc",
-    "project_id": "da336a2e-a6e9-4611-8b62-2355bc85b609",
+    "audit_id": "8b743d23-258b-4cfb-b137-cab529ce0827",
+    "project_id": "70031a3e-7d48-48f6-8efc-b9a54a2f4e41",
     "url": "https://infomagine.in/",
     "domain": "infomagine.in",
-    "started_at": "2026-08-19T12:30:51.724945+00:00",
-    "completed_at": "2026-08-19T12:30:52.930682+00:00",
+    "started_at": "2026-08-20T06:01:06.475438+00:00",
+    "completed_at": "2026-08-20T06:01:07.282324+00:00",
     "status": "completed",
     "pages_discovered": 1,
     "pages_crawled": 1,
@@ -937,8 +937,8 @@
     "status_codes": {
       "200": 1
     },
-    "started_at": "2026-08-19T12:30:51.724945+00:00",
-    "completed_at": "2026-08-19T12:30:52.930682+00:00"
+    "started_at": "2026-08-20T06:01:06.475438+00:00",
+    "completed_at": "2026-08-20T06:01:07.282324+00:00"
   },
   "indexation": {
     "indexable": 1,
@@ -960,7 +960,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 167.0,
+      "value": 87.0,
       "unit": "milliseconds",
       "status": "excellent",
       "reason": null

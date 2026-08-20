@@ -111,9 +111,77 @@ def get_domain(url: str) -> Optional[str]:
         return None
 
 
+def normalize_host(host: str) -> str:
+    """
+    Normalize a host (or netloc) for same-site comparison.
+
+    Normalization rules:
+    - Lowercase
+    - Strip trailing dot (FQDN root label)
+    - Strip the port (if present)
+    - Strip a single optional leading ``www.`` prefix
+
+    After normalization ``example.com`` and ``www.example.com`` compare
+    equal, while arbitrary subdomains (``blog.example.com``) remain distinct
+    and are treated as external by default.
+
+    Args:
+        host: A bare hostname, a netloc (``host`` or ``host:port``),
+              or an IPv6 literal (``[::1]``).
+
+    Returns:
+        The normalized hostname (lowercase, no port, no leading ``www.``).
+    """
+    if not host:
+        return ""
+    host = host.strip().lower().rstrip(".")
+
+    if host.startswith("["):
+        idx = host.find("]")
+        if idx != -1:
+            host = host[1:idx]
+    else:
+        if ":" in host:
+            host = host.split(":", 1)[0]
+
+    if host.startswith("www."):
+        host = host[4:]
+    return host
+
+
+def is_same_site(host_a: str, host_b: str) -> bool:
+    """
+    Determine whether two hosts belong to the same site.
+
+    Uses :func:`normalize_host` so that the apex host and its ``www.``
+    variant are considered equivalent, but arbitrary subdomains are not.
+
+    Examples:
+        >>> is_same_site("example.com", "www.example.com")
+        True
+        >>> is_same_site("www.example.com", "example.com")
+        True
+        >>> is_same_site("example.com", "blog.example.com")
+        False
+        >>> is_same_site("example.com", "example.org")
+        False
+
+    Args:
+        host_a: First host or netloc.
+        host_b: Second host or netloc.
+
+    Returns:
+        True if the hosts are the same site, False otherwise.
+    """
+    return normalize_host(host_a) == normalize_host(host_b)
+
+
 def is_internal_link(base_url: str, target_url: str) -> bool:
     """
     Check if target_url is internal to base_url.
+    
+    Uses same-site comparison so that apex and ``www.`` variants of the
+    same site are treated as internal.
     
     Args:
         base_url: The base URL
@@ -124,4 +192,6 @@ def is_internal_link(base_url: str, target_url: str) -> bool:
     """
     base_domain = get_domain(base_url)
     target_domain = get_domain(target_url)
-    return base_domain == target_domain
+    if not base_domain or not target_domain:
+        return False
+    return is_same_site(base_domain, target_domain)

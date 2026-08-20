@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 
+from app.shared.utils.url_utils import is_same_site
+
 
 def analyze_links(links: list, base_url: str = "") -> dict:
     internal_count = 0
@@ -13,7 +15,7 @@ def analyze_links(links: list, base_url: str = "") -> dict:
         if not target:
             continue
         target_domain = urlparse(target).netloc
-        if target_domain == base_domain:
+        if target_domain and base_domain and is_same_site(target_domain, base_domain):
             internal_count += 1
         else:
             external_count += 1

@@ -13,7 +13,7 @@ SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 
 
 class SitemapDiscoverer:
-    """Fetches and parses sitemap files."""
+    """Fetches and parses sitemap files, including sitemap indexes."""
 
     async def discover(self, sitemap_url: str, timeout: int = 30) -> List[str]:
         urls = []
@@ -32,14 +32,48 @@ class SitemapDiscoverer:
         return urls
 
     def _parse_xml(self, xml_text: str) -> List[str]:
+        """Parse a sitemap XML file.
+
+        Supports both URL-set files (``<url><loc>``) and sitemap-index
+        files (``<sitemap><loc>``).  For index files the child sitemap
+        URLs are returned so the caller can recursively expand them.
+        """
         urls = []
         try:
             root = ET.fromstring(xml_text)
-            tag = f"{{{SITEMAP_NS}}}url"
-            for url_elem in root.iter(tag):
-                loc = url_elem.find(f"{{{SITEMAP_NS}}}loc")
+
+            ns_tag = f"{{{SITEMAP_NS}}}"
+
+            # Collect <url><loc> entries (URL set)
+            for url_elem in root.iter(f"{ns_tag}url"):
+                loc = url_elem.find(f"{ns_tag}loc")
+                if loc is not None and loc.text:
+                    urls.append(loc.text.strip())
+
+            # Collect <sitemap><loc> entries (index file)
+            for sm_elem in root.iter(f"{ns_tag}sitemap"):
+                loc = sm_elem.find(f"{ns_tag}loc")
                 if loc is not None and loc.text:
                     urls.append(loc.text.strip())
         except ET.ParseError:
             pass
         return urls
+
+    def parse_index(self, xml_text: str) -> List[str]:
+        """Extract child sitemap URLs from a sitemap-index XML file."""
+        try:
+            root = ET.fromstring(xml_text)
+        except ET.ParseError:
+            return []
+        if not self._is_index(root):
+            return []
+        return [
+            loc.text.strip()
+            for loc in root.iter(f"{{{SITEMAP_NS}}}loc")
+            if loc.text and loc.text.strip()
+        ]
+
+    @staticmethod
+    def _is_index(root: ET.Element) -> bool:
+        """Return True if the parsed XML root represents a sitemap-index file."""
+        return root.tag.endswith("sitemapindex")

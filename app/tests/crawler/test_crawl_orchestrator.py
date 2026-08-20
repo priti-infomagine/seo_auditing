@@ -83,10 +83,14 @@ class FakeScheduler:
         self.pages_crawled_count = 3
         self.pages_discovered_count = 5
         self.seeds = []
+        self.url_diagnostics = {}
 
     def submit_seed(self, url):
         self.seeds.append(url)
         return True
+
+    def submit_sitemap_urls(self, urls, source_url=""):
+        return len(urls)
 
     async def run(self):
         return None
@@ -98,9 +102,13 @@ class FakeSchedulerFail:
     def __init__(self, *args, **kwargs):
         self.pages_crawled_count = 0
         self.pages_discovered_count = 0
+        self.url_diagnostics = {}
 
     def submit_seed(self, url):
         return True
+
+    def submit_sitemap_urls(self, urls, source_url=""):
+        return len(urls)
 
     async def run(self):
         raise RuntimeError("scheduler exploded")

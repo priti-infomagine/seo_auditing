@@ -24,6 +24,7 @@ from app.modules.crawler.extractors.document_extractor import DocumentFacts
 from app.modules.crawler.extractors.link_extractor import LinkFacts
 from app.modules.crawler.extractors.metadata_extractor import MetadataFacts
 from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
+from app.shared.utils.url_utils import is_same_site
 
 
 # ---------------------------------------------------------------------------
@@ -173,7 +174,7 @@ def parsed_document_to_page_facts(
     for l in links:
         link_url = l.absolute_url or l.href or ""
         link_domain = urlparse(link_url).netloc.lower() if link_url else ""
-        is_internal = bool(page_domain) and bool(link_domain) and link_domain == page_domain
+        is_internal = bool(page_domain) and bool(link_domain) and is_same_site(link_domain, page_domain)
         is_external = bool(link_domain) and not is_internal
 
         if is_internal:

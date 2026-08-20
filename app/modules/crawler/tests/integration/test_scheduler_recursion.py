@@ -18,7 +18,7 @@ class TestSchedulerRecursion:
     async def test_dynamic_discovery_terminates(self):
         crawled = []
 
-        async def worker(item: DiscoveredURL) -> None:
+        async def worker(item: DiscoveredURL, http_sem, browser_sem) -> None:
             crawled.append(item.normalized_url)
             if item.normalized_url == "https://example.com/a":
                 scheduler.submit_discovered_url(

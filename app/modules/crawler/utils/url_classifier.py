@@ -6,7 +6,7 @@ before they enter the fetch queue.
 """
 from urllib.parse import urlparse
 
-from app.shared.utils.url_utils import normalize_url
+from app.shared.utils.url_utils import is_same_site, normalize_url
 
 
 class UrlClassification:
@@ -106,10 +106,12 @@ def classify_url(url: str, base_domain: str = "") -> tuple[str, str]:
     if parsed.scheme.lower() in ("mailto", "tel", "javascript", "data", "blob", "file"):
         return UrlClassification.INVALID, f"unsupported_scheme:{parsed.scheme}"
 
-    # External domain check - compare netlocs directly
+    # External domain check - compare hosts via same-site normalization so
+    # that apex <-> www variants are treated as one site while arbitrary
+    # subdomains (blog.example.com, api.example.com) remain external.
     if base_domain:
         target_domain = _get_domain(url)
-        if target_domain and target_domain != base_domain.lower():
+        if target_domain and not is_same_site(target_domain, base_domain):
             return UrlClassification.EXTERNAL, "external_domain"
 
     path = parsed.path.lower()

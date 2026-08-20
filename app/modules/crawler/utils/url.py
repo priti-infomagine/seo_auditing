@@ -109,6 +109,9 @@ def normalize_url_canonical(
         if "://" in url_str:
             scheme = url_str.split("://", 1)[0]
             raise InvalidURLError(f"Unsupported scheme: {scheme}", url=url)
+        if ":" in url_str.split("/", 1)[0]:
+            scheme = url_str.split(":", 1)[0]
+            raise InvalidURLError(f"Unsupported scheme: {scheme}", url=url)
         url_str = "https://" + url_str
 
     parsed = urlparse(url_str)
