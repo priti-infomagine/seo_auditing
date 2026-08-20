@@ -23,7 +23,27 @@ class BrowserFetcher(Fetcher):
         timeout: Optional[float] = None,
         headers: Optional[Dict[str, str]] = None,
     ) -> FetchResult:
-        render_res = await self.renderer.render(url, reason="browser_fetcher_direct", headers=headers)
+        try:
+            render_res = await self.renderer.render(url, reason="browser_fetcher_direct", headers=headers)
+        except Exception as exc:
+            return FetchResult(
+                url=url,
+                normalized_url=url,
+                status_code=0,
+                content=b"",
+                headers={},
+                final_url=url,
+                content_type="text/html",
+                content_length=0,
+                response_time_ms=0,
+                redirect_chain=[],
+                success=False,
+                error=f"Browser render failed: {repr(exc)}",
+                error_type="browser_render_error",
+                render_mode="browser",
+                render_reason="render_exception",
+            )
+
         content_bytes = render_res.html.encode("utf-8")
 
         return FetchResult(

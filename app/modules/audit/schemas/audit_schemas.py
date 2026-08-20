@@ -87,20 +87,20 @@ class AuditAnalyzeRequest(BaseModel):
 
     url: str = Field(
         ...,
-
+        description="URL or website name to audit (e.g., 'https://example.com' or 'example.com')",
         examples=["https://example.com"]
     )
-    max_pages: int = Field(
-        default=1000,
-        ge=20,
+    max_pages: Optional[int] = Field(
+        default=None,
+        ge=1,
         le=10000,
-        description="Maximum number of pages to crawl and analyze",
+        description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (1000).",
     )
-    max_depth: int = Field(
-        default=5,
+    max_depth: Optional[int] = Field(
+        default=None,
         ge=0,
         le=10,
-        description="Maximum link depth from the start URL to follow",
+        description="Maximum link depth from the start URL to follow. If not provided, uses CrawlConfig default (5).",
         examples=[5],
     )
     concurrency: int = Field(

@@ -132,7 +132,15 @@ class SiteDiscoveryService:
         """Discover sitemaps from robots.txt references and common locations,
         recursively expanding any sitemap-index files."""
         sitemap_candidates = list(robots.sitemap_references)
-        common_paths = ["/sitemap.xml", "/sitemap_index.xml", "/sitemap/"]
+        common_paths = [
+            "/sitemap.xml",
+            "/sitemap_index.xml",
+            "/sitemap/",
+            "/posts/sitemap.xml",
+            "/pages/sitemap.xml",
+            "/sitemap-posts.xml",
+            "/sitemap-pages.xml",
+        ]
         for path in common_paths:
             url = f"{self.scheme}://{self.domain}{path}"
             if url not in sitemap_candidates:

@@ -27905,3 +27905,70 @@ sqlalchemy.exc.InvalidRequestError: Session is already flushing
 2026-08-20 11:31:07,499 | INFO | AuditResponseBuilder.build: project_id=70031a3e-7d48-48f6-8efc-b9a54a2f4e41 crawl_id=8b743d23-258b-4cfb-b137-cab529ce0827
 2026-08-20 11:31:07,531 | INFO | AnalysisScorerService.score_project: score=80.2, grade=B, pages=1, project_id=70031a3e-7d48-48f6-8efc-b9a54a2f4e41
 2026-08-20 11:31:07,531 | INFO | DB scoring completed: Score=80.2/100 (Health: good)
+2026-08-20 12:19:00,245 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:19:13,316 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:22:19,108 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:22:42,549 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:22:46,567 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 440, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 239, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-20 12:24:45,869 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:24:49,984 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 440, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 239, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-20 12:28:05,090 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:28:46,954 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 440, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 239, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-20 12:33:00,727 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-20 12:33:00,738 | INFO | Step 1: Creating CrawlJob
+2026-08-20 12:33:01,654 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-20 12:33:03,128 | WARNING | Browser fallback failed for https://infomagine.in/: Browser render failed: 
+2026-08-20 12:33:03,316 | INFO | Crawl phase completed: 1 pages crawled, 1 pages discovered
+2026-08-20 12:33:03,316 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-20 12:33:03,316 | INFO | DBParserService.parse_crawl: project_id=71e1bf80-2169-440a-b1ca-891aa802b605, crawl_id=3b1e3b25-94dd-496a-9066-6eff19727b36, force=True
+2026-08-20 12:33:03,383 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=71e1bf80-2169-440a-b1ca-891aa802b605
+2026-08-20 12:33:03,385 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-20 12:33:03,385 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-20 12:33:03,385 | INFO | Loaded 70 scoring rules
+2026-08-20 12:33:03,385 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=71e1bf80-2169-440a-b1ca-891aa802b605, crawl_id=3b1e3b25-94dd-496a-9066-6eff19727b36, force=True
+2026-08-20 12:33:03,641 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=71e1bf80-2169-440a-b1ca-891aa802b605
+2026-08-20 12:33:03,643 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-20 12:33:03,643 | INFO | Step 5: Starting DB-backed scoring
+2026-08-20 12:33:03,644 | INFO | AnalysisScorerService.score_project: project_id=71e1bf80-2169-440a-b1ca-891aa802b605, crawl_id=3b1e3b25-94dd-496a-9066-6eff19727b36, force=True
+2026-08-20 12:33:03,647 | INFO | AuditResponseBuilder.build: project_id=71e1bf80-2169-440a-b1ca-891aa802b605 crawl_id=3b1e3b25-94dd-496a-9066-6eff19727b36
+2026-08-20 12:33:04,000 | INFO | AnalysisScorerService.score_project: score=80.2, grade=B, pages=1, project_id=71e1bf80-2169-440a-b1ca-891aa802b605
+2026-08-20 12:33:04,002 | INFO | DB scoring completed: Score=80.2/100 (Health: good)
+2026-08-20 12:40:39,443 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-20 12:41:14,524 | WARNING | Browser fallback failed for https://infomagine.in/: 'Response' object has no attribute 'status_code'
+2026-08-20 12:48:03,395 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-20 12:48:03,402 | INFO | Step 1: Creating CrawlJob
+2026-08-20 12:48:04,083 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-20 12:49:24,358 | WARNING | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-08-20 12:49:25,936 | INFO | Crawl phase completed: 1 pages crawled, 1 pages discovered
+2026-08-20 12:49:25,939 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-20 12:49:25,942 | INFO | DBParserService.parse_crawl: project_id=54f3b33f-9b3f-4a70-aeae-f92573202684, crawl_id=b13451b7-0d90-4584-96e0-5576493d83a3, force=True
+2026-08-20 12:49:26,153 | INFO | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for project_id=54f3b33f-9b3f-4a70-aeae-f92573202684
+2026-08-20 12:49:26,157 | INFO | DB parse: 1 pages parsed, 0 failed
+2026-08-20 12:49:26,159 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-20 12:49:26,161 | INFO | Loaded 70 scoring rules
+2026-08-20 12:49:26,164 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=54f3b33f-9b3f-4a70-aeae-f92573202684, crawl_id=b13451b7-0d90-4584-96e0-5576493d83a3, force=True
+2026-08-20 12:49:26,901 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=70, total_results=70, errors=0 for project_id=54f3b33f-9b3f-4a70-aeae-f92573202684
+2026-08-20 12:49:26,903 | INFO | DB evaluate: 70 rules run, 70 results, 0 errors
+2026-08-20 12:49:26,903 | INFO | Step 5: Starting DB-backed scoring
+2026-08-20 12:49:26,903 | INFO | AnalysisScorerService.score_project: project_id=54f3b33f-9b3f-4a70-aeae-f92573202684, crawl_id=b13451b7-0d90-4584-96e0-5576493d83a3, force=True
+2026-08-20 12:49:26,903 | INFO | AuditResponseBuilder.build: project_id=54f3b33f-9b3f-4a70-aeae-f92573202684 crawl_id=b13451b7-0d90-4584-96e0-5576493d83a3
+2026-08-20 12:49:27,044 | INFO | AnalysisScorerService.score_project: score=80.2, grade=B, pages=1, project_id=54f3b33f-9b3f-4a70-aeae-f92573202684
+2026-08-20 12:49:27,044 | INFO | DB scoring completed: Score=80.2/100 (Health: good)

@@ -52,6 +52,7 @@ TEST_CASES = [
     CrawlTestCase(
         url="https://www.apple.com",
         category="business_website",
+        expect_browser_fallback=False,
         description="Real business website, test normal HTTP/SSR behavior and SEO extraction",
     ),
 
@@ -67,6 +68,7 @@ TEST_CASES = [
         url="https://example.com",
         category="static_ssr",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="Simple static HTML page, should not trigger Playwright",
     ),
 
@@ -75,6 +77,7 @@ TEST_CASES = [
         url="https://httpbin.org/html",
         category="strong_html",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="HTML page with complete document structure, HTTP-only",
     ),
 
@@ -97,6 +100,7 @@ TEST_CASES = [
         url="http://github.com",
         category="redirects",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="HTTP -> HTTPS redirect chain",
     ),
 
@@ -104,6 +108,7 @@ TEST_CASES = [
     CrawlTestCase(
         url="https://httpbin.org/status/200",
         category="weak_seo_metadata",
+        expect_browser_fallback=False,
         description="Minimal response, may have weak SEO metadata",
     ),
 
@@ -112,6 +117,7 @@ TEST_CASES = [
         url="https://httpbin.org/links/5/0",
         category="links_test",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="Page with known internal/external links",
     ),
 
@@ -120,6 +126,7 @@ TEST_CASES = [
         url="https://example.com",
         category="images",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="Page containing images, test asset extraction",
     ),
 
@@ -136,6 +143,7 @@ TEST_CASES = [
         url="https://httpbin.org/json",
         category="non_html",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="JSON response, should not trigger Playwright",
     ),
 
@@ -144,6 +152,7 @@ TEST_CASES = [
         url="https://example.com/#section",
         category="fragment",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="URL with fragment identifier",
     ),
 
@@ -152,6 +161,7 @@ TEST_CASES = [
         url="https://example.com?utm_source=test&id=1&ref=abc",
         category="query_params",
         expected_render_mode="http",
+        expect_browser_fallback=False,
         description="URL with tracking and non-tracking query parameters",
     ),
 

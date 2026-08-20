@@ -11,6 +11,7 @@ corrupting redirect/final_url data.
 from typing import Optional
 from uuid import UUID
 
+from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.extractors.document_extractor import create_document_facts, DocumentFacts
 from app.modules.crawler.fetchers.base import Fetcher
@@ -113,14 +114,27 @@ class PageCrawlService:
         if http_result.success and self.config.enable_browser_rendering:
             decision = self.render_detector.evaluate(http_result)
             if decision.needs_render:
-                browser_result = await self.browser_fetcher.fetch(
-                    normalized_url,
-                    timeout=req_timeout,
-                    headers=headers if headers else None,
-                )
-                if browser_result.success and browser_result.content:
-                    html_content = browser_result.content.decode("utf-8", errors="replace")
-                    http_result = _merge_render_into_fetch(initial_fetch_result, browser_result)
+                try:
+                    browser_result = await self.browser_fetcher.fetch(
+                        normalized_url,
+                        timeout=req_timeout,
+                        headers=headers if headers else None,
+                    )
+                    if browser_result.success and browser_result.content:
+                        html_content = browser_result.content.decode("utf-8", errors="replace")
+                        http_result = _merge_render_into_fetch(initial_fetch_result, browser_result)
+                    else:
+                        logger.warning(
+                            "Browser fallback failed for %s: %s",
+                            normalized_url,
+                            browser_result.error or "no content returned",
+                        )
+                except Exception as browser_exc:
+                    logger.warning(
+                        "Browser fallback exception for %s: %s",
+                        normalized_url,
+                        browser_exc,
+                    )
                 # If browser fallback fails, http_result remains the initial HTTP result
 
         # 3. Error handling

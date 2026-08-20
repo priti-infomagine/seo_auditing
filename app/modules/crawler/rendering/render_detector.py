@@ -72,7 +72,7 @@ class RenderDetector:
         except Exception:
             return RenderDecision(False, "parse_error")
 
-        for tag in soup(["script", "style", "noscript"]):
+        for tag in soup(["script", "style", "noscript", "svg", "canvas", "head"]):
             tag.decompose()
 
         visible_text = soup.get_text(" ", strip=True)

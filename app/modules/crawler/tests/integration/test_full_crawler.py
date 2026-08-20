@@ -290,8 +290,10 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
 
         # Headings
         if parsed.content and parsed.content.headings:
-            result.parser_h1_count = len(parsed.content.headings.get("h1", []))
-            result.parser_h2_count = len(parsed.content.headings.get("h2", []))
+            h1_headings = [h for h in parsed.content.headings if h.level == 1]
+            h2_headings = [h for h in parsed.content.headings if h.level == 2]
+            result.parser_h1_count = len(h1_headings)
+            result.parser_h2_count = len(h2_headings)
         print(f"  H1 count: {result.parser_h1_count}")
         print(f"  H2 count: {result.parser_h2_count}")
 
@@ -340,7 +342,8 @@ async def _run_pipeline(test_case: CrawlTestCase, test_number: int, total_tests:
 
         # H1 check (from parser)
         if parsed.content and parsed.content.headings:
-            result.seo_h1_present = len(parsed.content.headings.get("h1", [])) > 0
+            h1_headings = [h for h in parsed.content.headings if h.level == 1]
+            result.seo_h1_present = len(h1_headings) > 0
 
         print(f"  Title present: {result.seo_title_present}")
         if result.seo_title_present:

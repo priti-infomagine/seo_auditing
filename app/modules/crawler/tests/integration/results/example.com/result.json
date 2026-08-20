@@ -1,28 +1,28 @@
 {
   "test_case": {
-    "url": "https://example.com?utm_source=test&id=1&ref=abc",
-    "category": "query_params",
-    "description": "URL with tracking and non-tracking query parameters"
+    "url": "https://example.com",
+    "category": "static_ssr",
+    "description": "Simple static HTML page, should not trigger Playwright"
   },
   "pipeline": {
-    "test_number": 14,
+    "test_number": 3,
     "total_tests": 15,
-    "url": "https://example.com?utm_source=test&id=1&ref=abc",
-    "category": "query_params",
+    "url": "https://example.com",
+    "category": "static_ssr",
     "domain": "example.com",
     "passed": true,
     "failure_reason": null,
-    "normalized_url": "https://example.com/?utm_source=test&id=1&ref=abc",
+    "normalized_url": "https://example.com/",
     "http_status": 200,
     "http_success": true,
-    "http_final_url": "https://example.com/?utm_source=test&id=1&ref=abc",
-    "http_response_time_ms": 897,
+    "http_final_url": "https://example.com/",
+    "http_response_time_ms": 60,
     "http_redirects": [],
     "render_decision_needs_render": false,
     "render_decision_reason": "initial_html_sufficient",
     "render_decision_details": {
-      "word_count": 21,
-      "text_ratio": 0.25402504472271914
+      "word_count": 19,
+      "text_ratio": 0.22719141323792486
     },
     "browser_executed": false,
     "browser_status": null,
@@ -37,7 +37,7 @@
     "parser_word_count": 21,
     "parser_links_total": 1,
     "parser_links_internal": 0,
-    "parser_links_external": 1,
+    "parser_links_external": 0,
     "parser_images_total": 0,
     "parser_images_missing_alt": 0,
     "seo_title_present": true,
@@ -51,26 +51,27 @@
     "result_files": {}
   },
   "http_result": {
-    "url": "https://example.com/?utm_source=test&id=1&ref=abc",
-    "normalized_url": "https://example.com/?utm_source=test&id=1&ref=abc",
+    "url": "https://example.com/",
+    "normalized_url": "https://example.com/",
     "status_code": 200,
     "content": "b'<!doctype html><html lang=\"en\"><head><title>Example Domain</title><link rel=\"icon\" href=\"data:,\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href=\"https://iana.org/domains/example\">Learn more</a></p></div></body></html>\\n'",
     "headers": {
-      "date": "Thu, 13 Aug 2026 06:44:35 GMT",
+      "date": "Thu, 20 Aug 2026 06:51:43 GMT",
       "content-type": "text/html",
       "transfer-encoding": "chunked",
       "connection": "keep-alive",
       "server": "cloudflare",
-      "last-modified": "Wed, 12 Aug 2026 20:15:57 GMT",
+      "last-modified": "Wed, 12 Aug 2026 20:17:18 GMT",
       "allow": "GET, HEAD",
-      "cf-cache-status": "MISS",
+      "age": "7268",
+      "cf-cache-status": "HIT",
       "content-encoding": "gzip",
-      "cf-ray": "a2a5c082dd3d8e7a-DEL"
+      "cf-ray": "a2df789f2c7254d1-DEL"
     },
-    "final_url": "https://example.com/?utm_source=test&id=1&ref=abc",
+    "final_url": "https://example.com/",
     "content_type": "text/html",
     "content_length": 559,
-    "response_time_ms": 897,
+    "response_time_ms": 60,
     "redirect_chain": [],
     "success": true,
     "error": null,
@@ -82,13 +83,13 @@
     "needs_render": false,
     "reason": "initial_html_sufficient",
     "details": {
-      "word_count": 21,
-      "text_ratio": 0.25402504472271914
+      "word_count": 19,
+      "text_ratio": 0.22719141323792486
     }
   },
   "document": {
     "is_html": true,
-    "language": "en",
+    "language": "",
     "charset": "",
     "raw_html_length": 559
   }

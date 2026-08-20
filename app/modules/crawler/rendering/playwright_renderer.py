@@ -71,7 +71,7 @@ class PlaywrightRenderer:
                     timeout=self.config.browser_timeout * 1000,
                 )
                 if response:
-                    status_code = response.status_code
+                    status_code = response.status
                     response_headers = {k.lower(): v for k, v in (await response.all_headers()).items()}
 
                 # Wait for network idle or fallback timeout
