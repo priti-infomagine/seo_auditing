@@ -333,14 +333,22 @@ PASS_THRESHOLD: float = 100.0
 # Every category's `status` field must be derived from this table via get_status().
 STATUS_THRESHOLDS_EXCELLENT: Dict[str, float] = {
     "excellent": 90.0,
-    "good": 80.0,
-    "poor": 60.0,
+    "good": 75.0,
+    "needs_improvement": 60.0,
+    "poor": 40.0,
     "critical": 0.0,
 }
 
 
 def get_status(score: Optional[float]) -> str:
-    """Map a 0-100 score to a single status label (excellent/good/poor/critical).
+    """Map a 0-100 score to a single status label.
+
+    Standard SEO platform thresholds:
+      90-100 -> excellent
+      75-89  -> good
+      60-74  -> needs_improvement
+      40-59  -> poor
+       0-39  -> critical
 
     One authoritative helper so no category-specific status override logic exists
     anywhere else in the codebase.
@@ -355,6 +363,8 @@ def get_status(score: Optional[float]) -> str:
         return "excellent"
     if score >= STATUS_THRESHOLDS_EXCELLENT["good"]:
         return "good"
+    if score >= STATUS_THRESHOLDS_EXCELLENT["needs_improvement"]:
+        return "needs_improvement"
     if score >= STATUS_THRESHOLDS_EXCELLENT["poor"]:
         return "poor"
     return "critical"

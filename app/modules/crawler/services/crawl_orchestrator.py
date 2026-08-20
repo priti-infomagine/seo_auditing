@@ -1,4 +1,4 @@
-﻿"""
+"""
 Crawl orchestrator - controls the entire crawl lifecycle using CrawlScheduler.
 
 Orchestrates all services to perform a complete recursive crawl:
@@ -33,9 +33,10 @@ from app.modules.crawler.services.page_crawl_service import PageCrawlService, Pa
 from app.modules.crawler.services.page_extraction_service import PageExtractionService, PageFacts
 from app.modules.crawler.services.redirect_service import RedirectService
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
+from app.modules.crawler.services.robots_service import RobotsPolicy
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
 from app.modules.crawler.types import DiscoveredURL
-from app.shared.utils.url_utils import get_domain, normalize_url
+from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
 from app.modules.crawler.utils.url_classifier import strip_tracking_params
 
 
@@ -101,7 +102,14 @@ class CrawlOrchestrator:
         )
 
         if respect_robots:
-            discovery = SiteDiscoveryService(start_url, timeout=timeout_seconds)
+            discovery = SiteDiscoveryService(
+                start_url,
+                timeout=timeout_seconds,
+                max_child_sitemaps=self.config.max_sitemap_files,
+                max_urls_per_sitemap=self.config.max_sitemap_page_urls,
+                max_total_page_urls=self.config.max_sitemap_page_urls,
+                max_sitemap_index_depth=self.config.max_sitemap_index_depth,
+            )
             site_result = await discovery.discover()
             await self.persistence.persist_site_data(
                 CrawlSiteData(
@@ -133,7 +141,24 @@ class CrawlOrchestrator:
             base_domain=start_domain,
         )
         self._scheduler = scheduler
+
+        # Attach robots policy so the scheduler can enforce and record blocks.
+        if respect_robots and site_result and site_result.robots.content:
+            robots_policy = RobotsPolicy(site_result.robots.content)
+            scheduler.set_robots_policy(robots_policy)
+            logger.info(
+                "Robots policy attached to scheduler for %s (sitemaps: %d)",
+                start_domain,
+                len(site_result.robots.sitemap_references),
+            )
+
         scheduler.submit_seed(start_url)
+        logger.info(
+            "Crawl started: %s (max_pages=%d, max_depth=%d)",
+            start_url,
+            self.config.max_pages,
+            self.config.max_depth,
+        )
 
         # Submit sitemap-discovered page URLs into the crawl queue so they
         # participate in the same safety checks as link-discovered URLs.
@@ -175,15 +200,27 @@ class CrawlOrchestrator:
             duration_ms=duration_ms,
         )
 
-        url_diagnostics = (
+        pages_failed_count = getattr(scheduler, "pages_failed_count", 0)
             scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
         )
+
+        logger.info(
+            "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",
+            start_url,
+            pages_crawled_count,
+            pages_discovered_count,
+            getattr(scheduler, 'pages_failed_count', 0),
+            duration_ms,
+        )
+        if url_diagnostics:
+            logger.info("URL diagnostics: %s", url_diagnostics)
 
         return {
             "status": "completed",
             "crawl_id": str(self.crawl_job_id),
             "pages_crawled": pages_crawled_count,
             "pages_discovered": pages_discovered_count,
+            "pages_failed": getattr(scheduler, 'pages_failed_count', 0),
             "url_diagnostics": url_diagnostics,
         }
 
@@ -245,8 +282,8 @@ class CrawlOrchestrator:
                 url=item.normalized_url,
                 error=crawl_result.error,
             )
-            await self._update_progress(self._scheduler.pages_crawled_count + 1)
-            return
+            logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
+            return False
 
         document = crawl_result.document
         fetch_result = crawl_result.fetch_result
@@ -264,8 +301,18 @@ class CrawlOrchestrator:
         # Update the scheduler's base host from the effective URL so that
         # subsequent child URLs are classified against the correct site
         # (handles apex <-> www and HTTP -> HTTPS redirects).
+        # A redirect to an *unrelated* host must NOT expand the crawl scope.
         if self._scheduler is not None:
-            self._scheduler.set_base_domain_from_url(effective_url)
+            effective_host = urlparse(effective_url).hostname or ""
+            current_base = self._scheduler.base_domain
+            if current_base and not is_same_site(effective_host, current_base):
+                logger.warning(
+                    "Redirect to unrelated host %s — base domain stays %s",
+                    effective_host,
+                    current_base,
+                )
+            else:
+                self._scheduler.set_base_domain_from_url(effective_url)
 
         from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 
@@ -425,7 +472,7 @@ class CrawlOrchestrator:
             page_id=str(page.id),
         )
 
-        await self._update_progress(self._scheduler.pages_crawled_count + 1)
+        logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
 
     async def get_summary(self) -> Optional[dict]:
         """Get crawl summary."""
@@ -499,14 +546,28 @@ class CrawlOrchestrator:
 
         for link in links:
             if next_depth > max_depth:
-                break
+                continue
             if link.get("is_internal"):
                 raw_url = link["url"]
                 clean_url = strip_tracking_params(raw_url)
-                self._scheduler.submit_discovered_url(
+                submitted = self._scheduler.submit_discovered_url(
                     url=clean_url,
                     source_url=page_url,
                     source_type="html_link",
                     depth=next_depth,
                     parent_page_id=page_id,
                 )
+                if submitted:
+                    logger.debug(
+                        "URL queued [html_link]: %s (depth=%d, source=%s)",
+                        clean_url,
+                        next_depth,
+                        page_url,
+                    )
+                else:
+                    logger.debug(
+                        "URL rejected [html_link]: %s (depth=%d, source=%s)",
+                        clean_url,
+                        next_depth,
+                        page_url,
+                    )

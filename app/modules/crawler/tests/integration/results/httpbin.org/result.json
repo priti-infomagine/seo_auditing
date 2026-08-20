@@ -1,29 +1,26 @@
 {
   "test_case": {
-    "url": "https://httpbin.org/html",
-    "category": "strong_html",
-    "description": "HTML page with complete document structure, HTTP-only"
+    "url": "https://httpbin.org/status/404",
+    "category": "http_error",
+    "description": "404 response, should fail gracefully"
   },
   "pipeline": {
-    "test_number": 4,
+    "test_number": 15,
     "total_tests": 15,
-    "url": "https://httpbin.org/html",
-    "category": "strong_html",
+    "url": "https://httpbin.org/status/404",
+    "category": "http_error",
     "domain": "httpbin.org",
     "passed": true,
     "failure_reason": null,
-    "normalized_url": "https://httpbin.org/html",
-    "http_status": 200,
-    "http_success": true,
-    "http_final_url": "https://httpbin.org/html",
-    "http_response_time_ms": 3515,
+    "normalized_url": "https://httpbin.org/status/404",
+    "http_status": 503,
+    "http_success": false,
+    "http_final_url": "https://httpbin.org/status/404",
+    "http_response_time_ms": 3182,
     "http_redirects": [],
-    "render_decision_needs_render": false,
-    "render_decision_reason": "initial_html_sufficient",
-    "render_decision_details": {
-      "word_count": 624,
-      "text_ratio": 0.9612195774271195
-    },
+    "render_decision_needs_render": null,
+    "render_decision_reason": "skipped_http_failed",
+    "render_decision_details": {},
     "browser_executed": false,
     "browser_status": null,
     "browser_final_url": null,
@@ -31,16 +28,16 @@
     "final_render_mode": "http",
     "initial_render_mode": "http",
     "parser_executed": true,
-    "parser_title": "",
+    "parser_title": "503 Service Temporarily Unavailable",
     "parser_h1_count": 1,
     "parser_h2_count": 0,
-    "parser_word_count": 605,
+    "parser_word_count": 8,
     "parser_links_total": 0,
     "parser_links_internal": 0,
     "parser_links_external": 0,
     "parser_images_total": 0,
     "parser_images_missing_alt": 0,
-    "seo_title_present": false,
+    "seo_title_present": true,
     "seo_meta_description_present": false,
     "seo_canonical_present": false,
     "seo_robots_present": false,
@@ -51,42 +48,33 @@
     "result_files": {}
   },
   "http_result": {
-    "url": "https://httpbin.org/html",
-    "normalized_url": "https://httpbin.org/html",
-    "status_code": 200,
-    "content": "b\"<!DOCTYPE html>\\n<html>\\n  <head>\\n  </head>\\n  <body>\\n      <h1>Herman Melville - Moby-Dick</h1>\\n\\n      <div>\\n        <p>\\n          Availing himself of the mild, summer-cool weather that now reigned in these latitudes, and in preparation for the peculiarly active pursuits shortly to be anticipated, Perth, the begrimed, blistered old blacksmith, had not removed his portable forge to the hold again, after concluding his contributory work for Ahab's leg, but still retained it on deck, fast lashed to ringbolts by the foremast; being now almost incessantly invoked by the headsmen, and harpooneers, and bowsmen to do some little job for them; altering, or repairing, or new shaping their various weapons and boat furniture. Often he would be surrounded by an eager circle, all waiting to be served; holding boat-spades, pike-heads, harpoons, and lances, and jealously watching his every sooty movement, as he toiled. Nevertheless, this old man's was a patient hammer wielded by a patient arm. No murmur, no impatience, no petulance did come from him. Silent, slow, and solemn; bowing over still further his chronically broken back, he toiled away, as if toil were life itself, and the heavy beating of his hammer the heavy beating of his heart. And so it was.\\xe2\\x80\\x94Most miserable! A peculiar walk in this old man, a certain slight but painful appearing yawing in his gait, had at an early period of the voyage excited the curiosity of the mariners. And to the importunity of their persisted questionings he had finally given in; and so it came to pass that every one now knew the shameful story of his wretched fate. Belated, and not innocently, one bitter winter's midnight, on the road running between two country towns, the blacksmith half-stupidly felt the deadly numbness stealing over him, and sought refuge in a leaning, dilapidated barn. The issue was, the loss of the extremities of both feet. Out of this revelation, part by part, at last came out the four acts of the gladness, and the one long, and as yet uncatastrophied fifth act of the grief of his life's drama. He was an old man, who, at the age of nearly sixty, had postponedly encountered that thing in sorrow's technicals called ruin. He had been an artisan of famed excellence, and with plenty to do; owned a house and garden; embraced a youthful, daughter-like, loving wife, and three blithe, ruddy children; every Sunday went to a cheerful-looking church, planted in a grove. But one night, under cover of darkness, and further concealed in a most cunning disguisement, a desperate burglar slid into his happy home, and robbed them all of everything. And darker yet to tell, the blacksmith himself did ignorantly conduct this burglar into his family's heart. It was the Bottle Conjuror! Upon the opening of that fatal cork, forth flew the fiend, and shrivelled up his home. Now, for prudent, most wise, and economic reasons, the blacksmith's shop was in the basement of his dwelling, but with a separate entrance to it; so that always had the young and loving healthy wife listened with no unhappy nervousness, but with vigorous pleasure, to the stout ringing of her young-armed old husband's hammer; whose reverberations, muffled by passing through the floors and walls, came up to her, not unsweetly, in her nursery; and so, to stout Labor's iron lullaby, the blacksmith's infants were rocked to slumber. Oh, woe on woe! Oh, Death, why canst thou not sometimes be timely? Hadst thou taken this old blacksmith to thyself ere his full ruin came upon him, then had the young widow had a delicious grief, and her orphans a truly venerable, legendary sire to dream of in their after years; and all of them a care-killing competency.\\n        </p>\\n      </div>\\n  </body>\\n</html>\"",
+    "url": "https://httpbin.org/status/404",
+    "normalized_url": "https://httpbin.org/status/404",
+    "status_code": 503,
+    "content": "b'<html>\\r\\n<head><title>503 Service Temporarily Unavailable</title></head>\\r\\n<body>\\r\\n<center><h1>503 Service Temporarily Unavailable</h1></center>\\r\\n</body>\\r\\n</html>\\r\\n'",
     "headers": {
-      "date": "Thu, 20 Aug 2026 06:51:49 GMT",
-      "content-type": "text/html; charset=utf-8",
-      "content-length": "3741",
-      "connection": "keep-alive",
-      "server": "gunicorn/19.9.0",
-      "access-control-allow-origin": "*",
-      "access-control-allow-credentials": "true"
+      "server": "awselb/2.0",
+      "date": "Thu, 20 Aug 2026 10:57:08 GMT",
+      "content-type": "text/html",
+      "content-length": "162",
+      "connection": "keep-alive"
     },
-    "final_url": "https://httpbin.org/html",
-    "content_type": "text/html; charset=utf-8",
-    "content_length": 3741,
-    "response_time_ms": 3515,
+    "final_url": "https://httpbin.org/status/404",
+    "content_type": "text/html",
+    "content_length": 162,
+    "response_time_ms": 3182,
     "redirect_chain": [],
-    "success": true,
+    "success": false,
     "error": null,
     "error_type": null,
     "render_mode": "http",
     "render_reason": "default_http"
   },
-  "render_decision": {
-    "needs_render": false,
-    "reason": "initial_html_sufficient",
-    "details": {
-      "word_count": 624,
-      "text_ratio": 0.9612195774271195
-    }
-  },
+  "render_decision": null,
   "document": {
     "is_html": true,
     "language": "",
     "charset": "",
-    "raw_html_length": 3739
+    "raw_html_length": 162
   }
 }

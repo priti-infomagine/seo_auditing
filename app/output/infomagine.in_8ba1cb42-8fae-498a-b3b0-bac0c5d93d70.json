@@ -1,0 +1,1174 @@
+{
+  "audit": {
+    "audit_id": "476dab52-e466-404c-b61b-1c37a2404e62",
+    "project_id": "8ba1cb42-8fae-498a-b3b0-bac0c5d93d70",
+    "url": "https://infomagine.in/",
+    "domain": "infomagine.in",
+    "started_at": "2026-08-20T07:29:24.131616+00:00",
+    "completed_at": "2026-08-20T07:29:26.449795+00:00",
+    "status": "completed",
+    "pages_discovered": 1,
+    "pages_crawled": 1,
+    "pages_analyzed": 1
+  },
+  "summary": {
+    "overall_score": 80.0,
+    "health": "good",
+    "critical_issues": 6,
+    "high_issues": 3,
+    "medium_issues": 10,
+    "low_issues": 9,
+    "passed_checks": 39,
+    "failed_checks": 28
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 28.6,
+      "status": "critical",
+      "checks_total": 7,
+      "checks_passed": 2,
+      "checks_failed": 5,
+      "issues": [
+        {
+          "rule_id": "on_page_001",
+          "severity": "medium",
+          "message": "Title length is 64 characters (recommended: 30-60) - too long",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "title"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_003",
+          "severity": "critical",
+          "message": "Missing H1 tag",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "h1"
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "heading_hierarchy"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "canonical"
+        }
+      ]
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 44.4,
+      "status": "critical",
+      "checks_total": 9,
+      "checks_passed": 4,
+      "checks_failed": 5,
+      "issues": [
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "sitemap"
+        }
+      ]
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 42.9,
+      "status": "critical",
+      "checks_total": 7,
+      "checks_passed": 3,
+      "checks_failed": 4,
+      "issues": [
+        {
+          "rule_id": "content_001",
+          "severity": "high",
+          "message": "Thin content: 10 words (recommended: 300+)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "word_count"
+        },
+        {
+          "rule_id": "content_003",
+          "severity": "medium",
+          "message": "No paragraphs found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "paragraph_structure"
+        },
+        {
+          "rule_id": "content_006",
+          "severity": "high",
+          "message": "No canonical URL (potential duplicate content risk)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "duplicate_content"
+        },
+        {
+          "rule_id": "content_007",
+          "severity": "low",
+          "message": "No content freshness dates found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "content_freshness"
+        }
+      ]
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 60.0,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 3,
+      "checks_failed": 2,
+      "issues": [
+        {
+          "rule_id": "links_001",
+          "severity": "medium",
+          "message": "No internal links found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "internal_links"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "external_links"
+        }
+      ]
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 6,
+      "checks_passed": 6,
+      "checks_failed": 0
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 50.0,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 3,
+      "checks_failed": 3,
+      "issues": [
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "product_schema"
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 60.0,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 3,
+      "checks_failed": 2,
+      "issues": [
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "facebook_domain"
+        }
+      ]
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 16.7,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 1,
+      "checks_failed": 5,
+      "issues": [
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "xss_protection"
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 75.0,
+      "status": "poor",
+      "checks_total": 8,
+      "checks_passed": 6,
+      "checks_failed": 2,
+      "issues": [
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_003",
+          "severity": "medium",
+          "message": "Heading accessibility issues: Missing H1",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "heading_structure"
+        }
+      ]
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 87.5,
+      "status": "good",
+      "checks_total": 8,
+      "checks_passed": 7,
+      "checks_failed": 1,
+      "issues": [
+        {
+          "rule_id": "perf_005",
+          "severity": "low",
+          "message": "No cache headers found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "browser_caching"
+        }
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_003",
+      "severity": "medium",
+      "message": "Heading accessibility issues: Missing H1",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "content_001",
+      "severity": "high",
+      "message": "Thin content: 10 words (recommended: 300+)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "word_count"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "links_001",
+      "severity": "medium",
+      "message": "No internal links found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "internal_links"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "on_page_001",
+      "severity": "medium",
+      "message": "Title length is 64 characters (recommended: 30-60) - too long",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "title"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "h1"
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "sitemap"
+    }
+  ],
+  "category_results": {
+    "on_page": {
+      "canonical": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "h1": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "headings": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "meta_descriptions": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "meta_keywords": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "open_graph": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "robots": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "titles": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "twitter_cards": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "technical_seo": {
+      "charset": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "doctype": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "hsts": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "html_lang": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "https": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "language": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "mixed_content": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "robots_txt": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "security_headers": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "sitemap": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "ssl_certificate": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "structured_data": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "viewport": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "xss_protection": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      }
+    },
+    "content_quality": {
+      "content_freshness": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "duplicate_content": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "keyword_density": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "paragraph_structure": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "reading_time": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "text_html_ratio": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "word_count": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      }
+    },
+    "internal_linking": {
+      "anchor_text": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "broken_links": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "external_links": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "internal_links": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "nofollow_links": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "images_media": {
+      "image_alt_text": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "image_dimensions": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "image_file_size": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "image_formats": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "lazy_loading": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "responsive_images": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "structured_data": {
+      "article_schema": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "breadcrumb_schema": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "json_ld_format": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "organization_schema": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "product_schema": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "structured_data": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "social": {
+      "facebook_domain": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "open_graph": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "social_image": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "social_media_links": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "twitter_cards": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "security_trust": {
+      "hsts": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "https": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "mixed_content": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "security_headers": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "ssl_certificate": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "xss_protection": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      }
+    },
+    "accessibility": {
+      "aria_labels": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "color_contrast": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "form_labels": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "heading_structure": {
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
+      },
+      "image_alt_text": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "keyboard_navigation": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "language": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "link_text": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    },
+    "performance": {
+      "browser_caching": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "code_minification": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "compression": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "html_document_size": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "javascript_errors": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "resource_count": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "response_time": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      },
+      "total_page_size": {
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
+      }
+    }
+  },
+  "crawl": {
+    "pages_discovered": 1,
+    "pages_crawled": 1,
+    "pages_analyzed": 1,
+    "blocked_by_robots": {
+      "available": false,
+      "value": null,
+      "reason": "robots_txt_rules_not_analyzed"
+    },
+    "redirects": 0,
+    "broken_pages": 0,
+    "orphan_pages": {
+      "available": false,
+      "value": null,
+      "reason": "link_graph_analysis_not_implemented"
+    },
+    "crawl_errors": 0,
+    "status_codes": {
+      "200": 1
+    },
+    "started_at": "2026-08-20T07:29:24.131616+00:00",
+    "completed_at": "2026-08-20T07:29:26.449795+00:00"
+  },
+  "indexation": {
+    "indexable": 1,
+    "noindex": 0,
+    "canonicalized": 1,
+    "blocked_by_robots": {
+      "available": false,
+      "value": null,
+      "reason": "robots_txt_rules_not_analyzed"
+    },
+    "not_indexable": 0
+  },
+  "performance": {
+    "available": true,
+    "core_web_vitals": {
+      "available": false,
+      "value": null,
+      "reason": "browser_performance_measurement_not_available"
+    },
+    "ttfb": {
+      "available": true,
+      "value": 449.0,
+      "unit": "milliseconds",
+      "status": "excellent",
+      "reason": null
+    }
+  },
+  "structured_data": {
+    "pages_with_schema": 1,
+    "pages_without_schema": 0,
+    "valid": 1,
+    "invalid": 0,
+    "types": {
+      "Organization": 1
+    }
+  },
+  "links": {
+    "internal": {
+      "total": 0,
+      "broken": {
+        "available": false,
+        "value": null,
+        "reason": "live_link_check_not_enabled"
+      }
+    },
+    "external": {
+      "total": 0,
+      "broken": {
+        "available": false,
+        "value": null,
+        "reason": "live_link_check_not_enabled"
+      }
+    },
+    "orphan_pages": {
+      "available": false,
+      "value": null,
+      "reason": "link_graph_analysis_not_implemented"
+    },
+    "total_links": 0
+  },
+  "images": {
+    "total": 0,
+    "missing_alt": 0,
+    "empty_alt": 0,
+    "missing_dimensions": 0,
+    "oversized": 0,
+    "modern_format": 0,
+    "lazy_loading": 0
+  },
+  "content": {
+    "thin_pages": 1,
+    "duplicate_pages": 0,
+    "duplicate_groups": 0,
+    "near_duplicate_pages": {
+      "available": false,
+      "value": null,
+      "reason": "content_similarity_analysis_not_implemented"
+    },
+    "missing_author": {
+      "available": false,
+      "value": null,
+      "reason": "author_extraction_not_implemented"
+    },
+    "outdated_pages": {
+      "available": false,
+      "value": null,
+      "reason": "content_freshness_tracking_not_implemented"
+    }
+  },
+  "priorities": {
+    "critical": [
+      "a11y_002",
+      "on_page_003",
+      "security_003",
+      "security_004",
+      "technical_001",
+      "technical_005"
+    ],
+    "high": [
+      "content_001",
+      "content_006",
+      "on_page_006"
+    ],
+    "medium": [
+      "a11y_003",
+      "content_003",
+      "links_001",
+      "on_page_001",
+      "on_page_002",
+      "on_page_004",
+      "security_005",
+      "security_006",
+      "technical_003",
+      "technical_006"
+    ],
+    "low": [
+      "content_007",
+      "links_002",
+      "perf_005",
+      "schema_003",
+      "schema_004",
+      "schema_005",
+      "social_003",
+      "social_004",
+      "technical_009"
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": 1,
+      "rule_id": "on_page_003",
+      "title": "Missing or multiple H1 tags",
+      "action": "Add a single <h1> containing your primary keyword.",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 1,
+      "rule_id": "technical_001",
+      "title": "Not using HTTPS",
+      "action": "Enable HTTPS and redirect all traffic to HTTPS.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 1,
+      "rule_id": "technical_005",
+      "title": "Missing DOCTYPE declaration",
+      "action": "Add <!DOCTYPE html> at the start of every HTML document.",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "content_001",
+      "title": "Thin or overly long content",
+      "action": "Expand thin pages to at least 300 words of useful content.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "content_006",
+      "title": "Duplicate content detected",
+      "action": "Rewrite or canonicalize duplicate content.",
+      "effort": "medium",
+      "affected_pages": 1
+    },
+    {
+      "priority": 2,
+      "rule_id": "on_page_006",
+      "title": "Missing canonical URL",
+      "action": "Add <link rel='canonical'> to the preferred URL.",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 3,
+      "rule_id": "on_page_001",
+      "title": "Missing or poor page title",
+      "action": "Add a descriptive <title> (30-70 chars).",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 3,
+      "rule_id": "on_page_002",
+      "title": "Missing or poorly sized meta description",
+      "action": "Add a unique, relevant meta description (150-160 chars).",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 3,
+      "rule_id": "on_page_004",
+      "title": "Illogical heading hierarchy",
+      "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
+      "effort": "low",
+      "affected_pages": 1
+    }
+  ],
+  "external_dependencies": [
+    {
+      "feature": "Core Web Vitals (LCP/INP/CLS)",
+      "status": "not_available",
+      "reason": "browser_performance_measurement_not_available"
+    },
+    {
+      "feature": "Backlink analysis",
+      "status": "not_available",
+      "reason": "backlink_data_provider_not_configured"
+    },
+    {
+      "feature": "Keyword search volume / SERP data",
+      "status": "not_available",
+      "reason": "keyword_serp_data_provider_not_configured"
+    },
+    {
+      "feature": "Google Search Console",
+      "status": "not_available",
+      "reason": "not_connected"
+    }
+  ],
+  "errors": [],
+  "metadata": {
+    "crawler_version": "unknown",
+    "parser_version": "unknown",
+    "rule_engine_version": "1.0.0",
+    "rules_executed": 67,
+    "total_issues": 28,
+    "output_shape": "unified_v1"
+  }
+}

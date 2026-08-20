@@ -18,7 +18,8 @@ class SitemapDiscoverer:
     async def discover(self, sitemap_url: str, timeout: int = 30) -> List[str]:
         urls = []
         try:
-            async with HTTPClient(sitemap_url, timeout=timeout) as response:
+            async with HTTPClient(timeout=timeout) as client:
+                response = await client.get(sitemap_url)
                 if response.status_code != 200:
                     return urls
                 content = response.content

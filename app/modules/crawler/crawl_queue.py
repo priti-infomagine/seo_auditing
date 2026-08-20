@@ -24,7 +24,7 @@ class CrawlQueueService:
     def __init__(
         self,
         max_depth: int = 5,
-        max_pages: int = 1000,
+        max_pages: int = 100,
         base_domain: Optional[str] = None,
     ):
         self.max_depth = max_depth
@@ -34,6 +34,13 @@ class CrawlQueueService:
         self.visited: set[str] = set()
         self.crawled_count = 0
         self.rejected: list[dict] = []
+        # Per (url, depth) dedup — allows the same URL at different depths
+        # (e.g. discovered via a longer path later) while preventing the same
+        # URL at the same depth from being queued twice.
+        self._queued: set[tuple[str, int]] = set()
+        # URLs explicitly marked as visited via mark_visited() block all
+        # depths from re-entering the queue.
+        self._manually_visited: set[str] = set()
 
     def add_url(
         self,
@@ -59,7 +66,7 @@ class CrawlQueueService:
             self.rejected.append({"url": url, "depth": depth, "reason": "depth_limit"})
             return False
 
-        if self.crawled_count >= self.max_pages:
+        if len(self.queue) + self.crawled_count >= self.max_pages:
             self.rejected.append({"url": url, "reason": "page_limit"})
             return False
 
@@ -79,12 +86,17 @@ class CrawlQueueService:
 
         normalized = normalize_url(url)
 
-        if normalized in self.visited:
+        if normalized in self._manually_visited:
+            self.rejected.append({"url": url, "reason": "duplicate"})
+            return False
+
+        if (normalized, depth) in self._queued:
             self.rejected.append({"url": url, "reason": "duplicate"})
             return False
 
         self.queue.append(QueueItem(url, depth, parent_page_id))
         self.visited.add(normalized)
+        self._queued.add((normalized, depth))
         return True
 
     def get_next(self) -> Optional[QueueItem]:
@@ -100,8 +112,9 @@ class CrawlQueueService:
         return None
 
     def mark_visited(self, url: str) -> None:
-        """Mark URL as visited."""
+        """Mark URL as visited (blocks all future add_url calls for this URL)."""
         normalized = normalize_url(url)
+        self._manually_visited.add(normalized)
         self.visited.add(normalized)
 
     @property

@@ -406,6 +406,46 @@ class TestSchedulerMaxLimits:
         assert len(crawled) == 3
         assert scheduler.url_diagnostics["max_depth"] >= 1
 
+    @pytest.mark.asyncio
+    async def test_pages_failed_count_tracked(self):
+        """Workers returning False increment pages_failed_count, not pages_crawled_count."""
+
+        async def failing_worker(item, http_sem, browser_sem):
+            return False
+
+        scheduler = CrawlScheduler(
+            config=_make_config(max_pages=5),
+            worker_func=failing_worker,
+            base_domain="example.com",
+        )
+        for i in range(3):
+            scheduler.submit_seed(f"https://example.com/p{i}")
+        await scheduler.run()
+
+        assert scheduler.pages_crawled_count == 0
+        assert scheduler.pages_failed_count == 3
+
+    @pytest.mark.asyncio
+    async def test_max_pages_counts_successful_crawls_only(self):
+        """max_pages is a hard limit on successful crawls, not total attempts."""
+
+        async def mixed_worker(item, http_sem, browser_sem):
+            return item.normalized_url.endswith("ok") or item.normalized_url.endswith("success")
+
+        scheduler = CrawlScheduler(
+            config=_make_config(max_pages=2),
+            worker_func=mixed_worker,
+            base_domain="example.com",
+        )
+        scheduler.submit_seed("https://example.com/ok")
+        scheduler.submit_seed("https://example.com/fail1")
+        scheduler.submit_seed("https://example.com/fail2")
+        scheduler.submit_seed("https://example.com/success")
+        await scheduler.run()
+
+        assert scheduler.pages_crawled_count == 2
+        assert scheduler.pages_failed_count == 2
+
 
 class TestSetBaseDomain:
     """Verify set_base_domain normalizes www and updates classification."""

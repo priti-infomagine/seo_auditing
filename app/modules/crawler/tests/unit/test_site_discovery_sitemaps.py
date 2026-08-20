@@ -408,9 +408,163 @@ def _make_mock_response(content: str = "", status_code: int = 200,
 
 
 def _make_response(mock_http_cls, content, status_code=200, headers=None):
-    """Configure mock HTTPClient to return a response for all calls."""
+    """Create a mock HTTPClient response."""
     response = _make_mock_response(content, status_code, headers)
     cm = MagicMock()
-    cm.__aenter__ = AsyncMock(return_value=response)
+    cm.__aenter__ = AsyncMock(return_value=cm)
     cm.__aexit__ = AsyncMock(return_value=None)
+    cm.get = AsyncMock(return_value=response)
     mock_http_cls.return_value = cm
+
+
+# ---------------------------------------------------------------------------
+# Sitemap limit (cap) tests
+# ---------------------------------------------------------------------------
+class TestSitemapLimits:
+    """Verify sitemap file cap, per-sitemap URL cap, and total URL cap."""
+
+    @pytest.mark.asyncio
+    async def test_total_page_url_cap(self):
+        """discovered_urls is capped at MAX_TOTAL_PAGE_URLS."""
+        service = SiteDiscoveryService("https://example.com")
+        service._fetch_robots = AsyncMock(return_value=_empty_robots())
+
+        many_urls = [f"https://example.com/page{i}" for i in range(600)]
+
+        async def mock_fetch_sitemap(url):
+            return SitemapEvidence(
+                url=url,
+                exists=True,
+                is_index=False,
+                urls=many_urls[:],
+            )
+
+        service._fetch_sitemap = mock_fetch_sitemap
+
+        result = await service.discover()
+        assert len(result.discovered_urls) == service.MAX_TOTAL_PAGE_URLS
+
+    @pytest.mark.asyncio
+    async def test_total_page_url_cap_respects_default_500(self):
+        """Default total cap is 500."""
+        service = SiteDiscoveryService("https://example.com")
+        assert service.MAX_TOTAL_PAGE_URLS == 500
+
+    @pytest.mark.asyncio
+    async def test_total_page_url_cap_configurable(self):
+        """Total page URL cap can be overridden."""
+        service = SiteDiscoveryService(
+            "https://example.com", max_total_page_urls=50
+        )
+        assert service._max_total_page_urls == 50
+        service._fetch_robots = AsyncMock(return_value=_empty_robots())
+
+        many_urls = [f"https://example.com/page{i}" for i in range(100)]
+
+        async def mock_fetch_sitemap(url):
+            return SitemapEvidence(url=url, exists=True, urls=many_urls[:])
+
+        service._fetch_sitemap = mock_fetch_sitemap
+        result = await service.discover()
+        assert len(result.discovered_urls) == 50
+
+    @pytest.mark.asyncio
+    async def test_sitemap_file_cap(self):
+        """Only MAX_CHILD_SITEMAPS child sitemaps are fetched from an index."""
+        service = SiteDiscoveryService("https://example.com")
+        service._fetch_robots = AsyncMock(return_value=_empty_robots())
+
+        fetched_children = []
+
+        async def mock_fetch_sitemap(url):
+            if url == "https://example.com/sitemap.xml":
+                children = [
+                    f"https://example.com/child-{i}.xml"
+                    for i in range(service.MAX_CHILD_SITEMAPS + 20)
+                ]
+                return SitemapEvidence(
+                    url=url, exists=True, is_index=True, child_sitemaps=children
+                )
+            elif url.startswith("https://example.com/child-"):
+                fetched_children.append(url)
+                return SitemapEvidence(
+                    url=url, exists=True,
+                    urls=[f"https://example.com/page-{len(fetched_children)}"],
+                )
+            # Common-path candidates return not-found
+            return SitemapEvidence(url=url, exists=False)
+
+        service._fetch_sitemap = mock_fetch_sitemap
+        robots = _empty_robots()
+        robots.sitemap_references = ["https://example.com/sitemap.xml"]
+        sitemaps = await service._discover_sitemaps(robots)
+
+        index_count = sum(1 for s in sitemaps if s.is_index)
+        child_count_actual = sum(1 for s in sitemaps if not s.is_index)
+        assert index_count == 1
+        assert len(sitemaps) <= service._max_sitemap_files
+        assert child_count_actual == service._max_sitemap_files - 1
+        # Children beyond the cap are not fetched
+        assert len(fetched_children) == service._max_sitemap_files - 1
+
+    @pytest.mark.asyncio
+    async def test_sitemap_file_cap_configurable(self):
+        """Sitemap file cap can be overridden."""
+        service = SiteDiscoveryService(
+            "https://example.com", max_child_sitemaps=5
+        )
+        assert service._max_sitemap_files == 5
+        service._fetch_robots = AsyncMock(return_value=_empty_robots())
+
+        fetched_children = []
+
+        async def mock_fetch_sitemap(url):
+            if url == "https://example.com/sitemap.xml":
+                children = [
+                    f"https://example.com/child-{i}.xml" for i in range(20)
+                ]
+                return SitemapEvidence(
+                    url=url, exists=True, is_index=True, child_sitemaps=children
+                )
+            elif url.startswith("https://example.com/child-"):
+                fetched_children.append(url)
+                return SitemapEvidence(
+                    url=url, exists=True, urls=["https://example.com/page"]
+                )
+            return SitemapEvidence(url=url, exists=False)
+
+        service._fetch_sitemap = mock_fetch_sitemap
+        robots = _empty_robots()
+        robots.sitemap_references = ["https://example.com/sitemap.xml"]
+        sitemaps = await service._discover_sitemaps(robots)
+        leaf_sitemaps = [s for s in sitemaps if not s.is_index]
+        assert len(sitemaps) <= service._max_sitemap_files
+        assert len(leaf_sitemaps) == service._max_sitemap_files - 1
+        assert len(fetched_children) == service._max_sitemap_files - 1
+
+    @pytest.mark.asyncio
+    async def test_malformed_sitemap_skipped_not_fatal(self):
+        """A sitemap that returns non-XML or malformed content is skipped."""
+        service = SiteDiscoveryService("https://example.com")
+        service._fetch_robots = AsyncMock(return_value=_empty_robots())
+
+        async def mock_fetch_sitemap(url):
+            if "malformed" in url:
+                evidence = SitemapEvidence(url=url, exists=True)
+                evidence.error = "ParseError"
+                return evidence
+            return SitemapEvidence(url=url, exists=True, urls=["https://example.com/ok"])
+
+        service._fetch_sitemap = mock_fetch_sitemap
+        robots = _empty_robots()
+        robots.sitemap_references = [
+            "https://example.com/malformed.xml",
+            "https://example.com/valid.xml",
+        ]
+        sitemaps = await service._discover_sitemaps(robots)
+
+        urls = []
+        for s in sitemaps:
+            urls.extend(s.urls)
+        assert "https://example.com/ok" in urls
+        assert len(sitemaps) >= 1  # valid sitemap still present

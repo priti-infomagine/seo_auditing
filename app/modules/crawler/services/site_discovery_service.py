@@ -62,16 +62,39 @@ class SiteDiscoveryService:
     """Service for site-level discovery."""
 
     # Conservative safeguards for recursive sitemap-index expansion.
+    # These are safe defaults; every value can be overridden per-instance.
     MAX_SITEMAP_INDEX_DEPTH: int = 3
-    MAX_CHILD_SITEMAPS: int = 50
-    MAX_URLS_PER_SITEMAP: int = 100
+    MAX_CHILD_SITEMAPS: int = 40
+    MAX_URLS_PER_SITEMAP: int = 500
+    MAX_TOTAL_PAGE_URLS: int = 500
 
-    def __init__(self, base_url: str, timeout: int = 30):
+    def __init__(
+        self,
+        base_url: str,
+        timeout: int = 30,
+        max_child_sitemaps: Optional[int] = None,
+        max_urls_per_sitemap: Optional[int] = None,
+        max_total_page_urls: Optional[int] = None,
+        max_sitemap_index_depth: Optional[int] = None,
+    ):
         self.base_url = base_url
         self.timeout = timeout
         parsed = urlparse(base_url)
         self.scheme = parsed.scheme
         self.domain = get_domain(base_url)
+
+        self._max_sitemap_files = (
+            max_child_sitemaps if max_child_sitemaps is not None else self.MAX_CHILD_SITEMAPS
+        )
+        self._max_urls_per_sitemap = (
+            max_urls_per_sitemap if max_urls_per_sitemap is not None else self.MAX_URLS_PER_SITEMAP
+        )
+        self._max_total_page_urls = (
+            max_total_page_urls if max_total_page_urls is not None else self.MAX_TOTAL_PAGE_URLS
+        )
+        self._max_sitemap_index_depth = (
+            max_sitemap_index_depth if max_sitemap_index_depth is not None else self.MAX_SITEMAP_INDEX_DEPTH
+        )
 
     async def discover(self) -> SiteDiscoveryResult:
         """
@@ -85,7 +108,17 @@ class SiteDiscoveryService:
 
         discovered_urls = []
         for sitemap in sitemaps:
-            discovered_urls.extend(sitemap.urls[: self.MAX_URLS_PER_SITEMAP])
+            discovered_urls.extend(sitemap.urls[: self._max_urls_per_sitemap])
+
+        discovered_urls = discovered_urls[: self._max_total_page_urls]
+
+        logger.info(
+            "Site discovery complete for %s: robots=%s, sitemaps=%d, page_urls=%d",
+            self.base_url,
+            robots.exists,
+            len(sitemaps),
+            len(discovered_urls),
+        )
 
         return SiteDiscoveryResult(
             robots=robots,
@@ -99,7 +132,8 @@ class SiteDiscoveryService:
         evidence = RobotsTxtEvidence(url=robots_url)
 
         try:
-            async with HTTPClient(robots_url, timeout=self.timeout) as response:
+            async with HTTPClient(timeout=self.timeout) as client:
+                response = await client.get(robots_url)
                 evidence.status_code = response.status_code
                 if response.status_code == 200:
                     evidence.exists = True
@@ -123,8 +157,14 @@ class SiteDiscoveryService:
                         match = re.match(r"sitemap:\s*(\S+)", line, re.IGNORECASE)
                         if match:
                             evidence.sitemap_references.append(match.group(1))
+                    logger.debug(
+                        "Fetched robots.txt for %s: exists=%s, sitemaps=%d",
+                        self.domain,
+                        evidence.exists,
+                        len(evidence.sitemap_references),
+                    )
         except Exception:
-            pass
+            logger.debug("Failed to fetch robots.txt for %s", self.domain)
 
         return evidence
 
@@ -135,7 +175,9 @@ class SiteDiscoveryService:
         common_paths = [
             "/sitemap.xml",
             "/sitemap_index.xml",
+            "/sitemap-index.xml",
             "/sitemap/",
+            "/wp-sitemap.xml",
             "/posts/sitemap.xml",
             "/pages/sitemap.xml",
             "/sitemap-posts.xml",
@@ -182,15 +224,15 @@ class SiteDiscoveryService:
         for child_url in index_evidence.child_sitemaps:
             if child_url in seen:
                 continue
-            if depth > self.MAX_SITEMAP_INDEX_DEPTH:
+            if depth > self._max_sitemap_index_depth:
                 logger.debug(
                     "Sitemap index depth limit reached, skipping %s", child_url
                 )
                 continue
-            if len(sitemaps) >= self.MAX_CHILD_SITEMAPS:
+            if len(sitemaps) >= self._max_sitemap_files:
                 logger.debug(
                     "Sitemap child limit (%d) reached, skipping %s",
-                    self.MAX_CHILD_SITEMAPS,
+                    self._max_sitemap_files,
                     child_url,
                 )
                 break
@@ -215,7 +257,8 @@ class SiteDiscoveryService:
         evidence = SitemapEvidence(url=sitemap_url)
 
         try:
-            async with HTTPClient(sitemap_url, timeout=self.timeout) as response:
+            async with HTTPClient(timeout=self.timeout) as client:
+                response = await client.get(sitemap_url)
                 evidence.status_code = response.status_code
                 evidence.content_type = response.headers.get("content-type", "")
                 evidence.content_length = len(response.content)
@@ -231,6 +274,14 @@ class SiteDiscoveryService:
                             pass
                     text = content.decode("utf-8", errors="ignore")
                     self._parse_sitemap_xml(text, evidence, sitemap_url)
+                    logger.debug(
+                        "Fetched sitemap %s: status=%d, urls=%d, child_sitemaps=%d, is_index=%s",
+                        sitemap_url,
+                        evidence.status_code,
+                        len(evidence.urls),
+                        len(evidence.child_sitemaps),
+                        evidence.is_index,
+                    )
         except Exception as exc:
             evidence.error = str(exc)
             logger.debug(

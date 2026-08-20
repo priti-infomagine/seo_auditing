@@ -5,6 +5,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Optional
 
+from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
 
 try:
@@ -52,7 +53,9 @@ class BrowserPool:
                             "--disable-gpu",
                         ],
                     )
-                except Exception:
+                except Exception as exc:
+                    print('BROWSER LAUNCH ERROR:', repr(exc))
+                    logger.error('Browser launch failed: %s', repr(exc))
                     self._browser = None
                     return None
             return self._browser
@@ -67,6 +70,7 @@ class BrowserPool:
         async with self._semaphore:
             browser = await self._ensure_browser()
             if not browser:
+                print('BROWSER IS NONE after ensure')
                 yield None
                 return
 
@@ -81,7 +85,9 @@ class BrowserPool:
                 page = await context.new_page()
                 page.set_default_timeout(self.config.browser_timeout * 1000)
                 yield page
-            except Exception:
+            except Exception as exc:
+                print('CONTEXT ERROR:', repr(exc))
+                logger.error('Browser context/page failed: %s', repr(exc))
                 yield None
             finally:
                 if page:

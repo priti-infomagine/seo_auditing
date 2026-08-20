@@ -61,6 +61,7 @@ class CrawlScheduler:
         self.active_workers: int = 0
         self.pages_crawled_count: int = 0
         self.pages_discovered_count: int = 0
+        self.pages_failed_count: int = 0
         self.cancelled: bool = False
 
         self._condition = asyncio.Condition()
@@ -299,9 +300,13 @@ class CrawlScheduler:
                 if self.config.crawl_delay_ms > 0:
                     await asyncio.sleep(self.config.crawl_delay_ms / 1000.0)
 
-                await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
-                self.pages_crawled_count += 1
+                result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+                if result is not False:
+                    self.pages_crawled_count += 1
+                else:
+                    self.pages_failed_count += 1
             except Exception as e:
+                self.pages_failed_count += 1
                 logger.error(
                     f"Worker {worker_id}: error processing {item.normalized_url}: {e}",
                     exc_info=True,

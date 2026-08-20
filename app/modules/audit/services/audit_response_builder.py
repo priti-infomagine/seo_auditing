@@ -376,6 +376,13 @@ class AuditResponseBuilder:
         for i in failed:
             tier_counts[i.severity.value] += 1
 
+        recommended_score = self._calculate_recommended_score(
+            tier_counts["critical"],
+            tier_counts["high"],
+            tier_counts["medium"],
+            tier_counts["low"],
+        )
+
         return {
             "overall_score": overall_score,
             "health": get_status(overall_score),
@@ -385,7 +392,24 @@ class AuditResponseBuilder:
             "low_issues": tier_counts["low"],
             "passed_checks": len(passed),
             "failed_checks": len(failed),
+            "recommended_score": recommended_score,
+            "recommended_health": get_status(recommended_score),
         }
+
+    def _calculate_recommended_score(
+        self,
+        critical: int,
+        high: int,
+        medium: int,
+        low: int,
+    ) -> float:
+        weights = {"critical": 5, "high": 4, "medium": 3, "low": 2}
+        weighted_sum = critical * weights["critical"] + high * weights["high"] + medium * weights["medium"] + low * weights["low"]
+        total_issues = critical + high + medium + low
+        if total_issues == 0:
+            return 100.0
+        penalty = (weighted_sum / total_issues) * 10
+        return round(max(0.0, 100.0 - penalty), 1)
 
     # ------------------------------------------------------------------ categories
     def _build_categories(

@@ -45,7 +45,11 @@ class TestNormalizeUrlCanonical:
         result = normalize_url_canonical("https://example.com/page?b=2&a=1")
         assert result.index("a=1") < result.index("b=2")
 
-    def test_trailing_slash_preserved_by_default(self):
+    def test_trailing_slash_removed_by_default(self):
+        result = normalize_url_canonical("https://example.com/about/")
+        assert not result.endswith("/")
+
+    def test_root_trailing_slash_preserved(self):
         result = normalize_url_canonical("https://example.com/")
         assert result.endswith("/")
 

@@ -89,7 +89,7 @@ def validate_url_ssrf(url: str, allow_private: bool = False) -> None:
 def normalize_url_canonical(
     url: str,
     strip_params: Optional[Set[str]] = None,
-    trailing_slash_policy: str = "preserve",
+    trailing_slash_policy: str = "remove",
 ) -> str:
     """
     Canonical URL Normalization:

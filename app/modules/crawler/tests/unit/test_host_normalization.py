@@ -121,3 +121,9 @@ class TestClassifyUrlSameSite:
             "https://api.example.com/v1/users", base_domain="example.com"
         )
         assert classification == UrlClassification.EXTERNAL
+
+    def test_xml_page_is_html(self):
+        classification, _ = classify_url(
+            "https://example.com/page.xml", base_domain="example.com"
+        )
+        assert classification == UrlClassification.HTML

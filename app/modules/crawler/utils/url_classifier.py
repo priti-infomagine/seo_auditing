@@ -52,7 +52,7 @@ _API_PATH_PREFIXES = (
 )
 
 # API / non-HTML file extensions
-_API_EXTENSIONS = {".json", ".xml"}
+_API_EXTENSIONS = {".json"}
 
 # Faceted URL indicators
 _FACETED_PARAM_PREFIXES = (

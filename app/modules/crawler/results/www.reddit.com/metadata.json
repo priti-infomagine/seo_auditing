@@ -1,16 +1,54 @@
 {
   "url": "https://www.reddit.com/",
-  "title": "Reddit",
-  "title_length": 6,
-  "meta_description": "",
-  "meta_description_length": 0,
-  "canonical": "",
+  "title": "Reddit - The heart of the internet",
+  "title_length": 34,
+  "meta_description": "Reddit is where millions of people gather for conversations about the things they care about, in over 100,000 subreddit communities.",
+  "meta_description_length": 132,
+  "canonical": "https://www.reddit.com/",
   "robots_meta": "",
   "googlebot": "",
-  "viewport": "width=device-width, initial-scale=1.0",
-  "charset": "UTF-8",
+  "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+  "charset": "",
   "favicon": "https://www.redditstatic.com/shreddit/assets/favicon/64x64.png",
-  "open_graph": {},
-  "twitter": {},
+  "open_graph": {
+    "og:image": [
+      "https://www.redditstatic.com/shreddit/assets/favicon/192x192.png"
+    ],
+    "og:image:width": [
+      "256"
+    ],
+    "og:image:height": [
+      "256"
+    ],
+    "og:site_name": [
+      "Reddit"
+    ],
+    "og:title": [
+      "reddit"
+    ],
+    "og:ttl": [
+      "600"
+    ],
+    "og:type": [
+      "website"
+    ],
+    "og:url": [
+      "https://www.reddit.com/"
+    ]
+  },
+  "twitter": {
+    "twitter:card": [
+      "summary"
+    ],
+    "twitter:image": [
+      "https://www.redditstatic.com/shreddit/assets/favicon/192x192.png"
+    ],
+    "twitter:site": [
+      "@reddit"
+    ],
+    "twitter:title": [
+      "reddit"
+    ]
+  },
   "hreflang": []
 }

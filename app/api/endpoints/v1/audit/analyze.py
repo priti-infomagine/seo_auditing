@@ -68,7 +68,7 @@ async def analyze_website(
             )
 
         crawl_config_dict = {
-            "max_pages": body.max_pages if body.max_pages is not None else 1000,
+            "max_pages": body.max_pages if body.max_pages is not None else 10,
             "max_depth": body.max_depth if body.max_depth is not None else 5,
             "concurrency": body.concurrency,
             "request_timeout": 30,
@@ -82,7 +82,7 @@ async def analyze_website(
             url=body.url,
             domain=domain,
             status="queued",
-            max_pages=body.max_pages if body.max_pages is not None else 1000,
+            max_pages=body.max_pages if body.max_pages is not None else 10,
             max_depth=body.max_depth if body.max_depth is not None else 5,
             crawl_config=crawl_config_dict,
         )
@@ -94,7 +94,7 @@ async def analyze_website(
         orchestrator_result = await orchestrator.run(
             start_url=body.url,
             max_depth=body.max_depth if body.max_depth is not None else 5,
-            max_pages=body.max_pages if body.max_pages is not None else 1000,
+            max_pages=body.max_pages if body.max_pages is not None else 10,
             concurrency=body.concurrency,
         )
 

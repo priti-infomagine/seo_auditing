@@ -8,7 +8,7 @@ from typing import Optional
 
 @dataclass
 class CrawlConfig:
-    max_pages: int = 1000
+    max_pages: int = 100
     max_depth: int = 5
 
     http_concurrency: int = 20
@@ -34,6 +34,10 @@ class CrawlConfig:
 
     allow_private_ips: bool = False  # SSRF protection toggle
 
+    max_sitemap_files: int = 40
+    max_sitemap_page_urls: int = 500
+    max_sitemap_index_depth: int = 3
+
     def validate(self) -> None:
         """Validate configuration values."""
         if self.max_pages <= 0:
@@ -50,6 +54,12 @@ class CrawlConfig:
             raise ValueError("browser_timeout must be > 0")
         if self.max_redirects < 0:
             raise ValueError("max_redirects must be >= 0")
+        if self.max_sitemap_files <= 0:
+            raise ValueError("max_sitemap_files must be > 0")
+        if self.max_sitemap_page_urls <= 0:
+            raise ValueError("max_sitemap_page_urls must be > 0")
+        if self.max_sitemap_index_depth < 1:
+            raise ValueError("max_sitemap_index_depth must be >= 1")
 
     @classmethod
     def from_dict(cls, data: Optional[dict]) -> "CrawlConfig":
@@ -62,7 +72,7 @@ class CrawlConfig:
         browser_conc = data.get("browser_concurrency", 3)
 
         config = cls(
-            max_pages=data.get("max_pages", 1000),
+            max_pages=data.get("max_pages", 100),
             max_depth=data.get("max_depth", 5),
             http_concurrency=int(http_conc),
             browser_concurrency=int(browser_conc),
@@ -78,6 +88,9 @@ class CrawlConfig:
             user_agent=data.get("user_agent") or cls.user_agent,
             accept_language=data.get("accept_language") or cls.accept_language,
             allow_private_ips=data.get("allow_private_ips", False),
+            max_sitemap_files=data.get("max_sitemap_files", 40),
+            max_sitemap_page_urls=data.get("max_sitemap_page_urls", 500),
+            max_sitemap_index_depth=data.get("max_sitemap_index_depth", 3),
         )
         config.validate()
         return config

@@ -28,6 +28,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import pytest
+from unittest.mock import AsyncMock, MagicMock
 
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
 from app.modules.crawler.types import DiscoveredURL
@@ -71,9 +72,13 @@ class FakeJobRepository:
 class FakePersistence:
     def __init__(self):
         self.progress_updates = []
+        self.site_data = []
 
     async def update_progress(self, current_page, total):
         self.progress_updates.append((current_page, total))
+
+    async def persist_site_data(self, data):
+        self.site_data.append(data)
 
 
 class FakeScheduler:
@@ -115,14 +120,29 @@ class FakeSchedulerFail:
 
 
 class RecordingScheduler:
-    """Fake scheduler that records submit_discovered_url calls for _enqueue_links."""
+    """Fake scheduler that records submit_discovered_url calls for _enqueue_links
+    and tracks base_domain updates for redirect-aware tests."""
 
-    def __init__(self):
+    def __init__(self, base_domain: str = ""):
         self.submitted = []
+        self.base_domain = base_domain
+        self.base_domain_updates = []
+
+    def set_base_domain_from_url(self, url: str) -> None:
+        from app.shared.utils.url_utils import normalize_host
+        from urllib.parse import urlparse
+
+        host = urlparse(url).hostname or ""
+        self.base_domain_updates.append(url)
+        self.base_domain = normalize_host(host)
 
     def submit_discovered_url(self, **kwargs):
         self.submitted.append(kwargs)
         return True
+
+    @property
+    def pages_crawled_count(self):
+        return len(self.submitted)
 
 
 # ---------------------------------------------------------------------------
@@ -292,6 +312,23 @@ class TestCrawlOrchestratorEnqueueLinks:
         )
         assert recorded.submitted == []
 
+    def test_max_depth_does_not_skip_remaining_links(self):
+        orch, recorded = self._orchestrator_with_scheduler(max_depth=1)
+        # With depth=0, next_depth=1 which is within max_depth=1.
+        # Both internal links should be submitted.
+        links = [
+            {"url": "https://vivo.com/child-a", "is_internal": True},
+            {"url": "https://vivo.com/child-b", "is_internal": True},
+        ]
+        orch._enqueue_links(
+            links,
+            page_id=uuid4(),
+            page_url="https://vivo.com/",
+            depth=0,
+        )
+        assert len(recorded.submitted) == 2
+        assert all(kw["depth"] == 1 for kw in recorded.submitted)
+
     def test_strips_tracking_params_before_submit(self):
         orch, recorded = self._orchestrator_with_scheduler()
         orch._enqueue_links(
@@ -346,7 +383,7 @@ class TestCrawlOrchestratorRun:
         assert job.status == "completed"
         assert job.pages_crawled == 3
         assert job.pages_discovered == 5
-        assert job.total_pages == 1000  # default CrawlConfig.max_pages
+        assert job.total_pages == 100  # default CrawlConfig.max_pages
         assert job in orch.job_repository.updated
 
     async def test_run_raises_when_job_missing(self, monkeypatch):
@@ -372,6 +409,62 @@ class TestCrawlOrchestratorRun:
         assert result["crawl_id"] == str(job.id)
         assert job.status == "failed"
         assert "scheduler exploded" in job.error
+
+    async def test_run_attaches_robots_policy_to_scheduler(self, monkeypatch):
+        job = FakeJob()
+        orch = make_orchestrator(job)
+
+        mock_scheduler_cls = MagicMock()
+        mock_scheduler = MagicMock()
+        mock_scheduler_cls.return_value = mock_scheduler
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.CrawlScheduler",
+            mock_scheduler_cls,
+        )
+
+        mock_site_result = MagicMock()
+        mock_site_result.robots.content = "User-agent: *\nAllow: /\n"
+        mock_site_result.discovered_urls = []
+        mock_site_result.sitemaps = []
+
+        mock_discovery_instance = MagicMock()
+        mock_discovery_instance.discover = AsyncMock(return_value=mock_site_result)
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.SiteDiscoveryService",
+            lambda *a, **kw: mock_discovery_instance,
+        )
+
+        await orch.run(start_url="https://vivo.com/", respect_robots=True)
+
+        assert mock_scheduler.set_robots_policy.called
+
+    async def test_run_skips_robots_policy_when_no_content(self, monkeypatch):
+        job = FakeJob()
+        orch = make_orchestrator(job)
+
+        mock_scheduler_cls = MagicMock()
+        mock_scheduler = MagicMock()
+        mock_scheduler_cls.return_value = mock_scheduler
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.CrawlScheduler",
+            mock_scheduler_cls,
+        )
+
+        mock_site_result = MagicMock()
+        mock_site_result.robots.content = None
+        mock_site_result.discovered_urls = []
+        mock_site_result.sitemaps = []
+
+        mock_discovery_instance = MagicMock()
+        mock_discovery_instance.discover = AsyncMock(return_value=mock_site_result)
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.SiteDiscoveryService",
+            lambda *a, **kw: mock_discovery_instance,
+        )
+
+        await orch.run(start_url="https://vivo.com/", respect_robots=True)
+
+        assert not mock_scheduler.set_robots_policy.called
 
 # ---------------------------------------------------------------------------
 # crawl_page backward-compat wrapper
@@ -419,6 +512,215 @@ class TestCrawlPageWrapper:
         kwargs = mocked.await_args.kwargs
         assert isinstance(kwargs["http_sem"], asyncio.Semaphore)
         assert isinstance(kwargs["browser_sem"], asyncio.Semaphore)
+
+
+# ---------------------------------------------------------------------------
+# Redirect-aware seed handling — _crawl_page
+# ---------------------------------------------------------------------------
+
+
+class TestCrawlPageRedirectAware:
+    """Tests 8-10: verify that _crawl_page resolves links against the
+    effective (post-redirect) URL and updates the scheduler base domain
+    correctly for same-site vs external redirects."""
+
+    def _make_orchestrator(self, base_domain="example.com"):
+        from unittest.mock import AsyncMock, MagicMock
+        from asyncio import Semaphore
+
+        from app.modules.crawler.config import CrawlConfig
+        from app.modules.crawler.types import FetchResult, RedirectInfo
+        from app.modules.crawler.services.page_crawl_service import PageCrawlResult
+
+        orch = make_orchestrator(FakeJob())
+        orch.config = CrawlConfig.from_dict(
+            {"max_pages": 10, "max_depth": 3, "respect_robots": False}
+        )
+
+        # Real parser + extraction (processes HTML we control)
+        # page_extraction_service is already set by __init__
+        # technical_analysis_service is real too — lightweight
+
+        # Mock page_crawl_service.crawl_page — tests set return value via helper
+        orch.page_crawl_service = MagicMock()
+
+        # Mock persistence
+        fake_page = MagicMock()
+        fake_page.id = uuid4()
+        mock_persist = AsyncMock(side_effect=lambda page: fake_page)
+        orch.persistence.persist_page = mock_persist
+        orch.persistence.persist_snapshot = AsyncMock()
+        orch.persistence.persist_network_data = AsyncMock()
+        orch.persistence.persist_seo_data = AsyncMock()
+        orch.persistence.persist_resources = AsyncMock(return_value=[])
+        orch.persistence.persist_links = AsyncMock(return_value=[])
+        orch.persistence.update_progress = AsyncMock()
+        orch.persistence.persist_error = AsyncMock()
+
+        # Mock redirect service factory
+        fake_redirect_service = MagicMock()
+        fake_redirect_service.process_and_save_redirects = AsyncMock()
+        orch.redirect_service_factory = MagicMock(return_value=fake_redirect_service)
+
+        # Mock event bus
+        orch.event_bus = MagicMock()
+        orch.event_bus.emit = AsyncMock()
+
+        # Recording scheduler with base_domain tracking
+        recorded = RecordingScheduler(base_domain=base_domain)
+        orch._scheduler = recorded
+
+        return orch, recorded
+
+    def _make_fetch_result(self, final_url, redirect_chain=None):
+        """Build a FetchResult simulating what page_crawl_service returns."""
+        from app.modules.crawler.types import FetchResult, RedirectInfo
+
+        chain = redirect_chain or []
+        if chain:
+            status_code = chain[-1].status_code
+        else:
+            status_code = 200
+
+        return FetchResult(
+            url=final_url,
+            normalized_url=final_url,
+            status_code=status_code,
+            content=b"",
+            headers={},
+            final_url=final_url,
+            content_type="text/html",
+            content_length=0,
+            response_time_ms=0,
+            redirect_chain=chain,
+            success=True,
+        )
+
+    async def test_same_site_redirect_updates_base_domain(self):
+        """Test 8: HTTP→HTTPS same-site redirect updates base_domain and
+        resolves relative links against the effective (post-redirect) URL."""
+        from app.modules.crawler.services.page_crawl_service import PageCrawlResult
+        from app.modules.crawler.extractors.document_extractor import DocumentFacts
+        from app.modules.crawler.types import RedirectInfo
+        from unittest.mock import AsyncMock
+        from asyncio import Semaphore
+
+        orch, recorded = self._make_orchestrator(base_domain="example.com")
+
+        html = '<html><body><a href="/about">About</a></body></html>'
+
+        mock_result = PageCrawlResult(
+            url="http://example.com/page",
+            normalized_url="http://example.com/page",
+            document=DocumentFacts(raw_html=html),
+            fetch_result=self._make_fetch_result(
+                "https://example.com/page",
+                redirect_chain=[RedirectInfo(url="http://example.com/page", status_code=301, location="https://example.com/page")],
+            ),
+        )
+        orch.page_crawl_service.crawl_page = AsyncMock(return_value=mock_result)
+
+        item = DiscoveredURL(
+            url="http://example.com/page",
+            normalized_url="http://example.com/page",
+            source_url="http://example.com/page",
+            source_type="seed",
+            depth=0,
+        )
+        await orch._crawl_page(item, http_sem=Semaphore(5), browser_sem=Semaphore(3))
+
+        assert recorded.base_domain == "example.com"
+        assert len(recorded.submitted) == 1
+        submitted_url = recorded.submitted[0]["url"]
+        assert submitted_url == "https://example.com/about"
+
+    async def test_external_redirect_does_not_expand_scope(self):
+        """Test 9: Redirect to an unrelated host does NOT change base_domain —
+        relative links are still resolved against the effective (redirect) URL
+        but the scheduler scope stays at the original site."""
+        from app.modules.crawler.services.page_crawl_service import PageCrawlResult
+        from app.modules.crawler.extractors.document_extractor import DocumentFacts
+        from app.modules.crawler.types import RedirectInfo
+        from unittest.mock import AsyncMock
+        from asyncio import Semaphore
+
+        orch, recorded = self._make_orchestrator(base_domain="example.com")
+
+        html = '<html><body><a href="/about">About</a></body></html>'
+
+        mock_result = PageCrawlResult(
+            url="http://example.com/page",
+            normalized_url="http://example.com/page",
+            document=DocumentFacts(raw_html=html),
+            fetch_result=self._make_fetch_result(
+                "https://unrelated.com/page",
+                redirect_chain=[
+                    RedirectInfo(url="http://example.com/page", status_code=302, location="https://unrelated.com/page"),
+                ],
+            ),
+        )
+        orch.page_crawl_service.crawl_page = AsyncMock(return_value=mock_result)
+
+        item = DiscoveredURL(
+            url="http://example.com/page",
+            normalized_url="http://example.com/page",
+            source_url="http://example.com/page",
+            source_type="seed",
+            depth=0,
+        )
+        await orch._crawl_page(item, http_sem=Semaphore(5), browser_sem=Semaphore(3))
+
+        # base_domain must NOT have changed to unrelated.com
+        assert recorded.base_domain == "example.com"
+        assert "unrelated.com" not in recorded.base_domain_updates
+
+        # Relative link resolves against the effective (post-redirect) URL
+        # because the parser was given effective_url as its base.
+        assert len(recorded.submitted) == 1
+        submitted_url = recorded.submitted[0]["url"]
+        assert submitted_url == "https://unrelated.com/about"
+
+    async def test_relative_link_resolution_against_effective_url(self):
+        """Test 10: A redirect that changes the path (e.g. /old → /new) must
+        cause relative links like ./products to resolve against the new path,
+        not the original."""
+        from app.modules.crawler.services.page_crawl_service import PageCrawlResult
+        from app.modules.crawler.extractors.document_extractor import DocumentFacts
+        from app.modules.crawler.types import RedirectInfo
+        from unittest.mock import AsyncMock
+        from asyncio import Semaphore
+
+        orch, recorded = self._make_orchestrator(base_domain="example.com")
+
+        html = '<html><body><a href="./products">Products</a></body></html>'
+
+        mock_result = PageCrawlResult(
+            url="http://example.com/old",
+            normalized_url="http://example.com/old",
+            document=DocumentFacts(raw_html=html),
+            fetch_result=self._make_fetch_result(
+                "https://example.com/new",
+                redirect_chain=[
+                    RedirectInfo(url="http://example.com/old", status_code=301, location="https://example.com/new"),
+                ],
+            ),
+        )
+        orch.page_crawl_service.crawl_page = AsyncMock(return_value=mock_result)
+
+        item = DiscoveredURL(
+            url="http://example.com/old",
+            normalized_url="http://example.com/old",
+            source_url="http://example.com/old",
+            source_type="seed",
+            depth=0,
+        )
+        await orch._crawl_page(item, http_sem=Semaphore(5), browser_sem=Semaphore(3))
+
+        # ./products resolved against https://example.com/new =>
+        # https://example.com/products (NOT https://example.com/newproducts)
+        assert len(recorded.submitted) == 1
+        submitted_url = recorded.submitted[0]["url"]
+        assert submitted_url == "https://example.com/products"
 
 
 # ---------------------------------------------------------------------------
