@@ -201,8 +201,8 @@ class CrawlOrchestrator:
         )
 
         pages_failed_count = getattr(scheduler, "pages_failed_count", 0)
-            scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
-        )
+        url_diagnostics = scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
+        
 
         logger.info(
             "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",

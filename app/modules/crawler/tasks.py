@@ -66,7 +66,7 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                 # Fire auto-analyze pipeline if requested
                 if cfg.get("auto_analyze"):
                     from uuid import uuid4
-                    project_id = job.project_id or uuid4()
+                    project_id = job.project_id 
                     # Update project_id on the job if it was None
                     if not job.project_id:
                         job.project_id = project_id

@@ -3,12 +3,13 @@ Crawler configuration module.
 Defines CrawlConfig dataclass with strict validation.
 """
 from dataclasses import dataclass, field
+from app.core.config import settings
 from typing import Optional
 
 
 @dataclass
 class CrawlConfig:
-    max_pages: int = 100
+    max_pages: int = settings.CRAWL_MAX_PAGES
     max_depth: int = 5
 
     http_concurrency: int = 20
@@ -72,7 +73,7 @@ class CrawlConfig:
         browser_conc = data.get("browser_concurrency", 3)
 
         config = cls(
-            max_pages=data.get("max_pages", 100),
+            max_pages=data.get('max_pages', settings.CRAWL_MAX_PAGES),
             max_depth=data.get("max_depth", 5),
             http_concurrency=int(http_conc),
             browser_concurrency=int(browser_conc),
@@ -94,3 +95,5 @@ class CrawlConfig:
         )
         config.validate()
         return config
+
+

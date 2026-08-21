@@ -80,7 +80,7 @@ class RenderDetector:
         word_count = len(words)
         text_ratio = (len(visible_text) / len(html_text)) if html_text else 0.0
 
-        if word_count < self.min_word_count and text_ratio < self.min_text_ratio:
+        if word_count < self.min_word_count or text_ratio < self.min_text_ratio:
             return RenderDecision(
                 True,
                 "low_content",

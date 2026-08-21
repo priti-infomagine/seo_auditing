@@ -52,7 +52,7 @@ _API_PATH_PREFIXES = (
 )
 
 # API / non-HTML file extensions
-_API_EXTENSIONS = {".json"}
+_API_EXTENSIONS = {".json", ".xml"}
 
 # Faceted URL indicators
 _FACETED_PARAM_PREFIXES = (
@@ -184,3 +184,5 @@ def strip_tracking_params(url: str) -> str:
     new_query = "&".join(params)
 
     return parsed._replace(query=new_query).geturl()
+
+

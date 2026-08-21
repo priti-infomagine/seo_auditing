@@ -337,7 +337,7 @@ class AuditResponseBuilder:
         errors = all_errors
         metadata = self._build_metadata(
             total_issues=len([i for i in all_seo_issues if i.status == "failed"]),
-            total_rules_evaluated=sum(len(p["results"]) for p in per_page_scores),
+            total_rules_evaluated=len(self.rules),
         )
         audit = self._build_audit_block(
             crawl_job, crawl_id, project_id,
@@ -370,8 +370,23 @@ class AuditResponseBuilder:
         overall_score: float,
         all_seo_issues: List[SEOIssue],
     ) -> Dict[str, Any]:
-        failed = [i for i in all_seo_issues if i.status == "failed"]
-        passed = [i for i in all_seo_issues if i.status == "passed"]
+        # Normalize rule checks for one main URL: deduplicate by rule_id so
+        # the same check is not counted once per page.
+        seen_rules: set = set()
+        normalized_failed: List[SEOIssue] = []
+        normalized_passed: List[SEOIssue] = []
+        for i in all_seo_issues:
+            key = i.rule_id
+            if key in seen_rules:
+                continue
+            seen_rules.add(key)
+            if i.status == "failed":
+                normalized_failed.append(i)
+            else:
+                normalized_passed.append(i)
+
+        failed = normalized_failed
+        passed = normalized_passed
         tier_counts = {t.value: 0 for t in SeverityTier}
         for i in failed:
             tier_counts[i.severity.value] += 1
@@ -950,3 +965,5 @@ def _version(module: str) -> str:
         return getattr(mod, "__version__", "unknown")
     except Exception:
         return "unknown"
+
+

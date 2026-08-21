@@ -94,7 +94,7 @@ class AuditAnalyzeRequest(BaseModel):
         default=None,
         ge=1,
         le=100,
-        description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (1000).",
+        description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (from .env or code).",
     )
     max_depth: Optional[int] = Field(
         default=None,
@@ -152,3 +152,4 @@ class AuditAnalyzeError(BaseModel):
 # Kept as an alias so existing imports `from audit_schemas import AuditAnalyzeResponse`
 # continue to resolve to the unified response model.
 AuditAnalyzeResponse = UnifiedAuditResponse
+

@@ -1,11 +1,11 @@
 {
   "audit": {
-    "audit_id": "47cadf02-d7b3-447d-8682-283527400625",
-    "project_id": "2694da70-1ea6-441c-9027-9da24e5a3598",
+    "audit_id": "76eebf6b-baf5-4062-a0b1-1e831637515e",
+    "project_id": "67602682-7ee5-45b1-8c48-09ab2438b2e1",
     "url": "https://infomagine.in/",
     "domain": "infomagine.in",
-    "started_at": "2026-08-21T09:01:20.038147+00:00",
-    "completed_at": "2026-08-21T09:01:42.134498+00:00",
+    "started_at": "2026-08-21T07:06:23.470190+00:00",
+    "completed_at": "2026-08-21T07:06:55.602166+00:00",
     "status": "completed",
     "pages_discovered": 10,
     "pages_crawled": 10,
@@ -33,174 +33,6 @@
       "checks_passed": 2,
       "checks_failed": 5,
       "issues": [
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_003",
-          "severity": "critical",
-          "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "h1"
-        },
-        {
-          "rule_id": "on_page_004",
-          "severity": "medium",
-          "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "heading_hierarchy"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "canonical"
-        },
-        {
-          "rule_id": "on_page_001",
-          "severity": "medium",
-          "message": "Title length is 65 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "title"
-        },
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_003",
-          "severity": "critical",
-          "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "h1"
-        },
-        {
-          "rule_id": "on_page_004",
-          "severity": "medium",
-          "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "heading_hierarchy"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "canonical"
-        },
-        {
-          "rule_id": "on_page_001",
-          "severity": "medium",
-          "message": "Title length is 69 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "title"
-        },
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "canonical"
-        },
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "canonical"
-        },
-        {
-          "rule_id": "on_page_001",
-          "severity": "medium",
-          "message": "Title length is 64 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "title"
-        },
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_003",
-          "severity": "critical",
-          "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "h1"
-        },
-        {
-          "rule_id": "on_page_004",
-          "severity": "medium",
-          "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "heading_hierarchy"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "canonical"
-        },
-        {
-          "rule_id": "on_page_001",
-          "severity": "medium",
-          "message": "Title length is 72 characters (recommended: 30-60) - too long",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "title"
-        },
-        {
-          "rule_id": "on_page_002",
-          "severity": "medium",
-          "message": "Meta description length is 164 characters (recommended: 150-160)",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "meta_description"
-        },
-        {
-          "rule_id": "on_page_003",
-          "severity": "critical",
-          "message": "Missing H1 tag",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "h1"
-        },
-        {
-          "rule_id": "on_page_004",
-          "severity": "medium",
-          "message": "Heading hierarchy issues: Missing H1",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "heading_hierarchy"
-        },
-        {
-          "rule_id": "on_page_006",
-          "severity": "high",
-          "message": "Missing canonical URL tag",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "canonical"
-        },
         {
           "rule_id": "on_page_001",
           "severity": "medium",
@@ -251,6 +83,55 @@
           "affected_part": "canonical"
         },
         {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_003",
+          "severity": "critical",
+          "message": "Missing H1 tag",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "h1"
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "heading_hierarchy"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "canonical"
+        },
+        {
+          "rule_id": "on_page_001",
+          "severity": "medium",
+          "message": "Title length is 69 characters (recommended: 30-60) - too long",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "title"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "canonical"
+        },
+        {
           "rule_id": "on_page_001",
           "severity": "medium",
           "message": "Title length is 64 characters (recommended: 30-60) - too long",
@@ -283,6 +164,125 @@
           "severity": "high",
           "message": "Missing canonical URL tag",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "canonical"
+        },
+        {
+          "rule_id": "on_page_001",
+          "severity": "medium",
+          "message": "Title length is 65 characters (recommended: 30-60) - too long",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "title"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_003",
+          "severity": "critical",
+          "message": "Missing H1 tag",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "h1"
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "heading_hierarchy"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "canonical"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "canonical"
+        },
+        {
+          "rule_id": "on_page_001",
+          "severity": "medium",
+          "message": "Title length is 72 characters (recommended: 30-60) - too long",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "title"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_003",
+          "severity": "critical",
+          "message": "Missing H1 tag",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "h1"
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "heading_hierarchy"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "canonical"
+        },
+        {
+          "rule_id": "on_page_001",
+          "severity": "medium",
+          "message": "Title length is 64 characters (recommended: 30-60) - too long",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "title"
+        },
+        {
+          "rule_id": "on_page_002",
+          "severity": "medium",
+          "message": "Meta description length is 164 characters (recommended: 150-160)",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "meta_description"
+        },
+        {
+          "rule_id": "on_page_003",
+          "severity": "critical",
+          "message": "Missing H1 tag",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "h1"
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "heading_hierarchy"
+        },
+        {
+          "rule_id": "on_page_006",
+          "severity": "high",
+          "message": "Missing canonical URL tag",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "canonical"
         },
         {
@@ -321,216 +321,6 @@
           "rule_id": "technical_001",
           "severity": "critical",
           "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "technical_003",
-          "severity": "medium",
-          "message": "HTML language attribute not specified",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "technical_005",
-          "severity": "critical",
-          "message": "Missing DOCTYPE declaration",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "doctype"
-        },
-        {
-          "rule_id": "technical_006",
-          "severity": "medium",
-          "message": "HTML lang attribute not set",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "html_lang"
-        },
-        {
-          "rule_id": "technical_009",
-          "severity": "low",
-          "message": "No sitemap data available",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "sitemap"
-        },
-        {
-          "rule_id": "technical_001",
-          "severity": "critical",
-          "message": "HTTPS detected but SSL certificate has issues",
           "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "ssl_certificate"
         },
@@ -601,6 +391,76 @@
           "rule_id": "technical_001",
           "severity": "critical",
           "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "ssl_certificate"
         },
@@ -630,6 +490,146 @@
           "severity": "low",
           "message": "No sitemap data available",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "sitemap"
+        },
+        {
+          "rule_id": "technical_001",
+          "severity": "critical",
+          "message": "HTTPS detected but SSL certificate has issues",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "technical_003",
+          "severity": "medium",
+          "message": "HTML language attribute not specified",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "technical_005",
+          "severity": "critical",
+          "message": "Missing DOCTYPE declaration",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "doctype"
+        },
+        {
+          "rule_id": "technical_006",
+          "severity": "medium",
+          "message": "HTML lang attribute not set",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "html_lang"
+        },
+        {
+          "rule_id": "technical_009",
+          "severity": "low",
+          "message": "No sitemap data available",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "sitemap"
         },
         {
@@ -679,6 +679,48 @@
       "checks_failed": 4,
       "issues": [
         {
+          "rule_id": "content_003",
+          "severity": "medium",
+          "message": "No paragraphs found",
+          "page_url": "https://infomagine.in/mobile-applications",
+          "affected_part": "paragraph_structure"
+        },
+        {
+          "rule_id": "content_006",
+          "severity": "high",
+          "message": "No canonical URL (potential duplicate content risk)",
+          "page_url": "https://infomagine.in/mobile-applications",
+          "affected_part": "duplicate_content"
+        },
+        {
+          "rule_id": "content_007",
+          "severity": "low",
+          "message": "No content freshness dates found",
+          "page_url": "https://infomagine.in/mobile-applications",
+          "affected_part": "content_freshness"
+        },
+        {
+          "rule_id": "content_003",
+          "severity": "medium",
+          "message": "No paragraphs found",
+          "page_url": "https://infomagine.in/portfolio",
+          "affected_part": "paragraph_structure"
+        },
+        {
+          "rule_id": "content_006",
+          "severity": "high",
+          "message": "No canonical URL (potential duplicate content risk)",
+          "page_url": "https://infomagine.in/portfolio",
+          "affected_part": "duplicate_content"
+        },
+        {
+          "rule_id": "content_007",
+          "severity": "low",
+          "message": "No content freshness dates found",
+          "page_url": "https://infomagine.in/portfolio",
+          "affected_part": "content_freshness"
+        },
+        {
           "rule_id": "content_001",
           "severity": "high",
           "message": "Thin content: 290 words (recommended: 300+)",
@@ -710,27 +752,6 @@
           "rule_id": "content_003",
           "severity": "medium",
           "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "paragraph_structure"
-        },
-        {
-          "rule_id": "content_006",
-          "severity": "high",
-          "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "duplicate_content"
-        },
-        {
-          "rule_id": "content_007",
-          "severity": "low",
-          "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "content_freshness"
-        },
-        {
-          "rule_id": "content_003",
-          "severity": "medium",
-          "message": "No paragraphs found",
           "page_url": "https://infomagine.in/",
           "affected_part": "paragraph_structure"
         },
@@ -746,55 +767,76 @@
           "severity": "low",
           "message": "No content freshness dates found",
           "page_url": "https://infomagine.in/",
-          "affected_part": "content_freshness"
-        },
-        {
-          "rule_id": "content_003",
-          "severity": "medium",
-          "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "paragraph_structure"
-        },
-        {
-          "rule_id": "content_006",
-          "severity": "high",
-          "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "duplicate_content"
-        },
-        {
-          "rule_id": "content_007",
-          "severity": "low",
-          "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/desktop-applications",
           "affected_part": "content_freshness"
         },
         {
           "rule_id": "content_001",
           "severity": "high",
-          "message": "Thin content: 248 words (recommended: 300+)",
-          "page_url": "https://infomagine.in/contact-us",
+          "message": "Thin content: 243 words (recommended: 300+)",
+          "page_url": "https://infomagine.in/sitemap",
           "affected_part": "word_count"
         },
         {
           "rule_id": "content_003",
           "severity": "medium",
           "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/contact-us",
+          "page_url": "https://infomagine.in/sitemap",
           "affected_part": "paragraph_structure"
         },
         {
           "rule_id": "content_006",
           "severity": "high",
           "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/contact-us",
+          "page_url": "https://infomagine.in/sitemap",
           "affected_part": "duplicate_content"
         },
         {
           "rule_id": "content_007",
           "severity": "low",
           "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/contact-us",
+          "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "content_freshness"
+        },
+        {
+          "rule_id": "content_003",
+          "severity": "medium",
+          "message": "No paragraphs found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "paragraph_structure"
+        },
+        {
+          "rule_id": "content_006",
+          "severity": "high",
+          "message": "No canonical URL (potential duplicate content risk)",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "duplicate_content"
+        },
+        {
+          "rule_id": "content_007",
+          "severity": "low",
+          "message": "No content freshness dates found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "content_freshness"
+        },
+        {
+          "rule_id": "content_003",
+          "severity": "medium",
+          "message": "No paragraphs found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "paragraph_structure"
+        },
+        {
+          "rule_id": "content_006",
+          "severity": "high",
+          "message": "No canonical URL (potential duplicate content risk)",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "duplicate_content"
+        },
+        {
+          "rule_id": "content_007",
+          "severity": "low",
+          "message": "No content freshness dates found",
+          "page_url": "https://infomagine.in/desktop-applications",
           "affected_part": "content_freshness"
         },
         {
@@ -826,73 +868,31 @@
           "affected_part": "content_freshness"
         },
         {
-          "rule_id": "content_003",
-          "severity": "medium",
-          "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/mobile-applications",
-          "affected_part": "paragraph_structure"
-        },
-        {
-          "rule_id": "content_006",
-          "severity": "high",
-          "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/mobile-applications",
-          "affected_part": "duplicate_content"
-        },
-        {
-          "rule_id": "content_007",
-          "severity": "low",
-          "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/mobile-applications",
-          "affected_part": "content_freshness"
-        },
-        {
-          "rule_id": "content_003",
-          "severity": "medium",
-          "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/portfolio",
-          "affected_part": "paragraph_structure"
-        },
-        {
-          "rule_id": "content_006",
-          "severity": "high",
-          "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/portfolio",
-          "affected_part": "duplicate_content"
-        },
-        {
-          "rule_id": "content_007",
-          "severity": "low",
-          "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/portfolio",
-          "affected_part": "content_freshness"
-        },
-        {
           "rule_id": "content_001",
           "severity": "high",
-          "message": "Thin content: 243 words (recommended: 300+)",
-          "page_url": "https://infomagine.in/sitemap",
+          "message": "Thin content: 248 words (recommended: 300+)",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "word_count"
         },
         {
           "rule_id": "content_003",
           "severity": "medium",
           "message": "No paragraphs found",
-          "page_url": "https://infomagine.in/sitemap",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "paragraph_structure"
         },
         {
           "rule_id": "content_006",
           "severity": "high",
           "message": "No canonical URL (potential duplicate content risk)",
-          "page_url": "https://infomagine.in/sitemap",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "duplicate_content"
         },
         {
           "rule_id": "content_007",
           "severity": "low",
           "message": "No content freshness dates found",
-          "page_url": "https://infomagine.in/sitemap",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "content_freshness"
         },
         {
@@ -938,90 +938,6 @@
           "rule_id": "links_002",
           "severity": "low",
           "message": "No external links found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "60 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "60 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "123 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "60 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "60 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "external_links"
-        },
-        {
-          "rule_id": "links_004",
-          "severity": "high",
-          "message": "65 links have generic/non-descriptive anchor text",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "anchor_text"
-        },
-        {
-          "rule_id": "links_002",
-          "severity": "low",
-          "message": "No external links found",
           "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "external_links"
         },
@@ -1050,6 +966,34 @@
           "rule_id": "links_002",
           "severity": "low",
           "message": "No external links found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "60 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "123 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "external_links"
         },
@@ -1058,6 +1002,62 @@
           "severity": "high",
           "message": "92 links have generic/non-descriptive anchor text",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "60 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "60 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "65 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "anchor_text"
+        },
+        {
+          "rule_id": "links_002",
+          "severity": "low",
+          "message": "No external links found",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "external_links"
+        },
+        {
+          "rule_id": "links_004",
+          "severity": "high",
+          "message": "60 links have generic/non-descriptive anchor text",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "anchor_text"
         },
         {
@@ -1085,188 +1085,6 @@
       "checks_passed": 1,
       "checks_failed": 5,
       "issues": [
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "10 images missing width/height attributes",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "image_formats"
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "10 images missing width/height attributes",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "image_formats"
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "10 images missing width/height attributes",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "image_formats"
-        },
-        {
-          "rule_id": "images_001",
-          "severity": "high",
-          "message": "7/10 images missing alt text (30.0% coverage)",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "image_alt_text"
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "10 images missing width/height attributes",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "image_formats"
-        },
-        {
-          "rule_id": "images_001",
-          "severity": "high",
-          "message": "1/4 images missing alt text (75.0% coverage)",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "image_alt_text"
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "4 images missing width/height attributes",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "image_formats"
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "lazy_loading"
-        },
-        {
-          "rule_id": "images_004",
-          "severity": "high",
-          "message": "9 images missing width/height attributes",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "image_dimensions"
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "responsive_images"
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "image_formats"
-        },
         {
           "rule_id": "images_001",
           "severity": "high",
@@ -1341,6 +1159,62 @@
           "rule_id": "images_003",
           "severity": "low",
           "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "10 images missing width/height attributes",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "10 images missing width/height attributes",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "lazy_loading"
         },
@@ -1363,6 +1237,132 @@
           "severity": "low",
           "message": "Only traditional image formats detected",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "10 images missing width/height attributes",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_001",
+          "severity": "high",
+          "message": "7/10 images missing alt text (30.0% coverage)",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "image_alt_text"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "10 images missing width/height attributes",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "9 images missing width/height attributes",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "image_formats"
+        },
+        {
+          "rule_id": "images_001",
+          "severity": "high",
+          "message": "1/4 images missing alt text (75.0% coverage)",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "image_alt_text"
+        },
+        {
+          "rule_id": "images_003",
+          "severity": "low",
+          "message": "Lazy loading not detected",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "lazy_loading"
+        },
+        {
+          "rule_id": "images_004",
+          "severity": "high",
+          "message": "4 images missing width/height attributes",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "image_dimensions"
+        },
+        {
+          "rule_id": "images_005",
+          "severity": "low",
+          "message": "No responsive images (srcset) detected",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "responsive_images"
+        },
+        {
+          "rule_id": "images_006",
+          "severity": "low",
+          "message": "Only traditional image formats detected",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "image_formats"
         },
         {
@@ -1408,132 +1408,6 @@
           "rule_id": "schema_003",
           "severity": "low",
           "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "breadcrumb_schema"
-        },
-        {
-          "rule_id": "schema_004",
-          "severity": "low",
-          "message": "No Article schema found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "article_schema"
-        },
-        {
-          "rule_id": "schema_005",
-          "severity": "low",
-          "message": "No Product schema found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "product_schema"
-        },
-        {
-          "rule_id": "schema_003",
-          "severity": "low",
-          "message": "No breadcrumb schema found",
           "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "breadcrumb_schema"
         },
@@ -1576,6 +1450,48 @@
           "rule_id": "schema_003",
           "severity": "low",
           "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "breadcrumb_schema"
         },
@@ -1591,6 +1507,90 @@
           "severity": "low",
           "message": "No Product schema found",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "product_schema"
+        },
+        {
+          "rule_id": "schema_003",
+          "severity": "low",
+          "message": "No breadcrumb schema found",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "breadcrumb_schema"
+        },
+        {
+          "rule_id": "schema_004",
+          "severity": "low",
+          "message": "No Article schema found",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "article_schema"
+        },
+        {
+          "rule_id": "schema_005",
+          "severity": "low",
+          "message": "No Product schema found",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "product_schema"
         },
         {
@@ -1629,90 +1629,6 @@
           "rule_id": "social_003",
           "severity": "low",
           "message": "No social media links found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "social_media_links"
-        },
-        {
-          "rule_id": "social_004",
-          "severity": "low",
-          "message": "No Facebook App ID or admins meta tag",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "facebook_domain"
-        },
-        {
-          "rule_id": "social_003",
-          "severity": "low",
-          "message": "No social media links found",
           "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "social_media_links"
         },
@@ -1741,6 +1657,34 @@
           "rule_id": "social_003",
           "severity": "low",
           "message": "No social media links found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "social_media_links"
         },
@@ -1749,6 +1693,62 @@
           "severity": "low",
           "message": "No Facebook App ID or admins meta tag",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "facebook_domain"
+        },
+        {
+          "rule_id": "social_003",
+          "severity": "low",
+          "message": "No social media links found",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "social_media_links"
+        },
+        {
+          "rule_id": "social_004",
+          "severity": "low",
+          "message": "No Facebook App ID or admins meta tag",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "facebook_domain"
         },
         {
@@ -1780,174 +1780,6 @@
           "rule_id": "security_003",
           "severity": "critical",
           "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "security_headers"
-        },
-        {
-          "rule_id": "security_004",
-          "severity": "critical",
-          "message": "SSL certificate is not valid",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "ssl_certificate"
-        },
-        {
-          "rule_id": "security_005",
-          "severity": "medium",
-          "message": "HSTS header not found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "hsts"
-        },
-        {
-          "rule_id": "security_006",
-          "severity": "medium",
-          "message": "No XSS protection headers found",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "xss_protection"
-        },
-        {
-          "rule_id": "security_003",
-          "severity": "critical",
-          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
           "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "security_headers"
         },
@@ -2004,6 +1836,62 @@
           "rule_id": "security_003",
           "severity": "critical",
           "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "security_headers"
         },
@@ -2026,6 +1914,118 @@
           "severity": "medium",
           "message": "No XSS protection headers found",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "xss_protection"
+        },
+        {
+          "rule_id": "security_003",
+          "severity": "critical",
+          "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "security_headers"
+        },
+        {
+          "rule_id": "security_004",
+          "severity": "critical",
+          "message": "SSL certificate is not valid",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "ssl_certificate"
+        },
+        {
+          "rule_id": "security_005",
+          "severity": "medium",
+          "message": "HSTS header not found",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "hsts"
+        },
+        {
+          "rule_id": "security_006",
+          "severity": "medium",
+          "message": "No XSS protection headers found",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "xss_protection"
         },
         {
@@ -2067,132 +2067,6 @@
       "checks_passed": 4,
       "checks_failed": 4,
       "issues": [
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_003",
-          "severity": "medium",
-          "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "heading_structure"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "60 links have non-descriptive text",
-          "page_url": "https://infomagine.in/about-us",
-          "affected_part": "link_text"
-        },
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_003",
-          "severity": "medium",
-          "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "heading_structure"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "60 links have non-descriptive text",
-          "page_url": "https://infomagine.in/hire-developer",
-          "affected_part": "link_text"
-        },
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "123 links have non-descriptive text",
-          "page_url": "https://infomagine.in/",
-          "affected_part": "link_text"
-        },
-        {
-          "rule_id": "a11y_001",
-          "severity": "high",
-          "message": "7 images missing alt text (30.0% coverage)",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "image_alt_text"
-        },
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "60 links have non-descriptive text",
-          "page_url": "https://infomagine.in/desktop-applications",
-          "affected_part": "link_text"
-        },
-        {
-          "rule_id": "a11y_001",
-          "severity": "high",
-          "message": "1 images missing alt text (75.0% coverage)",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "image_alt_text"
-        },
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_003",
-          "severity": "medium",
-          "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "heading_structure"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "60 links have non-descriptive text",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "link_text"
-        },
-        {
-          "rule_id": "a11y_002",
-          "severity": "critical",
-          "message": "HTML lang attribute not specified",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "language"
-        },
-        {
-          "rule_id": "a11y_003",
-          "severity": "medium",
-          "message": "Heading accessibility issues: Missing H1",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "heading_structure"
-        },
-        {
-          "rule_id": "a11y_004",
-          "severity": "medium",
-          "message": "65 links have non-descriptive text",
-          "page_url": "https://infomagine.in/blogs",
-          "affected_part": "link_text"
-        },
         {
           "rule_id": "a11y_001",
           "severity": "high",
@@ -2246,6 +2120,41 @@
           "rule_id": "a11y_002",
           "severity": "critical",
           "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_003",
+          "severity": "medium",
+          "message": "Heading accessibility issues: Missing H1",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "heading_structure"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "60 links have non-descriptive text",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "123 links have non-descriptive text",
+          "page_url": "https://infomagine.in/",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
           "page_url": "https://infomagine.in/sitemap",
           "affected_part": "language"
         },
@@ -2261,6 +2170,97 @@
           "severity": "medium",
           "message": "92 links have non-descriptive text",
           "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_003",
+          "severity": "medium",
+          "message": "Heading accessibility issues: Missing H1",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "heading_structure"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "60 links have non-descriptive text",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_001",
+          "severity": "high",
+          "message": "7 images missing alt text (30.0% coverage)",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "image_alt_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "60 links have non-descriptive text",
+          "page_url": "https://infomagine.in/desktop-applications",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_003",
+          "severity": "medium",
+          "message": "Heading accessibility issues: Missing H1",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "heading_structure"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "65 links have non-descriptive text",
+          "page_url": "https://infomagine.in/blogs",
+          "affected_part": "link_text"
+        },
+        {
+          "rule_id": "a11y_001",
+          "severity": "high",
+          "message": "1 images missing alt text (75.0% coverage)",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "image_alt_text"
+        },
+        {
+          "rule_id": "a11y_002",
+          "severity": "critical",
+          "message": "HTML lang attribute not specified",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "language"
+        },
+        {
+          "rule_id": "a11y_003",
+          "severity": "medium",
+          "message": "Heading accessibility issues: Missing H1",
+          "page_url": "https://infomagine.in/contact-us",
+          "affected_part": "heading_structure"
+        },
+        {
+          "rule_id": "a11y_004",
+          "severity": "medium",
+          "message": "60 links have non-descriptive text",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "link_text"
         },
         {
@@ -2292,20 +2292,34 @@
           "rule_id": "perf_005",
           "severity": "low",
           "message": "No cache headers found",
-          "page_url": "https://infomagine.in/about-us",
+          "page_url": "https://infomagine.in/mobile-applications",
           "affected_part": "browser_caching"
         },
         {
           "rule_id": "perf_005",
           "severity": "low",
           "message": "No cache headers found",
-          "page_url": "https://infomagine.in/hire-developer",
+          "page_url": "https://infomagine.in/portfolio",
           "affected_part": "browser_caching"
         },
         {
           "rule_id": "perf_001",
           "severity": "critical",
-          "message": "Very slow response time: 8.02s",
+          "message": "Very slow response time: 8.62s",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "response_time"
+        },
+        {
+          "rule_id": "perf_005",
+          "severity": "low",
+          "message": "No cache headers found",
+          "page_url": "https://infomagine.in/about-us",
+          "affected_part": "browser_caching"
+        },
+        {
+          "rule_id": "perf_001",
+          "severity": "critical",
+          "message": "Very slow response time: 9.00s",
           "page_url": "https://infomagine.in/",
           "affected_part": "response_time"
         },
@@ -2314,6 +2328,27 @@
           "severity": "low",
           "message": "No cache headers found",
           "page_url": "https://infomagine.in/",
+          "affected_part": "browser_caching"
+        },
+        {
+          "rule_id": "perf_005",
+          "severity": "low",
+          "message": "No cache headers found",
+          "page_url": "https://infomagine.in/sitemap",
+          "affected_part": "browser_caching"
+        },
+        {
+          "rule_id": "perf_001",
+          "severity": "critical",
+          "message": "Very slow response time: 9.40s",
+          "page_url": "https://infomagine.in/hire-developer",
+          "affected_part": "response_time"
+        },
+        {
+          "rule_id": "perf_005",
+          "severity": "low",
+          "message": "No cache headers found",
+          "page_url": "https://infomagine.in/hire-developer",
           "affected_part": "browser_caching"
         },
         {
@@ -2327,13 +2362,6 @@
           "rule_id": "perf_005",
           "severity": "low",
           "message": "No cache headers found",
-          "page_url": "https://infomagine.in/contact-us",
-          "affected_part": "browser_caching"
-        },
-        {
-          "rule_id": "perf_005",
-          "severity": "low",
-          "message": "No cache headers found",
           "page_url": "https://infomagine.in/blogs",
           "affected_part": "browser_caching"
         },
@@ -2341,35 +2369,7 @@
           "rule_id": "perf_005",
           "severity": "low",
           "message": "No cache headers found",
-          "page_url": "https://infomagine.in/mobile-applications",
-          "affected_part": "browser_caching"
-        },
-        {
-          "rule_id": "perf_001",
-          "severity": "critical",
-          "message": "Very slow response time: 7.87s",
-          "page_url": "https://infomagine.in/portfolio",
-          "affected_part": "response_time"
-        },
-        {
-          "rule_id": "perf_005",
-          "severity": "low",
-          "message": "No cache headers found",
-          "page_url": "https://infomagine.in/portfolio",
-          "affected_part": "browser_caching"
-        },
-        {
-          "rule_id": "perf_001",
-          "severity": "critical",
-          "message": "Very slow response time: 7.41s",
-          "page_url": "https://infomagine.in/sitemap",
-          "affected_part": "response_time"
-        },
-        {
-          "rule_id": "perf_005",
-          "severity": "low",
-          "message": "No cache headers found",
-          "page_url": "https://infomagine.in/sitemap",
+          "page_url": "https://infomagine.in/contact-us",
           "affected_part": "browser_caching"
         },
         {
@@ -2383,1350 +2383,6 @@
     }
   ],
   "issues": [
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_003",
-      "severity": "medium",
-      "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "heading_structure"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "60 links have non-descriptive text",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_001",
-      "severity": "high",
-      "message": "Thin content: 290 words (recommended: 300+)",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "word_count"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "10 images missing width/height attributes",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "60 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_003",
-      "severity": "critical",
-      "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "h1"
-    },
-    {
-      "rule_id": "on_page_004",
-      "severity": "medium",
-      "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/about-us",
-      "affected_part": "sitemap"
-    },
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_003",
-      "severity": "medium",
-      "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "heading_structure"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "60 links have non-descriptive text",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "10 images missing width/height attributes",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "60 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_001",
-      "severity": "medium",
-      "message": "Title length is 65 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "title"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_003",
-      "severity": "critical",
-      "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "h1"
-    },
-    {
-      "rule_id": "on_page_004",
-      "severity": "medium",
-      "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/hire-developer",
-      "affected_part": "sitemap"
-    },
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "123 links have non-descriptive text",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "10 images missing width/height attributes",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "123 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_001",
-      "severity": "medium",
-      "message": "Title length is 69 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "title"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_001",
-      "severity": "critical",
-      "message": "Very slow response time: 8.02s",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "response_time"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/",
-      "affected_part": "sitemap"
-    },
-    {
-      "rule_id": "a11y_001",
-      "severity": "high",
-      "message": "7 images missing alt text (30.0% coverage)",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "60 links have non-descriptive text",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_001",
-      "severity": "high",
-      "message": "7/10 images missing alt text (30.0% coverage)",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "10 images missing width/height attributes",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "60 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/desktop-applications",
-      "affected_part": "sitemap"
-    },
-    {
-      "rule_id": "a11y_001",
-      "severity": "high",
-      "message": "1 images missing alt text (75.0% coverage)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_003",
-      "severity": "medium",
-      "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "heading_structure"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "60 links have non-descriptive text",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_001",
-      "severity": "high",
-      "message": "Thin content: 248 words (recommended: 300+)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "word_count"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_001",
-      "severity": "high",
-      "message": "1/4 images missing alt text (75.0% coverage)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "image_alt_text"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "4 images missing width/height attributes",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "60 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_001",
-      "severity": "medium",
-      "message": "Title length is 64 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "title"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_003",
-      "severity": "critical",
-      "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "h1"
-    },
-    {
-      "rule_id": "on_page_004",
-      "severity": "medium",
-      "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/contact-us",
-      "affected_part": "sitemap"
-    },
-    {
-      "rule_id": "a11y_002",
-      "severity": "critical",
-      "message": "HTML lang attribute not specified",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "a11y_003",
-      "severity": "medium",
-      "message": "Heading accessibility issues: Missing H1",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "heading_structure"
-    },
-    {
-      "rule_id": "a11y_004",
-      "severity": "medium",
-      "message": "65 links have non-descriptive text",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "link_text"
-    },
-    {
-      "rule_id": "content_001",
-      "severity": "high",
-      "message": "Thin content: 268 words (recommended: 300+)",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "word_count"
-    },
-    {
-      "rule_id": "content_003",
-      "severity": "medium",
-      "message": "No paragraphs found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "paragraph_structure"
-    },
-    {
-      "rule_id": "content_006",
-      "severity": "high",
-      "message": "No canonical URL (potential duplicate content risk)",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "duplicate_content"
-    },
-    {
-      "rule_id": "content_007",
-      "severity": "low",
-      "message": "No content freshness dates found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "content_freshness"
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "lazy_loading"
-    },
-    {
-      "rule_id": "images_004",
-      "severity": "high",
-      "message": "9 images missing width/height attributes",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "image_dimensions"
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "responsive_images"
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "image_formats"
-    },
-    {
-      "rule_id": "links_002",
-      "severity": "low",
-      "message": "No external links found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "external_links"
-    },
-    {
-      "rule_id": "links_004",
-      "severity": "high",
-      "message": "65 links have generic/non-descriptive anchor text",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "anchor_text"
-    },
-    {
-      "rule_id": "on_page_001",
-      "severity": "medium",
-      "message": "Title length is 72 characters (recommended: 30-60) - too long",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "title"
-    },
-    {
-      "rule_id": "on_page_002",
-      "severity": "medium",
-      "message": "Meta description length is 164 characters (recommended: 150-160)",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "meta_description"
-    },
-    {
-      "rule_id": "on_page_003",
-      "severity": "critical",
-      "message": "Missing H1 tag",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "h1"
-    },
-    {
-      "rule_id": "on_page_004",
-      "severity": "medium",
-      "message": "Heading hierarchy issues: Missing H1",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "heading_hierarchy"
-    },
-    {
-      "rule_id": "on_page_006",
-      "severity": "high",
-      "message": "Missing canonical URL tag",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "canonical"
-    },
-    {
-      "rule_id": "perf_005",
-      "severity": "low",
-      "message": "No cache headers found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "browser_caching"
-    },
-    {
-      "rule_id": "schema_003",
-      "severity": "low",
-      "message": "No breadcrumb schema found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "breadcrumb_schema"
-    },
-    {
-      "rule_id": "schema_004",
-      "severity": "low",
-      "message": "No Article schema found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "article_schema"
-    },
-    {
-      "rule_id": "schema_005",
-      "severity": "low",
-      "message": "No Product schema found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "product_schema"
-    },
-    {
-      "rule_id": "security_003",
-      "severity": "critical",
-      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "security_headers"
-    },
-    {
-      "rule_id": "security_004",
-      "severity": "critical",
-      "message": "SSL certificate is not valid",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "security_005",
-      "severity": "medium",
-      "message": "HSTS header not found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "hsts"
-    },
-    {
-      "rule_id": "security_006",
-      "severity": "medium",
-      "message": "No XSS protection headers found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "xss_protection"
-    },
-    {
-      "rule_id": "social_003",
-      "severity": "low",
-      "message": "No social media links found",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "social_media_links"
-    },
-    {
-      "rule_id": "social_004",
-      "severity": "low",
-      "message": "No Facebook App ID or admins meta tag",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "facebook_domain"
-    },
-    {
-      "rule_id": "technical_001",
-      "severity": "critical",
-      "message": "HTTPS detected but SSL certificate has issues",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "ssl_certificate"
-    },
-    {
-      "rule_id": "technical_003",
-      "severity": "medium",
-      "message": "HTML language attribute not specified",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "language"
-    },
-    {
-      "rule_id": "technical_005",
-      "severity": "critical",
-      "message": "Missing DOCTYPE declaration",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "doctype"
-    },
-    {
-      "rule_id": "technical_006",
-      "severity": "medium",
-      "message": "HTML lang attribute not set",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "html_lang"
-    },
-    {
-      "rule_id": "technical_009",
-      "severity": "low",
-      "message": "No sitemap data available",
-      "page_url": "https://infomagine.in/blogs",
-      "affected_part": "sitemap"
-    },
     {
       "rule_id": "a11y_001",
       "severity": "high",
@@ -4071,13 +2727,6 @@
       "affected_part": "canonical"
     },
     {
-      "rule_id": "perf_001",
-      "severity": "critical",
-      "message": "Very slow response time: 7.87s",
-      "page_url": "https://infomagine.in/portfolio",
-      "affected_part": "response_time"
-    },
-    {
       "rule_id": "perf_005",
       "severity": "low",
       "message": "No cache headers found",
@@ -4180,6 +2829,447 @@
       "severity": "low",
       "message": "No sitemap data available",
       "page_url": "https://infomagine.in/portfolio",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_003",
+      "severity": "medium",
+      "message": "Heading accessibility issues: Missing H1",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "60 links have non-descriptive text",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_001",
+      "severity": "high",
+      "message": "Thin content: 290 words (recommended: 300+)",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "word_count"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "10 images missing width/height attributes",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "60 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "h1"
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_001",
+      "severity": "critical",
+      "message": "Very slow response time: 8.62s",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "response_time"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/about-us",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "123 links have non-descriptive text",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "10 images missing width/height attributes",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "123 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_001",
+      "severity": "medium",
+      "message": "Title length is 69 characters (recommended: 30-60) - too long",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "title"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_001",
+      "severity": "critical",
+      "message": "Very slow response time: 9.00s",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "response_time"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/",
       "affected_part": "sitemap"
     },
     {
@@ -4309,13 +3399,6 @@
       "affected_part": "canonical"
     },
     {
-      "rule_id": "perf_001",
-      "severity": "critical",
-      "message": "Very slow response time: 7.41s",
-      "page_url": "https://infomagine.in/sitemap",
-      "affected_part": "response_time"
-    },
-    {
       "rule_id": "perf_005",
       "severity": "low",
       "message": "No cache headers found",
@@ -4418,6 +3501,923 @@
       "severity": "low",
       "message": "No sitemap data available",
       "page_url": "https://infomagine.in/sitemap",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_003",
+      "severity": "medium",
+      "message": "Heading accessibility issues: Missing H1",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "60 links have non-descriptive text",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "10 images missing width/height attributes",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "60 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_001",
+      "severity": "medium",
+      "message": "Title length is 65 characters (recommended: 30-60) - too long",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "title"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "h1"
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_001",
+      "severity": "critical",
+      "message": "Very slow response time: 9.40s",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "response_time"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/hire-developer",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_001",
+      "severity": "high",
+      "message": "7 images missing alt text (30.0% coverage)",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "60 links have non-descriptive text",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_001",
+      "severity": "high",
+      "message": "7/10 images missing alt text (30.0% coverage)",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "10 images missing width/height attributes",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "60 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/desktop-applications",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_003",
+      "severity": "medium",
+      "message": "Heading accessibility issues: Missing H1",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "65 links have non-descriptive text",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_001",
+      "severity": "high",
+      "message": "Thin content: 268 words (recommended: 300+)",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "word_count"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "9 images missing width/height attributes",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "65 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_001",
+      "severity": "medium",
+      "message": "Title length is 72 characters (recommended: 30-60) - too long",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "title"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "h1"
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/blogs",
+      "affected_part": "sitemap"
+    },
+    {
+      "rule_id": "a11y_001",
+      "severity": "high",
+      "message": "1 images missing alt text (75.0% coverage)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "rule_id": "a11y_002",
+      "severity": "critical",
+      "message": "HTML lang attribute not specified",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "a11y_003",
+      "severity": "medium",
+      "message": "Heading accessibility issues: Missing H1",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "heading_structure"
+    },
+    {
+      "rule_id": "a11y_004",
+      "severity": "medium",
+      "message": "60 links have non-descriptive text",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "link_text"
+    },
+    {
+      "rule_id": "content_001",
+      "severity": "high",
+      "message": "Thin content: 248 words (recommended: 300+)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "word_count"
+    },
+    {
+      "rule_id": "content_003",
+      "severity": "medium",
+      "message": "No paragraphs found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "paragraph_structure"
+    },
+    {
+      "rule_id": "content_006",
+      "severity": "high",
+      "message": "No canonical URL (potential duplicate content risk)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "duplicate_content"
+    },
+    {
+      "rule_id": "content_007",
+      "severity": "low",
+      "message": "No content freshness dates found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "content_freshness"
+    },
+    {
+      "rule_id": "images_001",
+      "severity": "high",
+      "message": "1/4 images missing alt text (75.0% coverage)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "image_alt_text"
+    },
+    {
+      "rule_id": "images_003",
+      "severity": "low",
+      "message": "Lazy loading not detected",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "lazy_loading"
+    },
+    {
+      "rule_id": "images_004",
+      "severity": "high",
+      "message": "4 images missing width/height attributes",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "image_dimensions"
+    },
+    {
+      "rule_id": "images_005",
+      "severity": "low",
+      "message": "No responsive images (srcset) detected",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "responsive_images"
+    },
+    {
+      "rule_id": "images_006",
+      "severity": "low",
+      "message": "Only traditional image formats detected",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "image_formats"
+    },
+    {
+      "rule_id": "links_002",
+      "severity": "low",
+      "message": "No external links found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "external_links"
+    },
+    {
+      "rule_id": "links_004",
+      "severity": "high",
+      "message": "60 links have generic/non-descriptive anchor text",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "anchor_text"
+    },
+    {
+      "rule_id": "on_page_001",
+      "severity": "medium",
+      "message": "Title length is 64 characters (recommended: 30-60) - too long",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "title"
+    },
+    {
+      "rule_id": "on_page_002",
+      "severity": "medium",
+      "message": "Meta description length is 164 characters (recommended: 150-160)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "meta_description"
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "h1"
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "heading_hierarchy"
+    },
+    {
+      "rule_id": "on_page_006",
+      "severity": "high",
+      "message": "Missing canonical URL tag",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "canonical"
+    },
+    {
+      "rule_id": "perf_005",
+      "severity": "low",
+      "message": "No cache headers found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "browser_caching"
+    },
+    {
+      "rule_id": "schema_003",
+      "severity": "low",
+      "message": "No breadcrumb schema found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "breadcrumb_schema"
+    },
+    {
+      "rule_id": "schema_004",
+      "severity": "low",
+      "message": "No Article schema found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "article_schema"
+    },
+    {
+      "rule_id": "schema_005",
+      "severity": "low",
+      "message": "No Product schema found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "product_schema"
+    },
+    {
+      "rule_id": "security_003",
+      "severity": "critical",
+      "message": "Missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection (0/5 present)",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "security_headers"
+    },
+    {
+      "rule_id": "security_004",
+      "severity": "critical",
+      "message": "SSL certificate is not valid",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "security_005",
+      "severity": "medium",
+      "message": "HSTS header not found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "hsts"
+    },
+    {
+      "rule_id": "security_006",
+      "severity": "medium",
+      "message": "No XSS protection headers found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "xss_protection"
+    },
+    {
+      "rule_id": "social_003",
+      "severity": "low",
+      "message": "No social media links found",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "social_media_links"
+    },
+    {
+      "rule_id": "social_004",
+      "severity": "low",
+      "message": "No Facebook App ID or admins meta tag",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "facebook_domain"
+    },
+    {
+      "rule_id": "technical_001",
+      "severity": "critical",
+      "message": "HTTPS detected but SSL certificate has issues",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "ssl_certificate"
+    },
+    {
+      "rule_id": "technical_003",
+      "severity": "medium",
+      "message": "HTML language attribute not specified",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "language"
+    },
+    {
+      "rule_id": "technical_005",
+      "severity": "critical",
+      "message": "Missing DOCTYPE declaration",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "doctype"
+    },
+    {
+      "rule_id": "technical_006",
+      "severity": "medium",
+      "message": "HTML lang attribute not set",
+      "page_url": "https://infomagine.in/contact-us",
+      "affected_part": "html_lang"
+    },
+    {
+      "rule_id": "technical_009",
+      "severity": "low",
+      "message": "No sitemap data available",
+      "page_url": "https://infomagine.in/contact-us",
       "affected_part": "sitemap"
     },
     {
@@ -5043,8 +5043,8 @@
     "status_codes": {
       "200": 10
     },
-    "started_at": "2026-08-21T09:01:20.038147+00:00",
-    "completed_at": "2026-08-21T09:01:42.134498+00:00"
+    "started_at": "2026-08-21T07:06:23.470190+00:00",
+    "completed_at": "2026-08-21T07:06:55.602166+00:00"
   },
   "indexation": {
     "indexable": 10,
@@ -5066,7 +5066,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 12152.2,
+      "value": 15525.8,
       "unit": "milliseconds",
       "status": "critical",
       "reason": null
@@ -5079,10 +5079,10 @@
     "invalid": 0,
     "types": {
       "Organization": 13,
-      "CreativeWork": 1,
-      "ContactPage": 1,
+      "Service": 2,
       "JobPosting": 1,
-      "Service": 2
+      "ContactPage": 1,
+      "CreativeWork": 1
     }
   },
   "links": {
@@ -5188,14 +5188,6 @@
   "recommendations": [
     {
       "priority": 1,
-      "rule_id": "on_page_003",
-      "title": "Missing or multiple H1 tags",
-      "action": "Add a single <h1> containing your primary keyword.",
-      "effort": "low",
-      "affected_pages": 6
-    },
-    {
-      "priority": 1,
       "rule_id": "technical_001",
       "title": "Not using HTTPS",
       "action": "Enable HTTPS and redirect all traffic to HTTPS.",
@@ -5212,6 +5204,14 @@
     },
     {
       "priority": 1,
+      "rule_id": "on_page_003",
+      "title": "Missing or multiple H1 tags",
+      "action": "Add a single <h1> containing your primary keyword.",
+      "effort": "low",
+      "affected_pages": 6
+    },
+    {
+      "priority": 1,
       "rule_id": "perf_001",
       "title": "Slow server response time (TTFB)",
       "action": "Reduce server response time (optimize queries, use caching, CDN).",
@@ -5220,19 +5220,19 @@
     },
     {
       "priority": 2,
-      "rule_id": "content_001",
-      "title": "Thin or overly long content",
-      "action": "Expand thin pages to at least 300 words of useful content.",
-      "effort": "medium",
-      "affected_pages": 5
-    },
-    {
-      "priority": 2,
       "rule_id": "content_006",
       "title": "Duplicate content detected",
       "action": "Rewrite or canonicalize duplicate content.",
       "effort": "medium",
       "affected_pages": 10
+    },
+    {
+      "priority": 2,
+      "rule_id": "images_001",
+      "title": "Images missing alt text",
+      "action": "Add descriptive alt text to images missing it.",
+      "effort": "medium",
+      "affected_pages": 4
     },
     {
       "priority": 2,
@@ -5260,11 +5260,19 @@
     },
     {
       "priority": 2,
-      "rule_id": "images_001",
-      "title": "Images missing alt text",
-      "action": "Add descriptive alt text to images missing it.",
+      "rule_id": "content_001",
+      "title": "Thin or overly long content",
+      "action": "Expand thin pages to at least 300 words of useful content.",
       "effort": "medium",
-      "affected_pages": 4
+      "affected_pages": 5
+    },
+    {
+      "priority": 3,
+      "rule_id": "on_page_001",
+      "title": "Missing or poor page title",
+      "action": "Add a descriptive <title> (30-70 chars).",
+      "effort": "low",
+      "affected_pages": 7
     },
     {
       "priority": 3,
@@ -5281,14 +5289,6 @@
       "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
       "effort": "low",
       "affected_pages": 6
-    },
-    {
-      "priority": 3,
-      "rule_id": "on_page_001",
-      "title": "Missing or poor page title",
-      "action": "Add a descriptive <title> (30-70 chars).",
-      "effort": "low",
-      "affected_pages": 7
     }
   ],
   "external_dependencies": [
