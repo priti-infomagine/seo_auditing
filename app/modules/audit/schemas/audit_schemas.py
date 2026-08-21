@@ -6,6 +6,7 @@ shape defined in audit_response_schemas.UnifiedAuditResponse. The legacy
 AuditAnalyzeResponse / SeoAnalysisResponse names are kept as aliases for import
 backward-compatibility.
 """
+from app.core.config import settings
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Dict, Any, List
 
@@ -93,7 +94,6 @@ class AuditAnalyzeRequest(BaseModel):
     max_pages: Optional[int] = Field(
         default=None,
         ge=1,
-        le=100,
         description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (from .env or code).",
     )
     max_depth: Optional[int] = Field(

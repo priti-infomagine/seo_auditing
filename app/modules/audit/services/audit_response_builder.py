@@ -74,6 +74,8 @@ class AuditResponseBuilder:
         self.seo_repo = PageSEODataRepository(db)
         self.calculator = ScoreCalculator()
         self.converter = RuleResultToSEOIssueConverter()
+        from app.modules.scorer.services.scorer_service import ScorerService
+        self.rules = ScorerService().rules
 
     async def build(
         self,
@@ -312,10 +314,20 @@ class AuditResponseBuilder:
         if www_redirect_issue is not None:
             all_seo_issues.append(www_redirect_issue)
 
+        # --- Build main-rule verdict cache and per-category main rule sets ---
+        rule_cache: Dict[str, Dict[str, bool]] = defaultdict(dict)
+        main_rules_per_cat: Dict[str, set] = defaultdict(set)
+        for key, results in canonical_results.items():
+            for r in results:
+                existing = rule_cache[key].get(r.rule_id)
+                if existing is None or not r.passed:
+                    rule_cache[key][r.rule_id] = bool(r.passed)
+                main_rules_per_cat[r.category].add(r.rule_id)
+
         # --- Assemble sections ---
         summary = self._build_summary(overall_score, all_seo_issues)
         categories = self._build_categories(
-            all_seo_issues, cat_checks, check_cache, total_pages_analyzed
+            all_seo_issues, main_rules_per_cat, rule_cache, total_pages_analyzed
         )
         issues = self._build_issues(all_seo_issues)
         category_results = self._build_category_results(
@@ -430,14 +442,14 @@ class AuditResponseBuilder:
     def _build_categories(
         self,
         all_seo_issues: List[SEOIssue],
-        cat_checks: Dict[str, set],
-        check_cache: Dict[str, Dict[str, bool]],
+        main_rules_per_cat: Dict[str, set],
+        rule_cache: Dict[str, Dict[str, bool]],
         total_pages: int,
     ) -> List[Dict[str, Any]]:
-        # Per check_key: pass-rate across canonical pages (Section 3).
+        # Per main rule: pass-rate across canonical pages.
         #   check_score = 100 * pages_passing / total_pages_checked
-        #   checks_passed = #checks with check_score >= PASS_THRESHOLD
-        # categories[].issues carries that category's failed issues (Section 8);
+        #   checks_passed = #main_rules with check_score >= PASS_THRESHOLD
+        # categories[].issues carries that category's failed issues;
         # the key is omitted entirely when a category has no failures.
         issues_by_cat: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
         for i in all_seo_issues:
@@ -452,22 +464,20 @@ class AuditResponseBuilder:
 
         out: List[Dict[str, Any]] = []
         for cat, display in CATEGORY_DISPLAY.items():
-            checks = cat_checks.get(cat, set())
-            checks_total = len(checks)
+            main_rule_ids = main_rules_per_cat.get(cat, set())
+            checks_total = len(main_rule_ids)
             check_scores: List[float] = []
             checks_passed = 0
-            for sub in checks:
+            for rule_id in main_rule_ids:
                 passed_pages = sum(
-                    1 for ck in check_cache
-                    if check_cache[ck].get(sub) is not False
+                    1 for ck in rule_cache
+                    if rule_cache[ck].get(rule_id) is not False
                 )
                 check_score = round(100.0 * passed_pages / total_pages, 1) if total_pages else 0.0
                 check_scores.append(check_score)
                 if check_score >= PASS_THRESHOLD:
                     checks_passed += 1
             checks_failed = checks_total - checks_passed
-            # Invariant (Section 3): every category satisfies
-            #   checks_total == checks_passed + checks_failed
             category_score = round(sum(check_scores) / len(check_scores), 1) if check_scores else 0.0
             entry: Dict[str, Any] = {
                 "id": display["id"],

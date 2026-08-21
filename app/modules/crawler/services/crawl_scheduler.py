@@ -190,11 +190,6 @@ class CrawlScheduler:
             self._record_rejection("max_depth", url)
             return False
 
-        # -- page-limit guard --------------------------------------------
-        if self.pages_discovered_count >= self.config.max_pages:
-            self._record_rejection("max_pages", url)
-            return False
-
         # -- URL validation (normalization may raise InvalidURLError) -----
         try:
             canonical = normalize_url_canonical(url)

@@ -46830,3 +46830,1027 @@ RuntimeError: db down
 2026-08-21 14:31:44,648 | INFO | AuditResponseBuilder.build: project_id=2694da70-1ea6-441c-9027-9da24e5a3598 crawl_id=47cadf02-d7b3-447d-8682-283527400625
 2026-08-21 14:31:44,764 | INFO | AnalysisScorerService.score_project: score=81.3, grade=B, pages=10, project_id=2694da70-1ea6-441c-9027-9da24e5a3598
 2026-08-21 14:31:44,764 | INFO | DB scoring completed: Score=81.3/100 (Health: good)
+2026-08-21 15:19:07,700 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://kanhahometutions.com/
+2026-08-21 15:19:07,700 | INFO | Step 1: Creating CrawlJob
+2026-08-21 15:19:08,050 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-21 15:19:13,300 | INFO | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-08-21 15:19:13,317 | INFO | Robots policy attached to scheduler for kanhahometutions.com (sitemaps: 0)
+2026-08-21 15:19:13,317 | INFO | Crawl started: https://kanhahometutions.com/ (max_pages=100, max_depth=5)
+2026-08-21 15:19:13,335 | INFO | Submitted 97 sitemap URLs to crawl queue (total discovered: 98)
+2026-08-21 15:19:14,435 | WARNING | Page crawl failed: https://www.kanhahometutions.com/privacypolicy.html — error=None
+2026-08-21 15:19:24,329 | WARNING | Page crawl failed: https://kanhahometutions.com/deleteStudentAccount — error=None
+2026-08-21 15:19:26,051 | WARNING | Page crawl failed: https://www.kanhahometutions.com/refund-policy — error=None
+2026-08-21 15:19:26,499 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-kota — error=None
+2026-08-21 15:19:29,254 | WARNING | Page crawl failed: https://www.kanhahometutions.com/terms-conditions — error=None
+2026-08-21 15:19:34,281 | WARNING | Page crawl failed: https://kanhahometutions.com/sitemap — error=None
+2026-08-21 15:19:35,319 | WARNING | Page crawl failed: https://kanhahometutions.com/ — error=None
+2026-08-21 15:19:35,453 | WARNING | Page crawl failed: https://kanhahometutions.com/deleteTutorAccount — error=None
+2026-08-21 15:19:41,130 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-jaipur — error=None
+2026-08-21 15:19:41,477 | WARNING | Page crawl failed: https://www.kanhahometutions.com/post-teacher-job — error=None
+2026-08-21 15:19:44,515 | WARNING | Page crawl failed: https://www.kanhahometutions.com/ — error=None
+2026-08-21 15:19:46,002 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-delhi — error=None
+2026-08-21 15:19:47,507 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-noida — error=None
+2026-08-21 15:19:49,283 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-gurgaon — error=None
+2026-08-21 15:19:51,021 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-greater-noida — error=None
+2026-08-21 15:19:52,343 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-surat — error=None
+2026-08-21 15:19:53,488 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-ajmer — error=None
+2026-08-21 15:19:56,065 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-ahmedabad — error=None
+2026-08-21 15:19:56,180 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-bengaluru — error=None
+2026-08-21 15:19:58,749 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-chandigarh — error=None
+2026-08-21 15:20:03,493 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-mumbai — error=None
+2026-08-21 15:20:04,222 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-indore — error=None
+2026-08-21 15:20:05,328 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-kolkata — error=None
+2026-08-21 15:20:08,986 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-chennai — error=None
+2026-08-21 15:20:10,532 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-patna — error=None
+2026-08-21 15:20:15,055 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-kanpur — error=None
+2026-08-21 15:20:18,010 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-hyderabad — error=None
+2026-08-21 15:20:18,349 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-kota — error=None
+2026-08-21 15:20:19,761 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutor-in-pune — error=None
+2026-08-21 15:20:22,912 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-delhi — error=None
+2026-08-21 15:20:24,197 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-jaipur — error=None
+2026-08-21 15:20:25,070 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-noida — error=None
+2026-08-21 15:20:29,123 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-gurgaon — error=None
+2026-08-21 15:20:30,615 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-surat — error=None
+2026-08-21 15:20:31,710 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-greater-noida — error=None
+2026-08-21 15:20:34,283 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-ajmer — error=None
+2026-08-21 15:20:35,329 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-ahmedabad — error=None
+2026-08-21 15:20:35,723 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-chandigarh — error=None
+2026-08-21 15:20:39,367 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-kolkata — error=None
+2026-08-21 15:20:39,640 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-mumbai — error=None
+2026-08-21 15:20:40,631 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-bengaluru — error=None
+2026-08-21 15:20:43,139 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-indore — error=None
+2026-08-21 15:20:43,790 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-chennai — error=None
+2026-08-21 15:20:45,240 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-patna — error=None
+2026-08-21 15:20:47,084 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-kanpur — error=None
+2026-08-21 15:20:47,844 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-hyderabad — error=None
+2026-08-21 15:20:49,599 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutions-in-pune — error=None
+2026-08-21 15:20:51,172 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chandigarh — error=None
+2026-08-21 15:20:52,322 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-bengaluru — error=None
+2026-08-21 15:20:54,003 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kolkata — error=None
+2026-08-21 15:20:55,965 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-mumbai — error=None
+2026-08-21 15:20:56,934 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-indore — error=None
+2026-08-21 15:20:58,442 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chennai — error=None
+2026-08-21 15:21:00,295 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-patna — error=None
+2026-08-21 15:21:00,950 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kanpur — error=None
+2026-08-21 15:21:02,119 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-hyderabad — error=None
+2026-08-21 15:21:04,714 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-pune — error=None
+2026-08-21 15:21:05,274 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kota — error=None
+2026-08-21 15:21:06,674 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-jaipur — error=None
+2026-08-21 15:21:08,951 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-delhi — error=None
+2026-08-21 15:21:10,237 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-noida — error=None
+2026-08-21 15:21:10,945 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-gurgaon — error=None
+2026-08-21 15:21:13,022 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-greater-noida — error=None
+2026-08-21 15:21:14,012 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-surat — error=None
+2026-08-21 15:21:14,696 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ajmer — error=None
+2026-08-21 15:21:17,188 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ahmedabad — error=None
+2026-08-21 15:21:17,925 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-chandigarh — error=None
+2026-08-21 15:21:19,367 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-bengaluru — error=None
+2026-08-21 15:21:21,800 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-kolkata — error=None
+2026-08-21 15:21:22,903 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-mumbai — error=None
+2026-08-21 15:21:24,204 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-indore — error=None
+2026-08-21 15:21:26,349 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-chennai — error=None
+2026-08-21 15:21:27,191 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-patna — error=None
+2026-08-21 15:21:28,632 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-kanpur — error=None
+2026-08-21 15:21:31,144 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-hyderabad — error=None
+2026-08-21 15:21:32,125 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-pune — error=None
+2026-08-21 15:21:33,346 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-kota — error=None
+2026-08-21 15:21:35,046 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-jaipur — error=None
+2026-08-21 15:21:36,440 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-delhi — error=None
+2026-08-21 15:21:37,755 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-noida — error=None
+2026-08-21 15:21:39,631 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-greater-noida — error=None
+2026-08-21 15:21:39,702 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-surat — error=None
+2026-08-21 15:21:42,070 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-ajmer — error=None
+2026-08-21 15:21:44,426 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tution-near-by-me-in-ahmedabad — error=None
+2026-08-21 15:21:45,029 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-live-class-iit-jee — error=None
+2026-08-21 15:21:47,159 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-live-class-neet — error=None
+2026-08-21 15:21:49,876 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-live-class-nda — error=None
+2026-08-21 15:21:50,366 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-live-class-12th — error=None
+2026-08-21 15:21:52,493 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-live-class-11th — error=None
+2026-08-21 15:21:55,682 | WARNING | Page crawl failed: https://www.kanhahometutions.com/expert-faculty — error=None
+2026-08-21 15:21:56,676 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-coaching-in-kathmandu — error=None
+2026-08-21 15:21:56,814 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-coaching-class — error=None
+2026-08-21 15:22:00,462 | WARNING | Page crawl failed: https://www.kanhahometutions.com/for-teacher — error=None
+2026-08-21 15:22:01,701 | WARNING | Page crawl failed: https://www.kanhahometutions.com/for-student — error=None
+2026-08-21 15:22:03,256 | WARNING | Page crawl failed: https://www.kanhahometutions.com/contact-us — error=None
+2026-08-21 15:22:05,438 | WARNING | Page crawl failed: https://www.kanhahometutions.com/blogs — error=None
+2026-08-21 15:22:06,768 | WARNING | Page crawl failed: https://www.kanhahometutions.com/teacher-job — error=None
+2026-08-21 15:22:08,292 | WARNING | Page crawl failed: https://www.kanhahometutions.com/study-material — error=None
+2026-08-21 15:22:09,702 | WARNING | Page crawl failed: https://www.kanhahometutions.com/deleteStudentAccount — error=None
+2026-08-21 15:22:10,785 | WARNING | Page crawl failed: https://www.kanhahometutions.com/deleteTutorAccount — error=None
+2026-08-21 15:22:12,720 | WARNING | Page crawl failed: https://www.kanhahometutions.com/privacy-policy — error=None
+2026-08-21 15:22:14,715 | WARNING | Page crawl failed: https://www.kanhahometutions.com/sitemap — error=None
+2026-08-21 15:22:15,097 | WARNING | Page crawl failed: https://kanhahometutions.com/blogs — error=None
+2026-08-21 15:22:16,455 | WARNING | Page crawl failed: https://kanhahometutions.com/privacy-policy — error=None
+2026-08-21 15:22:18,293 | WARNING | Page crawl failed: https://kanhahometutions.com/refund-policy — error=None
+2026-08-21 15:22:18,925 | WARNING | Page crawl failed: https://kanhahometutions.com/terms-conditions — error=None
+2026-08-21 15:22:21,883 | WARNING | Page crawl failed: https://kanhahometutions.com/contact-us — error=None
+2026-08-21 15:22:24,560 | WARNING | Page crawl failed: https://www.kanhahometutions.com/home-tutors-in-jaipur — error=None
+2026-08-21 15:22:24,958 | WARNING | Page crawl failed: https://www.kanhahometutions.com/online-tuition-classes — error=None
+2026-08-21 15:22:25,005 | INFO | Crawl completed: https://kanhahometutions.com/ — pages_crawled=109, pages_discovered=298, pages_failed=0, duration=196439ms
+2026-08-21 15:22:25,015 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 9341, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-08-21 15:22:25,015 | INFO | Crawl phase completed: 109 pages crawled, 298 pages discovered
+2026-08-21 15:22:25,015 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-21 15:22:25,015 | INFO | DBParserService.parse_crawl: project_id=63c32e05-0436-41c4-b6a9-549504d49050, crawl_id=663bfbf2-4576-4472-ad9e-ef0a4ac11ec0, force=True
+2026-08-21 15:22:37,221 | INFO | DBParserService.parse_crawl: parsed=109, failed=0, skipped=0 for project_id=63c32e05-0436-41c4-b6a9-549504d49050
+2026-08-21 15:22:37,221 | INFO | DB parse: 109 pages parsed, 0 failed
+2026-08-21 15:22:37,221 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-21 15:22:37,237 | INFO | Loaded 70 scoring rules
+2026-08-21 15:22:37,237 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=63c32e05-0436-41c4-b6a9-549504d49050, crawl_id=663bfbf2-4576-4472-ad9e-ef0a4ac11ec0, force=True
+2026-08-21 15:23:09,801 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=109, rules_run=7630, total_results=7630, errors=0 for project_id=63c32e05-0436-41c4-b6a9-549504d49050
+2026-08-21 15:23:09,866 | INFO | DB evaluate: 7630 rules run, 7630 results, 0 errors
+2026-08-21 15:23:09,866 | INFO | Step 5: Starting DB-backed scoring
+2026-08-21 15:23:09,866 | INFO | AnalysisScorerService.score_project: project_id=63c32e05-0436-41c4-b6a9-549504d49050, crawl_id=663bfbf2-4576-4472-ad9e-ef0a4ac11ec0, force=True
+2026-08-21 15:23:09,866 | INFO | Loaded 70 scoring rules
+2026-08-21 15:23:09,866 | INFO | AuditResponseBuilder.build: project_id=63c32e05-0436-41c4-b6a9-549504d49050 crawl_id=663bfbf2-4576-4472-ad9e-ef0a4ac11ec0
+2026-08-21 15:23:11,929 | INFO | AnalysisScorerService.score_project: score=81.6, grade=B, pages=100, project_id=63c32e05-0436-41c4-b6a9-549504d49050
+2026-08-21 15:23:11,929 | INFO | DB scoring completed: Score=81.6/100 (Health: good)
+2026-08-21 17:58:07,625 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://https/infomagine.in/
+2026-08-21 17:58:07,641 | INFO | Step 1: Creating CrawlJob
+2026-08-21 17:58:08,093 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-21 17:58:39,028 | INFO | Site discovery complete for https://https/infomagine.in/: robots=False, sitemaps=0, page_urls=0
+2026-08-21 17:58:39,095 | INFO | Crawl started: https://https/infomagine.in/ (max_pages=100, max_depth=5)
+2026-08-21 17:58:51,767 | ERROR | CrawlPersistenceService.persist_error: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('08a9624a-64e7-4b72-ac96-9a6a059990c7'), UUID('df11601d-9230-46eb-a9bb-320cced789e5'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('08a9624a-64e7-4b72-ac96-9a6a059990c7'), UUID('df11601d-9230-46eb-a9bb-320cced789e5'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 17:58:52,423 | ERROR | Worker 0: error processing https://https/infomagine.in: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('08a9624a-64e7-4b72-ac96-9a6a059990c7'), UUID('df11601d-9230-46eb-a9bb-320cced789e5'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 275, in _crawl_page
+    await self.persistence.persist_error(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('08a9624a-64e7-4b72-ac96-9a6a059990c7'), UUID('df11601d-9230-46eb-a9bb-320cced789e5'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 17:58:52,445 | ERROR | Unexpected error during audit for URL: https://https/infomagine.in/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 97, in analyze_website
+    orchestrator_result = await orchestrator.run(
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 186, in run
+    job = await self.job_repository.get_by_id(self.crawl_job_id)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 28, in get_by_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('08a9624a-64e7-4b72-ac96-9a6a059990c7'), UUID('df11601d-9230-46eb-a9bb-320cced789e5'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-08-21 17:58:54,404 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://https/infomagine.in/
+2026-08-21 17:58:54,404 | INFO | Step 1: Creating CrawlJob
+2026-08-21 17:58:54,413 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-21 17:59:24,895 | INFO | Site discovery complete for https://https/infomagine.in/: robots=False, sitemaps=0, page_urls=0
+2026-08-21 17:59:24,897 | INFO | Crawl started: https://https/infomagine.in/ (max_pages=100, max_depth=5)
+2026-08-21 17:59:37,368 | ERROR | CrawlPersistenceService.persist_error: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('8d9a6f0c-e8bd-4be1-8540-e1fcd6a2714c'), UUID('4ba5af50-5e85-49c1-bc09-488389e94495'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('8d9a6f0c-e8bd-4be1-8540-e1fcd6a2714c'), UUID('4ba5af50-5e85-49c1-bc09-488389e94495'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 17:59:37,368 | ERROR | Worker 0: error processing https://https/infomagine.in: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('8d9a6f0c-e8bd-4be1-8540-e1fcd6a2714c'), UUID('4ba5af50-5e85-49c1-bc09-488389e94495'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 275, in _crawl_page
+    await self.persistence.persist_error(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('8d9a6f0c-e8bd-4be1-8540-e1fcd6a2714c'), UUID('4ba5af50-5e85-49c1-bc09-488389e94495'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 17:59:37,391 | ERROR | Unexpected error during audit for URL: https://https/infomagine.in/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 97, in analyze_website
+    orchestrator_result = await orchestrator.run(
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 186, in run
+    job = await self.job_repository.get_by_id(self.crawl_job_id)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 28, in get_by_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('8d9a6f0c-e8bd-4be1-8540-e1fcd6a2714c'), UUID('4ba5af50-5e85-49c1-bc09-488389e94495'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-08-21 17:59:41,392 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://https/infomagine.in/
+2026-08-21 17:59:41,392 | INFO | Step 1: Creating CrawlJob
+2026-08-21 17:59:41,405 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-21 18:00:13,268 | INFO | Site discovery complete for https://https/infomagine.in/: robots=False, sitemaps=0, page_urls=0
+2026-08-21 18:00:13,288 | INFO | Crawl started: https://https/infomagine.in/ (max_pages=100, max_depth=5)
+2026-08-21 18:00:25,728 | ERROR | CrawlPersistenceService.persist_error: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('58f3b9f9-23c1-489e-a8d2-387737e81664'), UUID('d4b4ae63-0f02-4e06-babc-1be72f3384ed'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('58f3b9f9-23c1-489e-a8d2-387737e81664'), UUID('d4b4ae63-0f02-4e06-babc-1be72f3384ed'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 18:00:25,786 | ERROR | Worker 0: error processing https://https/infomagine.in: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('58f3b9f9-23c1-489e-a8d2-387737e81664'), UUID('d4b4ae63-0f02-4e06-babc-1be72f3384ed'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 275, in _crawl_page
+    await self.persistence.persist_error(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 228, in persist_error
+    return await self.error_repo.create(error)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_error_repository.py", line 27, in create
+    await self.db.flush()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('58f3b9f9-23c1-489e-a8d2-387737e81664'), UUID('d4b4ae63-0f02-4e06-babc-1be72f3384ed'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-08-21 18:00:25,806 | ERROR | Unexpected error during audit for URL: https://https/infomagine.in/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 97, in analyze_website
+    orchestrator_result = await orchestrator.run(
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 186, in run
+    job = await self.job_repository.get_by_id(self.crawl_job_id)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 28, in get_by_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum crawl_error_type_enum: "network_error"
+[SQL: INSERT INTO crawl_errors (id, crawl_id, page_id, error_type, error_message) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::crawl_error_type_enum, $5::VARCHAR) RETURNING crawl_errors.created_at, crawl_errors.updated_at]
+[parameters: (UUID('58f3b9f9-23c1-489e-a8d2-387737e81664'), UUID('d4b4ae63-0f02-4e06-babc-1be72f3384ed'), None, 'network_error', '[Errno 11001] getaddrinfo failed')]
+(Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-08-21 18:07:01,982 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://infomagine.in/
+2026-08-21 18:07:02,000 | INFO | Step 1: Creating CrawlJob
+2026-08-21 18:07:02,231 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-21 18:07:07,737 | INFO | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-08-21 18:07:07,767 | INFO | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-08-21 18:07:07,782 | INFO | Crawl started: https://infomagine.in/ (max_pages=100, max_depth=5)
+2026-08-21 18:07:07,800 | INFO | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-08-21 18:07:22,893 | WARNING | Page crawl failed: https://infomagine.in/career — error=None
+2026-08-21 18:07:23,148 | WARNING | Page crawl failed: https://infomagine.in/hire-developer — error=None
+2026-08-21 18:07:23,738 | WARNING | Page crawl failed: https://infomagine.in/portfolio — error=None
+2026-08-21 18:07:26,562 | WARNING | Page crawl failed: https://infomagine.in/ — error=None
+2026-08-21 18:07:26,989 | WARNING | Page crawl failed: https://infomagine.in/about-us — error=None
+2026-08-21 18:07:27,658 | WARNING | Page crawl failed: https://infomagine.in/contact-us — error=None
+2026-08-21 18:07:29,989 | WARNING | Page crawl failed: https://infomagine.in/sitemap — error=None
+2026-08-21 18:07:30,420 | WARNING | Page crawl failed: https://infomagine.in/blogs — error=None
+2026-08-21 18:07:30,620 | WARNING | Page crawl failed: https://infomagine.in/desktop-applications — error=None
+2026-08-21 18:07:33,967 | WARNING | Page crawl failed: https://infomagine.in/web-applications — error=None
+2026-08-21 18:07:34,391 | WARNING | Page crawl failed: https://infomagine.in/mobile-applications — error=None
+2026-08-21 18:07:34,722 | WARNING | Page crawl failed: https://infomagine.in/it-consulting — error=None
+2026-08-21 18:07:37,405 | WARNING | Page crawl failed: https://infomagine.in/it-staffing — error=None
+2026-08-21 18:07:37,900 | WARNING | Page crawl failed: https://infomagine.in/services/android — error=None
+2026-08-21 18:07:38,204 | WARNING | Page crawl failed: https://infomagine.in/services/angular — error=None
+2026-08-21 18:07:40,790 | WARNING | Page crawl failed: https://infomagine.in/services/content-management-system — error=None
+2026-08-21 18:07:42,311 | WARNING | Page crawl failed: https://infomagine.in/services/codeigniter — error=None
+2026-08-21 18:07:42,586 | WARNING | Page crawl failed: https://infomagine.in/services/aws-services — error=None
+2026-08-21 18:07:43,604 | WARNING | Page crawl failed: https://infomagine.in/services/custom-software — error=None
+2026-08-21 18:07:48,389 | WARNING | Page crawl failed: https://infomagine.in/services/digital-marketing — error=None
+2026-08-21 18:07:48,707 | WARNING | Page crawl failed: https://infomagine.in/services/azure-managed-cloud-services — error=None
+2026-08-21 18:07:49,006 | WARNING | Page crawl failed: https://infomagine.in/services/devops-services — error=None
+2026-08-21 18:07:51,527 | WARNING | Page crawl failed: https://infomagine.in/services/hybrid — error=None
+2026-08-21 18:07:51,822 | WARNING | Page crawl failed: https://infomagine.in/services/flutter — error=None
+2026-08-21 18:07:52,384 | WARNING | Page crawl failed: https://infomagine.in/services/full-stack-development — error=None
+2026-08-21 18:07:54,815 | WARNING | Page crawl failed: https://infomagine.in/services/ios — error=None
+2026-08-21 18:07:55,365 | WARNING | Page crawl failed: https://infomagine.in/services/it-consulting-services — error=None
+2026-08-21 18:07:56,145 | WARNING | Page crawl failed: https://infomagine.in/services/laravel — error=None
+2026-08-21 18:07:58,464 | WARNING | Page crawl failed: https://infomagine.in/services/Outsourcing-Dedicated-Hiring — error=None
+2026-08-21 18:07:59,243 | WARNING | Page crawl failed: https://infomagine.in/services/php — error=None
+2026-08-21 18:08:00,219 | WARNING | Page crawl failed: https://infomagine.in/services/react-native — error=None
+2026-08-21 18:08:01,786 | WARNING | Page crawl failed: https://infomagine.in/services/reactjs — error=None
+2026-08-21 18:08:02,660 | WARNING | Page crawl failed: https://infomagine.in/services/software-testing-and-qa — error=None
+2026-08-21 18:08:03,518 | WARNING | Page crawl failed: https://infomagine.in/services/software-testing-qa — error=None
+2026-08-21 18:08:04,687 | WARNING | Page crawl failed: https://infomagine.in/services/VueJs — error=None
+2026-08-21 18:08:06,326 | WARNING | Page crawl failed: https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding — error=None
+2026-08-21 18:08:07,334 | WARNING | Page crawl failed: https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership — error=None
+2026-08-21 18:08:07,836 | WARNING | Page crawl failed: https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025 — error=None
+2026-08-21 18:08:09,358 | WARNING | Page crawl failed: https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026 — error=None
+2026-08-21 18:08:10,229 | WARNING | Page crawl failed: https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025 — error=None
+2026-08-21 18:08:11,312 | WARNING | Page crawl failed: https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained — error=None
+2026-08-21 18:08:12,801 | WARNING | Page crawl failed: https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices — error=None
+2026-08-21 18:08:14,683 | WARNING | Page crawl failed: https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert — error=None
+2026-08-21 18:08:14,925 | WARNING | Page crawl failed: https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know — error=None
+2026-08-21 18:08:16,599 | WARNING | Page crawl failed: https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company — error=None
+2026-08-21 18:08:17,331 | WARNING | Page crawl failed: https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices — error=None
+2026-08-21 18:08:19,277 | WARNING | Page crawl failed: https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity — error=None
+2026-08-21 18:08:21,265 | WARNING | Page crawl failed: https://infomagine.in/casestudy/invitehive — error=None
+2026-08-21 18:08:23,171 | WARNING | Page crawl failed: https://infomagine.in/meet-the-ceo — error=None
+2026-08-21 18:08:26,853 | WARNING | Page crawl failed: https://infomagine.in/services/outsourcing-dedicated-hiring — error=None
+2026-08-21 18:08:27,491 | WARNING | Page crawl failed: https://infomagine.in/services/python-development-services — error=None
+2026-08-21 18:08:29,766 | WARNING | Page crawl failed: https://infomagine.in/career/full-stack-developer — error=None
+2026-08-21 18:08:30,201 | WARNING | Page crawl failed: https://infomagine.in/casestudy/kanha-home-tutions — error=None
+2026-08-21 18:08:32,565 | WARNING | Page crawl failed: https://infomagine.in/casestudy/madstack-innovation — error=None
+2026-08-21 18:08:33,464 | WARNING | Page crawl failed: https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do — error=None
+2026-08-21 18:08:35,973 | WARNING | Page crawl failed: https://infomagine.in/services/vuejs — error=None
+2026-08-21 18:08:36,161 | WARNING | Page crawl failed: https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026 — error=None
+2026-08-21 18:08:38,576 | WARNING | Page crawl failed: https://infomagine.in/services/wordpress — error=None
+2026-08-21 18:08:39,974 | WARNING | Page crawl failed: https://www.infomagine.in/ — error=None
+2026-08-21 18:08:53,349 | WARNING | Browser fallback failed for https://infomagine.in/services/linux-and-web-hosting-services: Page.goto: net::ERR_TIMED_OUT at https://infomagine.in/services/linux-and-web-hosting-services
+Call log:
+  - navigating to "https://infomagine.in/services/linux-and-web-hosting-services", waiting until "domcontentloaded"
+
+2026-08-21 18:08:53,378 | WARNING | Page crawl failed: https://infomagine.in/services/linux-and-web-hosting-services — error=None
+2026-08-21 18:08:53,397 | INFO | Crawl completed: https://infomagine.in/ — pages_crawled=60, pages_discovered=60, pages_failed=0, duration=110776ms
+2026-08-21 18:08:53,398 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 3026, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-08-21 18:08:53,398 | INFO | Crawl phase completed: 60 pages crawled, 60 pages discovered
+2026-08-21 18:08:53,398 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-21 18:08:53,399 | INFO | DBParserService.parse_crawl: project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2, crawl_id=0bc0b768-ab45-4087-bb55-138f0c49d0e4, force=True
+2026-08-21 18:08:59,900 | INFO | DBParserService.parse_crawl: parsed=60, failed=0, skipped=0 for project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2
+2026-08-21 18:08:59,910 | INFO | DB parse: 60 pages parsed, 0 failed
+2026-08-21 18:08:59,910 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-21 18:08:59,910 | INFO | Loaded 70 scoring rules
+2026-08-21 18:08:59,910 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2, crawl_id=0bc0b768-ab45-4087-bb55-138f0c49d0e4, force=True
+2026-08-21 18:09:19,178 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=60, rules_run=4200, total_results=4200, errors=0 for project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2
+2026-08-21 18:09:19,198 | INFO | DB evaluate: 4200 rules run, 4200 results, 0 errors
+2026-08-21 18:09:19,198 | INFO | Step 5: Starting DB-backed scoring
+2026-08-21 18:09:19,199 | INFO | AnalysisScorerService.score_project: project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2, crawl_id=0bc0b768-ab45-4087-bb55-138f0c49d0e4, force=True
+2026-08-21 18:09:19,202 | INFO | Loaded 70 scoring rules
+2026-08-21 18:09:19,204 | INFO | AuditResponseBuilder.build: project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2 crawl_id=0bc0b768-ab45-4087-bb55-138f0c49d0e4
+2026-08-21 18:09:19,994 | INFO | AnalysisScorerService.score_project: score=83.2, grade=B, pages=59, project_id=26777a5b-7cf6-4f56-8523-263b2f0434c2
+2026-08-21 18:09:19,994 | INFO | DB scoring completed: Score=83.2/100 (Health: good)

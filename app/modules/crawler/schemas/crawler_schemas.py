@@ -1,6 +1,7 @@
 """
 Schemas for crawler API endpoints.
 """
+from app.core.config import settings
 from pydantic import BaseModel, Field, HttpUrl, field_validator
 from typing import Optional, Dict, Any, List
 from datetime import datetime
@@ -17,7 +18,7 @@ class CrawlRequest(BaseModel):
     )
     
     max_depth: int = Field(5, description="Maximum crawl depth")
-    max_pages: int = Field(1000, description="Maximum pages to crawl")
+    max_pages: int = Field(default_factory=lambda: settings.CRAWL_MAX_PAGES, description="Maximum pages to crawl")
     concurrency: int = Field(10, description="Concurrent requests")
     auto_analyze: bool = Field(
         False,

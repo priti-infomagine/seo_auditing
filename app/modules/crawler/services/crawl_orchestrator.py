@@ -472,7 +472,6 @@ class CrawlOrchestrator:
             page_id=str(page.id),
         )
 
-        logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
 
     async def get_summary(self) -> Optional[dict]:
         """Get crawl summary."""
@@ -571,3 +570,4 @@ class CrawlOrchestrator:
                         next_depth,
                         page_url,
                     )
+

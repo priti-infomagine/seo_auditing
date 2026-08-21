@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.security import get_current_user
+from app.core.config import settings
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.schemas.crawler_schemas import CrawlRequest, CrawlResponse
@@ -55,9 +56,11 @@ async def crawl_url(
         domain = get_domain(url_str)
         user_id = current_user.id
 
+        effective_max_pages = min(body.max_pages, settings.CRAWL_MAX_PAGES) if body.max_pages is not None else settings.CRAWL_MAX_PAGES
+
         crawl_config = {
             "max_depth": body.max_depth,
-            "max_pages": body.max_pages,
+            "max_pages": effective_max_pages,
             "concurrency": body.concurrency,
             "request_timeout": 30,
             "delay_ms": 0,
