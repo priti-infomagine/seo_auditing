@@ -28,6 +28,7 @@ from __future__ import annotations
 import itertools
 from typing import Dict, List, Optional, Tuple
 
+from app.core.datetime_utils import utc_now
 from app.schemas.report_schemas import (
     AffectedPage,
     AuditReportResponse,
@@ -422,7 +423,7 @@ def _demo() -> None:
         scan_id="scan_demo_001",
         url="https://example.com",
         site_category="ecommerce",
-        scanned_at=datetime.now(timezone.utc).isoformat(),
+        scanned_at=utc_now().isoformat(),
         pages_crawled=2,
         check_results=checks,
     )

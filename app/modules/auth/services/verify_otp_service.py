@@ -14,13 +14,14 @@ Steps:
 """
 import uuid
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.modules.auth.models.otp import OTP
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.users import User
@@ -78,7 +79,7 @@ class VerifyOTPService:
             )
 
         # ── 3. Check OTP expiry ────────────────────────────────────────
-        if datetime.now(timezone.utc) > otp_record.expires_at:
+        if utc_now() > otp_record.expires_at:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="OTP has expired. Please register again.",
@@ -107,7 +108,7 @@ class VerifyOTPService:
         
         # ── 8. Store refresh token hash in DB (with device info) ───────
         token_hash = hash_token(refresh_token)
-        rt_expires_at = datetime.now(timezone.utc) + timedelta(
+        rt_expires_at = utc_now() + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
         )
         

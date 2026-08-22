@@ -5,11 +5,12 @@ Password hashing, token creation/decoding, and related helpers.
 """
 import hashlib
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from jose import jwt
 
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.shared.utils.url_utils import get_domain, is_internal_link, normalize_url
 
 
@@ -34,14 +35,14 @@ def hash_token(token: str) -> str:
 
 def create_access_token(subject: str) -> str:
     """Create a short-lived JWT access token."""
-    expire = datetime.now(timezone.utc) + timedelta(
+    expire = utc_now() + timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
     payload = {
         "jti": str(uuid.uuid4()),
         "sub": subject,
         "exp": expire,
-        "iat": datetime.now(timezone.utc),
+        "iat": utc_now(),
         "type": "access",
     }
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
@@ -49,13 +50,13 @@ def create_access_token(subject: str) -> str:
 
 def create_refresh_token(subject: str) -> str:
     """Create a long-lived JWT refresh token."""
-    expire = datetime.now(timezone.utc) + timedelta(
+    expire = utc_now() + timedelta(
         days=settings.REFRESH_TOKEN_EXPIRE_DAYS
     )
     payload = {
         "sub": subject,
         "exp": expire,
-        "iat": datetime.now(timezone.utc),
+        "iat": utc_now(),
         "type": "refresh",
     }
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
@@ -70,7 +71,7 @@ def generate_otp_code(length: int = 6) -> str:
     import random
     
     otp_code = str(random.randint(100000, 999999))
-    expires_at = datetime.now(timezone.utc) + timedelta(
+    expires_at = utc_now() + timedelta(
         minutes=settings.OTP_EXPIRE_MINUTES
         )
     return otp_code, expires_at

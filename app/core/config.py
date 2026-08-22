@@ -46,6 +46,9 @@ class Settings(BaseSettings):
     OTP_EXPIRE_MINUTES: int = 10
     CRAWL_MAX_PAGES: int = 100
 
+    # ── Timezone ─────────────────────────────────────────────────────
+    TZ: str = "UTC"
+
     # ── CORS ─────────────────────────────────────────────────────────
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]
 

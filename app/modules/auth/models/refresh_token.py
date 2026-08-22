@@ -45,6 +45,12 @@ class RefreshToken(Base):
         server_default=func.now(),
         nullable=False,
     )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
     # Network
     ip_address = mapped_column(String(45), nullable=True)
     user_agent = mapped_column(String(1024), nullable=True)

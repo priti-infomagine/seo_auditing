@@ -8,13 +8,14 @@ Endpoints:
 """
 import random
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.modules.auth.models.otp import OTP, OTPType
 from app.modules.auth.models.users import User
 from app.modules.auth.schemas.forgot_password import (
@@ -122,7 +123,7 @@ class VerifyResetOTPService:
                 )
 
             # ── 3. Check OTP expiry ────────────────────────────────────────
-            if datetime.now(timezone.utc) > otp_record.expires_at:
+            if utc_now() > otp_record.expires_at:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="OTP has expired. Please request a new OTP.",
@@ -187,7 +188,7 @@ class ResetPasswordService:
                 )
 
             # ── 3. Check OTP expiry ────────────────────────────────────────
-            if datetime.now(timezone.utc) > otp_record.expires_at:
+            if utc_now() > otp_record.expires_at:
                 raise HTTPException(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="OTP has expired. Please request a new OTP.",

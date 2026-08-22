@@ -12,7 +12,8 @@ does NOT scrape or parse HTML — it reshapes what the rules already produced.
 from __future__ import annotations
 
 import logging
-from typing import Optional
+import re
+from typing import List, Optional
 
 from app.modules.rule_engine.models.rule_evidence_map import (
     RULE_AFFECTED_PART,
@@ -92,10 +93,68 @@ class RuleResultToSEOIssueConverter:
             score_impact=result.score_impact,
             message=result.message if isinstance(result.message, str) else None,
             recommendation=result.recommendation if isinstance(result.recommendation, str) else None,
+            current_description=cls._build_current_description(result),
+            recommended=cls._build_recommended(result),
             page_id=page_id,
             crawl_id=crawl_id,
             project_id=project_id,
         )
+
+
+    @staticmethod
+    def _build_current_description(result: RuleResult) -> Optional[str]:
+        """Extract the current state from rule data or message."""
+        if not result.data:
+            return result.message or None
+
+        if isinstance(result.data, dict):
+            for key in ("current_description", "current_value", "actual", "value", "text"):
+                val = result.data.get(key)
+                if val:
+                    return str(val)
+
+        msg = result.message or ""
+        for sep in [" (recommended:", " - recommended", " (ideal:", " (target:"]:
+            if sep in msg:
+                return msg.split(sep)[0].strip()
+        return msg if msg else None
+
+    @staticmethod
+    def _build_recommended(result: RuleResult) -> List[str]:
+        """Build recommended values array with lengths."""
+        recs: List[str] = []
+
+        # 1. Structured data first
+        if isinstance(result.data, dict):
+            for key in ("recommended", "recommendations", "ideal_values", "expected"):
+                val = result.data.get(key)
+                if isinstance(val, list):
+                    recs.extend(str(v) for v in val if v)
+                elif val:
+                    recs.append(str(val))
+
+        # 2. Parse recommendation text for actionable items
+        rec_text = result.recommendation or ""
+        if rec_text:
+            for part in re.split(r'[;\n]', rec_text):
+                part = part.strip()
+                if part:
+                    recs.append(part)
+
+        # 3. Rule-specific best-practice fallbacks with lengths
+        rule_defaults = {
+            "on_page_001": ["50-60 characters", "Include primary keyword", "End with call-to-action"],
+            "on_page_002": ["150-160 characters", "Include target keyword", "Match search intent"],
+            "on_page_003": ["1 H1 tag per page", "Include primary keyword in H1"],
+            "content_001": ["300+ words minimum", "Cover topic comprehensively"],
+            "technical_002": ["width=device-width, initial-scale=1.0"],
+            "images_001": ["Descriptive alt text under 125 characters", "Include relevant keywords naturally"],
+        }
+
+        if not recs and result.rule_id in rule_defaults:
+            recs.extend(rule_defaults[result.rule_id])
+
+        return recs
 
 
 def _minify_evidence(data) -> dict:

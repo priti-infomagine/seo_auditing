@@ -1,10 +1,7 @@
-from datetime import datetime, timezone
-
-from fastapi import APIRouter, HTTPException, status
-
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
-
+from fastapi import APIRouter, HTTPException, status
 router = APIRouter()
 
 
@@ -16,7 +13,7 @@ async def health_check():
         return {
             "status": "healthy",
             "service": settings.APP_NAME,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": utc_now().isoformat(),
         }
     except Exception as exc:
         logger.error(f"Health check failed: {exc}", exc_info=True)

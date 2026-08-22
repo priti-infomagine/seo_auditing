@@ -6,7 +6,7 @@ and issues a new pair.
 Refresh token is read from an HttpOnly cookie, and the new one is set as a cookie.
 Access token is read from the Authorization header.
 """
-from datetime import datetime, timezone
+from datetime import timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from jose import JWTError
@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
+from app.core.datetime_utils import utc_now
 from app.modules.auth.utils.auth_utils import decode_token
 from app.core.logger import logger
 from app.modules.auth.schemas.refresh import (

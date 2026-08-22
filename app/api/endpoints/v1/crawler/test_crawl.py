@@ -1,10 +1,10 @@
-﻿"""
+"""
 POST /test-crawler - Synchronous test crawl endpoint.
 
 Runs a full crawl inline (no Celery task queue) and returns complete
 results directly in the API response. Intended for testing and debugging.
 """
-from datetime import datetime, timezone
+from datetime import timezone
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core.database import get_db
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.core.security import get_current_user
 from app.modules.crawler.models.crawl_jobs import CrawlJob
@@ -94,7 +95,7 @@ async def test_crawl_url(
             if job and job.status not in ("completed", "failed", "cancelled"):
                 job.status = "failed"
                 job.error = str(exc)[:1024]
-                job.completed_at = datetime.now(timezone.utc)
+                job.completed_at = utc_now()
                 await job_repo.update(job)
 
         job = await job_repo.get_by_id(crawl_job.id)

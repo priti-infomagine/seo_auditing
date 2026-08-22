@@ -12,12 +12,11 @@ Orchestrates all services to perform a complete recursive crawl:
 import asyncio
 import hashlib
 import time
-from datetime import datetime, timezone
 from typing import Optional
 from urllib.parse import urlparse
 from uuid import UUID
 
-from app.modules.crawler.config import CrawlConfig
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -35,6 +34,7 @@ from app.modules.crawler.services.redirect_service import RedirectService
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.services.robots_service import RobotsPolicy
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
+from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.types import DiscoveredURL
 from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
 from app.modules.crawler.utils.url_classifier import strip_tracking_params
@@ -500,7 +500,7 @@ class CrawlOrchestrator:
         if job and job.status not in ("completed", "failed", "cancelled"):
             job.status = "failed"
             job.error = error_message[:1024]
-            job.completed_at = datetime.now(timezone.utc)
+            job.completed_at = utc_now()
             job.progress_percent = 100
             await self.job_repository.update(job)
             if self._progress_callback:
@@ -513,7 +513,7 @@ class CrawlOrchestrator:
         job = await self.job_repository.get_by_id(self.crawl_job_id)
         if job:
             if status == "crawling" and not job.started_at:
-                job.started_at = datetime.now(timezone.utc)
+                job.started_at = utc_now()
             job.status = status
             await self.job_repository.update(job)
 
@@ -521,7 +521,7 @@ class CrawlOrchestrator:
         job = await self.job_repository.get_by_id(self.crawl_job_id)
         if job:
             job.status = status
-            job.completed_at = datetime.now(timezone.utc)
+            job.completed_at = utc_now()
             job.duration_ms = duration_ms
             job.progress_percent = 100
             if job.total_pages:

@@ -1,8 +1,9 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from celery import shared_task
 from sqlalchemy import delete, select
 
+from app.core.datetime_utils import utc_now
 from app.core.database import async_session_factory
 from app.modules.auth.models.otp import OTP
 from app.modules.auth.models.refresh_token import RefreshToken
@@ -63,7 +64,7 @@ def _run_async(coro):
 
 @celery_app.task(name="auth.cleanup_expired_otps")
 def cleanup_expired_otps() -> int:
-    now = datetime.now(timezone.utc)
+    now = utc_now()
 
     async def _cleanup():
         async with async_session_factory() as session:
@@ -78,7 +79,7 @@ def cleanup_expired_otps() -> int:
 
 @celery_app.task(name="auth.cleanup_expired_blacklisted_tokens")
 def cleanup_expired_blacklisted_tokens() -> int:
-    now = datetime.now(timezone.utc)
+    now = utc_now()
 
     async def _cleanup():
         async with async_session_factory() as session:
@@ -93,7 +94,7 @@ def cleanup_expired_blacklisted_tokens() -> int:
 
 @celery_app.task(name="auth.cleanup_expired_refresh_tokens")
 def cleanup_expired_refresh_tokens() -> int:
-    now = datetime.now(timezone.utc)
+    now = utc_now()
 
     async def _cleanup():
         async with async_session_factory() as session:

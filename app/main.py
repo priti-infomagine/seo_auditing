@@ -21,6 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db, close_db
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 
 
@@ -75,13 +76,11 @@ async def root():
 
 @app.get("/health", tags=["Health"])
 async def health_check():
-    from datetime import datetime, timezone
-
     try:
         return {
             "status": "healthy",
             "service": settings.APP_NAME,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": utc_now().isoformat(),
         }
     except Exception as exc:
         logger.error(
@@ -98,7 +97,6 @@ async def health_check():
 
 @app.get("/health/detailed", tags=["Health"])
 async def detailed_health_check():
-    from datetime import datetime, timezone
     import redis
 
     checks = {
@@ -167,7 +165,7 @@ async def detailed_health_check():
     return {
         "status": overall,
         "service": settings.APP_NAME,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": utc_now().isoformat(),
         "checks": checks,
     }
  

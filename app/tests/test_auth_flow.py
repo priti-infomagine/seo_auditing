@@ -10,13 +10,14 @@ Verifies that:
     5. The blacklisted access token is rejected by get_current_user
 """
 import uuid
-from datetime import datetime, timezone
+from datetime import timezone
 
 import pytest
 from fastapi import HTTPException
 from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy import select
 
+from app.core.datetime_utils import utc_now
 from app.modules.auth.utils.auth_utils import decode_token
 from app.core.security import get_current_user, hash_token
 from app.modules.auth.models.otp import OTP, OTPType
@@ -71,7 +72,7 @@ async def test_register_verify_otp_logout_flow(db_session):
     otp_record = otp_result.scalar_one_or_none()
     assert otp_record is not None, "OTP should exist"
     assert otp_record.otp_type == OTPType.REGISTER_OTP
-    assert otp_record.expires_at > datetime.now(timezone.utc), "OTP should not be expired"
+    assert otp_record.expires_at > utc_now(), "OTP should not be expired"
 
     # ── Step 3: Verify OTP (auto-login) ────────────────────────────────
     verify_service = VerifyOTPService(db_session)

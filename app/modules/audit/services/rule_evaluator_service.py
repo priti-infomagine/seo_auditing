@@ -12,12 +12,12 @@ remaining rules and pages.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
@@ -113,7 +113,7 @@ class RuleEvaluatorService:
                     "rules_run": 0,
                     "total_results": 0,
                     "errors": [],
-                    "evaluated_at": datetime.now(timezone.utc).isoformat(),
+                    "evaluated_at": utc_now().isoformat(),
                 }
 
             pages_evaluated = 0
@@ -159,7 +159,7 @@ class RuleEvaluatorService:
                         score_impact=0,
                         message=str(exc),
                         recommendation="Fix data or rule configuration",
-                        evaluated_at=datetime.now(timezone.utc),
+                        evaluated_at=utc_now(),
                     )
                     all_results.append(error_result)
                     total_results += 1
@@ -181,7 +181,7 @@ class RuleEvaluatorService:
                 "rules_run": rules_run,
                 "total_results": total_results,
                 "errors": errors,
-                "evaluated_at": datetime.now(timezone.utc).isoformat(),
+                "evaluated_at": utc_now().isoformat(),
             }
 
         except Exception as exc:
@@ -240,7 +240,7 @@ class RuleEvaluatorService:
                     ))
 
             # Convert to RuleEvaluationResult and set project_id/crawl_id/page_id
-            now = datetime.now(timezone.utc)
+            now = utc_now()
             eval_results = [
                 RuleEvaluationResult(
                     project_id=project_id,

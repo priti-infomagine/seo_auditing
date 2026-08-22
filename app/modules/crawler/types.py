@@ -2,10 +2,12 @@
 Crawler Core Data Types and State Enum.
 """
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID
+
+from app.core.datetime_utils import utc_now
 
 
 @dataclass(slots=True)
@@ -79,4 +81,4 @@ class DiscoveredURL:
     source_type: str  # seed, html_link, sitemap, robots, canonical, hreflang, rendered_dom
     depth: int = 0
     parent_page_id: Optional[UUID] = None
-    discovered_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    discovered_at: datetime = field(default_factory=lambda: utc_now())

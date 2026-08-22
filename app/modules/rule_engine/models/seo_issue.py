@@ -11,7 +11,7 @@ SEOIssue is the INTERNAL contract. Its public projection is the slim
 `issues[]` array: {page_url, affected_part} only.
 """
 from enum import Enum
-from typing import Optional
+from typing import Any, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -51,6 +51,12 @@ class SEOIssue(BaseModel):
     )
     recommendation: Optional[str] = Field(
         default=None, description="Suggested fix text"
+    )
+    current_description: Optional[str] = Field(
+        default=None, description="Current state/value of the checked element"
+    )
+    recommended: List[str] = Field(
+        default_factory=list, description="Recommended values or actions with lengths"
     )
 
     page_id: Optional[str] = Field(default=None, description="DB page uuid (internal)")

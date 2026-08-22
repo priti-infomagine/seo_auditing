@@ -43,6 +43,7 @@ class CrawlError(TimestampMixin, Base):
             "timeout",
             "connection_error",
             "robots_error",
+            "network_error",
             name="crawl_error_type_enum",
         ),
         nullable=False,

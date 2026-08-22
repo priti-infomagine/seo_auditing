@@ -21,13 +21,13 @@ from __future__ import annotations
 
 import logging
 from collections import defaultdict
-from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.datetime_utils import to_iso
 from app.core.logger import logger
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.audit.repositories.parsed_page_fact_repository import (
@@ -505,6 +505,8 @@ class AuditResponseBuilder:
                 "message": i.message or i.affected_part,
                 "page_url": i.page_url,
                 "affected_part": i.affected_part,
+                "current_description": i.current_description,
+                "recommended": i.recommended,
             }
             for i in all_seo_issues
             if i.status == "failed"
@@ -571,8 +573,8 @@ class AuditResponseBuilder:
         broken_pages: int,
         crawl_errors: int,
     ) -> Dict[str, Any]:
-        started_at = _iso(crawl_job.created_at) if crawl_job else None
-        completed_at = _iso(crawl_job.completed_at) if crawl_job else None
+        started_at = to_iso(crawl_job.created_at) if crawl_job else None
+        completed_at = to_iso(crawl_job.completed_at) if crawl_job else None
         return {
             "pages_discovered": pages_discovered,
             "pages_crawled": pages_crawled,
@@ -863,8 +865,8 @@ class AuditResponseBuilder:
             "project_id": str(project_id),
             "url": crawl_job.url if crawl_job else None,
             "domain": crawl_job.domain if crawl_job else None,
-            "started_at": _iso(crawl_job.created_at) if crawl_job else None,
-            "completed_at": _iso(crawl_job.completed_at) if crawl_job else None,
+            "started_at": to_iso(crawl_job.created_at) if crawl_job else None,
+            "completed_at": to_iso(crawl_job.completed_at) if crawl_job else None,
             "status": crawl_job.status if crawl_job else None,
             "pages_discovered": pages_discovered,
             "pages_crawled": pages_crawled,
@@ -883,16 +885,6 @@ def _coerce_uuid(value) -> UUID:
         return UUID(str(value))
     except Exception:
         return value
-
-
-def _iso(dt: Optional[datetime]) -> Optional[str]:
-    if dt is None:
-        return None
-    if isinstance(dt, str):
-        return dt
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.isoformat()
 
 
 def _unavailable(reason: str) -> Dict[str, Any]:

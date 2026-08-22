@@ -9,12 +9,13 @@ Steps:
     5. Return success
 """
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 from fastapi import HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.datetime_utils import utc_now
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.token_blacklist import TokenBlacklist
 from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse
@@ -49,7 +50,7 @@ class LogoutService:
             )
         
         # ── 3. Revoke refresh token if it hasn't expired yet ───────────
-        if stored_token.expires_at >= datetime.now(timezone.utc):
+        if stored_token.expires_at >= utc_now():
             stored_token.is_revoked = True
 
         # ── 4. Blacklist the access token (by JTI) ─────────────────────
@@ -57,7 +58,7 @@ class LogoutService:
             select(TokenBlacklist).where(TokenBlacklist.jti == access_token_jti)
         )
         if existing_blacklist.scalar_one_or_none() is None:
-            blacklist_expires_at = access_token_expires_at or datetime.now(timezone.utc)
+            blacklist_expires_at = access_token_expires_at or utc_now()
             blacklisted_entry = TokenBlacklist(
                 jti=access_token_jti,
                 user_id=stored_token.user_id,

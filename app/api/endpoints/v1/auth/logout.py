@@ -10,13 +10,14 @@ Steps:
     6. Delete refresh token cookie
 """
 
-from datetime import datetime, timezone
+from datetime import timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from jose import JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
+from app.core.datetime_utils import utc_now
 from app.modules.auth.utils.auth_utils import decode_token
 from app.core.logger import logger
 from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse

@@ -1,6 +1,8 @@
-from datetime import datetime, timezone
+from datetime import datetime
+
 from uuid import UUID
 
+from app.core.datetime_utils import utc_now
 from app.core.database import async_session_factory
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
@@ -105,6 +107,6 @@ async def _mark_failed(db, crawl_uuid: UUID, error_message: str) -> None:
     if job and job.status not in ("completed", "failed", "cancelled"):
         job.status = "failed"
         job.error = error_message[:1024]
-        job.completed_at = datetime.now(timezone.utc)
+        job.completed_at = utc_now()
         job.progress_percent = 100
         await job_repo.update(job)

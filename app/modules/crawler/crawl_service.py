@@ -1,4 +1,4 @@
-﻿"""
+"""
 CrawlerService - high-level crawler service.
 
 Wraps the new crawler services to crawl a single URL and persist the results
@@ -7,10 +7,10 @@ the API layer and tests expect.
 """
 import json
 from collections import deque
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
@@ -71,7 +71,7 @@ class CrawlerService:
         # Save full crawl data to disk
         self._save_to_storage(result, storage_path, normalized, domain, test_number)
 
-        crawled_at = datetime.now(timezone.utc).isoformat()
+        crawled_at = utc_now().isoformat()
 
         # Build the response ``data`` dict
         data = {
@@ -293,7 +293,7 @@ class CrawlerService:
         }
         payload["domain"] = domain
         payload["test_number"] = test_number
-        payload["crawled_at"] = datetime.now(timezone.utc).isoformat()
+        payload["crawled_at"] = utc_now().isoformat()
 
         with open(storage_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False)

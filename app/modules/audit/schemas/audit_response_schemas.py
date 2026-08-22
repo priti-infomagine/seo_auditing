@@ -32,6 +32,12 @@ class SEOIssueResponse(BaseModel):
     affected_part: str = Field(
         ..., description="Specific element/location affected, e.g. 'meta_description'"
     )
+    current_description: Optional[str] = Field(
+        None, description="Current state/value of the checked element"
+    )
+    recommended: List[str] = Field(
+        default_factory=list, description="Recommended values or actions with lengths"
+    )
 
 
 class _Metric(BaseModel):

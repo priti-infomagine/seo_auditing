@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+from datetime import datetime, timezone
 
 
 # Ensure logs directory exists
@@ -11,7 +12,8 @@ file_handler = logging.FileHandler(
 )
 
 formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)s | %(message)s"
+    "%(asctime)s | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%dT%H:%M:%S+00:00",
 )
 
 file_handler.setFormatter(formatter)
@@ -22,7 +24,8 @@ def setup_logger():
     logger.setLevel(logging.INFO)
 
     formatter = logging.Formatter(
-        "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+        "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S+00:00",
     )
 
     console_handler = logging.StreamHandler(sys.stdout)

@@ -6,11 +6,12 @@ LogoutService and asserts that the access token JTI is stored in
 token_blacklist and the refresh token is revoked. Does not create or drop tables.
 """
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 import pytest
 from sqlalchemy import select
 
+from app.core.datetime_utils import utc_now
 from app.core.security import hash_token
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.token_blacklist import TokenBlacklist
@@ -40,7 +41,7 @@ async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_sessi
     refresh_token = RefreshToken(
         user_id=user.id,
         token_hash=rt_hash,
-        expires_at=datetime.now(timezone.utc) + timedelta(days=7),
+        expires_at=utc_now() + timedelta(days=7),
         is_revoked=False,
     )
     db_session.add(refresh_token)
@@ -53,7 +54,7 @@ async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_sessi
     logout_resp = await logout_service.execute(
         logout_req,
         access_token_jti=access_token_jti,
-        access_token_expires_at=datetime.now(timezone.utc) + timedelta(
+        access_token_expires_at=utc_now() + timedelta(
             minutes=30
         ),
     )

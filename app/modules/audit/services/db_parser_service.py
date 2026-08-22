@@ -10,13 +10,13 @@ Replaces the file-based BatchParserService for production DB-backed pipelines.
 from __future__ import annotations
 
 import hashlib
-from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
 from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.audit.models.parsed_page_facts import ParsedPageFact
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
@@ -106,7 +106,7 @@ class DBParserService:
                     "pages_failed": 0,
                     "pages_skipped": len(pages),
                     "errors": [],
-                    "parsed_at": datetime.now(timezone.utc).isoformat(),
+                    "parsed_at": utc_now().isoformat(),
                 }
 
             parsed_count = 0
@@ -154,7 +154,7 @@ class DBParserService:
                 "pages_failed": failed_count,
                 "pages_skipped": skipped_count,
                 "errors": errors,
-                "parsed_at": datetime.now(timezone.utc).isoformat(),
+                "parsed_at": utc_now().isoformat(),
             }
 
         except ParserError:
@@ -285,7 +285,7 @@ class DBParserService:
                 attributes=attributes,
                 parse_errors=parse_errors or None,
                 content_hash=content_hash,
-                parsed_at=datetime.now(timezone.utc),
+                parsed_at=utc_now(),
             )
 
             # Persist (upsert)

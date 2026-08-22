@@ -11,13 +11,13 @@ output file to `app/output/{domain}_{project_id}.json`.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.datetime_utils import to_iso, utc_now
 from app.core.logger import logger
 from app.modules.audit.models.seo_analysis_runs import SeoAnalysisRun
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
@@ -73,7 +73,7 @@ class AnalysisScorerService:
             builder = AuditResponseBuilder(self.db)
             unified: Dict[str, Any] = await builder.build(project_id, crawl_id)
 
-            scored_at = datetime.now(timezone.utc)
+            scored_at = utc_now()
             overall = unified["summary"]["overall_score"]
             grade = self.calculator._get_grade(overall)
 
@@ -153,11 +153,11 @@ class AnalysisScorerService:
             filepath = output_dir / filename
 
             with open(filepath, "w", encoding="utf-8") as f:
-                json.dump(unified, f, indent=2, ensure_ascii=False, default=str)
+                json.dump(unified, f, indent=2, ensure_ascii=False, default=_json_serializer)
 
             latest_path = output_dir / f"{domain}_latest.json"
             with open(latest_path, "w", encoding="utf-8") as f:
-                json.dump(unified, f, indent=2, ensure_ascii=False, default=str)
+                json.dump(unified, f, indent=2, ensure_ascii=False, default=_json_serializer)
 
             return str(filepath)
 
@@ -167,3 +167,11 @@ class AnalysisScorerService:
                 exc_info=True,
             )
             return ""
+
+
+def _json_serializer(obj):
+    from datetime import datetime
+
+    if isinstance(obj, datetime):
+        return to_iso(obj)
+    raise TypeError(f"Object of type {type(obj)} is not JSON serializable")

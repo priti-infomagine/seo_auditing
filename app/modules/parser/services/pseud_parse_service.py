@@ -1,10 +1,10 @@
 import json
 import re
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 from urllib.parse import urlparse
 
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 
 from .parser_service import ParserService
@@ -73,7 +73,7 @@ class ParseService:
             "source_crawl_file": crawl_file.name,
         }
 
-        parsed_output["parsed_at"] = datetime.now().isoformat()
+        parsed_output["parsed_at"] = utc_now().isoformat()
 
         filepath, test_number = self._save_parsed_data(parsed_output, actual_domain)
 
@@ -157,7 +157,7 @@ class ParseService:
         domain_dir.mkdir(parents=True, exist_ok=True)
 
         test_number = self._get_next_test_number(domain)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = utc_now().strftime("%Y%m%d_%H%M%S")
         filepath = domain_dir / f"{domain}_test_{test_number}_{timestamp}.json"
 
         with filepath.open("w", encoding="utf-8") as file:

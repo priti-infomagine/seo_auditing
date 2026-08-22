@@ -13,7 +13,7 @@ Steps:
 """
 import uuid
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from fastapi import HTTPException, status
 from jose import JWTError
@@ -21,6 +21,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.token_blacklist import TokenBlacklist
 from app.modules.auth.schemas.refresh import (
@@ -91,14 +92,14 @@ class RefreshTokenService:
                 detail="Refresh token has been revoked.",
             )
 
-        if datetime.now(timezone.utc) > stored_token.expires_at:
+        if utc_now() > stored_token.expires_at:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Refresh token has expired.",
             )
 
         # ── 4. Update last_used_at on the old token ────────────────────
-        stored_token.last_used_at = datetime.now(timezone.utc)
+        stored_token.last_used_at = utc_now()
 
         # ── 5. Revoke the old token (rotation) ─────────────────────────
         stored_token.is_revoked = True
@@ -122,7 +123,7 @@ class RefreshTokenService:
 
         # ── 8. Store new refresh token hash in DB (with device info) ───
         new_token_hash = hash_token(new_refresh_token)
-        rt_expires_at = datetime.now(timezone.utc) + timedelta(
+        rt_expires_at = utc_now() + timedelta(
             days=settings.REFRESH_TOKEN_EXPIRE_DAYS
         )
 

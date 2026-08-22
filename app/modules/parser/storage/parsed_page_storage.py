@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from app.core.datetime_utils import utc_now
+
 
 class ParsedPageStorage:
     """
@@ -20,7 +22,7 @@ class ParsedPageStorage:
         domain_dir.mkdir(parents=True, exist_ok=True)
 
         test_number = self._next_test_number(domain)
-        timestamp = __import__("datetime").datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = utc_now().strftime("%Y%m%d_%H%M%S")
         filepath = domain_dir / f"{domain}_test_{test_number}_{timestamp}.json"
 
         import json
