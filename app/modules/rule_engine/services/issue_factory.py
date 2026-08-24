@@ -93,7 +93,7 @@ class RuleResultToSEOIssueConverter:
             score_impact=result.score_impact,
             message=result.message if isinstance(result.message, str) else None,
             recommendation=result.recommendation if isinstance(result.recommendation, str) else None,
-            current_description=cls._build_current_description(result),
+            current_description=cls._current_description(result),
             recommended=cls._build_recommended(result),
             page_id=page_id,
             crawl_id=crawl_id,
@@ -102,7 +102,7 @@ class RuleResultToSEOIssueConverter:
 
 
     @staticmethod
-    def _build_current_description(result: RuleResult) -> Optional[str]:
+    def _current_description(result: RuleResult) -> Optional[str]:
         """Extract the current state from rule data or message."""
         if not result.data:
             return result.message or None
