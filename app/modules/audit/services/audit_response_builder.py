@@ -460,6 +460,8 @@ class AuditResponseBuilder:
                     "message": i.message or i.affected_part,
                     "page_url": i.page_url,
                     "affected_part": i.affected_part,
+                    "current_value": i.current_value,
+                    "recommended": i.recommended,
                 })
 
         out: List[Dict[str, Any]] = []
@@ -505,7 +507,7 @@ class AuditResponseBuilder:
                 "message": i.message or i.affected_part,
                 "page_url": i.page_url,
                 "affected_part": i.affected_part,
-                "current_description": i.current_description,
+                "current_value": i.current_value,
                 "recommended": i.recommended,
             }
             for i in all_seo_issues

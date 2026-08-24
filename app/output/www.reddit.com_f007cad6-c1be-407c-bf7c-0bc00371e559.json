@@ -1,26 +1,26 @@
 {
   "audit": {
-    "audit_id": "dcc53db1-e3e1-4c1c-91bc-9cd4b4fe53ab",
-    "project_id": "c07bfa28-e7eb-4d35-ac03-7f54ba59d0a9",
+    "audit_id": "f70faaea-3104-4b44-9268-fa386490d08d",
+    "project_id": "f007cad6-c1be-407c-bf7c-0bc00371e559",
     "url": "https://www.reddit.com/",
     "domain": "www.reddit.com",
-    "started_at": "2026-08-24T08:09:06.594612+00:00",
-    "completed_at": "2026-08-24T08:09:25.933900+00:00",
+    "started_at": "2026-08-24T07:26:44.872337+00:00",
+    "completed_at": "2026-08-24T07:27:01.459838+00:00",
     "status": "completed",
     "pages_discovered": 1,
     "pages_crawled": 1,
     "pages_analyzed": 1
   },
   "summary": {
-    "overall_score": 88.4,
+    "overall_score": 87.8,
     "health": "good",
-    "critical_issues": 2,
+    "critical_issues": 3,
     "high_issues": 7,
     "medium_issues": 7,
     "low_issues": 5,
-    "passed_checks": 43,
-    "failed_checks": 21,
-    "recommended_score": 67.1,
+    "passed_checks": 42,
+    "failed_checks": 22,
+    "recommended_score": 66.4,
     "recommended_health": "needs_improvement"
   },
   "categories": [
@@ -38,45 +38,35 @@
           "severity": "medium",
           "message": "Meta description length is 132 characters (recommended: 140-160)",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "meta_description",
-          "current_value": "Meta description: Reddit is where millions of people gather for conversations about the things they care about, in over 100,000 subreddit communities. (132 chars)",
-          "recommended": []
+          "affected_part": "meta_description"
         },
         {
           "rule_id": "on_page_003",
           "severity": "critical",
           "message": "Missing H1 tag",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "h1",
-          "current_value": "Missing H1 tag",
-          "recommended": []
+          "affected_part": "h1"
         },
         {
           "rule_id": "on_page_004",
           "severity": "medium",
           "message": "Heading hierarchy issues: Missing H1",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "heading_hierarchy",
-          "current_value": "Heading issues: Missing H1",
-          "recommended": []
+          "affected_part": "heading_hierarchy"
         },
         {
           "rule_id": "on_page_006",
           "severity": "high",
           "message": "Missing canonical URL tag",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "canonical",
-          "current_value": "Missing canonical URL tag",
-          "recommended": []
+          "affected_part": "canonical"
         },
         {
           "rule_id": "on_page_008",
           "severity": "medium",
           "message": "Missing Open Graph tags: og:description",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "open_graph",
-          "current_value": "Missing Open Graph tags: og:description",
-          "recommended": []
+          "affected_part": "open_graph"
         }
       ]
     },
@@ -94,45 +84,35 @@
           "severity": "medium",
           "message": "HTML language attribute not specified",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "unknown",
-          "current_value": "HTML language attribute not specified",
-          "recommended": []
+          "affected_part": "unknown"
         },
         {
           "rule_id": "technical_004",
           "severity": "medium",
           "message": "Character encoding not specified",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "charset",
-          "current_value": "Character encoding not specified",
-          "recommended": []
+          "affected_part": "charset"
         },
         {
           "rule_id": "technical_005",
           "severity": "critical",
           "message": "Missing DOCTYPE declaration",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "doctype",
-          "current_value": "Missing DOCTYPE declaration",
-          "recommended": []
+          "affected_part": "doctype"
         },
         {
           "rule_id": "technical_009",
           "severity": "low",
           "message": "No sitemap data available",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "sitemap",
-          "current_value": "No sitemap data available",
-          "recommended": []
+          "affected_part": "sitemap"
         },
         {
           "rule_id": "technical_010",
           "severity": "high",
           "message": "No structured data / schema markup found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "structured_data",
-          "current_value": "No structured data / schema markup found",
-          "recommended": []
+          "affected_part": "structured_data"
         }
       ]
     },
@@ -150,27 +130,21 @@
           "severity": "medium",
           "message": "No paragraphs found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "paragraph_structure",
-          "current_value": "No paragraphs found",
-          "recommended": []
+          "affected_part": "paragraph_structure"
         },
         {
           "rule_id": "content_006",
           "severity": "high",
           "message": "Duplicate content risk: No canonical URL, Content hash present but no canonical",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "duplicate_content",
-          "current_value": "No canonical URL set",
-          "recommended": []
+          "affected_part": "duplicate_content"
         },
         {
           "rule_id": "content_007",
           "severity": "low",
           "message": "No content freshness dates found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "content_freshness",
-          "current_value": "No content freshness dates found",
-          "recommended": []
+          "affected_part": "content_freshness"
         }
       ]
     },
@@ -188,18 +162,14 @@
           "severity": "low",
           "message": "No external links found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "external_links",
-          "current_value": "No external links found",
-          "recommended": []
+          "affected_part": "external_links"
         },
         {
           "rule_id": "links_004",
           "severity": "high",
-          "message": "185 links have generic/non-descriptive anchor text",
+          "message": "184 links have generic/non-descriptive anchor text",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "anchor_text",
-          "current_value": "185 links have generic/non-descriptive anchor text",
-          "recommended": []
+          "affected_part": "anchor_text"
         }
       ]
     },
@@ -215,20 +185,16 @@
         {
           "rule_id": "images_001",
           "severity": "high",
-          "message": "70/140 images missing alt text (50.0% coverage)",
+          "message": "70/147 images missing alt text (52.4% coverage)",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "image_alt_text",
-          "current_value": "70/140 images missing alt text",
-          "recommended": []
+          "affected_part": "image_alt_text"
         },
         {
           "rule_id": "images_004",
           "severity": "high",
           "message": "10 images missing width/height attributes",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "image_dimensions",
-          "current_value": "10 images missing width/height attributes",
-          "recommended": []
+          "affected_part": "image_dimensions"
         }
       ]
     },
@@ -246,9 +212,7 @@
           "severity": "high",
           "message": "No structured data / schema markup found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "structured_data",
-          "current_value": "No structured data / schema markup found",
-          "recommended": []
+          "affected_part": "structured_data"
         }
       ]
     },
@@ -266,18 +230,14 @@
           "severity": "low",
           "message": "No social media links found",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "social_media_links",
-          "current_value": "No social media links found",
-          "recommended": []
+          "affected_part": "social_media_links"
         },
         {
           "rule_id": "social_004",
           "severity": "low",
           "message": "No Facebook App ID or admins meta tag",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "facebook_domain",
-          "current_value": "No Facebook App ID or admins meta tag",
-          "recommended": []
+          "affected_part": "facebook_domain"
         }
       ]
     },
@@ -302,20 +262,25 @@
     {
       "id": "performance",
       "name": "Performance",
-      "score": 88.9,
+      "score": 77.8,
       "status": "good",
       "checks_total": 9,
-      "checks_passed": 8,
-      "checks_failed": 1,
+      "checks_passed": 7,
+      "checks_failed": 2,
       "issues": [
+        {
+          "rule_id": "perf_001",
+          "severity": "critical",
+          "message": "Very slow response time: 9.44s",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "response_time"
+        },
         {
           "rule_id": "perf_006",
           "severity": "medium",
           "message": "No compression detected",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "compression",
-          "current_value": "No compression detected",
-          "recommended": []
+          "affected_part": "compression"
         }
       ]
     }
@@ -351,10 +316,10 @@
     {
       "rule_id": "images_001",
       "severity": "high",
-      "message": "70/140 images missing alt text (50.0% coverage)",
+      "message": "70/147 images missing alt text (52.4% coverage)",
       "page_url": "https://www.reddit.com/",
       "affected_part": "image_alt_text",
-      "current_value": "70/140 images missing alt text",
+      "current_value": "70/147 images missing alt text",
       "recommended": []
     },
     {
@@ -378,10 +343,10 @@
     {
       "rule_id": "links_004",
       "severity": "high",
-      "message": "185 links have generic/non-descriptive anchor text",
+      "message": "184 links have generic/non-descriptive anchor text",
       "page_url": "https://www.reddit.com/",
       "affected_part": "anchor_text",
-      "current_value": "185 links have generic/non-descriptive anchor text",
+      "current_value": "184 links have generic/non-descriptive anchor text",
       "recommended": []
     },
     {
@@ -427,6 +392,15 @@
       "page_url": "https://www.reddit.com/",
       "affected_part": "open_graph",
       "current_value": "Missing Open Graph tags: og:description",
+      "recommended": []
+    },
+    {
+      "rule_id": "perf_001",
+      "severity": "critical",
+      "message": "Very slow response time: 9.44s",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "response_time",
+      "current_value": "Very slow response time: 9.44s",
       "recommended": []
     },
     {
@@ -892,9 +866,9 @@
         "affected_pages": 0
       },
       "response_time": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "total_page_size": {
         "status": "excellent",
@@ -923,8 +897,8 @@
     "status_codes": {
       "200": 1
     },
-    "started_at": "2026-08-24T08:09:06.594612+00:00",
-    "completed_at": "2026-08-24T08:09:25.933900+00:00"
+    "started_at": "2026-08-24T07:26:44.872337+00:00",
+    "completed_at": "2026-08-24T07:27:01.459838+00:00"
   },
   "indexation": {
     "indexable": 1,
@@ -946,7 +920,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 10572.0,
+      "value": 9437.0,
       "unit": "milliseconds",
       "status": "critical",
       "reason": null
@@ -961,7 +935,7 @@
   },
   "links": {
     "internal": {
-      "total": 185,
+      "total": 184,
       "broken": {
         "available": false,
         "value": null,
@@ -981,16 +955,16 @@
       "value": null,
       "reason": "link_graph_analysis_not_implemented"
     },
-    "total_links": 185
+    "total_links": 184
   },
   "images": {
-    "total": 140,
+    "total": 147,
     "missing_alt": 70,
     "empty_alt": 0,
-    "missing_dimensions": 50,
+    "missing_dimensions": 55,
     "oversized": 0,
     "modern_format": 0,
-    "lazy_loading": 79
+    "lazy_loading": 83
   },
   "content": {
     "thin_pages": 0,
@@ -1015,6 +989,7 @@
   "priorities": {
     "critical": [
       "on_page_003",
+      "perf_001",
       "technical_005"
     ],
     "high": [
@@ -1050,6 +1025,14 @@
       "title": "Missing or multiple H1 tags",
       "action": "Add a single <h1> containing your primary keyword.",
       "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 1,
+      "rule_id": "perf_001",
+      "title": "Slow server response time (TTFB)",
+      "action": "Reduce server response time (optimize queries, use caching, CDN).",
+      "effort": "medium",
       "affected_pages": 1
     },
     {
@@ -1185,7 +1168,7 @@
     "parser_version": "unknown",
     "rule_engine_version": "1.0.0",
     "rules_executed": 64,
-    "total_issues": 21,
+    "total_issues": 22,
     "output_shape": "unified_v1"
   }
 }

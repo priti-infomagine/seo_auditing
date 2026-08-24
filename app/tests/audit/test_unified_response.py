@@ -90,7 +90,7 @@ def test_summary_health_thresholds(builder):
 def test_issues_enriched_shape(builder):
     issues = builder._build_issues(_issues())
     for i in issues:
-        assert set(i.keys()) == {"rule_id", "severity", "message", "page_url", "affected_part", "current_description", "recommended"}
+        assert set(i.keys()) == {"rule_id", "severity", "message", "page_url", "affected_part", "current_value", "recommended"}
     assert len(issues) == 4  # passed excluded
     # rule_id scheme is traceable to recommendations[]
     assert all(isinstance(i["rule_id"], str) for i in issues)

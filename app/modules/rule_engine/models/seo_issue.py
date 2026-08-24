@@ -52,8 +52,8 @@ class SEOIssue(BaseModel):
     recommendation: Optional[str] = Field(
         default=None, description="Suggested fix text"
     )
-    current_description: Optional[str] = Field(
-        default=None, description="Current state/value of the checked element"
+    current_value: Optional[str] = Field(
+        default=None, description="Actual current value/state of the checked element"
     )
     recommended: List[str] = Field(
         default_factory=list, description="Recommended values or actions with lengths"
