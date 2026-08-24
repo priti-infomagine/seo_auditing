@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 START_URL = "https://infomagine.in"
 
 MAX_CONCURRENT = 20
-TIMEOUT = 20
+TIMEOUT = 60
 
 
 def normalize_url(url):

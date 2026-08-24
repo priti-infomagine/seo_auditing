@@ -1,54 +1,63 @@
 {
   "audit": {
-    "audit_id": "1463beb1-c236-4ec1-98c8-ad49c7881840",
-    "project_id": "c5390ed9-262a-4072-a5c9-a7a6931b7705",
+    "audit_id": "341919b3-2449-40cf-9377-1835264ae4dd",
+    "project_id": "7452cef4-a49b-4ea1-b0aa-efaddcd31b4a",
     "url": "https://www.reddit.com/",
     "domain": "www.reddit.com",
-    "started_at": "2026-08-24T12:17:38.781291+00:00",
-    "completed_at": "2026-08-24T12:17:52.700466+00:00",
+    "started_at": "2026-08-24T12:14:47.653773+00:00",
+    "completed_at": "2026-08-24T12:15:09.134182+00:00",
     "status": "completed",
     "pages_discovered": 1,
     "pages_crawled": 1,
     "pages_analyzed": 1
   },
   "summary": {
-    "overall_score": 84.8,
+    "overall_score": 88.4,
     "health": "good",
-    "critical_issues": 3,
-    "high_issues": 9,
-    "medium_issues": 6,
-    "low_issues": 8,
-    "passed_checks": 38,
-    "failed_checks": 26,
-    "recommended_score": 67.3,
+    "critical_issues": 2,
+    "high_issues": 7,
+    "medium_issues": 7,
+    "low_issues": 5,
+    "passed_checks": 43,
+    "failed_checks": 21,
+    "recommended_score": 67.1,
     "recommended_health": "needs_improvement"
   },
   "categories": [
     {
       "id": "on_page",
       "name": "On-Page SEO",
-      "score": 55.6,
+      "score": 44.4,
       "status": "poor",
       "checks_total": 9,
-      "checks_passed": 5,
-      "checks_failed": 4,
+      "checks_passed": 4,
+      "checks_failed": 5,
       "issues": [
         {
-          "rule_id": "on_page_001",
+          "rule_id": "on_page_002",
           "severity": "medium",
-          "message": "Title issues: too short",
+          "message": "Meta description length is 132 characters (recommended: 140-160)",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "title",
-          "current_value": "Title: Reddit - Prove your humanity (28 chars)",
+          "affected_part": "meta_description",
+          "current_value": "Meta description: Reddit is where millions of people gather for conversations about the things they care about, in over 100,000 subreddit communities. (132 chars)",
           "recommended": []
         },
         {
-          "rule_id": "on_page_002",
+          "rule_id": "on_page_003",
           "severity": "critical",
-          "message": "Missing meta description",
+          "message": "Missing H1 tag",
           "page_url": "https://www.reddit.com/",
-          "affected_part": "meta_description",
-          "current_value": "Missing meta description",
+          "affected_part": "h1",
+          "current_value": "Missing H1 tag",
+          "recommended": []
+        },
+        {
+          "rule_id": "on_page_004",
+          "severity": "medium",
+          "message": "Heading hierarchy issues: Missing H1",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "heading_hierarchy",
+          "current_value": "Heading issues: Missing H1",
           "recommended": []
         },
         {
@@ -63,10 +72,10 @@
         {
           "rule_id": "on_page_008",
           "severity": "medium",
-          "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "message": "Missing Open Graph tags: og:description",
           "page_url": "https://www.reddit.com/",
           "affected_part": "open_graph",
-          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "current_value": "Missing Open Graph tags: og:description",
           "recommended": []
         }
       ]
@@ -90,21 +99,21 @@
           "recommended": []
         },
         {
+          "rule_id": "technical_004",
+          "severity": "medium",
+          "message": "Character encoding not specified",
+          "page_url": "https://www.reddit.com/",
+          "affected_part": "charset",
+          "current_value": "Character encoding not specified",
+          "recommended": []
+        },
+        {
           "rule_id": "technical_005",
           "severity": "critical",
           "message": "Missing DOCTYPE declaration",
           "page_url": "https://www.reddit.com/",
           "affected_part": "doctype",
           "current_value": "Missing DOCTYPE declaration",
-          "recommended": []
-        },
-        {
-          "rule_id": "technical_007",
-          "severity": "high",
-          "message": "Missing security headers: content-security-policy (4/5 present)",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "security_headers",
-          "current_value": "Missing headers: content-security-policy",
           "recommended": []
         },
         {
@@ -130,21 +139,12 @@
     {
       "id": "content_quality",
       "name": "Content Quality",
-      "score": 60.0,
+      "score": 70.0,
       "status": "needs_improvement",
       "checks_total": 10,
-      "checks_passed": 6,
-      "checks_failed": 4,
+      "checks_passed": 7,
+      "checks_failed": 3,
       "issues": [
-        {
-          "rule_id": "content_001",
-          "severity": "high",
-          "message": "Thin content: 44 words (recommended: 150+ for standard pages)",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "word_count",
-          "current_value": "44 words on unknown page",
-          "recommended": []
-        },
         {
           "rule_id": "content_003",
           "severity": "medium",
@@ -195,10 +195,10 @@
         {
           "rule_id": "links_004",
           "severity": "high",
-          "message": "6 links have generic/non-descriptive anchor text",
+          "message": "184 links have generic/non-descriptive anchor text",
           "page_url": "https://www.reddit.com/",
           "affected_part": "anchor_text",
-          "current_value": "6 links have generic/non-descriptive anchor text",
+          "current_value": "184 links have generic/non-descriptive anchor text",
           "recommended": []
         }
       ]
@@ -206,55 +206,28 @@
     {
       "id": "images_media",
       "name": "Images & Media",
-      "score": 16.7,
-      "status": "critical",
+      "score": 66.7,
+      "status": "needs_improvement",
       "checks_total": 6,
-      "checks_passed": 1,
-      "checks_failed": 5,
+      "checks_passed": 4,
+      "checks_failed": 2,
       "issues": [
         {
           "rule_id": "images_001",
           "severity": "high",
-          "message": "1/1 images missing alt text (0.0% coverage)",
+          "message": "73/152 images missing alt text (52.0% coverage)",
           "page_url": "https://www.reddit.com/",
           "affected_part": "image_alt_text",
-          "current_value": "1/1 images missing alt text",
-          "recommended": []
-        },
-        {
-          "rule_id": "images_003",
-          "severity": "low",
-          "message": "Lazy loading not detected",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "lazy_loading",
-          "current_value": "Lazy loading not detected",
+          "current_value": "73/152 images missing alt text",
           "recommended": []
         },
         {
           "rule_id": "images_004",
           "severity": "high",
-          "message": "1 images missing width/height attributes",
+          "message": "8 images missing width/height attributes",
           "page_url": "https://www.reddit.com/",
           "affected_part": "image_dimensions",
-          "current_value": "1 images missing width/height attributes",
-          "recommended": []
-        },
-        {
-          "rule_id": "images_005",
-          "severity": "low",
-          "message": "No responsive images (srcset) detected",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "responsive_images",
-          "current_value": "No responsive images (srcset) detected",
-          "recommended": []
-        },
-        {
-          "rule_id": "images_006",
-          "severity": "low",
-          "message": "Only traditional image formats detected",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "image_formats",
-          "current_value": "Only traditional image formats detected",
+          "current_value": "8 images missing width/height attributes",
           "recommended": []
         }
       ]
@@ -282,11 +255,11 @@
     {
       "id": "social",
       "name": "Social",
-      "score": 0.0,
+      "score": 33.3,
       "status": "critical",
       "checks_total": 3,
-      "checks_passed": 0,
-      "checks_failed": 3,
+      "checks_passed": 1,
+      "checks_failed": 2,
       "issues": [
         {
           "rule_id": "social_003",
@@ -304,15 +277,6 @@
           "page_url": "https://www.reddit.com/",
           "affected_part": "facebook_domain",
           "current_value": "No Facebook App ID or admins meta tag",
-          "recommended": []
-        },
-        {
-          "rule_id": "social_005",
-          "severity": "medium",
-          "message": "No social media image specified",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "social_image",
-          "current_value": "No social media image specified",
           "recommended": []
         }
       ]
@@ -338,21 +302,12 @@
     {
       "id": "performance",
       "name": "Performance",
-      "score": 77.8,
+      "score": 88.9,
       "status": "good",
       "checks_total": 9,
-      "checks_passed": 7,
-      "checks_failed": 2,
+      "checks_passed": 8,
+      "checks_failed": 1,
       "issues": [
-        {
-          "rule_id": "perf_001",
-          "severity": "critical",
-          "message": "Very slow response time: 4.64s",
-          "page_url": "https://www.reddit.com/",
-          "affected_part": "response_time",
-          "current_value": "Very slow response time: 4.64s",
-          "recommended": []
-        },
         {
           "rule_id": "perf_006",
           "severity": "medium",
@@ -366,15 +321,6 @@
     }
   ],
   "issues": [
-    {
-      "rule_id": "content_001",
-      "severity": "high",
-      "message": "Thin content: 44 words (recommended: 150+ for standard pages)",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "word_count",
-      "current_value": "44 words on unknown page",
-      "recommended": []
-    },
     {
       "rule_id": "content_003",
       "severity": "medium",
@@ -405,46 +351,19 @@
     {
       "rule_id": "images_001",
       "severity": "high",
-      "message": "1/1 images missing alt text (0.0% coverage)",
+      "message": "73/152 images missing alt text (52.0% coverage)",
       "page_url": "https://www.reddit.com/",
       "affected_part": "image_alt_text",
-      "current_value": "1/1 images missing alt text",
-      "recommended": []
-    },
-    {
-      "rule_id": "images_003",
-      "severity": "low",
-      "message": "Lazy loading not detected",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "lazy_loading",
-      "current_value": "Lazy loading not detected",
+      "current_value": "73/152 images missing alt text",
       "recommended": []
     },
     {
       "rule_id": "images_004",
       "severity": "high",
-      "message": "1 images missing width/height attributes",
+      "message": "8 images missing width/height attributes",
       "page_url": "https://www.reddit.com/",
       "affected_part": "image_dimensions",
-      "current_value": "1 images missing width/height attributes",
-      "recommended": []
-    },
-    {
-      "rule_id": "images_005",
-      "severity": "low",
-      "message": "No responsive images (srcset) detected",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "responsive_images",
-      "current_value": "No responsive images (srcset) detected",
-      "recommended": []
-    },
-    {
-      "rule_id": "images_006",
-      "severity": "low",
-      "message": "Only traditional image formats detected",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "image_formats",
-      "current_value": "Only traditional image formats detected",
+      "current_value": "8 images missing width/height attributes",
       "recommended": []
     },
     {
@@ -459,28 +378,37 @@
     {
       "rule_id": "links_004",
       "severity": "high",
-      "message": "6 links have generic/non-descriptive anchor text",
+      "message": "184 links have generic/non-descriptive anchor text",
       "page_url": "https://www.reddit.com/",
       "affected_part": "anchor_text",
-      "current_value": "6 links have generic/non-descriptive anchor text",
-      "recommended": []
-    },
-    {
-      "rule_id": "on_page_001",
-      "severity": "medium",
-      "message": "Title issues: too short",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "title",
-      "current_value": "Title: Reddit - Prove your humanity (28 chars)",
+      "current_value": "184 links have generic/non-descriptive anchor text",
       "recommended": []
     },
     {
       "rule_id": "on_page_002",
-      "severity": "critical",
-      "message": "Missing meta description",
+      "severity": "medium",
+      "message": "Meta description length is 132 characters (recommended: 140-160)",
       "page_url": "https://www.reddit.com/",
       "affected_part": "meta_description",
-      "current_value": "Missing meta description",
+      "current_value": "Meta description: Reddit is where millions of people gather for conversations about the things they care about, in over 100,000 subreddit communities. (132 chars)",
+      "recommended": []
+    },
+    {
+      "rule_id": "on_page_003",
+      "severity": "critical",
+      "message": "Missing H1 tag",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "h1",
+      "current_value": "Missing H1 tag",
+      "recommended": []
+    },
+    {
+      "rule_id": "on_page_004",
+      "severity": "medium",
+      "message": "Heading hierarchy issues: Missing H1",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "heading_hierarchy",
+      "current_value": "Heading issues: Missing H1",
       "recommended": []
     },
     {
@@ -495,19 +423,10 @@
     {
       "rule_id": "on_page_008",
       "severity": "medium",
-      "message": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+      "message": "Missing Open Graph tags: og:description",
       "page_url": "https://www.reddit.com/",
       "affected_part": "open_graph",
-      "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
-      "recommended": []
-    },
-    {
-      "rule_id": "perf_001",
-      "severity": "critical",
-      "message": "Very slow response time: 4.64s",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "response_time",
-      "current_value": "Very slow response time: 4.64s",
+      "current_value": "Missing Open Graph tags: og:description",
       "recommended": []
     },
     {
@@ -547,15 +466,6 @@
       "recommended": []
     },
     {
-      "rule_id": "social_005",
-      "severity": "medium",
-      "message": "No social media image specified",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "social_image",
-      "current_value": "No social media image specified",
-      "recommended": []
-    },
-    {
       "rule_id": "technical_003",
       "severity": "medium",
       "message": "HTML language attribute not specified",
@@ -565,21 +475,21 @@
       "recommended": []
     },
     {
+      "rule_id": "technical_004",
+      "severity": "medium",
+      "message": "Character encoding not specified",
+      "page_url": "https://www.reddit.com/",
+      "affected_part": "charset",
+      "current_value": "Character encoding not specified",
+      "recommended": []
+    },
+    {
       "rule_id": "technical_005",
       "severity": "critical",
       "message": "Missing DOCTYPE declaration",
       "page_url": "https://www.reddit.com/",
       "affected_part": "doctype",
       "current_value": "Missing DOCTYPE declaration",
-      "recommended": []
-    },
-    {
-      "rule_id": "technical_007",
-      "severity": "high",
-      "message": "Missing security headers: content-security-policy (4/5 present)",
-      "page_url": "https://www.reddit.com/",
-      "affected_part": "security_headers",
-      "current_value": "Missing headers: content-security-policy",
       "recommended": []
     },
     {
@@ -609,14 +519,14 @@
         "affected_pages": 1
       },
       "h1": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "headings": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "meta_descriptions": {
         "status": "critical",
@@ -639,9 +549,9 @@
         "affected_pages": 0
       },
       "titles": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "twitter_cards": {
         "status": "excellent",
@@ -651,9 +561,9 @@
     },
     "technical_seo": {
       "charset": {
-        "status": "excellent",
-        "score": 100.0,
-        "affected_pages": 0
+        "status": "critical",
+        "score": 0.0,
+        "affected_pages": 1
       },
       "doctype": {
         "status": "critical",
@@ -691,9 +601,9 @@
         "affected_pages": 0
       },
       "security_headers": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "sitemap": {
         "status": "critical",
@@ -753,9 +663,9 @@
         "affected_pages": 0
       },
       "word_count": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       }
     },
     "internal_linking": {
@@ -802,19 +712,19 @@
         "affected_pages": 0
       },
       "image_formats": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "lazy_loading": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "responsive_images": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       }
     },
     "structured_data": {
@@ -861,9 +771,9 @@
         "affected_pages": 1
       },
       "social_image": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "social_media_links": {
         "status": "critical",
@@ -893,9 +803,9 @@
         "affected_pages": 0
       },
       "security_headers": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "ssl_certificate": {
         "status": "excellent",
@@ -982,9 +892,9 @@
         "affected_pages": 0
       },
       "response_time": {
-        "status": "critical",
-        "score": 0.0,
-        "affected_pages": 1
+        "status": "excellent",
+        "score": 100.0,
+        "affected_pages": 0
       },
       "total_page_size": {
         "status": "excellent",
@@ -1013,13 +923,13 @@
     "status_codes": {
       "200": 1
     },
-    "started_at": "2026-08-24T12:17:38.781291+00:00",
-    "completed_at": "2026-08-24T12:17:52.700466+00:00"
+    "started_at": "2026-08-24T12:14:47.653773+00:00",
+    "completed_at": "2026-08-24T12:15:09.134182+00:00"
   },
   "indexation": {
     "indexable": 1,
     "noindex": 0,
-    "canonicalized": 0,
+    "canonicalized": 1,
     "blocked_by_robots": {
       "available": false,
       "value": null,
@@ -1036,7 +946,7 @@
     },
     "ttfb": {
       "available": true,
-      "value": 4642.0,
+      "value": 12659.0,
       "unit": "milliseconds",
       "status": "critical",
       "reason": null
@@ -1051,7 +961,7 @@
   },
   "links": {
     "internal": {
-      "total": 6,
+      "total": 184,
       "broken": {
         "available": false,
         "value": null,
@@ -1071,19 +981,19 @@
       "value": null,
       "reason": "link_graph_analysis_not_implemented"
     },
-    "total_links": 6
+    "total_links": 184
   },
   "images": {
-    "total": 1,
-    "missing_alt": 1,
+    "total": 152,
+    "missing_alt": 73,
     "empty_alt": 0,
-    "missing_dimensions": 1,
+    "missing_dimensions": 56,
     "oversized": 0,
     "modern_format": 0,
-    "lazy_loading": 0
+    "lazy_loading": 88
   },
   "content": {
-    "thin_pages": 1,
+    "thin_pages": 0,
     "duplicate_pages": 0,
     "duplicate_groups": 0,
     "near_duplicate_pages": {
@@ -1104,34 +1014,29 @@
   },
   "priorities": {
     "critical": [
-      "on_page_002",
-      "perf_001",
+      "on_page_003",
       "technical_005"
     ],
     "high": [
-      "content_001",
       "content_006",
       "images_001",
       "images_004",
       "links_004",
       "on_page_006",
       "schema_001",
-      "technical_007",
       "technical_010"
     ],
     "medium": [
       "content_003",
-      "on_page_001",
+      "on_page_002",
+      "on_page_004",
       "on_page_008",
       "perf_006",
-      "social_005",
-      "technical_003"
+      "technical_003",
+      "technical_004"
     ],
     "low": [
       "content_007",
-      "images_003",
-      "images_005",
-      "images_006",
       "links_002",
       "social_003",
       "social_004",
@@ -1141,18 +1046,10 @@
   "recommendations": [
     {
       "priority": 1,
-      "rule_id": "on_page_002",
-      "title": "Missing or poorly sized meta description",
-      "action": "Add a unique, relevant meta description (140-160 characters).",
+      "rule_id": "on_page_003",
+      "title": "Missing or multiple H1 tags",
+      "action": "Add a single <h1> containing your primary keyword.",
       "effort": "low",
-      "affected_pages": 1
-    },
-    {
-      "priority": 1,
-      "rule_id": "perf_001",
-      "title": "Slow server response time (TTFB)",
-      "action": "Reduce server response time (optimize queries, use caching, CDN).",
-      "effort": "medium",
       "affected_pages": 1
     },
     {
@@ -1161,14 +1058,6 @@
       "title": "Missing DOCTYPE declaration",
       "action": "Add <!DOCTYPE html> at the start of every HTML document.",
       "effort": "low",
-      "affected_pages": 1
-    },
-    {
-      "priority": 2,
-      "rule_id": "content_001",
-      "title": "Thin or overly long content",
-      "action": "Expand thin pages to at least 300 words of useful content.",
-      "effort": "medium",
       "affected_pages": 1
     },
     {
@@ -1221,14 +1110,6 @@
     },
     {
       "priority": 2,
-      "rule_id": "technical_007",
-      "title": "Missing or incomplete security headers",
-      "action": "Set HSTS, X-Content-Type-Options, X-Frame-Options, Content-Security-Policy headers.",
-      "effort": "medium",
-      "affected_pages": 1
-    },
-    {
-      "priority": 2,
       "rule_id": "technical_010",
       "title": "Missing structured data / schema markup",
       "action": "Add Schema.org JSON-LD markup to enable rich results.",
@@ -1237,9 +1118,17 @@
     },
     {
       "priority": 3,
-      "rule_id": "on_page_001",
-      "title": "Missing or poor page title",
-      "action": "Add a descriptive <title> (50-60 characters, include primary keyword).",
+      "rule_id": "on_page_002",
+      "title": "Missing or poorly sized meta description",
+      "action": "Add a unique, relevant meta description (140-160 characters).",
+      "effort": "low",
+      "affected_pages": 1
+    },
+    {
+      "priority": 3,
+      "rule_id": "on_page_004",
+      "title": "Illogical heading hierarchy",
+      "action": "Organize headings in a logical H1→H2→H3 hierarchy.",
       "effort": "low",
       "affected_pages": 1
     },
@@ -1248,14 +1137,6 @@
       "rule_id": "on_page_008",
       "title": "on_page_008",
       "action": "Add required Open Graph tags (og:title, og:description, og:image, og:url).",
-      "effort": "low",
-      "affected_pages": 1
-    },
-    {
-      "priority": 3,
-      "rule_id": "social_005",
-      "title": "Missing social media image",
-      "action": "Add og:image and twitter:image tags for better social sharing.",
       "effort": "low",
       "affected_pages": 1
     },
@@ -1304,7 +1185,7 @@
     "parser_version": "unknown",
     "rule_engine_version": "1.0.0",
     "rules_executed": 64,
-    "total_issues": 26,
+    "total_issues": 21,
     "output_shape": "unified_v1"
   }
 }

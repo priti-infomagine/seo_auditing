@@ -221,7 +221,7 @@ class RuleEvaluatorService:
             rule_results: List[RuleResult] = []
             for rule in self.rules:
                 try:
-                    results = await asyncio.wait_for(rule.evaluate(data), timeout=30.0)
+                    results = await asyncio.wait_for(rule.evaluate(data), timeout=40.0)
                     rule_results.extend(results)
                 except asyncio.TimeoutError:
                     logger.warning(

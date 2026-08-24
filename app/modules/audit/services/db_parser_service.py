@@ -120,7 +120,7 @@ class DBParserService:
                         skipped_count += 1
                         continue
 
-                    fact = await self.parse_page(project_id, crawl_id, page.id)
+                    fact = await self.parse_page(project_id, crawl_id, page)
                     if fact:
                         parsed_count += 1
                     else:
@@ -170,7 +170,7 @@ class DBParserService:
         self,
         project_id: UUID,
         crawl_id: UUID,
-        page_id: UUID,
+        page: CrawlPage,
         force: bool = False,
     ) -> Optional[ParsedPageFact]:
         """
@@ -189,18 +189,13 @@ class DBParserService:
             ParsedPageFact if successful, None if no HTML snapshot.
         """
         try:
+            page_id = page.id
             # Check for existing facts (unless force)
             if not force and await self.parsed_fact_repo.exists(project_id, page_id):
                 logger.debug(
                     f"DBParserService.parse_page: skipping existing fact for page_id={page_id}"
                 )
                 return await self.parsed_fact_repo.get_by_page_id(project_id, page_id)
-
-            # Load page
-            page = await self.crawl_page_repo.get_by_id(page_id)
-            if not page:
-                logger.warning(f"DBParserService.parse_page: page_id={page_id} not found")
-                return None
 
             # Load snapshot HTML
             snapshot = await self.snapshot_repo.get_by_page_id(page_id)

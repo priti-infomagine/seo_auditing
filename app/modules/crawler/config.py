@@ -13,7 +13,7 @@ class CrawlConfig:
     max_depth: int = 5
 
     http_concurrency: int = 20
-    browser_concurrency: int = 3
+    browser_concurrency: int = 6
 
     request_timeout: float = 30.0
     browser_timeout: float = 45.0

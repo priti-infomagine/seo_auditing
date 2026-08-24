@@ -74,7 +74,7 @@ async def analyze_website(
             "max_pages": effective_max_pages,
             "max_depth": body.max_depth if body.max_depth is not None else 5,
             "concurrency": body.concurrency,
-            "request_timeout": 30,
+            "request_timeout": 120,
             "delay_ms": 0,
             "follow_redirects": True,
             "respect_robots": True,

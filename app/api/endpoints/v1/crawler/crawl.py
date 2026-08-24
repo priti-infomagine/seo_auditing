@@ -62,7 +62,7 @@ async def crawl_url(
             "max_depth": body.max_depth,
             "max_pages": effective_max_pages,
             "concurrency": body.concurrency,
-            "request_timeout": 30,
+            "request_timeout": 120,
             "delay_ms": 0,
             "follow_redirects": True,
             "respect_robots": True,
