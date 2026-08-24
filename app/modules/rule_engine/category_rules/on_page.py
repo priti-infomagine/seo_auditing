@@ -59,7 +59,7 @@ class MetaDescriptionRule(BaseRule):
     rule_id = "on_page_002"
     name = "Meta Description"
     category = "on_page"
-    description = "Page must have meta description with optimal length (150-160 chars)"
+    description = "Page must have meta description with optimal length (140-155 chars)"
     weight = 1.2
     tags = ["critical", "on_page", "meta"]
     
