@@ -83,11 +83,12 @@ class SecurityHeadersRule(BaseRule):
         security_headers = data.get("security_headers", {})
         
         important_headers = {
-            "x-frame-options": "Prevents clickjacking",
-            "x-content-type-options": "Prevents MIME sniffing",
+            "content-security-policy": "Helps mitigate XSS and injection attacks",
             "strict-transport-security": "Enforces HTTPS",
-            "content-security-policy": "Prevents XSS attacks",
-            "x-xss-protection": "Enables XSS filter",
+            "x-content-type-options": "Prevents MIME sniffing",
+            "x-frame-options": "Helps prevent clickjacking",
+            "referrer-policy": "Controls referrer information",
+            "permissions-policy": "Controls access to browser features",
         }
         
         present = []

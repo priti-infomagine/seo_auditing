@@ -15,12 +15,14 @@ from app.modules.rule_engine.category_rules.on_page import (
 )
 from app.modules.rule_engine.category_rules.technical import (
     SSL_CertificateRule, MobileViewportRule, LanguageDeclarationRule,
-    CharsetRule, DoctypeRule, HtmlLangRule, SecurityHeadersRule,
-    RobotsTxtRule, SitemapRule, StructuredDataRule
+    CharsetRule, DoctypeRule, SecurityHeadersRule,
+    RobotsTxtRule, SitemapRule, StructuredDataRule,
+    UrlRule, MobileRule, HttpStatusRule, HreflangRule
 )
 from app.modules.rule_engine.category_rules.content import (
     WordCountRule, ReadingTimeRule, ParagraphCountRule, TextHtmlRatioRule,
-    KeywordInContentRule, DuplicateContentRule, ContentFreshnessRule
+    KeywordInContentRule, DuplicateContentRule, ContentFreshnessRule,
+    DuplicateTitlesRule, DuplicateDescriptionsRule, DuplicateH1sRule
 )
 from app.modules.rule_engine.category_rules.links import (
     InternalLinksRule, ExternalLinksRule, BrokenLinksRule,
@@ -35,20 +37,18 @@ from app.modules.rule_engine.category_rules.schema import (
     ArticleSchemaRule, ProductSchemaRule, JsonLdFormatRule
 )
 from app.modules.rule_engine.category_rules.social import (
-    OpenGraphRule, TwitterCardsRule, SocialMediaLinksRule,
-    FacebookDomainRule, SocialImageRule
+    SocialMediaLinksRule, FacebookDomainRule, SocialImageRule
 )
 from app.modules.rule_engine.category_rules.security import (
-    HTTPSRule, MixedContentRule, SecurityHeadersRule, SSLCertificateRule,
     HSTSRule, XSSProtectionRule
 )
 from app.modules.rule_engine.category_rules.accessibility import (
-    AltTextRule, LanguageRule, HeadingStructureRule, LinkTextRule,
-    ColorContrastRule, KeyboardNavigationRule, ARIALabelsRule, FormLabelsRule
+    FormLabelsRule
 )
 from app.modules.rule_engine.category_rules.performance import (
     ResponseTimeRule, HTMLSizeRule, MinificationRule, ResourceCountRule,
-    CacheHeadersRule, CompressionRule, PageSizeRule, JavaScriptErrorsRule
+    CacheHeadersRule, CompressionRule, PageSizeRule, JavaScriptErrorsRule,
+    CoreWebVitalsRule
 )
 
 
@@ -57,14 +57,15 @@ class ScorerService:
     Orchestrates SEO scoring by running all rules and calculating final score.
     """
     
-    def __init__(self, custom_weights: Optional[Dict[str, float]] = None):
+    def __init__(self, custom_weights: Optional[Dict[str, float]] = None, settings: Any = None):
         """
         Initialize scorer service.
         
         Args:
             custom_weights: Optional custom weights for categories
+            settings: Optional settings object with SEO_SCORER_WEIGHTS
         """
-        self.score_calculator = ScoreCalculator(weights=custom_weights)
+        self.score_calculator = ScoreCalculator(weights=custom_weights, settings=settings)
         self.rules = self._load_rules()
     
     def _load_rules(self) -> List[BaseRule]:
@@ -75,15 +76,17 @@ class ScorerService:
             HeadingHierarchyRule(), MetaKeywordsRule(), CanonicalUrlRule(),
             RobotsMetaRule(), OpenGraphRule(), TwitterCardsRule(),
             
-            # Technical (10 rules)
-            SSLCertificateRule(), MobileViewportRule(), LanguageDeclarationRule(),
-            CharsetRule(), DoctypeRule(), HtmlLangRule(),
+            # Technical (12 rules)
+            SSL_CertificateRule(), MobileViewportRule(), LanguageDeclarationRule(),
+            CharsetRule(), DoctypeRule(),
             SecurityHeadersRule(), RobotsTxtRule(), SitemapRule(), StructuredDataRule(),
+            UrlRule(), MobileRule(), HttpStatusRule(), HreflangRule(),
             
-            # Content (7 rules)
+            # Content (10 rules)
             WordCountRule(), ReadingTimeRule(), ParagraphCountRule(),
             TextHtmlRatioRule(), KeywordInContentRule(), DuplicateContentRule(),
-            ContentFreshnessRule(),
+            ContentFreshnessRule(), DuplicateTitlesRule(), DuplicateDescriptionsRule(),
+            DuplicateH1sRule(),
             
             # Links (5 rules)
             InternalLinksRule(), ExternalLinksRule(), BrokenLinksRule(),
@@ -97,23 +100,19 @@ class ScorerService:
             SchemaMarkupRule(), OrganizationSchemaRule(), BreadcrumbSchemaRule(),
             ArticleSchemaRule(), ProductSchemaRule(), JsonLdFormatRule(),
             
-            # Social (5 rules)
-            OpenGraphRule(), TwitterCardsRule(), SocialMediaLinksRule(),
-            FacebookDomainRule(), SocialImageRule(),
+            # Social (3 rules)
+            SocialMediaLinksRule(), FacebookDomainRule(), SocialImageRule(),
             
-            # Security (6 rules)
-            HTTPSRule(), MixedContentRule(), SecurityHeadersRule(),
-            SSL_CertificateRule(), HSTSRule(), XSSProtectionRule(),
+            # Security (2 rules)
+            HSTSRule(), XSSProtectionRule(),
             
-            # Accessibility (8 rules)
-            AltTextRule(), LanguageRule(), HeadingStructureRule(),
-            LinkTextRule(), ColorContrastRule(), KeyboardNavigationRule(),
-            ARIALabelsRule(), FormLabelsRule(),
+            # Accessibility (1 rule)
+            FormLabelsRule(),
             
-            # Performance (8 rules)
+            # Performance (9 rules)
             ResponseTimeRule(), HTMLSizeRule(), MinificationRule(),
             ResourceCountRule(), CacheHeadersRule(), CompressionRule(),
-            PageSizeRule(), JavaScriptErrorsRule(),
+            PageSizeRule(), JavaScriptErrorsRule(), CoreWebVitalsRule(),
         ]
         
         logger.info(f"Loaded {len(rules)} scoring rules")

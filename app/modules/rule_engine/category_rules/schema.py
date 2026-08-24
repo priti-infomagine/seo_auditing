@@ -218,19 +218,46 @@ class ProductSchemaRule(BaseRule):
 
 
 class JsonLdFormatRule(BaseRule):
-    """Check that schema uses JSON-LD format."""
+    """Check that schema uses valid JSON-LD format."""
     rule_id = "schema_006"
     name = "JSON-LD Format"
     category = "schema"
-    description = "Schema should use JSON-LD format (recommended by Google)"
+    description = "Schema should use valid JSON-LD format (recommended by Google)"
     weight = 0.6
     tags = ["info", "schema", "format"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        # This would require parser to detect format; for now we assume JSON-LD
+        structured_data = data.get("structured_data", {})
+        schema_markup = structured_data.get("schema_markup", [])
+        formats = structured_data.get("formats", [])
+        
+        if not schema_markup:
+            return [self._create_result(
+                passed=True,
+                message="No schema markup to analyze",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
+        
+        has_jsonld = "json-ld" in [f.lower() for f in formats] or any(
+            isinstance(s, dict) and s.get("@context") and s.get("@type")
+            for s in schema_markup
+        )
+        
+        if has_jsonld:
+            return [self._create_result(
+                passed=True,
+                message="JSON-LD schema format detected",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data={"formats": formats, "jsonld_count": len(schema_markup)},
+            )]
+        
         return [self._create_result(
-            passed=True,
-            message="Schema format check (JSON-LD recommended)",
+            passed=False,
+            message="Schema markup found but JSON-LD format not detected",
             severity=Severity.INFO,
-            score_impact=0,
+            score_impact=-1,
+            recommendation="Use JSON-LD format for structured data (Google recommended)",
+            data={"formats": formats, "schema_count": len(schema_markup)},
         )]

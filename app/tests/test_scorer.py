@@ -152,7 +152,7 @@ class TestScorerService:
         assert "rule_results" in result
         
         assert 0 <= result["overall_score"] <= 100
-        assert result["grade"] in ["A", "B", "C", "D", "F"]
+        assert result["grade"] in ["A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"]
         assert isinstance(result["categories"], dict)
         assert len(result["rule_results"]) > 0
     
@@ -253,14 +253,20 @@ class TestIndividualRules:
         assert result[0].passed is False
         assert result[0].severity == Severity.CRITICAL
         
-        # Test thin content
-        result = await rule.evaluate({"content": {"word_count": 200}})
+        # Test thin content (<150 words)
+        result = await rule.evaluate({"content": {"word_count": 100}})
         assert result[0].passed is False
         assert result[0].severity == Severity.WARNING
         
-        # Test good content
+        # Test acceptable content (150-300 words)
+        result = await rule.evaluate({"content": {"word_count": 200}})
+        assert result[0].passed is True
+        assert result[0].severity == Severity.PASSED
+        
+        # Test good content (300+ words)
         result = await rule.evaluate({"content": {"word_count": 500}})
         assert result[0].passed is True
+        assert result[0].severity == Severity.PASSED
     
     @pytest.mark.asyncio
     async def test_image_alt_text_rule(self, scorer_service):
@@ -285,6 +291,251 @@ class TestIndividualRules:
         })
         assert result[0].passed is False
         assert result[0].severity == Severity.WARNING
+
+    @pytest.mark.asyncio
+    async def test_title_tag_pixel_width(self, scorer_service):
+        """Test TitleTagRule pixel width estimation."""
+        from app.modules.rule_engine.category_rules.on_page import TitleTagRule
+        
+        rule = TitleTagRule()
+        result = await rule.evaluate({
+            "basic": {"title": "A" * 100},
+            "content": {"text": "word " * 20}
+        })
+        assert result[0].data["pixel_width_estimate"] == 650
+
+    @pytest.mark.asyncio
+    async def test_h1_tag_improvements(self, scorer_service):
+        """Test H1TagRule with empty H1s and consistency."""
+        from app.modules.rule_engine.category_rules.on_page import H1TagRule
+        
+        rule = H1TagRule()
+        
+        # Empty H1s
+        result = await rule.evaluate({
+            "headings": {"h1": ["", ""]},
+            "basic": {"title": "Title"}
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.WARNING
+        
+        # Multiple H1s
+        result = await rule.evaluate({
+            "headings": {"h1": ["H1 A", "H1 B"]},
+            "basic": {"title": "Title"}
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.WARNING
+
+    @pytest.mark.asyncio
+    async def test_heading_hierarchy_improvements(self, scorer_service):
+        """Test HeadingHierarchyRule with excessive/duplicate headings."""
+        from app.modules.rule_engine.category_rules.on_page import HeadingHierarchyRule
+        
+        rule = HeadingHierarchyRule()
+        
+        # Excessive headings
+        result = await rule.evaluate({
+            "headings": {
+                "h1": ["H1"],
+                "h2": [f"H2{i}" for i in range(12)],
+                "heading_stats": {"heading_count": 13, "is_sequential": True}
+            }
+        })
+        assert result[0].passed is False
+        assert "Too many H2 headings" in result[0].message or "Excessive headings" in result[0].message
+        
+        # Duplicate headings
+        result = await rule.evaluate({
+            "headings": {
+                "h1": ["Same"],
+                "h2": ["Same", "Same"],
+                "heading_stats": {"heading_count": 3, "is_sequential": True}
+            }
+        })
+        assert result[0].passed is False
+        assert "duplicate headings" in result[0].message
+
+    @pytest.mark.asyncio
+    async def test_keyword_in_content_rule(self, scorer_service):
+        """Test KeywordInContentRule location checks."""
+        from app.modules.rule_engine.category_rules.content import KeywordInContentRule
+        
+        rule = KeywordInContentRule()
+        
+        result = await rule.evaluate({
+            "target_keyword": "seo",
+            "basic": {"title": "SEO Guide", "meta_description": "Learn SEO"},
+            "headings": {"h1": ["SEO Basics"], "h2": ["SEO Tips"]},
+            "url": {"path": "/seo-guide"},
+            "content": {"text": "SEO is important. SEO helps."}
+        })
+        assert result[0].passed is True
+        assert "title" in result[0].data["found_in"]
+        assert "h1" in result[0].data["found_in"]
+        assert "body" in result[0].data["found_in"]
+
+    @pytest.mark.asyncio
+    async def test_duplicate_content_rule(self, scorer_service):
+        """Test DuplicateContentRule with canonical and duplicates."""
+        from app.modules.rule_engine.category_rules.content import DuplicateContentRule
+        
+        rule = DuplicateContentRule()
+        
+        # No issues
+        result = await rule.evaluate({
+            "seo": {"canonical_url": "https://example.com/page"}
+        })
+        assert result[0].passed is True
+        
+        # Duplicate group
+        result = await rule.evaluate({
+            "seo": {
+                "canonical_url": "",
+                "content_hash": "abc123",
+                "duplicate_group_size": 3
+            }
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.CRITICAL
+
+    @pytest.mark.asyncio
+    async def test_ssl_certificate_https_false(self, scorer_service):
+        """Test SSLCertificateRule returns CRITICAL when HTTPS is False."""
+        from app.modules.rule_engine.category_rules.technical import SSL_CertificateRule
+        
+        rule = SSL_CertificateRule()
+        result = await rule.evaluate({
+            "url": {"https": False},
+            "http": {"status_code": 200},
+            "ssl": {}
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.CRITICAL
+
+    @pytest.mark.asyncio
+    async def test_broken_links_no_data(self, scorer_service):
+        """Test BrokenLinksRule returns INFO when no broken link data."""
+        from app.modules.rule_engine.category_rules.links import BrokenLinksRule
+        
+        rule = BrokenLinksRule()
+        result = await rule.evaluate({"links": {}})
+        assert result[0].passed is True
+        assert result[0].severity == Severity.INFO
+
+    @pytest.mark.asyncio
+    async def test_canonical_url_improvements(self, scorer_service):
+        """Test CanonicalUrlRule with self-referencing and relative."""
+        from app.modules.rule_engine.category_rules.on_page import CanonicalUrlRule
+        
+        rule = CanonicalUrlRule()
+        
+        # Self-referencing canonical
+        result = await rule.evaluate({
+            "seo": {"canonical_url": "https://example.com/page"},
+            "url": {"url": "https://example.com/page"}
+        })
+        assert result[0].passed is True
+        assert result[0].data.get("self_referencing") is True
+        
+        # Relative canonical
+        result = await rule.evaluate({
+            "seo": {"canonical_url": "/page"},
+            "url": {"url": "https://example.com/page"}
+        })
+        assert result[0].passed is False
+        assert result[0].data.get("relative_canonical") is True
+
+    @pytest.mark.asyncio
+    async def test_new_url_rule(self, scorer_service):
+        """Test UrlRule."""
+        from app.modules.rule_engine.category_rules.technical import UrlRule
+        
+        rule = UrlRule()
+        result = await rule.evaluate({
+            "url": {"url": "https://example.com/clean-url", "path": "/clean-url", "query": ""}
+        })
+        assert result[0].passed is True
+
+    @pytest.mark.asyncio
+    async def test_new_mobile_rule(self, scorer_service):
+        """Test MobileRule."""
+        from app.modules.rule_engine.category_rules.technical import MobileRule
+        
+        rule = MobileRule()
+        result = await rule.evaluate({
+            "basic": {"viewport": "width=device-width, initial-scale=1.0"}
+        })
+        assert result[0].passed is True
+
+    @pytest.mark.asyncio
+    async def test_new_http_status_rule(self, scorer_service):
+        """Test HttpStatusRule."""
+        from app.modules.rule_engine.category_rules.technical import HttpStatusRule
+        
+        rule = HttpStatusRule()
+        result = await rule.evaluate({"http": {"status_code": 404}})
+        assert result[0].passed is False
+        assert result[0].severity == Severity.WARNING
+        
+        result = await rule.evaluate({"http": {"status_code": 500}})
+        assert result[0].severity == Severity.CRITICAL
+
+    @pytest.mark.asyncio
+    async def test_new_hreflang_rule(self, scorer_service):
+        """Test HreflangRule."""
+        from app.modules.rule_engine.category_rules.technical import HreflangRule
+        
+        rule = HreflangRule()
+        result = await rule.evaluate({"hreflang": []})
+        assert result[0].passed is True
+        assert result[0].severity == Severity.INFO
+
+    @pytest.mark.asyncio
+    async def test_new_duplicate_rules(self, scorer_service):
+        """Test duplicate title/description/h1 rules."""
+        from app.modules.rule_engine.category_rules.content import (
+            DuplicateTitlesRule, DuplicateDescriptionsRule, DuplicateH1sRule
+        )
+        
+        # Duplicate title
+        rule = DuplicateTitlesRule()
+        result = await rule.evaluate({
+            "seo": {"title": "Same Title", "duplicate_titles": ["Same Title", "Other"]}
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.WARNING
+        
+        # Duplicate description
+        rule = DuplicateDescriptionsRule()
+        result = await rule.evaluate({
+            "seo": {"meta_description": "Same Desc", "duplicate_descriptions": ["Same Desc"]}
+        })
+        assert result[0].passed is False
+        
+        # Duplicate H1
+        rule = DuplicateH1sRule()
+        result = await rule.evaluate({
+            "headings": {"h1": ["Same H1"]},
+            "duplicate_h1s": ["Same H1"]
+        })
+        assert result[0].passed is False
+
+    @pytest.mark.asyncio
+    async def test_new_core_web_vitals_rule(self, scorer_service):
+        """Test CoreWebVitalsRule."""
+        from app.modules.rule_engine.category_rules.performance import CoreWebVitalsRule
+        
+        rule = CoreWebVitalsRule()
+        result = await rule.evaluate({})
+        assert result[0].passed is True
+        assert result[0].severity == Severity.INFO
+        
+        result = await rule.evaluate({
+            "core_web_vitals": {"lcp": 5.0, "inp": 600, "cls": 0.3}
+        })
+        assert result[0].passed is False
+        assert result[0].severity == Severity.CRITICAL
 
 
 class TestScoreAPI:

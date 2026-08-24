@@ -19,41 +19,50 @@ class SSL_CertificateRule(BaseRule):
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         http = data.get("http", {})
         url_info = data.get("url", {})
-        ssl = data.get("ssl", {})
+        ssl = data.get("ssl", {}) or {}
+        status_code = http.get("status_code", 0)
         
-        # Check URL scheme
         is_https = url_info.get("https", False)
+        ssl_valid = ssl.get("valid")
+        ssl_issuer = ssl.get("issuer", "")
+        ssl_expiry = ssl.get("expiry_date", "")
+        ssl_error = ssl.get("error", "")
         
-        # Check SSL certificate details if available
-        ssl_valid = ssl.get("valid", False) if ssl else False
-        ssl_issuer = ssl.get("issuer", "") if ssl else ""
+        if not is_https:
+            return [self._create_result(
+                passed=False,
+                message="Website is not using HTTPS",
+                severity=Severity.CRITICAL,
+                score_impact=-15,
+                recommendation="Install SSL certificate and redirect all traffic to HTTPS",
+                data={"using_https": False, "ssl_valid": False},
+            )]
         
-        if is_https and ssl_valid:
+        if ssl_valid is True:
             return [self._create_result(
                 passed=True,
                 message=f"Valid SSL certificate present (HTTPS) - Issuer: {ssl_issuer or 'Valid'}",
                 severity=Severity.PASSED,
                 score_impact=0,
-                data={"ssl_valid": True, "issuer": ssl_issuer},
+                data={"ssl_valid": True, "issuer": ssl_issuer, "expiry_date": ssl_expiry},
             )]
         
-        if is_https and not ssl_valid:
+        if ssl_valid is False:
             return [self._create_result(
                 passed=False,
-                message="HTTPS detected but SSL certificate has issues",
-                severity=Severity.CRITICAL,
-                score_impact=-15,
+                message=f"HTTPS detected but SSL certificate has issues: {ssl_error or 'invalid'}",
+                severity=Severity.WARNING,
+                score_impact=-5,
                 recommendation="Fix SSL certificate issues. Ensure certificate is valid and trusted",
-                data={"ssl_valid": False},
+                data={"ssl_valid": False, "issuer": ssl_issuer, "error": ssl_error},
             )]
         
         return [self._create_result(
-            passed=False,
-            message="Website is not using HTTPS",
-            severity=Severity.CRITICAL,
-            score_impact=-15,
-            recommendation="Install SSL certificate and redirect all traffic to HTTPS",
-            data={"ssl_valid": False, "using_https": False},
+            passed=True,
+            message="HTTPS confirmed (deep SSL validation not available from crawler)",
+            severity=Severity.INFO,
+            score_impact=0,
+            data={"ssl_valid": None, "using_https": True, "issuer": ssl_issuer},
         )]
 
 
@@ -217,48 +226,6 @@ class DoctypeRule(BaseRule):
         )]
 
 
-class HtmlLangRule(BaseRule):
-    """Check HTML lang attribute matches content."""
-    rule_id = "technical_006"
-    name = "HTML Language Attribute"
-    category = "technical"
-    description = "HTML lang attribute should be set correctly"
-    weight = 0.9
-    tags = ["warning", "technical", "accessibility"]
-    
-    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        basic = data.get("basic", {})
-        language = basic.get("language", "")
-        
-        if not language:
-            return [self._create_result(
-                passed=False,
-                message="HTML lang attribute not set",
-                severity=Severity.WARNING,
-                score_impact=-5,
-                recommendation="Add lang attribute to <html> tag (e.g., <html lang='en'>)",
-            )]
-        
-        # Validate language format (should be like 'en', 'en-US', etc.)
-        if len(language) >= 2 and language[:2].isalpha():
-            return [self._create_result(
-                passed=True,
-                message=f"HTML language properly declared: {language}",
-                severity=Severity.PASSED,
-                score_impact=0,
-                data={"language": language},
-            )]
-        
-        return [self._create_result(
-            passed=False,
-            message=f"Invalid language format: {language}",
-            severity=Severity.WARNING,
-            score_impact=-3,
-            recommendation="Use standard language codes (e.g., 'en', 'en-US', 'es')",
-            data={"language": language},
-        )]
-
-
 class SecurityHeadersRule(BaseRule):
     """Check security headers."""
     rule_id = "technical_007"
@@ -350,14 +317,21 @@ class RobotsTxtRule(BaseRule):
         if not sitemap_mentioned:
             issues.append("Sitemap not mentioned")
         
+        # Check for blocking important resources
+        disallowed = robots.get("disallowed_paths", [])
+        important_paths = ["/css/", "/js/", "/images/", "/assets/"]
+        blocked_important = [p for p in important_paths if any(p in d for d in disallowed)]
+        if blocked_important:
+            issues.append(f"Important resources blocked: {', '.join(blocked_important)}")
+        
         if issues:
             return [self._create_result(
                 passed=False,
                 message=f"Robots.txt issues: {', '.join(issues)}",
                 severity=Severity.INFO,
                 score_impact=-2,
-                recommendation="Add sitemap reference to robots.txt",
-                data={"robots": robots},
+                recommendation="Add sitemap reference and ensure important resources are not blocked",
+                data={"robots": robots, "issues": issues},
             )]
         
         return [self._create_result(
@@ -392,14 +366,23 @@ class SitemapRule(BaseRule):
         
         sitemap_urls = sitemap.get("urls", [])
         url_count = len(sitemap_urls) if sitemap_urls else 0
+        valid_urls = sitemap.get("valid_urls", 0)
+        error_urls = sitemap.get("error_urls", 0)
+        
+        details = {"url_count": url_count, "valid_urls": valid_urls, "error_urls": error_urls}
         
         if url_count > 0:
+            msg = f"XML sitemap found with {url_count} URLs"
+            if valid_urls:
+                msg += f" ({valid_urls} valid)"
+            if error_urls:
+                msg += f" ({error_urls} with errors)"
             return [self._create_result(
                 passed=True,
-                message=f"XML sitemap found with {url_count} URLs",
+                message=msg,
                 severity=Severity.PASSED,
                 score_impact=0,
-                data={"url_count": url_count},
+                data=details,
             )]
         
         return [self._create_result(
@@ -408,7 +391,7 @@ class SitemapRule(BaseRule):
             severity=Severity.WARNING,
             score_impact=-3,
             recommendation="Ensure sitemap contains all important pages",
-            data={"sitemap": sitemap},
+            data=details,
         )]
 
 
@@ -446,4 +429,269 @@ class StructuredDataRule(BaseRule):
             severity=Severity.PASSED,
             score_impact=0,
             data={"schema_count": len(schema_markup), "types": schema_types},
+        )]
+
+
+class UrlRule(BaseRule):
+    """Check URL structure and quality."""
+    rule_id = "url_001"
+    name = "URL Structure"
+    category = "technical"
+    description = "URL should be clean, readable, and optimized"
+    weight = 1.0
+    tags = ["warning", "technical", "url"]
+    
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        url_info = data.get("url", {})
+        url = url_info.get("url", "") or url_info.get("normalized_url", "")
+        path = url_info.get("path", "")
+        query = url_info.get("query", "")
+        
+        if not url:
+            return [self._create_result(
+                passed=True,
+                message="No URL data available",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
+        
+        issues = []
+        impacts = 0
+        details = {"url": url, "path": path, "query": query}
+        
+        # URL length
+        if len(url) > 120:
+            issues.append("URL too long")
+            impacts -= 2
+        elif len(url) > 100:
+            issues.append("URL slightly long")
+            impacts -= 1
+        
+        # Lowercase check
+        if url != url.lower():
+            issues.append("URL contains uppercase characters")
+            impacts -= 1
+        
+        # Hyphen separation
+        import re
+        words = re.split(r'[-_]', path.strip("/"))
+        if "_" in path:
+            issues.append("URL uses underscores instead of hyphens")
+            impacts -= 1
+        
+        # Spaces or special characters
+        if " " in url or any(c in url for c in ["%20", "%3F", "%3D"]):
+            issues.append("URL contains spaces or encoded special characters")
+            impacts -= 2
+        
+        # Excessive folder depth
+        depth = len([p for p in path.split("/") if p]) - 1
+        if depth > 5:
+            issues.append(f"Excessive folder depth ({depth})")
+            impacts -= 1
+        
+        # Query parameters
+        if len(query) > 50:
+            issues.append("Excessive query parameters")
+            impacts -= 1
+        
+        if not issues:
+            return [self._create_result(
+                passed=True,
+                message="URL structure is clean and readable",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data=details,
+            )]
+        
+        return [self._create_result(
+            passed=False,
+            message=f"URL issues: {', '.join(issues)}",
+            severity=Severity.WARNING,
+            score_impact=impacts,
+            recommendation="Use lowercase, hyphen-separated URLs without excessive parameters",
+            data=details,
+        )]
+
+
+class MobileRule(BaseRule):
+    """Check mobile friendliness."""
+    rule_id = "mobile_001"
+    name = "Mobile Friendliness"
+    category = "technical"
+    description = "Page should be mobile-friendly"
+    weight = 1.0
+    tags = ["warning", "technical", "mobile"]
+    
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        basic = data.get("basic", {})
+        viewport = basic.get("viewport", "")
+        
+        if not viewport:
+            return [self._create_result(
+                passed=False,
+                message="Missing viewport meta tag",
+                severity=Severity.WARNING,
+                score_impact=-5,
+                recommendation="Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+            )]
+        
+        viewport_lower = viewport.lower()
+        has_width = "width=device-width" in viewport_lower
+        has_initial_scale = "initial-scale=1" in viewport_lower
+        
+        if has_width and has_initial_scale:
+            return [self._create_result(
+                passed=True,
+                message="Viewport properly configured for mobile",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data={"viewport": viewport},
+            )]
+        
+        return [self._create_result(
+            passed=False,
+            message=f"Viewport may not be optimal: {viewport}",
+            severity=Severity.INFO,
+            score_impact=-2,
+            recommendation="Ensure viewport includes 'width=device-width, initial-scale=1.0'",
+            data={"viewport": viewport, "has_width": has_width, "has_initial_scale": has_initial_scale},
+        )]
+
+
+class HttpStatusRule(BaseRule):
+    """Check HTTP status code handling."""
+    rule_id = "http_status_001"
+    name = "HTTP Status Codes"
+    category = "technical"
+    description = "Check HTTP status codes and redirect handling"
+    weight = 1.2
+    tags = ["critical", "technical", "http"]
+    
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        http = data.get("http", {})
+        status_code = http.get("status_code", 0)
+        redirects = http.get("redirects", [])
+        
+        if status_code == 200:
+            return [self._create_result(
+                passed=True,
+                message="Page returns 200 OK",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data={"status_code": status_code},
+            )]
+        
+        if status_code in (301, 308):
+            return [self._create_result(
+                passed=True,
+                message=f"Permanent redirect ({status_code})",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data={"status_code": status_code},
+            )]
+        
+        if status_code in (302, 307):
+            return [self._create_result(
+                passed=False,
+                message=f"Temporary redirect ({status_code}) - consider permanent redirect",
+                severity=Severity.WARNING,
+                score_impact=-2,
+                recommendation="Use 301/308 permanent redirects for SEO",
+                data={"status_code": status_code},
+            )]
+        
+        if status_code == 404:
+            return [self._create_result(
+                passed=False,
+                message="Page not found (404)",
+                severity=Severity.WARNING,
+                score_impact=-3,
+                recommendation="Fix broken link or set up custom 404 page",
+                data={"status_code": status_code},
+            )]
+        
+        if status_code == 410:
+            return [self._create_result(
+                passed=False,
+                message="Page permanently removed (410)",
+                severity=Severity.WARNING,
+                score_impact=-3,
+                recommendation="Ensure 410 is intentional and links are updated",
+                data={"status_code": status_code},
+            )]
+        
+        if status_code in (429, 500, 502, 503, 504):
+            return [self._create_result(
+                passed=False,
+                message=f"Server error ({status_code})",
+                severity=Severity.CRITICAL,
+                score_impact=-10,
+                recommendation="Fix server error and ensure page is accessible",
+                data={"status_code": status_code},
+            )]
+        
+        return [self._create_result(
+            passed=False,
+            message=f"Unexpected status code: {status_code}",
+            severity=Severity.WARNING,
+            score_impact=-3,
+            recommendation="Investigate and resolve HTTP status code",
+            data={"status_code": status_code},
+        )]
+
+
+class HreflangRule(BaseRule):
+    """Check hreflang annotations."""
+    rule_id = "hreflang_001"
+    name = "Hreflang"
+    category = "technical"
+    description = "Check hreflang for international targeting"
+    weight = 0.8
+    tags = ["info", "technical", "international"]
+    
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        hreflang = data.get("hreflang", [])
+        
+        if not hreflang:
+            return [self._create_result(
+                passed=True,
+                message="No hreflang annotations (not applicable or not used)",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
+        
+        issues = []
+        details = {"hreflang_count": len(hreflang)}
+        
+        # Check for self-reference
+        url_info = data.get("url", {})
+        current_url = url_info.get("url", "") or url_info.get("normalized_url", "")
+        has_self = any(h.get("href", "") == current_url for h in hreflang if isinstance(h, dict))
+        if not has_self:
+            issues.append("missing self-referencing hreflang")
+            details["has_self_reference"] = False
+        
+        # Check for x-default
+        has_xdefault = any(h.get("hreflang", "").lower() == "x-default" for h in hreflang if isinstance(h, dict))
+        if not has_xdefault:
+            issues.append("missing x-default")
+            details["has_x_default"] = False
+        
+        if issues:
+            return [self._create_result(
+                passed=False,
+                message=f"Hreflang issues: {', '.join(issues)}",
+                severity=Severity.INFO,
+                score_impact=-1,
+                recommendation="Ensure hreflang includes self-reference and x-default",
+                data=details,
+            )]
+        
+        return [self._create_result(
+            passed=True,
+            message=f"Hreflang properly configured ({len(hreflang)} entries)",
+            severity=Severity.PASSED,
+            score_impact=0,
+            data=details,
         )]

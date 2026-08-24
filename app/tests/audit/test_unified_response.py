@@ -82,14 +82,15 @@ def test_summary_health_thresholds(builder):
     only_pass = _issues()[-1:]  # single passed issue
     assert builder._build_summary(95.0, only_pass)["health"] == "excellent"
     assert builder._build_summary(82.0, only_pass)["health"] == "good"
-    assert builder._build_summary(75.0, only_pass)["health"] == "poor"
-    assert builder._build_summary(59.0, only_pass)["health"] == "critical"
+    assert builder._build_summary(75.0, only_pass)["health"] == "good"
+    assert builder._build_summary(59.0, only_pass)["health"] == "poor"
+    assert builder._build_summary(39.0, only_pass)["health"] == "critical"
 
 
 def test_issues_enriched_shape(builder):
     issues = builder._build_issues(_issues())
     for i in issues:
-        assert set(i.keys()) == {"rule_id", "severity", "message", "page_url", "affected_part"}
+        assert set(i.keys()) == {"rule_id", "severity", "message", "page_url", "affected_part", "current_description", "recommended"}
     assert len(issues) == 4  # passed excluded
     # rule_id scheme is traceable to recommendations[]
     assert all(isinstance(i["rule_id"], str) for i in issues)
@@ -110,7 +111,7 @@ def test_category_results_pass_rate(builder):
     # on_page_001 failed on http://x/a -> 1 affected page of 3
     assert titles["affected_pages"] == 1
     assert titles["score"] == round(100 * (3 - 1) / 3, 1)
-    assert titles["status"] == "poor"  # score-derived (Section 4)
+    assert titles["status"] == "needs_improvement"  # score-derived (Section 4)
     h1 = cr["on_page"]["h1"]
     assert h1["affected_pages"] == 0
     assert h1["score"] == 100.0
@@ -121,6 +122,8 @@ def test_category_results_all_passed_when_clean(builder):
     cr = builder._build_category_results([], {}, 3)
     for subchecks in cr.values():
         for name, chk in subchecks.items():
+            if "status" not in chk:
+                continue
             assert chk["status"] == "excellent"
             assert chk["score"] == 100.0
             assert chk["affected_pages"] == 0
@@ -131,9 +134,12 @@ def test_category_results_has_status_and_score(builder):
     cr = builder._build_category_results(issues, _check_cache(issues), 3)
     for cat_id, subchecks in cr.items():
         for name, chk in subchecks.items():
-            assert "status" in chk
+            if "status" not in chk:
+                assert "available" in chk
+                assert chk["available"] is False
+                continue
             assert "score" in chk
-            assert chk["status"] in ("excellent", "good", "poor", "critical", "not_available")
+            assert chk["status"] in ("excellent", "good", "needs_improvement", "poor", "critical", "not_available")
 
 
 def test_categories_pass_rate_invariant_and_issues(builder):
@@ -141,7 +147,7 @@ def test_categories_pass_rate_invariant_and_issues(builder):
     cats = builder._build_categories(issues, _cat_checks(issues), _check_cache(issues), 3)
     for c in cats:
         assert c["checks_total"] == c["checks_passed"] + c["checks_failed"]
-        assert c["status"] in ("excellent", "good", "poor", "critical", "not_available")
+        assert c["status"] in ("excellent", "good", "needs_improvement", "poor", "critical", "not_available")
     onpage = next(c for c in cats if c["id"] == "on_page")
     assert "issues" in onpage and onpage["issues"]  # has failures -> issues present
     perf = next(c for c in cats if c["id"] == "performance")

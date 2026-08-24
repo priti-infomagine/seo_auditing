@@ -390,3 +390,74 @@ class JavaScriptErrorsRule(BaseRule):
             recommendation="Fix JavaScript errors to ensure proper page functionality",
             data={"error_count": error_count, "errors": errors[:5]},
         )]
+
+
+class CoreWebVitalsRule(BaseRule):
+    """Check Core Web Vitals (LCP, INP, CLS)."""
+    rule_id = "core_web_vitals_001"
+    name = "Core Web Vitals"
+    category = "performance"
+    description = "Measure Core Web Vitals performance"
+    weight = 1.0
+    tags = ["warning", "performance", "core_web_vitals"]
+    
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        cwv = data.get("core_web_vitals", {})
+        
+        if not cwv:
+            return [self._create_result(
+                passed=True,
+                message="Core Web Vitals not available (requires browser measurement)",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
+        
+        lcp = cwv.get("lcp")
+        inp = cwv.get("inp")
+        cls = cwv.get("cls")
+        
+        issues = []
+        impacts = 0
+        details = {"lcp": lcp, "inp": inp, "cls": cls}
+        
+        if lcp is not None:
+            if lcp > 4.0:
+                issues.append(f"LCP poor ({lcp:.2f}s)")
+                impacts -= 3
+            elif lcp > 2.5:
+                issues.append(f"LCP needs improvement ({lcp:.2f}s)")
+                impacts -= 1
+        
+        if inp is not None:
+            if inp > 500:
+                issues.append(f"INP poor ({inp:.0f}ms)")
+                impacts -= 3
+            elif inp > 200:
+                issues.append(f"INP needs improvement ({inp:.0f}ms)")
+                impacts -= 1
+        
+        if cls is not None:
+            if cls > 0.25:
+                issues.append(f"CLS poor ({cls:.3f})")
+                impacts -= 3
+            elif cls > 0.1:
+                issues.append(f"CLS needs improvement ({cls:.3f})")
+                impacts -= 1
+        
+        if not issues:
+            return [self._create_result(
+                passed=True,
+                message="Core Web Vitals are good",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data=details,
+            )]
+        
+        return [self._create_result(
+            passed=False,
+            message=f"Core Web Vitals issues: {', '.join(issues)}",
+            severity=Severity.WARNING if impacts > -6 else Severity.CRITICAL,
+            score_impact=impacts,
+            recommendation="Improve Core Web Vitals: optimize LCP, INP, and CLS",
+            data=details,
+        )]

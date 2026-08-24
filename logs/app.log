@@ -48932,3 +48932,422 @@ NameError: name 'CrawlConfig' is not defined
 2026-08-22T13:34:11+00:00 | INFO | AuditResponseBuilder.build: project_id=7fea36b7-3f60-4c49-b322-4f8a9028eb9d crawl_id=b1ea5f4e-02f7-4908-b989-91754590d742
 2026-08-22T13:34:14+00:00 | INFO | AnalysisScorerService.score_project: score=82.6, grade=B, pages=109, project_id=7fea36b7-3f60-4c49-b322-4f8a9028eb9d
 2026-08-22T13:34:14+00:00 | INFO | DB scoring completed: Score=82.6/100 (Health: good)
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:10:53+00:00 | ERROR | Error running rule social_004: FacebookDomainRule.evaluate() missing 1 required positional argument: 'data'
+2026-08-24T10:10:53+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:10:53+00:00 | INFO | SEO Score calculated: 78.5/100 (Grade C+)
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:10:53+00:00 | ERROR | Error running rule social_004: FacebookDomainRule.evaluate() missing 1 required positional argument: 'data'
+2026-08-24T10:10:53+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:10:53+00:00 | INFO | SEO Score calculated: 78.5/100 (Grade C+)
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:10:53+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:10:53+00:00 | ERROR | Error running rule social_004: FacebookDomainRule.evaluate() missing 1 required positional argument: 'data'
+2026-08-24T10:10:53+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:10:53+00:00 | INFO | SEO Score calculated: 75.6/100 (Grade C+)
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:10:53+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:11:59+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:11:59+00:00 | INFO | SEO Score calculated: 78.4/100 (Grade C+)
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:11:59+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:11:59+00:00 | INFO | SEO Score calculated: 78.4/100 (Grade C+)
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:11:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:11:59+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:11:59+00:00 | INFO | SEO Score calculated: 75.6/100 (Grade C+)
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:11:59+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:14:45+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 486, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 259, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-24T10:14:46+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:14:46+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=1ms
+2026-08-24T10:14:47+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:14:47+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-24T10:14:47+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:14:48+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:14:49+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:16:51+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:16:51+00:00 | INFO | SEO Score calculated: 78.4/100 (Grade C+)
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:16:51+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:16:51+00:00 | INFO | SEO Score calculated: 78.4/100 (Grade C+)
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:16:51+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:16:51+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:16:51+00:00 | INFO | SEO Score calculated: 75.6/100 (Grade C+)
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:16:51+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:21:57+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:21:57+00:00 | INFO | SEO Score calculated: 78.6/100 (Grade C+)
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:21:57+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:21:57+00:00 | INFO | SEO Score calculated: 78.6/100 (Grade C+)
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:21:57+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:21:57+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:21:57+00:00 | INFO | SEO Score calculated: 75.8/100 (Grade C+)
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:21:57+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:22:32+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:22:32+00:00 | INFO | SEO Score calculated: 78.6/100 (Grade C+)
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:22:32+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:22:32+00:00 | INFO | SEO Score calculated: 78.6/100 (Grade C+)
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:22:32+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:22:32+00:00 | INFO | Completed 56 rule evaluations
+2026-08-24T10:22:32+00:00 | INFO | SEO Score calculated: 75.8/100 (Grade C+)
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | INFO | Loaded 56 scoring rules
+2026-08-24T10:22:32+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:31:59+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:31:59+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:31:59+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:31:59+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:31:59+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:31:59+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:31:59+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:31:59+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:32:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:32:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:32:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:32:00+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:33:14+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:33:14+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:33:14+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:33:14+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:33:14+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:33:14+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:33:14+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:14+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:33:15+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:34:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:34:19+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:34:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:34:19+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:34:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:34:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:34:19+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:34:19+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:35:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:35:19+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:35:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:35:19+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:35:19+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:35:19+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:35:19+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:35:19+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:35:21+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 486, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 259, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-24T10:35:23+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:35:23+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=1ms
+2026-08-24T10:35:24+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:35:24+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-24T10:35:24+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:35:24+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:35:26+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:41:52+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:41:52+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:41:52+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:41:52+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:41:52+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:41:52+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:41:52+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:41:52+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:43:30+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:43:30+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:43:30+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:43:30+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:30+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:43:31+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:43:31+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:43:31+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:43:31+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:00+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:00+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:00+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:00+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:44:00+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:00+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:00+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:00+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:13+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:13+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:13+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:13+00:00 | INFO | SEO Score calculated: 76.9/100 (Grade C+)
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Scoring provided parsed data
+2026-08-24T10:44:13+00:00 | INFO | Starting SEO scoring...
+2026-08-24T10:44:13+00:00 | INFO | Completed 64 rule evaluations
+2026-08-24T10:44:13+00:00 | INFO | SEO Score calculated: 74.1/100 (Grade C)
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | INFO | Loaded 64 scoring rules
+2026-08-24T10:44:13+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-24T10:50:02+00:00 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://testseries.kanhahometutions.com/login
+2026-08-24T10:50:02+00:00 | INFO | Step 1: Creating CrawlJob
+2026-08-24T10:50:02+00:00 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-24T10:50:08+00:00 | INFO | Site discovery complete for https://testseries.kanhahometutions.com/login: robots=True, sitemaps=2, page_urls=106
+2026-08-24T10:50:08+00:00 | INFO | Robots policy attached to scheduler for testseries.kanhahometutions.com (sitemaps: 1)
+2026-08-24T10:50:08+00:00 | INFO | Crawl started: https://testseries.kanhahometutions.com/login (max_pages=100, max_depth=5)
+2026-08-24T10:50:08+00:00 | INFO | Submitted 0 sitemap URLs to crawl queue (total discovered: 106)
+2026-08-24T10:50:21+00:00 | INFO | Crawl completed: https://testseries.kanhahometutions.com/login — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=18722ms
+2026-08-24T10:50:21+00:00 | INFO | URL diagnostics: {'external_host': 106, 'duplicate': 2, 'non_html': 3, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-08-24T10:50:21+00:00 | INFO | Crawl phase completed: 3 pages crawled, 3 pages discovered
+2026-08-24T10:50:21+00:00 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-24T10:50:21+00:00 | INFO | DBParserService.parse_crawl: project_id=ff4f3d07-08c3-46e7-996b-711474f15850, crawl_id=b57546ab-726f-442a-b622-bbcea80fff58, force=True
+2026-08-24T10:50:22+00:00 | INFO | DBParserService.parse_crawl: parsed=3, failed=0, skipped=0 for project_id=ff4f3d07-08c3-46e7-996b-711474f15850
+2026-08-24T10:50:22+00:00 | INFO | DB parse: 3 pages parsed, 0 failed
+2026-08-24T10:50:22+00:00 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-24T10:50:22+00:00 | INFO | Loaded 70 scoring rules
+2026-08-24T10:50:22+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=ff4f3d07-08c3-46e7-996b-711474f15850, crawl_id=b57546ab-726f-442a-b622-bbcea80fff58, force=True
+2026-08-24T10:50:22+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=3, rules_run=210, total_results=210, errors=0 for project_id=ff4f3d07-08c3-46e7-996b-711474f15850
+2026-08-24T10:50:22+00:00 | INFO | DB evaluate: 210 rules run, 210 results, 0 errors
+2026-08-24T10:50:22+00:00 | INFO | Step 5: Starting DB-backed scoring
+2026-08-24T10:50:22+00:00 | INFO | AnalysisScorerService.score_project: project_id=ff4f3d07-08c3-46e7-996b-711474f15850, crawl_id=b57546ab-726f-442a-b622-bbcea80fff58, force=True
+2026-08-24T10:50:22+00:00 | INFO | Loaded 70 scoring rules
+2026-08-24T10:50:22+00:00 | INFO | AuditResponseBuilder.build: project_id=ff4f3d07-08c3-46e7-996b-711474f15850 crawl_id=b57546ab-726f-442a-b622-bbcea80fff58
+2026-08-24T10:50:22+00:00 | INFO | AnalysisScorerService.score_project: score=80.8, grade=B, pages=3, project_id=ff4f3d07-08c3-46e7-996b-711474f15850
+2026-08-24T10:50:22+00:00 | INFO | DB scoring completed: Score=80.8/100 (Health: good)
+2026-08-24T10:58:19+00:00 | INFO | POST /audit/analyze - Full audit pipeline started for URL: https://kanhahometutions.com/
+2026-08-24T10:58:19+00:00 | INFO | Step 1: Creating CrawlJob
+2026-08-24T10:58:19+00:00 | INFO | Step 2: Running CrawlOrchestrator (multi-page, concurrent)
+2026-08-24T10:58:23+00:00 | INFO | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-08-24T10:58:23+00:00 | INFO | Robots policy attached to scheduler for kanhahometutions.com (sitemaps: 0)
+2026-08-24T10:58:23+00:00 | INFO | Crawl started: https://kanhahometutions.com/ (max_pages=100, max_depth=5)
+2026-08-24T10:58:23+00:00 | INFO | Submitted 97 sitemap URLs to crawl queue (total discovered: 98)
+2026-08-24T11:01:30+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/privacy-policy: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-08-24T11:01:51+00:00 | INFO | Crawl completed: https://kanhahometutions.com/ — pages_crawled=109, pages_discovered=297, pages_failed=0, duration=212030ms
+2026-08-24T11:01:51+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 8657, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-08-24T11:01:51+00:00 | INFO | Crawl phase completed: 109 pages crawled, 297 pages discovered
+2026-08-24T11:01:51+00:00 | INFO | Step 3: Starting DB-backed parse phase
+2026-08-24T11:01:51+00:00 | INFO | DBParserService.parse_crawl: project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a, crawl_id=d39f332f-539f-4bbf-8972-d3a7a5c86404, force=True
+2026-08-24T11:02:00+00:00 | INFO | DBParserService.parse_crawl: parsed=109, failed=0, skipped=0 for project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a
+2026-08-24T11:02:00+00:00 | INFO | DB parse: 109 pages parsed, 0 failed
+2026-08-24T11:02:00+00:00 | INFO | Step 4: Starting DB-backed rule evaluation
+2026-08-24T11:02:00+00:00 | INFO | Loaded 70 scoring rules
+2026-08-24T11:02:00+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a, crawl_id=d39f332f-539f-4bbf-8972-d3a7a5c86404, force=True
+2026-08-24T11:02:24+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=109, rules_run=7630, total_results=7630, errors=0 for project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a
+2026-08-24T11:02:24+00:00 | INFO | DB evaluate: 7630 rules run, 7630 results, 0 errors
+2026-08-24T11:02:24+00:00 | INFO | Step 5: Starting DB-backed scoring
+2026-08-24T11:02:24+00:00 | INFO | AnalysisScorerService.score_project: project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a, crawl_id=d39f332f-539f-4bbf-8972-d3a7a5c86404, force=True
+2026-08-24T11:02:24+00:00 | INFO | Loaded 70 scoring rules
+2026-08-24T11:02:24+00:00 | INFO | AuditResponseBuilder.build: project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a crawl_id=d39f332f-539f-4bbf-8972-d3a7a5c86404
+2026-08-24T11:02:25+00:00 | INFO | AnalysisScorerService.score_project: score=81.3, grade=B, pages=104, project_id=292504c5-357e-40b9-9b1c-c01fc230ae8a
+2026-08-24T11:02:25+00:00 | INFO | DB scoring completed: Score=81.3/100 (Health: good)

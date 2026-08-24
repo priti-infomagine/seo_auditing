@@ -56,5 +56,10 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     GOOGLE_PAGESPEED_API_KEY: str = ""
 
+    # ── SEO Scorer Weights ──────────────────────────────────────────
+    # JSON object mapping category -> weight. Weights are normalized to sum=1.
+    # Example: '{"on_page": 0.25, "technical": 0.15, "content": 0.20, "links": 0.10, "images": 0.05, "schema": 0.05, "social": 0.05, "security": 0.10, "accessibility": 0.05, "performance": 0.05}'
+    SEO_SCORER_WEIGHTS: Optional[str] = None
+
 
 settings = Settings()

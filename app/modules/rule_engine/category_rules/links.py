@@ -8,7 +8,7 @@ from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 
 
 class InternalLinksRule(BaseRule):
-    """Check internal links count."""
+    """Check internal links count and quality."""
     rule_id = "links_001"
     name = "Internal Links"
     category = "links"
@@ -19,6 +19,7 @@ class InternalLinksRule(BaseRule):
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         links = data.get("links", {})
         internal_count = links.get("internal_count", 0)
+        internal_links = links.get("internal_links", [])
         
         if internal_count == 0:
             return [self._create_result(
@@ -29,22 +30,42 @@ class InternalLinksRule(BaseRule):
                 recommendation="Add internal links to other pages on your website",
             )]
         
-        if internal_count >= 10:
+        # Contextual link check
+        contextual = sum(1 for link in internal_links 
+                        if len(link.get("anchor_text", "")) > 10)
+        contextual_ratio = contextual / internal_count if internal_count > 0 else 0
+        
+        details = {
+            "internal_count": internal_count,
+            "contextual_links": contextual,
+            "contextual_ratio": round(contextual_ratio, 2),
+        }
+        
+        if internal_count >= 10 and contextual_ratio >= 0.5:
             return [self._create_result(
                 passed=True,
-                message=f"Good internal linking ({internal_count} internal links)",
+                message=f"Good internal linking ({internal_count} internal links, {contextual} contextual)",
                 severity=Severity.PASSED,
                 score_impact=1,
-                data={"internal_count": internal_count},
+                data=details,
+            )]
+        
+        if internal_count < 5:
+            return [self._create_result(
+                passed=False,
+                message=f"Few internal links ({internal_count}, recommended: 10+)",
+                severity=Severity.WARNING,
+                score_impact=-3,
+                recommendation="Add more internal links to improve site structure and user navigation",
+                data=details,
             )]
         
         return [self._create_result(
-            passed=False,
-            message=f"Few internal links ({internal_count}, recommended: 10+)",
-            severity=Severity.WARNING,
-            score_impact=-3,
-            recommendation="Add more internal links to improve site structure and user navigation",
-            data={"internal_count": internal_count},
+            passed=True,
+            message=f"Adequate internal linking ({internal_count} internal links)",
+            severity=Severity.PASSED,
+            score_impact=0,
+            data=details,
         )]
 
 
@@ -101,6 +122,14 @@ class BrokenLinksRule(BaseRule):
         links = data.get("links", {})
         broken_internal = links.get("broken_internal", [])
         broken_external = links.get("broken_external", [])
+        
+        if not broken_internal and not broken_external:
+            return [self._create_result(
+                passed=True,
+                message="Live link check not enabled (broken link data unavailable)",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
         
         total_broken = len(broken_internal) + len(broken_external)
         

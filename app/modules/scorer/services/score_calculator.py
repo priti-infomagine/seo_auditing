@@ -35,17 +35,35 @@ class ScoreCalculator:
         "security": 0.10,
         "accessibility": 0.05,
         "performance": 0.05,
-        "performance": 0.05,
     }
     
-    def __init__(self, weights: Dict[str, float] = None ):
+    def __init__(self, weights: Dict[str, float] = None, settings: Any = None):
         """
         Initialize calculator with custom weights.
         
         Args:
             weights: Custom category weights (defaults to DEFAULT_WEIGHTS)
+            settings: Optional settings object with SEO_SCORER_WEIGHTS
         """
-        self.weights = weights or self.DEFAULT_WEIGHTS
+        if weights:
+            self.weights = weights
+        elif settings and getattr(settings, "SEO_SCORER_WEIGHTS", None):
+            import json
+            try:
+                parsed = json.loads(settings.SEO_SCORER_WEIGHTS)
+                self.weights = self._normalize_weights(parsed)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                self.weights = self.DEFAULT_WEIGHTS
+        else:
+            self.weights = self.DEFAULT_WEIGHTS
+    
+    @staticmethod
+    def _normalize_weights(weights: Dict[str, float]) -> Dict[str, float]:
+        """Normalize weights to sum to 1.0."""
+        total = sum(weights.values())
+        if total > 0:
+            return {k: v / total for k, v in weights.items()}
+        return ScoreCalculator.DEFAULT_WEIGHTS
     
     def calculate_score(self, rule_results: List[RuleResult]) -> Dict[str, Any]:
         """
