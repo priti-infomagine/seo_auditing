@@ -8,6 +8,7 @@ Takes a URL as input, performs the full pipeline:
 4. Returns per-page breakdown with scores, rule results, and links analysis
 """
 import uuid
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,9 +16,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.config import settings
+from app.core.security import get_current_user
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeResponse,
+    AuditAnalyzeQueuedResponse,
 )
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
 from app.modules.audit.services.db_parser_service import DBParserService
@@ -25,6 +28,8 @@ from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorServi
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+from app.modules.auth.models.users import User
+from app.shared.tasks.celery_app import celery_app
 from app.shared.utils.url_utils import get_domain
 
 router = APIRouter()
@@ -32,124 +37,124 @@ router = APIRouter()
 
 @router.post(
     "/analyze",
-    response_model=AuditAnalyzeResponse,
-    status_code=200,
-    summary="Run complete SEO audit pipeline",
-    description="Crawls multiple pages from the provided URL, parses HTML content, and runs comprehensive SEO scoring rules to return final scored output with per-page breakdown",
+    response_model=AuditAnalyzeQueuedResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Queue a complete SEO audit pipeline",
+    description=(
+        "Creates a crawl job and enqueues it on the crawler queue. The crawl "
+        "then triggers the parse → evaluate → score analysis pipeline. Returns "
+        "immediately with crawl_id / project_id / task_id and status URLs for "
+        "polling. The final result is fetched via GET /audit/result/{crawl_id}."
+    ),
 )
 async def analyze_website(
     body: AuditAnalyzeRequest,
     db: AsyncSession = Depends(get_db),
-) -> AuditAnalyzeResponse:
+    current_user: User = Depends(get_current_user),
+) -> AuditAnalyzeQueuedResponse:
     """
-    Run complete crawl → parse → score SEO audit pipeline.
+    Queue a complete crawl → parse → score SEO audit pipeline.
+
+    The request is validated, a CrawlJob is persisted, and the
+    `crawler.crawl_website` Celery task is enqueued (queue="crawler"). When the
+    crawl completes it fires `audit.run_analysis_pipeline` (queue="audit") which
+    runs parse → evaluate → score. This endpoint returns immediately.
 
     Args:
-        body: AuditAnalyzeRequest containing URL to analyze and crawl limits
+        body: AuditAnalyzeRequest containing URL and crawl limits
         db: Database session
+        current_user: Authenticated user (injected by get_current_user)
 
     Returns:
-        AuditAnalyzeResponse with crawl summary, SEO scores, and per-page breakdown
+        AuditAnalyzeQueuedResponse with crawl_id, project_id, task_id and URLs.
 
     Raises:
-        HTTPException: If crawl, parse, or scoring fails
+        HTTPException: If the URL is invalid or the job cannot be queued.
     """
-    logger.info(f"POST /audit/analyze - Full audit pipeline started for URL: {body.url}")
+    logger.info(
+        f"POST /audit/analyze - Queuing audit for URL: {body.url}, "
+        f"user_id={current_user.id}"
+    )
 
     try:
-        # Step 1: Create CrawlJob (queued) before crawling starts
-        logger.info("Step 1: Creating CrawlJob")
-        project_id = uuid.uuid4()
-        test_user_id = uuid.UUID("00000000-0000-0000-0000-000000000000")
-        domain = get_domain(body.url)
+        url_str = str(body.url)
+        domain = get_domain(url_str)
         if not domain:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Invalid URL: {body.url} - could not extract domain",
             )
 
-        effective_max_pages = min(body.max_pages, settings.CRAWL_MAX_PAGES) if body.max_pages is not None else settings.CRAWL_MAX_PAGES
+        project_id = body.project_id or uuid.uuid4()
 
-        crawl_config_dict = {
+        effective_max_pages = (
+            min(body.max_pages, settings.CRAWL_MAX_PAGES)
+            if body.max_pages is not None
+            else settings.CRAWL_MAX_PAGES
+        )
+        effective_max_depth = body.max_depth if body.max_depth is not None else 5
+
+        # Crawl config — identical in shape to crawler/crawl.py.
+        # auto_analyze is FORCED on so the crawl always triggers the analysis
+        # pipeline (it is not user-controllable from this endpoint).
+        crawl_config = {
+            "max_depth": effective_max_depth,
             "max_pages": effective_max_pages,
-            "max_depth": body.max_depth if body.max_depth is not None else 5,
             "concurrency": body.concurrency,
             "request_timeout": 120,
             "delay_ms": 0,
             "follow_redirects": True,
             "respect_robots": True,
+            "auto_analyze": True,
         }
-        db_crawl_job = CrawlJob(
+
+        crawl_job = CrawlJob(
+            id=uuid.uuid4(),
+            user_id=current_user.id,
             project_id=project_id,
-            user_id=test_user_id,
-            url=body.url,
+            url=url_str,
             domain=domain,
             status="queued",
             max_pages=effective_max_pages,
-            max_depth=body.max_depth if body.max_depth is not None else 5,
-            crawl_config=crawl_config_dict,
+            max_depth=effective_max_depth,
+            crawl_config=crawl_config,
         )
-        db_crawl_job = await CrawlJobRepository(db).create(db_crawl_job)
-        crawl_id = db_crawl_job.id
-
-        logger.info("Step 2: Running CrawlOrchestrator (multi-page, concurrent)")
-        orchestrator = CrawlOrchestrator(db, crawl_id)
-        orchestrator_result = await orchestrator.run(
-            start_url=body.url,
-            max_depth=body.max_depth if body.max_depth is not None else 5,
-            max_pages=effective_max_pages,
-            concurrency=body.concurrency,
-        )
-
-        if orchestrator_result.get("status") == "failed":
-            logger.error(f"Crawl failed for {body.url}: {orchestrator_result}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Crawl failed — see logs for details",
-            )
-
-        pages_crawled = orchestrator_result.get("pages_crawled", 0)
-        pages_discovered = orchestrator_result.get("pages_discovered", 0)
-
-        if pages_crawled == 0:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Crawl produced no results",
-            )
+        job_repo = CrawlJobRepository(db)
+        await job_repo.create(crawl_job)
+        crawl_id = crawl_job.id
 
         logger.info(
-            f"Crawl phase completed: {pages_crawled} pages crawled, "
-            f"{pages_discovered} pages discovered"
+            f"CrawlJob created: crawl_id={crawl_id}, project_id={project_id}, "
+            f"domain={domain}"
         )
 
-        # Step 3: DB-backed parse (reads snapshot from DB, saves ParsedPageFact)
-        logger.info("Step 3: Starting DB-backed parse phase")
-        db_parser = DBParserService(db)
-        parse_result = await db_parser.parse_crawl(project_id, crawl_id, force=True)
+        # Enqueue the crawl on the crawler queue. The crawl task fires the
+        # analysis pipeline on the audit queue when auto_analyze is set.
+        async_result = celery_app.send_task(
+            "crawler.crawl_website",
+            args=[str(crawl_id), url_str, str(current_user.id)],
+            queue="crawler",
+        )
+
         logger.info(
-            f"DB parse: {parse_result['pages_parsed']} pages parsed, "
-            f"{parse_result['pages_failed']} failed"
+            f"Audit enqueued: crawl_id={crawl_id}, project_id={project_id}, "
+            f"task_id={async_result.id}, queued on 'crawler'"
         )
 
-        # Step 4: DB-backed rule evaluation
-        logger.info("Step 4: Starting DB-backed rule evaluation")
-        evaluator = RuleEvaluatorService(db)
-        eval_result = await evaluator.evaluate_crawl(project_id, crawl_id, force=True)
-        logger.info(
-            f"DB evaluate: {eval_result['rules_run']} rules run, "
-            f"{eval_result['total_results']} results, {len(eval_result['errors'])} errors"
+        return AuditAnalyzeQueuedResponse(
+            success=True,
+            status="queued",
+            message="Audit queued successfully — poll the task URL for progress",
+            url=url_str,
+            domain=domain,
+            crawl_id=str(crawl_id),
+            project_id=str(project_id),
+            task_id=async_result.id,
+            task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
+            crawl_status_url=f"/api/v1/crawler/status/{crawl_id}",
+            pipeline_status_url=f"/api/v1/audit/pipeline/{project_id}",
+            result_url=f"/api/v1/audit/result/{crawl_id}?project_id={project_id}",
         )
-
-        # Step 5: DB-backed scoring (returns the unified audit response)
-        logger.info("Step 5: Starting DB-backed scoring")
-        db_scorer = AnalysisScorerService(db)
-        unified = await db_scorer.score_project(project_id, crawl_id, force=True)
-        logger.info(
-            f"DB scoring completed: Score={unified['summary']['overall_score']}/100 "
-            f"(Health: {unified['summary']['health']})"
-        )
-
-        return unified
 
     except ValueError as e:
         logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
@@ -160,11 +165,53 @@ async def analyze_website(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Unexpected error during audit for URL: {body.url}", exc_info=True)
+        logger.error(
+            f"Unexpected error queuing audit for URL: {body.url}", exc_info=True
+        )
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="An unexpected error occurred during SEO audit"
+            detail="An unexpected error occurred while queuing the audit"
         )
+
+
+@router.get(
+    "/analyze/task/{task_id}",
+    summary="Poll audit crawl task state",
+    description=(
+        "Read-only status check against the Celery result backend for the "
+        "crawl task enqueued by POST /audit/analyze. Returns the task state "
+        "and, when available, progress meta or the final result."
+    ),
+)
+async def get_analyze_task_status(
+    task_id: str,
+    current_user: User = Depends(get_current_user),
+) -> dict:
+    """
+    Poll the Celery task state for the crawl triggered by POST /audit/analyze.
+
+    Args:
+        task_id: Celery task ID returned by the analyze endpoint.
+        current_user: Authenticated user (injected by get_current_user).
+
+    Returns:
+        Dict with task_id, state, and meta/result/error when available.
+    """
+    logger.info(
+        f"GET /audit/analyze/task/{task_id} - user_id={current_user.id}"
+    )
+    async_result = celery_app.AsyncResult(task_id)
+    response: dict = {
+        "task_id": task_id,
+        "state": async_result.state,
+    }
+    if async_result.state == "PROGRESS":
+        response["meta"] = async_result.info
+    elif async_result.state == "SUCCESS":
+        response["result"] = async_result.result
+    elif async_result.state == "FAILURE":
+        response["error"] = str(async_result.result)
+    return response
 
 
 @router.get("/health", tags=["Audit"])

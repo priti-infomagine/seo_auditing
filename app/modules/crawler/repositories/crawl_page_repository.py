@@ -1,7 +1,7 @@
 """
 CrawlPage repository - database operations for CrawlPage model.
 """
-from typing import List, Optional
+from typing import Dict, List, Optional
 from uuid import UUID
 
 from sqlalchemy import select
@@ -29,6 +29,25 @@ class CrawlPageRepository:
             select(CrawlPage).where(CrawlPage.id == page_id)
         )
         return result.scalar_one_or_none()
+
+    async def get_by_ids(self, page_ids: List[UUID]) -> Dict[UUID, CrawlPage]:
+        """
+        Batch-fetch crawl pages by IDs in a single query.
+
+        Returns a dict keyed by page ID for O(1) lookup in callers, replacing
+        per-page `get_by_id` loops (N+1) in the analysis pipeline.
+        """
+        if not page_ids:
+            return {}
+        out: Dict[UUID, CrawlPage] = {}
+        for start in range(0, len(page_ids), 1000):
+            batch = page_ids[start : start + 1000]
+            result = await self.db.execute(
+                select(CrawlPage).where(CrawlPage.id.in_(batch))
+            )
+            for row in result.scalars().all():
+                out[row.id] = row
+        return out
 
     async def get_by_crawl_id(self, crawl_id: UUID) -> List[CrawlPage]:
         """Get all pages for a crawl job."""

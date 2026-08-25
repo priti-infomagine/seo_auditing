@@ -1,7 +1,7 @@
 """
 PageSEOData repository - database operations for PageSEOData model.
 """
-from typing import Optional
+from typing import Dict, List, Optional
 from uuid import UUID
 
 from sqlalchemy import select
@@ -22,6 +22,25 @@ class PageSEODataRepository:
         await self.db.flush()
         await self.db.refresh(page_seo_data)
         return page_seo_data
+
+    async def get_by_page_ids(self, page_ids: List[UUID]) -> Dict[UUID, PageSEOData]:
+        """
+        Batch-fetch SEO data by page IDs in a single query.
+
+        Returns a dict keyed by page_id for O(1) lookup, replacing per-page
+        `get_by_page_id` loops (N+1) in the analysis pipeline.
+        """
+        if not page_ids:
+            return {}
+        out: Dict[UUID, PageSEOData] = {}
+        for start in range(0, len(page_ids), 1000):
+            batch = page_ids[start : start + 1000]
+            result = await self.db.execute(
+                select(PageSEOData).where(PageSEOData.page_id.in_(batch))
+            )
+            for row in result.scalars().all():
+                out[row.page_id] = row
+        return out
 
     async def get_by_page_id(self, page_id: UUID) -> Optional[PageSEOData]:
         """Get PageSEOData by page ID."""

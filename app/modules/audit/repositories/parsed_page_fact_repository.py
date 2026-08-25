@@ -4,10 +4,11 @@ ParsedPageFact repository - database operations for ParsedPageFact model.
 Provides upsert (insert-on-duplicate) for idempotency, ensuring no
 duplicate parsed facts for the same (project_id, page_id).
 """
-from typing import List, Optional
+from typing import List, Optional, Set
 from uuid import UUID
 
 from sqlalchemy import select, delete
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.modules.audit.models.parsed_page_facts import ParsedPageFact
@@ -48,33 +49,78 @@ class ParsedPageFactRepository:
         await self.db.refresh(fact)
         return fact
 
+    async def get_existing_page_ids(
+        self, project_id: UUID, page_ids: List[UUID]
+    ) -> Set[UUID]:
+        """
+        Return the set of page_ids (within a project) that already have a
+        parsed fact. Single query — replaces per-page `exists()` loops (N+1)
+        in the parse stage.
+        """
+        if not page_ids:
+            return set()
+        rows = await self.db.execute(
+            select(ParsedPageFact.page_id).where(
+                ParsedPageFact.project_id == project_id,
+                ParsedPageFact.page_id.in_(page_ids),
+            )
+        )
+        return {row[0] for row in rows.all()}
+
     async def bulk_upsert(self, facts: List[ParsedPageFact]) -> int:
         """
-        Bulk insert or update ParsedPageFact rows.
+        True bulk upsert of ParsedPageFact rows in a single statement.
+
+        Uses PostgreSQL `INSERT ... ON CONFLICT (project_id, page_id)
+        DO UPDATE`. The unique index `ix_parsed_page_facts_project_page`
+        backs the conflict target (see alembic migration
+        e5f6a7b8c9d0). Replaces the previous per-row SELECT+UPDATE loop.
+
         Returns the number of rows processed.
         """
-        count = 0
+        if not facts:
+            return 0
+
+        rows = []
         for fact in facts:
             if fact.parsed_data is None:
                 continue
-            existing = await self.get_by_page_id(fact.project_id, fact.page_id)
-            if existing:
-                existing.url = fact.url
-                existing.domain = fact.domain
-                existing.parsed_data = fact.parsed_data
-                existing.page_facts = fact.page_facts
-                existing.elements = fact.elements
-                existing.attributes = fact.attributes
-                existing.parse_errors = fact.parse_errors
-                existing.content_hash = fact.content_hash
-                existing.parsed_at = fact.parsed_at
-                self.db.add(existing)
-            else:
-                self.db.add(fact)
-            count += 1
-        if count > 0:
-            await self.db.flush()
-        return count
+            rows.append({
+                "id": fact.id,
+                "project_id": fact.project_id,
+                "crawl_id": fact.crawl_id,
+                "page_id": fact.page_id,
+                "url": fact.url,
+                "domain": fact.domain,
+                "parsed_data": fact.parsed_data,
+                "page_facts": fact.page_facts,
+                "elements": fact.elements,
+                "attributes": fact.attributes,
+                "parse_errors": fact.parse_errors,
+                "content_hash": fact.content_hash,
+                "parsed_at": fact.parsed_at,
+            })
+        if not rows:
+            return 0
+
+        stmt = pg_insert(ParsedPageFact).values(rows)
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["project_id", "page_id"],
+            set_={
+                "url": stmt.excluded.url,
+                "domain": stmt.excluded.domain,
+                "parsed_data": stmt.excluded.parsed_data,
+                "page_facts": stmt.excluded.page_facts,
+                "elements": stmt.excluded.elements,
+                "attributes": stmt.excluded.attributes,
+                "parse_errors": stmt.excluded.parse_errors,
+                "content_hash": stmt.excluded.content_hash,
+                "parsed_at": stmt.excluded.parsed_at,
+            },
+        )
+        await self.db.execute(stmt)
+        await self.db.flush()
+        return len(rows)
 
     async def exists(self, project_id: UUID, page_id: UUID) -> bool:
         """Check if a parsed fact exists for this project+page."""

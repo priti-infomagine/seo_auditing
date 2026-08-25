@@ -337,7 +337,12 @@ class AuditResponseBuilder:
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
         )
-        indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts)
+        # Batch-fetch SEO data for all crawl pages once (O(1)) instead of
+        # per-page get_by_page_id inside _build_indexation (N+1 fix).
+        seo_map = await self.seo_repo.get_by_page_ids(
+            [p.id for p in crawl_pages]
+        )
+        indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts, seo_map)
         performance = await self._build_performance(canonical_parsed_facts)
         structured_data = self._build_structured_data(canonical_parsed_facts)
         links = await self._build_links(canonical_parsed_facts)
@@ -593,12 +598,12 @@ class AuditResponseBuilder:
 
     # ---------------------------------------------------------- indexation
     async def _build_indexation(
-        self, crawl_pages: List, parsed_facts: List
+        self, crawl_pages: List, parsed_facts: List, seo_map: Dict | None = None
     ) -> Dict[str, Any]:
         noindex_pages: set = set()
         canonical_pages: set = set()
         for p in crawl_pages:
-            seo = await self.seo_repo.get_by_page_id(p.id)
+            seo = seo_map.get(p.id) if seo_map else await self.seo_repo.get_by_page_id(p.id)
             if seo is None:
                 continue
             robots = (seo.robots_meta or "").lower()

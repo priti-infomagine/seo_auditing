@@ -1,7 +1,7 @@
 """
 PageSnapshot repository - database operations for storing HTML snapshots.
 """
-from typing import Optional
+from typing import Dict, List, Optional
 from uuid import UUID
 
 from sqlalchemy import select
@@ -17,6 +17,25 @@ class PageSnapshotRepository:
 
     def __init__(self, db: AsyncSession):
         self.db = db
+
+    async def get_by_page_ids(self, page_ids: List[UUID]) -> Dict[UUID, PageSnapshot]:
+        """
+        Batch-fetch snapshots by page IDs in a single query.
+
+        Returns a dict keyed by page_id for O(1) lookup, replacing per-page
+        `get_by_page_id` loops (N+1) in the analysis pipeline.
+        """
+        if not page_ids:
+            return {}
+        out: Dict[UUID, PageSnapshot] = {}
+        for start in range(0, len(page_ids), 1000):
+            batch = page_ids[start : start + 1000]
+            result = await self.db.execute(
+                select(PageSnapshot).where(PageSnapshot.page_id.in_(batch))
+            )
+            for row in result.scalars().all():
+                out[row.page_id] = row
+        return out
 
     async def save_snapshot(
         self,

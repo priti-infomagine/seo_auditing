@@ -59,8 +59,6 @@ class RuleEvaluatorService:
         self.crawl_page_repo = CrawlPageRepository(db)
         self.seo_repo = PageSEODataRepository(db)
         self.network_repo = PageNetworkDataRepository(db)
-        self.resource_repo = PageResourceRepository(db)
-        self.link_repo = PageLinkRepository(db)
         self.scorer_service = ScorerService()
         self.rules: List[BaseRule] = self.scorer_service.rules
 
@@ -116,6 +114,16 @@ class RuleEvaluatorService:
                     "evaluated_at": utc_now().isoformat(),
                 }
 
+            # --- Batch fetch everything needed for the evaluate stage (O(1) queries) ---
+            # Replaces per-page rule-result / crawl-page / seo / network re-fetches (N+1).
+            page_ids = [f.page_id for f in parsed_facts]
+            existing_ids = await self.rule_eval_repo.get_existing_page_ids(
+                project_id, page_ids
+            )
+            crawl_pages = await self.crawl_page_repo.get_by_ids(page_ids)
+            seo_map = await self.seo_repo.get_by_page_ids(page_ids)
+            network_map = await self.network_repo.get_by_page_ids(page_ids)
+
             pages_evaluated = 0
             total_results = 0
             rules_run = 0
@@ -124,14 +132,18 @@ class RuleEvaluatorService:
 
             for fact in parsed_facts:
                 try:
-                    if not force:
-                        # Check if results already exist for this page
-                        existing = await self.rule_eval_repo.get_by_page_id(project_id, fact.page_id)
-                        if existing:
-                            pages_evaluated += 1
-                            continue
+                    if not force and fact.page_id in existing_ids:
+                        pages_evaluated += 1
+                        continue
 
-                    page_results = await self.evaluate_page(project_id, crawl_id, fact.page_id)
+                    page_results = await self.evaluate_page(
+                        project_id,
+                        crawl_id,
+                        fact,
+                        crawl_pages.get(fact.page_id),
+                        seo_map.get(fact.page_id),
+                        network_map.get(fact.page_id),
+                    )
                     all_results.extend(page_results)
                     total_results += len(page_results)
                     rules_run += len(self.rules)
@@ -195,27 +207,34 @@ class RuleEvaluatorService:
         self,
         project_id: UUID,
         crawl_id: UUID,
-        page_id: UUID,
+        fact,
+        crawl_page,
+        seo_data,
+        network_data,
     ) -> List[RuleEvaluationResult]:
         """
         Evaluate all rules for a single page.
 
-        Reconstructs the `data` dict from DB rows, then runs each rule.
-        Each rule is wrapped in try/except — failures become synthetic
-        RuleEvaluationResult rows with severity=error.
+        Uses the already-loaded ParsedPageFact `fact` and the batch-fetched
+        `crawl_page` / `seo_data` / `network_data` (passed by `evaluate_crawl`)
+        instead of re-querying the database per page.
 
         Args:
             project_id: The project tracking key.
             crawl_id: The crawl job ID.
-            page_id: The page ID to evaluate.
+            fact: The ParsedPageFact for this page (already loaded).
+            crawl_page: The CrawlPage row (batch-fetched).
+            seo_data: The PageSEOData row (batch-fetched) or None.
+            network_data: The PageNetworkData row (batch-fetched) or None.
 
         Returns:
             List of RuleEvaluationResult objects (one per rule, or synthetic
             error result if evaluation fails).
         """
         try:
-            # Reconstruct data dict
-            data = await self._build_rule_data(project_id, crawl_id, page_id)
+            page_id = fact.page_id
+            # Reconstruct data dict from the batch-fetched objects
+            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data)
 
             # Run all rules concurrently for speed
             rule_results: List[RuleResult] = []
@@ -272,14 +291,16 @@ class RuleEvaluatorService:
 
     async def _build_rule_data(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
-        page_id: UUID,
+        fact,
+        crawl_page,
+        seo_data,
+        network_data,
     ) -> Dict[str, Any]:
         """
         Reconstruct the `data` dict that SEO rules expect.
 
-        Maps DB tables → rule data dict keys:
+        Uses the batch-fetched objects passed by `evaluate_crawl` instead of
+        issuing per-page DB queries (N+1 fix).
 
         | Rule key    | Source                                         |
         |-------------|-------------------------------------------------|
@@ -303,12 +324,12 @@ class RuleEvaluatorService:
         """
         # Start with safe empty defaults
         data: Dict[str, Any] = {key: {} for key in self.RULE_DATA_KEYS}
+        page_id = fact.page_id if fact else None
 
         try:
-            # --- Load parsed facts ---
-            parsed_fact = await self.parsed_fact_repo.get_by_page_id(project_id, page_id)
-            if parsed_fact:
-                parsed_data = parsed_fact.parsed_data or {}
+            # --- Parsed facts (already loaded) ---
+            if fact:
+                parsed_data = fact.parsed_data or {}
                 # Map parsed data keys to rule data keys
                 data["content"] = parsed_data.get("content", {})
                 data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
@@ -321,14 +342,14 @@ class RuleEvaluatorService:
                 data["resources"] = parsed_data.get("resources", [])
                 data["technical"] = parsed_data.get("technical", {}) or {}
                 # Flatten page_facts for quick access
-                data["_page_facts"] = parsed_fact.page_facts or {}
+                data["_page_facts"] = fact.page_facts or {}
         except Exception as exc:
             logger.debug(f"Could not load parsed facts for page_id={page_id}: {exc}")
 
         try:
-            # --- Load crawl page (url info) ---
-            page = await self.crawl_page_repo.get_by_id(page_id)
-            if page:
+            # --- Crawl page (url info) ---
+            if crawl_page:
+                page = crawl_page
                 data["url"] = {
                     "https": page.scheme == "https" if page.scheme else False,
                     "domain": page.host or "",
@@ -343,8 +364,7 @@ class RuleEvaluatorService:
             logger.debug(f"Could not load crawl page for page_id={page_id}: {exc}")
 
         try:
-            # --- Load SEO data (basic) ---
-            seo_data = await self.seo_repo.get_by_page_id(page_id)
+            # --- SEO data (basic) ---
             if seo_data:
                 data["basic"] = {
                     "title": seo_data.title or "",
@@ -371,8 +391,7 @@ class RuleEvaluatorService:
             logger.debug(f"Could not load SEO data for page_id={page_id}: {exc}")
 
         try:
-            # --- Load network data ---
-            network_data = await self.network_repo.get_by_page_id(page_id)
+            # --- Network data ---
             if network_data:
                 data["http"] = {
                     "status_code": network_data.status_code or 0,

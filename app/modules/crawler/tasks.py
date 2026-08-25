@@ -4,6 +4,7 @@ from uuid import UUID
 
 from app.core.datetime_utils import utc_now
 from app.core.database import async_session_factory
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
@@ -26,6 +27,11 @@ from app.shared.tasks.db import run_async
     track_started=True,
 )
 def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
+    logger.info(
+        f"crawler.crawl_website: task started for crawl_id={crawl_id}, url={url}, "
+        f"user_id={user_id}"
+    )
+
     async def _run():
         crawl_uuid = UUID(crawl_id)
         async with async_session_factory() as db:
@@ -75,6 +81,11 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         await job_repo.update(job)
                     await db.commit()
 
+                    logger.info(
+                        f"crawler.crawl_website: auto_analyze fired for "
+                        f"crawl_id={crawl_id}, project_id={project_id}"
+                    )
+
                     # Fire the analysis pipeline asynchronously
                     celery_app.send_task(
                         "audit.run_analysis_pipeline",
@@ -93,9 +104,17 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         "crawl_id": crawl_id,
                     },
                 )
+                logger.info(
+                    f"crawler.crawl_website: task succeeded for crawl_id={crawl_id}, "
+                    f"pages_crawled={result.get('pages_crawled')}"
+                )
                 return result
             except Exception as exc:
                 await _mark_failed(db, crawl_uuid, str(exc))
+                logger.error(
+                    f"crawler.crawl_website: task failed for crawl_id={crawl_id}: {exc}",
+                    exc_info=True,
+                )
                 raise
 
     return run_async(_run())

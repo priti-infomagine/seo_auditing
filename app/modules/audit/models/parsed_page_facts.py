@@ -9,7 +9,7 @@ import uuid
 
 from datetime import datetime
 
-from sqlalchemy import DateTime, String, Text, func
+from sqlalchemy import DateTime, String, Text, func, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -76,7 +76,9 @@ class ParsedPageFact(TimestampMixin, Base):
     )
 
     __table_args__ = (
-        {"sqlite_autoincrement": False},
+        UniqueConstraint(
+            "project_id", "page_id", name="ix_parsed_page_facts_project_page"
+        ),
     )
 
     def __repr__(self) -> str:

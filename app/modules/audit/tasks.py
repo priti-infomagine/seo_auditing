@@ -20,33 +20,7 @@ from app.modules.audit.services.analysis_scorer_service import AnalysisScorerSer
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
 
-import asyncio
-import os
-import sys
 
-
-# @celery_app.task
-# def your_task(...):
-#     print("=" * 70)
-#     print("CELERY RUNTIME")
-#     print("PID:", os.getpid())
-#     print("Platform:", sys.platform)
-#     print(
-#         "Policy:",
-#         type(asyncio.get_event_loop_policy()).__name__,
-#     )
-
-#     try:
-#         loop = asyncio.get_running_loop()
-#         print("Running loop:", type(loop).__name__)
-#     except RuntimeError:
-#         print("Running loop: NONE")
-
-#     print("=" * 70)
-
-#     ...
-    
-    
 @celery_app.task(
     name="audit.parse_crawl",
     queue="audit",
@@ -70,6 +44,10 @@ def parse_crawl(project_id: str, crawl_id: str) -> dict:
     Returns:
         Summary dict from DBParserService.parse_crawl()
     """
+    logger.info(
+        f"audit.parse_crawl: task started for project_id={project_id}, "
+        f"crawl_id={crawl_id}"
+    )
 
     async def _run():
    
@@ -99,7 +77,12 @@ def parse_crawl(project_id: str, crawl_id: str) -> dict:
             return result
 
     try:
-        return run_async(_run())
+        result = run_async(_run())
+        logger.info(
+            f"audit.parse_crawl: task finished for project_id={project_id}, "
+            f"crawl_id={crawl_id}"
+        )
+        return result
     except Exception as exc:
         logger.error(
             f"audit.parse_crawl: task failed for project_id={project_id}, "
@@ -132,6 +115,10 @@ def evaluate_rules(project_id: str, crawl_id: str) -> dict:
     Returns:
         Summary dict from RuleEvaluatorService.evaluate_crawl()
     """
+    logger.info(
+        f"audit.evaluate_rules: task started for project_id={project_id}, "
+        f"crawl_id={crawl_id}"
+    )
 
     async def _run():
         from app.core.database import async_session_factory
@@ -142,7 +129,12 @@ def evaluate_rules(project_id: str, crawl_id: str) -> dict:
             return result
 
     try:
-        return run_async(_run())
+        result = run_async(_run())
+        logger.info(
+            f"audit.evaluate_rules: task finished for project_id={project_id}, "
+            f"crawl_id={crawl_id}"
+        )
+        return result
     except Exception as exc:
         logger.error(
             f"audit.evaluate_rules: task failed for project_id={project_id}, "
@@ -175,6 +167,10 @@ def score_project(project_id: str, crawl_id: str) -> dict:
     Returns:
         Dict from AnalysisScorerService.score_project()
     """
+    logger.info(
+        f"audit.score_project: task started for project_id={project_id}, "
+        f"crawl_id={crawl_id}"
+    )
 
     async def _run():
         from app.core.database import async_session_factory
@@ -185,7 +181,12 @@ def score_project(project_id: str, crawl_id: str) -> dict:
             return result
 
     try:
-        return run_async(_run())
+        result = run_async(_run())
+        logger.info(
+            f"audit.score_project: task finished for project_id={project_id}, "
+            f"crawl_id={crawl_id}"
+        )
+        return result
     except Exception as exc:
         logger.error(
             f"audit.score_project: task failed for project_id={project_id}, "
@@ -198,6 +199,7 @@ def score_project(project_id: str, crawl_id: str) -> dict:
 @celery_app.task(
     name="audit.run_analysis_pipeline",
     queue="audit",
+    bind=True,
     autoretry_for=(Exception,),
     retry_backoff=True,
     retry_backoff_max=300,
@@ -206,7 +208,7 @@ def score_project(project_id: str, crawl_id: str) -> dict:
     time_limit=3600,
     soft_time_limit=3300,
 )
-def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
+def run_analysis_pipeline(self, project_id: str, crawl_id: str) -> dict:
     """
     Celery task: run the full analysis pipeline sequentially.
 
@@ -224,6 +226,10 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
     Returns:
         Dict with results from all three stages.
     """
+    logger.info(
+        f"audit.run_analysis_pipeline: task started for project_id={project_id}, "
+        f"crawl_id={crawl_id}"
+    )
 
     async def _run():
         from app.core.database import async_session_factory
@@ -234,6 +240,14 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
         }
 
         # Stage 1: Parse
+        self.update_state(
+            state="PROGRESS",
+            meta={"stage": "parse", "project_id": project_id},
+        )
+        logger.info(
+            f"audit.run_analysis_pipeline: STAGE parse starting "
+            f"project_id={project_id}, crawl_id={crawl_id}"
+        )
         try:
             async with async_session_factory() as db:
                 parser = DBParserService(db)
@@ -241,6 +255,10 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
                     UUID(project_id), UUID(crawl_id)
                 )
                 await db.commit()
+            logger.info(
+                f"audit.run_analysis_pipeline: STAGE parse finished "
+                f"project_id={project_id}, crawl_id={crawl_id}"
+            )
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: parse stage failed: {exc}",
@@ -249,6 +267,14 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
             results["parse"] = {"error": str(exc)}
 
         # Stage 2: Evaluate
+        self.update_state(
+            state="PROGRESS",
+            meta={"stage": "evaluate", "project_id": project_id},
+        )
+        logger.info(
+            f"audit.run_analysis_pipeline: STAGE evaluate starting "
+            f"project_id={project_id}, crawl_id={crawl_id}"
+        )
         try:
             async with async_session_factory() as db:
                 evaluator = RuleEvaluatorService(db)
@@ -256,6 +282,10 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
                     UUID(project_id), UUID(crawl_id)
                 )
                 await db.commit()
+            logger.info(
+                f"audit.run_analysis_pipeline: STAGE evaluate finished "
+                f"project_id={project_id}, crawl_id={crawl_id}"
+            )
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: evaluate stage failed: {exc}",
@@ -264,6 +294,14 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
             results["evaluate"] = {"error": str(exc)}
 
         # Stage 3: Score
+        self.update_state(
+            state="PROGRESS",
+            meta={"stage": "score", "project_id": project_id},
+        )
+        logger.info(
+            f"audit.run_analysis_pipeline: STAGE score starting "
+            f"project_id={project_id}, crawl_id={crawl_id}"
+        )
         try:
             async with async_session_factory() as db:
                 scorer = AnalysisScorerService(db)
@@ -271,6 +309,10 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
                     UUID(project_id), UUID(crawl_id)
                 )
                 await db.commit()
+            logger.info(
+                f"audit.run_analysis_pipeline: STAGE score finished "
+                f"project_id={project_id}, crawl_id={crawl_id}"
+            )
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: score stage failed: {exc}",
@@ -282,7 +324,12 @@ def run_analysis_pipeline(project_id: str, crawl_id: str) -> dict:
         return results
 
     try:
-        return run_async(_run())
+        result = run_async(_run())
+        logger.info(
+            f"audit.run_analysis_pipeline: task finished for "
+            f"project_id={project_id}, crawl_id={crawl_id}"
+        )
+        return result
     except Exception as exc:
         logger.error(
             f"audit.run_analysis_pipeline: pipeline failed for "

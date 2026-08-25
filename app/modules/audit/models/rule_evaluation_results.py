@@ -8,7 +8,7 @@ import uuid
 
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Float, String, Text, func
+from sqlalchemy import Boolean, DateTime, Float, String, Text, func, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -82,6 +82,13 @@ class RuleEvaluationResult(TimestampMixin, Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
+    )
+
+    __table_args__ = (
+        UniqueConstraint(
+            "project_id", "page_id", "rule_id",
+            name="uq_rule_results_project_page_rule",
+        ),
     )
 
     def __repr__(self) -> str:

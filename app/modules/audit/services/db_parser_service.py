@@ -55,8 +55,6 @@ class DBParserService:
         self.seo_repo = PageSEODataRepository(db)
         self.snapshot_repo = PageSnapshotRepository(db)
         self.network_repo = PageNetworkDataRepository(db)
-        self.resource_repo = PageResourceRepository(db)
-        self.link_repo = PageLinkRepository(db)
         self.parser = ParserOrchestrator()
 
     async def parse_crawl(
@@ -109,6 +107,16 @@ class DBParserService:
                     "parsed_at": utc_now().isoformat(),
                 }
 
+            # --- Batch fetch everything needed for the parse stage (O(1) queries) ---
+            # Replaces per-page exists()/snapshot/network/seo loops (N+1).
+            page_ids = [p.id for p in pages_to_parse]
+            existing_ids = await self.parsed_fact_repo.get_existing_page_ids(
+                project_id, page_ids
+            )
+            snapshots = await self.snapshot_repo.get_by_page_ids(page_ids)
+            network_map = await self.network_repo.get_by_page_ids(page_ids)
+            seo_map = await self.seo_repo.get_by_page_ids(page_ids)
+
             parsed_count = 0
             failed_count = 0
             skipped_count = 0
@@ -116,11 +124,17 @@ class DBParserService:
 
             for page in pages_to_parse:
                 try:
-                    if not force and await self.parsed_fact_repo.exists(project_id, page.id):
+                    if not force and page.id in existing_ids:
                         skipped_count += 1
                         continue
 
-                    fact = await self.parse_page(project_id, crawl_id, page)
+                    snapshot = snapshots.get(page.id)
+                    network_data = network_map.get(page.id)
+                    seo_data = seo_map.get(page.id)
+
+                    fact = await self.parse_page(
+                        project_id, crawl_id, page, snapshot, network_data, seo_data
+                    )
                     if fact:
                         parsed_count += 1
                     else:
@@ -171,18 +185,24 @@ class DBParserService:
         project_id: UUID,
         crawl_id: UUID,
         page: CrawlPage,
+        snapshot: Optional["PageSnapshot"] = None,
+        network_data: Optional["PageNetworkData"] = None,
+        seo_data: Optional["PageSEOData"] = None,
         force: bool = False,
     ) -> Optional[ParsedPageFact]:
         """
         Parse a single page and persist the parsed facts.
 
-        Loads the HTML snapshot, network data, SEO data, resources, and links
-        from PostgreSQL, runs the parser, and builds a ParsedPageFact.
+        The HTML snapshot, network data, and SEO data are passed in pre-fetched
+        (batch-loaded by `parse_crawl`) to avoid per-page DB round trips.
 
         Args:
             project_id: The project tracking key.
             crawl_id: The crawl job ID.
-            page_id: The page ID to parse.
+            page: The CrawlPage row to parse.
+            snapshot: Pre-fetched PageSnapshot (or None).
+            network_data: Pre-fetched PageNetworkData (or None).
+            seo_data: Pre-fetched PageSEOData (or None).
             force: If True, re-parse even if facts already exist.
 
         Returns:
@@ -190,21 +210,11 @@ class DBParserService:
         """
         try:
             page_id = page.id
-            # Check for existing facts (unless force)
-            if not force and await self.parsed_fact_repo.exists(project_id, page_id):
-                logger.debug(
-                    f"DBParserService.parse_page: skipping existing fact for page_id={page_id}"
-                )
-                return await self.parsed_fact_repo.get_by_page_id(project_id, page_id)
 
-            # Load snapshot HTML
-            snapshot = await self.snapshot_repo.get_by_page_id(page_id)
             if not snapshot or not snapshot.content:
                 logger.warning(f"DBParserService.parse_page: no snapshot for page_id={page_id}")
                 return None
 
-            # Load network data
-            network_data = await self.network_repo.get_by_page_id(page_id)
             network_dict: Dict[str, Any] = {}
             if network_data:
                 network_dict = {
@@ -217,8 +227,6 @@ class DBParserService:
                     "performance": network_data.performance or {},
                 }
 
-            # Load SEO data
-            seo_data = await self.seo_repo.get_by_page_id(page_id)
             seo_dict: Dict[str, Any] = {}
             if seo_data:
                 seo_dict = {

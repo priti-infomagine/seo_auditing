@@ -6,6 +6,8 @@ shape defined in audit_response_schemas.UnifiedAuditResponse. The legacy
 AuditAnalyzeResponse / SeoAnalysisResponse names are kept as aliases for import
 backward-compatibility.
 """
+from uuid import UUID
+
 from app.core.config import settings
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Dict, Any, List
@@ -109,6 +111,10 @@ class AuditAnalyzeRequest(BaseModel):
         le=50,
         description="Number of concurrent crawl workers",
     )
+    project_id: Optional[UUID] = Field(
+        default=None,
+        description="Optional existing project ID to group this audit under. If omitted, a new project is created.",
+    )
 
     @field_validator("url")
     @classmethod
@@ -146,6 +152,28 @@ class AuditAnalyzeError(BaseModel):
     success: bool = False
     error: str = Field(..., description="Error type")
     detail: str = Field(..., description="Error details")
+
+
+class AuditAnalyzeQueuedResponse(BaseModel):
+    """
+    Response for a queued (async) audit request.
+
+    POST /audit/analyze enqueues a Celery task and returns immediately with
+    the identifiers needed to poll for progress and fetch the final result.
+    """
+
+    success: bool = Field(..., description="Whether the audit was successfully queued")
+    status: str = Field(..., description="Queued status, e.g. 'queued'")
+    message: str = Field(..., description="Human-readable status message")
+    url: str = Field(..., description="The audited URL")
+    domain: str = Field(..., description="Extracted domain name")
+    crawl_id: str = Field(..., description="Crawl job ID (also the analysis grouping key)")
+    project_id: str = Field(..., description="Project ID tracking this audit")
+    task_id: str = Field(..., description="Celery task ID for the crawl (poll for progress)")
+    task_status_url: str = Field(..., description="URL to poll the crawl task state")
+    crawl_status_url: str = Field(..., description="URL to fetch crawl job status")
+    pipeline_status_url: str = Field(..., description="URL to fetch pipeline stage status")
+    result_url: str = Field(..., description="URL to fetch the final analysis result")
 
 
 # Unified response shape (audit, summary, categories, issues, ...).

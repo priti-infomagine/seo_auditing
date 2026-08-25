@@ -4,10 +4,11 @@ RuleEvaluationResult repository - database operations for RuleEvaluationResult m
 Provides upsert for idempotency, ensuring no duplicate rule results for
 the same (project_id, page_id, rule_id).
 """
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Set
 from uuid import UUID
 
 from sqlalchemy import select, delete, func, cast, Integer
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResult
@@ -61,35 +62,78 @@ class RuleEvaluationResultRepository:
         )
         return result.scalar_one_or_none()
 
+    async def get_existing_page_ids(
+        self, project_id: UUID, page_ids: List[UUID]
+    ) -> Set[UUID]:
+        """
+        Return the set of page_ids (within a project) that already have rule
+        evaluation results. Single query — replaces per-page `get_by_page_id`
+        loops (N+1) in the evaluate stage.
+        """
+        if not page_ids:
+            return set()
+        rows = await self.db.execute(
+            select(RuleEvaluationResult.page_id).where(
+                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.page_id.in_(page_ids),
+            )
+        )
+        return {row[0] for row in rows.all()}
+
     async def bulk_upsert(self, results: List[RuleEvaluationResult]) -> int:
         """
-        Bulk insert or update RuleEvaluationResult rows.
+        True bulk upsert of RuleEvaluationResult rows in a single statement.
+
+        Uses PostgreSQL `INSERT ... ON CONFLICT
+        (project_id, page_id, rule_id) DO UPDATE`. The unique constraint
+        `uq_rule_results_project_page_rule` (added in the
+        f4b2c1d0e9a8 migration) backs the conflict target. Replaces the
+        previous per-row SELECT+UPDATE loop.
+
         Returns number of rows processed.
         """
         if not results:
             return 0
 
-        count = 0
-        for result in results:
-            existing = await self._get_existing(
-                result.project_id, result.page_id, result.rule_id
-            )
-            if existing:
-                existing.severity = result.severity
-                existing.passed = result.passed
-                existing.score_impact = result.score_impact
-                existing.message = result.message
-                existing.recommendation = result.recommendation
-                existing.rule_data = result.rule_data
-                existing.tags = result.tags
-                existing.evaluated_at = result.evaluated_at
-                self.db.add(existing)
-            else:
-                self.db.add(result)
-            count += 1
+        rows = []
+        for r in results:
+            rows.append({
+                "id": r.id,
+                "project_id": r.project_id,
+                "crawl_id": r.crawl_id,
+                "page_id": r.page_id,
+                "rule_id": r.rule_id,
+                "rule_name": r.rule_name,
+                "category": r.category,
+                "severity": r.severity,
+                "passed": r.passed,
+                "score_impact": r.score_impact,
+                "message": r.message,
+                "recommendation": r.recommendation,
+                "rule_data": r.rule_data,
+                "tags": r.tags,
+                "evaluated_at": r.evaluated_at,
+            })
 
+        stmt = pg_insert(RuleEvaluationResult).values(rows)
+        stmt = stmt.on_conflict_do_update(
+            index_elements=["project_id", "page_id", "rule_id"],
+            set_={
+                "rule_name": stmt.excluded.rule_name,
+                "category": stmt.excluded.category,
+                "severity": stmt.excluded.severity,
+                "passed": stmt.excluded.passed,
+                "score_impact": stmt.excluded.score_impact,
+                "message": stmt.excluded.message,
+                "recommendation": stmt.excluded.recommendation,
+                "rule_data": stmt.excluded.rule_data,
+                "tags": stmt.excluded.tags,
+                "evaluated_at": stmt.excluded.evaluated_at,
+            },
+        )
+        await self.db.execute(stmt)
         await self.db.flush()
-        return count
+        return len(rows)
 
     async def get_by_project_id(self, project_id: UUID) -> List[RuleEvaluationResult]:
         """Get all rule evaluation results for a project."""
