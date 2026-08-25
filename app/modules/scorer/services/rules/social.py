@@ -4,7 +4,7 @@ Social Media and Sharing Rules.
 from typing import Any, Dict, List
 
 from app.modules.scorer.services.base_rule import BaseRule
-from app.modules.scorer.models.rule_result import RuleResult, Severity
+from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 
 
 class OpenGraphRule(BaseRule):

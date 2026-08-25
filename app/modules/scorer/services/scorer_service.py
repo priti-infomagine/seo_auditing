@@ -4,49 +4,49 @@ Scorer Service - Orchestrates all scoring rules and produces SEO score.
 from typing import Dict, Any, List, Optional
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.scorer.services.score_calculator import ScoreCalculator
-from app.modules.scorer.models.rule_result import RuleResult
+from app.modules.rule_engine.models.rule_result import RuleResult
 from app.core.logger import logger
 
 
 # Import all rule classes
-from app.modules.scorer.services.rules.on_page import (
+from app.modules.rule_engine.category_rules.on_page import (
     TitleTagRule, MetaDescriptionRule, H1TagRule, HeadingHierarchyRule,
     MetaKeywordsRule, CanonicalUrlRule, RobotsMetaRule, OpenGraphRule, TwitterCardsRule
 )
-from app.modules.scorer.services.rules.technical import (
+from app.modules.rule_engine.category_rules.technical import (
     SSL_CertificateRule, MobileViewportRule, LanguageDeclarationRule,
     CharsetRule, DoctypeRule, HtmlLangRule, SecurityHeadersRule,
     RobotsTxtRule, SitemapRule, StructuredDataRule
 )
-from app.modules.scorer.services.rules.content import (
+from app.modules.rule_engine.category_rules.content import (
     WordCountRule, ReadingTimeRule, ParagraphCountRule, TextHtmlRatioRule,
     KeywordInContentRule, DuplicateContentRule, ContentFreshnessRule
 )
-from app.modules.scorer.services.rules.links import (
+from app.modules.rule_engine.category_rules.links import (
     InternalLinksRule, ExternalLinksRule, BrokenLinksRule,
     AnchorTextRule, NofollowLinksRule
 )
-from app.modules.scorer.services.rules.images import (
+from app.modules.rule_engine.category_rules.images import (
     ImageAltTextRule, ImageSizeRule, LazyLoadingRule, ImageDimensionsRule,
     ResponsiveImagesRule, ImageFormatsRule
 )
-from app.modules.scorer.services.rules.schema import (
+from app.modules.rule_engine.category_rules.schema import (
     SchemaMarkupRule, OrganizationSchemaRule, BreadcrumbSchemaRule,
     ArticleSchemaRule, ProductSchemaRule, JsonLdFormatRule
 )
-from app.modules.scorer.services.rules.social import (
+from app.modules.rule_engine.category_rules.social import (
     OpenGraphRule, TwitterCardsRule, SocialMediaLinksRule,
     FacebookDomainRule, SocialImageRule
 )
-from app.modules.scorer.services.rules.security import (
+from app.modules.rule_engine.category_rules.security import (
     HTTPSRule, MixedContentRule, SecurityHeadersRule, SSLCertificateRule,
     HSTSRule, XSSProtectionRule
 )
-from app.modules.scorer.services.rules.accessibility import (
+from app.modules.rule_engine.category_rules.accessibility import (
     AltTextRule, LanguageRule, HeadingStructureRule, LinkTextRule,
     ColorContrastRule, KeyboardNavigationRule, ARIALabelsRule, FormLabelsRule
 )
-from app.modules.scorer.services.rules.performance import (
+from app.modules.rule_engine.category_rules.performance import (
     ResponseTimeRule, HTMLSizeRule, MinificationRule, ResourceCountRule,
     CacheHeadersRule, CompressionRule, PageSizeRule, JavaScriptErrorsRule
 )

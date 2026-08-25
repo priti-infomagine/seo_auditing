@@ -4,7 +4,7 @@ Base rule class for SEO scoring rules.
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 
-from app.modules.scorer.models.rule_result import RuleResult, Severity
+from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 
 
 class BaseRule(ABC):

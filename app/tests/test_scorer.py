@@ -6,7 +6,7 @@ from httpx import ASGITransport, AsyncClient
 
 from app.main import app
 from app.modules.scorer.services.scorer_service import ScorerService
-from app.modules.scorer.models.rule_result import Severity
+from app.modules.rule_engine.models.rule_result import Severity
 
 
 @pytest.fixture
@@ -200,7 +200,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_title_tag_rule(self, scorer_service):
         """Test TitleTagRule."""
-        from app.modules.scorer.services.rules.on_page import TitleTagRule
+        from app.modules.rule_engine.category_rules.on_page import TitleTagRule
         
         rule = TitleTagRule()
         
@@ -222,7 +222,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_ssl_certificate_rule(self, scorer_service):
         """Test SSLCertificateRule."""
-        from app.modules.scorer.services.rules.technical import SSL_CertificateRule
+        from app.modules.rule_engine.category_rules.technical import SSL_CertificateRule
         
         rule = SSL_CertificateRule()
         
@@ -244,7 +244,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_word_count_rule(self, scorer_service):
         """Test WordCountRule."""
-        from app.modules.scorer.services.rules.content import WordCountRule
+        from app.modules.rule_engine.category_rules.content import WordCountRule
         
         rule = WordCountRule()
         
@@ -265,7 +265,7 @@ class TestIndividualRules:
     @pytest.mark.asyncio
     async def test_image_alt_text_rule(self, scorer_service):
         """Test ImageAltTextRule."""
-        from app.modules.scorer.services.rules.images import ImageAltTextRule
+        from app.modules.rule_engine.category_rules.images import ImageAltTextRule
         
         rule = ImageAltTextRule()
         
