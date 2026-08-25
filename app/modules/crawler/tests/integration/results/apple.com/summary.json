@@ -10,13 +10,13 @@
   "http_status": 200,
   "http_success": true,
   "http_final_url": "https://www.apple.com/",
-  "http_response_time_ms": 291,
+  "http_response_time_ms": 131,
   "http_redirects": [],
   "render_decision_needs_render": false,
   "render_decision_reason": "initial_html_sufficient",
   "render_decision_details": {
-    "word_count": 1062,
-    "text_ratio": 0.024861356932153394
+    "word_count": 1148,
+    "text_ratio": 0.026643143820558757
   },
   "browser_executed": false,
   "browser_status": null,
@@ -28,8 +28,8 @@
   "parser_title": "Apple",
   "parser_h1_count": 1,
   "parser_h2_count": 5,
-  "parser_word_count": 1035,
-  "parser_links_total": 142,
+  "parser_word_count": 1119,
+  "parser_links_total": 145,
   "parser_links_internal": 0,
   "parser_links_external": 0,
   "parser_images_total": 277,

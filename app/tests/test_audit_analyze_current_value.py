@@ -14,9 +14,8 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
-from app.core.database import async_session_factory
 from app.tests.test_audit_analyze import (
-    queued_audit_setup,
+    mock_celery,
     _seed_crawl,
     _run_pipeline,
     _poll_task_until_terminal,
@@ -24,7 +23,10 @@ from app.tests.test_audit_analyze import (
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_issues_have_current_value_and_recommended(queued_audit_setup):
+async def test_audit_analyze_issues_have_current_value_and_recommended(
+    mock_celery, _ensure_schema
+):
+    session_factory = _ensure_schema
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -38,9 +40,10 @@ async def test_audit_analyze_issues_have_current_value_and_recommended(queued_au
         project_id = uuid.UUID(posted["project_id"])
         task_id = posted["task_id"]
 
-        async with async_session_factory() as db:
+        async with session_factory() as db:
             await _seed_crawl(db, crawl_id, project_id, n_pages=2)
-        await _run_pipeline(crawl_id, project_id)
+
+        await _run_pipeline(crawl_id, project_id, session_factory)
 
         state = await _poll_task_until_terminal(client, task_id)
         assert state == "SUCCESS"

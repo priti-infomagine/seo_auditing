@@ -11,6 +11,9 @@ All tasks use project_id as the tracking key alongside crawl_id.
 All tasks are fault-tolerant: per-page/rule failures are caught and
 recorded; only system-level failures cause the task to fail.
 """
+import asyncio
+import os
+import sys
 from uuid import UUID
 
 from app.core.logger import logger

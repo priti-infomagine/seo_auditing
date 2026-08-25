@@ -9,6 +9,7 @@ from app.modules.auth.models.otp import OTP
 from app.modules.auth.models.refresh_token import RefreshToken
 from app.modules.auth.models.token_blacklist import TokenBlacklist
 from app.shared.tasks.celery_app import celery_app
+from app.shared.tasks.db import run_async
 from app.shared.services.email_service import send_email_sync
 
 
@@ -57,11 +58,6 @@ def send_password_reset_otp_email_task(to_email: str, otp: str) -> None:
     send_email_sync(to_email=to_email, subject=subject, content=content)
 
 
-def _run_async(coro):
-    import asyncio
-    return asyncio.run(coro)
-
-
 @celery_app.task(name="auth.cleanup_expired_otps")
 def cleanup_expired_otps() -> int:
     now = utc_now()
@@ -74,7 +70,7 @@ def cleanup_expired_otps() -> int:
             await session.commit()
             return result.rowcount
 
-    return _run_async(_cleanup())
+    return run_async(_cleanup())
 
 
 @celery_app.task(name="auth.cleanup_expired_blacklisted_tokens")
@@ -89,7 +85,7 @@ def cleanup_expired_blacklisted_tokens() -> int:
             await session.commit()
             return result.rowcount
 
-    return _run_async(_cleanup())
+    return run_async(_cleanup())
 
 
 @celery_app.task(name="auth.cleanup_expired_refresh_tokens")
@@ -106,4 +102,4 @@ def cleanup_expired_refresh_tokens() -> int:
             await session.commit()
             return result.rowcount
 
-    return _run_async(_cleanup())
+    return run_async(_cleanup())

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import asyncio
 from typing import Dict, Any, List, Optional
+import uuid
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -160,6 +161,7 @@ class RuleEvaluatorService:
                     })
                     # Create a single error result for the page
                     error_result = RuleEvaluationResult(
+                        id=uuid.uuid4(),
                         project_id=project_id,
                         crawl_id=crawl_id,
                         page_id=fact.page_id,
@@ -262,6 +264,7 @@ class RuleEvaluatorService:
             now = utc_now()
             eval_results = [
                 RuleEvaluationResult(
+                    id=uuid.uuid4(),
                     project_id=project_id,
                     crawl_id=crawl_id,
                     page_id=page_id,

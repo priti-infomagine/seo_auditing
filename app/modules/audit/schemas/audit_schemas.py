@@ -95,7 +95,7 @@ class AuditAnalyzeRequest(BaseModel):
     )
     max_pages: Optional[int] = Field(
         default=None,
-        ge=1,
+        ge=20,
         description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (from .env or code).",
     )
     max_depth: Optional[int] = Field(

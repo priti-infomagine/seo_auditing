@@ -1,20 +1,6 @@
 """
 Integration tests for the Audit Analyze API endpoint (async / queued flow).
-
-POST /api/v1/audit/analyze now *queues* a Celery task and returns 202 with
-crawl_id / project_id / task_id and status URLs. The crawl then triggers the
-parse → evaluate → score pipeline. These tests:
-
-  1. Assert POST returns 202 with the queued identifiers.
-  2. Simulate the crawl offline (no network) by seeding CrawlPage + snapshot +
-     SEO + network rows, then run the real parser/evaluator/scorer services
-     against the same Postgres database (this exercises the N+1 batch-fetch
-     refactor in parse/evaluate/response-build).
-  3. Poll GET /audit/analyze/task/{task_id} until a terminal state.
-  4. GET /audit/result/{crawl_id}?project_id=... and assert the unified shape.
-
-Celery broker/backend are bypassed: send_task is patched to a no-op and
-AsyncResult is patched to report SUCCESS, so no worker/Redis is required.
+...
 """
 import hashlib
 import uuid
@@ -25,24 +11,17 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.main import app
-from app.core.database import async_session_factory, engine, Base
+from app.core.database import get_db
 from app.core.security import get_current_user
 from app.shared.tasks.celery_app import celery_app
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.page_snapshots import PageSnapshot
 from app.modules.crawler.models.page_seo_data import PageSEOData
+from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.page_network_data import PageNetworkData
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
-
-
-@pytest.fixture(autouse=True)
-async def _ensure_schema():
-    """Make sure all tables (incl. unique constraints) exist for the test DB."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
 
 
 HTML_TEMPLATE = """<!DOCTYPE html>
@@ -63,32 +42,34 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>"""
 
 
+_captured_user_id = None
+
+
 def _fake_send_task(name, args=None, kwargs=None, queue=None, **opts):
-    # Bypass the broker entirely — the pipeline is run by the test directly.
+    global _captured_user_id
+    _captured_user_id = uuid.UUID(args[2]) if args and len(args) > 2 else None
     return SimpleNamespace(id=str(uuid.uuid4()), state="PENDING")
 
 
 def _fake_async_result(task_id):
-    # The test runs the pipeline itself, so report a terminal SUCCESS state.
     return SimpleNamespace(state="SUCCESS", result=None, info=None)
 
 
 @pytest.fixture
-def queued_audit_setup(monkeypatch):
-    """Patch auth + Celery so the queued flow works without a worker/Redis."""
-    fake_user = SimpleNamespace(id=uuid.uuid4())
-
-    app.dependency_overrides[get_current_user] = lambda: fake_user
+def mock_celery(monkeypatch):
+    """Patch Celery + auth so the queued flow works without a worker/Redis."""
+    global _captured_user_id
+    _captured_user_id = None
     monkeypatch.setattr(celery_app, "send_task", _fake_send_task)
     monkeypatch.setattr(celery_app, "AsyncResult", _fake_async_result)
+    app.dependency_overrides[get_current_user] = lambda: SimpleNamespace(id=_captured_user_id)
 
-    yield fake_user
+    yield
 
     app.dependency_overrides.clear()
 
 
 async def _seed_crawl(db: AsyncSession, crawl_id: uuid.UUID, project_id: uuid.UUID, n_pages: int):
-    """Persist synthetic crawl pages + related rows (offline, no network)."""
     pages = []
     for i in range(n_pages):
         url = f"https://example.com/page{i + 1}"
@@ -139,15 +120,14 @@ async def _seed_crawl(db: AsyncSession, crawl_id: uuid.UUID, project_id: uuid.UU
     return pages
 
 
-async def _run_pipeline(crawl_id: uuid.UUID, project_id: uuid.UUID):
-    """Run the real parse → evaluate → score pipeline against the DB."""
-    async with async_session_factory() as db:
+async def _run_pipeline(crawl_id: uuid.UUID, project_id: uuid.UUID, session_factory):
+    async with session_factory() as db:
         await DBParserService(db).parse_crawl(project_id, crawl_id)
         await db.commit()
-    async with async_session_factory() as db:
+    async with session_factory() as db:
         await RuleEvaluatorService(db).evaluate_crawl(project_id, crawl_id)
         await db.commit()
-    async with async_session_factory() as db:
+    async with session_factory() as db:
         result = await AnalysisScorerService(db).score_project(project_id, crawl_id)
         await db.commit()
     return result
@@ -167,8 +147,7 @@ async def _poll_task_until_terminal(client, task_id, timeout=30.0):
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_queued_returns_202(queued_audit_setup):
-    """POST /audit/analyze queues and returns 202 with identifiers + URLs."""
+async def test_audit_analyze_queued_returns_202(mock_celery):
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -189,11 +168,8 @@ async def test_audit_analyze_queued_returns_202(queued_audit_setup):
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
-    """
-    Queue, simulate the offline crawl, run the real pipeline, then assert the
-    unified result shape (mirrors the original synchronous assertions).
-    """
+async def test_audit_analyze_full_pipeline_shape(mock_celery, _ensure_schema):
+    session_factory = _ensure_schema
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -207,25 +183,27 @@ async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
         project_id = uuid.UUID(posted["project_id"])
         task_id = posted["task_id"]
 
-        # Simulate the crawl offline.
-        async with async_session_factory() as db:
-            _seed_crawl(db, crawl_id, project_id, n_pages=2)
+        async with session_factory() as db:
+            await _seed_crawl(db, crawl_id, project_id, n_pages=2)
 
-        # Run the real pipeline (parse → evaluate → score).
-        unified = await _run_pipeline(crawl_id, project_id)
+        unified = await _run_pipeline(crawl_id, project_id, session_factory)
 
-        # Poll task endpoint until terminal.
+        # Mark crawl completed for offline test (real crawler updates this).
+        async with session_factory() as db:
+            crawl_job = await db.get(CrawlJob, crawl_id)
+            if crawl_job:
+                crawl_job.status = "completed"
+                await db.commit()
+
         state = await _poll_task_until_terminal(client, task_id)
         assert state == "SUCCESS"
 
-        # Fetch the final result.
         result_resp = await client.get(
             f"/api/v1/audit/result/{crawl_id}?project_id={project_id}"
         )
         assert result_resp.status_code == 200, result_resp.text
         data = result_resp.json()
 
-    # --- audit block ---
     audit = data["audit"]
     assert audit["domain"] == "example.com"
     assert audit["url"] == "https://example.com/"
@@ -234,7 +212,6 @@ async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
     assert audit["pages_discovered"] >= 1
     assert audit["status"] == "completed"
 
-    # --- summary ---
     summary = data["summary"]
     assert "overall_score" in summary
     assert 0 <= summary["overall_score"] <= 100
@@ -242,14 +219,12 @@ async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
     for key in ("critical_issues", "high_issues", "medium_issues", "low_issues"):
         assert isinstance(summary[key], int)
 
-    # --- categories ---
     categories = data["categories"]
     assert isinstance(categories, list) and len(categories) >= 1
     cat_ids = {c["id"] for c in categories}
     for expected in ("on_page", "technical_seo", "content_quality", "performance"):
         assert expected in cat_ids, f"missing category {expected}"
 
-    # --- issues: strict slim shape {page_url, affected_part} + current_value ---
     issues = data["issues"]
     assert isinstance(issues, list)
     for issue in issues:
@@ -257,12 +232,10 @@ async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
         assert issue["page_url"]
         assert issue["affected_part"]
 
-    # --- category_results ---
     category_results = data["category_results"]
     assert isinstance(category_results, dict)
     assert "on_page" in category_results
 
-    # --- crawl / indexation ---
     crawl = data["crawl"]
     assert crawl["pages_discovered"] >= 1
     assert "status_codes" in crawl
@@ -270,24 +243,17 @@ async def test_audit_analyze_full_pipeline_shape(queued_audit_setup):
     assert "indexable" in indexation
     assert "noindex" in indexation
 
-    # --- priorities + recommendations ---
     priorities = data["priorities"]
     assert {"critical", "high", "medium", "low"} <= set(priorities.keys())
     recommendations = data["recommendations"]
     assert isinstance(recommendations, list)
 
-    # --- errors + metadata ---
     assert isinstance(data["errors"], list)
     assert data["metadata"]["output_shape"] == "unified_v1"
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_invalid_url_queued(queued_audit_setup):
-    """
-    An invalid/unreachable URL is still auto-corrected to https:// and queued
-    (the crawl failure happens in the worker, not in the request). The endpoint
-    now returns 202 rather than 500.
-    """
+async def test_audit_analyze_invalid_url_queued(mock_celery):
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -300,8 +266,7 @@ async def test_audit_analyze_invalid_url_queued(queued_audit_setup):
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_empty_url():
-    """An empty URL fails Pydantic validation before queueing (422)."""
+async def test_audit_analyze_empty_url(mock_celery):
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -314,8 +279,7 @@ async def test_audit_analyze_empty_url():
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_max_pages_floor_validation():
-    """max_pages below the schema floor (ge=20) must return 422."""
+async def test_audit_analyze_max_pages_floor_validation(mock_celery):
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -328,11 +292,8 @@ async def test_audit_analyze_max_pages_floor_validation():
 
 
 @pytest.mark.asyncio
-async def test_audit_analyze_multi_page_crawl(queued_audit_setup):
-    """
-    Queue, seed multiple pages offline, run the pipeline, and assert the
-    unified result reflects the multi-page crawl.
-    """
+async def test_audit_analyze_multi_page_crawl(mock_celery, _ensure_schema):
+    session_factory = _ensure_schema
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
@@ -346,10 +307,10 @@ async def test_audit_analyze_multi_page_crawl(queued_audit_setup):
         project_id = uuid.UUID(posted["project_id"])
         task_id = posted["task_id"]
 
-        async with async_session_factory() as db:
-            _seed_crawl(db, crawl_id, project_id, n_pages=3)
+        async with session_factory() as db:
+            await _seed_crawl(db, crawl_id, project_id, n_pages=3)
 
-        await _run_pipeline(crawl_id, project_id)
+        await _run_pipeline(crawl_id, project_id, session_factory)
         state = await _poll_task_until_terminal(client, task_id)
         assert state == "SUCCESS"
 

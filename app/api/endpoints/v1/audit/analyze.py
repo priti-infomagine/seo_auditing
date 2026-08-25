@@ -16,7 +16,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.config import settings
-from app.core.security import get_current_user
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeResponse,
@@ -28,7 +27,6 @@ from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorServi
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
-from app.modules.auth.models.users import User
 from app.shared.tasks.celery_app import celery_app
 from app.shared.utils.url_utils import get_domain
 
@@ -50,7 +48,6 @@ router = APIRouter()
 async def analyze_website(
     body: AuditAnalyzeRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> AuditAnalyzeQueuedResponse:
     """
     Queue a complete crawl → parse → score SEO audit pipeline.
@@ -63,7 +60,6 @@ async def analyze_website(
     Args:
         body: AuditAnalyzeRequest containing URL and crawl limits
         db: Database session
-        current_user: Authenticated user (injected by get_current_user)
 
     Returns:
         AuditAnalyzeQueuedResponse with crawl_id, project_id, task_id and URLs.
@@ -73,8 +69,10 @@ async def analyze_website(
     """
     logger.info(
         f"POST /audit/analyze - Queuing audit for URL: {body.url}, "
-        f"user_id={current_user.id}"
+        f"project_id: {body.project_id}, max_pages: {body.max_pages}, "
     )
+
+    anonymous_user_id = uuid.uuid4()
 
     try:
         url_str = str(body.url)
@@ -107,10 +105,9 @@ async def analyze_website(
             "respect_robots": True,
             "auto_analyze": True,
         }
-
         crawl_job = CrawlJob(
             id=uuid.uuid4(),
-            user_id=current_user.id,
+            user_id=anonymous_user_id,
             project_id=project_id,
             url=url_str,
             domain=domain,
@@ -132,7 +129,7 @@ async def analyze_website(
         # analysis pipeline on the audit queue when auto_analyze is set.
         async_result = celery_app.send_task(
             "crawler.crawl_website",
-            args=[str(crawl_id), url_str, str(current_user.id)],
+            args=[str(crawl_id), url_str, str(anonymous_user_id)],
             queue="crawler",
         )
 
@@ -185,20 +182,18 @@ async def analyze_website(
 )
 async def get_analyze_task_status(
     task_id: str,
-    current_user: User = Depends(get_current_user),
 ) -> dict:
     """
     Poll the Celery task state for the crawl triggered by POST /audit/analyze.
 
     Args:
         task_id: Celery task ID returned by the analyze endpoint.
-        current_user: Authenticated user (injected by get_current_user).
 
     Returns:
         Dict with task_id, state, and meta/result/error when available.
     """
     logger.info(
-        f"GET /audit/analyze/task/{task_id} - user_id={current_user.id}"
+        f"GET /audit/analyze/task/{task_id}"
     )
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {
