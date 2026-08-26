@@ -39,6 +39,8 @@ class CrawlConfig:
     max_sitemap_page_urls: int = 500
     max_sitemap_index_depth: int = 3
 
+    write_buffer_flush_every: int = 20
+
     def validate(self) -> None:
         """Validate configuration values."""
         if self.max_pages <= 0:
@@ -61,6 +63,8 @@ class CrawlConfig:
             raise ValueError("max_sitemap_page_urls must be > 0")
         if self.max_sitemap_index_depth < 1:
             raise ValueError("max_sitemap_index_depth must be >= 1")
+        if self.write_buffer_flush_every <= 0:
+            raise ValueError("write_buffer_flush_every must be > 0")
 
     @classmethod
     def from_dict(cls, data: Optional[dict]) -> "CrawlConfig":
@@ -92,6 +96,7 @@ class CrawlConfig:
             max_sitemap_files=data.get("max_sitemap_files", 40),
             max_sitemap_page_urls=data.get("max_sitemap_page_urls", 500),
             max_sitemap_index_depth=data.get("max_sitemap_index_depth", 3),
+            write_buffer_flush_every=data.get("write_buffer_flush_every", 20),
         )
         config.validate()
         return config

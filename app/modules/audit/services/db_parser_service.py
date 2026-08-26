@@ -32,6 +32,7 @@ from app.modules.crawler.repositories.page_snapshot_repository import PageSnapsh
 from app.modules.crawler.repositories.page_network_data_repository import PageNetworkDataRepository
 from app.modules.crawler.repositories.page_resource_repository import PageResourceRepository
 from app.modules.crawler.repositories.page_link_repository import PageLinkRepository
+from app.modules.parser.models.parsed_page import ParsedPage
 from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
 from app.shared.exceptions import ParserError
 
@@ -250,8 +251,10 @@ class DBParserService:
                 }
 
             # Run parser on the HTML
-            html = snapshot.content
-            parsed = self.parser.parse(html=html, url=page.normalized_url)
+            if snapshot.parsed_data:
+                parsed = ParsedPage.model_validate(snapshot.parsed_data)
+            else:
+                parsed = self.parser.parse(html=snapshot.content, url=page.normalized_url)
 
             # Build parsed_data dict
             parsed_data = parsed.model_dump(mode="json")

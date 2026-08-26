@@ -86,6 +86,7 @@ class CrawlOrchestrator:
 
         raw_config = job.crawl_config or {}
         self.config = CrawlConfig.from_dict(raw_config)
+        self.persistence.set_flush_every(self.config.write_buffer_flush_every)
         self._progress_callback = progress_callback
         job.total_pages = self.config.max_pages
         await self.job_repository.update(job)
@@ -178,6 +179,7 @@ class CrawlOrchestrator:
             await self._mark_failed(str(exc))
             return {"status": "failed", "crawl_id": str(self.crawl_job_id)}
         finally:
+            await self.persistence.flush_all()
             pages_crawled_count = scheduler.pages_crawled_count
             pages_discovered_count = scheduler.pages_discovered_count
             self._scheduler = None
@@ -379,9 +381,13 @@ class CrawlOrchestrator:
         )
         page = await self.persistence.persist_page(page)
 
-        await self.persistence.persist_snapshot(page.id, document.raw_html)
+        await self.persistence.persist_snapshot(
+            page.id,
+            document.raw_html,
+            parsed_data=parsed.model_dump(mode="json"),
+        )
 
-        await self.persistence.persist_network_data(
+        await self.persistence.buffer_network(
             network_data=PageNetworkData(
                 page_id=page.id,
                 status_code=technical_result.status_code,
@@ -412,7 +418,7 @@ class CrawlOrchestrator:
             ],
         }
 
-        await self.persistence.persist_seo_data(
+        await self.persistence.buffer_seo(
             seo_data=PageSEOData(
                 page_id=page.id,
                 title=page_facts.metadata.title,
@@ -455,8 +461,8 @@ class CrawlOrchestrator:
             )
         )
 
-        await self.persistence.persist_resources(page.id, page_facts.resources.resources, page_url=effective_url)
-        await self.persistence.persist_links(page.id, link_result.links)
+        await self.persistence.buffer_resources(page.id, page_facts.resources.resources, page_url=effective_url)
+        await self.persistence.buffer_links(page.id, link_result.links)
 
         redirect_links = link_result.redirect_links
         if redirect_links:

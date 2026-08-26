@@ -80,6 +80,24 @@ class FakePersistence:
     async def persist_site_data(self, data):
         self.site_data.append(data)
 
+    def set_flush_every(self, flush_every):
+        pass
+
+    async def buffer_network(self, network_data=None, **kwargs):
+        pass
+
+    async def buffer_seo(self, seo_data=None, **kwargs):
+        pass
+
+    async def buffer_resources(self, page_id, resources, page_url="", **kwargs):
+        pass
+
+    async def buffer_links(self, page_id, links, **kwargs):
+        pass
+
+    async def flush_all(self):
+        pass
+
 
 class FakeScheduler:
     """Stand-in for CrawlScheduler used by the mocked run() tests."""
@@ -550,12 +568,13 @@ class TestCrawlPageRedirectAware:
         mock_persist = AsyncMock(side_effect=lambda page: fake_page)
         orch.persistence.persist_page = mock_persist
         orch.persistence.persist_snapshot = AsyncMock()
-        orch.persistence.persist_network_data = AsyncMock()
-        orch.persistence.persist_seo_data = AsyncMock()
-        orch.persistence.persist_resources = AsyncMock(return_value=[])
-        orch.persistence.persist_links = AsyncMock(return_value=[])
+        orch.persistence.buffer_network = AsyncMock()
+        orch.persistence.buffer_seo = AsyncMock()
+        orch.persistence.buffer_resources = AsyncMock(return_value=[])
+        orch.persistence.buffer_links = AsyncMock(return_value=[])
         orch.persistence.update_progress = AsyncMock()
         orch.persistence.persist_error = AsyncMock()
+        orch.persistence.flush_all = AsyncMock()
 
         # Mock redirect service factory
         fake_redirect_service = MagicMock()

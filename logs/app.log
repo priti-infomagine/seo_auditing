@@ -7366,3 +7366,1757 @@ app.shared.exceptions.RuleEvaluationError: Crawl evaluation failed: (sqlalchemy.
 2026-08-25T18:35:07+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-08-25T18:35:07+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-08-25T18:35:07+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T12:28:41+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 364, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T12:31:19+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 364, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T12:31:59+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 492, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 278, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-26T12:32:09+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:32:09+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=2ms
+2026-08-26T12:32:13+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:32:15+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-26T12:32:15+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:32:17+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:32:23+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-26T12:34:59+00:00 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-26T12:34:59+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 364, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T12:35:00+00:00 | INFO | Site discovery complete for https://example.com: robots=True, sitemaps=9, page_urls=500
+2026-08-26T12:35:00+00:00 | INFO | Site discovery complete for https://example.com: robots=True, sitemaps=9, page_urls=50
+2026-08-26T12:35:40+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:35:40+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_queued_returns_202() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:154> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:42+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:35:42+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-17' coro=<test_audit_analyze_full_pipeline_shape() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:178> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:42+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://not-a-valid-url, project_id: None, max_pages: None, 
+2026-08-26T12:35:42+00:00 | ERROR | Unexpected error queuing audit for URL: https://not-a-valid-url
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-29' coro=<test_audit_analyze_invalid_url_queued() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:262> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:45+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: 100, 
+2026-08-26T12:35:45+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-63' coro=<test_audit_analyze_multi_page_crawl() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:302> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:46+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:35:46+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-75' coro=<test_audit_analyze_full_pipeline_false() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:334> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:47+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:35:47+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-87' coro=<test_public_status_by_project() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:350> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:35:47+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:35:47+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-99' coro=<test_public_result_by_project() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:374> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:36:26+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:36:26+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_queued_returns_202() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:154> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:38:30+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 486, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 259, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-26T12:38:37+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:38:37+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=0ms
+2026-08-26T12:38:39+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:38:40+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-26T12:38:40+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:38:42+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:38:48+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-26T12:54:13+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 492, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 277, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-26T12:54:20+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:54:20+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=11ms
+2026-08-26T12:54:22+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:54:23+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-26T12:54:23+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:54:25+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:54:29+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-26T12:54:41+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 455, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T12:55:13+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:55:13+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_queued_returns_202() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:154> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:55:42+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://example.com/, project_id: None, max_pages: None, 
+2026-08-26T12:55:42+00:00 | ERROR | Unexpected error queuing audit for URL: https://example.com/
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_full_pipeline_shape() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:178> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:56:05+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://not-a-valid-url, project_id: None, max_pages: None, 
+2026-08-26T12:56:05+00:00 | ERROR | Unexpected error queuing audit for URL: https://not-a-valid-url
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_invalid_url_queued() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:262> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:57:36+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://not-a-valid-url, project_id: None, max_pages: None, 
+2026-08-26T12:57:36+00:00 | ERROR | Unexpected error queuing audit for URL: https://not-a-valid-url
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\audit\analyze.py", line 119, in analyze_website
+    await job_repo.create(crawl_job)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-5' coro=<test_audit_analyze_invalid_url_queued() running at I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_audit_analyze.py:262> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-08-26T12:58:08+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 492, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 277, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-26T12:58:18+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:58:18+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=2ms
+2026-08-26T12:58:21+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:58:22+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-26T12:58:22+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:58:23+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T12:58:29+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-26T12:59:33+00:00 | WARNING | Browser fallback failed for https://example.com/page: playwright_error
+2026-08-26T12:59:33+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 455, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T12:59:33+00:00 | INFO | Site discovery complete for https://example.com: robots=True, sitemaps=9, page_urls=500
+2026-08-26T12:59:33+00:00 | INFO | Site discovery complete for https://example.com: robots=True, sitemaps=9, page_urls=50
+2026-08-26T13:01:10+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 492, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 277, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-08-26T13:01:18+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T13:01:18+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=0ms
+2026-08-26T13:01:21+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T13:01:22+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-08-26T13:01:22+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T13:01:23+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-08-26T13:01:27+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-08-26T13:01:28+00:00 | ERROR | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 455, in flush_all
+    await flush_fn()
+  File "I:\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-08-26T13:45:44+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://www.github.com/, project_id: None, max_pages: None, 
+2026-08-26T13:45:44+00:00 | INFO | CrawlJob created: crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, domain=www.github.com
+2026-08-26T13:45:50+00:00 | INFO | Audit enqueued: crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, task_id=b50eb668-55ae-4d8e-951e-c60fc5deaf8a, queued on 'crawler'
+2026-08-26T13:45:52+00:00 | INFO | crawler.crawl_website: task started for crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, url=https://www.github.com/, user_id=bb736292-2a4c-4a40-93cc-cfd62f18c98f
+2026-08-26T13:45:52+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:45:54+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:45:55+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:45:57+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:45:59+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:00+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:02+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:02+00:00 | INFO | Site discovery complete for https://www.github.com/: robots=True, sitemaps=1, page_urls=0
+2026-08-26T13:46:02+00:00 | INFO | Robots policy attached to scheduler for www.github.com (sitemaps: 0)
+2026-08-26T13:46:02+00:00 | INFO | Crawl started: https://www.github.com/ (max_pages=100, max_depth=5)
+2026-08-26T13:46:03+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:05+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:07+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:09+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:11+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:13+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:15+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:17+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:19+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:21+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:23+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:26+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:28+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:29+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:32+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:33+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:35+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:37+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:39+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:41+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:43+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:44+00:00 | WARNING | Redirect to unrelated host forms.cloud.microsoft — base domain stays github.com
+2026-08-26T13:46:45+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:47+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:49+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:51+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:53+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:55+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:57+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:46:59+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:02+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:03+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:05+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:07+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:09+00:00 | INFO | Crawl completed: https://www.github.com/ — pages_crawled=109, pages_discovered=3537, pages_failed=0, duration=76052ms
+2026-08-26T13:47:09+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 12269, 'non_html': 328, 'resource': 12, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 15}
+2026-08-26T13:47:09+00:00 | INFO | crawler.crawl_website: auto_analyze fired for crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f
+2026-08-26T13:47:09+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:11+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:13+00:00 | INFO | crawler.crawl_website: task succeeded for crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, pages_crawled=109
+2026-08-26T13:47:13+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:15+00:00 | INFO | audit.run_analysis_pipeline: task started for project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:15+00:00 | INFO | audit.run_analysis_pipeline: STAGE parse starting project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:15+00:00 | INFO | DBParserService.parse_crawl: project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, force=False
+2026-08-26T13:47:16+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:17+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:19+00:00 | INFO | DBParserService.parse_crawl: parsed=109, failed=0, skipped=0 for project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f
+2026-08-26T13:47:19+00:00 | INFO | audit.run_analysis_pipeline: STAGE parse finished project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:19+00:00 | INFO | audit.run_analysis_pipeline: STAGE evaluate starting project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:19+00:00 | INFO | Loaded 64 scoring rules
+2026-08-26T13:47:19+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, force=False
+2026-08-26T13:47:19+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:23+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:23+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=109, rules_run=6976, total_results=6976, errors=0 for project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f
+2026-08-26T13:47:23+00:00 | INFO | audit.run_analysis_pipeline: STAGE evaluate finished project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:23+00:00 | INFO | audit.run_analysis_pipeline: STAGE score starting project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:23+00:00 | INFO | AnalysisScorerService.score_project: project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83, force=False
+2026-08-26T13:47:23+00:00 | INFO | Loaded 64 scoring rules
+2026-08-26T13:47:23+00:00 | INFO | AuditResponseBuilder.build: project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:25+00:00 | INFO | AnalysisScorerService.score_project: score=89.5, grade=B+, pages=95, project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f
+2026-08-26T13:47:25+00:00 | INFO | audit.run_analysis_pipeline: STAGE score finished project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:25+00:00 | INFO | audit.run_analysis_pipeline: task finished for project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f, crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:25+00:00 | INFO | GET /audit/status/d94c7031-660a-4449-9e36-9ebd2bafaa1f - crawl_id=None
+2026-08-26T13:47:27+00:00 | INFO | GET /audit/result/project/d94c7031-660a-4449-9e36-9ebd2bafaa1f
+2026-08-26T13:47:27+00:00 | INFO | Loaded 64 scoring rules
+2026-08-26T13:47:27+00:00 | INFO | AuditResponseBuilder.build: project_id=d94c7031-660a-4449-9e36-9ebd2bafaa1f crawl_id=63cfbe94-029c-40a7-99d5-f7c78b6f6e83
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-26T13:47:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.

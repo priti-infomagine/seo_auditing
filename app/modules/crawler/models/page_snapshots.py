@@ -7,7 +7,7 @@ Fields:
 import uuid
 
 from sqlalchemy import Boolean, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -37,6 +37,10 @@ class PageSnapshot(TimestampMixin, Base):
         Boolean,
         nullable=False,
         default=False,
+    )
+    parsed_data: Mapped[dict | None] = mapped_column(
+        JSONB,
+        nullable=True,
     )
 
     def __repr__(self) -> str:

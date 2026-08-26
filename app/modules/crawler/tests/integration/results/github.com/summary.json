@@ -10,7 +10,7 @@
   "http_status": 200,
   "http_success": true,
   "http_final_url": "https://github.com/",
-  "http_response_time_ms": 556,
+  "http_response_time_ms": 424,
   "http_redirects": [
     {
       "url": "http://github.com/",
@@ -22,7 +22,7 @@
   "render_decision_reason": "initial_html_sufficient",
   "render_decision_details": {
     "word_count": 1103,
-    "text_ratio": 0.012749602879795673
+    "text_ratio": 0.012753818922921892
   },
   "browser_executed": false,
   "browser_status": null,

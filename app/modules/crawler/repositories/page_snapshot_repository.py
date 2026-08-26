@@ -42,6 +42,8 @@ class PageSnapshotRepository:
         page_id: UUID,
         html_content: str,
         compressed: bool = False,
+        *,
+        parsed_data: Optional[dict] = None,
     ) -> PageSnapshot:
         """Save or replace HTML snapshot for a page."""
         # Check for existing snapshot (unique constraint on page_id)
@@ -49,6 +51,8 @@ class PageSnapshotRepository:
         if existing:
             existing.content = compress_html(html_content) if compressed else html_content
             existing.compressed = True if compressed else False
+            if parsed_data is not None:
+                existing.parsed_data = parsed_data
             await self.db.flush()
             await self.db.refresh(existing)
             return existing
@@ -57,6 +61,7 @@ class PageSnapshotRepository:
             page_id=page_id,
             content=compress_html(html_content) if compressed else html_content,
             compressed=True if compressed else False,
+            parsed_data=parsed_data,
         )
         self.db.add(snapshot)
         await self.db.flush()
