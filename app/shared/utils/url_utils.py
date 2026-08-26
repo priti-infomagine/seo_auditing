@@ -2,7 +2,79 @@
 URL utility functions for normalization and validation.
 """
 from urllib.parse import urlparse, urlunparse
-from typing import Optional 
+from typing import Optional
+
+# Public Suffix List — common multi-level TLDs that require special handling.
+# Any host ending with one of these suffixes needs an extra label extracted
+# to form the registered domain (eTLD+1).
+_MULTI_LEVEL_SUFFIXES = (
+    ".co.uk", ".org.uk", ".ac.uk", ".gov.uk", ".nhs.uk",
+    ".co.in", ".org.in", ".ac.in", ".gov.in", ".nic.in",
+    ".com.au", ".net.au", ".org.au", ".gov.au",
+    ".co.jp", ".or.jp", ".ne.jp", ".go.jp",
+    ".com.br", ".net.br", ".org.br", ".gov.br",
+    ".co.nz", ".org.nz", ".net.nz",
+    ".com.cn", ".net.cn", ".org.cn", ".gov.cn",
+    ".co.za", ".org.za", ".net.za",
+)
+
+
+def _registered_domain(host: str) -> str:
+    """
+    Extract the registered domain (eTLD+1) from a hostname.
+
+    Handles multi-level public suffixes (e.g. ``.co.uk``, ``.com.au``) so
+    that subdomains of the same site compare equal:
+
+    >>> _registered_domain("en.wikipedia.org")
+    'wikipedia.org'
+    >>> _registered_domain("www.wikipedia.org")
+    'wikipedia.org'
+    >>> _registered_domain("github.com")
+    'github.com'
+    >>> _registered_domain("docs.github.com")
+    'github.com'
+    >>> _registered_domain("shop.example.co.uk")
+    'example.co.uk'
+
+    Args:
+        host: A bare hostname (no scheme, no path).
+
+    Returns:
+        The registered domain (registrable base domain, or eTLD+1).
+    """
+    host = host.strip().lower().rstrip(".")
+    if not host:
+        return ""
+
+    # Strip port if present (IPv6 literals handled too).
+    if host.startswith("["):
+        # IPv6 literal — return as-is (no subdomains to speak of).
+        return host
+    if ":" in host:
+        host = host.split(":", 1)[0]
+
+    # Strip a single leading "www." prefix (proper prefix removal, not lstrip).
+    if host.startswith("www."):
+        host = host[4:]
+
+    parts = host.split(".")
+    if len(parts) < 2:
+        return host
+
+    # Check for multi-level suffixes first (e.g. ".co.uk" -> take last 3 labels).
+    for suffix in _MULTI_LEVEL_SUFFIXES:
+        if host.endswith(suffix):
+            # Registered domain = suffix + one label (e.g. example.co.uk).
+            # suffix_labels already = suffix levels + 1 (the registrable part).
+            suffix_labels = suffix.count(".") + 1
+            if len(parts) > suffix_labels:
+                # Host has subdomains beyond the registered domain.
+                return ".".join(parts[-suffix_labels:])
+            return host  # Host IS the registered domain (e.g. example.co.uk)
+
+    # Standard case: last two labels (e.g. "example.com").
+    return ".".join(parts[-2:]) if len(parts) >= 2 else host
 
 def normalize_url(url: str) -> str:
     """
@@ -153,8 +225,8 @@ def is_same_site(host_a: str, host_b: str) -> bool:
     """
     Determine whether two hosts belong to the same site.
 
-    Uses :func:`normalize_host` so that the apex host and its ``www.``
-    variant are considered equivalent, but arbitrary subdomains are not.
+    Compares registered domains (eTLD+1) so that the apex host, its ``www.``
+    variant, and all subdomains are considered the same site.
 
     Examples:
         >>> is_same_site("example.com", "www.example.com")
@@ -162,9 +234,15 @@ def is_same_site(host_a: str, host_b: str) -> bool:
         >>> is_same_site("www.example.com", "example.com")
         True
         >>> is_same_site("example.com", "blog.example.com")
-        False
+        True
+        >>> is_same_site("en.wikipedia.org", "www.wikipedia.org")
+        True
+        >>> is_same_site("docs.github.com", "github.com")
+        True
         >>> is_same_site("example.com", "example.org")
         False
+        >>> is_same_site("example.co.uk", "shop.example.co.uk")
+        True
 
     Args:
         host_a: First host or netloc.
@@ -173,7 +251,7 @@ def is_same_site(host_a: str, host_b: str) -> bool:
     Returns:
         True if the hosts are the same site, False otherwise.
     """
-    return normalize_host(host_a) == normalize_host(host_b)
+    return _registered_domain(host_a) == _registered_domain(host_b) and bool(_registered_domain(host_a))
 
 
 def is_internal_link(base_url: str, target_url: str) -> bool:

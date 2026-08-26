@@ -275,7 +275,7 @@ CATEGORY_ORDER: Dict[str, int] = {
 #   score >= needs_attention -> "needs_attention"
 #   otherwise           -> "critical"  (i.e. score >= critical)
 STATUS_THRESHOLDS: Dict[str, float] = {
-    "good": 80.0,
+    "good": 70.0,
     "needs_attention": 50.0,
     "critical": 0.0,
 }
@@ -350,7 +350,7 @@ PASS_THRESHOLD: float = 100.0
 # Single source of truth for category status tiers (minimum inclusive score).
 # Every category's `status` field must be derived from this table via get_status().
 STATUS_THRESHOLDS_EXCELLENT: Dict[str, float] = {
-    "excellent": 90.0,
+    "excellent": 85.0,
     "good": 75.0,
     "needs_improvement": 60.0,
     "poor": 40.0,

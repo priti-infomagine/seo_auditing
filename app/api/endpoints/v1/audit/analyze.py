@@ -93,8 +93,7 @@ async def analyze_website(
         effective_max_depth = body.max_depth if body.max_depth is not None else 5
 
         # Crawl config — identical in shape to crawler/crawl.py.
-        # auto_analyze is FORCED on so the crawl always triggers the analysis
-        # pipeline (it is not user-controllable from this endpoint).
+        # auto_analyze is controlled by the full_pipeline flag (default True).
         crawl_config = {
             "max_depth": effective_max_depth,
             "max_pages": effective_max_pages,
@@ -103,7 +102,7 @@ async def analyze_website(
             "delay_ms": 0,
             "follow_redirects": True,
             "respect_robots": True,
-            "auto_analyze": True,
+            "auto_analyze": body.full_pipeline,
         }
         crawl_job = CrawlJob(
             id=uuid.uuid4(),
@@ -149,8 +148,10 @@ async def analyze_website(
             task_id=async_result.id,
             task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
             crawl_status_url=f"/api/v1/crawler/status/{crawl_id}",
-            pipeline_status_url=f"/api/v1/audit/pipeline/{project_id}",
+            pipeline_status_url=f"/api/v1/audit/status/{project_id}",
             result_url=f"/api/v1/audit/result/{crawl_id}?project_id={project_id}",
+            full_pipeline=body.full_pipeline,
+            result_project_url=f"/api/v1/audit/result/project/{project_id}",
         )
 
     except ValueError as e:

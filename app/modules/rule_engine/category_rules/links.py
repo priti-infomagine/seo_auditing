@@ -176,7 +176,24 @@ class AnchorTextRule(BaseRule):
             )]
         
         # Check for generic anchor text
-        generic_anchors = ["click here", "read more", "here", "link", "more"]
+        generic_anchors = {
+            "click here",
+            "read more",
+            "learn more",
+            "here",
+            "link",
+            "more",
+            "this",
+            "this link",
+            "website",
+            "visit",
+            "go",
+            "details",
+            "view more",
+            "see more",
+            "find out more",
+        }
+
         generic_count = 0
         
         for link in all_links:

@@ -115,6 +115,10 @@ class AuditAnalyzeRequest(BaseModel):
         default=None,
         description="Optional existing project ID to group this audit under. If omitted, a new project is created.",
     )
+    full_pipeline: bool = Field(
+        default=True,
+        description="When true (default), runs the full crawl → parse → evaluate → score pipeline. When false, only crawls without auto-analysis.",
+    )
 
     @field_validator("url")
     @classmethod
@@ -174,6 +178,8 @@ class AuditAnalyzeQueuedResponse(BaseModel):
     crawl_status_url: str = Field(..., description="URL to fetch crawl job status")
     pipeline_status_url: str = Field(..., description="URL to fetch pipeline stage status")
     result_url: str = Field(..., description="URL to fetch the final analysis result")
+    full_pipeline: bool = Field(..., description="Whether the full pipeline was requested")
+    result_project_url: str = Field(..., description="Public URL to fetch the final result by project_id")
 
 
 # Unified response shape (audit, summary, categories, issues, ...).

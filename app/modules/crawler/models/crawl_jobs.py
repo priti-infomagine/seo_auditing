@@ -6,7 +6,7 @@ Represents one audit/crawl execution. Crawl-level aggregate.
 import uuid
 from datetime import datetime
 
-from sqlalchemy import BigInteger, DateTime, Enum, Integer, String, Text, func
+from sqlalchemy import BigInteger, DateTime, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -48,14 +48,7 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
     )
     status: Mapped[str] = mapped_column(
-        Enum(
-            CrawlJobStatus.QUEUED,
-            CrawlJobStatus.CRAWLING,
-            CrawlJobStatus.COMPLETED,
-            CrawlJobStatus.FAILED,
-            CrawlJobStatus.CANCELLED,
-            name="crawl_job_status_enum",
-        ),
+        String(20),
         nullable=False,
         default=CrawlJobStatus.QUEUED,
     )

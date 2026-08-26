@@ -82,7 +82,7 @@ class RuleEvaluationResultRepository:
 
     async def bulk_upsert(self, results: List[RuleEvaluationResult]) -> int:
         """
-        True bulk upsert of RuleEvaluationResult rows in a single statement.
+        True bulk upsert of RuleEvaluationResult rows in batched statements.
 
         Uses PostgreSQL `INSERT ... ON CONFLICT
         (project_id, page_id, rule_id) DO UPDATE`. The unique constraint
@@ -90,50 +90,62 @@ class RuleEvaluationResultRepository:
         f4b2c1d0e9a8 migration) backs the conflict target. Replaces the
         previous per-row SELECT+UPDATE loop.
 
+        Batches inserts to stay under PostgreSQL's 32767 parameter limit
+        (each row has 15 columns; max ~2184 rows per batch).
+
         Returns number of rows processed.
         """
         if not results:
             return 0
 
-        rows = []
-        for r in results:
-            rows.append({
-                "id": r.id,
-                "project_id": r.project_id,
-                "crawl_id": r.crawl_id,
-                "page_id": r.page_id,
-                "rule_id": r.rule_id,
-                "rule_name": r.rule_name,
-                "category": r.category,
-                "severity": r.severity,
-                "passed": r.passed,
-                "score_impact": r.score_impact,
-                "message": r.message,
-                "recommendation": r.recommendation,
-                "rule_data": r.rule_data,
-                "tags": r.tags,
-                "evaluated_at": r.evaluated_at,
-            })
+        # Each row has 15 columns; PostgreSQL max is 32767 parameters.
+        # Use 500 rows per batch = 7500 params (well under the limit).
+        BATCH_SIZE = 500
+        total_processed = 0
 
-        stmt = pg_insert(RuleEvaluationResult).values(rows)
-        stmt = stmt.on_conflict_do_update(
-            index_elements=["project_id", "page_id", "rule_id"],
-            set_={
-                "rule_name": stmt.excluded.rule_name,
-                "category": stmt.excluded.category,
-                "severity": stmt.excluded.severity,
-                "passed": stmt.excluded.passed,
-                "score_impact": stmt.excluded.score_impact,
-                "message": stmt.excluded.message,
-                "recommendation": stmt.excluded.recommendation,
-                "rule_data": stmt.excluded.rule_data,
-                "tags": stmt.excluded.tags,
-                "evaluated_at": stmt.excluded.evaluated_at,
-            },
-        )
-        await self.db.execute(stmt)
-        await self.db.flush()
-        return len(rows)
+        for start in range(0, len(results), BATCH_SIZE):
+            batch = results[start : start + BATCH_SIZE]
+            rows = []
+            for r in batch:
+                rows.append({
+                    "id": r.id,
+                    "project_id": r.project_id,
+                    "crawl_id": r.crawl_id,
+                    "page_id": r.page_id,
+                    "rule_id": r.rule_id,
+                    "rule_name": r.rule_name,
+                    "category": r.category,
+                    "severity": r.severity,
+                    "passed": r.passed,
+                    "score_impact": r.score_impact,
+                    "message": r.message,
+                    "recommendation": r.recommendation,
+                    "rule_data": r.rule_data,
+                    "tags": r.tags,
+                    "evaluated_at": r.evaluated_at,
+                })
+
+            stmt = pg_insert(RuleEvaluationResult).values(rows)
+            stmt = stmt.on_conflict_do_update(
+                index_elements=["project_id", "page_id", "rule_id"],
+                set_={
+                    "rule_name": stmt.excluded.rule_name,
+                    "category": stmt.excluded.category,
+                    "severity": stmt.excluded.severity,
+                    "passed": stmt.excluded.passed,
+                    "score_impact": stmt.excluded.score_impact,
+                    "message": stmt.excluded.message,
+                    "recommendation": stmt.excluded.recommendation,
+                    "rule_data": stmt.excluded.rule_data,
+                    "tags": stmt.excluded.tags,
+                    "evaluated_at": stmt.excluded.evaluated_at,
+                },
+            )
+            await self.db.execute(stmt)
+            await self.db.flush()
+            total_processed += len(rows)
+
+        return total_processed
 
     async def get_by_project_id(self, project_id: UUID) -> List[RuleEvaluationResult]:
         """Get all rule evaluation results for a project."""

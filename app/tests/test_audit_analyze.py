@@ -165,6 +165,8 @@ async def test_audit_analyze_queued_returns_202(mock_celery):
     assert data["task_status_url"].endswith(f"/task/{data['task_id']}")
     assert data["crawl_status_url"].endswith(f"/{data['crawl_id']}")
     assert data["result_url"].endswith(f"/{data['crawl_id']}?project_id={data['project_id']}")
+    assert data["full_pipeline"] is True
+    assert data["result_project_url"].endswith(f"/project/{data['project_id']}")
 
 
 @pytest.mark.asyncio
@@ -322,3 +324,82 @@ async def test_audit_analyze_multi_page_crawl(mock_celery, _ensure_schema):
 
     assert data["crawl"]["pages_discovered"] >= 3
     assert data["audit"]["pages_crawled"] >= 3
+
+
+@pytest.mark.asyncio
+async def test_audit_analyze_full_pipeline_false(mock_celery):
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/api/v1/audit/analyze",
+            json={"url": "https://example.com/", "full_pipeline": False},
+        )
+    assert response.status_code == 202, response.text
+    data = response.json()
+    assert data["full_pipeline"] is False
+    assert data["result_project_url"].endswith(f"/project/{data['project_id']}")
+
+
+@pytest.mark.asyncio
+async def test_public_status_by_project(mock_celery, _ensure_schema):
+    session_factory = _ensure_schema
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            "/api/v1/audit/analyze",
+            json={"url": "https://example.com/"},
+        )
+        assert response.status_code == 202
+        project_id = uuid.UUID(response.json()["project_id"])
+
+        # Public status check (no auth)
+        status_resp = await client.get(f"/api/v1/audit/status/{project_id}")
+        assert status_resp.status_code == 200, status_resp.text
+        data = status_resp.json()
+        assert data["project_id"] == str(project_id)
+        assert "parse_status" in data
+        assert "evaluate_status" in data
+        assert "score_status" in data
+
+
+@pytest.mark.asyncio
+async def test_public_result_by_project(mock_celery, _ensure_schema):
+    session_factory = _ensure_schema
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        # Queue an audit
+        response = await client.post(
+            "/api/v1/audit/analyze",
+            json={"url": "https://example.com/"},
+        )
+        assert response.status_code == 202, response.text
+        posted = response.json()
+        project_id = uuid.UUID(posted["project_id"])
+        crawl_id = uuid.UUID(posted["crawl_id"])
+
+        # Before analysis completes → 202
+        result_resp = await client.get(f"/api/v1/audit/result/project/{project_id}")
+        assert result_resp.status_code == 202
+
+        # Seed data and run pipeline
+        async with session_factory() as db:
+            await _seed_crawl(db, crawl_id, project_id, n_pages=2)
+        await _run_pipeline(crawl_id, project_id, session_factory)
+
+        # Mark crawl completed
+        async with session_factory() as db:
+            crawl_job = await db.get(CrawlJob, crawl_id)
+            if crawl_job:
+                crawl_job.status = "completed"
+                await db.commit()
+
+        # After analysis → 200 with full response
+        result_resp = await client.get(f"/api/v1/audit/result/project/{project_id}")
+        assert result_resp.status_code == 200, result_resp.text
+        data = result_resp.json()
+        assert "audit" in data
+        assert "summary" in data
+        assert data["audit"]["domain"] == "example.com"

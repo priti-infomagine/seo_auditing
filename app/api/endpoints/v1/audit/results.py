@@ -11,7 +11,6 @@ from typing import List, Optional
 
 from app.core.database import get_db
 from app.core.logger import logger
-from app.core.security import get_current_user
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
 from app.modules.audit.schemas.analysis_schemas import (
     SeoAnalysisResponse,
@@ -26,6 +25,8 @@ from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRu
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+
+from app.core.security import get_current_user
 from app.modules.auth.models.users import User
 
 router = APIRouter()
@@ -82,6 +83,53 @@ async def get_analysis_result(
     except Exception as exc:
         logger.error(
             f"GET /audit/result/{crawl_id}: unexpected error - {exc}",
+            exc_info=True,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An unexpected error occurred fetching analysis result",
+        )
+
+
+@router.get(
+    "/result/project/{project_id}",
+    summary="Fetch full analysis result by project_id (public)",
+    description=(
+        "Public endpoint that takes a project_id and returns the full unified "
+        "audit response (analyzed, scored, parsed, rule-engine checked). "
+        "Returns 202 if analysis is still in progress."
+    ),
+)
+async def get_analysis_result_by_project(
+    project_id: UUID,
+    db: AsyncSession = Depends(get_db),
+) -> dict:
+    """Fetch the full analysis result by project_id (no auth required)."""
+    logger.info(f"GET /audit/result/project/{project_id}")
+
+    try:
+        analysis_repo = SeoAnalysisRunRepository(db)
+        run = await analysis_repo.get_by_project_id(project_id)
+
+        if not run:
+            raise HTTPException(
+                status_code=status.HTTP_202_ACCEPTED,
+                detail={
+                    "status": "processing",
+                    "message": "Analysis in progress. Poll /audit/status/{project_id} for progress.",
+                    "project_id": str(project_id),
+                },
+            )
+
+        builder = AuditResponseBuilder(db)
+        unified = await builder.build(project_id, run.crawl_id)
+        return unified
+
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error(
+            f"GET /audit/result/project/{project_id}: unexpected error - {exc}",
             exc_info=True,
         )
         raise HTTPException(
@@ -182,40 +230,34 @@ def _run_to_summary(run):
 @router.get(
     "/status/{project_id}",
     response_model=PipelineStatusResponse,
-    summary="Fetch pipeline stage status",
-    description="Returns the status of parse, evaluate, and score stages for a project.",
+    summary="Fetch pipeline stage status (public)",
+    description="Returns the status of parse, evaluate, and score stages for a project. Public endpoint — no authentication required.",
 )
 async def get_pipeline_status(
     project_id: UUID,
     crawl_id: Optional[UUID] = Query(None, description="Crawl ID (optional, auto-detected if omitted)"),
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> PipelineStatusResponse:
-    """Fetch the current status of all pipeline stages for a project."""
+    """Fetch the current status of all pipeline stages for a project (public)."""
     logger.info(
-        f"GET /audit/status/{project_id} - crawl_id={crawl_id}, user_id={current_user.id}"
+        f"GET /audit/status/{project_id} - crawl_id={crawl_id}"
     )
 
     try:
-        # Verify project ownership via crawl_jobs
         job_repo = CrawlJobRepository(db)
 
-        # Find crawl job for this project+user
-        if crawl_id:
-            job = await job_repo.get_by_id(crawl_id)
-            if not job or str(job.user_id) != str(current_user.id):
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="Access denied to this project",
-                )
-            if str(job.project_id) != str(project_id) and job.project_id:
-                raise HTTPException(
-                    status_code=status.HTTP_403_FORBIDDEN,
-                    detail="Project ID does not match this crawl job",
-                )
-            if not job.project_id:
-                job.project_id = project_id
-                await job_repo.update(job)
+        # Resolve crawl_id from project_id if not provided
+        if not crawl_id:
+            # Try SeoAnalysisRun first (scoring completed)
+            analysis_repo = SeoAnalysisRunRepository(db)
+            run = await analysis_repo.get_by_project_id(project_id)
+            if run:
+                crawl_id = run.crawl_id
+            else:
+                # Fall back to CrawlJob (crawl in progress, no scoring yet)
+                job = await job_repo.get_by_project_id(project_id)
+                if job:
+                    crawl_id = job.id
 
         # Check parsed facts
         parsed_repo = ParsedPageFactRepository(db)

@@ -37,6 +37,13 @@ class CrawlJobRepository:
         )
         return list(result.scalars().all())
 
+    async def get_by_project_id(self, project_id: UUID) -> Optional[CrawlJob]:
+        """Get crawl job by project ID."""
+        result = await self.db.execute(
+            select(CrawlJob).where(CrawlJob.project_id == project_id)
+        )
+        return result.scalar_one_or_none()
+
     async def update(self, crawl_job: CrawlJob) -> CrawlJob:
         """Update crawl job."""
         await self.db.flush()

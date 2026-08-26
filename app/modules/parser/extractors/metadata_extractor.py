@@ -54,11 +54,23 @@ class MetadataExtractor:
     def _description(soup: BeautifulSoup) -> str:
         tag = soup.find(
             "meta",
-            attrs={"name": lambda value: isinstance(value, str) and value.lower() == "description"},
+            attrs={
+                "name": lambda value:
+                    isinstance(value, str) and value.lower() == "description"
+            },
         )
+
         if not tag:
+            print("DESCRIPTION TAG NOT FOUND")
             return ""
-        return str(tag.get("content", "")).strip()
+
+        content = str(tag.get("content", "")).strip()
+        print("====================================MeatadataExtractor._description====================================")
+        print("DESCRIPTION CONTENT:", repr(content))
+        print("DESCRIPTION LENGTH:", len(content))
+
+        return content
+
 
     @staticmethod
     def _robots(soup: BeautifulSoup) -> List[MetaTag]:
