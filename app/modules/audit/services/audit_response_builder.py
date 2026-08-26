@@ -43,8 +43,9 @@ from app.modules.crawler.repositories.page_seo_data_repository import (
 from app.modules.rule_engine.models.rule_evidence_map import (
     CATEGORY_DISPLAY,
     CHECK_KEY_TO_RULE_IDS,
-    RECOMMENDATIONS,
     RULE_TITLES,
+    RULE_WHY,
+    RULE_WHAT,
     SUBCATEGORY_NOT_AVAILABLE,
     SUBCATEGORY_OF,
 )
@@ -330,9 +331,6 @@ class AuditResponseBuilder:
             all_seo_issues, main_rules_per_cat, rule_cache, total_pages_analyzed
         )
         issues = self._build_issues(all_seo_issues)
-        category_results = self._build_category_results(
-            all_seo_issues, check_cache, total_pages_analyzed
-        )
         crawl = await self._build_crawl_section(
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
@@ -348,8 +346,6 @@ class AuditResponseBuilder:
         links = await self._build_links(canonical_parsed_facts)
         images = self._build_images(canonical_parsed_facts)
         content = self._build_content(canonical_parsed_facts)
-        priorities = self._build_priorities(all_seo_issues)
-        recommendations = self._build_recommendations(all_seo_issues)
         external_deps = self._build_external_dependencies()
         errors = all_errors
         metadata = self._build_metadata(
@@ -359,6 +355,8 @@ class AuditResponseBuilder:
         audit = self._build_audit_block(
             crawl_job, crawl_id, project_id,
             pages_discovered, pages_crawled, total_pages_analyzed,
+            crawl, indexation, performance, structured_data,
+            links, images, content, external_deps, errors, metadata,
         )
 
         return {
@@ -366,19 +364,6 @@ class AuditResponseBuilder:
             "summary": summary,
             "categories": categories,
             "issues": issues,
-            "category_results": category_results,
-            "crawl": crawl,
-            "indexation": indexation,
-            "performance": performance,
-            "structured_data": structured_data,
-            "links": links,
-            "images": images,
-            "content": content,
-            "priorities": priorities,
-            "recommendations": recommendations,
-            "external_dependencies": external_deps,
-            "errors": errors,
-            "metadata": metadata,
         }
 
     # ------------------------------------------------------------------ summary
@@ -416,14 +401,20 @@ class AuditResponseBuilder:
         )
 
         return {
-            "overall_score": overall_score,
+            "score": overall_score,
             "health": get_status(overall_score),
-            "critical_issues": tier_counts["critical"],
-            "high_issues": tier_counts["high"],
-            "medium_issues": tier_counts["medium"],
-            "low_issues": tier_counts["low"],
-            "passed_checks": len(passed),
-            "failed_checks": len(failed),
+            "issues": {
+                "critical": tier_counts["critical"],
+                "high": tier_counts["high"],
+                "medium": tier_counts["medium"],
+                "low": tier_counts["low"],
+                "total": len(normalized_failed),
+            },
+            "checks": {
+                "passed": len(passed),
+                "failed": len(failed),
+                "total": len(passed) + len(failed),
+            },
             "recommended_score": recommended_score,
             "recommended_health": get_status(recommended_score),
         }
@@ -456,19 +447,6 @@ class AuditResponseBuilder:
         #   checks_passed = #main_rules with check_score >= PASS_THRESHOLD
         # categories[].issues carries that category's failed issues;
         # the key is omitted entirely when a category has no failures.
-        issues_by_cat: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
-        for i in all_seo_issues:
-            if i.status == "failed":
-                issues_by_cat[i.category].append({
-                    "rule_id": i.rule_id,
-                    "severity": i.severity.value,
-                    "message": i.message or i.affected_part,
-                    "page_url": i.page_url,
-                    "affected_part": i.affected_part,
-                    "current_value": i.current_value,
-                    "recommended": i.recommended,
-                })
-
         out: List[Dict[str, Any]] = []
         for cat, display in CATEGORY_DISPLAY.items():
             main_rule_ids = main_rules_per_cat.get(cat, set())
@@ -495,78 +473,46 @@ class AuditResponseBuilder:
                 "checks_passed": checks_passed,
                 "checks_failed": checks_failed,
             }
-            cat_issues = issues_by_cat.get(cat)
-            if cat_issues:
-                entry["issues"] = cat_issues
             out.append(entry)
         return out
 
     # ------------------------------------------------------------------ issues
     def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
-        # One entry per failed issue, carrying the rule_id scheme (Section 6) so
-        # every entry is traceable to recommendations[] / priorities{}.
-        return [
-            {
-                "rule_id": i.rule_id,
-                "severity": i.severity.value,
-                "message": i.message or i.affected_part,
-                "page_url": i.page_url,
-                "affected_part": i.affected_part,
-                "current_value": i.current_value,
-                "recommended": i.recommended,
-            }
-            for i in all_seo_issues
-            if i.status == "failed"
-        ]
+        by_rule: Dict[str, List[SEOIssue]] = defaultdict(list)
+        for i in all_seo_issues:
+            if i.status == "failed":
+                by_rule[i.rule_id].append(i)
 
-    # ---------------------------------------------------------- category_results
-    def _build_category_results(
-        self,
-        all_seo_issues: List[SEOIssue],
-        check_cache: Dict[str, Dict[str, bool]],
-        total_pages: int,
-    ) -> Dict[str, Any]:
-        # Affected (failed) canonical pages per subcheck, derived from the shared
-        # check-result cache (Section 5) — the same source the categories use.
-        subcat_failed: Dict[str, set] = defaultdict(set)
-        for ck, subs in check_cache.items():
-            for sub, passed in subs.items():
-                if not passed:
-                    subcat_failed[sub].add(ck)
-
-        result: Dict[str, Any] = {}
-        # Ensure every response category appears, even with no failures
-        for cat, display in CATEGORY_DISPLAY.items():
-            resp_id = display["id"]
-            result[resp_id] = self._build_subchecks(resp_id, subcat_failed, total_pages)
-        return result
-
-    def _build_subchecks(
-        self,
-        resp_category_id: str,
-        subcat_failed: Dict[str, set],
-        total_pages: int,
-    ) -> Dict[str, Any]:
-        out: Dict[str, Any] = {}
-        # Known sub-checks derived from SUBCATEGORY_OF values for rules in this category
-        subcheck_ids = _subcategories_for_response_category(resp_category_id)
-        for sub in subcheck_ids:
-            if sub in SUBCATEGORY_NOT_AVAILABLE:
-                out[sub] = _unavailable("check_not_implemented")
-                continue
-            affected_pages = len(subcat_failed.get(sub, set()))
-            if total_pages > 0:
-                score = round(100.0 * (total_pages - affected_pages) / total_pages, 1)
-                status = get_status(score)
-            else:
-                score = None
-                status = "not_available"
-            out[sub] = {
-                "status": status,
-                "score": score,
-                "affected_pages": affected_pages,
-            }
+        out: List[Dict[str, Any]] = []
+        for rule_id, group in by_rule.items():
+            first = group[0]
+            seen_urls: set = set()
+            pages: List[Dict[str, Any]] = []
+            for issue in group:
+                if issue.page_url in seen_urls:
+                    continue
+                seen_urls.add(issue.page_url)
+                pages.append({
+                    "page_url": issue.page_url,
+                    "current_value": issue.current_value,
+                    "evidence": issue.evidence,
+                })
+            out.append({
+                "rule_id": rule_id,
+                "category": first.category,
+                "severity": first.severity.value,
+                "title": RULE_TITLES.get(rule_id, rule_id),
+                "why": RULE_WHY.get(rule_id),
+                "what": RULE_WHAT.get(rule_id),
+                "recommendation": first.recommendation,
+                "llm_tips": first.recommended,
+                "affected_pages": len(seen_urls),
+                "pages": pages,
+            })
+        out.sort(key=lambda x: _tier_priority(SeverityTier(x["severity"])))
         return out
+
+
 
     # ------------------------------------------------------------- crawl stats
     async def _build_crawl_section(
@@ -793,50 +739,7 @@ class AuditResponseBuilder:
             "outdated_pages": _unavailable("content_freshness_tracking_not_implemented"),
         }
 
-    # -------------------------------------------------------------- priorities
-    def _build_priorities(self, all_seo_issues: List[SEOIssue]) -> Dict[str, List[str]]:
-        grouped: Dict[str, set] = {t.value: set() for t in SeverityTier}
-        for issue in all_seo_issues:
-            if issue.status == "failed":
-                grouped[issue.severity.value].add(issue.rule_id)
-        return {
-            "critical": sorted(grouped["critical"]),
-            "high": sorted(grouped["high"]),
-            "medium": sorted(grouped["medium"]),
-            "low": sorted(grouped["low"]),
-        }
 
-    # ----------------------------------------------------------- recommendations
-    def _build_recommendations(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
-        affected_by_rule: Dict[str, set] = defaultdict(set)
-        rule_highest_tier: Dict[str, SeverityTier] = {}
-        _tier_rank = {
-            SeverityTier.CRITICAL: 0, SeverityTier.HIGH: 1,
-            SeverityTier.MEDIUM: 2, SeverityTier.LOW: 3,
-        }
-        for issue in all_seo_issues:
-            if issue.status != "failed":
-                continue
-            affected_by_rule[issue.rule_id].add(issue.page_url)
-            cur = rule_highest_tier.get(issue.rule_id)
-            if cur is None or _tier_rank[issue.severity] < _tier_rank[cur]:
-                rule_highest_tier[issue.rule_id] = issue.severity
-
-        recs: List[Dict[str, Any]] = []
-        for rule_id, tier in rule_highest_tier.items():
-            rec = RECOMMENDATIONS.get(rule_id)
-            if not rec:
-                continue
-            recs.append({
-                "priority": _tier_priority(tier),
-                "rule_id": rule_id,
-                "title": RULE_TITLES.get(rule_id, rule_id),
-                "action": rec["action"],
-                "effort": rec["effort"],
-                "affected_pages": len(affected_by_rule[rule_id]),
-            })
-        recs.sort(key=lambda r: r["priority"])
-        return recs
 
     # --------------------------------------------------------- external deps
     def _build_external_dependencies(self) -> List[Dict[str, Any]]:
@@ -866,6 +769,8 @@ class AuditResponseBuilder:
     def _build_audit_block(
         self, crawl_job, crawl_id, project_id,
         pages_discovered, pages_crawled, pages_analyzed,
+        crawl_stats, indexation, performance, structured_data,
+        links, images, content, external_deps, errors, metadata,
     ) -> Dict[str, Any]:
         return {
             "audit_id": str(crawl_id),
@@ -875,9 +780,21 @@ class AuditResponseBuilder:
             "started_at": to_iso(crawl_job.created_at) if crawl_job else None,
             "completed_at": to_iso(crawl_job.completed_at) if crawl_job else None,
             "status": crawl_job.status if crawl_job else None,
-            "pages_discovered": pages_discovered,
-            "pages_crawled": pages_crawled,
-            "pages_analyzed": pages_analyzed,
+            "pages": {
+                "discovered": pages_discovered,
+                "crawled": pages_crawled,
+                "analyzed": pages_analyzed,
+            },
+            "crawl_stats": crawl_stats,
+            "indexation": indexation,
+            "performance": performance,
+            "structured_data": structured_data,
+            "links": links,
+            "images": images,
+            "content": content,
+            "external_dependencies": external_deps,
+            "errors": errors,
+            "meta": metadata,
         }
 
 
@@ -932,39 +849,6 @@ def _group_results_by_category(page_rule_results: Dict[UUID, List[RuleResult]]) 
             out[r.category].append(r)
     return out
 
-
-def _subcategories_for_response_category(resp_category_id: str) -> List[str]:
-    """All subcategory keys whose rules belong to the given response category."""
-    mapping = {
-        "technical_seo": {"https", "mixed_content", "ssl_certificate", "hsts",
-                          "xss_protection", "security_headers", "robots_txt", "sitemap",
-                          "structured_data", "viewport", "charset", "doctype",
-                          "html_lang", "language"},
-        "on_page": {"titles", "meta_descriptions", "h1", "headings", "meta_keywords",
-                    "canonical", "robots", "open_graph", "twitter_cards"},
-        "content_quality": {"word_count", "reading_time", "paragraph_structure",
-                            "text_html_ratio", "keyword_density", "duplicate_content",
-                            "content_freshness"},
-        "internal_linking": {"internal_links", "external_links", "broken_links",
-                             "anchor_text", "nofollow_links"},
-        "images_media": {"image_alt_text", "image_file_size", "lazy_loading",
-                         "image_dimensions", "responsive_images", "image_formats"},
-        "structured_data": {"structured_data", "organization_schema", "breadcrumb_schema",
-                            "article_schema", "product_schema", "json_ld_format"},
-        "social": {"open_graph", "twitter_cards", "social_media_links",
-                   "facebook_domain", "social_image"},
-        "security_trust": {"https", "mixed_content", "security_headers",
-                           "ssl_certificate", "hsts", "xss_protection"},
-        "accessibility": {"image_alt_text", "language", "heading_structure", "link_text",
-                          "color_contrast", "keyboard_navigation", "aria_labels",
-                          "form_labels"},
-        "performance": {"response_time", "html_document_size", "code_minification",
-                        "resource_count", "browser_caching", "compression",
-                        "total_page_size", "javascript_errors"},
-    }
-    # Always include crawlability sub-checks for the dedicated crawlability category
-    extra = {"redirects", "robots_txt", "sitemap", "status_codes", "canonical"}
-    return sorted(mapping.get(resp_category_id, set()) | (extra if resp_category_id == "crawlability" else set()))
 
 
 def _version(module: str) -> str:

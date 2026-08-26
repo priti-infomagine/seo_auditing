@@ -184,6 +184,9 @@ class CrawlPersistenceService:
     ) -> PageSnapshot:
         """Persist HTML snapshot."""
         try:
+            # Sanitize null bytes that PostgreSQL UTF8 rejects
+            # (some sites embed binary placeholders in inline scripts).
+            html_content = html_content.replace("\x00", "")
             from app.shared.utils.html_compressor import compress_html, should_compress
             content_to_store = html_content
             compressed = False

@@ -215,11 +215,11 @@ async def test_audit_analyze_full_pipeline_shape(mock_celery, _ensure_schema):
     assert audit["status"] == "completed"
 
     summary = data["summary"]
-    assert "overall_score" in summary
-    assert 0 <= summary["overall_score"] <= 100
+    assert "score" in summary
+    assert 0 <= summary["score"] <= 100
     assert summary["health"] in {"excellent", "good", "needs_attention", "poor", "critical"}
-    for key in ("critical_issues", "high_issues", "medium_issues", "low_issues"):
-        assert isinstance(summary[key], int)
+    for key in ("critical", "high", "medium", "low"):
+        assert isinstance(summary["issues"][key], int)
 
     categories = data["categories"]
     assert isinstance(categories, list) and len(categories) >= 1
@@ -230,28 +230,17 @@ async def test_audit_analyze_full_pipeline_shape(mock_celery, _ensure_schema):
     issues = data["issues"]
     assert isinstance(issues, list)
     for issue in issues:
-        assert {"page_url", "affected_part", "rule_id", "severity", "message"} <= set(issue.keys())
+        assert {"page_url", "affected_part", "rule_id", "severity", "message", "title", "affected_pages", "pages"} <= set(issue.keys())
         assert issue["page_url"]
         assert issue["affected_part"]
 
-    category_results = data["category_results"]
-    assert isinstance(category_results, dict)
-    assert "on_page" in category_results
+    audit = data["audit"]
+    assert audit["crawl_stats"]["pages_discovered"] >= 1
+    assert "status_codes" in audit["crawl_stats"]
+    assert "indexable" in audit["indexation"]
+    assert "noindex" in audit["indexation"]
 
-    crawl = data["crawl"]
-    assert crawl["pages_discovered"] >= 1
-    assert "status_codes" in crawl
-    indexation = data["indexation"]
-    assert "indexable" in indexation
-    assert "noindex" in indexation
-
-    priorities = data["priorities"]
-    assert {"critical", "high", "medium", "low"} <= set(priorities.keys())
-    recommendations = data["recommendations"]
-    assert isinstance(recommendations, list)
-
-    assert isinstance(data["errors"], list)
-    assert data["metadata"]["output_shape"] == "unified_v1"
+    assert isinstance(audit["errors"], list)
 
 
 @pytest.mark.asyncio
@@ -322,8 +311,8 @@ async def test_audit_analyze_multi_page_crawl(mock_celery, _ensure_schema):
         assert result_resp.status_code == 200, result_resp.text
         data = result_resp.json()
 
-    assert data["crawl"]["pages_discovered"] >= 3
-    assert data["audit"]["pages_crawled"] >= 3
+    assert data["audit"]["crawl_stats"]["pages_discovered"] >= 3
+    assert data["audit"]["pages"]["crawled"] >= 3
 
 
 @pytest.mark.asyncio

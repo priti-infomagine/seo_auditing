@@ -1,0 +1,1447 @@
+{
+  "audit": {
+    "audit_id": "7dbddc73-f7ff-4293-8cd0-881b8114a83f",
+    "project_id": "93cb6875-225b-4d6c-93d2-225ca5ccab79",
+    "url": "https://moneymatters.co.in/",
+    "domain": "moneymatters.co.in",
+    "started_at": "2026-08-26T12:24:08.492038+00:00",
+    "completed_at": "2026-08-26T12:24:35.070083+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 5,
+      "crawled": 5,
+      "analyzed": 5
+    },
+    "crawl_stats": {
+      "pages_discovered": 5,
+      "pages_crawled": 5,
+      "pages_analyzed": 5,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "redirects": 0,
+      "broken_pages": 0,
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 5
+      },
+      "started_at": "2026-08-26T12:24:08.492038+00:00",
+      "completed_at": "2026-08-26T12:24:35.070083+00:00"
+    },
+    "indexation": {
+      "indexable": 5,
+      "noindex": 0,
+      "canonicalized": 5,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "core_web_vitals": {
+        "available": false,
+        "value": null,
+        "reason": "browser_performance_measurement_not_available"
+      },
+      "ttfb": {
+        "available": true,
+        "value": 7252.6,
+        "unit": "milliseconds",
+        "status": "critical",
+        "reason": null
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 5,
+      "valid": 0,
+      "invalid": 5,
+      "types": {}
+    },
+    "links": {
+      "internal": {
+        "total": 144,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "total_links": 144
+    },
+    "images": {
+      "total": 34,
+      "missing_alt": 0,
+      "empty_alt": 0,
+      "missing_dimensions": 34,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 0
+    },
+    "content": {
+      "thin_pages": 0,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0,
+      "near_duplicate_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_similarity_analysis_not_implemented"
+      },
+      "missing_author": {
+        "available": false,
+        "value": null,
+        "reason": "author_extraction_not_implemented"
+      },
+      "outdated_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_freshness_tracking_not_implemented"
+      }
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 126,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 86.5,
+    "health": "excellent",
+    "issues": {
+      "critical": 4,
+      "high": 6,
+      "medium": 6,
+      "low": 9,
+      "total": 25
+    },
+    "checks": {
+      "passed": 39,
+      "failed": 25,
+      "total": 64
+    },
+    "recommended_score": 68.0,
+    "recommended_health": "needs_improvement"
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 53.3,
+      "status": "poor",
+      "checks_total": 9,
+      "checks_passed": 4,
+      "checks_failed": 5
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 61.5,
+      "status": "needs_improvement",
+      "checks_total": 13,
+      "checks_passed": 8,
+      "checks_failed": 5
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 70.0,
+      "status": "needs_improvement",
+      "checks_total": 10,
+      "checks_passed": 7,
+      "checks_failed": 3
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 60.0,
+      "status": "needs_improvement",
+      "checks_total": 5,
+      "checks_passed": 3,
+      "checks_failed": 2
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 33.3,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 2,
+      "checks_failed": 4
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 83.3,
+      "status": "good",
+      "checks_total": 6,
+      "checks_passed": 5,
+      "checks_failed": 1
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 33.3,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 1,
+      "checks_failed": 2
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 2,
+      "checks_passed": 0,
+      "checks_failed": 2
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 1,
+      "checks_passed": 1,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 77.8,
+      "status": "good",
+      "checks_total": 9,
+      "checks_passed": 7,
+      "checks_failed": 2
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "critical",
+      "title": "Missing or poorly sized meta description",
+      "why": null,
+      "what": null,
+      "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Meta description: Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth. (193 chars)",
+          "evidence": {
+            "length_status": "too_long",
+            "character_count": 193,
+            "truncation_risk": true,
+            "meta_description": "Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth.",
+            "pixel_width_estimate": 1254
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Meta description: Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth. (193 chars)",
+          "evidence": {
+            "length_status": "too_long",
+            "character_count": 193,
+            "truncation_risk": true,
+            "meta_description": "Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth.",
+            "pixel_width_estimate": 1254
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Meta description: Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth. (193 chars)",
+          "evidence": {
+            "length_status": "too_long",
+            "character_count": 193,
+            "truncation_risk": true,
+            "meta_description": "Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth.",
+            "pixel_width_estimate": 1254
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Meta description: Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth. (193 chars)",
+          "evidence": {
+            "length_status": "too_long",
+            "character_count": 193,
+            "truncation_risk": true,
+            "meta_description": "Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth.",
+            "pixel_width_estimate": 1254
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Meta description: Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth. (193 chars)",
+          "evidence": {
+            "length_status": "too_long",
+            "character_count": 193,
+            "truncation_risk": true,
+            "meta_description": "Money Matters offers personalized financial planning, investment strategies, wealth management, mutual funds, insurance & investment solutions designed to help you grow and protect your wealth.",
+            "pixel_width_estimate": 1254
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "critical",
+      "title": "Slow server response time (TTFB)",
+      "why": null,
+      "what": null,
+      "recommendation": "Critical: Optimize server, database queries, and caching",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Very slow response time: 7.95s",
+          "evidence": {
+            "response_time": 7.948
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Very slow response time: 1.51s",
+          "evidence": {
+            "response_time": 1.514
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Very slow response time: 8.76s",
+          "evidence": {
+            "response_time": 8.76
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Very slow response time: 9.28s",
+          "evidence": {
+            "response_time": 9.284
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Very slow response time: 8.76s",
+          "evidence": {
+            "response_time": 8.757
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "critical",
+      "title": "Missing DOCTYPE declaration",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_007",
+      "category": "technical",
+      "severity": "critical",
+      "title": "Missing or incomplete security headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add missing security headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Missing headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "evidence": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Missing headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "evidence": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Missing headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "evidence": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Missing headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "evidence": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Missing headers: x-frame-options, x-content-type-options, strict-transport-security, content-security-policy, x-xss-protection",
+          "evidence": {
+            "missing": [
+              "x-frame-options",
+              "x-content-type-options",
+              "strict-transport-security",
+              "content-security-policy",
+              "x-xss-protection"
+            ],
+            "present": []
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "why": null,
+      "what": null,
+      "recommendation": "Add canonical URL tag and ensure unique content",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "why": null,
+      "what": null,
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "6 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 6
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "6 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 6
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "10 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 10
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "3 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 3
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "9 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 9
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "why": null,
+      "what": null,
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "27 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 27,
+            "generic_count": 27
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "27 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 27,
+            "generic_count": 27
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "30 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 30,
+            "generic_count": 30
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "30 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 30,
+            "generic_count": 30
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "30 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 30,
+            "generic_count": 30
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_010",
+      "category": "technical",
+      "severity": "high",
+      "title": "Missing structured data / schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "content_003",
+      "why": null,
+      "what": null,
+      "recommendation": "Break content into paragraphs for better readability",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No paragraphs found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No paragraphs found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No paragraphs found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No paragraphs found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No paragraphs found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or multiple H1 tags",
+      "why": null,
+      "what": null,
+      "recommendation": "Use one concise H1 tag that aligns with the page title",
+      "llm_tips": [],
+      "affected_pages": 4,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "H1: We provide expert financial advisory services designed to help you manage money wisely, minimize risk, and achieve long-term financial stability through informed decision-making.",
+          "evidence": {
+            "h1_text": "We provide expert financial advisory services designed to help you manage money wisely, minimize risk, and achieve long-term financial stability through informed decision-making.",
+            "h1_count": 1,
+            "h1_length": 178,
+            "length_warning": true,
+            "title_h1_overlap": 0.4
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Missing H1 tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "H1: Our Approach to Wealth Management",
+          "evidence": {
+            "h1_text": "Our Approach to Wealth Management",
+            "h1_count": 1,
+            "h1_length": 33,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "H1: Whether you’re planning for the future or optimizing your finances today, we’re here to provide expert guidance every step of the way.",
+          "evidence": {
+            "h1_text": "Whether you’re planning for the future or optimizing your finances today, we’re here to provide expert guidance every step of the way.",
+            "h1_count": 1,
+            "h1_length": 134,
+            "length_warning": true,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_004",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Illogical heading hierarchy",
+      "why": null,
+      "what": null,
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
+      "llm_tips": [],
+      "affected_pages": 4,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Heading issues: H1=1, H2=4, H3=9, H4=5, H5=0, H6=0 — 1 headings longer than 100 characters",
+          "evidence": {
+            "h1": 1,
+            "h2": 4,
+            "h3": 9,
+            "h4": 5,
+            "h5": 0,
+            "h6": 0,
+            "total": 19,
+            "issues": [
+              "1 headings longer than 100 characters"
+            ]
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Heading issues: H1=0, H2=4, H3=9, H4=5, H5=0, H6=0 — Missing H1",
+          "evidence": {
+            "h1": 0,
+            "h2": 4,
+            "h3": 9,
+            "h4": 5,
+            "h5": 0,
+            "h6": 0,
+            "total": 18,
+            "issues": [
+              "Missing H1"
+            ]
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Heading issues: H1=1, H2=1, H3=4, H4=2, H5=0, H6=0 — 1 headings longer than 100 characters",
+          "evidence": {
+            "h1": 1,
+            "h2": 1,
+            "h3": 4,
+            "h4": 2,
+            "h5": 0,
+            "h6": 0,
+            "total": 8,
+            "issues": [
+              "1 headings longer than 100 characters"
+            ]
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Heading issues: H1=1, H2=11, H3=7, H4=9, H5=0, H6=0 — Excessive headings, 1 headings longer than 100 characters",
+          "evidence": {
+            "h1": 1,
+            "h2": 11,
+            "h3": 7,
+            "h4": 9,
+            "h5": 0,
+            "h6": 0,
+            "total": 28,
+            "issues": [
+              "Excessive headings",
+              "1 headings longer than 100 characters"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "security_005",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing HSTS header",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Strict-Transport-Security header",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "HSTS header not found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "HSTS header not found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "HSTS header not found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "HSTS header not found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "HSTS header not found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "security_006",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing XSS protection headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No XSS protection headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No XSS protection headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No XSS protection headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No XSS protection headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No XSS protection headers found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_003",
+      "category": "technical",
+      "severity": "medium",
+      "title": "technical_003",
+      "why": null,
+      "what": null,
+      "recommendation": "Add lang attribute to <html> tag (e.g., <html lang='en'>)",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poor page title",
+      "why": null,
+      "what": null,
+      "recommendation": "Adjust title: 50-60 characters, include primary keyword, avoid truncation",
+      "llm_tips": [],
+      "affected_pages": 3,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Title: Investment Products – Wealth Management, Mutual Funds & More (60 chars)",
+          "evidence": {
+            "title": "Investment Products – Wealth Management, Mutual Funds & More",
+            "length_status": "ideal",
+            "character_count": 60,
+            "pixel_width_estimate": 390,
+            "content_consistency_score": 1.0
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Title: Contact Money Matters – Financial Advisors for Consultation (59 chars)",
+          "evidence": {
+            "title": "Contact Money Matters – Financial Advisors for Consultation",
+            "length_status": "ideal",
+            "character_count": 59,
+            "pixel_width_estimate": 383,
+            "content_consistency_score": 1.0
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Title: Money Matters – Trusted Financial Planning & Investment Advisory (64 chars)",
+          "evidence": {
+            "title": "Money Matters – Trusted Financial Planning & Investment Advisory",
+            "character_count": 64,
+            "pixel_width_estimate": 416,
+            "content_consistency_score": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "content_007",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider adding article published/modified dates",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No content freshness dates found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No content freshness dates found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No content freshness dates found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No content freshness dates found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No content freshness dates found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "images_003",
+      "why": null,
+      "what": null,
+      "recommendation": "Add loading='lazy' attribute to images below the fold",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          }
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          }
+        }
+      ]
+    },
+    {
+      "rule_id": "images_005",
+      "category": "images",
+      "severity": "low",
+      "title": "images_005",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider using srcset and sizes for responsive images",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "images_006",
+      "category": "images",
+      "severity": "low",
+      "title": "images_006",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider using WebP or AVIF for better compression",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "links_002",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider linking to authoritative external sources",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No external links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No external links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No external links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No external links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No external links found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "perf_005",
+      "category": "performance",
+      "severity": "low",
+      "title": "perf_005",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Cache-Control and Expires headers for static assets",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No cache headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No cache headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No cache headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No cache headers found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No cache headers found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "why": null,
+      "what": null,
+      "recommendation": "Add links to your social media profiles",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No social media links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No social media links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No social media links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No social media links found",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No social media links found",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "social_004",
+      "why": null,
+      "what": null,
+      "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "why": null,
+      "what": null,
+      "recommendation": "Create and submit XML sitemap to search engines",
+      "llm_tips": [],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://moneymatters.co.in/services",
+          "current_value": "No sitemap data available",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/products",
+          "current_value": "No sitemap data available",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/about",
+          "current_value": "No sitemap data available",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/contact",
+          "current_value": "No sitemap data available",
+          "evidence": {}
+        },
+        {
+          "page_url": "https://moneymatters.co.in/",
+          "current_value": "No sitemap data available",
+          "evidence": {}
+        }
+      ]
+    }
+  ]
+}

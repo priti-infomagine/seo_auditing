@@ -288,3 +288,6 @@ RULE_TITLES: Dict[str, str] = {
     "core_web_vitals_001": "Core Web Vitals issues",
     "missing_www_redirect": "Missing or inconsistent www canonicalization",
 }
+
+RULE_WHY: Dict[str, str] = {}
+RULE_WHAT: Dict[str, str] = {}

@@ -74,7 +74,7 @@ class AnalysisScorerService:
             unified: Dict[str, Any] = await builder.build(project_id, crawl_id)
 
             scored_at = utc_now()
-            overall = unified["summary"]["overall_score"]
+            overall = unified["summary"]["score"]
             grade = self.calculator._get_grade(overall)
 
             # Persist scalar summary to SeoAnalysisRun.
@@ -84,28 +84,28 @@ class AnalysisScorerService:
                 domain=unified["audit"].get("domain") or crawl_job.domain,
                 overall_score=overall,
                 grade=grade,
-                total_pages_scored=unified["audit"]["pages_analyzed"],
-                total_rules_evaluated=unified["metadata"]["rules_executed"],
-                total_passed=unified["summary"]["passed_checks"],
-                total_failed=unified["summary"]["failed_checks"],
-                critical_issues=unified["summary"]["critical_issues"],
+                total_pages_scored=unified["audit"]["pages"]["analyzed"],
+                total_rules_evaluated=unified["audit"]["meta"]["rules_executed"],
+                total_passed=unified["summary"]["checks"]["passed"],
+                total_failed=unified["summary"]["checks"]["failed"],
+                critical_issues=unified["summary"]["issues"]["critical"],
                 warnings=(
-                    unified["summary"]["high_issues"]
-                    + unified["summary"]["medium_issues"]
-                    + unified["summary"]["low_issues"]
+                    unified["summary"]["issues"]["high"]
+                    + unified["summary"]["issues"]["medium"]
+                    + unified["summary"]["issues"]["low"]
                 ),
-                error_pages=len({e.get("page_id") for e in unified["errors"] if e.get("page_id")}),
-                error_summary={"errors": unified["errors"]} if unified["errors"] else None,
+                error_pages=len({e.get("page_id") for e in unified["audit"]["errors"] if e.get("page_id")}),
+                error_summary={"errors": unified["audit"]["errors"]} if unified["audit"]["errors"] else None,
                 category_scores={
                     "tier_counts": {
-                        "critical": unified["summary"]["critical_issues"],
-                        "high": unified["summary"]["high_issues"],
-                        "medium": unified["summary"]["medium_issues"],
-                        "low": unified["summary"]["low_issues"],
+                        "critical": unified["summary"]["issues"]["critical"],
+                        "high": unified["summary"]["issues"]["high"],
+                        "medium": unified["summary"]["issues"]["medium"],
+                        "low": unified["summary"]["issues"]["low"],
                     },
                     "categories": unified["categories"],
                 },
-                top_issues=unified["issues"],
+                top_issues={"schema_version": 2, "issues": unified["issues"]},
                 summary=f"SEO audit scored: {overall}/100 (Grade {grade}).",
                 analysis_status="completed",
                 scored_at=scored_at,
@@ -121,7 +121,7 @@ class AnalysisScorerService:
             logger.info(
                 f"AnalysisScorerService.score_project: "
                 f"score={overall}, grade={grade}, "
-                f"pages={unified['audit']['pages_analyzed']}, "
+                f"pages={unified['audit']['pages']['analyzed']}, "
                 f"project_id={project_id}"
             )
 
