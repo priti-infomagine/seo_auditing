@@ -183,7 +183,7 @@ class MetaDescriptionRule(BaseRule):
             if not keyword_present:
                 impacts -= 1
         
-        if impacts == 0 and meta_desc_length >= 140 and meta_desc_length <= 160:
+        if meta_desc_length >= 140 and meta_desc_length <= 160:
             return [self._create_result(
                 passed=True,
                 message=f"Meta description length is optimal ({meta_desc_length} characters, ~{pixel_width}px)",
@@ -372,16 +372,16 @@ class HeadingHierarchyRule(BaseRule):
                 message="Heading hierarchy is logical",
                 severity=Severity.PASSED,
                 score_impact=0,
-                data={"h1": h1_count, "h2": h2_count, "h3": h3_count, "total": total_headings},
+                data={"h1": h1_count, "h2": h2_count, "h3": h3_count, "h4": h4_count, "h5": h5_count, "h6": h6_count, "total": total_headings},
             )]
         
         return [self._create_result(
             passed=False,
-            message=f"Heading hierarchy issues: {', '.join(issues)}",
+            message=f"Heading hierarchy issues: H1={h1_count}, H2={h2_count}, H3={h3_count}, H4={h4_count}, H5={h5_count}, H6={h6_count} — {', '.join(issues)}",
             severity=Severity.WARNING,
             score_impact=impacts,
             recommendation="Organize headings in logical hierarchy (H1 → H2 → H3)",
-            data={"h1": h1_count, "h2": h2_count, "h3": h3_count, "issues": issues, "total": total_headings},
+            data={"h1": h1_count, "h2": h2_count, "h3": h3_count, "h4": h4_count, "h5": h5_count, "h6": h6_count, "issues": issues, "total": total_headings},
         )]
 
 

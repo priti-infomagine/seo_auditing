@@ -136,9 +136,10 @@ class RuleResultToSEOIssueConverter:
                 return f"H1: {h1_text}"
             if rule_id in ("on_page_004",):
                 issues = data.get("issues", [])
+                counts = f"H1={data.get('h1', 0)}, H2={data.get('h2', 0)}, H3={data.get('h3', 0)}, H4={data.get('h4', 0)}, H5={data.get('h5', 0)}, H6={data.get('h6', 0)}"
                 if issues:
-                    return f"Heading issues: {', '.join(issues)}"
-                return f"Heading structure: H1={data.get('h1', 0)}, H2={data.get('h2', 0)}"
+                    return f"Heading issues: {counts} — {', '.join(issues)}"
+                return f"Heading structure: {counts}"
             if rule_id in ("content_001",):
                 return f"{data.get('word_count', 0)} words on {data.get('page_type', 'unknown')} page"
             if rule_id in ("content_006",):
@@ -245,7 +246,7 @@ class RuleResultToSEOIssueConverter:
         # 3. Rule-specific best-practice fallbacks with lengths
         rule_defaults = {
             "on_page_001": ["50-60 characters", "Include primary keyword", "End with call-to-action"],
-            "on_page_002": ["150-160 characters", "Include target keyword", "Match search intent"],
+            "on_page_002": ["140-160 characters", "Include target keyword", "Match search intent"],
             "on_page_003": ["1 H1 tag per page", "Include primary keyword in H1"],
             "content_001": ["300+ words minimum", "Cover topic comprehensively"],
             "technical_002": ["width=device-width, initial-scale=1.0"],
