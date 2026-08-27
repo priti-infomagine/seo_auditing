@@ -6,123 +6,721 @@ from typing import Any, Dict, List
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 
+from typing import Any, Dict, List
+import re
+
 
 class TitleTagRule(BaseRule):
-    """Check title tag presence, length, pixel width, and quality."""
+    """Check title tag presence, length, pixel width, uniqueness, and relevance."""
+
     rule_id = "on_page_001"
     name = "Title Tag"
     category = "on_page"
-    description = "Page must have a descriptive title tag with optimal length and pixel width"
+    description = (
+        "Page must have a descriptive, relevant title tag. "
+        "Length and pixel width are optimization signals, not hard SEO requirements."
+    )
     weight = 1.5
-    tags = ["critical", "on_page", "title"]
-    
+    tags = ["on_page", "title"]
+
+    # ------------------------------------------------------------------
+    # Configuration
+    # ------------------------------------------------------------------
+
+    MIN_GOOD_LENGTH = 30
+    RECOMMENDED_MIN_LENGTH = 50
+    RECOMMENDED_MAX_LENGTH = 60
+    LONG_TITLE_LENGTH = 70
+
+    # Approximate only. Do not treat this as a hard Google requirement.
+    MAX_ESTIMATED_PIXEL_WIDTH = 600
+
+    # Titles that are clearly non-descriptive.
+    GENERIC_TITLES = {
+        "welcome",
+        "home",
+        "untitled",
+        "page",
+        "index",
+        "new page",
+        "default",
+        "homepage",
+        "main page",
+    }
+
+    # Very common words that shouldn't be heavily weighted
+    # when checking title/content consistency.
+    STOP_WORDS = {
+        "a",
+        "an",
+        "and",
+        "are",
+        "as",
+        "at",
+        "be",
+        "by",
+        "for",
+        "from",
+        "how",
+        "in",
+        "is",
+        "it",
+        "of",
+        "on",
+        "or",
+        "the",
+        "to",
+        "vs",
+        "with",
+        "your",
+        "you",
+        "this",
+        "that",
+        "what",
+        "why",
+        "when",
+        "where",
+        "which",
+        "can",
+        "will",
+        "into",
+        "using",
+        "about",
+    }
+
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        basic = data.get("basic", {})
-        title = basic.get("title", "")
-        title_length = basic.get("title_length", len(title) if title else 0)
-        content = data.get("content", {})
-        content_text = content.get("text", "") or content.get("normalized_text", "")
-        
-        if not title or not title.strip():
-            return [self._create_result(
-                passed=False,
-                message="Missing page title tag",
-                severity=Severity.CRITICAL,
-                score_impact=-15,
-                recommendation="Add a descriptive <title> tag (50-60 characters, include primary keyword)",
-            )]
-        
-        pixel_width = self._estimate_pixel_width(title)
-        issues = []
-        impacts = 0
-        details = {
+        basic = data.get("basic", {}) or {}
+        content = data.get("content", {}) or {}
+
+        title = (basic.get("title") or "").strip()
+
+        title_length = basic.get("title_length")
+
+        if title_length is None:
+            title_length = len(title)
+
+        try:
+            title_length = int(title_length)
+        except (TypeError, ValueError):
+            title_length = len(title)
+
+        content_text = (
+            content.get("text")
+            or content.get("normalized_text")
+            or ""
+        )
+
+        content_text = str(content_text).strip()
+
+        details: Dict[str, Any] = {
             "title": title,
             "character_count": title_length,
-            "pixel_width_estimate": pixel_width,
         }
-        
-        # Length checks
-        if title_length < 30:
-            issues.append("too short")
-            impacts -= 3
-        elif title_length <= 49:
-            issues.append("acceptable length")
-        elif title_length <= 60:
-            issues.append("ideal length")
-            details["length_status"] = "ideal"
-        elif title_length <= 70:
-            issues.append("slightly long")
-            impacts -= 3
-        else:
-            issues.append("too long")
-            impacts -= 5
-        
-        # Pixel width check (takes precedence for truncation risk)
-        if pixel_width > 600:
-            issues.append("likely truncated in SERP")
-            impacts -= 3
+
+        # ==============================================================
+        # 1. Missing title
+        # ==============================================================
+
+        if not title:
+            return [
+                self._create_result(
+                    passed=False,
+                    message="Missing page title tag",
+                    severity=Severity.HIGH,
+                    score_impact=-8,
+                    recommendation=(
+                        "Add a unique, descriptive <title> tag that clearly "
+                        "describes the page content and search intent."
+                    ),
+                    data={
+                        **details,
+                        "length_status": "missing",
+                    },
+                )
+            ]
+
+        # ==============================================================
+        # 2. Pixel width estimation
+        # ==============================================================
+
+        pixel_width = self._estimate_pixel_width(title)
+
+        details["pixel_width_estimate"] = pixel_width
+
+        if pixel_width > self.MAX_ESTIMATED_PIXEL_WIDTH:
             details["truncation_risk"] = True
-        
-        # Generic title check
-        generic_titles = ["welcome", "home", "untitled", "page", "index", "new page", "default"]
-        if title.lower().strip() in generic_titles:
-            issues.append("generic title")
-            impacts -= 3
-            details["generic"] = True
-        
-        # Keyword/topic presence (if keyword data available)
-        target_keyword = data.get("target_keyword") or data.get("keyword")
+        else:
+            details["truncation_risk"] = False
+
+        # ==============================================================
+        # 3. Length analysis
+        #
+        # IMPORTANT:
+        # Character length is an optimization signal, NOT a hard SEO
+        # requirement.
+        # ==============================================================
+
+        length_status = "good"
+
+        if title_length < 30:
+            length_status = "very_short"
+
+        elif title_length < self.RECOMMENDED_MIN_LENGTH:
+            length_status = "short"
+
+        elif title_length <= self.RECOMMENDED_MAX_LENGTH:
+            length_status = "recommended"
+
+        elif title_length <= self.LONG_TITLE_LENGTH:
+            length_status = "long"
+
+        else:
+            length_status = "very_long"
+
+        details["length_status"] = length_status
+
+        # ==============================================================
+        # 4. Generic title
+        # ==============================================================
+
+        normalized_title = self._normalize_text(title)
+
+        is_generic = normalized_title in self.GENERIC_TITLES
+
+        details["generic"] = is_generic
+
+        # ==============================================================
+        # 5. Target keyword/topic check
+        #
+        # Keyword absence is NOT automatically an SEO failure.
+        # It is only treated as a quality signal when target keyword
+        # information is explicitly available.
+        # ==============================================================
+
+        target_keyword = (
+            data.get("target_keyword")
+            or data.get("keyword")
+        )
+
+        target_keyword = (
+            str(target_keyword).strip()
+            if target_keyword
+            else ""
+        )
+
+        keyword_present = None
+
         if target_keyword:
-            keyword_present = target_keyword.lower() in title.lower()
+            keyword_present = self._keyword_is_present(
+                target_keyword,
+                title
+            )
+
+            details["target_keyword"] = target_keyword
             details["keyword_present"] = keyword_present
-            if not keyword_present:
-                issues.append("missing target keyword")
-                impacts -= 2
-        
-        # Title/content consistency
+
+        # ==============================================================
+        # 6. Title/content relevance
+        # ==============================================================
+
+        consistency_score = None
+
         if content_text and len(content_text) > 50:
-            title_words = title.lower().split()[:5]
-            content_lower = content_text.lower()
-            consistency_hits = sum(1 for w in title_words if w in content_lower)
-            details["content_consistency_score"] = consistency_hits / len(title_words) if title_words else 0
-            if consistency_hits == 0:
-                issues.append("title may not describe content")
-                impacts -= 2
-        
-        if not issues or (len(issues) == 1 and "acceptable length" in issues):
-            msg = f"Title length is optimal ({title_length} characters, ~{pixel_width}px)"
-            return [self._create_result(
-                passed=True,
-                message=msg,
-                severity=Severity.PASSED,
-                score_impact=0,
+            consistency_score = self._calculate_content_consistency(
+                title,
+                content_text
+            )
+
+            details["content_consistency_score"] = consistency_score
+
+        # ==============================================================
+        # 7. Build actual issues
+        # ==============================================================
+
+        issues: List[str] = []
+
+        # Generic title is a real quality problem.
+        if is_generic:
+            issues.append("generic title")
+
+        # Very short titles are worth flagging.
+        if length_status == "very_short":
+            issues.append("very short")
+
+        # Long titles are advisory.
+        elif length_status == "very_long":
+            issues.append("very long")
+
+        elif length_status == "long":
+            issues.append("slightly long")
+
+        # Pixel width is advisory, not a major SEO failure.
+        if pixel_width > self.MAX_ESTIMATED_PIXEL_WIDTH:
+            issues.append("possible SERP truncation")
+
+        # Keyword absence is a minor quality signal only.
+        if target_keyword and keyword_present is False:
+            issues.append("target topic not clearly reflected in title")
+
+        # Only flag strong content mismatch.
+        if (
+            consistency_score is not None
+            and consistency_score < 0.20
+        ):
+            issues.append("title may not describe page content")
+
+        # ==============================================================
+        # 8. Determine severity
+        #
+        # Do NOT calculate severity by adding all minor penalties.
+        # A long title + truncation + keyword absence should not suddenly
+        # become CRITICAL.
+        # ==============================================================
+
+        severity = Severity.PASSED
+        score_impact = 0
+        passed = True
+
+        # --------------------------------------------------------------
+        # High
+        # --------------------------------------------------------------
+
+        if is_generic:
+            passed = False
+            severity = Severity.MEDIUM
+            score_impact = -4
+
+        # Strong content mismatch.
+        elif (
+            consistency_score is not None
+            and consistency_score < 0.20
+        ):
+            passed = False
+            severity = Severity.MEDIUM
+            score_impact = -3
+
+        # --------------------------------------------------------------
+        # Low
+        # --------------------------------------------------------------
+
+        elif length_status in {"very_short", "very_long"}:
+            passed = False
+            severity = Severity.LOW
+            score_impact = -2
+
+        elif length_status == "long":
+            passed = False
+            severity = Severity.LOW
+            score_impact = -1
+
+        elif pixel_width > self.MAX_ESTIMATED_PIXEL_WIDTH:
+            passed = False
+            severity = Severity.LOW
+            score_impact = -1
+
+        elif target_keyword and keyword_present is False:
+            passed = False
+            severity = Severity.LOW
+            score_impact = -1
+
+        # ==============================================================
+        # 9. PASS
+        # ==============================================================
+
+        if passed:
+            message = (
+                f"Title is descriptive and acceptable "
+                f"({title_length} characters, ~{pixel_width}px)"
+            )
+
+            return [
+                self._create_result(
+                    passed=True,
+                    message=message,
+                    severity=Severity.PASSED,
+                    score_impact=0,
+                    recommendation=(
+                        "No action required. Continue using unique, "
+                        "descriptive titles that accurately represent "
+                        "each page."
+                    ),
+                    data=details,
+                )
+            ]
+
+        # ==============================================================
+        # 10. Generate recommendation
+        # ==============================================================
+
+        recommendation = self._build_recommendation(
+            issues=issues,
+            title_length=title_length,
+            pixel_width=pixel_width,
+            target_keyword=target_keyword,
+        )
+
+        # Remove empty/duplicate issue names.
+        clean_issues = list(dict.fromkeys(issues))
+
+        message = (
+            f"Title issues: {', '.join(clean_issues)}"
+            if clean_issues
+            else "Title needs optimization"
+        )
+
+        return [
+            self._create_result(
+                passed=False,
+                message=message,
+                severity=severity,
+                score_impact=score_impact,
+                recommendation=recommendation,
                 data=details,
-            )]
-        
-        severity = Severity.WARNING if impacts > -8 else Severity.CRITICAL
-        msg = f"Title issues: {', '.join(i for i in issues if i not in ('acceptable length',))}"
-        if title_length >= 50 and title_length <= 60:
-            msg = f"Title length is optimal ({title_length} characters), but: {', '.join(i for i in issues if i not in ('acceptable length', 'ideal length'))}"
-        
-        return [self._create_result(
-            passed=False,
-            message=msg,
-            severity=severity,
-            score_impact=impacts,
-            recommendation="Adjust title: 50-60 characters, include primary keyword, avoid truncation",
-            data=details,
-        )]
-    
+            )
+        ]
+
+    # ==================================================================
+    # Helpers
+    # ==================================================================
+
+    @staticmethod
+    def _normalize_text(text: str) -> str:
+        """Normalize text for comparisons."""
+
+        text = text.lower().strip()
+
+        # Replace punctuation/separators with spaces.
+        text = re.sub(r"[^\w\s]", " ", text)
+
+        # Collapse whitespace.
+        text = re.sub(r"\s+", " ", text)
+
+        return text.strip()
+
+    @classmethod
+    def _keyword_is_present(
+        cls,
+        keyword: str,
+        title: str,
+    ) -> bool:
+        """
+        Check whether the target topic is reasonably represented.
+
+        Supports both exact phrase and token-level matching.
+        This is intentionally more flexible than:
+            keyword.lower() in title.lower()
+        """
+
+        keyword_normalized = cls._normalize_text(keyword)
+        title_normalized = cls._normalize_text(title)
+
+        if not keyword_normalized:
+            return True
+
+        # Exact phrase.
+        if keyword_normalized in title_normalized:
+            return True
+
+        keyword_words = [
+            word
+            for word in keyword_normalized.split()
+            if word not in cls.STOP_WORDS
+        ]
+
+        title_words = set(title_normalized.split())
+
+        if not keyword_words:
+            return True
+
+        matches = sum(
+            1
+            for word in keyword_words
+            if word in title_words
+        )
+
+        # Require most meaningful words rather than exact phrase.
+        match_ratio = matches / len(keyword_words)
+
+        return match_ratio >= 0.70
+
+    @classmethod
+    def _calculate_content_consistency(
+        cls,
+        title: str,
+        content: str,
+    ) -> float:
+        """
+        Estimate whether meaningful title words appear in the content.
+
+        This is deliberately a lightweight heuristic. It should not be
+        treated as semantic similarity or an NLP relevance score.
+        """
+
+        title_words = cls._meaningful_words(title)
+
+        if not title_words:
+            return 1.0
+
+        content_normalized = cls._normalize_text(content)
+
+        if not content_normalized:
+            return 0.0
+
+        content_words = set(content_normalized.split())
+
+        matches = sum(
+            1
+            for word in title_words
+            if word in content_words
+        )
+
+        return matches / len(title_words)
+
+    @classmethod
+    def _meaningful_words(cls, text: str) -> List[str]:
+        """Return meaningful normalized words from text."""
+
+        normalized = cls._normalize_text(text)
+
+        words = normalized.split()
+
+        return [
+            word
+            for word in words
+            if (
+                word not in cls.STOP_WORDS
+                and len(word) >= 3
+                and not word.isdigit()
+            )
+        ]
+
     @staticmethod
     def _estimate_pixel_width(text: str) -> int:
-        """Estimate pixel width of title for SERP display.
-        
-        Uses proportional font heuristic (~6.5px average per character).
-        Google desktop SERP typically allows ~580-600px for titles.
         """
+        Estimate title pixel width.
+
+        This is only a heuristic. Actual SERP rendering depends on font,
+        glyph widths, device/layout, and Google's rendering.
+
+        Weighted character widths are used instead of a fixed
+        `len(text) * 6.5` calculation.
+        """
+
         if not text:
             return 0
-        return int(len(text) * 6.5)
+
+        width = 0.0
+
+        # Approximate relative widths.
+        narrow_chars = set(
+            "iIl1.,'`!:;| "
+        )
+
+        wide_chars = set(
+            "MW@%&QO"
+        )
+
+        medium_wide_chars = set(
+            "ABCDEFGHKNPRSTUVXYZ"
+        )
+
+        for char in text:
+            if char in narrow_chars:
+                width += 3.5
+
+            elif char in wide_chars:
+                width += 9.5
+
+            elif char in medium_wide_chars:
+                width += 7.5
+
+            elif char.isdigit():
+                width += 6.5
+
+            else:
+                width += 6.5
+
+        return int(round(width))
+
+    @staticmethod
+    def _build_recommendation(
+        issues: List[str],
+        title_length: int,
+        pixel_width: int,
+        target_keyword: str = "",
+    ) -> str:
+        """Generate a recommendation based on actual issues."""
+
+        recommendations: List[str] = []
+
+        if "generic title" in issues:
+            recommendations.append(
+                "Replace the generic title with a unique, descriptive "
+                "title that clearly identifies the page."
+            )
+
+        if "title may not describe page content" in issues:
+            recommendations.append(
+                "Rewrite the title so it accurately reflects the main "
+                "topic and search intent of the page."
+            )
+
+        if "very short" in issues:
+            recommendations.append(
+                "Consider making the title more descriptive. "
+                "Do not add filler simply to reach a character count."
+            )
+
+        if "slightly long" in issues:
+            recommendations.append(
+                "Consider shortening the title to make the main topic "
+                "clearer and reduce the possibility of SERP truncation."
+            )
+
+        if "very long" in issues:
+            recommendations.append(
+                "Shorten the title substantially and place the most "
+                "important topic information toward the beginning."
+            )
+
+        if "possible SERP truncation" in issues:
+            recommendations.append(
+                f"The estimated title width is ~{pixel_width}px. "
+                "Consider shortening it if important information appears "
+                "near the end."
+            )
+
+        if "target topic not clearly reflected in title" in issues:
+            recommendations.append(
+                "Ensure the title clearly communicates the page's primary "
+                "topic or search intent."
+            )
+
+        if not recommendations:
+            recommendations.append(
+                "Use a unique, descriptive title that accurately represents "
+                "the page content."
+            )
+
+        return " ".join(recommendations)
+    
+    
+# class TitleTagRule(BaseRule):
+#     """Check title tag presence, length, pixel width, and quality."""
+#     rule_id = "on_page_001"
+#     name = "Title Tag"
+#     category = "on_page"
+#     description = "Page must have a descriptive title tag with optimal length and pixel width"
+#     weight = 1.5
+#     tags = ["critical", "on_page", "title"]
+    
+#     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+#         basic = data.get("basic", {})
+#         title = basic.get("title", "")
+#         title_length = basic.get("title_length", len(title) if title else 0)
+#         content = data.get("content", {})
+#         content_text = content.get("text", "") or content.get("normalized_text", "")
+        
+#         if not title or not title.strip():
+#             return [self._create_result(
+#                 passed=False,
+#                 message="Missing page title tag",
+#                 severity=Severity.CRITICAL,
+#                 score_impact=-15,
+#                 recommendation="Add a descriptive <title> tag (50-60 characters, include primary keyword)",
+#             )]
+        
+#         pixel_width = self._estimate_pixel_width(title)
+#         issues = []
+#         impacts = 0
+#         details = {
+#             "title": title,
+#             "character_count": title_length,
+#             "pixel_width_estimate": pixel_width,
+#         }
+        
+#         # Length checks
+#         if title_length < 30:
+#             issues.append("too short")
+#             impacts -= 3
+#         elif title_length <= 49:
+#             issues.append("acceptable length")
+#         elif title_length <= 60:
+#             issues.append("ideal length")
+#             details["length_status"] = "ideal"
+#         elif title_length <= 70:
+#             issues.append("slightly long")
+#             impacts -= 3
+#         else:
+#             issues.append("too long")
+#             impacts -= 5
+        
+#         # Pixel width check (takes precedence for truncation risk)
+#         if pixel_width > 600:
+#             issues.append("likely truncated in SERP")
+#             impacts -= 3
+#             details["truncation_risk"] = True
+        
+#         # Generic title check
+#         generic_titles = ["welcome", "home", "untitled", "page", "index", "new page", "default"]
+#         if title.lower().strip() in generic_titles:
+#             issues.append("generic title")
+#             impacts -= 3
+#             details["generic"] = True
+        
+#         # Keyword/topic presence (if keyword data available)
+#         target_keyword = data.get("target_keyword") or data.get("keyword")
+#         if target_keyword:
+#             keyword_present = target_keyword.lower() in title.lower()
+#             details["keyword_present"] = keyword_present
+#             if not keyword_present:
+#                 issues.append("missing target keyword")
+#                 impacts -= 2
+        
+#         # Title/content consistency
+#         if content_text and len(content_text) > 50:
+#             title_words = title.lower().split()[:5]
+#             content_lower = content_text.lower()
+#             consistency_hits = sum(1 for w in title_words if w in content_lower)
+#             details["content_consistency_score"] = consistency_hits / len(title_words) if title_words else 0
+#             if consistency_hits == 0:
+#                 issues.append("title may not describe content")
+#                 impacts -= 2
+        
+#         if not issues or (len(issues) == 1 and "acceptable length" in issues):
+#             msg = f"Title length is optimal ({title_length} characters, ~{pixel_width}px)"
+#             return [self._create_result(
+#                 passed=True,
+#                 message=msg,
+#                 severity=Severity.PASSED,
+#                 score_impact=0,
+#                 data=details,
+#             )]
+        
+#         severity = Severity.WARNING if impacts > -8 else Severity.CRITICAL
+#         msg = f"Title issues: {', '.join(i for i in issues if i not in ('acceptable length',))}"
+#         if title_length >= 50 and title_length <= 60:
+#             msg = f"Title length is optimal ({title_length} characters), but: {', '.join(i for i in issues if i not in ('acceptable length', 'ideal length'))}"
+        
+#         return [self._create_result(
+#             passed=False,
+#             message=msg,
+#             severity=severity,
+#             score_impact=impacts,
+#             recommendation="Adjust title: 50-60 characters, include primary keyword, avoid truncation",
+#             data=details,
+#         )]
+    
+#     @staticmethod
+#     def _estimate_pixel_width(text: str) -> int:
+#         """Estimate pixel width of title for SERP display.
+        
+#         Uses proportional font heuristic (~6.5px average per character).
+#         Google desktop SERP typically allows ~580-600px for titles.
+#         """
+#         if not text:
+#             return 0
+#         return int(len(text) * 6.5)
 
 
 class MetaDescriptionRule(BaseRule):

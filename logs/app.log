@@ -83,3 +83,342 @@
 2026-08-26T17:54:43+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-08-26T17:54:43+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-08-26T17:54:43+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:10:36+00:00 | INFO | POST /audit/analyze - Queuing audit for URL: https://infomagine.in/, project_id: None, max_pages: None, 
+2026-08-27T10:10:36+00:00 | INFO | CrawlJob created: crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, domain=infomagine.in
+2026-08-27T10:10:44+00:00 | INFO | Audit enqueued: crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, task_id=be713c26-f2ce-4cfa-95ed-2e128216e0d6, queued on 'crawler'
+2026-08-27T10:10:46+00:00 | INFO | crawler.crawl_website: task started for crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, url=https://infomagine.in/, user_id=86f230df-17f4-4258-8e1c-44fc912ae8c5
+2026-08-27T10:10:46+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:48+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:50+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:51+00:00 | INFO | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-08-27T10:10:51+00:00 | INFO | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-08-27T10:10:51+00:00 | INFO | Crawl started: https://infomagine.in/ (max_pages=100, max_depth=5)
+2026-08-27T10:10:51+00:00 | INFO | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-08-27T10:10:52+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:54+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:56+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:58+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:10:59+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:03+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:06+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:08+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:10+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:14+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:16+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:18+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:20+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:21+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:23+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:25+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:26+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:28+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:30+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:32+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:34+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:36+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:37+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:39+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:40+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:42+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:45+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:47+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:49+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:51+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:53+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:54+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:56+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:11:59+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:02+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:05+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:08+00:00 | INFO | Crawl completed: https://infomagine.in/ — pages_crawled=60, pages_discovered=60, pages_failed=0, duration=80957ms
+2026-08-27T10:12:08+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 3078, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-08-27T10:12:08+00:00 | INFO | crawler.crawl_website: auto_analyze fired for crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef
+2026-08-27T10:12:08+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:10+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:12+00:00 | INFO | crawler.crawl_website: task succeeded for crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, pages_crawled=60
+2026-08-27T10:12:12+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:12+00:00 | INFO | audit.run_analysis_pipeline: task started for project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:13+00:00 | INFO | audit.run_analysis_pipeline: STAGE parse starting project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:13+00:00 | INFO | DBParserService.parse_crawl: project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, force=False
+2026-08-27T10:12:14+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:16+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:18+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:19+00:00 | INFO | DBParserService.parse_crawl: parsed=60, failed=0, skipped=0 for project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef
+2026-08-27T10:12:19+00:00 | INFO | audit.run_analysis_pipeline: STAGE parse finished project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:19+00:00 | INFO | audit.run_analysis_pipeline: STAGE evaluate starting project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:20+00:00 | INFO | Loaded 64 scoring rules
+2026-08-27T10:12:20+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, force=False
+2026-08-27T10:12:20+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:22+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:23+00:00 | INFO | RuleEvaluatorService.evaluate_crawl: pages_evaluated=60, rules_run=3840, total_results=3840, errors=0 for project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef
+2026-08-27T10:12:23+00:00 | INFO | audit.run_analysis_pipeline: STAGE evaluate finished project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:24+00:00 | INFO | audit.run_analysis_pipeline: STAGE score starting project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:24+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:24+00:00 | INFO | AnalysisScorerService.score_project: project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db, force=False
+2026-08-27T10:12:24+00:00 | INFO | Loaded 64 scoring rules
+2026-08-27T10:12:25+00:00 | INFO | AuditResponseBuilder.build: project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:12:25+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:26+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:26+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:26+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:26+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:27+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:27+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:27+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:28+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:28+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:28+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:29+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:29+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:29+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:30+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:30+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:31+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:32+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:33+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:33+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:34+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:34+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:35+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:36+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:36+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:37+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:37+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:38+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:38+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:39+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:39+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:40+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:40+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:40+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:40+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:41+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:41+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:42+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:42+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:42+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:43+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:43+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:44+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:44+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:45+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:45+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:45+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:46+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:46+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:47+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:47+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:47+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:48+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:48+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:48+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:49+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:49+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:49+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:50+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:50+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:50+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:51+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:51+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:51+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:51+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:51+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:52+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:52+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:52+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:53+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:53+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:53+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:53+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:54+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:55+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:55+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:55+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:56+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:56+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:56+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:57+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:57+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:57+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:57+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:58+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:58+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:58+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:58+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:59+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:59+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:12:59+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:12:59+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:00+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:00+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:01+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:01+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:01+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:01+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:02+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:02+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:03+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:03+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:03+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:04+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:04+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:04+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:05+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:05+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:05+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:06+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:06+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:06+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:07+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:07+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:07+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:07+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:08+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:08+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:08+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:08+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:09+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:09+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:09+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:09+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:10+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:10+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:10+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:11+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:11+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:11+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:11+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:12+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:12+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:12+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:13+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:13+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:13+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:13+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:13+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:14+00:00 | INFO | AnalysisScorerService.score_project: score=87.3, grade=B+, pages=59, project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef
+2026-08-27T10:13:14+00:00 | INFO | audit.run_analysis_pipeline: STAGE score finished project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:13:15+00:00 | INFO | audit.run_analysis_pipeline: task finished for project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef, crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:13:15+00:00 | INFO | GET /audit/status/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef - crawl_id=None
+2026-08-27T10:13:15+00:00 | INFO | GET /audit/result/project/ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef
+2026-08-27T10:13:16+00:00 | INFO | Loaded 64 scoring rules
+2026-08-27T10:13:16+00:00 | INFO | AuditResponseBuilder.build: project_id=ad87548b-71d6-4b6f-bfe5-bbdc901ac0ef crawl_id=4618edf4-7a23-4ea6-beaa-87e5f711f4db
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-08-27T10:13:16+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
