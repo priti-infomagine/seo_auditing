@@ -210,6 +210,7 @@ class ResourceCountRule(BaseRule):
                 data={"total": total_resources, "css": css_count, "js": js_count, "images": image_count},
             )]
         
+        
         if total_resources <= 50:
             return [self._create_result(
                 passed=False,

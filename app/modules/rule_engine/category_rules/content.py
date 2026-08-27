@@ -437,7 +437,7 @@ class DuplicateTitlesRule(BaseRule):
             return [self._create_result(
                 passed=False,
                 message=f"Duplicate title found ({len(duplicate_titles)} pages share this title)",
-                severity=Severity.WARNING,
+                severity=Severity.INFO,
                 score_impact=-3,
                 recommendation="Make title tags unique across the site",
                 data={"title": title, "duplicate_count": len(duplicate_titles)},
@@ -478,7 +478,7 @@ class DuplicateDescriptionsRule(BaseRule):
             return [self._create_result(
                 passed=False,
                 message=f"Duplicate meta description found ({len(duplicate_descriptions)} pages share this description)",
-                severity=Severity.WARNING,
+                severity=Severity.INFO,
                 score_impact=-3,
                 recommendation="Make meta descriptions unique across the site",
                 data={"meta_description": meta_description, "duplicate_count": len(duplicate_descriptions)},
@@ -520,7 +520,7 @@ class DuplicateH1sRule(BaseRule):
             return [self._create_result(
                 passed=False,
                 message=f"Duplicate H1 found ({len(duplicate_h1s)} pages share this H1)",
-                severity=Severity.WARNING,
+                severity=Severity.INFO,
                 score_impact=-3,
                 recommendation="Make H1 tags unique across the site",
                 data={"h1": h1_text, "duplicate_count": len(duplicate_h1s)},

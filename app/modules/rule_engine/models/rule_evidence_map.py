@@ -105,8 +105,6 @@ HIGH_IMPACT_WARNINGS: set = {
     "on_page_006",      # missing canonical
     "on_page_007",      # nofollow / noindex directive
     "technical_007",    # missing security headers
-    "technical_010",    # missing structured data
-    "images_001",       # image alt text
     "images_004",       # image dimensions (CLS risk)
     "a11y_001",         # image alt text
     "security_003",     # security headers
@@ -282,11 +280,50 @@ RULE_TITLES: Dict[str, str] = {
     "mobile_001": "Missing mobile viewport",
     "http_status_001": "HTTP status code issues",
     "hreflang_001": "Hreflang configuration issues",
-    "duplicate_001": "Duplicate page titles",
-    "duplicate_002": "Duplicate meta descriptions",
-    "duplicate_003": "Duplicate H1 tags",
-    "core_web_vitals_001": "Core Web Vitals issues",
-    "missing_www_redirect": "Missing or inconsistent www canonicalization",
+     "duplicate_001": "Duplicate page titles",
+     "duplicate_002": "Duplicate meta descriptions",
+     "duplicate_003": "Duplicate H1 tags",
+     "on_page_005": "Meta keywords present",
+     "on_page_008": "Missing Open Graph tags",
+     "on_page_009": "Incomplete Twitter Card tags",
+     "technical_003": "Missing HTML language declaration",
+     "technical_004": "Character encoding not declared",
+     "content_002": "Reading time outside optimal range",
+     "content_003": "Paragraph structure needs improvement",
+     "content_004": "Low text-to-HTML ratio",
+     "content_005": "Target keyword not found in content",
+     "content_007": "Missing content freshness dates",
+     "links_001": "Insufficient internal links",
+     "links_002": "No external links found",
+     "links_005": "High nofollow link ratio",
+     "images_002": "Large image file sizes detected",
+     "images_003": "Lazy loading not implemented",
+     "images_005": "Missing responsive image attributes",
+     "images_006": "Only traditional image formats detected",
+     "schema_002": "Missing Organization schema",
+     "schema_003": "Missing Breadcrumb schema",
+     "schema_004": "Missing Article schema",
+     "schema_005": "Missing Product schema",
+     "schema_006": "JSON-LD format not detected",
+     "social_004": "Missing Facebook domain verification",
+     "security_001": "Website not using HTTPS",
+     "security_003": "Missing security headers",
+     "security_004": "SSL certificate issues",
+     "a11y_001": "Images missing alt text for accessibility",
+     "a11y_002": "HTML language attribute not specified",
+     "a11y_003": "Heading structure issues",
+     "a11y_004": "Non-descriptive link text",
+     "a11y_005": "Color contrast check required",
+     "a11y_006": "Keyboard navigation not verified",
+     "a11y_007": "Missing ARIA labels",
+     "a11y_008": "Forms missing associated labels",
+     "perf_002": "Large HTML document size",
+     "perf_003": "Code minification not enabled",
+     "perf_004": "High resource count",
+     "perf_005": "Missing browser caching headers",
+     "perf_006": "Compression not enabled",
+     "perf_007": "Large total page size",
+     "missing_www_redirect": "Missing or inconsistent www canonicalization",
 }
 
 RULE_WHY: Dict[str, str] = {}

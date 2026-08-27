@@ -126,7 +126,7 @@ class TitleTagRule(BaseRule):
                 self._create_result(
                     passed=False,
                     message="Missing page title tag",
-                    severity=Severity.HIGH,
+                    severity=Severity.WARNING,
                     score_impact=-8,
                     recommendation=(
                         "Add a unique, descriptive <title> tag that clearly "
@@ -287,7 +287,7 @@ class TitleTagRule(BaseRule):
 
         if is_generic:
             passed = False
-            severity = Severity.MEDIUM
+            severity = Severity.WARNING
             score_impact = -4
 
         # Strong content mismatch.
@@ -296,7 +296,7 @@ class TitleTagRule(BaseRule):
             and consistency_score < 0.20
         ):
             passed = False
-            severity = Severity.MEDIUM
+            severity = Severity.WARNING
             score_impact = -3
 
         # --------------------------------------------------------------
@@ -305,22 +305,22 @@ class TitleTagRule(BaseRule):
 
         elif length_status in {"very_short", "very_long"}:
             passed = False
-            severity = Severity.LOW
+            severity = Severity.INFO
             score_impact = -2
 
         elif length_status == "long":
             passed = False
-            severity = Severity.LOW
+            severity = Severity.INFO
             score_impact = -1
 
         elif pixel_width > self.MAX_ESTIMATED_PIXEL_WIDTH:
             passed = False
-            severity = Severity.LOW
+            severity = Severity.INFO
             score_impact = -1
 
         elif target_keyword and keyword_present is False:
             passed = False
-            severity = Severity.LOW
+            severity = Severity.INFO
             score_impact = -1
 
         # ==============================================================
@@ -741,7 +741,7 @@ class MetaDescriptionRule(BaseRule):
             return [self._create_result(
                 passed=False,
                 message="Missing meta description",
-                severity=Severity.CRITICAL,
+                severity=Severity.WARNING,
                 score_impact=-12,
                 recommendation="Add a compelling meta description (140-160 characters)",
             )]

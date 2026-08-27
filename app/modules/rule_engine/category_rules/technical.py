@@ -565,7 +565,7 @@ class StructuredDataRule(BaseRule):
             return [self._create_result(
                 passed=False,
                 message="No structured data / schema markup found",
-                severity=Severity.WARNING,
+                severity=Severity.INFO,
                 score_impact=-5,
                 recommendation="Add Schema.org markup to enable rich snippets in search results",
             )]
@@ -585,7 +585,64 @@ class StructuredDataRule(BaseRule):
         )]
 
 
-class HreflangRule(BaseRule):
+class UrlRule(BaseRule):
+    """Check URL structure."""
+    rule_id = "url_001"
+    name = "URL Structure"
+    category = "technical"
+    description = "URLs should be clean and descriptive"
+    weight = 0.8
+    tags = ["info", "technical", "url"]
+
+    async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+        url_info = data.get("url", {})
+        url_path = url_info.get("path", "")
+        normalized_url = url_info.get("normalized_url", "")
+
+        if not url_path and not normalized_url:
+            return [self._create_result(
+                passed=True,
+                message="No URL data available",
+                severity=Severity.INFO,
+                score_impact=0,
+            )]
+
+        issues = []
+        details = {"path": url_path}
+
+        if not url_path:
+            issues.append("missing path")
+
+        if "_" in url_path:
+            issues.append("underscores in URL")
+
+        if "%20" in url_path or " " in url_path:
+            issues.append("spaces in URL")
+
+        if len(url_path) > 100:
+            issues.append("URL too long")
+
+        if not issues:
+            return [self._create_result(
+                passed=True,
+                message="URL structure is clean",
+                severity=Severity.PASSED,
+                score_impact=0,
+                data=details,
+            )]
+
+        impact = -len(issues)
+        return [self._create_result(
+            passed=False,
+            message=f"URL structure issues: {', '.join(issues)}",
+            severity=Severity.INFO,
+            score_impact=impact,
+            recommendation="Use clean URLs with hyphens, lowercase, and no unnecessary parameters",
+            data={**details, "issues": issues},
+        )]
+
+
+class MobileRule(BaseRule):
     """Check mobile friendliness."""
     rule_id = "mobile_001"
     name = "Mobile Friendliness"
@@ -593,11 +650,11 @@ class HreflangRule(BaseRule):
     description = "Page should be mobile-friendly"
     weight = 1.0
     tags = ["warning", "technical", "mobile"]
-    
+
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         basic = data.get("basic", {})
         viewport = basic.get("viewport", "")
-        
+
         if not viewport:
             return [self._create_result(
                 passed=False,
@@ -606,11 +663,11 @@ class HreflangRule(BaseRule):
                 score_impact=-5,
                 recommendation="Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
             )]
-        
+
         viewport_lower = viewport.lower()
         has_width = "width=device-width" in viewport_lower
         has_initial_scale = "initial-scale=1" in viewport_lower
-        
+
         if has_width and has_initial_scale:
             return [self._create_result(
                 passed=True,
@@ -619,7 +676,7 @@ class HreflangRule(BaseRule):
                 score_impact=0,
                 data={"viewport": viewport},
             )]
-        
+
         return [self._create_result(
             passed=False,
             message=f"Viewport may not be optimal: {viewport}",

@@ -189,7 +189,7 @@ class AuditResponseBuilder:
             })
             www_redirect_issue = SEOIssue(
                 rule_id="missing_www_redirect",
-                severity=SeverityTier.MEDIUM,
+                severity=SeverityTier.LOW,
                 category="technical",
                 status="failed",
                 page_url=domain or "",
@@ -496,6 +496,7 @@ class AuditResponseBuilder:
                     "page_url": issue.page_url,
                     "current_value": issue.current_value,
                     "evidence": issue.evidence,
+                    "classified_images": _classify_images(issue.evidence),
                 })
             out.append({
                 "rule_id": rule_id,
@@ -814,6 +815,24 @@ def _coerce_uuid(value) -> UUID:
 def _unavailable(reason: str) -> Dict[str, Any]:
     """Spec §17/#21: never report 0 for not-measured metrics."""
     return {"available": False, "value": None, "reason": reason}
+
+
+def _classify_images(evidence: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Classify images from rule evidence into has_alt / missing_alt buckets."""
+    sample = evidence.get("sample") if isinstance(evidence, dict) else []
+    if not sample:
+        return []
+    result: List[Dict[str, Any]] = []
+    for img in sample:
+        if not isinstance(img, dict):
+            continue
+        alt = img.get("alt", "")
+        result.append({
+            "src": img.get("src", img.get("url", "")),
+            "has_alt": bool((alt or "").strip()),
+            "alt_text": alt if alt else None,
+        })
+    return result
 
 
 def _health_from_score(score: float) -> str:

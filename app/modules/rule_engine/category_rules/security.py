@@ -214,7 +214,6 @@ class HSTSRule(BaseRule):
             data={"hsts": hsts},
         )]
 
-
 class XSSProtectionRule(BaseRule):
     """Check XSS protection."""
     rule_id = "security_006"

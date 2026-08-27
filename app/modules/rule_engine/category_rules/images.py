@@ -54,10 +54,10 @@ class ImageAltTextRule(BaseRule):
         return [self._create_result(
             passed=False,
             message=f"{without_alt}/{total_count} images missing alt text ({coverage:.1f}% coverage)",
-            severity=Severity.WARNING,
+            severity=Severity.INFO,
             score_impact=impact,
             recommendation=f"Add descriptive alt text to {without_alt} images",
-            data={"total_count": total_count, "without_alt": without_alt, "coverage": coverage},
+            data={"total_count": total_count, "without_alt": without_alt, "coverage": coverage, "sample": images.get("sample", [])},
         )]
 
 

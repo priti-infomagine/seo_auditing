@@ -13,6 +13,7 @@ class PageIssueEvidence(BaseModel):
     page_url: str
     current_value: Optional[str] = None
     evidence: Dict[str, Any] = Field(default_factory=dict)
+    classified_images: List[Dict[str, Any]] = Field(default_factory=list)
 
 
 class RuleLevelIssue(BaseModel):

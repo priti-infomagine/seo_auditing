@@ -94,7 +94,7 @@ class RuleResultToSEOIssueConverter:
             message=result.message if isinstance(result.message, str) else None,
             recommendation=result.recommendation if isinstance(result.recommendation, str) else None,
             current_value=cls._build_current_value(result),
-            recommended=[],
+            recommended=cls._build_recommended(result),
             page_id=page_id,
             crawl_id=crawl_id,
             project_id=project_id,
