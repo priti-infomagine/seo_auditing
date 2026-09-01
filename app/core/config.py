@@ -61,5 +61,14 @@ class Settings(BaseSettings):
     # Example: '{"on_page": 0.25, "technical": 0.15, "content": 0.20, "links": 0.10, "images": 0.05, "schema": 0.05, "social": 0.05, "security": 0.10, "accessibility": 0.05, "performance": 0.05}'
     SEO_SCORER_WEIGHTS: Optional[str] = None
 
+    # ── Ollama Chat ─────────────────────────────────────────────────
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    OLLAMA_MODEL: str = "qwen3:1.7b"
+    OLLAMA_TIMEOUT: int = 60
+    OLLAMA_TEMPERATURE: float = 0.1
+
+    # ── Chat Auth ───────────────────────────────────────────────────
+    CHAT_AUTH_ENABLED: bool = False
+
 
 settings = Settings()

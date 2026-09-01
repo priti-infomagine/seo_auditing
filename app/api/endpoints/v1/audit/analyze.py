@@ -69,7 +69,7 @@ async def analyze_website(
     """
     logger.info(
         f"POST /audit/analyze - Queuing audit for URL: {body.url}, "
-        f"project_id: {body.project_id}, max_pages: {body.max_pages}, "
+        f" max_pages: {body.max_pages}, "
     )
 
     anonymous_user_id = uuid.uuid4()
@@ -83,7 +83,7 @@ async def analyze_website(
                 detail=f"Invalid URL: {body.url} - could not extract domain",
             )
 
-        project_id = body.project_id or uuid.uuid4()
+        project_id = uuid.uuid4()
 
         effective_max_pages = (
             min(body.max_pages, settings.CRAWL_MAX_PAGES)

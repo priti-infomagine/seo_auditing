@@ -1,0 +1,3955 @@
+{
+  "audit": {
+    "audit_id": "6076baf8-94ec-493a-90a8-f2dcced67734",
+    "project_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "url": "https://www.moneymatters.org.in/",
+    "domain": "www.moneymatters.org.in",
+    "started_at": "2026-08-31T08:10:28.833667+00:00",
+    "completed_at": "2026-08-31T08:10:44.468325+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 17,
+      "crawled": 17,
+      "analyzed": 17
+    },
+    "crawl_stats": {
+      "pages_discovered": 17,
+      "pages_crawled": 17,
+      "pages_analyzed": 17,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "redirects": 0,
+      "broken_pages": 0,
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 17
+      },
+      "started_at": "2026-08-31T08:10:28.833667+00:00",
+      "completed_at": "2026-08-31T08:10:44.468325+00:00"
+    },
+    "indexation": {
+      "indexable": 17,
+      "noindex": 0,
+      "canonicalized": 0,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "core_web_vitals": {
+        "available": false,
+        "value": null,
+        "reason": "browser_performance_measurement_not_available"
+      },
+      "ttfb": {
+        "available": true,
+        "value": 330.4,
+        "unit": "milliseconds",
+        "status": "excellent",
+        "reason": null
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 17,
+      "valid": 0,
+      "invalid": 17,
+      "types": {}
+    },
+    "links": {
+      "internal": {
+        "total": 412,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "total_links": 412
+    },
+    "images": {
+      "total": 18,
+      "missing_alt": 0,
+      "empty_alt": 0,
+      "missing_dimensions": 7,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 1
+    },
+    "content": {
+      "thin_pages": 7,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0,
+      "near_duplicate_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_similarity_analysis_not_implemented"
+      },
+      "missing_author": {
+        "available": false,
+        "value": null,
+        "reason": "author_extraction_not_implemented"
+      },
+      "outdated_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_freshness_tracking_not_implemented"
+      }
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 399,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 87.0,
+    "health": "excellent",
+    "issues": {
+      "critical": 0,
+      "high": 5,
+      "medium": 10,
+      "low": 7,
+      "total": 22
+    },
+    "checks": {
+      "passed": 42,
+      "failed": 22,
+      "total": 64
+    },
+    "recommended_score": 70.9,
+    "recommended_health": "needs_improvement"
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 51.6,
+      "status": "poor",
+      "checks_total": 9,
+      "checks_passed": 3,
+      "checks_failed": 6
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 43.9,
+      "status": "poor",
+      "checks_total": 13,
+      "checks_passed": 5,
+      "checks_failed": 8
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 68.2,
+      "status": "needs_improvement",
+      "checks_total": 10,
+      "checks_passed": 6,
+      "checks_failed": 4
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 57.6,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 2,
+      "checks_failed": 3
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 77.5,
+      "status": "good",
+      "checks_total": 6,
+      "checks_passed": 3,
+      "checks_failed": 3
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 83.3,
+      "status": "good",
+      "checks_total": 6,
+      "checks_passed": 5,
+      "checks_failed": 1
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 0,
+      "checks_failed": 3
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 50.0,
+      "status": "poor",
+      "checks_total": 2,
+      "checks_passed": 1,
+      "checks_failed": 1
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 1,
+      "checks_passed": 1,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 98.0,
+      "status": "excellent",
+      "checks_total": 9,
+      "checks_passed": 8,
+      "checks_failed": 1
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "content_001",
+      "category": "content",
+      "severity": "high",
+      "title": "Thin or overly long content",
+      "why": null,
+      "what": null,
+      "recommendation": "Increase content to at least 150 words",
+      "llm_tips": [
+        "Increase content to at least 150 words"
+      ],
+      "affected_pages": 3,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "112 words on unknown page",
+          "evidence": {
+            "page_type": "unknown",
+            "word_count": 112
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "99 words on unknown page",
+          "evidence": {
+            "page_type": "unknown",
+            "word_count": 99
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "137 words on unknown page",
+          "evidence": {
+            "page_type": "unknown",
+            "word_count": 137
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "why": null,
+      "what": null,
+      "recommendation": "Add canonical URL tag and ensure unique content",
+      "llm_tips": [
+        "Add canonical URL tag and ensure unique content"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+      "llm_tips": [
+        "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [
+        "Add Schema.org markup to enable rich snippets in search results"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_007",
+      "category": "technical",
+      "severity": "high",
+      "title": "Missing or incomplete security headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add missing security headers: content-security-policy; consider adding: x-frame-options, x-content-type-options",
+      "llm_tips": [
+        "Add missing security headers: content-security-policy",
+        "consider adding: x-frame-options, x-content-type-options"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "All headers present: strict-transport-security",
+          "evidence": {
+            "present": [
+              "strict-transport-security"
+            ],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "why": null,
+      "what": null,
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility",
+      "llm_tips": [
+        "Use descriptive anchor text for better SEO and accessibility"
+      ],
+      "affected_pages": 13,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "1 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 1,
+            "generic_count": 1
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "40 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 40,
+            "generic_count": 40
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "39 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 39,
+            "generic_count": 39
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "43 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 43,
+            "generic_count": 43
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "36 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 36,
+            "generic_count": 36
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "1 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 1,
+            "generic_count": 1
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "high",
+      "title": "Slow server response time (TTFB)",
+      "why": null,
+      "what": null,
+      "recommendation": "Optimize server response time to under 200ms",
+      "llm_tips": [
+        "Optimize server response time to under 200ms"
+      ],
+      "affected_pages": 3,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Slow response time: 0.71s (should be <200ms)",
+          "evidence": {
+            "response_time": 0.711
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Very slow response time: 1.43s",
+          "evidence": {
+            "response_time": 1.43
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Slow response time: 0.63s (should be <200ms)",
+          "evidence": {
+            "response_time": 0.629
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "why": null,
+      "what": null,
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
+      "llm_tips": [
+        "Add width and height attributes to prevent Cumulative Layout Shift (CLS)"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "1 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 1
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "6 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 6
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "Paragraph structure needs improvement",
+      "why": null,
+      "what": null,
+      "recommendation": "Break content into paragraphs for better readability",
+      "llm_tips": [
+        "Break content into paragraphs for better readability"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_001",
+      "category": "links",
+      "severity": "medium",
+      "title": "Insufficient internal links",
+      "why": null,
+      "what": null,
+      "recommendation": "Add internal links to other pages on your website",
+      "llm_tips": [
+        "Add internal links to other pages on your website"
+      ],
+      "affected_pages": 6,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No internal links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "1 internal links",
+          "evidence": {
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No internal links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No internal links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No internal links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "1 internal links",
+          "evidence": {
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poor page title",
+      "why": null,
+      "what": null,
+      "recommendation": "Add a unique, descriptive <title> tag that clearly describes the page content and search intent.",
+      "llm_tips": [
+        "Add a unique, descriptive <title> tag that clearly describes the page content and search intent."
+      ],
+      "affected_pages": 9,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Title: All Articles | Money Matters (28 chars)",
+          "evidence": {
+            "title": "All Articles | Money Matters",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 28,
+            "truncation_risk": false,
+            "pixel_width_estimate": 163,
+            "content_consistency_score": 1.0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Title: Contact Us | Money Matters (26 chars)",
+          "evidence": {
+            "title": "Contact Us | Money Matters",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 26,
+            "truncation_risk": false,
+            "pixel_width_estimate": 162,
+            "content_consistency_score": 1.0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Missing page title tag",
+          "evidence": {
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poorly sized meta description",
+      "why": null,
+      "what": null,
+      "recommendation": "Add a compelling meta description (140-160 characters)",
+      "llm_tips": [
+        "Add a compelling meta description (140-160 characters)"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Meta description: Money Matters – Mutual fund advisory, SIP tools, financial planning. (68 chars)",
+          "evidence": {
+            "length_status": "too_short",
+            "character_count": 68,
+            "meta_description": "Money Matters – Mutual fund advisory, SIP tools, financial planning.",
+            "pixel_width_estimate": 442
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Meta description: Browse all financial insights and articles from Money Matters. (62 chars)",
+          "evidence": {
+            "length_status": "too_short",
+            "character_count": 62,
+            "meta_description": "Browse all financial insights and articles from Money Matters.",
+            "pixel_width_estimate": 403
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Meta description: Get in touch with Money Matters for a free financial consultation. (66 chars)",
+          "evidence": {
+            "length_status": "too_short",
+            "character_count": 66,
+            "meta_description": "Get in touch with Money Matters for a free financial consultation.",
+            "pixel_width_estimate": 429
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Meta description: Calculate the future value of your SIP and lumpsum investments with our powerful and easy-to-use financial calculator. (118 chars)",
+          "evidence": {
+            "length_status": "acceptable",
+            "character_count": 118,
+            "meta_description": "Calculate the future value of your SIP and lumpsum investments with our powerful and easy-to-use financial calculator.",
+            "pixel_width_estimate": 767
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Meta description: Watch expert videos on mutual funds, financial planning, and investment strategies from the Money Matters team. (111 chars)",
+          "evidence": {
+            "length_status": "acceptable",
+            "character_count": 111,
+            "meta_description": "Watch expert videos on mutual funds, financial planning, and investment strategies from the Money Matters team.",
+            "pixel_width_estimate": 721
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Missing meta description",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_008",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing Open Graph tags",
+      "why": null,
+      "what": null,
+      "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+      "llm_tips": [
+        "Add missing OG tags: og:title, og:description, og:image, og:url"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "security_006",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing XSS protection headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+      "llm_tips": [
+        "Add X-XSS-Protection and Content-Security-Policy headers"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_005",
+      "category": "social",
+      "severity": "medium",
+      "title": "Missing social media image",
+      "why": null,
+      "what": null,
+      "recommendation": "Add og:image and twitter:image tags for better social sharing",
+      "llm_tips": [
+        "Add og:image and twitter:image tags for better social sharing"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_002",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing mobile viewport",
+      "why": null,
+      "what": null,
+      "recommendation": "Ensure viewport includes 'width=device-width, initial-scale=1.0'",
+      "llm_tips": [
+        "Ensure viewport includes 'width=device-width, initial-scale=1.0'"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_003",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing HTML language declaration",
+      "why": null,
+      "what": null,
+      "recommendation": "Add lang attribute to <html> tag (e.g., <html lang='en'>)",
+      "llm_tips": [
+        "Add lang attribute to <html> tag (e.g., <html lang='en'>)"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "HTML language attribute not specified",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing DOCTYPE declaration",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+      "llm_tips": [
+        "Add <!DOCTYPE html> at the very beginning of the document"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or multiple H1 tags",
+      "why": null,
+      "what": null,
+      "recommendation": "Use only one H1 tag per page for better SEO",
+      "llm_tips": [
+        "Use only one H1 tag per page for better SEO"
+      ],
+      "affected_pages": 6,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "2 H1 tags: Mutual Funds Made Simple: A Beginner’s Guide, Mutual Funds Made Simple: A Beginner’s Guide",
+          "evidence": {
+            "h1_tags": [
+              "Mutual Funds Made Simple: A Beginner’s Guide",
+              "Mutual Funds Made Simple: A Beginner’s Guide"
+            ],
+            "h1_count": 2
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "2 H1 tags: Mutual Funds Made Simple: A Beginner’s Guide, Mutual Funds Made Simple: A Beginner’s Guide",
+          "evidence": {
+            "h1_tags": [
+              "Mutual Funds Made Simple: A Beginner’s Guide",
+              "Mutual Funds Made Simple: A Beginner’s Guide"
+            ],
+            "h1_count": 2
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "2 H1 tags: From Cricket to Investing: Riding the Momentum Wave, From Cricket to Investing: Riding the Momentum Wave",
+          "evidence": {
+            "h1_tags": [
+              "From Cricket to Investing: Riding the Momentum Wave",
+              "From Cricket to Investing: Riding the Momentum Wave"
+            ],
+            "h1_count": 2
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "H1: Financial Insights Blog",
+          "evidence": {
+            "h1_text": "Financial Insights Blog",
+            "h1_count": 1,
+            "h1_length": 23,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Missing H1 tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "2 H1 tags: From Cricket to Investing: Riding the Momentum Wave, From Cricket to Investing: Riding the Momentum Wave",
+          "evidence": {
+            "h1_tags": [
+              "From Cricket to Investing: Riding the Momentum Wave",
+              "From Cricket to Investing: Riding the Momentum Wave"
+            ],
+            "h1_count": 2
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_004",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Illogical heading hierarchy",
+      "why": null,
+      "what": null,
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)",
+      "llm_tips": [
+        "Organize headings in logical hierarchy (H1 → H2 → H3)"
+      ],
+      "affected_pages": 8,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Heading issues: H1=2, H2=3, H3=0, H4=4, H5=0, H6=0 — 1 duplicate headings",
+          "evidence": {
+            "h1": 2,
+            "h2": 3,
+            "h3": 0,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 9,
+            "issues": [
+              "1 duplicate headings"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Heading issues: H1=2, H2=3, H3=0, H4=4, H5=0, H6=0 — 1 duplicate headings",
+          "evidence": {
+            "h1": 2,
+            "h2": 3,
+            "h3": 0,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 9,
+            "issues": [
+              "1 duplicate headings"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Heading issues: H1=1, H2=7, H3=15, H4=4, H5=0, H6=0 — Excessive headings",
+          "evidence": {
+            "h1": 1,
+            "h2": 7,
+            "h3": 15,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 27,
+            "issues": [
+              "Excessive headings"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Heading issues: H1=2, H2=4, H3=0, H4=4, H5=0, H6=0 — 1 duplicate headings",
+          "evidence": {
+            "h1": 2,
+            "h2": 4,
+            "h3": 0,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 10,
+            "issues": [
+              "1 duplicate headings"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Heading issues: H1=0, H2=1, H3=4, H4=4, H5=0, H6=0 — Missing H1",
+          "evidence": {
+            "h1": 0,
+            "h2": 1,
+            "h3": 4,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 9,
+            "issues": [
+              "Missing H1"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Heading issues: H1=2, H2=4, H3=0, H4=4, H5=0, H6=0 — 1 duplicate headings",
+          "evidence": {
+            "h1": 2,
+            "h2": 4,
+            "h3": 0,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 10,
+            "issues": [
+              "1 duplicate headings"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Heading issues: H1=1, H2=0, H3=6, H4=4, H5=0, H6=0 — H3 used without H2",
+          "evidence": {
+            "h1": 1,
+            "h2": 0,
+            "h3": 6,
+            "h4": 4,
+            "h5": 0,
+            "h6": 0,
+            "total": 11,
+            "issues": [
+              "H3 used without H2"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Heading issues: H1=1, H2=0, H3=4, H4=0, H5=0, H6=0 — H3 used without H2",
+          "evidence": {
+            "h1": 1,
+            "h2": 0,
+            "h3": 4,
+            "h4": 0,
+            "h5": 0,
+            "h6": 0,
+            "total": 5,
+            "issues": [
+              "H3 used without H2"
+            ]
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "Missing content freshness dates",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider adding article published/modified dates",
+      "llm_tips": [
+        "Consider adding article published/modified dates"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "No external links found",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider linking to authoritative external sources",
+      "llm_tips": [
+        "Consider linking to authoritative external sources"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "mobile_001",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing mobile viewport",
+      "why": null,
+      "what": null,
+      "recommendation": "Ensure viewport includes 'width=device-width, initial-scale=1.0'",
+      "llm_tips": [
+        "Ensure viewport includes 'width=device-width, initial-scale=1.0'"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "Viewport: width=device-width",
+          "evidence": {
+            "viewport": "width=device-width",
+            "has_width": true,
+            "has_initial_scale": false
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "why": null,
+      "what": null,
+      "recommendation": "Add links to your social media profiles",
+      "llm_tips": [
+        "Add links to your social media profiles"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing Facebook domain verification",
+      "why": null,
+      "what": null,
+      "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+      "llm_tips": [
+        "Add fb:app_id or fb:admins for Facebook Insights"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "why": null,
+      "what": null,
+      "recommendation": "Create and submit XML sitemap to search engines",
+      "llm_tips": [
+        "Create and submit XML sitemap to search engines"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_010",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing structured data / schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [
+        "Add Schema.org markup to enable rich snippets in search results"
+      ],
+      "affected_pages": 17,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/marriage-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Privacy",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Terms",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclaimer",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/retirement-calculator",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact/grievance-support",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "Lazy loading not implemented",
+      "why": null,
+      "what": null,
+      "recommendation": "Add loading='lazy' attribute to images below the fold",
+      "llm_tips": [
+        "Add loading='lazy' attribute to images below the fold"
+      ],
+      "affected_pages": 10,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_006",
+      "category": "images",
+      "severity": "low",
+      "title": "Only traditional image formats detected",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider using WebP or AVIF for better compression",
+      "llm_tips": [
+        "Consider using WebP or AVIF for better compression"
+      ],
+      "affected_pages": 11,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/contact",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/calculators/investment-calculator",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/videos",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/legal/Disclosure",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "url_001",
+      "category": "technical",
+      "severity": "low",
+      "title": "Poor URL structure",
+      "why": null,
+      "what": null,
+      "recommendation": "Use clean URLs with hyphens, lowercase, and no unnecessary parameters",
+      "llm_tips": [
+        "Use clean URLs with hyphens, lowercase, and no unnecessary parameters"
+      ],
+      "affected_pages": 5,
+      "pages": [
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "URL check",
+          "evidence": {
+            "path": "/blog/Mutual%20Funds%20Made%20Simple%3A%20A%20Beginner%E2%80%99s%20Guide",
+            "issues": [
+              "spaces in URL"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+          "current_value": "URL check",
+          "evidence": {
+            "path": "/blog/Mutual%20Funds%20Made%20Simple:%20A%20Beginner%E2%80%99s%20Guide",
+            "issues": [
+              "spaces in URL"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+          "current_value": "URL check",
+          "evidence": {
+            "path": "/blog/From%20Cricket%20to%20Investing%3A%20Riding%20the%20Momentum%20Wave",
+            "issues": [
+              "spaces in URL"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+          "current_value": "URL check",
+          "evidence": {
+            "path": "/blog/From%20Cricket%20to%20Investing:%20Riding%20the%20Momentum%20Wave",
+            "issues": [
+              "spaces in URL"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://www.moneymatters.org.in/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+          "current_value": "URL check",
+          "evidence": {
+            "path": "/blog/India%E2%80%99s%20Growing%20Economy%20and%20the%20Rising%20Demand%20for%20Energy",
+            "issues": [
+              "spaces in URL"
+            ]
+          },
+          "classified_images": []
+        }
+      ]
+    }
+  ]
+}

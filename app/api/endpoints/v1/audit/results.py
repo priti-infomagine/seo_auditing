@@ -6,7 +6,7 @@ GET /audit/pipeline/{project_id} — Fetch full pipeline summary.
 """
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID
+from uuid import UUID, uuid4
 from typing import List, Optional
 
 from app.core.database import get_db
@@ -26,9 +26,6 @@ from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPag
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 
-from app.core.security import get_current_user
-from app.modules.auth.models.users import User
-
 router = APIRouter()
 
 
@@ -42,15 +39,14 @@ async def get_analysis_result(
     crawl_id: UUID,
     project_id: UUID = Query(..., description="Project identifier"),
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> SeoAnalysisResponse:
     """Fetch the existing analysis result for a crawl."""
+    user_id = uuid4()
     logger.info(
-        f"GET /audit/result/{crawl_id} - project_id={project_id}, user_id={current_user.id}"
+        f"GET /audit/result/{crawl_id} - project_id={project_id}, user_id={user_id}"
     )
 
     try:
-        # Verify crawl job ownership
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(crawl_id)
         if not job:
@@ -58,13 +54,7 @@ async def get_analysis_result(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Crawl job {crawl_id} not found",
             )
-        if str(job.user_id) != str(current_user.id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied to this crawl job",
-            )
 
-        # Load analysis run
         analysis_repo = SeoAnalysisRunRepository(db)
         run = await analysis_repo.get_by_project_id(project_id)
         if not run or str(run.crawl_id) != str(crawl_id):
@@ -73,7 +63,6 @@ async def get_analysis_result(
                 detail=f"No analysis run found for project_id={project_id}",
             )
 
-        # Rebuild the unified response from persisted DB rows
         builder = AuditResponseBuilder(db)
         unified = await builder.build(project_id, crawl_id)
         return unified
@@ -150,18 +139,17 @@ async def get_analysis_history(
     limit: int = Query(20, le=100),
     offset: int = Query(0, ge=0),
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> PaginatedAnalyses:
-    """Fetch analysis history for the current user."""
+    """Fetch analysis history (public)."""
+    user_id = uuid4()
     logger.info(
-        f"GET /audit/history - user_id={current_user.id}, limit={limit}, offset={offset}"
+        f"GET /audit/history - user_id={user_id}, limit={limit}, offset={offset}"
     )
 
     try:
         analysis_repo = SeoAnalysisRunRepository(db)
 
         if project_id:
-            # Single project
             run = await analysis_repo.get_by_project_id(project_id)
             summaries = [_run_to_summary(run)] if run else []
             return PaginatedAnalyses(
@@ -182,17 +170,8 @@ async def get_analysis_history(
                 results=summaries,
             )
 
-        # Get all runs for this user via crawl_jobs
-        job_repo = CrawlJobRepository(db)
-        user_jobs = await job_repo.get_by_user_id(current_user.id)
-        user_project_ids = [j.project_id for j in user_jobs if j.project_id]
-
-        runs = await analysis_repo.get_by_user_and_domain(
-            domain or "", user_project_ids
-        ) if user_project_ids else []
-
+        runs = await analysis_repo.get_all(limit=limit, offset=offset)
         summaries = [_run_to_summary(r) for r in runs]
-        summaries = summaries[offset:offset + limit]
 
         return PaginatedAnalyses(
             total=len(summaries),
@@ -325,29 +304,19 @@ async def get_pipeline_summary(
     project_id: UUID,
     crawl_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> PipelineSummaryResponse:
     """Fetch comprehensive pipeline summary for a project."""
+    user_id = uuid4()
     logger.info(
-        f"GET /audit/pipeline/{project_id} - crawl_id={crawl_id}, user_id={current_user.id}"
+        f"GET /audit/pipeline/{project_id} - crawl_id={crawl_id}, user_id={user_id}"
     )
 
     try:
-        # Verify ownership
+        domain = None
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(crawl_id)
-        if not job:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Crawl job {crawl_id} not found",
-            )
-        if str(job.user_id) != str(current_user.id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied to this crawl job",
-            )
-
-        domain = job.domain
+        if job:
+            domain = job.domain
 
         # Parse stage
         parsed_repo = ParsedPageFactRepository(db)

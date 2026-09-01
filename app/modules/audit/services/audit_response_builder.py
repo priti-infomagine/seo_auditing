@@ -778,8 +778,8 @@ class AuditResponseBuilder:
             "project_id": str(project_id),
             "url": crawl_job.url if crawl_job else None,
             "domain": crawl_job.domain if crawl_job else None,
-            "started_at": to_iso(crawl_job.created_at) if crawl_job else None,
-            "completed_at": to_iso(crawl_job.completed_at) if crawl_job else None,
+            "started_at": crawl_job.created_at if crawl_job else None,
+            "completed_at": crawl_job.completed_at if crawl_job else None,
             "status": crawl_job.status if crawl_job else None,
             "pages": {
                 "discovered": pages_discovered,

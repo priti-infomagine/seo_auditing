@@ -88,6 +88,16 @@ class SeoAnalysisRunRepository:
         )
         return list(result.scalars().all())
 
+    async def get_all(self, limit: int = 100, offset: int = 0) -> List[SeoAnalysisRun]:
+        """Get all analysis runs, ordered by scored_at desc."""
+        result = await self.db.execute(
+            select(SeoAnalysisRun)
+            .order_by(SeoAnalysisRun.scored_at.desc())
+            .limit(limit)
+            .offset(offset)
+        )
+        return list(result.scalars().all())
+
     async def exists(self, project_id: UUID) -> bool:
         """Check if an analysis run exists for this project_id."""
         result = await self.db.execute(

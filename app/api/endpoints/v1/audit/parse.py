@@ -10,14 +10,12 @@ from uuid import UUID, uuid4
 
 from app.core.database import get_db
 from app.core.logger import logger
-from app.core.security import get_current_user
 from app.modules.audit.schemas.analysis_schemas import (
     ParseTriggerRequest,
     AnalysisError,
 )
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.auth.models.users import User
 
 router = APIRouter()
 
@@ -36,7 +34,6 @@ async def parse_crawl(
     crawl_id: UUID,
     body: ParseTriggerRequest = None,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> dict:
     """
     Trigger DB-backed parsing for a completed crawl.
@@ -45,7 +42,6 @@ async def parse_crawl(
         crawl_id: The crawl job ID (from POST /crawler/crawl).
         body: Optional request with project_id and force flag.
         db: Database session.
-        current_user: Authenticated user.
 
     Returns:
         Dict with project_id, crawl_id, parse summary.
@@ -54,10 +50,10 @@ async def parse_crawl(
         HTTPException 404: CrawlJob not found or doesn't belong to user.
         HTTPException 409: CrawlJob still in progress.
     """
-    logger.info(f"POST /audit/parse/{crawl_id} - user_id={current_user.id}")
+    user_id = uuid4()
+    logger.info(f"POST /audit/parse/{crawl_id} - user_id={user_id}")
 
     try:
-        # Load crawl job
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(crawl_id)
         if not job:
@@ -66,14 +62,6 @@ async def parse_crawl(
                 detail=f"Crawl job {crawl_id} not found",
             )
 
-        # Verify ownership
-        if str(job.user_id) != str(current_user.id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied to this crawl job",
-            )
-
-        # Check crawl status
         if job.status != "completed":
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,

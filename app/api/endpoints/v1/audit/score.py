@@ -10,11 +10,10 @@ category_results, crawl, indexation, ...).
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from app.core.database import get_db
 from app.core.logger import logger
-from app.core.security import get_current_user
 from app.modules.audit.schemas.analysis_schemas import (
     ScoreTriggerRequest,
     SeoAnalysisResponse,
@@ -24,7 +23,6 @@ from app.modules.audit.services.audit_response_builder import AuditResponseBuild
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRunRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
-from app.modules.auth.models.users import User
 
 router = APIRouter()
 
@@ -43,7 +41,6 @@ async def score_project(
     crawl_id: UUID,
     body: ScoreTriggerRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
 ) -> SeoAnalysisResponse:
     """
     Trigger full scoring for a crawl with completed evaluation.
@@ -52,7 +49,6 @@ async def score_project(
         crawl_id: The crawl job ID.
         body: Request with project_id and force flag.
         db: Database session.
-        current_user: Authenticated user.
 
     Returns:
         UnifiedAuditResponse with full score breakdown.
@@ -61,13 +57,13 @@ async def score_project(
         HTTPException 404: No rule results or crawl job.
         HTTPException 409: Already scored and force=False.
     """
+    user_id = uuid4()
     logger.info(
         f"POST /audit/score/{crawl_id} - "
-        f"project_id={body.project_id}, user_id={current_user.id}"
+        f"project_id={body.project_id}, user_id={user_id}"
     )
 
     try:
-        # Load crawl job
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(crawl_id)
         if not job:
@@ -76,17 +72,9 @@ async def score_project(
                 detail=f"Crawl job {crawl_id} not found",
             )
 
-        # Verify ownership
-        if str(job.user_id) != str(current_user.id):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied to this crawl job",
-            )
-
         analysis_repo = SeoAnalysisRunRepository(db)
         builder = AuditResponseBuilder(db)
 
-        # Check for existing analysis (idempotent)
         existing = await analysis_repo.get_by_project_id(body.project_id)
         if existing and existing.analysis_status == "completed" and not body.force:
             logger.info(
@@ -95,7 +83,6 @@ async def score_project(
             )
             return await builder.build(body.project_id, crawl_id)
 
-        # Check that rule evaluation results exist
         rule_eval_repo = RuleEvaluationResultRepository(db)
         eval_results = await rule_eval_repo.get_by_project_id(body.project_id)
         crawl_results = [r for r in eval_results if str(r.crawl_id) == str(crawl_id)]
@@ -107,7 +94,6 @@ async def score_project(
                        f"Run POST /audit/evaluate/{crawl_id} first.",
             )
 
-        # Run scorer (returns the unified audit response dict)
         scorer = AnalysisScorerService(db)
         unified = await scorer.score_project(body.project_id, crawl_id, force=body.force)
 

@@ -111,10 +111,6 @@ class AuditAnalyzeRequest(BaseModel):
         le=50,
         description="Number of concurrent crawl workers",
     )
-    project_id: Optional[UUID] = Field(
-        default=None,
-        description="Optional existing project ID to group this audit under. If omitted, a new project is created.",
-    )
     full_pipeline: bool = Field(
         default=True,
         description="When true (default), runs the full crawl → parse → evaluate → score pipeline. When false, only crawls without auto-analysis.",
