@@ -18,4 +18,5 @@ async def chat(
     db: AsyncSession = Depends(get_db_session),
 ) -> ChatResponse:
     service = ChatService(db=db)
+    print("=========🔥 CHAT ENDPOINT HIT=========")
     return await service.chat(project_id=project_id, message=payload.message)

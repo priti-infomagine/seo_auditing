@@ -62,7 +62,7 @@ class Settings(BaseSettings):
     SEO_SCORER_WEIGHTS: Optional[str] = None
 
     # ── Ollama Chat ─────────────────────────────────────────────────
-    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
     OLLAMA_MODEL: str = "qwen3:1.7b"
     OLLAMA_TIMEOUT: int = 60
     OLLAMA_TEMPERATURE: float = 0.1

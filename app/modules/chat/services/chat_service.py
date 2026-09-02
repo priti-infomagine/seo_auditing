@@ -1,5 +1,6 @@
 import json
 import re
+import time
 from uuid import UUID
 
 from fastapi import HTTPException
@@ -59,7 +60,10 @@ class ChatService:
         agent = create_agent(model=model, tools=tools, system_prompt=system_prompt)
 
         messages = [{"role": "user", "content": message}]
-
+        import time
+        start = time.perf_counter()
+        print("1. Starting agent...")
+        
         try:
             # recursion_limit=6 is a starting point for qwen3:1.7b; tune empirically.
             result = await agent.ainvoke({"messages": messages}, config={"recursion_limit": 6})
@@ -73,8 +77,16 @@ class ChatService:
         answer = re.sub(r"<think>.*?</think>", "", answer, flags=re.DOTALL).strip()
 
         tool_messages = [m for m in result["messages"] if isinstance(m, ToolMessage)]
+        tool_messages = [m for m in result["messages"] if isinstance(m, ToolMessage)]
+        if not tool_messages:
+            answer = "I don't have audit data for that yet. Please provide a page URL or ask about specific SEO issues."
         validated = self.response_validator.validate(answer, tool_messages)
-
+       
+        print(
+        f"2. Agent finished in "
+        f"{time.perf_counter() - start:.2f}s"
+        )
+        
         return ChatResponse(
             project_id=str(project_id),
             audit_id=str(audit["id"]) if audit.get("id") else None,
