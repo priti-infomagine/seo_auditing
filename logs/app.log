@@ -6222,4 +6222,279 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 2026-09-07T11:07:00+00:00 | WARNING | Browser fallback failed for https://www.nike.com/help/a/member-benefits: Could not acquire browser page
 2026-09-07T11:10:06+00:00 | ERROR | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
 2026-09-07T11:10:07+00:00 | WARNING | Browser fallback failed for https://www.nike.com/help/a/device-languages: Could not acquire browser page
-2026-09-07T16:41:50+00:00 | INFO | Worker process initialized with persistent event loop (pid=21244)
+2026-09-07T11:23:11+00:00 | ERROR | CrawlPersistenceService.persist_page: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('0c8b0f27-aaed-479f-bbc6-7683ed3c5876'), UUID('e48d4d1b-7d9f-4a62-815b-0c39c96b012c'), None, 'https://www.nike.com/help/a/promo-apply', 'https://www.nike.com/help/a/promo-apply', '629842e0909fe6d6273435a6d02651a2', 'https', 'www.nike.com', '/help/a/promo-apply', '', 0, 200, 'https://www.nike.com/help/a/promo-apply', 'text/html', 581895, 1298, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 999, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 113] No route to host
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.ConnectionDoesNotExistError: connection was closed in the middle of operation
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app/modules/crawler/services/crawl_persistence_service.py", line 141, in persist_page
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('0c8b0f27-aaed-479f-bbc6-7683ed3c5876'), UUID('e48d4d1b-7d9f-4a62-815b-0c39c96b012c'), None, 'https://www.nike.com/help/a/promo-apply', 'https://www.nike.com/help/a/promo-apply', '629842e0909fe6d6273435a6d02651a2', 'https', 'www.nike.com', '/help/a/promo-apply', '', 0, 200, 'https://www.nike.com/help/a/promo-apply', 'text/html', 581895, 1298, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-07T11:23:14+00:00 | ERROR | Worker 6: error processing https://www.nike.com/help/a/promo-apply: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('0c8b0f27-aaed-479f-bbc6-7683ed3c5876'), UUID('e48d4d1b-7d9f-4a62-815b-0c39c96b012c'), None, 'https://www.nike.com/help/a/promo-apply', 'https://www.nike.com/help/a/promo-apply', '629842e0909fe6d6273435a6d02651a2', 'https', 'www.nike.com', '/help/a/promo-apply', '', 0, 200, 'https://www.nike.com/help/a/promo-apply', 'text/html', 581895, 1298, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/asyncio/selector_events.py", line 999, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 113] No route to host
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/asyncpg/prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.ConnectionDoesNotExistError: connection was closed in the middle of operation
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app/modules/crawler/services/crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/modules/crawler/services/crawl_orchestrator.py", line 385, in _crawl_page
+    page = await self.persistence.persist_page(page)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/modules/crawler/services/crawl_persistence_service.py", line 141, in persist_page
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>: connection was closed in the middle of operation
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('0c8b0f27-aaed-479f-bbc6-7683ed3c5876'), UUID('e48d4d1b-7d9f-4a62-815b-0c39c96b012c'), None, 'https://www.nike.com/help/a/promo-apply', 'https://www.nike.com/help/a/promo-apply', '629842e0909fe6d6273435a6d02651a2', 'https', 'www.nike.com', '/help/a/promo-apply', '', 0, 200, 'https://www.nike.com/help/a/promo-apply', 'text/html', 581895, 1298, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-07T11:23:30+00:00 | ERROR | Worker 8: error processing https://www.nike.com/help/a/shoes-for-supination: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+Traceback (most recent call last):
+  File "/app/app/modules/crawler/services/crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/app/modules/crawler/services/crawl_orchestrator.py", line 468, in _crawl_page
+    await self.persistence.buffer_links(page.id, link_result.links)
+  File "/app/app/modules/crawler/services/crawl_persistence_service.py", line 354, in buffer_links
+    await self._flush_links_locked()
+  File "/app/app/modules/crawler/services/crawl_persistence_service.py", line 473, in _flush_links_locked
+    await self.db.flush()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1144, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1815, in _execute_context
+    conn = self._revalidate_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 674, in _revalidate_connection
+    self._invalid_transaction()
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 664, in _invalid_transaction
+    raise exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
