@@ -6,11 +6,12 @@ GET /audit/pipeline/{project_id} — Fetch full pipeline summary.
 """
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List, Literal, Optional, Union
 from uuid import UUID, uuid4
-from typing import List, Optional
 
 from app.core.database import get_db
 from app.core.logger import logger
+from app.modules.audit.services.audit_read_model_service import AuditReadModelService
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
 from app.modules.audit.schemas.analysis_schemas import (
     SeoAnalysisResponse,
@@ -21,6 +22,7 @@ from app.modules.audit.schemas.analysis_schemas import (
     EvaluateStageSummary,
     ScoreStageSummary,
 )
+from app.modules.audit.schemas.audit_summary_schemas import AuditOverview
 from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRunRepository
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
@@ -29,21 +31,46 @@ from app.modules.crawler.repositories.crawl_job_repository import CrawlJobReposi
 router = APIRouter()
 
 
+# Response model union for the format switch. Both Pydantic models are
+# documented in OpenAPI via anyOf; the actual model returned is decided by
+# the ``format`` query parameter at request time.
+_AuditResultResponse = Union[SeoAnalysisResponse, AuditOverview]
+
+
 @router.get(
     "/result/{crawl_id}",
-    response_model=SeoAnalysisResponse,
+    response_model=_AuditResultResponse,
     summary="Fetch analysis result for a crawl",
-    description="Returns the full SEO analysis result (score, categories, per-page breakdown) for a given crawl_id and project_id.",
+    description=(
+        "Returns the SEO analysis result for a given crawl_id and project_id. "
+        "Use ``?format=full`` (default) to get the legacy unified response with "
+        "per-page evidence, or ``?format=compact`` to get the small "
+        "``AuditOverview`` projection (5–20 KB; lazy-load details via "
+        "``/api/v1/audits/{crawl_id}/...``)."
+    ),
 )
 async def get_analysis_result(
     crawl_id: UUID,
     project_id: UUID = Query(..., description="Project identifier"),
+    format: Literal["full", "compact"] = Query(
+        "full",
+        description=(
+            "Response shape. 'full' (default) = legacy UnifiedAuditResponse "
+            "with per-page evidence. 'compact' = new compact AuditOverview "
+            "(5–20 KB; details available via /api/v1/audits/{id}/...)."
+        ),
+    ),
     db: AsyncSession = Depends(get_db),
-) -> SeoAnalysisResponse:
-    """Fetch the existing analysis result for a crawl."""
+) -> _AuditResultResponse:
+    """Fetch the existing analysis result for a crawl.
+
+    ``format=full`` (default) preserves the legacy contract. ``format=compact``
+    returns the new additive read model from ``AuditReadModelService``.
+    """
     user_id = uuid4()
     logger.info(
-        f"GET /audit/result/{crawl_id} - project_id={project_id}, user_id={user_id}"
+        f"GET /audit/result/{crawl_id} - project_id={project_id}, "
+        f"format={format}, user_id={user_id}"
     )
 
     try:
@@ -62,6 +89,9 @@ async def get_analysis_result(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"No analysis run found for project_id={project_id}",
             )
+
+        if format == "compact":
+            return await AuditReadModelService(db).build_overview(crawl_id)
 
         builder = AuditResponseBuilder(db)
         unified = await builder.build(project_id, crawl_id)
@@ -84,17 +114,27 @@ async def get_analysis_result(
     "/result/project/{project_id}",
     summary="Fetch full analysis result by project_id (public)",
     description=(
-        "Public endpoint that takes a project_id and returns the full unified "
-        "audit response (analyzed, scored, parsed, rule-engine checked). "
-        "Returns 202 if analysis is still in progress."
+        "Public endpoint that takes a project_id and returns the audit "
+        "response. Use ``?format=full`` (default) to get the legacy "
+        "unified response with per-page evidence, or ``?format=compact`` "
+        "to get the small ``AuditOverview`` projection. Returns 202 if "
+        "analysis is still in progress."
     ),
 )
 async def get_analysis_result_by_project(
     project_id: UUID,
+    format: Literal["full", "compact"] = Query(
+        "full",
+        description=(
+            "Response shape. 'full' (default) = legacy UnifiedAuditResponse "
+            "with per-page evidence. 'compact' = new compact AuditOverview "
+            "(5–20 KB; details available via /api/v1/audits/{id}/...)."
+        ),
+    ),
     db: AsyncSession = Depends(get_db),
-) -> dict:
-    """Fetch the full analysis result by project_id (no auth required)."""
-    logger.info(f"GET /audit/result/project/{project_id}")
+):
+    """Fetch the audit response by project_id (no auth required)."""
+    logger.info(f"GET /audit/result/project/{project_id} format={format}")
 
     try:
         analysis_repo = SeoAnalysisRunRepository(db)
@@ -109,6 +149,22 @@ async def get_analysis_result_by_project(
                     "project_id": str(project_id),
                 },
             )
+
+        if format == "compact":
+            try:
+                return await AuditReadModelService(db).build_overview(run.crawl_id)
+            except LookupError:
+                # Map to the same 202 the full path would not raise, but the
+                # compact service raises if no completed run exists. Keep
+                # the contract consistent for the client.
+                raise HTTPException(
+                    status_code=status.HTTP_202_ACCEPTED,
+                    detail={
+                        "status": "processing",
+                        "message": "Analysis in progress. Poll /audit/status/{project_id} for progress.",
+                        "project_id": str(project_id),
+                    },
+                )
 
         builder = AuditResponseBuilder(db)
         unified = await builder.build(project_id, run.crawl_id)

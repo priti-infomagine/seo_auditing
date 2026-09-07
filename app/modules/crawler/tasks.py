@@ -10,13 +10,19 @@ from app.modules.crawler.repositories.crawl_job_repository import CrawlJobReposi
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
+from app.shared.utils.url_utils import get_domain
 
 
 @celery_app.task(
     name="crawler.crawl_website",
     queue="crawler",
     bind=True,
-    autoretry_for=(Exception,),
+    # Only auto-retry on transient infrastructure failures (DB / Redis
+    # connectivity). Application-level errors — including the historical
+    # "CrawlJob not found" — must NOT be retried because the row will not
+    # appear between retries; instead the task self-heals by recreating
+    # the row from the task arguments.
+    autoretry_for=(ConnectionError, TimeoutError, OSError),
     retry_backoff=True,
     retry_backoff_max=300,
     retry_jitter=True,
@@ -34,12 +40,59 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
 
     async def _run():
         crawl_uuid = UUID(crawl_id)
+        try:
+            user_uuid = UUID(user_id)
+        except (ValueError, TypeError):
+            # Some enqueue paths use a placeholder user_id; we still need
+            # *some* valid UUID for the FK on the recreated row.
+            user_uuid = uuid4()
         async with async_session_factory() as db:
             job_repo = CrawlJobRepository(db)
             job = await job_repo.get_by_id(crawl_uuid)
-            if not job:
-                raise ValueError(f"CrawlJob {crawl_id} not found")
-            if job.status != "queued":
+
+            if job is None:
+                # The CrawlJob row was missing. This can happen when the
+                # DB was reset between POST /audit/analyze and the worker
+                # picking up the task, or when a previous attempt inserted
+                # the task but failed to commit the row.
+                # We self-heal: create a fresh row from the task args
+                # with safe defaults so the rest of the pipeline (and the
+                # audit pipeline it eventually fires) can find it.
+                logger.warning(
+                    f"crawler.crawl_website: CrawlJob {crawl_id} not found; "
+                    f"recreating from task args (url={url}, user_id={user_id})"
+                )
+                domain = get_domain(url) or ""
+                job = CrawlJob(
+                    id=crawl_uuid,
+                    user_id=user_uuid,
+                    project_id=None,
+                    url=url,
+                    domain=domain,
+                    status="queued",
+                    max_pages=100,
+                    max_depth=5,
+                    crawl_config={
+                        # Conservative defaults — the original POST
+                        # likely specified tighter limits but we can't
+                        # know them; the user will get a small crawl.
+                        "max_depth": 5,
+                        "max_pages": 100,
+                        "concurrency": 5,
+                        "request_timeout": 60,
+                        "delay_ms": 0,
+                        "follow_redirects": True,
+                        "respect_robots": True,
+                        "auto_analyze": True,
+                    },
+                )
+                await job_repo.create(job)
+                await db.commit()
+                # Re-fetch so any lazy/defaulted fields are populated
+                job = await job_repo.get_by_id(crawl_uuid)
+
+            if job.status not in ("queued", "crawling"):
+                # Already completed / failed / cancelled — nothing to do.
                 return {"status": job.status, "crawl_id": crawl_id}
 
             def _progress_callback(current_page: int, total_pages: int | None):

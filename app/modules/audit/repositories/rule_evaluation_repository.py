@@ -4,7 +4,7 @@ RuleEvaluationResult repository - database operations for RuleEvaluationResult m
 Provides upsert for idempotency, ensuring no duplicate rule results for
 the same (project_id, page_id, rule_id).
 """
-from typing import List, Optional, Dict, Any, Set
+from typing import List, Optional, Dict, Any, Set, Tuple
 from uuid import UUID
 
 from sqlalchemy import select, delete, func, cast, Integer
@@ -175,6 +175,142 @@ class RuleEvaluationResultRepository:
             ).order_by(RuleEvaluationResult.page_id)
         )
         return list(result.scalars().all())
+
+    async def get_failed_by_crawl_id(
+        self, project_id: UUID, crawl_id: UUID
+    ) -> List[RuleEvaluationResult]:
+        """
+        Failed rule results for a (project, crawl) — additive to ``get_by_project_id``.
+
+        Single SQL query that returns full ``RuleEvaluationResult`` rows.
+        Keeps the overview payload build off per-page fetches (no N+1) and
+        remains compatible with SQLAlchemy's ``scalars()`` row mapping.
+
+        A future micro-optimisation could project columns to skip the
+        ``rule_data`` JSONB blob in the overview path, but the current
+        implementation keeps the row contract uniform and simple.
+        """
+        stmt = (
+            select(RuleEvaluationResult)
+            .where(
+                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.passed == False,  # noqa: E712
+            )
+            .order_by(
+                RuleEvaluationResult.rule_id,
+                RuleEvaluationResult.evaluated_at,
+            )
+        )
+        rows = (await self.db.execute(stmt)).scalars().all()
+        return list(rows)
+
+    async def list_failed_by_crawl_id_paginated(
+        self,
+        project_id: UUID,
+        crawl_id: UUID,
+        *,
+        category: Optional[str] = None,
+        severity: Optional[str] = None,
+        status: Optional[str] = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> Tuple[List[RuleEvaluationResult], int]:
+        """
+        Paginated rule results for the compact issue list endpoint.
+
+        ``status`` filter: 'failed' (default), 'passed', or None (= failed).
+        Returns ``(rows, total)``.
+        """
+        base = select(RuleEvaluationResult).where(
+            RuleEvaluationResult.project_id == project_id,
+            RuleEvaluationResult.crawl_id == crawl_id,
+        )
+        if status == "passed":
+            base = base.where(RuleEvaluationResult.passed == True)  # noqa: E712
+        else:
+            base = base.where(RuleEvaluationResult.passed == False)  # noqa: E712
+        if category:
+            base = base.where(RuleEvaluationResult.category == category)
+        if severity:
+            base = base.where(RuleEvaluationResult.severity == severity)
+
+        total = (await self.db.execute(
+            select(func.count()).select_from(base.subquery())
+        )).scalar_one()
+
+        rows = (await self.db.execute(
+            base.order_by(
+                RuleEvaluationResult.rule_id,
+                RuleEvaluationResult.evaluated_at,
+            )
+            .offset(offset)
+            .limit(limit)
+        )).scalars().all()
+        return list(rows), int(total or 0)
+
+    async def get_failed_pages_for_rule(
+        self,
+        project_id: UUID,
+        crawl_id: UUID,
+        rule_id: str,
+        *,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> Tuple[List[RuleEvaluationResult], int]:
+        """Paginated failed pages for a single rule — used by /issues/{id}/pages."""
+        base = select(RuleEvaluationResult).where(
+            RuleEvaluationResult.project_id == project_id,
+            RuleEvaluationResult.crawl_id == crawl_id,
+            RuleEvaluationResult.rule_id == rule_id,
+            RuleEvaluationResult.passed == False,  # noqa: E712
+        )
+        total = (await self.db.execute(
+            select(func.count()).select_from(base.subquery())
+        )).scalar_one()
+        rows = (await self.db.execute(
+            base.order_by(RuleEvaluationResult.evaluated_at)
+            .offset(offset)
+            .limit(limit)
+        )).scalars().all()
+        return list(rows), int(total or 0)
+
+    async def get_first_samples_for_rule(
+        self,
+        project_id: UUID,
+        crawl_id: UUID,
+        rule_id: str,
+        n: int,
+    ) -> List[RuleEvaluationResult]:
+        """First N failed rows for a rule — used for sample[0..2] and evidence details."""
+        rows = (await self.db.execute(
+            select(RuleEvaluationResult).where(
+                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.rule_id == rule_id,
+                RuleEvaluationResult.passed == False,  # noqa: E712
+            )
+            .order_by(RuleEvaluationResult.evaluated_at)
+            .limit(n)
+        )).scalars().all()
+        return list(rows)
+
+    async def get_failed_for_page(
+        self,
+        project_id: UUID,
+        crawl_id: UUID,
+        page_id: UUID,
+    ) -> List[RuleEvaluationResult]:
+        """All failed rule results for one (project, crawl, page) — for /pages/{id}."""
+        rows = (await self.db.execute(
+            select(RuleEvaluationResult).where(
+                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.page_id == page_id,
+                RuleEvaluationResult.passed == False,  # noqa: E712
+            )
+        )).scalars().all()
+        return list(rows)
 
     async def get_summary(self, project_id: UUID) -> Dict[str, Any]:
         """Get aggregate counts for a project."""

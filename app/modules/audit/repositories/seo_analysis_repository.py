@@ -61,6 +61,19 @@ class SeoAnalysisRunRepository:
         )
         return result.scalar_one_or_none()
 
+    async def get_by_crawl_id(self, crawl_id: UUID) -> Optional[SeoAnalysisRun]:
+        """Get the most recent analysis run for a crawl — additive lookup.
+
+        Used by the new compact read layer to resolve ``audit_id`` (== crawl_id)
+        to a (project_id, completed) pair. Returns the latest if multiple exist.
+        """
+        result = await self.db.execute(
+            select(SeoAnalysisRun).where(
+                SeoAnalysisRun.crawl_id == crawl_id
+            ).order_by(SeoAnalysisRun.scored_at.desc()).limit(1)
+        )
+        return result.scalar_one_or_none()
+
     async def get_by_domain(self, domain: str) -> List[SeoAnalysisRun]:
         """Get all analysis runs for a domain."""
         result = await self.db.execute(

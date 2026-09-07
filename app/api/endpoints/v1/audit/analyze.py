@@ -10,9 +10,10 @@ Takes a URL as input, performs the full pipeline:
 import asyncio
 
 import uuid
+from typing import Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -44,11 +45,24 @@ router = APIRouter()
         "Creates a crawl job and enqueues it on the crawler queue. The crawl "
         "then triggers the parse → evaluate → score analysis pipeline. Returns "
         "immediately with crawl_id / project_id / task_id and status URLs for "
-        "polling. The final result is fetched via GET /audit/result/{crawl_id}."
+        "polling. The final result is fetched via GET /audit/result/{crawl_id}. "
+        "Use ``?format=full`` (default) or ``?format=compact`` to control the "
+        "shape of the eventual result response; the chosen format is echoed in "
+        "the returned ``result_url`` and ``result_project_url``."
     ),
 )
 async def analyze_website(
     body: AuditAnalyzeRequest,
+    format: Literal["full", "compact"] = Query(
+        "full",
+        description=(
+            "Desired shape of the audit response. 'full' (default) = legacy "
+            "UnifiedAuditResponse with per-page evidence. 'compact' = new "
+            "AuditOverview (5–20 KB). The format is echoed in the returned "
+            "result_url and result_project_url; the 202 body shape is "
+            "unchanged either way."
+        ),
+    ),
     db: AsyncSession = Depends(get_db),
 ) -> AuditAnalyzeQueuedResponse:
     """
@@ -142,6 +156,12 @@ async def analyze_website(
             f"task_id={async_result.id}, queued on 'crawler'"
         )
 
+        # Echo the desired response shape into the URLs we hand back to the
+        # client. When the default ('full') is used we deliberately keep the
+        # URL string byte-for-byte identical to the pre-feature format so
+        # existing clients that snapshot the URL still match.
+        fmt = "" if format == "full" else f"&format={format}"
+
         return AuditAnalyzeQueuedResponse(
             success=True,
             status="queued",
@@ -154,9 +174,9 @@ async def analyze_website(
             task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
             crawl_status_url=f"/api/v1/crawler/status/{crawl_id}",
             pipeline_status_url=f"/api/v1/audit/status/{project_id}",
-            result_url=f"/api/v1/audit/result/{crawl_id}?project_id={project_id}",
+            result_url=f"/api/v1/audit/result/{crawl_id}?project_id={project_id}{fmt}",
             full_pipeline=body.full_pipeline,
-            result_project_url=f"/api/v1/audit/result/project/{project_id}",
+            result_project_url=f"/api/v1/audit/result/project/{project_id}{fmt}",
         )
 
     except ValueError as e:

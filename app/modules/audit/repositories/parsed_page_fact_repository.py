@@ -4,7 +4,7 @@ ParsedPageFact repository - database operations for ParsedPageFact model.
 Provides upsert (insert-on-duplicate) for idempotency, ensuring no
 duplicate parsed facts for the same (project_id, page_id).
 """
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Dict
 from uuid import UUID
 
 from sqlalchemy import select, delete
@@ -153,6 +153,25 @@ class ParsedPageFactRepository:
             )
         )
         return result.scalar_one_or_none()
+
+    async def get_by_page_ids(self, page_ids: List) -> Dict:
+        """
+        Batch-fetch parsed facts by page IDs — additive to ``get_by_page_id``.
+
+        Returns a dict keyed by ``page_id`` for O(1) lookup. Used by the new
+        audit read layer's evidence endpoint to avoid per-page N+1 queries.
+        """
+        if not page_ids:
+            return {}
+        out: Dict = {}
+        for start in range(0, len(page_ids), 1000):
+            batch = page_ids[start : start + 1000]
+            result = await self.db.execute(
+                select(ParsedPageFact).where(ParsedPageFact.page_id.in_(batch))
+            )
+            for row in result.scalars().all():
+                out[row.page_id] = row
+        return out
 
     async def get_by_project_id(self, project_id: UUID) -> List[ParsedPageFact]:
         """Get all parsed facts for a project."""
