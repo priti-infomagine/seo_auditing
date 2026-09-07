@@ -42,7 +42,7 @@ class PlaywrightRenderer:
         response_headers: Dict[str, str] = {}
         status_code = 200
 
-        async with self.pool.get_page() as page:
+        async with self.pool.get_page(self.config) as page:
             if not page:
                 return RenderResult(
                     requested_url=url,

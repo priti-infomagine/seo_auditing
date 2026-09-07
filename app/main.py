@@ -25,6 +25,44 @@ from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 
 
+async def _prewarm_celery_broker():
+    """Pre-warm the Celery producer pool at startup.
+
+    ``send_task`` is a synchronous blocking call. When wrapped in
+    ``asyncio.to_thread()`` it won't freeze the event loop, but the *first*
+    call still pays ~6s for Redis connection establishment because the
+    producer pool hasn't created a connection yet.
+
+    Celery's ``_connection()`` factory creates a **new** ``Connection`` object
+    each time, so calling ``ensure_connection`` on ``celery_app.connection()``
+    does **not** warm the pool that ``send_task`` uses.  Instead we must
+    access ``celery_app.producer_pool`` (the same cached pool ``send_task``
+    pulls from) and acquire/release a producer to force the underlying
+    Redis connection to be established.
+    """
+    try:
+        from app.shared.tasks.celery_app import celery_app
+
+        def _warm():
+            pool = celery_app.producer_pool  # force lazy creation of the pool
+            producer = pool.acquire(block=True)  # establishes Redis connection
+            pool.release(producer)  # return to pool for reuse by send_task
+
+        # Cap at 15s so startup isn't delayed if Redis is unreachable
+        await asyncio.wait_for(asyncio.to_thread(_warm), timeout=15.0)
+        logger.info("Celery broker connection pre-warmed successfully")
+    except asyncio.TimeoutError:
+        logger.warning(
+            "Celery broker pre-warm timed out after 15s "
+            "(brokers may be down; first request may be slower)"
+        )
+    except Exception as exc:
+        logger.warning(
+            f"Celery broker pre-warm failed (will retry on first request): {exc}",
+            exc_info=True,
+        )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
@@ -35,6 +73,8 @@ async def lifespan(app: FastAPI):
             f"init_db failed during lifespan: {exc}",
             exc_info=True,
         )
+
+    await _prewarm_celery_broker()
 
     yield
 

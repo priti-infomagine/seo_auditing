@@ -8,7 +8,7 @@ import hashlib
 import uuid
 from datetime import datetime
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Integer, SmallInteger, String, Text, func
+from sqlalchemy import BigInteger, Boolean, DateTime, Integer, SmallInteger, String, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -18,6 +18,10 @@ from app.core.database import TimestampMixin
 
 class CrawlPage(TimestampMixin, Base):
     __tablename__ = "crawl_pages"
+
+    __table_args__ = (
+        UniqueConstraint("crawl_id", "normalized_url", name="uq_crawl_pages_crawl_id_normalized_url"),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),

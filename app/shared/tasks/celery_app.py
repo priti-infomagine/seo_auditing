@@ -33,6 +33,14 @@ celery_app.conf.update(
     worker_prefetch_multiplier=1,
     task_default_retry_delay=60,
     task_acks_on_failure=False,
+    # Limit how long a broker operation can block — prevents indefinite
+    # hangs when the Redis connection is slow or unresponsive.
+    redis_socket_timeout=10,
+    redis_socket_connect_timeout=5,
+    broker_transport_options={
+        "socket_timeout": 10,
+        "socket_connect_timeout": 5,
+    },
 )
 
 celery_app.conf.beat_schedule = {

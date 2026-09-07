@@ -7,6 +7,8 @@ Takes a URL as input, performs the full pipeline:
 3. DB-backed parse → rule evaluation → scoring
 4. Returns per-page breakdown with scores, rule results, and links analysis
 """
+import asyncio
+
 import uuid
 from uuid import UUID
 
@@ -126,7 +128,10 @@ async def analyze_website(
 
         # Enqueue the crawl on the crawler queue. The crawl task fires the
         # analysis pipeline on the audit queue when auto_analyze is set.
-        async_result = celery_app.send_task(
+        # send_task is a synchronous (blocking) Redis operation — run it in a
+        # thread to avoid blocking the FastAPI event loop.
+        async_result = await asyncio.to_thread(
+            celery_app.send_task,
             "crawler.crawl_website",
             args=[str(crawl_id), url_str, str(anonymous_user_id)],
             queue="crawler",

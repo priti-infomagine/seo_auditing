@@ -10,7 +10,7 @@
   "http_status": 200,
   "http_success": true,
   "http_final_url": "https://github.com/",
-  "http_response_time_ms": 424,
+  "http_response_time_ms": 394,
   "http_redirects": [
     {
       "url": "http://github.com/",
@@ -21,8 +21,8 @@
   "render_decision_needs_render": false,
   "render_decision_reason": "initial_html_sufficient",
   "render_decision_details": {
-    "word_count": 1103,
-    "text_ratio": 0.012753818922921892
+    "word_count": 1128,
+    "text_ratio": 0.012966766259672125
   },
   "browser_executed": false,
   "browser_status": null,
@@ -34,7 +34,7 @@
   "parser_title": "GitHub · Change is constant. GitHub keeps you ahead. · GitHub",
   "parser_h1_count": 1,
   "parser_h2_count": 9,
-  "parser_word_count": 1132,
+  "parser_word_count": 1157,
   "parser_links_total": 139,
   "parser_links_internal": 0,
   "parser_links_external": 0,

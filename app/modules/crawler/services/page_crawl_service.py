@@ -10,6 +10,8 @@ corrupting redirect/final_url data.
 """
 from typing import Optional
 from uuid import UUID
+from functools import partial
+import asyncio
 
 from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
@@ -19,6 +21,7 @@ from app.modules.crawler.fetchers.browser_fetcher import BrowserFetcher
 from app.modules.crawler.fetchers.http_fetcher import HttpFetcher
 from app.modules.crawler.rendering.render_detector import RenderDetector
 from app.modules.crawler.types import FetchResult, RedirectInfo
+from app.modules.crawler.utils.thread_pool import cpu_bound_executor
 from app.shared.utils.url_utils import normalize_url
 
 
@@ -112,7 +115,11 @@ class PageCrawlService:
 
         # 2. Rendering decision (only for successful HTML responses)
         if http_result.success and self.config.enable_browser_rendering:
-            decision = self.render_detector.evaluate(http_result)
+            loop = asyncio.get_running_loop()
+            decision = await loop.run_in_executor(
+                cpu_bound_executor,
+                partial(self.render_detector.evaluate, http_result),
+            )
             if decision.needs_render:
                 try:
                     browser_result = await self.browser_fetcher.fetch(

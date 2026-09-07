@@ -7,13 +7,14 @@ Verifies:
 - No browser fallback when HTML is sufficient
 - No browser fallback on HTTP failure
 """
+import asyncio
 import pytest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.rendering.render_detector import RenderDetector
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
-from app.modules.crawler.types import FetchResult, RedirectInfo
+from app.modules.crawler.types import FetchResult, RedirectInfo, RenderDecision
 
 
 def _make_http_fetch_result(url="https://example.com/page", content=b"<html><body>Hello</body></html>"):
@@ -221,3 +222,33 @@ class TestPageCrawlService:
         assert result.error == "timeout"
         assert result.fetch_result is http_result
         browser_fetcher.fetch.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_render_detector_evaluate_offloaded_to_thread(self):
+        """RenderDetector.evaluate must be called via run_in_executor, not inline."""
+        mock_detector = MagicMock()
+        mock_detector.evaluate.return_value = RenderDecision(
+            False, "initial_html_sufficient"
+        )
+
+        http_fetcher = AsyncMock()
+        http_fetcher.fetch = AsyncMock(return_value=_make_http_fetch_result())
+        browser_fetcher = AsyncMock()
+        browser_fetcher.fetch = AsyncMock()
+
+        service = PageCrawlService(
+            http_fetcher=http_fetcher,
+            browser_fetcher=browser_fetcher,
+            render_detector=mock_detector,
+            config=CrawlConfig(enable_browser_rendering=True),
+        )
+
+        loop = asyncio.get_running_loop()
+        with patch.object(
+            loop, "run_in_executor", wraps=loop.run_in_executor
+        ) as mock_exec:
+            result = await service.crawl_page("https://example.com/page")
+
+        mock_detector.evaluate.assert_called_once()
+        mock_exec.assert_called_once()  # confirms offload, not inline call
+        assert result.success is True

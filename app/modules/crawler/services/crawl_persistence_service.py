@@ -113,16 +113,41 @@ class CrawlPersistenceService:
             logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
 
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
-        """Persist a crawl page."""
+        """Persist a crawl page via an atomic upsert on (crawl_id, normalized_url)."""
         try:
             async with self._write_lock:
-                existing = await self.page_repo.get_by_url(page.crawl_id, page.normalized_url)
-                if existing:
-                    for key, value in page.__dict__.items():
-                        if key not in ("id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"):
-                            setattr(existing, key, value)
-                    return await self.page_repo.update(existing)
-                return await self.page_repo.create(page)
+                # Fields that are server-managed or SQLAlchemy-internal — never
+                # sent in INSERT values (PostgreSQL populates them via defaults).
+                excluded_from_insert = {"_sa_instance_state", "created_at", "updated_at"}
+                values = {
+                    k: v for k, v in page.__dict__.items() if k not in excluded_from_insert
+                }
+                # Fields not updated on conflict — matches the original
+                # exclusion list exactly (preserve id/crawl_id/timestamps).
+                excluded_from_update = {
+                    "id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"
+                }
+
+                stmt = pg_insert(CrawlPage).values(values)
+                stmt = stmt.on_conflict_do_update(
+                    index_elements=["crawl_id", "normalized_url"],
+                    set_={
+                        k: getattr(stmt.excluded, k)
+                        for k in values.keys()
+                        if k not in excluded_from_update
+                    },
+                ).returning(CrawlPage)
+
+                result = await self.db.execute(stmt)
+                page = result.scalar_one()
+                # RETURNING reconciles the row into the identity map (so a
+                # conflict-update returns the *same* Python object that was
+                # inserted earlier in this session), but SQLAlchemy does not
+                # refresh already-loaded attribute values on that path.  A
+                # refresh mirrors the original repo.create/update behaviour,
+                # which flushed+refreshed so callers always saw DB state.
+                await self.db.refresh(page)
+                return page
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.persist_page: error: {exc}", exc_info=True)
             raise
@@ -188,10 +213,15 @@ class CrawlPersistenceService:
             # (some sites embed binary placeholders in inline scripts).
             html_content = html_content.replace("\x00", "")
             from app.shared.utils.html_compressor import compress_html, should_compress
+            from app.modules.crawler.utils.thread_pool import cpu_bound_executor
+
             content_to_store = html_content
             compressed = False
             if should_compress(html_content):
-                content_to_store = compress_html(html_content)
+                loop = asyncio.get_running_loop()
+                content_to_store = await loop.run_in_executor(
+                    cpu_bound_executor, compress_html, html_content
+                )
                 compressed = True
             async with self._write_lock:
                 return await self.snapshot_repo.save_snapshot(

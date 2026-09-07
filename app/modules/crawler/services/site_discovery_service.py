@@ -12,9 +12,11 @@ It does NOT:
 - Write to PostgreSQL
 - Score robots/sitemap compliance
 """
+import asyncio
+from contextlib import asynccontextmanager
 import gzip
 from dataclasses import dataclass, field
-from typing import List, Optional, Set
+from typing import AsyncGenerator, List, Optional, Set
 from urllib.parse import urljoin, urlparse
 
 import xml.etree.ElementTree as ET
@@ -67,6 +69,7 @@ class SiteDiscoveryService:
     MAX_CHILD_SITEMAPS: int = 40
     MAX_URLS_PER_SITEMAP: int = 500
     MAX_TOTAL_PAGE_URLS: int = 500
+    DISCOVERY_CONCURRENCY: int = 10
 
     def __init__(
         self,
@@ -95,6 +98,16 @@ class SiteDiscoveryService:
         self._max_sitemap_index_depth = (
             max_sitemap_index_depth if max_sitemap_index_depth is not None else self.MAX_SITEMAP_INDEX_DEPTH
         )
+        self._http_client: Optional[HTTPClient] = None
+
+    @asynccontextmanager
+    async def _get_client(self) -> AsyncGenerator[HTTPClient, None]:
+        """Yield the shared HTTPClient (set by discover()) or a temporary one."""
+        if self._http_client is not None:
+            yield self._http_client
+        else:
+            async with HTTPClient(timeout=self.timeout) as client:
+                yield client
 
     async def discover(self) -> SiteDiscoveryResult:
         """
@@ -103,8 +116,13 @@ class SiteDiscoveryService:
         Returns:
             SiteDiscoveryResult with raw evidence
         """
-        robots = await self._fetch_robots()
-        sitemaps = await self._discover_sitemaps(robots)
+        async with HTTPClient(timeout=self.timeout) as client:
+            self._http_client = client
+            try:
+                robots = await self._fetch_robots()
+                sitemaps = await self._discover_sitemaps(robots)
+            finally:
+                self._http_client = None
 
         discovered_urls = []
         for sitemap in sitemaps:
@@ -132,7 +150,7 @@ class SiteDiscoveryService:
         evidence = RobotsTxtEvidence(url=robots_url)
 
         try:
-            async with HTTPClient(timeout=self.timeout) as client:
+            async with self._get_client() as client:
                 response = await client.get(robots_url)
                 evidence.status_code = response.status_code
                 if response.status_code == 200:
@@ -190,17 +208,33 @@ class SiteDiscoveryService:
 
         sitemaps: List[SitemapEvidence] = []
         seen: Set[str] = set()
-        for sitemap_url in sitemap_candidates:
-            if sitemap_url in seen:
-                continue
-            seen.add(sitemap_url)
 
-            evidence = await self._fetch_sitemap(sitemap_url)
-            if evidence.exists:
-                sitemaps.append(evidence)
-                if evidence.is_index:
+        candidates_to_fetch = list(
+            dict.fromkeys(url for url in sitemap_candidates if url not in seen)
+        )
+        for url in candidates_to_fetch:
+            seen.add(url)
+
+        semaphore = asyncio.Semaphore(self.DISCOVERY_CONCURRENCY)
+
+        async def _bounded_fetch(url: str) -> SitemapEvidence:
+            async with semaphore:
+                return await self._fetch_sitemap(url)
+
+        results = await asyncio.gather(
+            *[_bounded_fetch(url) for url in candidates_to_fetch],
+            return_exceptions=True,
+        )
+
+        for sitemap_url, result in zip(candidates_to_fetch, results):
+            if isinstance(result, Exception):
+                logger.debug("Candidate fetch failed for %s: %s", sitemap_url, result)
+                continue
+            if result.exists:
+                sitemaps.append(result)
+                if result.is_index:
                     await self._expand_sitemap_index(
-                        evidence, seen, depth=1, sitemaps=sitemaps
+                        result, seen, depth=1, sitemaps=sitemaps
                     )
 
         return sitemaps
@@ -221,6 +255,7 @@ class SiteDiscoveryService:
         - Individual child-sitemap fetch failures are logged and skipped;
           they never abort the overall discovery.
         """
+        children_to_fetch = []
         for child_url in index_evidence.child_sitemaps:
             if child_url in seen:
                 continue
@@ -236,9 +271,33 @@ class SiteDiscoveryService:
                     child_url,
                 )
                 break
-
             seen.add(child_url)
-            child_evidence = await self._fetch_sitemap(child_url)
+            children_to_fetch.append(child_url)
+
+        children_to_fetch = children_to_fetch[
+            :max(0, self._max_sitemap_files - len(sitemaps))
+        ]
+
+        if not children_to_fetch:
+            return
+
+        semaphore = asyncio.Semaphore(self.DISCOVERY_CONCURRENCY)
+
+        async def _bounded_fetch(url: str) -> SitemapEvidence:
+            async with semaphore:
+                return await self._fetch_sitemap(url)
+
+        results = await asyncio.gather(
+            *[_bounded_fetch(url) for url in children_to_fetch],
+            return_exceptions=True,
+        )
+
+        for child_url, child_evidence in zip(children_to_fetch, results):
+            if isinstance(child_evidence, Exception):
+                logger.debug(
+                    "Child sitemap fetch failed for %s: %s", child_url, child_evidence
+                )
+                continue
             if child_evidence.exists:
                 sitemaps.append(child_evidence)
                 if child_evidence.is_index:
@@ -257,7 +316,7 @@ class SiteDiscoveryService:
         evidence = SitemapEvidence(url=sitemap_url)
 
         try:
-            async with HTTPClient(timeout=self.timeout) as client:
+            async with self._get_client() as client:
                 response = await client.get(sitemap_url)
                 evidence.status_code = response.status_code
                 evidence.content_type = response.headers.get("content-type", "")

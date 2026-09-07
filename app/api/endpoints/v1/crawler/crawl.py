@@ -8,6 +8,8 @@ Returns immediately with a crawl_id for status polling.
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import asyncio
+
 from app.core.database import get_db
 from app.core.logger import logger
 from app.core.security import get_current_user
@@ -85,8 +87,11 @@ async def crawl_url(
         job_repo = CrawlJobRepository(db)
         await job_repo.create(crawl_job)
 
-        # Enqueue Celery task on the crawler queue
-        async_result = celery_app.send_task(
+        # Enqueue Celery task on the crawler queue.
+        # send_task is a synchronous (blocking) Redis operation — run it in a
+        # thread to avoid blocking the FastAPI event loop.
+        async_result = await asyncio.to_thread(
+            celery_app.send_task,
             "crawler.crawl_website",
             args=[str(crawl_job.id), url_str, str(crawl_job.user_id)],
             queue="crawler",

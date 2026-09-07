@@ -29,6 +29,7 @@ class BrowserPool:
         self._browser: Optional[Browser] = None
         self._semaphore = asyncio.Semaphore(self.config.browser_concurrency)
         self._lock = asyncio.Lock()
+        self._concurrency_mismatch_warned: bool = False
 
     @classmethod
     def get_instance(cls, config: Optional[CrawlConfig] = None) -> "BrowserPool":
@@ -61,11 +62,33 @@ class BrowserPool:
             return self._browser
 
     @asynccontextmanager
-    async def get_page(self) -> AsyncGenerator[Optional[Page], None]:
-        """Acquire a browser page from the pool under concurrency limits."""
+    async def get_page(
+        self, config: Optional[CrawlConfig] = None
+    ) -> AsyncGenerator[Optional[Page], None]:
+        """Acquire a browser page from the pool under concurrency limits.
+
+        If *config* is supplied it overrides the singleton's frozen config for
+        per-request values (user_agent, locale, browser_timeout).  The
+        browser_concurrency semaphore capacity is **not** resized at runtime;
+        a one-time warning is logged if a different value is requested.
+        """
         if not PLAYWRIGHT_AVAILABLE:
             yield None
             return
+
+        cfg = config or self.config
+
+        if (
+            cfg.browser_concurrency != self.config.browser_concurrency
+            and not self._concurrency_mismatch_warned
+        ):
+            logger.warning(
+                "BrowserPool: browser_concurrency=%d requested but this worker "
+                "process's pool was initialized with %d; the original limit "
+                "stays in effect until the worker process restarts.",
+                cfg.browser_concurrency, self.config.browser_concurrency,
+            )
+            self._concurrency_mismatch_warned = True
 
         async with self._semaphore:
             browser = await self._ensure_browser()
@@ -78,12 +101,12 @@ class BrowserPool:
             page: Optional[Page] = None
             try:
                 context = await browser.new_context(
-                    user_agent=self.config.user_agent,
-                    locale=self.config.accept_language.split(",")[0],
+                    user_agent=cfg.user_agent,
+                    locale=cfg.accept_language.split(",")[0],
                     viewport={"width": 1280, "height": 800},
                 )
                 page = await context.new_page()
-                page.set_default_timeout(self.config.browser_timeout * 1000)
+                page.set_default_timeout(cfg.browser_timeout * 1000)
                 yield page
             except Exception as exc:
                 print('CONTEXT ERROR:', repr(exc))

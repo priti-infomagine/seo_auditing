@@ -317,11 +317,14 @@ class CrawlOrchestrator:
                 self._scheduler.set_base_domain_from_url(effective_url)
 
         from app.modules.parser.services.parser_orchestrator import ParserOrchestrator
+        from app.modules.crawler.utils.thread_pool import cpu_bound_executor
+        from functools import partial
 
         parser = ParserOrchestrator()
-        parsed = parser.parse(
-            html=document.raw_html,
-            url=effective_url,
+        loop = asyncio.get_running_loop()
+        parsed = await loop.run_in_executor(
+            cpu_bound_executor,
+            partial(parser.parse, html=document.raw_html, url=effective_url),
         )
 
         page_facts = self.page_extraction_service.extract_from_parsed(
