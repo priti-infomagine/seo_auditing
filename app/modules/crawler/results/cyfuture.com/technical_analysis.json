@@ -1,0 +1,52 @@
+{
+  "url": "https://cyfuture.com",
+  "status_code": 200,
+  "content_type": "text/html",
+  "content_length": 82891,
+  "response_time_ms": 434,
+  "is_https": true,
+  "checksum": "0049f5285eeb9f416df4f9ff17bb75a25ebfa99bd9b5a43ce8cc1090d0b8b79a",
+  "security": {
+    "https": false,
+    "ssl": {},
+    "headers": {
+      "strict_transport_security": "max-age=31536000; includeSubDomains; preload",
+      "content_security_policy": "font-src 'self' *.gstatic.com data:; img-src 'self';",
+      "x_content_type_options": "nosniff",
+      "x_frame_options": "SAMEORIGIN",
+      "referrer_policy": "strict-origin"
+    },
+    "mixed_content": [],
+    "is_https": true
+  },
+  "performance": {
+    "load_time_ms": 434,
+    "html_size_bytes": 82891,
+    "render_blocking_resources": [
+      "css/bootstrap.min.css",
+      "css/font-awesome.min.css",
+      "css/owl.carousel.min.css",
+      "css/animate.min.css",
+      "css/owl.theme.default.min.css"
+    ],
+    "render_blocking_count": 5,
+    "script_count": 43
+  },
+  "accessibility": {
+    "images": {
+      "total": 46,
+      "with_alt": 40,
+      "without_alt": 6
+    },
+    "forms": {
+      "total": 0,
+      "inputs": 0,
+      "labeled_inputs": 0
+    },
+    "buttons": {
+      "total": 2,
+      "accessible": 0
+    }
+  },
+  "json_ld_count": 3
+}

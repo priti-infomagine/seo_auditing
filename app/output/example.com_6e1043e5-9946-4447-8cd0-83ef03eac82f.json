@@ -1,0 +1,1179 @@
+{
+  "audit": {
+    "audit_id": "253dba16-c7d1-4a5a-a2a1-336f4978150e",
+    "project_id": "6e1043e5-9946-4447-8cd0-83ef03eac82f",
+    "url": "https://example.com/",
+    "domain": "example.com",
+    "started_at": "2026-09-07T09:42:34.669297+00:00",
+    "completed_at": null,
+    "status": "queued",
+    "pages": {
+      "discovered": 2,
+      "crawled": 2,
+      "analyzed": 2
+    },
+    "crawl_stats": {
+      "pages_discovered": 2,
+      "pages_crawled": 2,
+      "pages_analyzed": 2,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "redirects": 0,
+      "broken_pages": 0,
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 2
+      },
+      "started_at": "2026-09-07T09:42:34.669297+00:00",
+      "completed_at": null
+    },
+    "indexation": {
+      "indexable": 2,
+      "noindex": 0,
+      "canonicalized": 2,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "core_web_vitals": {
+        "available": false,
+        "value": null,
+        "reason": "browser_performance_measurement_not_available"
+      },
+      "ttfb": {
+        "available": true,
+        "value": 120.0,
+        "unit": "milliseconds",
+        "status": "excellent",
+        "reason": null
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 2,
+      "valid": 0,
+      "invalid": 2,
+      "types": {}
+    },
+    "links": {
+      "internal": {
+        "total": 2,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "total_links": 2
+    },
+    "images": {
+      "total": 2,
+      "missing_alt": 0,
+      "empty_alt": 0,
+      "missing_dimensions": 2,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 0
+    },
+    "content": {
+      "thin_pages": 2,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0,
+      "near_duplicate_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_similarity_analysis_not_implemented"
+      },
+      "missing_author": {
+        "available": false,
+        "value": null,
+        "reason": "author_extraction_not_implemented"
+      },
+      "outdated_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_freshness_tracking_not_implemented"
+      }
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 60,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 85.8,
+    "health": "excellent",
+    "issues": {
+      "critical": 1,
+      "high": 7,
+      "medium": 11,
+      "low": 11,
+      "total": 30
+    },
+    "checks": {
+      "passed": 34,
+      "failed": 30,
+      "total": 64
+    },
+    "recommended_score": 70.7,
+    "recommended_health": "needs_improvement"
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 55.6,
+      "status": "poor",
+      "checks_total": 9,
+      "checks_passed": 5,
+      "checks_failed": 4
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 46.2,
+      "status": "poor",
+      "checks_total": 13,
+      "checks_passed": 6,
+      "checks_failed": 7
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 60.0,
+      "status": "needs_improvement",
+      "checks_total": 10,
+      "checks_passed": 6,
+      "checks_failed": 4
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 40.0,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 2,
+      "checks_failed": 3
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 33.3,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 2,
+      "checks_failed": 4
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 83.3,
+      "status": "good",
+      "checks_total": 6,
+      "checks_passed": 5,
+      "checks_failed": 1
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 0,
+      "checks_failed": 3
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 2,
+      "checks_passed": 0,
+      "checks_failed": 2
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 1,
+      "checks_passed": 1,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 77.8,
+      "status": "good",
+      "checks_total": 9,
+      "checks_passed": 7,
+      "checks_failed": 2
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "technical_002",
+      "category": "technical",
+      "severity": "critical",
+      "title": "Missing mobile viewport",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+      "llm_tips": [
+        "Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Missing viewport meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Missing viewport meta tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_001",
+      "category": "content",
+      "severity": "high",
+      "title": "Thin or overly long content",
+      "why": null,
+      "what": null,
+      "recommendation": "Increase content to at least 150 words",
+      "llm_tips": [
+        "Increase content to at least 150 words"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "33 words on unknown page",
+          "evidence": {
+            "page_type": "unknown",
+            "word_count": 33
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "33 words on unknown page",
+          "evidence": {
+            "page_type": "unknown",
+            "word_count": 33
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "why": null,
+      "what": null,
+      "recommendation": "Add canonical URL tag and ensure unique content",
+      "llm_tips": [
+        "Add canonical URL tag and ensure unique content"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No canonical URL set",
+          "evidence": {
+            "canonical_url": ""
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "why": null,
+      "what": null,
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)",
+      "llm_tips": [
+        "Add width and height attributes to prevent Cumulative Layout Shift (CLS)"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "1 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 1
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "1 images missing width/height attributes",
+          "evidence": {
+            "missing_dimensions": 1
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "why": null,
+      "what": null,
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility",
+      "llm_tips": [
+        "Use descriptive anchor text for better SEO and accessibility"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "1 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 1,
+            "generic_count": 1
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "1 links have generic/non-descriptive anchor text",
+          "evidence": {
+            "total_links": 1,
+            "generic_count": 1
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues",
+      "llm_tips": [
+        "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Missing canonical URL tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [
+        "Add Schema.org markup to enable rich snippets in search results"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_007",
+      "category": "technical",
+      "severity": "high",
+      "title": "Missing or incomplete security headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add missing security headers: strict-transport-security, content-security-policy; consider adding: x-frame-options, x-content-type-options",
+      "llm_tips": [
+        "Add missing security headers: strict-transport-security, content-security-policy",
+        "consider adding: x-frame-options, x-content-type-options"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "All headers present: ",
+          "evidence": {
+            "present": [],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "All headers present: ",
+          "evidence": {
+            "present": [],
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "Paragraph structure needs improvement",
+      "why": null,
+      "what": null,
+      "recommendation": "Break content into paragraphs for better readability",
+      "llm_tips": [
+        "Break content into paragraphs for better readability"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No paragraphs found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_001",
+      "category": "links",
+      "severity": "medium",
+      "title": "Insufficient internal links",
+      "why": null,
+      "what": null,
+      "recommendation": "Add more internal links to improve site structure and user navigation",
+      "llm_tips": [
+        "Add more internal links to improve site structure and user navigation"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "1 internal links",
+          "evidence": {
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "1 internal links",
+          "evidence": {
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "mobile_001",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing mobile viewport",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
+      "llm_tips": [
+        "Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Missing viewport meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Missing viewport meta tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poorly sized meta description",
+      "why": null,
+      "what": null,
+      "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display",
+      "llm_tips": [
+        "Adjust meta description to 140-160 characters for optimal SERP display"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Meta description: A test meta description for SEO auditing purposes that is long enough. (80 chars)",
+          "evidence": {
+            "length_status": "acceptable",
+            "character_count": 80,
+            "meta_description": "A test meta description for SEO auditing purposes that is long enough.",
+            "pixel_width_estimate": 455
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Meta description: A test meta description for SEO auditing purposes that is long enough. (80 chars)",
+          "evidence": {
+            "length_status": "acceptable",
+            "character_count": 80,
+            "meta_description": "A test meta description for SEO auditing purposes that is long enough.",
+            "pixel_width_estimate": 455
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_008",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing Open Graph tags",
+      "why": null,
+      "what": null,
+      "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url",
+      "llm_tips": [
+        "Add missing OG tags: og:title, og:description, og:image, og:url"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url",
+          "evidence": {
+            "missing": [
+              "og:title",
+              "og:description",
+              "og:image",
+              "og:url"
+            ],
+            "present": []
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "perf_006",
+      "category": "performance",
+      "severity": "medium",
+      "title": "Compression not enabled",
+      "why": null,
+      "what": null,
+      "recommendation": "Enable gzip or brotli compression on your server",
+      "llm_tips": [
+        "Enable gzip or brotli compression on your server"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No compression detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No compression detected",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "security_005",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing HSTS header",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Strict-Transport-Security header",
+      "llm_tips": [
+        "Add Strict-Transport-Security header"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "HSTS header not found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "HSTS header not found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "security_006",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing XSS protection headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers",
+      "llm_tips": [
+        "Add X-XSS-Protection and Content-Security-Policy headers"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No XSS protection headers found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_005",
+      "category": "social",
+      "severity": "medium",
+      "title": "Missing social media image",
+      "why": null,
+      "what": null,
+      "recommendation": "Add og:image and twitter:image tags for better social sharing",
+      "llm_tips": [
+        "Add og:image and twitter:image tags for better social sharing"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No social media image specified",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_004",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Character encoding not declared",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <meta charset='UTF-8'> in the first 1024 bytes of HTML",
+      "llm_tips": [
+        "Add <meta charset='UTF-8'> in the first 1024 bytes of HTML"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Character encoding not specified",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Character encoding not specified",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing DOCTYPE declaration",
+      "why": null,
+      "what": null,
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document",
+      "llm_tips": [
+        "Add <!DOCTYPE html> at the very beginning of the document"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Missing DOCTYPE declaration",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "Missing content freshness dates",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider adding article published/modified dates",
+      "llm_tips": [
+        "Consider adding article published/modified dates"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No content freshness dates found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "Lazy loading not implemented",
+      "why": null,
+      "what": null,
+      "recommendation": "Add loading='lazy' attribute to images below the fold",
+      "llm_tips": [
+        "Add loading='lazy' attribute to images below the fold"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Lazy loading not detected",
+          "evidence": {
+            "lazy_loading": false
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_005",
+      "category": "images",
+      "severity": "low",
+      "title": "Missing responsive image attributes",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider using srcset and sizes for responsive images",
+      "llm_tips": [
+        "Consider using srcset and sizes for responsive images"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No responsive images (srcset) detected",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "images_006",
+      "category": "images",
+      "severity": "low",
+      "title": "Only traditional image formats detected",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider using WebP or AVIF for better compression",
+      "llm_tips": [
+        "Consider using WebP or AVIF for better compression"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Only traditional image formats detected",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "No external links found",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider linking to authoritative external sources",
+      "llm_tips": [
+        "Consider linking to authoritative external sources"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No external links found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "low",
+      "title": "Missing or poor page title",
+      "why": null,
+      "what": null,
+      "recommendation": "Consider making the title more descriptive. Do not add filler simply to reach a character count.",
+      "llm_tips": [
+        "Consider making the title more descriptive. Do not add filler simply to reach a character count."
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "Title: Test Page 2 (11 chars)",
+          "evidence": {
+            "title": "Test Page 2",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 11,
+            "truncation_risk": false,
+            "pixel_width_estimate": 68,
+            "content_consistency_score": 1.0
+          },
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "Title: Test Page 1 (11 chars)",
+          "evidence": {
+            "title": "Test Page 1",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 11,
+            "truncation_risk": false,
+            "pixel_width_estimate": 64,
+            "content_consistency_score": 1.0
+          },
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "perf_005",
+      "category": "performance",
+      "severity": "low",
+      "title": "Missing browser caching headers",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Cache-Control and Expires headers for static assets",
+      "llm_tips": [
+        "Add Cache-Control and Expires headers for static assets"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No cache headers found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No cache headers found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "why": null,
+      "what": null,
+      "recommendation": "Add links to your social media profiles",
+      "llm_tips": [
+        "Add links to your social media profiles"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No social media links found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing Facebook domain verification",
+      "why": null,
+      "what": null,
+      "recommendation": "Add fb:app_id or fb:admins for Facebook Insights",
+      "llm_tips": [
+        "Add fb:app_id or fb:admins for Facebook Insights"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No Facebook App ID or admins meta tag",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "why": null,
+      "what": null,
+      "recommendation": "Create and submit XML sitemap to search engines",
+      "llm_tips": [
+        "Create and submit XML sitemap to search engines"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No sitemap data available",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    },
+    {
+      "rule_id": "technical_010",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing structured data / schema markup",
+      "why": null,
+      "what": null,
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results",
+      "llm_tips": [
+        "Add Schema.org markup to enable rich snippets in search results"
+      ],
+      "affected_pages": 2,
+      "pages": [
+        {
+          "page_url": "https://example.com/page2",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        },
+        {
+          "page_url": "https://example.com/page1",
+          "current_value": "No structured data / schema markup found",
+          "evidence": {},
+          "classified_images": []
+        }
+      ]
+    }
+  ]
+}

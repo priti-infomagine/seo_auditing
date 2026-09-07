@@ -1,0 +1,49 @@
+{
+  "url": "https://www.reddit.com/",
+  "base_url": "https://www.reddit.com/",
+  "total_links": 1,
+  "deep_total_links": 1,
+  "internal_count": 0,
+  "external_count": 1,
+  "summary": {
+    "total_links": 1,
+    "internal_count": 0,
+    "external_count": 1,
+    "non_http_count": 0,
+    "by_link_type": {
+      "anchor": 1
+    },
+    "by_protocol": {},
+    "by_anchor_text_classification": {
+      "unknown": 1
+    },
+    "rel_flags": {
+      "nofollow": 0,
+      "ugc": 0,
+      "sponsored": 0,
+      "canonical": 0,
+      "hreflang": 0
+    },
+    "opens_new_tab_count": 0,
+    "empty_anchor_text_count": 0,
+    "download_link_count": 0,
+    "unique_targets": 1,
+    "duplicate_targets": 0
+  },
+  "enriched_links": [
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/requests/new?ticket_form_id=21879292693140",
+      "anchor_text": "File a ticket",
+      "rel": "",
+      "link_type": "anchor",
+      "is_internal": false,
+      "is_external": true,
+      "nofollow": false,
+      "ugc": false,
+      "sponsored": false,
+      "is_nofollow": false,
+      "is_sponsored": false,
+      "is_ugc": false
+    }
+  ]
+}
