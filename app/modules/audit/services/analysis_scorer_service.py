@@ -145,19 +145,29 @@ class AnalysisScorerService:
         unified: Dict[str, Any],
     ) -> str:
         """Write the unified analysis result to the output folder."""
+        import asyncio
+        import shutil
+        import json
+        from pathlib import Path
+        
         try:
             output_dir = Path("app/output")
             output_dir.mkdir(parents=True, exist_ok=True)
 
             filename = f"{domain}_{project_id}.json"
             filepath = output_dir / filename
-
-            with open(filepath, "w", encoding="utf-8") as f:
-                json.dump(unified, f, indent=2, ensure_ascii=False, default=_json_serializer)
-
             latest_path = output_dir / f"{domain}_latest.json"
-            with open(latest_path, "w", encoding="utf-8") as f:
-                json.dump(unified, f, indent=2, ensure_ascii=False, default=_json_serializer)
+
+            # Serialize once
+            json_bytes = json.dumps(
+                unified, indent=2, ensure_ascii=False, default=_json_serializer
+            ).encode("utf-8")
+
+            # Write primary file off the event loop
+            await asyncio.to_thread(filepath.write_bytes, json_bytes)
+
+            # Copy to latest (also off event loop)
+            await asyncio.to_thread(shutil.copyfile, filepath, latest_path)
 
             return str(filepath)
 

@@ -35,7 +35,7 @@ from app.shared.tasks.db import run_async
     time_limit=3600,
     soft_time_limit=3300,
 )
-def parse_crawl(project_id: str, crawl_id: str) -> dict:
+def parse_crawl(project_id: str, crawl_id: str, force: bool = False) -> dict:
     """
     Celery task: parse all crawled pages for a crawl job and persist
     ParsedPageFact rows to PostgreSQL.
@@ -106,7 +106,7 @@ def parse_crawl(project_id: str, crawl_id: str) -> dict:
     time_limit=3600,
     soft_time_limit=3300,
 )
-def evaluate_rules(project_id: str, crawl_id: str) -> dict:
+def evaluate_rules(project_id: str, crawl_id: str, force: bool = False) -> dict:
     """
     Celery task: run all 60+ SEO rules against each parsed page and
     persist RuleEvaluationResult rows to PostgreSQL.
@@ -127,7 +127,7 @@ def evaluate_rules(project_id: str, crawl_id: str) -> dict:
         from app.core.database import async_session_factory
         async with async_session_factory() as db:
             service = RuleEvaluatorService(db)
-            result = await service.evaluate_crawl(UUID(project_id), UUID(crawl_id))
+            result = await service.evaluate_crawl(UUID(project_id), UUID(crawl_id), force=force)
             await db.commit()
             return result
 
@@ -158,7 +158,7 @@ def evaluate_rules(project_id: str, crawl_id: str) -> dict:
     time_limit=3600,
     soft_time_limit=3300,
 )
-def score_project(project_id: str, crawl_id: str) -> dict:
+def score_project(project_id: str, crawl_id: str, force: bool = False) -> dict:
     """
     Celery task: score the rule evaluation results, persist SeoAnalysisRun,
     and write the output JSON file.
@@ -179,7 +179,7 @@ def score_project(project_id: str, crawl_id: str) -> dict:
         from app.core.database import async_session_factory
         async with async_session_factory() as db:
             service = AnalysisScorerService(db)
-            result = await service.score_project(UUID(project_id), UUID(crawl_id))
+            result = await service.score_project(UUID(project_id), UUID(crawl_id), force=force)
             await db.commit()
             return result
 
@@ -211,7 +211,7 @@ def score_project(project_id: str, crawl_id: str) -> dict:
     time_limit=3600,
     soft_time_limit=3300,
 )
-def run_analysis_pipeline(self, project_id: str, crawl_id: str) -> dict:
+def run_analysis_pipeline(self, project_id: str, crawl_id: str, force: bool = False) -> dict:
     """
     Celery task: run the full analysis pipeline sequentially.
 
@@ -249,13 +249,13 @@ def run_analysis_pipeline(self, project_id: str, crawl_id: str) -> dict:
         )
         logger.info(
             f"audit.run_analysis_pipeline: STAGE parse starting "
-            f"project_id={project_id}, crawl_id={crawl_id}"
+            f"project_id={project_id}, crawl_id={crawl_id}, force={force}"
         )
         try:
             async with async_session_factory() as db:
                 parser = DBParserService(db)
                 results["parse"] = await parser.parse_crawl(
-                    UUID(project_id), UUID(crawl_id)
+                    UUID(project_id), UUID(crawl_id), force=force
                 )
                 await db.commit()
             logger.info(
@@ -276,13 +276,13 @@ def run_analysis_pipeline(self, project_id: str, crawl_id: str) -> dict:
         )
         logger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
-            f"project_id={project_id}, crawl_id={crawl_id}"
+            f"project_id={project_id}, crawl_id={crawl_id}, force={force}"
         )
         try:
             async with async_session_factory() as db:
                 evaluator = RuleEvaluatorService(db)
                 results["evaluate"] = await evaluator.evaluate_crawl(
-                    UUID(project_id), UUID(crawl_id)
+                    UUID(project_id), UUID(crawl_id), force=force
                 )
                 await db.commit()
             logger.info(
@@ -303,13 +303,13 @@ def run_analysis_pipeline(self, project_id: str, crawl_id: str) -> dict:
         )
         logger.info(
             f"audit.run_analysis_pipeline: STAGE score starting "
-            f"project_id={project_id}, crawl_id={crawl_id}"
+            f"project_id={project_id}, crawl_id={crawl_id}, force={force}"
         )
         try:
             async with async_session_factory() as db:
                 scorer = AnalysisScorerService(db)
                 results["score"] = await scorer.score_project(
-                    UUID(project_id), UUID(crawl_id)
+                    UUID(project_id), UUID(crawl_id), force=force
                 )
                 await db.commit()
             logger.info(

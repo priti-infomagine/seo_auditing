@@ -115,6 +115,10 @@ class AuditAnalyzeRequest(BaseModel):
         default=True,
         description="When true (default), runs the full crawl → parse → evaluate → score pipeline. When false, only crawls without auto-analysis.",
     )
+    force: bool = Field(
+        default=False,
+        description="If true, forces re-parse and re-evaluation of rules even if results already exist for this project/crawl.",
+    )
 
     @field_validator("url")
     @classmethod

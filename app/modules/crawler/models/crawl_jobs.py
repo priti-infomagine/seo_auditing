@@ -118,6 +118,10 @@ class CrawlJob(TimestampMixin, Base):
         String(1024),
         nullable=True,
     )
+    crawl_config_recovered: Mapped[bool] = mapped_column(
+        nullable=False,
+        default=False,
+    )
 
     def __repr__(self) -> str:
         return (

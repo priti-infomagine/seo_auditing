@@ -34,8 +34,9 @@ from app.modules.audit.schemas.issue_detail_schemas import (
 )
 from app.modules.audit.services.audit_read_model_service import AuditReadModelService
 
-router = APIRouter(tags=["audit-read"])
+router = APIRouter()
 
+# router.include_router()
 
 def _not_found(audit_id: UUID) -> HTTPException:
     return HTTPException(

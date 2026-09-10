@@ -62,6 +62,8 @@ class PipelineStatusResponse(BaseModel):
     overall_score: Optional[float] = Field(None, description="Overall SEO score (0-100)")
     grade: Optional[str] = Field(None, description="Letter grade")
     output_file_path: Optional[str] = Field(None, description="Path to output JSON file")
+    crawl_config_recovered: bool = Field(False, description="Whether crawl config was recovered from defaults due to missing CrawlJob row")
+    crawl_config_recovery_note: Optional[str] = Field(None, description="Human-readable note about config recovery if applicable")
 
 
 class StageSummary(BaseModel):

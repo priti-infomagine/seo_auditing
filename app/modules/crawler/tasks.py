@@ -32,7 +32,7 @@ from app.shared.utils.url_utils import get_domain
     soft_time_limit=3300,
     track_started=True,
 )
-def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
+def crawl_website(self, crawl_id: str, url: str, user_id: str, force: bool = False) -> dict:
     logger.info(
         f"crawler.crawl_website: task started for crawl_id={crawl_id}, url={url}, "
         f"user_id={user_id}"
@@ -85,6 +85,7 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         "respect_robots": True,
                         "auto_analyze": True,
                     },
+                    crawl_config_recovered=True,
                 )
                 await job_repo.create(job)
                 await db.commit()
@@ -135,13 +136,14 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
 
                     logger.info(
                         f"crawler.crawl_website: auto_analyze fired for "
-                        f"crawl_id={crawl_id}, project_id={project_id}"
+                        f"crawl_id={crawl_id}, project_id={project_id}, force={force}"
                     )
 
                     # Fire the analysis pipeline asynchronously
                     celery_app.send_task(
                         "audit.run_analysis_pipeline",
                         args=[str(project_id), str(crawl_uuid)],
+                        kwargs={"force": force},
                         queue="audit",
                     )
                     result["auto_analyze"] = True

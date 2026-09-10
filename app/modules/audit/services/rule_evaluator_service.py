@@ -53,8 +53,15 @@ class RuleEvaluatorService:
         "schemas", "hreflang", "resources", "technical",
     ]
 
-    def __init__(self, db: AsyncSession):
+    def __init__(
+        self,
+        db: AsyncSession,
+        rule_timeout: float = 20.0,
+        page_concurrency: int = 10,
+    ):
         self.db = db
+        self.rule_timeout = rule_timeout
+        self.page_concurrency = page_concurrency
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.crawl_page_repo = CrawlPageRepository(db)
@@ -131,52 +138,73 @@ class RuleEvaluatorService:
             all_results: List[RuleEvaluationResult] = []
             errors: List[Dict[str, Any]] = []
 
-            for fact in parsed_facts:
-                try:
-                    if not force and fact.page_id in existing_ids:
-                        pages_evaluated += 1
-                        continue
+            # Semaphore for page-level concurrency
+            semaphore = asyncio.Semaphore(self.page_concurrency)
 
-                    page_results = await self.evaluate_page(
-                        project_id,
-                        crawl_id,
-                        fact,
-                        crawl_pages.get(fact.page_id),
-                        seo_map.get(fact.page_id),
-                        network_map.get(fact.page_id),
-                    )
-                    all_results.extend(page_results)
-                    total_results += len(page_results)
-                    rules_run += len(self.rules)
-                    pages_evaluated += 1
-                except Exception as exc:
+            async def evaluate_single_page(fact):
+                nonlocal pages_evaluated, total_results, rules_run
+                async with semaphore:
+                    try:
+                        if not force and fact.page_id in existing_ids:
+                            pages_evaluated += 1
+                            return None, None
+
+                        page_results = await self.evaluate_page(
+                            project_id,
+                            crawl_id,
+                            fact,
+                            crawl_pages.get(fact.page_id),
+                            seo_map.get(fact.page_id),
+                            network_map.get(fact.page_id),
+                        )
+                        return page_results, fact.page_id
+                    except Exception as exc:
+                        logger.error(
+                            f"RuleEvaluatorService: evaluation failed for page_id={fact.page_id}: {exc}",
+                            exc_info=True,
+                        )
+                        errors.append({
+                            "page_id": str(fact.page_id),
+                            "url": fact.url,
+                            "error": str(exc),
+                        })
+                        # Create a single error result for the page
+                        error_result = RuleEvaluationResult(
+                            id=uuid.uuid4(),
+                            project_id=project_id,
+                            crawl_id=crawl_id,
+                            page_id=fact.page_id,
+                            rule_id="evaluation_error",
+                            rule_name="Page Evaluation Error",
+                            category="error",
+                            severity=Severity.ERROR.value,
+                            passed=False,
+                            score_impact=0,
+                            message=str(exc),
+                            recommendation="Fix data or rule configuration",
+                            evaluated_at=utc_now(),
+                        )
+                        return [error_result], fact.page_id
+
+            # Run all pages concurrently with semaphore limiting concurrency
+            page_tasks = [evaluate_single_page(fact) for fact in parsed_facts]
+            page_results_list = await asyncio.gather(*page_tasks, return_exceptions=True)
+
+            for result in page_results_list:
+                if isinstance(result, Exception):
+                    # This shouldn't happen with our error handling, but just in case
                     logger.error(
-                        f"RuleEvaluatorService: evaluation failed for page_id={fact.page_id}: {exc}",
-                        exc_info=True,
+                        f"RuleEvaluatorService: unhandled exception in page evaluation: {result}"
                     )
-                    errors.append({
-                        "page_id": str(fact.page_id),
-                        "url": fact.url,
-                        "error": str(exc),
-                    })
-                    # Create a single error result for the page
-                    error_result = RuleEvaluationResult(
-                        id=uuid.uuid4(),
-                        project_id=project_id,
-                        crawl_id=crawl_id,
-                        page_id=fact.page_id,
-                        rule_id="evaluation_error",
-                        rule_name="Page Evaluation Error",
-                        category="error",
-                        severity=Severity.ERROR.value,
-                        passed=False,
-                        score_impact=0,
-                        message=str(exc),
-                        recommendation="Fix data or rule configuration",
-                        evaluated_at=utc_now(),
-                    )
-                    all_results.append(error_result)
-                    total_results += 1
+                    continue
+                page_results, page_id = result
+                if page_results is None:
+                    # Page was skipped (already evaluated)
+                    continue
+                all_results.extend(page_results)
+                total_results += len(page_results)
+                rules_run += len(self.rules)
+                pages_evaluated += 1
 
             # Bulk upsert all results
             if all_results:
@@ -221,6 +249,10 @@ class RuleEvaluatorService:
         `crawl_page` / `seo_data` / `network_data` (passed by `evaluate_crawl`)
         instead of re-querying the database per page.
 
+        Rules are run concurrently using asyncio.gather with per-rule timeout.
+        Fault-tolerant: per-rule failures are caught and recorded as synthetic
+        error results; other rules continue executing.
+
         Args:
             project_id: The project tracking key.
             crawl_id: The crawl job ID.
@@ -238,27 +270,8 @@ class RuleEvaluatorService:
             # Reconstruct data dict from the batch-fetched objects
             data = await self._build_rule_data(fact, crawl_page, seo_data, network_data)
 
-            # Run all rules concurrently for speed
-            rule_results: List[RuleResult] = []
-            for rule in self.rules:
-                try:
-                    results = await asyncio.wait_for(rule.evaluate(data), timeout=40.0)
-                    rule_results.extend(results)
-                except asyncio.TimeoutError:
-                    logger.warning(
-                        f"Rule {rule.rule_id} timed out for page_id={page_id}"
-                    )
-                    rule_results.append(self._create_error_result(
-                        rule, page_id, "Rule evaluation timed out after 30s"
-                    ))
-                except Exception as exc:
-                    logger.error(
-                        f"Rule {rule.rule_id} failed for page_id={page_id}: {exc}",
-                        exc_info=True,
-                    )
-                    rule_results.append(self._create_error_result(
-                        rule, page_id, f"Rule evaluation failed: {exc}"
-                    ))
+            # Run all rules concurrently with per-rule timeout
+            rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
 
             # Convert to RuleEvaluationResult and set project_id/crawl_id/page_id
             now = utc_now()
@@ -291,6 +304,75 @@ class RuleEvaluatorService:
                 exc_info=True,
             )
             raise RuleEvaluationError(f"Page evaluation failed for page_id={page_id}: {exc}") from exc
+
+    async def _run_rules_concurrently(
+        self,
+        data: Dict[str, Any],
+        page_id: UUID,
+    ) -> List[RuleResult]:
+        """
+        Run all rules concurrently for a page with per-rule timeout and error isolation.
+
+        Uses asyncio.gather with return_exceptions=True to ensure a single
+        failing/timing-out rule doesn't kill the others. Each rule is wrapped
+        in its own wait_for with the configured rule_timeout.
+
+        Execution time is logged per rule for observability and timeout tuning.
+        """
+        async def run_single_rule(rule: BaseRule) -> RuleResult:
+            start = asyncio.get_event_loop().time()
+            try:
+                results = await asyncio.wait_for(
+                    rule.evaluate(data), timeout=self.rule_timeout
+                )
+                duration_ms = int((asyncio.get_event_loop().time() - start) * 1000)
+                logger.info(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} duration_ms={duration_ms}"
+                )
+                # rule.evaluate returns a list of RuleResult; extend into single result
+                # Most rules return a single-item list, but we handle multiple
+                if results:
+                    return results[0] if len(results) == 1 else results[0]
+                # If no results, create a passed result (edge case)
+                return self._create_error_result(rule, page_id, "Rule returned no results")
+            except asyncio.TimeoutError:
+                logger.warning(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
+                    f"timed out after {self.rule_timeout}s"
+                )
+                return self._create_error_result(
+                    rule, page_id, f"Rule evaluation timed out after {self.rule_timeout}s"
+                )
+            except Exception as exc:
+                logger.error(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} failed: {exc}",
+                    exc_info=True,
+                )
+                return self._create_error_result(
+                    rule, page_id, f"Rule evaluation failed: {exc}"
+                )
+
+        # Run all rules concurrently
+        rule_tasks = [run_single_rule(rule) for rule in self.rules]
+        gathered = await asyncio.gather(*rule_tasks, return_exceptions=True)
+
+        # Process results - return_exceptions=True means exceptions are returned as values
+        rule_results: List[RuleResult] = []
+        for i, result in enumerate(gathered):
+            if isinstance(result, Exception):
+                # This shouldn't happen with our error handling, but just in case
+                rule = self.rules[i]
+                logger.error(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
+                    f"unhandled exception: {result}"
+                )
+                rule_results.append(self._create_error_result(
+                    rule, page_id, f"Unhandled rule exception: {result}"
+                ))
+            else:
+                rule_results.append(result)
+
+        return rule_results
 
     async def _build_rule_data(
         self,

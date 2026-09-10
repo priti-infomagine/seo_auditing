@@ -1,5 +1,15 @@
-
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: seo_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: vksoft123
+      POSTGRES_DB: seo_audit
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:7-alpine
@@ -9,53 +19,6 @@ services:
     volumes:
       - redis_data:/data
 
-  worker:
-    build: .
-    container_name: celery_worker
-    working_dir: /app
-    command: >
-      sh -c "celery -A app.shared.tasks worker
-      --loglevel=info
-      -Q email,crawler
-      --without-gossip
-      --without-mingle
-      --without-heartbeat"
-    env_file:
-      - .env
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:vksoft123@host.docker.internal:5432/seo_audit
-      - REDIS_URL=redis://redis:6379/0
-      - REDIS_BROKER_URL=redis://redis:6379/0
-      - REDIS_BACKEND_URL=redis://redis:6379/1
-    depends_on:
-      - redis
-    volumes:
-      - .:/app
-
-  worker-audit:
-    build: .
-    container_name: celery_worker_audit
-    working_dir: /app
-    command: >
-      sh -c "celery -A app.shared.tasks worker
-      --loglevel=info
-      -Q audit
-      --without-gossip
-      --without-mingle
-      --without-heartbeat"
-    env_file:
-      - .env
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:vksoft123@host.docker.internal:5432/seo_audit
-      - REDIS_URL=redis://redis:6379/0
-      - REDIS_BROKER_URL=redis://redis:6379/0
-      - REDIS_BACKEND_URL=redis://redis:6379/1
-    depends_on:
-      - redis
-    volumes:
-      - .:/app
-
-
 volumes:
+  postgres_data:
   redis_data:
-

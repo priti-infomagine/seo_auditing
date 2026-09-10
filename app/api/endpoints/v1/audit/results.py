@@ -335,6 +335,12 @@ async def get_pipeline_status(
             overall_score=overall_score,
             grade=grade,
             output_file_path=output_file_path,
+            crawl_config_recovered=job.crawl_config_recovered if job else False,
+            crawl_config_recovery_note=(
+                "original crawl parameters could not be recovered; used defaults (max_pages=100, max_depth=5)"
+                if job and job.crawl_config_recovered
+                else None
+            ),
         )
 
     except HTTPException:

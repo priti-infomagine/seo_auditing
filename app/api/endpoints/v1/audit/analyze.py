@@ -148,6 +148,7 @@ async def analyze_website(
             celery_app.send_task,
             "crawler.crawl_website",
             args=[str(crawl_id), url_str, str(anonymous_user_id)],
+            kwargs={"force": body.force},
             queue="crawler",
         )
 
