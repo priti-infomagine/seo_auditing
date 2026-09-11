@@ -196,7 +196,7 @@ class AuditResponseBuilder:
                 recommendation=(
                     "Choose one canonical host (www or non-www) and 301-redirect the other."
                 ),
-                 page_id=None, crawl_id=str(audit_id), project_id=str(audit_id),
+                 page_id=None, crawl_id=str(audit_id),
             )
 
         # Dedupe parsed_facts to one per canonical page so top-level link/image/
@@ -299,10 +299,9 @@ class AuditResponseBuilder:
         for p in per_page_scores:
             for rr in p["results"]:
                 issue = self.converter.from_rule_result(
-                    rr, page_url=p["url"],
-                    page_id=p["page_id"], crawl_id=str(audit_id),
-                    project_id=str(audit_id),
-                )
+                     rr, page_url=p["url"],
+                     page_id=p["page_id"], crawl_id=str(audit_id),
+                 )
                 if issue is not None:
                     all_seo_issues.append(issue)
         if www_redirect_issue is not None:
@@ -768,7 +767,6 @@ class AuditResponseBuilder:
     ) -> Dict[str, Any]:
         return {
             "audit_id": str(audit_id),
-            "project_id": str(audit_id),
             "url": crawl_job.url if crawl_job else None,
             "domain": crawl_job.domain if crawl_job else None,
             "started_at": crawl_job.created_at if crawl_job else None,

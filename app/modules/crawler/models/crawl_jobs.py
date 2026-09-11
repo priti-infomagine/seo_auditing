@@ -35,6 +35,11 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
         index=True,
     )
+    project_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        nullable=True,
+        index=True,
+    )
     url: Mapped[str] = mapped_column(
         String(2048),
         nullable=False,

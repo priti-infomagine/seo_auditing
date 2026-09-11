@@ -19447,3 +19447,375 @@ app.shared.exceptions.ScoringError: Project scoring failed: AuditResponseBuilder
 2026-09-11T16:39:33+00:00 | INFO | render_audit_report_pdf: generating PDF for scan_id=3572cfe7-4735-4a1f-b94f-97f191a07b11 at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-9\test_build_report_response_and0\test_report.pdf
 2026-09-11T16:39:33+00:00 | INFO | render_audit_report_pdf: successfully generated PDF at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-9\test_build_report_response_and0\test_report.pdf
 2026-09-11T16:39:37+00:00 | INFO | POST /reports/8e4fc719-0e58-4789-8256-e25ed3e621cb/send
+2026-09-11T16:49:31+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:50:36+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:54:59+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:55:52+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:56:25+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:57:13+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:57:25+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T16:57:31+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T17:01:19+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T17:01:24+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:01:44+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:03:38+00:00 | INFO | Worker process initialized with persistent event loop (pid=18356)
+2026-09-11T18:03:38+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:03:40+00:00 | INFO | Worker process initialized with persistent event loop (pid=10288)
+2026-09-11T18:03:53+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:05:12+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:05:53+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:06:02+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:06:08+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:06:29+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:09:40+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:10:08+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:11:36+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:11:59+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:12:14+00:00 | INFO | Worker process initialized with persistent event loop (pid=6692)
+2026-09-11T18:12:19+00:00 | INFO | Worker process initialized with persistent event loop (pid=21640)
+2026-09-11T18:13:02+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:22:20+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:22:30+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:23:06+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:23:40+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:24:06+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:24:19+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:25:42+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:27:12+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:28:00+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:28:57+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:29:04+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:30:12+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:30:41+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:31:20+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-11T18:31:48+00:00 | INFO | POST /reports/e05ea044-5449-492d-8e30-ab93e96a838c/send
+2026-09-11T18:32:28+00:00 | INFO | render_audit_report_pdf: generating PDF for scan_id=5e27884b-fe11-4ad8-8dce-2ea55b37f3cb at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-10\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:32:28+00:00 | INFO | render_audit_report_pdf: successfully generated PDF at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-10\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:32:33+00:00 | INFO | POST /reports/30aeaa8d-a688-4e2b-a551-d455a1fd9649/send
+2026-09-11T18:34:40+00:00 | WARNING | _update_progress: db down
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 495, in _update_progress
+    await self.persistence.update_progress(current_page, total)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\crawler\test_crawl_orchestrator.py", line 277, in broken
+    raise RuntimeError("db down")
+RuntimeError: db down
+2026-09-11T18:34:48+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-09-11T18:34:48+00:00 | INFO | Crawl completed: https://vivo.com/ — pages_crawled=3, pages_discovered=5, pages_failed=0, duration=0ms
+2026-09-11T18:34:49+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-09-11T18:34:50+00:00 | INFO | Robots policy attached to scheduler for vivo.com (sitemaps: 0)
+2026-09-11T18:34:50+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-09-11T18:34:51+00:00 | INFO | Crawl started: https://vivo.com/ (max_pages=100, max_depth=5)
+2026-09-11T18:34:55+00:00 | WARNING | Redirect to unrelated host unrelated.com — base domain stays example.com
+2026-09-11T18:35:25+00:00 | INFO | crawler.crawl_website: task started for crawl_id=<crawler.test_crawl_website_task._FakeSelf object at 0x000001D48EE63DD0>, url=8167fb0a-f551-4db4-bf3f-f888677642fd, user_id=https://radonindia.com/
+2026-09-11T18:35:26+00:00 | INFO | crawler.crawl_website: task started for crawl_id=<crawler.test_crawl_website_task._FakeSelf object at 0x000001D48EC29F10>, url=0f61e5bb-fe08-4576-b5bc-aab830c92f72, user_id=https://example.com
+2026-09-11T18:35:27+00:00 | INFO | crawler.crawl_website: task started for crawl_id=<crawler.test_crawl_website_task._FakeSelf object at 0x000001D48EF4AE10>, url=557b43dc-58ed-4781-bdf9-81374fbfe446, user_id=https://example.com
+2026-09-11T18:35:37+00:00 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-09-11T18:35:38+00:00 | INFO | Site discovery complete for https://example.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-11T18:35:38+00:00 | INFO | Crawl started: https://example.com/ (max_pages=5, max_depth=1)
+2026-09-11T18:35:38+00:00 | INFO | Crawl completed: https://example.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=604ms
+2026-09-11T18:35:38+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 0, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-11T18:35:39+00:00 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-09-11T18:35:41+00:00 | INFO | Site discovery complete for https://example.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-11T18:35:41+00:00 | INFO | Crawl started: https://example.com/ (max_pages=10, max_depth=2)
+2026-09-11T18:35:41+00:00 | INFO | Crawl completed: https://example.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=1560ms
+2026-09-11T18:35:41+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 0, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-11T18:35:43+00:00 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-09-11T18:35:45+00:00 | INFO | Site discovery complete for https://example.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-11T18:35:45+00:00 | INFO | Crawl started: https://example.com/ (max_pages=5, max_depth=1)
+2026-09-11T18:35:45+00:00 | INFO | Crawl completed: https://example.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=1401ms
+2026-09-11T18:35:45+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 0, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-11T18:35:51+00:00 | INFO | POST /crawler/test-crawler - Running synchronous crawl for URL: https://example.com/
+2026-09-11T18:35:52+00:00 | INFO | Site discovery complete for https://example.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-11T18:35:52+00:00 | INFO | Crawl started: https://example.com/ (max_pages=5, max_depth=1)
+2026-09-11T18:35:52+00:00 | INFO | Crawl completed: https://example.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=882ms
+2026-09-11T18:35:52+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 0, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-11T18:35:54+00:00 | INFO | render_audit_report_pdf: generating PDF for scan_id=1824b54f-b9cd-409d-b334-21dae28b3040 at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-11\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:35:54+00:00 | INFO | render_audit_report_pdf: successfully generated PDF at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-11\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:35:58+00:00 | INFO | POST /reports/5d00d2c7-eab3-47e9-b8fc-a3ffee774f2c/send
+2026-09-11T18:36:10+00:00 | WARNING | rule_evidence_map: rule_id 'zzz_999' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-09-11T18:36:38+00:00 | INFO | POST /crawler/crawl - Queuing crawl for URL: https://example.com/
+2026-09-11T18:36:38+00:00 | INFO | Crawl job queued: 4235a7d6-6d37-4a52-9a5d-9cee5f96cfab for URL: https://example.com/
+2026-09-11T18:36:38+00:00 | INFO | crawler.crawl_website: task started for crawl_id=4235a7d6-6d37-4a52-9a5d-9cee5f96cfab, url=https://example.com/, user_id=97b85b51-d825-4e30-a1de-5cc5e3350853
+2026-09-11T18:36:39+00:00 | WARNING | crawler.crawl_website: CrawlJob 4235a7d6-6d37-4a52-9a5d-9cee5f96cfab not found; recreating from task args (url=https://example.com/, user_id=97b85b51-d825-4e30-a1de-5cc5e3350853)
+2026-09-11T18:36:40+00:00 | INFO | Site discovery complete for https://example.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-11T18:36:40+00:00 | INFO | Crawl started: https://example.com/ (max_pages=100, max_depth=5)
+2026-09-11T18:36:41+00:00 | ERROR | CrawlPersistenceService.persist_page: error: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('38542901-5d44-4f38-9be5-7f0a6de9a32c'), UUID('4235a7d6-6d37-4a52-9a5d-9cee5f96cfab'), None, 'https://example.com/', 'https://example.com/', '182ccedb33a9e03fbf1079b209da1a31', 'https', 'example.com', '/', '', 0, 200, 'https://example.com/', 'text/html', 559, 47, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.DeadlockDetectedError: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 141, in persist_page
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('38542901-5d44-4f38-9be5-7f0a6de9a32c'), UUID('4235a7d6-6d37-4a52-9a5d-9cee5f96cfab'), None, 'https://example.com/', 'https://example.com/', '182ccedb33a9e03fbf1079b209da1a31', 'https', 'example.com', '/', '', 0, 200, 'https://example.com/', 'text/html', 559, 47, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-11T18:36:41+00:00 | ERROR | Worker 0: error processing https://example.com/: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('38542901-5d44-4f38-9be5-7f0a6de9a32c'), UUID('4235a7d6-6d37-4a52-9a5d-9cee5f96cfab'), None, 'https://example.com/', 'https://example.com/', '182ccedb33a9e03fbf1079b209da1a31', 'https', 'example.com', '/', '', 0, 200, 'https://example.com/', 'text/html', 559, 47, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.DeadlockDetectedError: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_scheduler.py", line 298, in _worker_loop
+    result = await self.worker_func(item, self._http_semaphore, self._browser_semaphore)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 385, in _crawl_page
+    page = await self.persistence.persist_page(page)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 141, in persist_page
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DeadlockDetectedError'>: deadlock detected
+DETAIL:  Process 19016 waits for RowExclusiveLock on relation 1083245 of database 16602; blocked by process 7292.
+Process 7292 waits for AccessExclusiveLock on relation 1083220 of database 16602; blocked by process 19016.
+HINT:  See server log for query details.
+[SQL: INSERT INTO crawl_pages (id, crawl_id, parent_page_id, url, normalized_url, url_hash, scheme, host, path, query, depth, status_code, final_url, content_type, content_length, response_time_ms, is_internal, is_crawled, is_success, is_redirect, is_error) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::INTEGER, $12::SMALLINT, $13::VARCHAR, $14::VARCHAR, $15::BIGINT, $16::INTEGER, $17::BOOLEAN, $18::BOOLEAN, $19::BOOLEAN, $20::BOOLEAN, $21::BOOLEAN) ON CONFLICT (crawl_id, normalized_url) DO UPDATE SET parent_page_id = excluded.parent_page_id, url = excluded.url, normalized_url = excluded.normalized_url, url_hash = excluded.url_hash, scheme = excluded.scheme, host = excluded.host, path = excluded.path, query = excluded.query, depth = excluded.depth, status_code = excluded.status_code, final_url = excluded.final_url, content_type = excluded.content_type, content_length = excluded.content_length, response_time_ms = excluded.response_time_ms, is_crawled = excluded.is_crawled, is_success = excluded.is_success, is_redirect = excluded.is_redirect, is_error = excluded.is_error RETURNING crawl_pages.id, crawl_pages.crawl_id, crawl_pages.parent_page_id, crawl_pages.url, crawl_pages.normalized_url, crawl_pages.url_hash, crawl_pages.scheme, crawl_pages.host, crawl_pages.path, crawl_pages.query, crawl_pages.depth, crawl_pages.status_code, crawl_pages.final_url, crawl_pages.content_type, crawl_pages.content_length, crawl_pages.response_time_ms, crawl_pages.is_internal, crawl_pages.is_crawled, crawl_pages.is_success, crawl_pages.is_redirect, crawl_pages.is_error, crawl_pages.discovered_at, crawl_pages.crawled_at, crawl_pages.created_at, crawl_pages.updated_at]
+[parameters: (UUID('38542901-5d44-4f38-9be5-7f0a6de9a32c'), UUID('4235a7d6-6d37-4a52-9a5d-9cee5f96cfab'), None, 'https://example.com/', 'https://example.com/', '182ccedb33a9e03fbf1079b209da1a31', 'https', 'example.com', '/', '', 0, 200, 'https://example.com/', 'text/html', 559, 47, True, True, True, False, False)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-11T18:37:05+00:00 | INFO | POST /auth/register - Register endpoint called
+2026-09-11T18:37:17+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:17+00:00 | INFO | Starting SEO scoring...
+2026-09-11T18:37:17+00:00 | INFO | Completed 64 rule evaluations
+2026-09-11T18:37:17+00:00 | INFO | SEO Score calculated: 80.9/100 (Grade B)
+2026-09-11T18:37:17+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:17+00:00 | INFO | Starting SEO scoring...
+2026-09-11T18:37:17+00:00 | INFO | Completed 64 rule evaluations
+2026-09-11T18:37:17+00:00 | INFO | SEO Score calculated: 80.9/100 (Grade B)
+2026-09-11T18:37:18+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:18+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:19+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:20+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:20+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:21+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:21+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:22+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:22+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:23+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:23+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:24+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:24+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:25+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:26+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:27+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:28+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:29+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:30+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:31+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:31+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:31+00:00 | INFO | Scoring provided parsed data
+2026-09-11T18:37:31+00:00 | INFO | Starting SEO scoring...
+2026-09-11T18:37:31+00:00 | INFO | Completed 64 rule evaluations
+2026-09-11T18:37:31+00:00 | INFO | SEO Score calculated: 78.0/100 (Grade C+)
+2026-09-11T18:37:32+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:32+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:37:33+00:00 | INFO | Loaded 64 scoring rules
+2026-09-11T18:38:32+00:00 | INFO | render_audit_report_pdf: generating PDF for scan_id=f13e957a-e24e-4ac5-ab7b-6ec9f722cd67 at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-12\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:38:32+00:00 | INFO | render_audit_report_pdf: successfully generated PDF at C:\Users\user\AppData\Local\Temp\pytest-of-user\pytest-12\test_build_report_response_and0\test_report.pdf
+2026-09-11T18:38:36+00:00 | INFO | POST /reports/bdd62cbd-b596-42b3-93ea-14f2735940fb/send

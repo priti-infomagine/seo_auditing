@@ -62,10 +62,10 @@ class AuditReadRepository:
         crawl. We deliberately do not return the run row here — the service
         layer fetches it once to extract scalar summary fields.
         """
-        run = await self.analysis_repo.get_by_crawl_id(audit_id)
+        run = await self.analysis_repo.get_by_audit_id(audit_id)
         if run is None:
             return None, None
-        return run.project_id, run.crawl_id
+        return run.crawl_id, run.project_id
 
     async def load_compact_inputs(
         self,
@@ -84,13 +84,13 @@ class AuditReadRepository:
         No per-page ``page_seo_data`` or ``page_network_data`` is loaded —
         those are only fetched lazily by the detail endpoints.
         """
-        run = await self.analysis_repo.get_by_crawl_id(audit_id)
+        run = await self.analysis_repo.get_by_audit_id(audit_id)
         if run is None:
             return None
-
+        print(f"======Resolved audit_id={audit_id} → crawl_id={run.crawl_id}, project_id={run.project_id}")
         crawl_job = await self.crawl_job_repo.get_by_id(run.crawl_id)
         crawl_pages = await self.crawl_page_repo.get_by_crawl_id(run.crawl_id)
-        failed_results = await self.rule_eval_repo.get_failed_by_crawl_id(
+        failed_results = await self.rule_eval_repo.get_failed_by_audit_id(
             run.project_id, run.crawl_id
         )
 

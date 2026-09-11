@@ -30,6 +30,31 @@ class CrawlJobRepository:
         )
         return result.scalar_one_or_none()
 
+    async def get_by_project_id(self, project_id: UUID) -> Optional[CrawlJob]:
+        """Get crawl job by project_id.
+
+        CrawlJob.id (crawl_id) and project_id are different UUIDs; the public
+        report endpoints can receive either. This lookup lets callers resolve
+        a CrawlJob from the user-facing project_id returned in CrawlResponse.
+        """
+        result = await self.db.execute(
+            select(CrawlJob).where(CrawlJob.project_id == project_id)
+        )
+        return result.scalar_one_or_none()
+
+    async def get_by_id_or_project_id(self, key: UUID) -> Optional[CrawlJob]:
+        """Resolve a crawl job by either its crawl_id (CrawlJob.id) or project_id.
+
+        Tries ``id`` first, falls back to ``project_id``. This lets the public
+        ``/audit/result/project/{project_id}`` and ``/reports/{project_id}/send``
+        endpoints accept the project_id from CrawlResponse without needing the
+        internal crawl_id.
+        """
+        job = await self.get_by_id(key)
+        if job is not None:
+            return job
+        return await self.get_by_project_id(key)
+
     async def get_by_user_id(self, user_id: UUID) -> list[CrawlJob]:
         """Get all crawl jobs for a user."""
         result = await self.db.execute(

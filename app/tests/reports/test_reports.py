@@ -108,3 +108,34 @@ def test_per_check_score_derives_from_passed_and_impact():
 
     # Handles None / falsy impact gracefully.
     assert _per_check_score(False, None) == 100.0
+
+
+# --------------------------------------------------------------------- project_id lookup
+
+
+def test_crawl_job_model_has_project_id_column():
+    """The CrawlJob model must expose a project_id column so that CrawlResponse.project_id
+    can be used to look up the CrawlJob later (the crawl endpoint sets project_id, and
+    public report endpoints accept it).
+    """
+    from app.modules.crawler.models.crawl_jobs import CrawlJob
+    assert hasattr(CrawlJob, "project_id"), "CrawlJob model is missing project_id column"
+
+
+def test_crawl_job_repository_has_project_id_lookup():
+    """CrawlJobRepository must provide get_by_project_id and get_by_id_or_project_id."""
+    from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+    assert hasattr(CrawlJobRepository, "get_by_project_id")
+    assert hasattr(CrawlJobRepository, "get_by_id_or_project_id")
+
+
+def test_build_audit_report_uses_project_id_fallback():
+    """build_audit_report must resolve the crawl job via get_by_id_or_project_id
+    so that a project_id (not just crawl_id) can be used to fetch the report.
+
+    Asserted at the source level (no DB fixture needed).
+    """
+    import inspect
+    src = inspect.getsource(build_audit_report)
+    assert "get_by_id_or_project_id" in src
+    assert "resolved_crawl_id" in src

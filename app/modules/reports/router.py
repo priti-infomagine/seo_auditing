@@ -42,7 +42,7 @@ class SendReportResponse(BaseModel):
     summary="Send PDF audit report via email",
     description=(
         "Enqueues a Celery task to build the PDF report for audit_id and send it "
-        "as an email attachment to to_email (or default recipient)."
+        
     ),
 )
 async def send_audit_report(
@@ -64,7 +64,10 @@ async def send_audit_report(
     logger.info(f"POST /reports/{audit_id}/send")
 
     job_repo = CrawlJobRepository(db)
-    job = await job_repo.get_by_id(audit_id)
+
+    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
+    # can use the public project_id returned in CrawlResponse.
+    job = await job_repo.get_by_id_or_project_id(audit_id)
     if not job:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

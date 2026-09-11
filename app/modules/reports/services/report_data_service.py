@@ -51,19 +51,24 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
     logger.info(f"build_audit_report: fetching data for audit_id={audit_id}")
 
     job_repo = CrawlJobRepository(db)
-    crawl_job = await job_repo.get_by_id(audit_id)
+    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
+    # can use the public project_id returned in CrawlResponse.
+    crawl_job = await job_repo.get_by_id_or_project_id(audit_id)
     if not crawl_job:
         raise ValueError(f"CrawlJob not found for audit_id={audit_id}")
 
+    # Use the resolved crawl_id for all downstream lookups.
+    resolved_crawl_id = crawl_job.id
+
     rule_repo = RuleEvaluationResultRepository(db)
-    rule_results = await rule_repo.get_by_audit_id(audit_id)
+    rule_results = await rule_repo.get_by_audit_id(resolved_crawl_id)
 
     page_repo = CrawlPageRepository(db)
-    crawl_pages = await page_repo.get_by_crawl_id(audit_id)
+    crawl_pages = await page_repo.get_by_crawl_id(resolved_crawl_id)
     page_url_map: Dict[UUID, str] = {p.id: p.url for p in crawl_pages}
 
     analysis_repo = SeoAnalysisRunRepository(db)
-    seo_run = await analysis_repo.get_by_audit_id(audit_id)
+    seo_run = await analysis_repo.get_by_audit_id(resolved_crawl_id)
 
     check_results: list[CheckResult] = []
     for r in rule_results:
@@ -96,7 +101,7 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
     scanned_at_str = scanned_at_dt.isoformat()
 
     report = build_report_response(
-        scan_id=str(audit_id),
+        scan_id=str(resolved_crawl_id),
         url=crawl_job.url,
         site_category=site_category,
         scanned_at=scanned_at_str,

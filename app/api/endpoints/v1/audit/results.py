@@ -62,7 +62,9 @@ async def get_analysis_result(
 
     try:
         job_repo = CrawlJobRepository(db)
-        job = await job_repo.get_by_id(audit_id)
+        # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so
+        # callers can use the public project_id returned in CrawlResponse.
+        job = await job_repo.get_by_id_or_project_id(audit_id)
         if not job:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
