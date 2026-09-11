@@ -2,7 +2,7 @@
 RuleEvaluationResult model.
 
 Persistent store for every rule result produced by the rule engine
-for every page. One row per (project, page, rule).
+for every page. One row per (audit, page, rule).
 """
 import uuid
 
@@ -23,14 +23,10 @@ class RuleEvaluationResult(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    project_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         nullable=False,
         index=True,
-    )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False,
     )
     page_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -86,8 +82,8 @@ class RuleEvaluationResult(TimestampMixin, Base):
 
     __table_args__ = (
         UniqueConstraint(
-            "project_id", "page_id", "rule_id",
-            name="uq_rule_results_project_page_rule",
+            "audit_id", "page_id", "rule_id",
+            name="uq_rule_results_audit_page_rule",
         ),
     )
 
@@ -95,7 +91,7 @@ class RuleEvaluationResult(TimestampMixin, Base):
         return (
             f"<RuleEvaluationResult "
             f"id={self.id} "
-            f"project_id={self.project_id} "
+            f"audit_id={self.audit_id} "
             f"page_id={self.page_id} "
             f"rule_id={self.rule_id} "
             f"passed={self.passed} "

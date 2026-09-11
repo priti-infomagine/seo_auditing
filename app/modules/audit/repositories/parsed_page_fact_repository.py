@@ -2,7 +2,7 @@
 ParsedPageFact repository - database operations for ParsedPageFact model.
 
 Provides upsert (insert-on-duplicate) for idempotency, ensuring no
-duplicate parsed facts for the same (project_id, page_id).
+duplicate parsed facts for the same (audit_id, page_id).
 """
 from typing import List, Optional, Set, Dict
 from uuid import UUID
@@ -22,10 +22,10 @@ class ParsedPageFactRepository:
 
     async def upsert(self, fact: ParsedPageFact) -> ParsedPageFact:
         """
-        Insert or update a ParsedPageFact for (project_id, page_id).
+        Insert or update a ParsedPageFact for (audit_id, page_id).
         Checks for existing row; if found, updates it. Otherwise creates.
         """
-        existing = await self.get_by_page_id(fact.project_id, fact.page_id)
+        existing = await self.get_by_page_id(fact.audit_id, fact.page_id)
         if existing:
             existing.url = fact.url
             existing.domain = fact.domain
@@ -50,10 +50,10 @@ class ParsedPageFactRepository:
         return fact
 
     async def get_existing_page_ids(
-        self, project_id: UUID, page_ids: List[UUID]
+        self, audit_id: UUID, page_ids: List[UUID]
     ) -> Set[UUID]:
         """
-        Return the set of page_ids (within a project) that already have a
+        Return the set of page_ids (within an audit) that already have a
         parsed fact. Single query — replaces per-page `exists()` loops (N+1)
         in the parse stage.
         """
@@ -61,7 +61,7 @@ class ParsedPageFactRepository:
             return set()
         rows = await self.db.execute(
             select(ParsedPageFact.page_id).where(
-                ParsedPageFact.project_id == project_id,
+                ParsedPageFact.audit_id == audit_id,
                 ParsedPageFact.page_id.in_(page_ids),
             )
         )
@@ -71,21 +71,21 @@ class ParsedPageFactRepository:
         """
         True bulk upsert of ParsedPageFact rows in batched statements.
 
-        Uses PostgreSQL `INSERT ... ON CONFLICT (project_id, page_id)
-        DO UPDATE`. The unique index `ix_parsed_page_facts_project_page`
+        Uses PostgreSQL `INSERT ... ON CONFLICT (audit_id, page_id)
+        DO UPDATE`. The unique index `ix_parsed_page_facts_audit_page`
         backs the conflict target (see alembic migration
-        e5f6a7b8c9d0). Replaces the previous per-row SELECT+UPDATE loop.
+        a1b2c3d4). Replaces the previous per-row SELECT+UPDATE loop.
 
         Batches inserts to stay under PostgreSQL's 32767 parameter limit
-        (each row has 13 columns; max ~2520 rows per batch).
+        (each row has 12 columns; max ~2520 rows per batch).
 
         Returns the number of rows processed.
         """
         if not facts:
             return 0
 
-        # Each row has 13 columns; PostgreSQL max is 32767 parameters.
-        # Use 500 rows per batch = 6500 params (well under the limit).
+        # Each row has 12 columns; PostgreSQL max is 32767 parameters.
+        # Use 500 rows per batch = 6000 params (well under the limit).
         BATCH_SIZE = 500
         total_processed = 0
 
@@ -97,8 +97,7 @@ class ParsedPageFactRepository:
                     continue
                 rows.append({
                     "id": fact.id,
-                    "project_id": fact.project_id,
-                    "crawl_id": fact.crawl_id,
+                    "audit_id": fact.audit_id,
                     "page_id": fact.page_id,
                     "url": fact.url,
                     "domain": fact.domain,
@@ -115,7 +114,7 @@ class ParsedPageFactRepository:
 
             stmt = pg_insert(ParsedPageFact).values(rows)
             stmt = stmt.on_conflict_do_update(
-                index_elements=["project_id", "page_id"],
+                index_elements=["audit_id", "page_id"],
                 set_={
                     "url": stmt.excluded.url,
                     "domain": stmt.excluded.domain,
@@ -134,21 +133,21 @@ class ParsedPageFactRepository:
 
         return total_processed
 
-    async def exists(self, project_id: UUID, page_id: UUID) -> bool:
-        """Check if a parsed fact exists for this project+page."""
+    async def exists(self, audit_id: UUID, page_id: UUID) -> bool:
+        """Check if a parsed fact exists for this audit+page."""
         result = await self.db.execute(
             select(ParsedPageFact.id).where(
-                ParsedPageFact.project_id == project_id,
+                ParsedPageFact.audit_id == audit_id,
                 ParsedPageFact.page_id == page_id,
             )
         )
         return result.scalar_one_or_none() is not None
 
-    async def get_by_page_id(self, project_id: UUID, page_id: UUID) -> Optional[ParsedPageFact]:
+    async def get_by_page_id(self, audit_id: UUID, page_id: UUID) -> Optional[ParsedPageFact]:
         """Get parsed fact by page ID."""
         result = await self.db.execute(
             select(ParsedPageFact).where(
-                ParsedPageFact.project_id == project_id,
+                ParsedPageFact.audit_id == audit_id,
                 ParsedPageFact.page_id == page_id,
             )
         )
@@ -173,29 +172,20 @@ class ParsedPageFactRepository:
                 out[row.page_id] = row
         return out
 
-    async def get_by_project_id(self, project_id: UUID) -> List[ParsedPageFact]:
-        """Get all parsed facts for a project."""
+    async def get_by_audit_id(self, audit_id: UUID) -> List[ParsedPageFact]:
+        """Get all parsed facts for an audit (== crawl_id)."""
         result = await self.db.execute(
             select(ParsedPageFact).where(
-                ParsedPageFact.project_id == project_id
+                ParsedPageFact.audit_id == audit_id
             ).order_by(ParsedPageFact.parsed_at)
         )
         return list(result.scalars().all())
 
-    async def get_by_crawl_id(self, crawl_id: UUID) -> List[ParsedPageFact]:
-        """Get all parsed facts for a crawl."""
-        result = await self.db.execute(
-            select(ParsedPageFact).where(
-                ParsedPageFact.crawl_id == crawl_id
-            ).order_by(ParsedPageFact.parsed_at)
-        )
-        return list(result.scalars().all())
-
-    async def delete_by_project_id(self, project_id: UUID) -> int:
-        """Delete all parsed facts for a project. Returns count deleted."""
+    async def delete_by_audit_id(self, audit_id: UUID) -> int:
+        """Delete all parsed facts for an audit. Returns count deleted."""
         result = await self.db.execute(
             delete(ParsedPageFact).where(
-                ParsedPageFact.project_id == project_id
+                ParsedPageFact.audit_id == audit_id
             )
         )
         return result.rowcount

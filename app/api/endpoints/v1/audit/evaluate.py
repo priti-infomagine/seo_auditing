@@ -1,5 +1,5 @@
 """
-POST /audit/evaluate/{crawl_id} — Trigger rule evaluation for a crawl.
+POST /audit/evaluate/{audit_id} — Trigger rule evaluation for a crawl.
 
 Reads parsed page facts from PostgreSQL, reconstructs the data dict that
 SEO rules expect, runs all 60+ rules, and persists results to
@@ -7,7 +7,7 @@ SEO rules expect, runs all 60+ rules, and persists results to
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from app.core.database import get_db
 from app.core.logger import logger
@@ -22,75 +22,67 @@ router = APIRouter()
 
 
 @router.post(
-    "/evaluate/{crawl_id}",
+    "/evaluate/{audit_id}",
     summary="Evaluate SEO rules for all parsed pages in a crawl",
     description=(
         "Reads parsed page facts from PostgreSQL, reconstructs the rule data dict "
         "from DB rows, runs all 60+ SEO rules per page, and persists results "
-        "to rule_evaluation_results. Uses project_id as tracking key."
+        "to rule_evaluation_results."
     ),
 )
 async def evaluate_crawl(
-    crawl_id: UUID,
-    body: EvaluateTriggerRequest,
+    audit_id: UUID,
+    body: EvaluateTriggerRequest = None,
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     """
     Trigger rule evaluation for all parsed pages of a crawl.
 
     Args:
-        crawl_id: The crawl job ID.
-        body: Request with project_id (links to parse phase) and force flag.
+        audit_id: The audit ID (== crawl_id).
+        body: Request with force flag.
         db: Database session.
 
     Returns:
-        Dict with project_id, crawl_id, evaluation summary.
+        Dict with audit_id, evaluation summary.
 
     Raises:
         HTTPException 404: CrawlJob not found or no parsed facts.
-        HTTPException 403: Access denied.
     """
-    user_id = uuid4()
-    logger.info(
-        f"POST /audit/evaluate/{crawl_id} - "
-        f"project_id={body.project_id}, user_id={user_id}"
-    )
+    logger.info(f"POST /audit/evaluate/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
-        job = await job_repo.get_by_id(crawl_id)
+        job = await job_repo.get_by_id(audit_id)
         if not job:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Crawl job {crawl_id} not found",
+                detail=f"Crawl job {audit_id} not found",
             )
 
         parsed_fact_repo = ParsedPageFactRepository(db)
-        parsed_facts = await parsed_fact_repo.get_by_crawl_id(crawl_id)
-        project_facts = [f for f in parsed_facts if str(f.project_id) == str(body.project_id)]
+        parsed_facts = await parsed_fact_repo.get_by_audit_id(audit_id)
 
-        if not project_facts and not body.force:
+        force = body.force if body else False
+        if not parsed_facts and not force:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No parsed facts found for project_id={body.project_id}. "
-                       f"Run POST /audit/parse/{crawl_id} first.",
+                detail=f"No parsed facts found for audit_id={audit_id}. "
+                       f"Run POST /audit/parse/{audit_id} first.",
             )
 
-        # Run evaluator (inline for now, can be Celery for large crawls)
         evaluator = RuleEvaluatorService(db)
-        result = await evaluator.evaluate_crawl(
-            body.project_id, crawl_id, force=body.force
-        )
+        result = await evaluator.evaluate_crawl(audit_id, force=force)
 
         logger.info(
-            f"POST /audit/evaluate/{crawl_id} - "
+            f"POST /audit/evaluate/{audit_id} - "
             f"pages_evaluated={result['pages_evaluated']}, "
             f"total_results={result['total_results']}"
         )
 
         return {
-            "project_id": result["project_id"],
-            "crawl_id": result["crawl_id"],
+            "audit_id": str(audit_id),
+            "crawl_id": str(audit_id),
             "status": "completed",
             "message": f"Evaluation completed: {result['pages_evaluated']} pages evaluated, "
                        f"{result['total_results']} total rule results, "
@@ -106,7 +98,7 @@ async def evaluate_crawl(
         raise
     except Exception as exc:
         logger.error(
-            f"POST /audit/evaluate/{crawl_id}: unexpected error - {exc}",
+            f"POST /audit/evaluate/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )
         raise HTTPException(

@@ -68,7 +68,7 @@ def _stub_audit_repo():
         seo_repo=SimpleNamespace(get_by_page_id=lambda pid: None),
         network_repo=SimpleNamespace(get_by_page_id=lambda pid: None),
         parsed_fact_repo=SimpleNamespace(
-            get_by_page_id=lambda project_id, page_id: None,
+            get_by_page_id=lambda audit_id, page_id: None,
             get_by_page_ids=lambda page_ids: {},
         ),
         rule_eval_repo=SimpleNamespace(),

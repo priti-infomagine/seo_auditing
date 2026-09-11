@@ -80,16 +80,14 @@ class AuditResponseBuilder:
 
     async def build(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         eval_errors: Optional[List[Dict[str, Any]]] = None,
     ) -> Dict[str, Any]:
         """
         Build the complete unified audit response.
 
         Args:
-            project_id: project tracking key.
-            crawl_id: crawl job ID.
+            audit_id: The audit ID (== crawl_id), the single tracking key.
             eval_errors: optional list of {page_id, url, error} dicts from the
                 evaluation stage (synthetic ERROR rule results are also read
                 from DB and included).
@@ -97,17 +95,14 @@ class AuditResponseBuilder:
         Returns:
             Unified audit response dict matching audit_response_schemas.UnifiedAuditResponse.
         """
-        logger.info(
-            "AuditResponseBuilder.build: project_id=%s crawl_id=%s", project_id, crawl_id
-        )
+        logger.info("AuditResponseBuilder.build: audit_id=%s", audit_id)
 
-        crawl_job = await self.crawl_job_repo.get_by_id(crawl_id)
+        crawl_job = await self.crawl_job_repo.get_by_id(audit_id)
         domain = crawl_job.domain if crawl_job else ""
-        project_id = _coerce_uuid(project_id)
-        crawl_id = _coerce_uuid(crawl_id)
+        audit_id = _coerce_uuid(audit_id)
 
         # --- Crawl pages (URL map, status, depth, counts) ---
-        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(crawl_id)
+        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(audit_id)
         page_url_map: Dict[UUID, str] = {}
         homepage_ids: set = set()
         status_code_counts: Dict[str, int] = defaultdict(int)
@@ -131,12 +126,10 @@ class AuditResponseBuilder:
         pages_discovered = len(crawl_pages)
 
         # --- Parsed facts (per-page content/image/schema/link signals) ---
-        parsed_facts = await self.parsed_fact_repo.get_by_crawl_id(crawl_id)
-        parsed_facts = [f for f in parsed_facts if str(f.project_id) == str(project_id)]
+        parsed_facts = await self.parsed_fact_repo.get_by_audit_id(audit_id)
 
         # --- Rule evaluation results ---
-        eval_rows = await self.rule_eval_repo.get_by_project_id(project_id)
-        eval_rows = [r for r in eval_rows if str(r.crawl_id) == str(crawl_id)]
+        eval_rows = await self.rule_eval_repo.get_by_audit_id(audit_id)
 
         # Index eval errors (synthetic ERROR rows + caller-supplied)
         all_errors: List[Dict[str, Any]] = list(eval_errors or [])
@@ -203,7 +196,7 @@ class AuditResponseBuilder:
                 recommendation=(
                     "Choose one canonical host (www or non-www) and 301-redirect the other."
                 ),
-                page_id=None, crawl_id=str(crawl_id), project_id=str(project_id),
+                 page_id=None, crawl_id=str(audit_id), project_id=str(audit_id),
             )
 
         # Dedupe parsed_facts to one per canonical page so top-level link/image/
@@ -307,8 +300,8 @@ class AuditResponseBuilder:
             for rr in p["results"]:
                 issue = self.converter.from_rule_result(
                     rr, page_url=p["url"],
-                    page_id=p["page_id"], crawl_id=str(crawl_id),
-                    project_id=str(project_id),
+                    page_id=p["page_id"], crawl_id=str(audit_id),
+                    project_id=str(audit_id),
                 )
                 if issue is not None:
                     all_seo_issues.append(issue)
@@ -353,7 +346,7 @@ class AuditResponseBuilder:
             total_rules_evaluated=len(self.rules),
         )
         audit = self._build_audit_block(
-            crawl_job, crawl_id, project_id,
+            crawl_job, audit_id,
             pages_discovered, pages_crawled, total_pages_analyzed,
             crawl, indexation, performance, structured_data,
             links, images, content, external_deps, errors, metadata,
@@ -768,14 +761,14 @@ class AuditResponseBuilder:
 
     # --------------------------------------------------------------- audit blk
     def _build_audit_block(
-        self, crawl_job, crawl_id, project_id,
+        self, crawl_job, audit_id,
         pages_discovered, pages_crawled, pages_analyzed,
         crawl_stats, indexation, performance, structured_data,
         links, images, content, external_deps, errors, metadata,
     ) -> Dict[str, Any]:
         return {
-            "audit_id": str(crawl_id),
-            "project_id": str(project_id),
+            "audit_id": str(audit_id),
+            "project_id": str(audit_id),
             "url": crawl_job.url if crawl_job else None,
             "domain": crawl_job.domain if crawl_job else None,
             "started_at": crawl_job.created_at if crawl_job else None,

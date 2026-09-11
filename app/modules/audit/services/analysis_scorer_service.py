@@ -6,7 +6,7 @@ AuditResponseBuilder (which reconstructs RuleResults, runs ScoreCalculator with
 homepage weighting, and converts each result to a standardized SEOIssue).
 
 Persists the scalar summary to `seo_analysis_runs` and writes the unified JSON
-output file to `app/output/{domain}_{project_id}.json`.
+output file to `app/output/{domain}_{audit_id}.json`.
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from app.shared.exceptions import ScoringError
 class AnalysisScorerService:
     """
     Aggregates rule results into crawl-level scores, persists to DB and
-    writes the output JSON file to ``app/output/{domain}_{project_id}.json``.
+        writes the output JSON file to ``app/output/{domain}_{audit_id}.json``.
     """
 
     def __init__(self, db: AsyncSession):
@@ -41,8 +41,7 @@ class AnalysisScorerService:
 
     async def score_project(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         force: bool = False,
     ) -> Dict[str, Any]:
         """
@@ -52,8 +51,7 @@ class AnalysisScorerService:
         SeoAnalysisRun scalar summary, and writes the unified JSON file.
 
         Args:
-            project_id: The project tracking key.
-            crawl_id: The crawl job ID.
+            audit_id: The audit ID (== crawl_id), the single tracking key.
             force: Kept for API compatibility (caching is handled by the caller).
 
         Returns:
@@ -61,17 +59,17 @@ class AnalysisScorerService:
         """
         try:
             logger.info(
-                f"AnalysisScorerService.score_project: project_id={project_id}, "
-                f"crawl_id={crawl_id}, force={force}"
+                f"AnalysisScorerService.score_project: audit_id={audit_id}, "
+                f"force={force}"
             )
 
-            crawl_job = await self.crawl_job_repo.get_by_id(crawl_id)
+            crawl_job = await self.crawl_job_repo.get_by_id(audit_id)
             if not crawl_job:
-                raise ScoringError(f"CrawlJob not found: crawl_id={crawl_id}")
+                raise ScoringError(f"CrawlJob not found: audit_id={audit_id}")
 
             # Single assembly point for the unified response.
             builder = AuditResponseBuilder(self.db)
-            unified: Dict[str, Any] = await builder.build(project_id, crawl_id)
+            unified: Dict[str, Any] = await builder.build(audit_id)
 
             scored_at = utc_now()
             overall = unified["summary"]["score"]
@@ -79,8 +77,7 @@ class AnalysisScorerService:
 
             # Persist scalar summary to SeoAnalysisRun.
             run = SeoAnalysisRun(
-                project_id=project_id,
-                crawl_id=crawl_id,
+                audit_id=audit_id,
                 domain=unified["audit"].get("domain") or crawl_job.domain,
                 overall_score=overall,
                 grade=grade,
@@ -113,7 +110,7 @@ class AnalysisScorerService:
 
             # Write unified JSON output file.
             run.output_file_path = await self._write_output_file(
-                project_id, crawl_id, run.domain, unified
+                audit_id, run.domain, unified
             )
 
             await self.analysis_repo.upsert(run)
@@ -122,7 +119,7 @@ class AnalysisScorerService:
                 f"AnalysisScorerService.score_project: "
                 f"score={overall}, grade={grade}, "
                 f"pages={unified['audit']['pages']['analyzed']}, "
-                f"project_id={project_id}"
+                f"audit_id={audit_id}"
             )
 
             return unified
@@ -132,15 +129,14 @@ class AnalysisScorerService:
         except Exception as exc:
             logger.error(
                 f"AnalysisScorerService.score_project: unhandled error "
-                f"for project_id={project_id}: {exc}",
+                f"for audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
             raise ScoringError(f"Project scoring failed: {exc}") from exc
 
     async def _write_output_file(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         domain: str,
         unified: Dict[str, Any],
     ) -> str:
@@ -149,12 +145,12 @@ class AnalysisScorerService:
         import shutil
         import json
         from pathlib import Path
-        
+
         try:
             output_dir = Path("app/output")
             output_dir.mkdir(parents=True, exist_ok=True)
 
-            filename = f"{domain}_{project_id}.json"
+            filename = f"{domain}_{audit_id}.json"
             filepath = output_dir / filename
             latest_path = output_dir / f"{domain}_latest.json"
 
@@ -173,7 +169,7 @@ class AnalysisScorerService:
 
         except Exception as exc:
             logger.error(
-                f"Failed to write output file for domain={domain}, project_id={project_id}: {exc}",
+                f"Failed to write output file for domain={domain}, audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
             return ""

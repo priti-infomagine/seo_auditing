@@ -1,7 +1,7 @@
 """
 SeoAnalysisRun repository - database operations for SeoAnalysisRun model.
 
-Provides upsert for idempotency, ensuring one analysis run per project_id.
+Provides upsert for idempotency, ensuring one analysis run per audit_id.
 """
 from typing import List, Optional, Dict, Any
 from uuid import UUID
@@ -20,12 +20,11 @@ class SeoAnalysisRunRepository:
 
     async def upsert(self, run: SeoAnalysisRun) -> SeoAnalysisRun:
         """
-        Insert or update a SeoAnalysisRun for (project_id).
-        Uses one-row-per-project semantics: checks for existing, updates if found.
+        Insert or update a SeoAnalysisRun for (audit_id).
+        Uses one-row-per-audit semantics: checks for existing, updates if found.
         """
-        existing = await self.get_by_project_id(run.project_id)
+        existing = await self.get_by_audit_id(run.audit_id)
         if existing:
-            existing.crawl_id = run.crawl_id
             existing.domain = run.domain
             existing.overall_score = run.overall_score
             existing.grade = run.grade
@@ -52,25 +51,12 @@ class SeoAnalysisRunRepository:
         await self.db.refresh(run)
         return run
 
-    async def get_by_project_id(self, project_id: UUID) -> Optional[SeoAnalysisRun]:
-        """Get analysis run by project ID."""
+    async def get_by_audit_id(self, audit_id: UUID) -> Optional[SeoAnalysisRun]:
+        """Get analysis run by audit ID (== crawl_id)."""
         result = await self.db.execute(
             select(SeoAnalysisRun).where(
-                SeoAnalysisRun.project_id == project_id
+                SeoAnalysisRun.audit_id == audit_id
             )
-        )
-        return result.scalar_one_or_none()
-
-    async def get_by_crawl_id(self, crawl_id: UUID) -> Optional[SeoAnalysisRun]:
-        """Get the most recent analysis run for a crawl — additive lookup.
-
-        Used by the new compact read layer to resolve ``audit_id`` (== crawl_id)
-        to a (project_id, completed) pair. Returns the latest if multiple exist.
-        """
-        result = await self.db.execute(
-            select(SeoAnalysisRun).where(
-                SeoAnalysisRun.crawl_id == crawl_id
-            ).order_by(SeoAnalysisRun.scored_at.desc()).limit(1)
         )
         return result.scalar_one_or_none()
 
@@ -93,10 +79,10 @@ class SeoAnalysisRunRepository:
         return result.scalar_one_or_none()
 
     async def get_by_user_and_domain(self, domain: str, user_project_ids: List[UUID]) -> List[SeoAnalysisRun]:
-        """Get all analysis runs for a domain, filtered to a user's project IDs."""
+        """Get all analysis runs for a domain, filtered to a user's audit IDs."""
         result = await self.db.execute(
             select(SeoAnalysisRun).where(
-                SeoAnalysisRun.project_id.in_(user_project_ids)
+                SeoAnalysisRun.audit_id.in_(user_project_ids)
             ).order_by(SeoAnalysisRun.scored_at.desc())
         )
         return list(result.scalars().all())
@@ -111,20 +97,20 @@ class SeoAnalysisRunRepository:
         )
         return list(result.scalars().all())
 
-    async def exists(self, project_id: UUID) -> bool:
-        """Check if an analysis run exists for this project_id."""
+    async def exists(self, audit_id: UUID) -> bool:
+        """Check if an analysis run exists for this audit_id."""
         result = await self.db.execute(
             select(SeoAnalysisRun.id).where(
-                SeoAnalysisRun.project_id == project_id
+                SeoAnalysisRun.audit_id == audit_id
             )
         )
         return result.scalar_one_or_none() is not None
 
-    async def delete_by_project_id(self, project_id: UUID) -> bool:
-        """Delete analysis run for a project."""
+    async def delete_by_audit_id(self, audit_id: UUID) -> bool:
+        """Delete analysis run for an audit."""
         result = await self.db.execute(
             delete(SeoAnalysisRun).where(
-                SeoAnalysisRun.project_id == project_id
+                SeoAnalysisRun.audit_id == audit_id
             )
         )
         return result.rowcount > 0

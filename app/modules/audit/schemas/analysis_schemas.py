@@ -1,7 +1,7 @@
 """
 Pydantic schemas for the DB-backed analysis pipeline API endpoints.
 
-All schemas use `project_id` as the main tracking key alongside `crawl_id`.
+All schemas use `audit_id` (== `crawl_id`) as the single tracking key.
 """
 from typing import Optional, Dict, Any, List
 from uuid import UUID
@@ -13,9 +13,9 @@ from app.modules.audit.schemas.audit_response_schemas import UnifiedAuditRespons
 class ParseTriggerRequest(BaseModel):
     """Request to trigger DB-backed parsing for a crawl."""
 
-    project_id: Optional[UUID] = Field(
+    audit_id: Optional[UUID] = Field(
         None,
-        description="Project identifier. If None, a new UUID is generated from the crawl_id.",
+        description="Audit identifier (== crawl_id).",
     )
     force: bool = Field(
         False,
@@ -26,9 +26,9 @@ class ParseTriggerRequest(BaseModel):
 class EvaluateTriggerRequest(BaseModel):
     """Request to trigger rule evaluation for a crawl."""
 
-    project_id: UUID = Field(
-        ...,
-        description="Project identifier — links to parsed facts from the parse phase.",
+    audit_id: Optional[UUID] = Field(
+        None,
+        description="Audit identifier (== crawl_id).",
     )
     force: bool = Field(
         False,
@@ -39,9 +39,9 @@ class EvaluateTriggerRequest(BaseModel):
 class ScoreTriggerRequest(BaseModel):
     """Request to trigger scoring for a crawl."""
 
-    project_id: UUID = Field(
-        ...,
-        description="Project identifier — links to rule evaluation results.",
+    audit_id: Optional[UUID] = Field(
+        None,
+        description="Audit identifier (== crawl_id).",
     )
     force: bool = Field(
         False,
@@ -50,10 +50,10 @@ class ScoreTriggerRequest(BaseModel):
 
 
 class PipelineStatusResponse(BaseModel):
-    """Status of all pipeline stages for a project."""
+    """Status of all pipeline stages for an audit."""
 
-    project_id: str = Field(..., description="Project identifier")
-    crawl_id: str = Field(..., description="Crawl job identifier")
+    audit_id: str = Field(..., description="Audit identifier")
+    crawl_id: str = Field(..., description="Crawl job identifier (== audit_id)")
     parse_status: str = Field(..., description="pending | completed | failed | missing")
     evaluate_status: str = Field(..., description="pending | completed | failed | missing")
     score_status: str = Field(..., description="pending | completed | failed | missing")
@@ -95,11 +95,11 @@ class ScoreStageSummary(StageSummary):
 
 
 class PipelineSummaryResponse(BaseModel):
-    """Full pipeline summary for a project."""
+    """Full pipeline summary for an audit."""
 
-    project_id: str
+    audit_id: str
     crawl_id: str
-    domain: str
+    domain: Optional[str] = None
     parse: ParseStageSummary
     evaluate: EvaluateStageSummary
     score: ScoreStageSummary
@@ -126,7 +126,7 @@ SeoAnalysisResponse = UnifiedAuditResponse
 class SeoAnalysisSummary(BaseModel):
     """Summary of an analysis run for history listing."""
 
-    project_id: str
+    audit_id: str
     crawl_id: str
     domain: str
     overall_score: float

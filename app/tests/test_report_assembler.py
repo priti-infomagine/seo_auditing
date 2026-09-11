@@ -198,3 +198,72 @@ def test_passed_checks_do_not_produce_issues():
     assert on_page.issue_count.critical == 0
     assert on_page.issue_count.warning == 0
     assert on_page.issue_count.info == 0
+
+# --------------------------------------------------------------------- regression: None score
+
+
+def test_category_score_not_none_when_no_precomputed_scores():
+    """Regression: when CheckResult objects have neither category_score nor score
+    (as produced by the DB adapter path in report_data_service), the assembler
+    must still produce a valid CategoryScore with a numeric value, not crash
+    with a Pydantic ValidationError on value=None.
+    """
+    checks = [
+        CheckResult(
+            check_id="on_page_001",
+            category="on_page",
+            weight=1.0,
+            applicable=True,
+            passed=False,
+            severity="critical",
+            score_impact=-15.0,
+            page_url="https://example.com/page1",
+            title="Missing Title Tag",
+            description="Missing <title>",
+            recommendation="Add a title tag.",
+            evidence={},
+        ),
+    ]
+    report = _build(checks)
+    on_page = _cats_by_id(report)["on_page_seo"]
+    assert on_page.applicable is True
+    # The defensive fix guarantees value is a float (0.0 when no score was derived).
+    assert on_page.score is not None
+    assert isinstance(on_page.score.value, float)
+    assert on_page.score.value == 0.0  # no score/category_score -> 0.0 fallback
+    assert on_page.score.grade == "F"
+
+
+def test_category_score_derived_from_per_check_score():
+    """When CheckResult.score is set but category_score is not, the assembler
+    falls back to a weighted aggregation of per-check scores.
+    """
+    checks = [
+        _make_check(check_id="a_1", category="on_page", passed=True, severity="passed",
+                     score=100.0, category_score=None, category_grade=None),
+        _make_check(check_id="b_1", category="on_page", passed=False, severity="warning",
+                     score=90.0, score_impact=-10.0, category_score=None, category_grade=None,
+                     weight=1.0),
+    ]
+    report = _build(checks)
+    on_page = _cats_by_id(report)["on_page_seo"]
+    assert on_page.applicable is True
+    assert on_page.score is not None
+    # weighted avg: (100*1 + 90*1) / 2 = 95.0
+    assert on_page.score.value == 95.0
+    assert on_page.score.grade == "A+"
+
+
+def test_category_score_prefers_precomputed_category_score():
+    """When category_score is present, it takes precedence over per-check score."""
+    checks = [
+        _make_check(check_id="a_1", category="on_page", score=50.0,
+                     category_score=85.0, category_grade="B"),
+        _make_check(check_id="b_1", category="on_page", score=50.0,
+                     category_score=85.0, category_grade="B"),
+    ]
+    report = _build(checks)
+    on_page = _cats_by_id(report)["on_page_seo"]
+    assert on_page.score is not None
+    assert on_page.score.value == 85.0
+    assert on_page.score.grade == "B"

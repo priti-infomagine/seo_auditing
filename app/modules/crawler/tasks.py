@@ -66,7 +66,6 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str, force: bool = Fal
                 job = CrawlJob(
                     id=crawl_uuid,
                     user_id=user_uuid,
-                    project_id=None,
                     url=url,
                     domain=domain,
                     status="queued",
@@ -127,27 +126,21 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str, force: bool = Fal
 
                 # Fire auto-analyze pipeline if requested
                 if cfg.get("auto_analyze"):
-                    project_id = job.project_id or uuid4()
-                    # Update project_id on the job if it was None
-                    if not job.project_id:
-                        job.project_id = project_id
-                        await job_repo.update(job)
                     await db.commit()
 
                     logger.info(
                         f"crawler.crawl_website: auto_analyze fired for "
-                        f"crawl_id={crawl_id}, project_id={project_id}, force={force}"
+                        f"audit_id={crawl_id}, force={force}"
                     )
 
                     # Fire the analysis pipeline asynchronously
                     celery_app.send_task(
                         "audit.run_analysis_pipeline",
-                        args=[str(project_id), str(crawl_uuid)],
+                        args=[str(crawl_uuid)],
                         kwargs={"force": force},
                         queue="audit",
                     )
                     result["auto_analyze"] = True
-                    result["project_id"] = str(project_id)
 
                 self.update_state(
                     state="SUCCESS",

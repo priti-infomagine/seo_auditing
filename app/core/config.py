@@ -31,9 +31,9 @@ class Settings(BaseSettings):
         return self.DATABASE_URL.replace("+asyncpg", "+psycopg2")
 
     # ── Redis / Cache ────────────────────────────────────────────────
-    REDIS_URL: str = "redis://localhost:6379/0"
-    REDIS_BROKER_URL: str = "redis://localhost:6379/0"
-    REDIS_BACKEND_URL: str = "redis://localhost:6379/1"
+    REDIS_URL: str = "redis://127.0.0.1:6379/0"
+    REDIS_BROKER_URL: str = "redis://127.0.0.1:6379/0"
+    REDIS_BACKEND_URL: str = "redis://127.0.0.1:6379/1"
 
     # ── Email (SMTP) ─────────────────────────────────────────────────
     SMTP_HOST: str = "smtp.gmail.com"
@@ -69,6 +69,12 @@ class Settings(BaseSettings):
 
     # ── Chat Auth ───────────────────────────────────────────────────
     CHAT_AUTH_ENABLED: bool = False
+
+    # ── Report Generation & Delivery ─────────────────────────────────
+    DEFAULT_SITE_CATEGORY: str = "ecommerce"
+    REPORT_OUTPUT_DIR: str = "app/output/reports"
+    REPORT_DEFAULT_RECIPIENT_EMAIL: str = "report@yopmail.com"
+    REPORT_MAX_AFFECTED_PAGES_SHOWN: int = 10
 
 
 settings = Settings()

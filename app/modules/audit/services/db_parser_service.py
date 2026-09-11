@@ -60,15 +60,14 @@ class DBParserService:
 
     async def parse_crawl(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         force: bool = False,
     ) -> Dict[str, Any]:
         """
         Parse all successfully-crawled pages for a crawl job.
 
         Steps:
-          1. Load all CrawlPages for crawl_id where is_success=True.
+          1. Load all CrawlPages for audit_id where is_success=True.
           2. For each page: load snapshot HTML, run ParserOrchestrator.
           3. Build flat page_facts + elements + attributes dicts.
           4. Persist via upsert (ON CONFLICT DO UPDATE — no duplicates).
@@ -78,29 +77,27 @@ class DBParserService:
         logged and recorded, remaining pages continue processing.
 
         Args:
-            project_id: The project tracking key.
-            crawl_id: The crawl job ID.
+            audit_id: The audit ID (== crawl_id), the single tracking key.
             force: If True, re-parse pages that already have parsed facts.
 
         Returns:
-            Dict with keys: project_id, crawl_id, pages_parsed, pages_failed,
+            Dict with keys: audit_id, pages_parsed, pages_failed,
                             pages_skipped, errors, parsed_at.
         """
         try:
             logger.info(
-                f"DBParserService.parse_crawl: project_id={project_id}, crawl_id={crawl_id}, force={force}"
+                f"DBParserService.parse_crawl: audit_id={audit_id}, force={force}"
             )
 
-            pages = await self.crawl_page_repo.get_by_crawl_id(crawl_id)
+            pages = await self.crawl_page_repo.get_by_crawl_id(audit_id)
             pages_to_parse = [p for p in pages if p.is_success]
 
             if not pages_to_parse:
                 logger.warning(
-                    f"DBParserService.parse_crawl: no crawled pages found for crawl_id={crawl_id}"
+                    f"DBParserService.parse_crawl: no crawled pages found for audit_id={audit_id}"
                 )
                 return {
-                    "project_id": str(project_id),
-                    "crawl_id": str(crawl_id),
+                    "audit_id": str(audit_id),
                     "pages_parsed": 0,
                     "pages_failed": 0,
                     "pages_skipped": len(pages),
@@ -112,7 +109,7 @@ class DBParserService:
             # Replaces per-page exists()/snapshot/network/seo loops (N+1).
             page_ids = [p.id for p in pages_to_parse]
             existing_ids = await self.parsed_fact_repo.get_existing_page_ids(
-                project_id, page_ids
+                audit_id, page_ids
             )
             snapshots = await self.snapshot_repo.get_by_page_ids(page_ids)
             network_map = await self.network_repo.get_by_page_ids(page_ids)
@@ -134,7 +131,7 @@ class DBParserService:
                     seo_data = seo_map.get(page.id)
 
                     fact = await self.parse_page(
-                        project_id, crawl_id, page, snapshot, network_data, seo_data
+                        audit_id, page, snapshot, network_data, seo_data
                     )
                     if fact:
                         parsed_count += 1
@@ -159,12 +156,11 @@ class DBParserService:
 
             logger.info(
                 f"DBParserService.parse_crawl: parsed={parsed_count}, "
-                f"failed={failed_count}, skipped={skipped_count} for project_id={project_id}"
+                f"failed={failed_count}, skipped={skipped_count} for audit_id={audit_id}"
             )
 
             return {
-                "project_id": str(project_id),
-                "crawl_id": str(crawl_id),
+                "audit_id": str(audit_id),
                 "pages_parsed": parsed_count,
                 "pages_failed": failed_count,
                 "pages_skipped": skipped_count,
@@ -176,15 +172,14 @@ class DBParserService:
             raise
         except Exception as exc:
             logger.error(
-                f"DBParserService.parse_crawl: unhandled error for crawl_id={crawl_id}: {exc}",
+                f"DBParserService.parse_crawl: unhandled error for audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
             raise ParserError(f"Crawl parse failed: {exc}") from exc
 
     async def parse_page(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         page: CrawlPage,
         snapshot: Optional["PageSnapshot"] = None,
         network_data: Optional["PageNetworkData"] = None,
@@ -198,8 +193,7 @@ class DBParserService:
         (batch-loaded by `parse_crawl`) to avoid per-page DB round trips.
 
         Args:
-            project_id: The project tracking key.
-            crawl_id: The crawl job ID.
+            audit_id: The audit ID (== crawl_id), the single tracking key.
             page: The CrawlPage row to parse.
             snapshot: Pre-fetched PageSnapshot (or None).
             network_data: Pre-fetched PageNetworkData (or None).
@@ -280,8 +274,7 @@ class DBParserService:
 
             # Create ParsedPageFact
             fact = ParsedPageFact(
-                project_id=project_id,
-                crawl_id=crawl_id,
+                audit_id=audit_id,
                 page_id=page_id,
                 url=page.normalized_url,
                 domain=page.host or "",

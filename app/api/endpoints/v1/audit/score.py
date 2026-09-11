@@ -1,16 +1,15 @@
 """
-POST /audit/score/{crawl_id} — Score SEO analysis for a crawl.
+POST /audit/score/{audit_id} — Score SEO analysis for a crawl.
 
 Reads rule evaluation results from PostgreSQL, computes weighted SEO scores per
-page and aggregate project-level scores, persists to seo_analysis_runs, and
-writes the output JSON file to app/output/{domain}_{project_id}.json.
+page and aggregate scores, persists to seo_analysis_runs, and writes the output
+JSON file to app/output/{domain}_{audit_id}.json.
 
-Returns the unified audit response shape (audit, summary, categories, issues,
-category_results, crawl, indexation, ...).
+Returns the unified audit response shape.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from app.core.database import get_db
 from app.core.logger import logger
@@ -28,26 +27,25 @@ router = APIRouter()
 
 
 @router.post(
-    "/score/{crawl_id}",
+    "/score/{audit_id}",
     summary="Score SEO analysis and persist results",
     description=(
         "Reads rule evaluation results from PostgreSQL, computes weighted "
-        "SEO scores per page and aggregate project-level scores, persists to "
-        "seo_analysis_runs table, and writes the output JSON file to "
-        "app/output/{domain}_{project_id}.json."
+        "SEO scores per page and aggregate scores, persists to "
+        "seo_analysis_runs table, and writes the output JSON file."
     ),
 )
 async def score_project(
-    crawl_id: UUID,
-    body: ScoreTriggerRequest,
+    audit_id: UUID,
+    body: ScoreTriggerRequest = None,
     db: AsyncSession = Depends(get_db),
 ) -> SeoAnalysisResponse:
     """
     Trigger full scoring for a crawl with completed evaluation.
 
     Args:
-        crawl_id: The crawl job ID.
-        body: Request with project_id and force flag.
+        audit_id: The audit ID (== crawl_id).
+        body: Request with force flag.
         db: Database session.
 
     Returns:
@@ -55,52 +53,43 @@ async def score_project(
 
     Raises:
         HTTPException 404: No rule results or crawl job.
-        HTTPException 409: Already scored and force=False.
     """
-    user_id = uuid4()
-    logger.info(
-        f"POST /audit/score/{crawl_id} - "
-        f"project_id={body.project_id}, user_id={user_id}"
-    )
+    logger.info(f"POST /audit/score/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
-        job = await job_repo.get_by_id(crawl_id)
+        job = await job_repo.get_by_id(audit_id)
         if not job:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Crawl job {crawl_id} not found",
+                detail=f"Crawl job {audit_id} not found",
             )
 
+        force = body.force if body else False
         analysis_repo = SeoAnalysisRunRepository(db)
         builder = AuditResponseBuilder(db)
 
-        existing = await analysis_repo.get_by_project_id(body.project_id)
-        if existing and existing.analysis_status == "completed" and not body.force:
-            logger.info(
-                f"POST /audit/score/{crawl_id}: returning cached result for "
-                f"project_id={body.project_id}"
-            )
-            return await builder.build(body.project_id, crawl_id)
+        existing = await analysis_repo.get_by_audit_id(audit_id)
+        if existing and existing.analysis_status == "completed" and not force:
+            logger.info(f"POST /audit/score/{audit_id}: returning cached result")
+            return await builder.build(audit_id)
 
         rule_eval_repo = RuleEvaluationResultRepository(db)
-        eval_results = await rule_eval_repo.get_by_project_id(body.project_id)
-        crawl_results = [r for r in eval_results if str(r.crawl_id) == str(crawl_id)]
+        eval_results = await rule_eval_repo.get_by_audit_id(audit_id)
 
-        if not crawl_results:
+        if not eval_results:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"No rule evaluation results found for project_id={body.project_id}. "
-                       f"Run POST /audit/evaluate/{crawl_id} first.",
+                detail=f"No rule evaluation results found for audit_id={audit_id}. "
+                       f"Run POST /audit/evaluate/{audit_id} first.",
             )
 
         scorer = AnalysisScorerService(db)
-        unified = await scorer.score_project(body.project_id, crawl_id, force=body.force)
+        unified = await scorer.score_project(audit_id, force=force)
 
         logger.info(
-            f"POST /audit/score/{crawl_id} - "
-            f"score={unified['summary']['overall_score']}, "
-            f"health={unified['summary']['health']}"
+            f"POST /audit/score/{audit_id} - "
+            f"score={unified['summary']['score']}"
         )
 
         return unified
@@ -109,7 +98,7 @@ async def score_project(
         raise
     except Exception as exc:
         logger.error(
-            f"POST /audit/score/{crawl_id}: unexpected error - {exc}",
+            f"POST /audit/score/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )
         raise HTTPException(

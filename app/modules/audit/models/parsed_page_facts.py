@@ -1,7 +1,7 @@
 """
 ParsedPageFact model.
 
-Persistent store for ParsedPage objects. One row per page per project.
+Persistent store for ParsedPage objects. One row per page per audit.
 Stores the full parsed data alongside flat page facts, structured elements,
 and element attributes for efficient querying.
 """
@@ -24,14 +24,10 @@ class ParsedPageFact(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    project_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         nullable=False,
         index=True,
-    )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False,
     )
     page_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -77,7 +73,7 @@ class ParsedPageFact(TimestampMixin, Base):
 
     __table_args__ = (
         UniqueConstraint(
-            "project_id", "page_id", name="ix_parsed_page_facts_project_page"
+            "audit_id", "page_id", name="ix_parsed_page_facts_audit_page"
         ),
     )
 
@@ -85,7 +81,7 @@ class ParsedPageFact(TimestampMixin, Base):
         return (
             f"<ParsedPageFact "
             f"id={self.id} "
-            f"project_id={self.project_id} "
+            f"audit_id={self.audit_id} "
             f"page_id={self.page_id} "
             f"url={self.url!r}"
             f">"

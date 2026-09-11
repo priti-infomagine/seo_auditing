@@ -2,12 +2,10 @@
 Pipeline Stage Diagnostic — pinpoints exactly where an audit pipeline stopped.
 
 Checks each stage of the crawl -> parse -> evaluate -> score pipeline for a given
-project_id and crawl_id, reports row counts, status, and where the flow broke.
+audit_id (== crawl_id), reports row counts, status, and where the flow broke.
 
 Usage (from backend/ root):
-    python diagnose_pipeline.py --project-id cb6d83e2-74a4-4333-821b-a3f023c9e5ce --crawl-id 30239758-6a84-45fd-8580-ba593034127c
-    python diagnose_pipeline.py --project-id cb6d83e2-74a4-4333-821b-a3f023c9e5ce
-    python diagnose_pipeline.py --crawl-id 30239758-6a84-45fd-8580-ba593034127c
+    python diagnose_pipeline.py --audit-id 30239758-6a84-45fd-8580-ba593034127c
 """
 import argparse
 import asyncio
@@ -15,12 +13,10 @@ import sys
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-    # Fix Windows console encoding for emoji/output
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from uuid import UUID
 
-from app.core.config import settings
 from app.core.database import async_session_factory
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -32,54 +28,18 @@ from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResul
 from app.modules.audit.models.seo_analysis_runs import SeoAnalysisRun
 
 
-async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
+async def diagnose(audit_id: UUID):
     async with async_session_factory() as db:
         print("=" * 70)
         print("PIPELINE STAGE DIAGNOSTIC")
         print("=" * 70)
 
-        # ── Resolve crawl_id / project_id from each other if only one given ──
-        if crawl_id and not project_id:
-            job = await db.get(CrawlJob, crawl_id)
-            if job:
-                project_id = job.project_id
-                print(f"Resolved project_id={project_id} from crawl_id={crawl_id}")
-            else:
-                print(f"CrawlJob not found for crawl_id={crawl_id}")
-                return
-
-        if project_id and not crawl_id:
-            # Try SeoAnalysisRun first
-            run = await db.execute(
-                __import__("sqlalchemy").select(SeoAnalysisRun).where(
-                    SeoAnalysisRun.project_id == project_id
-                )
-            )
-            run = run.scalar_one_or_none()
-            if run:
-                crawl_id = run.crawl_id
-                print(f"Resolved crawl_id={crawl_id} from SeoAnalysisRun project_id={project_id}")
-            else:
-                # Fall back to CrawlJob
-                from sqlalchemy import select
-                job_result = await db.execute(
-                    select(CrawlJob).where(CrawlJob.project_id == project_id)
-                )
-                job = job_result.scalar_one_or_none()
-                if job:
-                    crawl_id = job.id
-                    print(f"Resolved crawl_id={crawl_id} from CrawlJob project_id={project_id}")
-                else:
-                    print(f"No CrawlJob found for project_id={project_id}")
-                    return
-
-        print(f"\nProject ID: {project_id}")
-        print(f"Crawl ID:   {crawl_id}")
+        print(f"\nAudit ID: {audit_id}")
         print("-" * 70)
 
         # ── Stage 0: CrawlJob ──
         from sqlalchemy import select, func
-        job = await db.get(CrawlJob, crawl_id) if crawl_id else None
+        job = await db.get(CrawlJob, audit_id)
         if job:
             print(f"\n[STAGE 0] CrawlJob")
             print(f"  Status:          {job.status}")
@@ -93,18 +53,18 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
             print(f"  Error:           {job.error or 'None'}")
             print(f"  auto_analyze:    {job.crawl_config.get('auto_analyze') if job.crawl_config else 'N/A'}")
         else:
-            print(f"\n[STAGE 0] CrawlJob: NOT FOUND for crawl_id={crawl_id}")
+            print(f"\n[STAGE 0] CrawlJob: NOT FOUND for audit_id={audit_id}")
             return
 
         # ── Stage 1: Crawl Pages ──
         pages_result = await db.execute(
-            select(func.count()).select_from(CrawlPage).where(CrawlPage.crawl_id == crawl_id)
+            select(func.count()).select_from(CrawlPage).where(CrawlPage.crawl_id == audit_id)
         )
         pages_count = pages_result.scalar_one()
 
         success_result = await db.execute(
             select(func.count()).select_from(CrawlPage).where(
-                CrawlPage.crawl_id == crawl_id,
+                CrawlPage.crawl_id == audit_id,
                 CrawlPage.is_success == True,
             )
         )
@@ -123,7 +83,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         snapshot_result = await db.execute(
             select(func.count()).select_from(PageSnapshot).where(
                 PageSnapshot.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == crawl_id)
+                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
                 )
             )
         )
@@ -134,7 +94,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         seo_result = await db.execute(
             select(func.count()).select_from(PageSEOData).where(
                 PageSEOData.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == crawl_id)
+                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
                 )
             )
         )
@@ -145,7 +105,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         network_result = await db.execute(
             select(func.count()).select_from(PageNetworkData).where(
                 PageNetworkData.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == crawl_id)
+                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
                 )
             )
         )
@@ -155,8 +115,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         # ── Stage 2: Parse (ParsedPageFacts) ──
         parsed_result = await db.execute(
             select(func.count()).select_from(ParsedPageFact).where(
-                ParsedPageFact.crawl_id == crawl_id,
-                ParsedPageFact.project_id == project_id,
+                ParsedPageFact.audit_id == audit_id,
             )
         )
         parsed_count = parsed_result.scalar_one()
@@ -173,8 +132,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         # ── Stage 3: Evaluate (RuleEvaluationResults) ──
         eval_result = await db.execute(
             select(func.count()).select_from(RuleEvaluationResult).where(
-                RuleEvaluationResult.crawl_id == crawl_id,
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
             )
         )
         eval_count = eval_result.scalar_one()
@@ -182,8 +140,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
         # Distinct pages evaluated
         eval_pages_result = await db.execute(
             select(func.count(func.distinct(RuleEvaluationResult.page_id))).where(
-                RuleEvaluationResult.crawl_id == crawl_id,
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
             )
         )
         eval_pages_count = eval_pages_result.scalar_one()
@@ -198,7 +155,7 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
 
         # ── Stage 4: Score (SeoAnalysisRun) ──
         run_result = await db.execute(
-            select(SeoAnalysisRun).where(SeoAnalysisRun.project_id == project_id)
+            select(SeoAnalysisRun).where(SeoAnalysisRun.audit_id == audit_id)
         )
         run = run_result.scalar_one_or_none()
         print(f"\n[STAGE 4] Score (SeoAnalysisRun)")
@@ -232,8 +189,8 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
 
         all_ok = True
         for name, ok, detail in stages:
-            status = "[OK]" if ok else "[FAIL]"
-            print(f"  {status} {name:<20} {detail}")
+            status_str = "[OK]" if ok else "[FAIL]"
+            print(f"  {status_str} {name:<20} {detail}")
             if not ok:
                 all_ok = False
 
@@ -246,58 +203,45 @@ async def diagnose(project_id: UUID | None, crawl_id: UUID | None):
             print("\n[-] Pipeline did NOT complete. See [STOP] markers above for the failure point.")
 
 
-async def retrigger_pipeline(project_id: UUID, crawl_id: UUID):
+async def retrigger_pipeline(audit_id: UUID):
     """Re-enqueue the analysis pipeline for a stuck audit."""
     from app.shared.tasks.celery_app import celery_app
 
     print("\n" + "=" * 70)
     print("RE-TRIGGERING ANALYSIS PIPELINE")
     print("=" * 70)
-    print(f"  project_id: {project_id}")
-    print(f"  crawl_id:   {crawl_id}")
+    print(f"  audit_id: {audit_id}")
 
-    # Verify crawl job exists and is completed
     async with async_session_factory() as db:
-        job = await db.get(CrawlJob, crawl_id)
+        job = await db.get(CrawlJob, audit_id)
         if not job:
-            print(f"\n[ERROR] CrawlJob not found for crawl_id={crawl_id}")
+            print(f"\n[ERROR] CrawlJob not found for audit_id={audit_id}")
             return
         if job.status != "completed":
             print(f"\n[WARNING] CrawlJob status is '{job.status}' (not 'completed').")
-            print("          The analysis pipeline may fail if pages are still being crawled.")
 
-    # Enqueue the pipeline task
     result = celery_app.send_task(
         "audit.run_analysis_pipeline",
-        args=[str(project_id), str(crawl_id)],
+        args=[str(audit_id)],
         queue="audit",
     )
     print(f"\n[OK] Task enqueued: audit.run_analysis_pipeline")
     print(f"     task_id: {result.id}")
     print(f"     queue:   audit")
-    print(f"\n     Ensure a Celery worker is running on the 'audit' queue:")
-    print(f"     celery -A app.shared.tasks worker -l info -Q audit")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Diagnose where an audit pipeline stopped.")
-    parser.add_argument("--project-id", type=str, default=None, help="Project UUID")
-    parser.add_argument("--crawl-id", type=str, default=None, help="Crawl UUID")
+    parser.add_argument("--audit-id", "--crawl-id", "--project-id", dest="audit_id", type=str, required=True, help="Audit UUID")
     parser.add_argument("--retrigger", action="store_true", help="Re-enqueue the analysis pipeline if stuck")
     args = parser.parse_args()
 
-    if not args.project_id and not args.crawl_id:
-        parser.error("At least one of --project-id or --crawl-id is required")
-
-    project_id = UUID(args.project_id) if args.project_id else None
-    crawl_id = UUID(args.crawl_id) if args.crawl_id else None
+    audit_id = UUID(args.audit_id)
 
     if args.retrigger:
-        if not project_id or not crawl_id:
-            parser.error("--retrigger requires both --project-id and --crawl-id")
-        asyncio.run(retrigger_pipeline(project_id, crawl_id))
+        asyncio.run(retrigger_pipeline(audit_id))
     else:
-        asyncio.run(diagnose(project_id, crawl_id))
+        asyncio.run(diagnose(audit_id))
 
 
 if __name__ == "__main__":

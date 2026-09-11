@@ -21,15 +21,10 @@ from app.core.logger import logger
 from app.core.config import settings
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
-    AuditAnalyzeResponse,
     AuditAnalyzeQueuedResponse,
 )
-from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
-from app.modules.audit.services.db_parser_service import DBParserService
-from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
 from app.shared.tasks.celery_app import celery_app
 from app.shared.utils.url_utils import get_domain
 
@@ -44,11 +39,8 @@ router = APIRouter()
     description=(
         "Creates a crawl job and enqueues it on the crawler queue. The crawl "
         "then triggers the parse → evaluate → score analysis pipeline. Returns "
-        "immediately with crawl_id / project_id / task_id and status URLs for "
-        "polling. The final result is fetched via GET /audit/result/{crawl_id}. "
-        "Use ``?format=full`` (default) or ``?format=compact`` to control the "
-        "shape of the eventual result response; the chosen format is echoed in "
-        "the returned ``result_url`` and ``result_project_url``."
+        "immediately with crawl_id / audit_id / task_id and status URLs for "
+        "polling. The final result is fetched via GET /audit/result/{audit_id}."
     ),
 )
 async def analyze_website(
@@ -58,9 +50,7 @@ async def analyze_website(
         description=(
             "Desired shape of the audit response. 'full' (default) = legacy "
             "UnifiedAuditResponse with per-page evidence. 'compact' = new "
-            "AuditOverview (5–20 KB). The format is echoed in the returned "
-            "result_url and result_project_url; the 202 body shape is "
-            "unchanged either way."
+            "AuditOverview (5–20 KB)."
         ),
     ),
     db: AsyncSession = Depends(get_db),
@@ -78,7 +68,7 @@ async def analyze_website(
         db: Database session
 
     Returns:
-        AuditAnalyzeQueuedResponse with crawl_id, project_id, task_id and URLs.
+        AuditAnalyzeQueuedResponse with audit_id, crawl_id, task_id and URLs.
 
     Raises:
         HTTPException: If the URL is invalid or the job cannot be queued.
@@ -99,17 +89,15 @@ async def analyze_website(
                 detail=f"Invalid URL: {body.url} - could not extract domain",
             )
 
-        project_id = uuid.uuid4()
+        audit_id = uuid.uuid4()
 
         effective_max_pages = (
-            min(body.max_pages, settings.CRAWL_MAX_PAGES)
+             settings.CRAWL_MAX_PAGES
             if body.max_pages is not None
             else settings.CRAWL_MAX_PAGES
         )
         effective_max_depth = body.max_depth if body.max_depth is not None else 5
 
-        # Crawl config — identical in shape to crawler/crawl.py.
-        # auto_analyze is controlled by the full_pipeline flag (default True).
         crawl_config = {
             "max_depth": effective_max_depth,
             "max_pages": effective_max_pages,
@@ -121,9 +109,8 @@ async def analyze_website(
             "auto_analyze": body.full_pipeline,
         }
         crawl_job = CrawlJob(
-            id=uuid.uuid4(),
+            id=audit_id,
             user_id=anonymous_user_id,
-            project_id=project_id,
             url=url_str,
             domain=domain,
             status="queued",
@@ -133,35 +120,24 @@ async def analyze_website(
         )
         job_repo = CrawlJobRepository(db)
         await job_repo.create(crawl_job)
-        crawl_id = crawl_job.id
 
         logger.info(
-            f"CrawlJob created: crawl_id={crawl_id}, project_id={project_id}, "
-            f"domain={domain}"
+            f"CrawlJob created: audit_id={audit_id}, domain={domain}"
         )
 
-        # Enqueue the crawl on the crawler queue. The crawl task fires the
-        # analysis pipeline on the audit queue when auto_analyze is set.
-        # send_task is a synchronous (blocking) Redis operation — run it in a
-        # thread to avoid blocking the FastAPI event loop.
         async_result = await asyncio.to_thread(
             celery_app.send_task,
             "crawler.crawl_website",
-            args=[str(crawl_id), url_str, str(anonymous_user_id)],
+            args=[str(audit_id), url_str, str(anonymous_user_id)],
             kwargs={"force": body.force},
             queue="crawler",
         )
 
         logger.info(
-            f"Audit enqueued: crawl_id={crawl_id}, project_id={project_id}, "
-            f"task_id={async_result.id}, queued on 'crawler'"
+            f"Audit enqueued: audit_id={audit_id}, task_id={async_result.id}, queued on 'crawler'"
         )
 
-        # Echo the desired response shape into the URLs we hand back to the
-        # client. When the default ('full') is used we deliberately keep the
-        # URL string byte-for-byte identical to the pre-feature format so
-        # existing clients that snapshot the URL still match.
-        fmt = "" if format == "full" else f"&format={format}"
+        fmt = "" if format == "full" else f"?format={format}"
 
         return AuditAnalyzeQueuedResponse(
             success=True,
@@ -169,15 +145,14 @@ async def analyze_website(
             message="Audit queued successfully — poll the task URL for progress",
             url=url_str,
             domain=domain,
-            crawl_id=str(crawl_id),
-            project_id=str(project_id),
+            audit_id=str(audit_id),
             task_id=async_result.id,
             task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
-            crawl_status_url=f"/api/v1/crawler/status/{crawl_id}",
-            pipeline_status_url=f"/api/v1/audit/status/{project_id}",
-            result_url=f"/api/v1/audit/result/{crawl_id}?project_id={project_id}{fmt}",
+            crawl_status_url=f"/api/v1/crawler/status/{audit_id}",
+            pipeline_status_url=f"/api/v1/audit/status/{audit_id}",
+            result_url=f"/api/v1/audit/result/{audit_id}{fmt}",
             full_pipeline=body.full_pipeline,
-            result_project_url=f"/api/v1/audit/result/project/{project_id}{fmt}",
+            result_project_url=f"/api/v1/audit/result/{audit_id}{fmt}",
         )
 
     except ValueError as e:
@@ -203,25 +178,13 @@ async def analyze_website(
     summary="Poll audit crawl task state",
     description=(
         "Read-only status check against the Celery result backend for the "
-        "crawl task enqueued by POST /audit/analyze. Returns the task state "
-        "and, when available, progress meta or the final result."
+        "crawl task enqueued by POST /audit/analyze."
     ),
 )
 async def get_analyze_task_status(
     task_id: str,
 ) -> dict:
-    """
-    Poll the Celery task state for the crawl triggered by POST /audit/analyze.
-
-    Args:
-        task_id: Celery task ID returned by the analyze endpoint.
-
-    Returns:
-        Dict with task_id, state, and meta/result/error when available.
-    """
-    logger.info(
-        f"GET /audit/analyze/task/{task_id}"
-    )
+    logger.info(f"GET /audit/analyze/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {
         "task_id": task_id,
@@ -251,5 +214,3 @@ async def audit_health_check():
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Audit service health check failed",
         )
-
-

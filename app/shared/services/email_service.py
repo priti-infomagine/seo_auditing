@@ -22,7 +22,12 @@ def _get_smtp_settings() -> dict:
     }
 
 
-def send_email_sync(to_email: str, subject: str, content: str) -> None:
+def send_email_sync(
+    to_email: str,
+    subject: str,
+    content: str,
+    attachments: list[tuple[str, bytes]] | None = None,
+) -> None:
     settings = _get_smtp_settings()
     if not all([settings["host"], settings["username"], settings["password"], settings["sender"]]):
         missing = [
@@ -37,6 +42,15 @@ def send_email_sync(to_email: str, subject: str, content: str) -> None:
     msg["From"] = settings["sender"]
     msg["To"] = to_email
     msg.set_content(content)
+
+    if attachments:
+        for filename, file_bytes in attachments:
+            msg.add_attachment(
+                file_bytes,
+                maintype="application",
+                subtype="pdf",
+                filename=filename,
+            )
 
     try:
         with smtplib.SMTP(settings["host"], settings["port"]) as server:

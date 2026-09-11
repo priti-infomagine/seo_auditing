@@ -2,7 +2,7 @@
 RuleEvaluationResult repository - database operations for RuleEvaluationResult model.
 
 Provides upsert for idempotency, ensuring no duplicate rule results for
-the same (project_id, page_id, rule_id).
+the same (audit_id, page_id, rule_id).
 """
 from typing import List, Optional, Dict, Any, Set, Tuple
 from uuid import UUID
@@ -23,10 +23,10 @@ class RuleEvaluationResultRepository:
     async def upsert(self, result: RuleEvaluationResult) -> RuleEvaluationResult:
         """
         Insert or update a single RuleEvaluationResult for
-        (project_id, page_id, rule_id).
+        (audit_id, page_id, rule_id).
         """
         existing = await self._get_existing(
-            result.project_id, result.page_id, result.rule_id
+            result.audit_id, result.page_id, result.rule_id
         )
         if existing:
             existing.severity = result.severity
@@ -48,14 +48,14 @@ class RuleEvaluationResultRepository:
 
     async def _get_existing(
         self,
-        project_id: UUID,
+        audit_id: UUID,
         page_id: UUID,
         rule_id: str,
     ) -> Optional[RuleEvaluationResult]:
         """Find existing rule result for a page + rule."""
         result = await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.page_id == page_id,
                 RuleEvaluationResult.rule_id == rule_id,
             )
@@ -63,10 +63,10 @@ class RuleEvaluationResultRepository:
         return result.scalar_one_or_none()
 
     async def get_existing_page_ids(
-        self, project_id: UUID, page_ids: List[UUID]
+        self, audit_id: UUID, page_ids: List[UUID]
     ) -> Set[UUID]:
         """
-        Return the set of page_ids (within a project) that already have rule
+        Return the set of page_ids (within an audit) that already have rule
         evaluation results. Single query — replaces per-page `get_by_page_id`
         loops (N+1) in the evaluate stage.
         """
@@ -74,7 +74,7 @@ class RuleEvaluationResultRepository:
             return set()
         rows = await self.db.execute(
             select(RuleEvaluationResult.page_id).where(
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.page_id.in_(page_ids),
             )
         )
@@ -85,21 +85,21 @@ class RuleEvaluationResultRepository:
         True bulk upsert of RuleEvaluationResult rows in batched statements.
 
         Uses PostgreSQL `INSERT ... ON CONFLICT
-        (project_id, page_id, rule_id) DO UPDATE`. The unique constraint
-        `uq_rule_results_project_page_rule` (added in the
-        f4b2c1d0e9a8 migration) backs the conflict target. Replaces the
+        (audit_id, page_id, rule_id) DO UPDATE`. The unique constraint
+        `uq_rule_results_audit_page_rule` (added in the
+        a1b2c3d4 migration) backs the conflict target. Replaces the
         previous per-row SELECT+UPDATE loop.
 
         Batches inserts to stay under PostgreSQL's 32767 parameter limit
-        (each row has 15 columns; max ~2184 rows per batch).
+        (each row has 14 columns; max ~2184 rows per batch).
 
         Returns number of rows processed.
         """
         if not results:
             return 0
 
-        # Each row has 15 columns; PostgreSQL max is 32767 parameters.
-        # Use 500 rows per batch = 7500 params (well under the limit).
+        # Each row has 14 columns; PostgreSQL max is 32767 parameters.
+        # Use 500 rows per batch = 7000 params (well under the limit).
         BATCH_SIZE = 500
         total_processed = 0
 
@@ -109,8 +109,7 @@ class RuleEvaluationResultRepository:
             for r in batch:
                 rows.append({
                     "id": r.id,
-                    "project_id": r.project_id,
-                    "crawl_id": r.crawl_id,
+                    "audit_id": r.audit_id,
                     "page_id": r.page_id,
                     "rule_id": r.rule_id,
                     "rule_name": r.rule_name,
@@ -127,7 +126,7 @@ class RuleEvaluationResultRepository:
 
             stmt = pg_insert(RuleEvaluationResult).values(rows)
             stmt = stmt.on_conflict_do_update(
-                index_elements=["project_id", "page_id", "rule_id"],
+                index_elements=["audit_id", "page_id", "rule_id"],
                 set_={
                     "rule_name": stmt.excluded.rule_name,
                     "category": stmt.excluded.category,
@@ -147,54 +146,49 @@ class RuleEvaluationResultRepository:
 
         return total_processed
 
-    async def get_by_project_id(self, project_id: UUID) -> List[RuleEvaluationResult]:
-        """Get all rule evaluation results for a project."""
+    async def get_by_audit_id(self, audit_id: UUID) -> List[RuleEvaluationResult]:
+        """Get all rule evaluation results for an audit (== crawl_id)."""
         result = await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id
+                RuleEvaluationResult.audit_id == audit_id
             ).order_by(RuleEvaluationResult.page_id, RuleEvaluationResult.rule_id)
         )
         return list(result.scalars().all())
 
-    async def get_by_page_id(self, project_id: UUID, page_id: UUID) -> List[RuleEvaluationResult]:
-        """Get all rule results for a specific page within a project."""
+    async def get_by_page_id(self, audit_id: UUID, page_id: UUID) -> List[RuleEvaluationResult]:
+        """Get all rule results for a specific page within an audit."""
         result = await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.page_id == page_id,
             ).order_by(RuleEvaluationResult.rule_id)
         )
         return list(result.scalars().all())
 
-    async def get_by_category(self, project_id: UUID, category: str) -> List[RuleEvaluationResult]:
-        """Get all rule results for a specific category within a project."""
+    async def get_by_category(self, audit_id: UUID, category: str) -> List[RuleEvaluationResult]:
+        """Get all rule results for a specific category within an audit."""
         result = await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.category == category,
             ).order_by(RuleEvaluationResult.page_id)
         )
         return list(result.scalars().all())
 
-    async def get_failed_by_crawl_id(
-        self, project_id: UUID, crawl_id: UUID
+    async def get_failed_by_audit_id(
+        self, audit_id: UUID
     ) -> List[RuleEvaluationResult]:
         """
-        Failed rule results for a (project, crawl) — additive to ``get_by_project_id``.
+        Failed rule results for an audit — additive to ``get_by_audit_id``.
 
         Single SQL query that returns full ``RuleEvaluationResult`` rows.
         Keeps the overview payload build off per-page fetches (no N+1) and
         remains compatible with SQLAlchemy's ``scalars()`` row mapping.
-
-        A future micro-optimisation could project columns to skip the
-        ``rule_data`` JSONB blob in the overview path, but the current
-        implementation keeps the row contract uniform and simple.
         """
         stmt = (
             select(RuleEvaluationResult)
             .where(
-                RuleEvaluationResult.project_id == project_id,
-                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.passed == False,  # noqa: E712
             )
             .order_by(
@@ -205,10 +199,9 @@ class RuleEvaluationResultRepository:
         rows = (await self.db.execute(stmt)).scalars().all()
         return list(rows)
 
-    async def list_failed_by_crawl_id_paginated(
+    async def list_failed_by_audit_id_paginated(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         *,
         category: Optional[str] = None,
         severity: Optional[str] = None,
@@ -223,8 +216,7 @@ class RuleEvaluationResultRepository:
         Returns ``(rows, total)``.
         """
         base = select(RuleEvaluationResult).where(
-            RuleEvaluationResult.project_id == project_id,
-            RuleEvaluationResult.crawl_id == crawl_id,
+            RuleEvaluationResult.audit_id == audit_id,
         )
         if status == "passed":
             base = base.where(RuleEvaluationResult.passed == True)  # noqa: E712
@@ -251,8 +243,7 @@ class RuleEvaluationResultRepository:
 
     async def get_failed_pages_for_rule(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         rule_id: str,
         *,
         limit: int = 20,
@@ -260,8 +251,7 @@ class RuleEvaluationResultRepository:
     ) -> Tuple[List[RuleEvaluationResult], int]:
         """Paginated failed pages for a single rule — used by /issues/{id}/pages."""
         base = select(RuleEvaluationResult).where(
-            RuleEvaluationResult.project_id == project_id,
-            RuleEvaluationResult.crawl_id == crawl_id,
+            RuleEvaluationResult.audit_id == audit_id,
             RuleEvaluationResult.rule_id == rule_id,
             RuleEvaluationResult.passed == False,  # noqa: E712
         )
@@ -277,16 +267,14 @@ class RuleEvaluationResultRepository:
 
     async def get_first_samples_for_rule(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         rule_id: str,
         n: int,
     ) -> List[RuleEvaluationResult]:
         """First N failed rows for a rule — used for sample[0..2] and evidence details."""
         rows = (await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id,
-                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.rule_id == rule_id,
                 RuleEvaluationResult.passed == False,  # noqa: E712
             )
@@ -297,23 +285,21 @@ class RuleEvaluationResultRepository:
 
     async def get_failed_for_page(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         page_id: UUID,
     ) -> List[RuleEvaluationResult]:
-        """All failed rule results for one (project, crawl, page) — for /pages/{id}."""
+        """All failed rule results for one (audit, page) — for /pages/{id}."""
         rows = (await self.db.execute(
             select(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id,
-                RuleEvaluationResult.crawl_id == crawl_id,
+                RuleEvaluationResult.audit_id == audit_id,
                 RuleEvaluationResult.page_id == page_id,
                 RuleEvaluationResult.passed == False,  # noqa: E712
             )
         )).scalars().all()
         return list(rows)
 
-    async def get_summary(self, project_id: UUID) -> Dict[str, Any]:
-        """Get aggregate counts for a project."""
+    async def get_summary(self, audit_id: UUID) -> Dict[str, Any]:
+        """Get aggregate counts for an audit."""
         result = await self.db.execute(
             select(
                 func.count().label("total"),
@@ -337,7 +323,7 @@ class RuleEvaluationResultRepository:
                         Integer,
                     )
                 ).label("errors"),
-            ).where(RuleEvaluationResult.project_id == project_id)
+            ).where(RuleEvaluationResult.audit_id == audit_id)
         )
         row = result.mappings().first()
         if row is None:
@@ -351,11 +337,11 @@ class RuleEvaluationResultRepository:
             "errors": row["errors"] or 0,
         }
 
-    async def delete_by_project_id(self, project_id: UUID) -> int:
-        """Delete all rule results for a project. Returns count deleted."""
+    async def delete_by_audit_id(self, audit_id: UUID) -> int:
+        """Delete all rule results for an audit. Returns count deleted."""
         result = await self.db.execute(
             delete(RuleEvaluationResult).where(
-                RuleEvaluationResult.project_id == project_id
+                RuleEvaluationResult.audit_id == audit_id
             )
         )
         return result.rowcount

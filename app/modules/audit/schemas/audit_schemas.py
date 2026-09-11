@@ -93,18 +93,18 @@ class AuditAnalyzeRequest(BaseModel):
         description="URL or website name to audit (e.g., 'https://example.com' or 'example.com')",
         examples=["https://example.com"]
     )
-    max_pages: Optional[int] = Field(
-        default=None,
-        ge=20,
-        description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (from .env or code).",
-    )
-    max_depth: Optional[int] = Field(
-        default=None,
-        ge=0,
-        le=10,
-        description="Maximum link depth from the start URL to follow. If not provided, uses CrawlConfig default (5).",
-        examples=[5],
-    )
+    # max_pages: Optional[int] = Field(
+    #     default=None,
+    #     ge=20,
+    #     description="Maximum number of pages to crawl and analyze. If not provided, uses CrawlConfig default (from .env or code).",
+    # )
+    # max_depth: Optional[int] = Field(
+    #     default=None,
+    #     ge=0,
+    #     le=10,
+    #     description="Maximum link depth from the start URL to follow. If not provided, uses CrawlConfig default (5).",
+    #     examples=[5],
+    # )
     concurrency: int = Field(
         default=10,
         ge=1,
@@ -117,7 +117,7 @@ class AuditAnalyzeRequest(BaseModel):
     )
     force: bool = Field(
         default=False,
-        description="If true, forces re-parse and re-evaluation of rules even if results already exist for this project/crawl.",
+        description="If true, forces re-parse and re-evaluation of rules even if results already exist for this audit.",
     )
 
     @field_validator("url")
@@ -171,19 +171,18 @@ class AuditAnalyzeQueuedResponse(BaseModel):
     message: str = Field(..., description="Human-readable status message")
     url: str = Field(..., description="The audited URL")
     domain: str = Field(..., description="Extracted domain name")
-    crawl_id: str = Field(..., description="Crawl job ID (also the analysis grouping key)")
-    project_id: str = Field(..., description="Project ID tracking this audit")
+    audit_id: str = Field(..., description="Audit ID (== crawl_id), the single tracking key")
+    crawl_id: str = Field(..., description="Crawl job ID (== audit_id)")
     task_id: str = Field(..., description="Celery task ID for the crawl (poll for progress)")
     task_status_url: str = Field(..., description="URL to poll the crawl task state")
     crawl_status_url: str = Field(..., description="URL to fetch crawl job status")
     pipeline_status_url: str = Field(..., description="URL to fetch pipeline stage status")
     result_url: str = Field(..., description="URL to fetch the final analysis result")
     full_pipeline: bool = Field(..., description="Whether the full pipeline was requested")
-    result_project_url: str = Field(..., description="Public URL to fetch the final result by project_id")
+    result_project_url: str = Field(..., description="Public URL to fetch the final result by audit_id")
 
 
 # Unified response shape (audit, summary, categories, issues, ...).
 # Kept as an alias so existing imports `from audit_schemas import AuditAnalyzeResponse`
 # continue to resolve to the unified response model.
 AuditAnalyzeResponse = UnifiedAuditResponse
-

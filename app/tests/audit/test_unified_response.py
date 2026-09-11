@@ -96,3 +96,43 @@ def test_categories_pass_rate_invariant(builder):
         assert c["checks_total"] == c["checks_passed"] + c["checks_failed"]
         assert c["status"] in ("excellent", "good", "needs_improvement", "poor", "critical", "not_available")
         assert "issues" not in c
+
+
+def test_build_audit_block_takes_correct_number_of_args(builder):
+    """Regression: _build_audit_block must be called with the exact number of
+    positional args its signature declares (no duplicate audit_id). The build()
+    method previously passed audit_id twice, causing a TypeError at runtime
+    in the Celery scoring task.
+    """
+    import inspect
+    sig = inspect.signature(AuditResponseBuilder._build_audit_block)
+    # self + 15 explicit params = 16
+    explicit_params = [p for p in sig.parameters.values() if p.name != "self"]
+    assert len(explicit_params) == 15
+
+    # Build a minimal audit block with all required args and verify it doesn't raise.
+    class _FakeCrawlJob:
+        url = "https://example.com"
+        domain = "example.com"
+        created_at = "2026-01-01T00:00:00Z"
+        completed_at = "2026-01-01T01:00:00Z"
+        status = "completed"
+
+    result = builder._build_audit_block(
+        _FakeCrawlJob(), "test-audit-id",
+        pages_discovered=5, pages_crawled=3, pages_analyzed=3,
+        crawl_stats={"pages_crawled": 3},
+        indexation={"indexable": 3},
+        performance={"available": True},
+        structured_data={"pages_with_schema": 2},
+        links={"internal": {"total": 10}, "external": {"total": 5}, "total_links": 15},
+        images={"total": 20},
+        content={"thin_pages": 1},
+        external_deps=[{"feature": "X", "status": "not_available"}],
+        errors=[],
+        metadata={"rules_executed": 10},
+    )
+    assert result["audit_id"] == "test-audit-id"
+    assert result["project_id"] == "test-audit-id"
+    assert result["url"] == "https://example.com"
+
