@@ -25,7 +25,7 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
-
+from xml.sax.saxutils import escape
 from app.core.config import settings
 from app.core.logger import logger
 from app.schemas.report_schemas import AuditReportResponse, Category, Issue
@@ -249,8 +249,12 @@ def render_audit_report_pdf(report: AuditReportResponse, output_path: str) -> st
                 Paragraph(f"<b>Description:</b> {issue.description}", style_body),
             ]
             if issue.recommendation:
-                issue_details.append(Paragraph(f"<b>Recommendation:</b> {issue.recommendation}", style_body))
-
+                issue_details.append(
+                    Paragraph(
+                        f"<b>Recommendation:</b> {escape(issue.recommendation)}",
+                        style_body,
+                    )
+                )
             # Affected pages table (limit to REPORT_MAX_AFFECTED_PAGES_SHOWN)
             pages_shown = issue.affected_pages[: settings.REPORT_MAX_AFFECTED_PAGES_SHOWN]
             if pages_shown:

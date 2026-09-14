@@ -14,6 +14,10 @@ from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
 
 
+# Permanent archive root for domain-organized report storage
+OUTPUT_ROOT = Path(__file__).resolve().parents[3] / "output" / "report"
+
+
 @celery_app.task(
     name="reports.send_audit_report_email",
     queue="email",
@@ -49,6 +53,12 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
 
         rendered_path = render_audit_report_pdf(report, pdf_path)
         pdf_bytes = Path(rendered_path).read_bytes()
+
+        # Additionally store a permanent copy in output/report/{domain}/{audit_id}.pdf
+        archive_path = OUTPUT_ROOT / domain / f"{audit_id}.pdf"
+        archive_path.parent.mkdir(parents=True, exist_ok=True)
+        archive_path.write_bytes(pdf_bytes)
+        logger.info(f"Report archived at {archive_path}")
 
         subject = f"SEO Audit Report — {report.url}"
         content = (

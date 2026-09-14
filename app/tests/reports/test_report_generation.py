@@ -21,6 +21,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
+from uuid import UUID
 
 import pytest
 
@@ -148,6 +149,94 @@ def test_report_generation_without_celery_domain_folder_named_after_domain():
     render_audit_report_pdf(report, str(pdf_path))
 
     assert pdf_path.exists()
+
+
+# ------------------------------------------------- download API (public, no celery)
+
+
+def test_download_report_pdf_generates_stores_and_serves(monkeypatch, tmp_path):
+    """GET /reports/{audit_id}/download builds the PDF, stores it under
+    output/report/{domain}/, and serves it as a PDF download — synchronously,
+    without any Celery involvement."""
+    import asyncio
+    from types import SimpleNamespace
+
+    from app.modules.reports import router as reports_router
+    from app.modules.crawler.repositories.crawl_job_repository import (
+        CrawlJobRepository,
+    )
+
+    url = "https://example.com"
+    audit_id = UUID("00fe733b-7f90-4341-9a78-6cdd87841a7f")
+
+    monkeypatch.setattr(settings, "REPORT_OUTPUT_DIR", str(tmp_path))
+
+    fake_job = SimpleNamespace(url=url)
+
+    async def _fake_job(self, audit_id):
+        return fake_job
+
+    monkeypatch.setattr(
+        CrawlJobRepository, "get_by_id_or_project_id", _fake_job
+    )
+
+    build_calls = []
+
+    async def _fake_build(db, audit_id):
+        build_calls.append(audit_id)
+        return _build_demo_report(url)
+
+    monkeypatch.setattr(reports_router, "build_audit_report", _fake_build)
+
+    # First call: report is built + rendered + stored under {tmp}/{domain}/{audit_id}.pdf
+    resp = asyncio.run(
+        reports_router.download_audit_report(audit_id, db=None)
+    )
+    stored = tmp_path / "example.com" / f"{audit_id}.pdf"
+    assert stored.exists(), f"PDF not stored at {stored}"
+    assert stored.stat().st_size > 1000
+    assert stored.read_bytes()[:5] == b"%PDF-"
+    # Response streams that stored file with a proper download name.
+    assert resp.path == str(stored)
+    assert resp.media_type == "application/pdf"
+    assert "example.com_seo_audit_report.pdf" in resp.headers["content-disposition"]
+    assert len(build_calls) == 1
+
+    # Second call: reuses the already-stored PDF (no re-render).
+    resp2 = asyncio.run(
+        reports_router.download_audit_report(audit_id, db=None)
+    )
+    assert resp2.path == str(stored)
+    assert len(build_calls) == 1, "stored PDF should be reused, not rebuilt"
+
+
+def test_download_report_pdf_404_when_audit_not_found(monkeypatch, tmp_path):
+    """A missing audit returns HTTP 404, not a stored-file error."""
+    import asyncio
+
+    from fastapi import HTTPException
+
+    from app.modules.reports import router as reports_router
+    from app.modules.crawler.repositories.crawl_job_repository import (
+        CrawlJobRepository,
+    )
+
+    monkeypatch.setattr(settings, "REPORT_OUTPUT_DIR", str(tmp_path))
+
+    async def _fake_none(self, audit_id):
+        return None
+
+    monkeypatch.setattr(
+        CrawlJobRepository, "get_by_id_or_project_id", _fake_none
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        asyncio.run(
+            reports_router.download_audit_report(
+                UUID("11111111-1111-1111-1111-111111111111"), db=None
+            )
+        )
+    assert exc_info.value.status_code == 404
 
 
 # ------------------------------------------------------------------------ with celery

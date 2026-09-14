@@ -1,10 +1,18 @@
 """
-Reports API Router — handles POST /api/v1/reports/{audit_id}/send.
+Reports API Router.
+
+Endpoints:
+- POST /api/v1/reports/{audit_id}/send   → enqueue email delivery (Celery).
+- GET  /api/v1/reports/{audit_id}/download → build + store PDF locally and
+  stream it back (public, no Celery).
 """
+from pathlib import Path
 from typing import Optional
+from urllib.parse import urlparse
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,6 +20,8 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.core.logger import logger
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.reports.services.pdf_generator import render_audit_report_pdf
+from app.modules.reports.services.report_data_service import build_audit_report
 from app.modules.reports.tasks import send_audit_report_email_task
 
 router = APIRouter()
@@ -89,4 +99,74 @@ async def send_audit_report(
         audit_id=str(audit_id),
         queued_for=email,
         status="queued",
+    )
+
+
+@router.get(
+    "/{audit_id}/download",
+    response_class=FileResponse,
+    summary="Download PDF audit report",
+    description=(
+        "Builds the PDF audit report for audit_id (if not already stored), persists "
+        "it locally under output/report/{domain}/ and streams it back as a "
+        "downloadable PDF. Public endpoint — no authentication required and no "
+        "Celery involvement: everything runs synchronously in the request."
+    ),
+)
+async def download_audit_report(
+    audit_id: UUID,
+    db: AsyncSession = Depends(get_db),
+) -> FileResponse:
+    """
+    Build + store + download the PDF audit report for an audit, by audit_id.
+
+    Organizes the stored file by the site's domain name (netloc) using the same
+    layout the Celery email task uses: ``{REPORT_OUTPUT_DIR}/{domain}/{audit_id}.pdf``.
+    If the PDF was already generated (e.g. by a previous email dispatch), the
+    stored copy is returned directly without re-rendering.
+
+    Args:
+        audit_id: The audit ID (== crawl_id, or the public project_id).
+        db: Database session.
+
+    Returns:
+        FileResponse streaming the generated PDF.
+
+    Raises:
+        HTTPException 404: If the audit job does not exist.
+    """
+    logger.info(f"GET /reports/{audit_id}/download")
+
+    job_repo = CrawlJobRepository(db)
+
+    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
+    # can use the public project_id returned in CrawlResponse.
+    job = await job_repo.get_by_id_or_project_id(audit_id)
+    if not job:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Audit job {audit_id} not found",
+        )
+
+    domain = urlparse(job.url).netloc or "unknown"
+    output_path = (
+        Path(settings.REPORT_OUTPUT_DIR) / domain / f"{str(audit_id)}.pdf"
+    )
+
+    # Reuse the stored copy if the PDF was already generated for this audit.
+    if not output_path.exists():
+        report = await build_audit_report(db, audit_id)
+        render_audit_report_pdf(report, str(output_path))
+        logger.info(
+            f"GET /reports/{audit_id}/download: generated {output_path}"
+        )
+    else:
+        logger.info(
+            f"GET /reports/{audit_id}/download: returning existing {output_path}"
+        )
+
+    return FileResponse(
+        path=str(output_path),
+        media_type="application/pdf",
+        filename=f"{domain}_seo_audit_report.pdf",
     )
