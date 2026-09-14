@@ -87,11 +87,10 @@ class AuditReadRepository:
         run = await self.analysis_repo.get_by_audit_id(audit_id)
         if run is None:
             return None
-        print(f"======Resolved audit_id={audit_id} → crawl_id={run.crawl_id}, project_id={run.project_id}")
-        crawl_job = await self.crawl_job_repo.get_by_id(run.crawl_id)
-        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(run.crawl_id)
+        crawl_job = await self.crawl_job_repo.get_by_id(run.audit_id)
+        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(run.audit_id)
         failed_results = await self.rule_eval_repo.get_failed_by_audit_id(
-            run.project_id, run.crawl_id
+            run.audit_id
         )
 
         return {

@@ -58,10 +58,10 @@ async def crawl_url(
         domain = get_domain(url_str)
         user_id = current_user.id
 
-        effective_max_pages = min(body.max_pages, settings.CRAWL_MAX_PAGES) if body.max_pages is not None else settings.CRAWL_MAX_PAGES
+        effective_max_pages =  settings.CRAWL_MAX_PAGES
 
         crawl_config = {
-            "max_depth": body.max_depth,
+            # "max_depth": body.max_depth,
             "max_pages": effective_max_pages,
             "concurrency": body.concurrency,
             "request_timeout": 120,

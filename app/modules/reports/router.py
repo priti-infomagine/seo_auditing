@@ -20,10 +20,9 @@ router = APIRouter()
 class SendReportRequest(BaseModel):
     """Request schema for sending report email."""
 
-    to_email: Optional[EmailStr] = Field(
+    email: Optional[EmailStr] = Field(
         None,
-        description="Recipient email address. Defaults to REPORT_DEFAULT_RECIPIENT_EMAIL if omitted.",
-        examples=["report@yopmail.com"],
+        description="Recipient email address. Defaults to REPORT_DEFAULT_RECIPIENT_EMAIL if omitted."
     )
 
 
@@ -74,20 +73,20 @@ async def send_audit_report(
             detail=f"Audit job {audit_id} not found",
         )
 
-    to_email = (
-        str(body.to_email)
-        if body and body.to_email
+    email = (
+        str(body.email)
+        if body and body.email
         else settings.REPORT_DEFAULT_RECIPIENT_EMAIL
     )
 
-    send_audit_report_email_task.delay(str(audit_id), to_email)
+    send_audit_report_email_task.delay(str(audit_id), email)
 
     logger.info(
-        f"POST /reports/{audit_id}/send: queued send_audit_report_email_task for {to_email}"
+        f"POST /reports/{audit_id}/send: queued send_audit_report_email_task for {email}"
     )
 
     return SendReportResponse(
         audit_id=str(audit_id),
-        queued_for=to_email,
+        queued_for=email,
         status="queued",
     )

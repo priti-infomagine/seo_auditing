@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ website_url }} — SEO Audit Report</title>
+<style>
+
+/* ============================================================
+   SEO AUDIT REPORT — TEMPLATE (HTML + CSS ONLY, NO JS)
+   - Standard A4 layout for PDF rendering (WeasyPrint / Playwright print / wkhtmltopdf)
+   - Fully responsive for on-screen viewing on any device (phone/tablet/desktop)
+   - Dynamic fields use Jinja2-style placeholders: {{ variable }}
+   - Loops use {% for %} ... {% endfor %}
+   ============================================================ */
+
+:root{
+  --color-primary:#1a2b4c;
+  --color-accent:#2f6fed;
+  --color-good:#1fa15c;
+  --color-warning:#e39a1f;
+  --color-critical:#e13b3b;
+  --color-bg:#f5f7fb;
+  --color-border:#e2e6ee;
+  --color-text:#2a2f3a;
+  --color-muted:#7c8494;
+  --font-main:'Helvetica Neue', Arial, sans-serif;
+
+  /* consistent spacing scale used everywhere — nothing hardcoded outside this */
+  --space-xs:4px;
+  --space-sm:8px;
+  --space-md:14px;
+  --space-lg:20px;
+  --space-xl:28px;
+
+  --radius-sm:4px;
+  --radius-md:8px;
+  --radius-lg:12px;
+
+  /* base type scale — scaled up by media queries on small screens */
+  --fs-body:11px;
+  --fs-small:9.5px;
+  --fs-label:9px;
+  --fs-h1:34px;
+  --fs-h2:18px;
+  --fs-h3:12px;
+  --fs-stat:24px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{
+  color-scheme:light; /* prevents iOS/Android forced dark-mode inversion */
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  font-family:var(--font-main);
+  color:var(--color-text);
+  font-size:var(--fs-body);
+  line-height:1.55;
+  background:#c9ced8; /* screen-only backdrop so pages read as discrete sheets */
+}
+
+img{ max-width:100%; display:block; }
+
+/* -webkit-print-color-adjust ensures gradients/badges/backgrounds are not
+   stripped when the browser or PDF engine renders the document */
+*{
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+  color-adjust:exact;
+}
+
+/* ============================================================
+   PAGE SHEET — same structural component for every page
+   Flex column: header (fixed) / content (flex:1) / footer (pinned via
+   margin-top:auto). This is what keeps every page's layout consistent
+   and stops the footer overlapping content regardless of content height.
+   ============================================================ */
+.page{
+  width:210mm;
+  min-height:297mm;
+  max-width:210mm;
+  margin:0 auto var(--space-lg) auto;
+  padding:14mm;
+  background:#ffffff;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 14px rgba(20,30,60,0.12); /* screen-only "paper" affordance */
+}
+
+.page-content{ flex:1 0 auto; }
+
+/* ---------- shared header ---------- */
+.report-header{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-sm);
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid var(--color-border);
+  padding-bottom:var(--space-sm);
+  margin-bottom:var(--space-lg);
+}
+.report-header .brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.report-header img.logo{
+  max-height:32px;
+  max-width:140px;
+  width:auto;
+  object-fit:contain;
+}
+.report-header .brand-name{
+  font-weight:700;
+  font-size:13px;
+  color:var(--color-primary);
+  overflow-wrap:anywhere;
+}
+.report-header .site-tag{
+  font-size:var(--fs-small);
+  color:var(--color-muted);
+  overflow-wrap:anywhere;
+}
+
+/* ---------- shared footer — normal flow, pinned via margin-top:auto ---------- */
+.report-footer{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-xs);
+  justify-content:space-between;
+  font-size:var(--fs-label);
+  color:var(--color-muted);
+  border-top:1px solid var(--color-border);
+  padding-top:var(--space-sm);
+  margin-top:var(--space-xl);
+}
+
+/* ---------- section title (consistent everywhere) ---------- */
+.section-title{
+  font-size:var(--fs-h2);
+  font-weight:700;
+  color:var(--color-primary);
+  margin-bottom:var(--space-xs);
+}
+.section-subtitle{
+  font-size:var(--fs-small);
+  color:var(--color-muted);
+  margin-bottom:var(--space-lg);
+}
+.subsection-title{
+  font-weight:700;
+  font-size:var(--fs-h3);
+  margin:var(--space-md) 0 var(--space-sm) 0;
+  color:var(--color-primary);
+}
+
+/* ============================================================
+   COVER PAGE
+   ============================================================ */
+.cover-page{
+  background:linear-gradient(160deg, var(--color-primary) 0%, #0e1830 100%);
+  color:#fff;
+  justify-content:space-between;
+}
+.cover-top{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-md);
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.cover-logo img{
+  max-height:48px;
+  max-width:200px;
+  object-fit:contain;
+  background:#fff;
+  padding:8px 12px;
+  border-radius:var(--radius-sm);
+}
+.cover-date{
+  text-align:right;
+  font-size:var(--fs-small);
+  color:#c3cbe0;
+}
+.cover-middle{
+  text-align:center;
+  margin-top:var(--space-xl);
+}
+.cover-middle .eyebrow{
+  letter-spacing:3px;
+  font-size:var(--fs-small);
+  color:#8fa0d8;
+  text-transform:uppercase;
+  margin-bottom:var(--space-md);
+}
+.cover-middle h1{
+  font-size:var(--fs-h1);
+  font-weight:800;
+  margin-bottom:var(--space-sm);
+  line-height:1.2;
+}
+.cover-middle .site-url{
+  font-size:16px;
+  color:#c3cbe0;
+  word-break:break-all;
+}
+.cover-score-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:var(--space-xl);
+}
+.cover-score-gauge{
+  width:170px;
+  height:170px;
+  max-width:44vw;
+  max-height:44vw;
+  border-radius:50%;
+  /* Backend renders the computed percentage stop, e.g.:
+     style="background:conic-gradient({{ score_color }} 0% {{ overall_score }}%, rgba(255,255,255,0.15) {{ overall_score }}% 100%)" */
+  background:conic-gradient({{ score_color }} 0% {{ overall_score }}%, rgba(255,255,255,0.15) {{ overall_score }}% 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.cover-score-inner{
+  width:76%;
+  height:76%;
+  border-radius:50%;
+  background:#101b34;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.cover-score-inner .num{ font-size:38px; font-weight:800; }
+.cover-score-inner .label{ font-size:var(--fs-label); color:#8fa0d8; text-transform:uppercase; letter-spacing:1px; }
+.cover-bottom{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-md);
+  justify-content:space-between;
+  font-size:var(--fs-small);
+  color:#8fa0d8;
+  border-top:1px solid rgba(255,255,255,0.15);
+  padding-top:var(--space-md);
+  margin-top:var(--space-xl);
+}
+.cover-bottom .company-block{ text-align:right; }
+
+/* ============================================================
+   STAT GRID — reused across every page for KPI counts
+   ============================================================ */
+.stat-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-sm);
+  margin-bottom:var(--space-lg);
+}
+.stat-card{
+  flex:1 1 120px;
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-md);
+  text-align:center;
+}
+.stat-card .stat-num{ font-size:var(--fs-stat); font-weight:800; color:var(--color-primary); }
+.stat-card .stat-label{ font-size:var(--fs-label); color:var(--color-muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+.stat-card.good .stat-num{ color:var(--color-good); }
+.stat-card.warning .stat-num{ color:var(--color-warning); }
+.stat-card.critical .stat-num{ color:var(--color-critical); }
+
+/* ---------- executive summary ---------- */
+.exec-summary-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-lg);
+  margin-bottom:var(--space-lg);
+  align-items:center;
+}
+.exec-score-block{ flex:0 0 150px; text-align:center; }
+.exec-score-gauge{
+  width:130px;
+  height:130px;
+  max-width:100%;
+  border-radius:50%;
+  margin:0 auto var(--space-sm) auto;
+  background:conic-gradient({{ score_color }} 0% {{ overall_score }}%, var(--color-border) {{ overall_score }}% 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.exec-score-inner{
+  width:76%;
+  height:76%;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.exec-score-inner .num{ font-size:26px; font-weight:800; color:var(--color-primary); }
+.exec-score-inner .label{ font-size:8px; color:var(--color-muted); text-transform:uppercase; }
+.exec-score-verdict{ font-size:var(--fs-label); font-weight:700; margin-top:var(--space-xs); color:{{ score_color }}; }
+.exec-text{ flex:1 1 280px; font-size:var(--fs-body); }
+.exec-text p{ margin-bottom:var(--space-sm); }
+
+/* ---------- category breakdown bars ---------- */
+.category-bars{ margin-bottom:var(--space-lg); }
+.category-bar-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--space-sm);
+  margin-bottom:var(--space-sm);
+}
+.category-bar-row .cat-name{ flex:0 0 130px; font-size:var(--fs-small); font-weight:600; }
+.category-bar-row .cat-track{
+  flex:1 1 140px;
+  height:10px;
+  background:var(--color-border);
+  border-radius:6px;
+  overflow:hidden;
+}
+.category-bar-row .cat-fill{ height:100%; border-radius:6px; }
+.category-bar-row .cat-score{ flex:0 0 36px; text-align:right; font-size:var(--fs-small); font-weight:700; }
+
+/* ============================================================
+   TABLES — wrapped so wide tables scroll horizontally on phones
+   instead of breaking layout
+   ============================================================ */
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin-bottom:var(--space-lg);
+}
+.data-table{
+  width:100%;
+  min-width:480px; /* keeps columns legible; wrapper scrolls on narrow screens */
+  border-collapse:collapse;
+  font-size:var(--fs-small);
+}
+.data-table th{
+  text-align:left;
+  background:var(--color-primary);
+  color:#fff;
+  padding:8px 10px;
+  font-size:var(--fs-label);
+  text-transform:uppercase;
+  letter-spacing:0.4px;
+  white-space:nowrap;
+}
+.data-table td{
+  padding:7px 10px;
+  border-bottom:1px solid var(--color-border);
+  vertical-align:top;
+}
+.data-table tr:nth-child(even){ background:#fafbfd; }
+
+.badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:10px;
+  font-size:8.5px;
+  font-weight:700;
+  text-transform:uppercase;
+  color:#fff;
+  white-space:nowrap;
+}
+.badge.critical{ background:var(--color-critical); }
+.badge.warning{ background:var(--color-warning); }
+.badge.good{ background:var(--color-good); }
+.badge.info{ background:var(--color-accent); }
+
+/* ============================================================
+   PANEL — single reusable card component
+   (used for check items, priority items, closing note — one
+   consistent visual language instead of several near-duplicates)
+   ============================================================ */
+.panel{
+  border:1px solid var(--color-border);
+  border-left:4px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-sm) var(--space-md);
+  margin-bottom:var(--space-sm);
+  background:#fff;
+}
+.panel.status-critical{ border-left-color:var(--color-critical); }
+.panel.status-warning{ border-left-color:var(--color-warning); }
+.panel.status-good{ border-left-color:var(--color-good); }
+.panel .panel-head{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-xs);
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:var(--space-xs);
+}
+.panel .panel-title{ font-weight:700; font-size:10.5px; }
+.panel .panel-desc{ font-size:var(--fs-small); color:var(--color-muted); }
+
+/* ============================================================
+   TWO-COLUMN LAYOUT — stacks automatically on narrow viewports
+   because each child has a flex-basis floor (no media query needed
+   until very small screens, handled below)
+   ============================================================ */
+.two-col{ display:flex; flex-wrap:wrap; gap:var(--space-lg); }
+.two-col > div{ flex:1 1 260px; min-width:0; }
+
+/* ---------- mini donut (pass/fail ratio) ---------- */
+.mini-donut-block{ text-align:center; }
+.mini-donut{
+  width:90px;
+  height:90px;
+  max-width:100%;
+  border-radius:50%;
+  margin:0 auto var(--space-xs) auto;
+}
+.mini-donut-inner{
+  width:70%;
+  height:70%;
+  border-radius:50%;
+  background:#fff;
+  margin:15% auto 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+}
+.mini-donut-caption{ font-size:var(--fs-label); color:var(--color-muted); }
+
+/* ---------- horizontal metric bar chart ---------- */
+.metric-chart-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--space-sm);
+  margin-bottom:var(--space-sm);
+}
+.metric-chart-row .metric-label{ flex:0 0 110px; font-size:var(--fs-small); }
+.metric-chart-row .metric-track{
+  flex:1 1 120px;
+  height:14px;
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+}
+.metric-chart-row .metric-fill{ height:100%; background:var(--color-accent); }
+.metric-chart-row .metric-value{ flex:0 0 70px; text-align:right; font-size:var(--fs-small); font-weight:700; }
+
+/* ---------- priority recommendation blocks ---------- */
+.priority-block{ margin-bottom:var(--space-md); }
+.priority-block .priority-heading{ display:flex; align-items:center; gap:var(--space-sm); margin-bottom:var(--space-sm); }
+.priority-block .priority-dot{ width:10px; height:10px; border-radius:50%; flex:0 0 auto; }
+.priority-block.high .priority-dot{ background:var(--color-critical); }
+.priority-block.medium .priority-dot{ background:var(--color-warning); }
+.priority-block.low .priority-dot{ background:var(--color-good); }
+.priority-block .priority-heading h3{ font-size:var(--fs-h3); color:var(--color-primary); }
+.priority-item{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:var(--space-xs) var(--space-md);
+  border-bottom:1px dashed var(--color-border);
+  padding:6px 0;
+  font-size:var(--fs-small);
+}
+.priority-item .impact-tag{ font-size:var(--fs-label); color:var(--color-muted); }
+
+.closing-note{
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-md);
+  padding:var(--space-md);
+  font-size:var(--fs-small);
+  color:var(--color-muted);
+  margin-top:var(--space-lg);
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS — screen only. Print always renders the
+   full-size A4 layout regardless of device (see @media print below).
+   ============================================================ */
+
+/* Tablets and small laptops */
+@media screen and (max-width:900px){
+  body{ padding:var(--space-md) 0; }
+  .page{
+    width:calc(100% - 24px);
+    min-height:auto;
+    padding:8mm 7mm;
+  }
+}
+
+/* Phones (iPhone/Android portrait) */
+@media screen and (max-width:600px){
+  :root{
+    --fs-body:13px;
+    --fs-small:11.5px;
+    --fs-label:10.5px;
+    --fs-h1:26px;
+    --fs-h2:17px;
+    --fs-h3:13px;
+    --fs-stat:20px;
+  }
+  .page{
+    width:100%;
+    margin:0 0 var(--space-md) 0;
+    padding:16px calc(16px + env(safe-area-inset-right)) 16px calc(16px + env(safe-area-inset-left));
+    box-shadow:none;
+    border-bottom:8px solid var(--color-bg);
+  }
+  .report-header{ align-items:flex-start; }
+  .cover-middle h1{ font-size:var(--fs-h1); }
+  .cover-score-gauge{ width:130px; height:130px; }
+  .cover-bottom{ flex-direction:column; text-align:center; }
+  .cover-bottom .company-block{ text-align:center; }
+  .exec-summary-wrap{ flex-direction:column; text-align:center; }
+  .category-bar-row .cat-name{ flex:1 1 100%; }
+  .category-bar-row .cat-track{ flex:1 1 100%; order:3; }
+  .category-bar-row .cat-score{ flex:0 0 auto; }
+  .two-col{ flex-direction:column; }
+  .stat-card{ flex:1 1 45%; }
+}
+
+/* Small phones (iPhone SE and similar) */
+@media screen and (max-width:380px){
+  .stat-card{ flex:1 1 100%; }
+  .cover-score-gauge{ width:110px; height:110px; }
+}
+
+/* ============================================================
+   PRINT — always render as fixed, standard A4 sheets regardless
+   of the device/browser the PDF was generated or opened on
+   ============================================================ */
+@page{ size:A4; margin:0; }
+
+@media print{
+  body{ background:#fff; padding:0; }
+  .page{
+    width:210mm;
+    min-height:297mm;
+    max-width:210mm;
+    margin:0;
+    padding:14mm;
+    box-shadow:none;
+    border-bottom:none;
+    page-break-after:always;
+  }
+  .page:last-child{ page-break-after:auto; }
+  :root{
+    --fs-body:11px;
+    --fs-small:9.5px;
+    --fs-label:9px;
+    --fs-h1:34px;
+    --fs-h2:18px;
+    --fs-h3:12px;
+    --fs-stat:24px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     PAGE 1 — COVER PAGE
+     ================================================================ -->
+<div class="page cover-page">
+  <div class="cover-top">
+    <div class="cover-logo">
+      <!-- Dynamic: agency/white-label logo, falls back to platform logo if none uploaded -->
+      <img src="{{ report_logo_url }}" alt="{{ company_name }}">
+    </div>
+    <div class="cover-date">
+      <div>Report generated: {{ report_date }}</div>
+      <div>Audit ID: {{ audit_id }}</div>
+    </div>
+  </div>
+
+  <div class="cover-middle">
+    <div class="eyebrow">Website Audit Report</div>
+    <h1>SEO &amp; Technical Health Report</h1>
+    <div class="site-url">{{ website_url }}</div>
+
+    <div class="cover-score-wrap">
+      <div class="cover-score-gauge">
+        <div class="cover-score-inner">
+          <div class="num">{{ overall_score }}</div>
+          <div class="label">/ 100 Score</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="prepared-block">
+      <div>Prepared for</div>
+      <div style="color:#fff; font-weight:700;">{{ client_name }}</div>
+    </div>
+    <div class="company-block">
+      <div style="color:#fff; font-weight:700;">{{ company_name }}</div>
+      <div>{{ company_contact_email }} &nbsp;|&nbsp; {{ company_phone }}</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     PAGE 2 — EXECUTIVE SUMMARY
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">Executive Summary</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">Executive Summary</div>
+    <div class="section-subtitle">A high-level snapshot of your website's overall SEO and technical health.</div>
+
+    <div class="exec-summary-wrap">
+      <div class="exec-score-block">
+        <div class="exec-score-gauge">
+          <div class="exec-score-inner">
+            <div class="num">{{ overall_score }}</div>
+            <div class="label">Overall</div>
+          </div>
+        </div>
+        <div class="exec-score-verdict">{{ score_verdict_label }}</div>
+      </div>
+      <div class="exec-text">
+        <p>{{ executive_summary_paragraph }}</p>
+        <!-- ^ AI-generated narrative paragraph inserted here by the report generation service -->
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card critical">
+        <div class="stat-num">{{ critical_issues_count }}</div>
+        <div class="stat-label">Critical Issues</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-num">{{ warnings_count }}</div>
+        <div class="stat-label">Warnings</div>
+      </div>
+      <div class="stat-card good">
+        <div class="stat-num">{{ passed_checks_count }}</div>
+        <div class="stat-label">Passed Checks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">{{ pages_crawled_count }}</div>
+        <div class="stat-label">Pages Crawled</div>
+      </div>
+    </div>
+
+    <div class="category-bars">
+      <!-- {% for category in categories %} -->
+      <div class="category-bar-row">
+        <div class="cat-name">{{ category.name }}</div>
+        <div class="cat-track">
+          <div class="cat-fill" style="width: {{ category.score }}%; background: {{ category.color }};"></div>
+        </div>
+        <div class="cat-score">{{ category.score }}</div>
+      </div>
+      <!-- {% endfor %} -->
+      <!-- Repeat the row above per category: SEO, Technical, Performance,
+           Accessibility, Security, Mobile, Structured Data -->
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="subsection-title">Top Strengths</div>
+        <!-- {% for item in top_strengths %} -->
+        <div class="panel status-good">
+          <div class="panel-title">{{ item.title }}</div>
+          <div class="panel-desc">{{ item.description }}</div>
+        </div>
+        <!-- {% endfor %} -->
+      </div>
+      <div>
+        <div class="subsection-title">Top Issues to Fix</div>
+        <!-- {% for item in top_issues %} -->
+        <div class="panel status-critical">
+          <div class="panel-title">{{ item.title }}</div>
+          <div class="panel-desc">{{ item.description }}</div>
+        </div>
+        <!-- {% endfor %} -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 2 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+
+<!-- ================================================================
+     PAGE 3 — ON-PAGE SEO ANALYSIS
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">On-Page SEO</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">On-Page SEO Analysis</div>
+    <div class="section-subtitle">Title tags, meta descriptions, headings, canonical tags, structured markup and indexability.</div>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="mini-donut-block">
+        <div class="mini-donut" style="background:conic-gradient(var(--color-good) 0% {{ seo_pass_percent }}%, var(--color-critical) {{ seo_pass_percent }}% 100%);">
+          <div class="mini-donut-inner">{{ seo_pass_percent }}%</div>
+        </div>
+        <div class="mini-donut-caption">Checks Passed</div>
+      </div>
+      <div>
+        <div class="stat-grid" style="margin-bottom:0;">
+          <div class="stat-card"><div class="stat-num">{{ seo_score }}</div><div class="stat-label">SEO Score</div></div>
+          <div class="stat-card critical"><div class="stat-num">{{ seo_critical_count }}</div><div class="stat-label">Critical</div></div>
+          <div class="stat-card warning"><div class="stat-num">{{ seo_warning_count }}</div><div class="stat-label">Warnings</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Check</th>
+            <th>Status</th>
+            <th>Pages Affected</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {% for check in seo_checks %} -->
+          <!-- Rows repeat for: Title Length/Duplicate/Missing, Meta Description,
+               H1 Missing/Duplicate/Multiple, H2 Usage, Image ALT Text, Canonical Tags,
+               Open Graph, Twitter Cards, Schema Markup, Indexability, Language, Charset, Viewport -->
+          <tr>
+            <td>{{ check.name }}</td>
+            <td><span class="badge {{ check.status_class }}">{{ check.status_label }}</span></td>
+            <td>{{ check.pages_affected }}</td>
+            <td>{{ check.detail }}</td>
+          </tr>
+          <!-- {% endfor %} -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 3 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+
+<!-- ================================================================
+     PAGE 4 — TECHNICAL SEO
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">Technical SEO</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">Technical SEO</div>
+    <div class="section-subtitle">Crawlability, indexing, redirects, HTTPS/SSL, sitemap and robots.txt health.</div>
+
+    <div class="stat-grid">
+      <div class="stat-card critical"><div class="stat-num">{{ broken_links_count }}</div><div class="stat-label">Broken Links</div></div>
+      <div class="stat-card warning"><div class="stat-num">{{ redirect_chains_count }}</div><div class="stat-label">Redirect Chains</div></div>
+      <div class="stat-card critical"><div class="stat-num">{{ error_404_count }}</div><div class="stat-label">404 Pages</div></div>
+      <div class="stat-card critical"><div class="stat-num">{{ error_500_count }}</div><div class="stat-label">500 Errors</div></div>
+    </div>
+
+    <!-- {% for group in technical_groups %} -->
+    <!-- Groups: HTTPS/SSL/Mixed Content, Robots.txt, Sitemap.xml, Duplicate Pages, Redirect Loops -->
+    <div class="panel status-{{ group.status_class }}">
+      <div class="panel-head">
+        <div class="panel-title">{{ group.title }}</div>
+        <span class="badge {{ group.status_class }}">{{ group.status_label }}</span>
+      </div>
+      <div class="panel-desc">{{ group.description }}</div>
+    </div>
+    <!-- {% endfor %} -->
+
+    <div class="table-wrap" style="margin-top:16px;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Issue Type</th>
+            <th>Status Code</th>
+            <th>Found On</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {% for row in broken_link_rows %} -->
+          <tr>
+            <td>{{ row.url }}</td>
+            <td>{{ row.issue_type }}</td>
+            <td><span class="badge critical">{{ row.status_code }}</span></td>
+            <td>{{ row.found_on }}</td>
+          </tr>
+          <!-- {% endfor %} -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 4 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+
+<!-- ================================================================
+     PAGE 5 — PERFORMANCE / CORE WEB VITALS
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">Performance</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">Website Performance</div>
+    <div class="section-subtitle">Page weight, asset sizes, compression, caching and Core Web Vitals.</div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">{{ page_load_time }}s</div><div class="stat-label">Load Time</div></div>
+      <div class="stat-card"><div class="stat-num">{{ total_page_size }}</div><div class="stat-label">Page Size</div></div>
+      <div class="stat-card"><div class="stat-num">{{ total_requests }}</div><div class="stat-label">Requests</div></div>
+      <div class="stat-card"><div class="stat-num">{{ performance_score }}</div><div class="stat-label">Perf. Score</div></div>
+    </div>
+
+    <div class="subsection-title">Asset Size Breakdown</div>
+    <!-- {% for metric in performance_metrics %} -->
+    <!-- Rows: Image Size, JavaScript Size, CSS Size, HTML Size -->
+    <div class="metric-chart-row">
+      <div class="metric-label">{{ metric.name }}</div>
+      <div class="metric-track">
+        <div class="metric-fill" style="width: {{ metric.percent }}%;"></div>
+      </div>
+      <div class="metric-value">{{ metric.value }}</div>
+    </div>
+    <!-- {% endfor %} -->
+
+    <div class="subsection-title">Core Web Vitals</div>
+    <div class="stat-grid">
+      <div class="stat-card {{ lcp_status_class }}"><div class="stat-num">{{ lcp_value }}</div><div class="stat-label">LCP</div></div>
+      <div class="stat-card {{ fid_status_class }}"><div class="stat-num">{{ fid_value }}</div><div class="stat-label">INP / FID</div></div>
+      <div class="stat-card {{ cls_status_class }}"><div class="stat-num">{{ cls_value }}</div><div class="stat-label">CLS</div></div>
+    </div>
+
+    <div class="subsection-title">Largest Assets Slowing the Page</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Asset</th><th>Type</th><th>Size</th><th>Recommendation</th></tr>
+        </thead>
+        <tbody>
+          <!-- {% for asset in largest_assets %} -->
+          <tr>
+            <td>{{ asset.name }}</td>
+            <td>{{ asset.type }}</td>
+            <td>{{ asset.size }}</td>
+            <td>{{ asset.recommendation }}</td>
+          </tr>
+          <!-- {% endfor %} -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 5 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+
+<!-- ================================================================
+     PAGE 6 — ACCESSIBILITY, SECURITY & MOBILE
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">Accessibility, Security &amp; Mobile</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">Accessibility</div>
+    <div class="section-subtitle">Alt text coverage, ARIA usage, heading order and form labeling.</div>
+
+    <div class="two-col" style="margin-bottom:18px;">
+      <div>
+        <!-- {% for item in accessibility_checks %} -->
+        <div class="panel status-{{ item.status_class }}">
+          <div class="panel-head">
+            <div class="panel-title">{{ item.title }}</div>
+            <span class="badge {{ item.status_class }}">{{ item.status_label }}</span>
+          </div>
+          <div class="panel-desc">{{ item.description }}</div>
+        </div>
+        <!-- {% endfor %} -->
+      </div>
+      <div class="mini-donut-block">
+        <div class="mini-donut" style="background:conic-gradient(var(--color-good) 0% {{ accessibility_score }}%, var(--color-border) {{ accessibility_score }}% 100%);">
+          <div class="mini-donut-inner">{{ accessibility_score }}</div>
+        </div>
+        <div class="mini-donut-caption">Accessibility Score</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="font-size:var(--fs-h3); margin-top:6px;">Security</div>
+    <div class="section-subtitle">HTTPS, SSL certificate validity and response security headers.</div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Header / Check</th><th>Status</th><th>Current Value</th><th>Recommended</th></tr></thead>
+        <tbody>
+          <!-- {% for check in security_checks %} -->
+          <!-- Rows: HTTPS, SSL Certificate, X-Frame-Options, CSP, XSS Protection, HSTS -->
+          <tr>
+            <td>{{ check.name }}</td>
+            <td><span class="badge {{ check.status_class }}">{{ check.status_label }}</span></td>
+            <td>{{ check.current_value }}</td>
+            <td>{{ check.recommended_value }}</td>
+          </tr>
+          <!-- {% endfor %} -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title" style="font-size:var(--fs-h3); margin-top:14px;">Mobile SEO &amp; Structured Data</div>
+    <div class="two-col">
+      <div>
+        <!-- {% for item in mobile_checks %} -->
+        <!-- Viewport, Responsive Meta, Touch Icons -->
+        <div class="panel status-{{ item.status_class }}">
+          <div class="panel-title">{{ item.title }}</div>
+          <div class="panel-desc">{{ item.description }}</div>
+        </div>
+        <!-- {% endfor %} -->
+      </div>
+      <div>
+        <!-- {% for schema in structured_data_types %} -->
+        <!-- Organization, LocalBusiness, Product, FAQ, Breadcrumb, Article -->
+        <div class="panel status-{{ schema.status_class }}">
+          <div class="panel-title">{{ schema.type_name }}</div>
+          <div class="panel-desc">{{ schema.detected_label }}</div>
+        </div>
+        <!-- {% endfor %} -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 6 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+
+<!-- ================================================================
+     PAGE 7 — PRIORITIZED RECOMMENDATIONS
+     ================================================================ -->
+<div class="page">
+  <header class="report-header">
+    <div class="brand">
+      <img class="logo" src="{{ report_logo_url }}" alt="{{ company_name }}">
+      <div>
+        <div class="brand-name">{{ company_name }}</div>
+        <div class="site-tag">{{ website_url }}</div>
+      </div>
+    </div>
+    <div class="site-tag">Recommendations</div>
+  </header>
+
+  <main class="page-content">
+    <div class="section-title">Prioritized Recommendations</div>
+    <div class="section-subtitle">Action items ranked by priority and estimated SEO impact.</div>
+
+    <div class="priority-block high">
+      <div class="priority-heading">
+        <span class="priority-dot"></span>
+        <h3>High Priority</h3>
+      </div>
+      <!-- {% for rec in recommendations_high %} -->
+      <div class="priority-item">
+        <div>{{ rec.title }}</div>
+        <div class="impact-tag">{{ rec.estimated_impact }}</div>
+      </div>
+      <!-- {% endfor %} -->
+    </div>
+
+    <div class="priority-block medium">
+      <div class="priority-heading">
+        <span class="priority-dot"></span>
+        <h3>Medium Priority</h3>
+      </div>
+      <!-- {% for rec in recommendations_medium %} -->
+      <div class="priority-item">
+        <div>{{ rec.title }}</div>
+        <div class="impact-tag">{{ rec.estimated_impact }}</div>
+      </div>
+      <!-- {% endfor %} -->
+    </div>
+
+    <div class="priority-block low">
+      <div class="priority-heading">
+        <span class="priority-dot"></span>
+        <h3>Low Priority</h3>
+      </div>
+      <!-- {% for rec in recommendations_low %} -->
+      <div class="priority-item">
+        <div>{{ rec.title }}</div>
+        <div class="impact-tag">{{ rec.estimated_impact }}</div>
+      </div>
+      <!-- {% endfor %} -->
+    </div>
+
+    <div class="closing-note">
+      This report was generated automatically by {{ platform_name }} on {{ report_date }} for {{ website_url }}.
+      For questions about these findings, contact {{ company_name }} at {{ company_contact_email }}
+      {% if company_phone %}or {{ company_phone }}{% endif %}.
+    </div>
+  </main>
+
+  <footer class="report-footer">
+    <div>{{ company_name }} — Confidential Report</div>
+    <div>Page 7 of {{ total_pages }}</div>
+  </footer>
+</div>
+
+</body>
+</html>

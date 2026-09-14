@@ -254,12 +254,11 @@ async def test_post_analyze_format_compact_echoed_into_urls(mock_celery):
 
     d1, d2, d3 = r1.json(), r2.json(), r3.json()
 
-    for key in ("result_url", "result_project_url"):
+    for key in ("result_url",):
         assert "format=" not in d1[key], (key, d1[key])
         assert "format=" not in d2[key], (key, d2[key])
 
     assert d3["result_url"].endswith("format=compact")
-    assert d3["result_project_url"].endswith("format=compact")
 
 
 @pytest.mark.asyncio

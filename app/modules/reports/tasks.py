@@ -2,6 +2,7 @@
 Reports Celery tasks — handles async PDF generation and email delivery.
 """
 from pathlib import Path
+from urllib.parse import urlparse
 from uuid import UUID
 
 from app.core.config import settings
@@ -43,8 +44,8 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
     try:
         report = run_async(_build())
 
-        safe_url = report.url.replace("://", "_").replace("/", "_")
-        pdf_path = f"{settings.REPORT_OUTPUT_DIR}/{safe_url}_{audit_id}.pdf"
+        domain = urlparse(report.url).netloc or "unknown"
+        pdf_path = f"{settings.REPORT_OUTPUT_DIR}/{domain}/{audit_id}.pdf"
 
         rendered_path = render_audit_report_pdf(report, pdf_path)
         pdf_bytes = Path(rendered_path).read_bytes()
@@ -58,7 +59,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
             f"Best regards,\n"
             f"{settings.APP_NAME}"
         )
-        attachment_filename = f"{safe_url}_seo_audit_report.pdf"
+        attachment_filename = f"{domain}_seo_audit_report.pdf"
 
         send_email_sync(
             to_email=to_email,

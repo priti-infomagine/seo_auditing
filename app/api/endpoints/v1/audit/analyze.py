@@ -39,7 +39,7 @@ router = APIRouter()
     description=(
         "Creates a crawl job and enqueues it on the crawler queue. The crawl "
         "then triggers the parse → evaluate → score analysis pipeline. Returns "
-        "immediately with crawl_id / audit_id / task_id and status URLs for "
+         "immediately with crawl_id / audit_id / task_id and status URLs for "
         "polling. The final result is fetched via GET /audit/result/{audit_id}."
     ),
 )
@@ -75,7 +75,7 @@ async def analyze_website(
     """
     logger.info(
         f"POST /audit/analyze - Queuing audit for URL: {body.url}, "
-        f" max_pages: {body.max_pages}, "
+        
     )
 
     anonymous_user_id = uuid.uuid4()
@@ -91,16 +91,16 @@ async def analyze_website(
 
         audit_id = uuid.uuid4()
 
-        effective_max_pages = (
-             settings.CRAWL_MAX_PAGES
-            if body.max_pages is not None
-            else settings.CRAWL_MAX_PAGES
-        )
-        effective_max_depth = body.max_depth if body.max_depth is not None else 5
+        # effective_max_pages = (
+        #      settings.CRAWL_MAX_PAGES
+        #     if body.max_pages is not None
+        #     else settings.CRAWL_MAX_PAGES
+        # )
+        # effective_max_depth = body.max_depth if body.max_depth is not None else 5
 
         crawl_config = {
-            "max_depth": effective_max_depth,
-            "max_pages": effective_max_pages,
+            # "max_depth": effective_max_depth,
+            # "max_pages": effective_max_pages,
             "concurrency": body.concurrency,
             "request_timeout": 120,
             "delay_ms": 0,
@@ -114,8 +114,8 @@ async def analyze_website(
             url=url_str,
             domain=domain,
             status="queued",
-            max_pages=effective_max_pages,
-            max_depth=effective_max_depth,
+            # max_pages=effective_max_pages,
+            # max_depth=effective_max_depth,
             crawl_config=crawl_config,
         )
         job_repo = CrawlJobRepository(db)
@@ -146,13 +146,13 @@ async def analyze_website(
             url=url_str,
             domain=domain,
             audit_id=str(audit_id),
+            crawl_id=str(audit_id),
             task_id=async_result.id,
             task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
             crawl_status_url=f"/api/v1/crawler/status/{audit_id}",
             pipeline_status_url=f"/api/v1/audit/status/{audit_id}",
             result_url=f"/api/v1/audit/result/{audit_id}{fmt}",
             full_pipeline=body.full_pipeline,
-            result_project_url=f"/api/v1/audit/result/{audit_id}{fmt}",
         )
 
     except ValueError as e:
