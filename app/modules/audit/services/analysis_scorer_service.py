@@ -51,7 +51,7 @@ class AnalysisScorerService:
         SeoAnalysisRun scalar summary, and writes the unified JSON file.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             force: Kept for API compatibility (caching is handled by the caller).
 
         Returns:

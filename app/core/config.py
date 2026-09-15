@@ -74,7 +74,10 @@ class Settings(BaseSettings):
     DEFAULT_SITE_CATEGORY: str = "ecommerce"
     REPORT_OUTPUT_DIR: str = "app/output/reports"
     REPORT_DEFAULT_RECIPIENT_EMAIL: str = "report@yopmail.com"
-    REPORT_MAX_AFFECTED_PAGES_SHOWN: int = 10
+    REPORT_MAX_AFFECTED_PAGES_SHOWN: int =25
+    REPORT_LOGO_URL: str = "C:\\Users\\user\\Downloads\\logo.jpg"
+    COMPANY_NAME: str = "Info@magine"
+    COPYRIGHT_TEXT: str = "Confidential Report"
 
 
 settings = Settings()

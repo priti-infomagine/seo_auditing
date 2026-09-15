@@ -133,6 +133,6 @@ def test_build_audit_block_takes_correct_number_of_args(builder):
         metadata={"rules_executed": 10},
     )
     assert result["audit_id"] == "test-audit-id"
-    assert "project_id" not in result
+    assert "audit_id" not in result
     assert result["url"] == "https://example.com"
 

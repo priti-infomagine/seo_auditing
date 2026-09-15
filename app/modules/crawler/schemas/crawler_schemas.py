@@ -24,7 +24,7 @@ class CrawlRequest(BaseModel):
         False,
         description="If true, automatically run parse → evaluate → score pipeline after crawl completes"
     )
-    project_id: Optional[UUID] = Field(
+    audit_id: Optional[UUID] = Field(
         None,
         description="Project identifier for tracking. If None, a new UUID is generated.",
     )
@@ -45,17 +45,17 @@ class CrawlRequest(BaseModel):
 class CrawlResponse(BaseModel):
     """Response schema for crawl request."""
 
-    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    audit_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Current crawl job status")
     message: str = Field(..., description="Status message")
-    project_id: str = Field(..., description="Project identifier for tracking the analysis pipeline")
+    audit_id: str = Field(..., description="Project identifier for tracking the analysis pipeline")
     task_id: str = Field(..., description="Celery task ID for progress polling via result backend")
 
 
 class CrawlStatusResponse(BaseModel):
     """Response schema for crawl status."""
 
-    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    audit_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Current crawl job status")
     domain: str = Field(..., description="Domain being crawled")
     url: str = Field(..., description="Crawled URL")
@@ -76,7 +76,7 @@ class TestCrawlResponse(BaseModel):
     """Response schema for synchronous test crawl."""
 
     success: bool = Field(..., description="Whether the crawl completed successfully")
-    crawl_id: str = Field(..., description="Unique crawl job identifier")
+    audit_id: str = Field(..., description="Unique crawl job identifier")
     status: str = Field(..., description="Final crawl job status")
     url: str = Field(..., description="Crawled URL")
     domain: str = Field(..., description="Domain being crawled")

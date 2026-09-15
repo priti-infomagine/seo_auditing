@@ -15,13 +15,13 @@ class IssueRetriever:
     
     async def get_failed_issues(
         self,
-        project_id: UUID,
+        audit_id: UUID,
         category: Optional[str] = None,
         page_url: Optional[str] = None,
         rule_id: Optional[str] = None,
         limit: int = 20,
     ) -> list[dict]:
-        results = await self.repo.get_by_project_id(project_id)
+        results = await self.repo.get_by_audit_id(audit_id)
         failed = [r for r in results if not r.passed]
         if category:
             failed = [r for r in failed if r.category == category]

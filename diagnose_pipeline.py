@@ -2,7 +2,7 @@
 Pipeline Stage Diagnostic — pinpoints exactly where an audit pipeline stopped.
 
 Checks each stage of the crawl -> parse -> evaluate -> score pipeline for a given
-audit_id (== crawl_id), reports row counts, status, and where the flow broke.
+audit_id (== audit_id), reports row counts, status, and where the flow broke.
 
 Usage (from backend/ root):
     python diagnose_pipeline.py --audit-id 30239758-6a84-45fd-8580-ba593034127c
@@ -58,13 +58,13 @@ async def diagnose(audit_id: UUID):
 
         # ── Stage 1: Crawl Pages ──
         pages_result = await db.execute(
-            select(func.count()).select_from(CrawlPage).where(CrawlPage.crawl_id == audit_id)
+            select(func.count()).select_from(CrawlPage).where(CrawlPage.audit_id == audit_id)
         )
         pages_count = pages_result.scalar_one()
 
         success_result = await db.execute(
             select(func.count()).select_from(CrawlPage).where(
-                CrawlPage.crawl_id == audit_id,
+                CrawlPage.audit_id == audit_id,
                 CrawlPage.is_success == True,
             )
         )
@@ -83,7 +83,7 @@ async def diagnose(audit_id: UUID):
         snapshot_result = await db.execute(
             select(func.count()).select_from(PageSnapshot).where(
                 PageSnapshot.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
+                    select(CrawlPage.id).where(CrawlPage.audit_id == audit_id)
                 )
             )
         )
@@ -94,7 +94,7 @@ async def diagnose(audit_id: UUID):
         seo_result = await db.execute(
             select(func.count()).select_from(PageSEOData).where(
                 PageSEOData.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
+                    select(CrawlPage.id).where(CrawlPage.audit_id == audit_id)
                 )
             )
         )
@@ -105,7 +105,7 @@ async def diagnose(audit_id: UUID):
         network_result = await db.execute(
             select(func.count()).select_from(PageNetworkData).where(
                 PageNetworkData.page_id.in_(
-                    select(CrawlPage.id).where(CrawlPage.crawl_id == audit_id)
+                    select(CrawlPage.id).where(CrawlPage.audit_id == audit_id)
                 )
             )
         )

@@ -113,7 +113,7 @@ class CrawlPersistenceService:
             logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
 
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
-        """Persist a crawl page via an atomic upsert on (crawl_id, normalized_url)."""
+        """Persist a crawl page via an atomic upsert on (audit_id, normalized_url)."""
         try:
             async with self._write_lock:
                 # Fields that are server-managed or SQLAlchemy-internal — never
@@ -123,14 +123,14 @@ class CrawlPersistenceService:
                     k: v for k, v in page.__dict__.items() if k not in excluded_from_insert
                 }
                 # Fields not updated on conflict — matches the original
-                # exclusion list exactly (preserve id/crawl_id/timestamps).
+                # exclusion list exactly (preserve id/audit_id/timestamps).
                 excluded_from_update = {
-                    "id", "crawl_id", "created_at", "updated_at", "_sa_instance_state"
+                    "id", "audit_id", "created_at", "updated_at", "_sa_instance_state"
                 }
 
                 stmt = pg_insert(CrawlPage).values(values)
                 stmt = stmt.on_conflict_do_update(
-                    index_elements=["crawl_id", "normalized_url"],
+                    index_elements=["audit_id", "normalized_url"],
                     set_={
                         k: getattr(stmt.excluded, k)
                         for k in values.keys()
@@ -241,7 +241,7 @@ class CrawlPersistenceService:
         try:
             async with self._write_lock:
                 error = CrawlError(
-                    crawl_id=self.crawl_job_id,
+                    audit_id=self.crawl_job_id,
                     page_id=page_id,
                     error_type=error_type,
                     error_message=error_message,

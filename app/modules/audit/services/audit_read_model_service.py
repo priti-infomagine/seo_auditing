@@ -84,14 +84,14 @@ class AuditReadModelService:
 
     # ------------------------------------------------------------------ helpers
     @staticmethod
-    def _derive_issue_id(crawl_id: UUID, rule_id: str) -> str:
-        return f"{crawl_id}:{rule_id}"
+    def _derive_issue_id(audit_id: UUID, rule_id: str) -> str:
+        return f"{audit_id}:{rule_id}"
 
     @staticmethod
     def _parse_issue_id(issue_id: str) -> str:
         """Return the rule_id component of an issue id.
 
-        ``issue_id`` is the opaque string ``f"{crawl_id}:{rule_id}"``. We split
+        ``issue_id`` is the opaque string ``f"{audit_id}:{rule_id}"``. We split
         on the FIRST colon so rule_ids containing a colon are preserved.
         """
         if ":" not in issue_id:
@@ -204,7 +204,7 @@ class AuditReadModelService:
 
     # ---------------------------------------------------------------- overview
     async def build_overview(self, audit_id: UUID) -> AuditOverview:
-        """Build the compact overview for an audit (= crawl_id).
+        """Build the compact overview for an audit (= audit_id).
 
         Performs a small constant number of queries (≤ 5). Does NOT load
         per-page SEO/network/parsed data.
@@ -340,16 +340,16 @@ class AuditReadModelService:
         offset: int = 0,
     ) -> IssueListResponse:
         """Paginated compact issue list."""
-        project_id, crawl_id = await self.repo.resolve_audit(audit_id)
-        if project_id is None:
+        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         # Clamp pagination params silently (do not 400 on user input)
         limit = max(1, min(int(limit or 20), self.MAX_PAGE_LIMIT))
         offset = max(0, int(offset or 0))
 
-        rows, total = await self.repo.rule_eval_repo.list_failed_by_crawl_id_paginated(
-            project_id, crawl_id,
+        rows, total = await self.repo.rule_eval_repo.list_failed_by_audit_id_paginated(
+            audit_id, audit_id,
             category=category, severity=severity, status=status,
             limit=limit, offset=offset,
         )
@@ -375,7 +375,7 @@ class AuditReadModelService:
                 ))
             items.append(
                 TopIssueSummary(
-                    id=self._derive_issue_id(crawl_id, rule_id),
+                    id=self._derive_issue_id(audit_id, rule_id),
                     rule_id=rule_id,
                     category=worst.category or "unknown",
                     severity=worst.severity or "medium",
@@ -406,13 +406,13 @@ class AuditReadModelService:
         self, audit_id: UUID, issue_id: str
     ) -> IssueDetailResponse:
         """Detailed view of one issue (rule-level)."""
-        project_id, crawl_id = await self.repo.resolve_audit(audit_id)
-        if project_id is None:
+        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         rule_id = self._parse_issue_id(issue_id)
         samples = await self.repo.rule_eval_repo.get_first_samples_for_rule(
-            project_id, crawl_id, rule_id, n=3
+            audit_id, audit_id, rule_id, n=3
         )
         if not samples:
             # Allow zero-affected: still return a skeleton
@@ -432,7 +432,7 @@ class AuditReadModelService:
             )
             # Count actual affected pages via a single count
             _, total_affected = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-                project_id, crawl_id, rule_id, limit=1, offset=0,
+                audit_id, audit_id, rule_id, limit=1, offset=0,
             )
 
         title = RULE_TITLES.get(rule_id, rule_id)
@@ -473,8 +473,8 @@ class AuditReadModelService:
         offset: int = 0,
     ) -> IssuePagesResponse:
         """Paginated affected pages for one issue."""
-        project_id, crawl_id = await self.repo.resolve_audit(audit_id)
-        if project_id is None:
+        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         rule_id = self._parse_issue_id(issue_id)
@@ -482,7 +482,7 @@ class AuditReadModelService:
         offset = max(0, int(offset or 0))
 
         rows, total = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-            project_id, crawl_id, rule_id, limit=limit, offset=offset,
+            audit_id, audit_id, rule_id, limit=limit, offset=offset,
         )
 
         # Resolve a URL map for the page_ids in this batch (batched single query)
@@ -520,8 +520,8 @@ class AuditReadModelService:
         images_offset: int = 0,
     ) -> IssueEvidenceResponse:
         """Lazy-load heavy evidence for one issue (links, images, rule_data)."""
-        project_id, crawl_id = await self.repo.resolve_audit(audit_id)
-        if project_id is None:
+        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         rule_id = self._parse_issue_id(issue_id)
@@ -535,7 +535,7 @@ class AuditReadModelService:
         # endpoint is not the goal of this endpoint).
         HARD_CAP = 1000
         rows, total = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-            project_id, crawl_id, rule_id, limit=HARD_CAP, offset=0,
+            audit_id, audit_id, rule_id, limit=HARD_CAP, offset=0,
         )
 
         # Batch-load URLs for the involved pages
@@ -624,20 +624,20 @@ class AuditReadModelService:
         include_facts: bool = False,
     ) -> PageDetailResponse:
         """Per-page breakdown for a single page (lazy, on demand)."""
-        project_id, crawl_id = await self.repo.resolve_audit(audit_id)
-        if project_id is None:
+        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         # Page metadata (batched single-page)
         page = await self.repo.crawl_page_repo.get_by_id(page_id)
-        if page is None or str(page.crawl_id) != str(crawl_id):
+        if page is None or str(page.audit_id) != str(audit_id):
             raise LookupError(f"Page {page_id} not found in audit {audit_id}")
 
         url = page.url or page.normalized_url or ""
 
         # All failed rules for this page
         failed = await self.repo.rule_eval_repo.get_failed_for_page(
-            project_id, crawl_id, page_id
+            audit_id, audit_id, page_id
         )
         page_issues: List[IssuePageRow] = []
         for r in failed:
@@ -651,7 +651,7 @@ class AuditReadModelService:
         facts: Optional[Dict[str, Any]] = None
         if include_facts:
             parsed_fact = await self.repo.parsed_fact_repo.get_by_page_id(
-                project_id, page_id
+                audit_id, page_id
             )
             seo = await self.repo.seo_repo.get_by_page_id(page_id)
             network = await self.repo.network_repo.get_by_page_id(page_id)

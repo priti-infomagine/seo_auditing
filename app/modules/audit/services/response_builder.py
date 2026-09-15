@@ -91,8 +91,7 @@ def _build_links_analysis(parsed_links: List[Dict[str, Any]], page_url: str) -> 
 
 async def build_per_page_breakdown(
     db: AsyncSession,
-    project_id: UUID,
-    crawl_id: UUID,
+    audit_id: UUID,
 ) -> List[Dict[str, Any]]:
     """
     Build a per-page audit breakdown from DB rows.
@@ -103,18 +102,18 @@ async def build_per_page_breakdown(
     info, and links analysis.
 
     Used by both ``analyze.py`` (post-crawl response) and
-    ``results.py`` (GET /audit/result/{crawl_id}).
+    ``results.py`` (GET /audit/result/{audit_id}).
 
     Args:
         db: Async database session.
-        project_id: Project tracking key.
-        crawl_id: Crawl job ID.
+        audit_id: Project tracking key.
+        audit_id: Crawl job ID.
 
     Returns:
         List of per-page dicts, one per crawled page with rule results.
     """
     logger.info(
-        f"build_per_page_breakdown: project_id={project_id}, crawl_id={crawl_id}"
+        f"build_per_page_breakdown: audit_id={audit_id}, audit_id={audit_id}"
     )
 
     rule_eval_repo = RuleEvaluationResultRepository(db)
@@ -125,8 +124,8 @@ async def build_per_page_breakdown(
     calculator = ScoreCalculator()
 
     # Load all rule evaluation results for this crawl+project
-    all_results = await rule_eval_repo.get_by_project_id(project_id)
-    crawl_results = [r for r in all_results if str(r.crawl_id) == str(crawl_id)]
+    all_results = await rule_eval_repo.get_by_audit_id(audit_id)
+    crawl_results = [r for r in all_results if str(r.audit_id) == str(audit_id)]
 
     # Group by page_id
     page_groups: Dict[UUID, List[Any]] = defaultdict(list)
@@ -134,7 +133,7 @@ async def build_per_page_breakdown(
         page_groups[er.page_id].append(er)
 
     # Load crawl pages for URL mapping
-    crawl_pages = await crawl_page_repo.get_by_crawl_id(crawl_id)
+    crawl_pages = await crawl_page_repo.get_by_audit_id(audit_id)
     page_url_map: Dict[UUID, str] = {
         p.id: p.url or p.normalized_url for p in crawl_pages
     }
@@ -226,7 +225,7 @@ async def build_per_page_breakdown(
 
         # Build links_analysis from ParsedPageFact (filtered views over single list)
         links_analysis: Dict[str, Any] = {}
-        parsed_fact = await parsed_fact_repo.get_by_page_id(project_id, page_id)
+        parsed_fact = await parsed_fact_repo.get_by_page_id(audit_id, page_id)
         if parsed_fact and parsed_fact.parsed_data:
             parsed_links = parsed_fact.parsed_data.get("links", []) or []
             links_analysis = _build_links_analysis(parsed_links, url)
@@ -251,6 +250,6 @@ async def build_per_page_breakdown(
 
     logger.info(
         f"build_per_page_breakdown: built {len(per_page)} page entries "
-        f"for project_id={project_id}"
+        f"for audit_id={audit_id}"
     )
     return per_page

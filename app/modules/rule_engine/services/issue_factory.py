@@ -70,8 +70,7 @@ class RuleResultToSEOIssueConverter:
         result: RuleResult,
         page_url: str,
         page_id: Optional[str] = None,
-        crawl_id: Optional[str] = None,
-        project_id: Optional[str] = None,
+        audit_id: Optional[str] = None,
     ) -> Optional[SEOIssue]:
         """
         Convert a RuleResult into a SEOIssue.
@@ -96,8 +95,8 @@ class RuleResultToSEOIssueConverter:
             current_value=cls._build_current_value(result),
             recommended=cls._build_recommended(result),
             page_id=page_id,
-            crawl_id=crawl_id,
-            project_id=project_id,
+            audit_id=audit_id,
+            
         )
 
 

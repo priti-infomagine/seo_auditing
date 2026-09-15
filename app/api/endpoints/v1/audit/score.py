@@ -44,7 +44,7 @@ async def score_project(
     Trigger full scoring for a crawl with completed evaluation.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
         body: Request with force flag.
         db: Database session.
 

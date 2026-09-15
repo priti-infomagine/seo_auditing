@@ -88,7 +88,7 @@ class RuleEvaluatorService:
         Fault-tolerant: per-rule and per-page failures are caught and recorded.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             force: If True, re-evaluate rules even if results exist.
 
         Returns:
@@ -244,7 +244,7 @@ class RuleEvaluatorService:
         error results; other rules continue executing.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             fact: The ParsedPageFact for this page (already loaded).
             crawl_page: The CrawlPage row (batch-fetched).
             seo_data: The PageSEOData row (batch-fetched) or None.
@@ -262,7 +262,7 @@ class RuleEvaluatorService:
             # Run all rules concurrently with per-rule timeout
             rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
 
-            # Convert to RuleEvaluationResult and set project_id/crawl_id/page_id
+            # Convert to RuleEvaluationResult and set audit_id/audit_id/page_id
             now = utc_now()
             eval_results = [
                 RuleEvaluationResult(

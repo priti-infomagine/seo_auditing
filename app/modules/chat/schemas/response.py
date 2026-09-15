@@ -13,7 +13,7 @@ class ChatReference(BaseModel):
 
 
 class ChatResponse(BaseModel):
-    project_id: str
+    audit_id: str
     audit_id: str | None = None
     answer: str
     references: list[ChatReference] = Field(default_factory=list)

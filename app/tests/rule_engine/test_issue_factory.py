@@ -73,7 +73,7 @@ def test_affected_part_unknown(converter):
 def test_field_propagation(converter):
     issue = converter.from_rule_result(
         _mk("technical_001", Severity.CRITICAL, False, cat="technical"),
-        "http://x/page", page_id="p-1", crawl_id="c-1", project_id="pr-1",
+        "http://x/page", page_id="p-1", audit_id="c-1", audit_id="pr-1",
     )
     assert issue.page_url == "http://x/page"
     assert issue.category == "technical"

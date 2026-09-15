@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 """Interactive CLI tester for the chat API.
 
-Usage:
-    python chat_cli.py [project_id]
 
-If project_id is omitted, you will be prompted to enter one.
 """
 import asyncio
 import sys
@@ -22,22 +19,22 @@ from app.core.config import settings
 from app.modules.chat.services.chat_service import ChatService
 
 
-def _resolve_project_id() -> UUID:
+def _resolve_audit_id() -> UUID:
     if len(sys.argv) > 1:
         return UUID(sys.argv[1].strip())
-    raw = input("Enter project_id: ").strip()
+    raw = input("Enter audit_id: ").strip()
     return UUID(raw)
 
 
 async def main() -> None:
-    project_id = _resolve_project_id()
+    audit_id = _resolve_audit_id()
     engine = create_async_engine(settings.DATABASE_URL, echo=False, pool_pre_ping=True)
     session_factory = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
     async with session_factory() as db:
         service = ChatService(db=db)
 
-        print(f"Chat Tester - Project: {project_id}")
+        print(f"Chat Tester - Project: {audit_id}")
         print("Type your question and press Enter. Type 'exit' or press Ctrl+C to quit.\n")
 
         while True:
@@ -52,7 +49,7 @@ async def main() -> None:
 
             try:
                 response = await service.chat(
-                    project_id=project_id,
+                    audit_id=audit_id,
                     message=question,
                 )
                 print(f"\nBot: {response.answer}\n")

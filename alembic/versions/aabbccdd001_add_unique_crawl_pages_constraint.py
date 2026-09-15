@@ -1,4 +1,4 @@
-"""Add unique constraint on crawl_pages(crawl_id, normalized_url)
+"""Add unique constraint on crawl_pages(audit_id, normalized_url)
 
 Revision ID: aabbccdd001
 Revises: a046fe9654e8
@@ -18,15 +18,15 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_unique_constraint(
-        "uq_crawl_pages_crawl_id_normalized_url",
+        "uq_crawl_pages_audit_id_normalized_url",
         "crawl_pages",
-        ["crawl_id", "normalized_url"],
+        ["audit_id", "normalized_url"],
     )
 
 
 def downgrade() -> None:
     op.drop_constraint(
-        "uq_crawl_pages_crawl_id_normalized_url",
+        "uq_crawl_pages_audit_id_normalized_url",
         "crawl_pages",
         type_="unique",
     )

@@ -10,7 +10,7 @@ from app.modules.chat.retrieval.page_retriever import PageRetriever
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-def build_chat_tools(db: AsyncSession, project_id: UUID) -> list:
+def build_chat_tools(db: AsyncSession, audit_id: UUID) -> list:
     issue_retriever = IssueRetriever(db)
     category_retriever = CategoryRetriever(db)
     page_retriever = PageRetriever(db)
@@ -29,7 +29,7 @@ def build_chat_tools(db: AsyncSession, project_id: UUID) -> list:
         Returns a JSON list of issues with rule_id, severity, message, page_url, score_impact.
         """
         results = await issue_retriever.get_failed_issues(
-            project_id=project_id,
+            audit_id=audit_id,
             category=category,
             rule_id=rule_id,
             page_url=page_url,
@@ -46,7 +46,7 @@ def build_chat_tools(db: AsyncSession, project_id: UUID) -> list:
         Returns a JSON list of failed rules with rule_id, severity, message, page_url, score_impact.
         """
         results = await category_retriever.get_category_failed_rules(
-            project_id=project_id,
+            audit_id=audit_id,
             category=category,
             limit=20,
         )
@@ -77,7 +77,7 @@ def build_chat_tools(db: AsyncSession, project_id: UUID) -> list:
         page_url = page_url.strip()
 
         result = await page_retriever.get_page_facts(
-            project_id=project_id,
+            audit_id=audit_id,
             page_url=page_url,
         )
         
@@ -98,7 +98,7 @@ def build_chat_tools(db: AsyncSession, project_id: UUID) -> list:
     #     Returns null if the page is not found in the audit data.
     #     """
     #     result = await page_retriever.get_page_facts(
-    #         project_id=project_id,
+    #         audit_id=audit_id,
     #         page_url=page_url,
     #     )
     #     return json.dumps(result, default=str)

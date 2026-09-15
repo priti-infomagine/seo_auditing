@@ -23,7 +23,7 @@ class CrawlConfig(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("crawl_jobs.id", ondelete="CASCADE"),
         nullable=False,
@@ -73,7 +73,7 @@ class CrawlConfig(TimestampMixin, Base):
         return (
             f"<CrawlConfig "
             f"id={self.id} "
-            f"crawl_id={self.crawl_id} "
+            f"audit_id={self.audit_id} "
             f"max_depth={self.max_depth}"
             f">"
         )

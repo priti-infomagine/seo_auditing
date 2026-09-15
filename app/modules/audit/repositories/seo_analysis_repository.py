@@ -52,7 +52,7 @@ class SeoAnalysisRunRepository:
         return run
 
     async def get_by_audit_id(self, audit_id: UUID) -> Optional[SeoAnalysisRun]:
-        """Get analysis run by audit ID (== crawl_id)."""
+        """Get analysis run by audit ID (== audit_id)."""
         result = await self.db.execute(
             select(SeoAnalysisRun).where(
                 SeoAnalysisRun.audit_id == audit_id
@@ -78,11 +78,11 @@ class SeoAnalysisRunRepository:
         )
         return result.scalar_one_or_none()
 
-    async def get_by_user_and_domain(self, domain: str, user_project_ids: List[UUID]) -> List[SeoAnalysisRun]:
+    async def get_by_user_and_domain(self, domain: str, user_audit_ids: List[UUID]) -> List[SeoAnalysisRun]:
         """Get all analysis runs for a domain, filtered to a user's audit IDs."""
         result = await self.db.execute(
             select(SeoAnalysisRun).where(
-                SeoAnalysisRun.audit_id.in_(user_project_ids)
+                SeoAnalysisRun.audit_id.in_(user_audit_ids)
             ).order_by(SeoAnalysisRun.scored_at.desc())
         )
         return list(result.scalars().all())

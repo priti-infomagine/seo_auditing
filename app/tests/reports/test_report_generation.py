@@ -177,7 +177,7 @@ def test_download_report_pdf_generates_stores_and_serves(monkeypatch, tmp_path):
         return fake_job
 
     monkeypatch.setattr(
-        CrawlJobRepository, "get_by_id_or_project_id", _fake_job
+        CrawlJobRepository, "get_by_id_or_audit_id", _fake_job
     )
 
     build_calls = []
@@ -227,7 +227,7 @@ def test_download_report_pdf_404_when_audit_not_found(monkeypatch, tmp_path):
         return None
 
     monkeypatch.setattr(
-        CrawlJobRepository, "get_by_id_or_project_id", _fake_none
+        CrawlJobRepository, "get_by_id_or_audit_id", _fake_none
     )
 
     with pytest.raises(HTTPException) as exc_info:

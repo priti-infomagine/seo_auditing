@@ -56,7 +56,7 @@ class AuditReadRepository:
     async def resolve_audit(
         self, audit_id: UUID
     ) -> Tuple[Optional[UUID], Optional[UUID]]:
-        """Resolve ``audit_id`` (== crawl_id) → (project_id, crawl_id).
+        """Resolve ``audit_id`` (== audit_id) → (audit_id, audit_id).
 
         Returns ``(None, None)`` if no completed analysis run exists for the
         crawl. We deliberately do not return the run row here — the service
@@ -65,7 +65,7 @@ class AuditReadRepository:
         run = await self.analysis_repo.get_by_audit_id(audit_id)
         if run is None:
             return None, None
-        return run.crawl_id, run.project_id
+        return run.audit_id, run.audit_id
 
     async def load_compact_inputs(
         self,
@@ -76,10 +76,10 @@ class AuditReadRepository:
         Returns ``None`` if no analysis run exists for the given crawl.
         Performs at most 4 queries:
 
-        1. ``seo_analysis_repo.get_by_crawl_id`` (analysis run row)
+        1. ``seo_analysis_repo.get_by_audit_id`` (analysis run row)
         2. ``crawl_job_repo.get_by_id`` (crawl metadata)
-        3. ``crawl_page_repo.get_by_crawl_id`` (all crawl pages)
-        4. ``rule_eval_repo.get_failed_by_crawl_id`` (failed rules only)
+        3. ``crawl_page_repo.get_by_audit_id`` (all crawl pages)
+        4. ``rule_eval_repo.get_failed_by_audit_id`` (failed rules only)
 
         No per-page ``page_seo_data`` or ``page_network_data`` is loaded —
         those are only fetched lazily by the detail endpoints.
@@ -88,7 +88,7 @@ class AuditReadRepository:
         if run is None:
             return None
         crawl_job = await self.crawl_job_repo.get_by_id(run.audit_id)
-        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(run.audit_id)
+        crawl_pages = await self.crawl_page_repo.get_by_audit_id(run.audit_id)
         failed_results = await self.rule_eval_repo.get_failed_by_audit_id(
             run.audit_id
         )

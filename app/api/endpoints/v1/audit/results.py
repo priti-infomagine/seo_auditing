@@ -40,7 +40,7 @@ _AuditResultResponse = Union[SeoAnalysisResponse, AuditOverview]
     response_model=_AuditResultResponse,
     summary="Fetch analysis result for an audit",
     description=(
-        "Returns the SEO analysis result for a given audit_id (== crawl_id). "
+        "Returns the SEO analysis result for a given audit_id (== audit_id). "
         "Use ``?format=full`` (default) to get the legacy unified response with "
         "per-page evidence, or ``?format=compact`` to get the small "
         "``AuditOverview`` projection."
@@ -62,9 +62,9 @@ async def get_analysis_result(
 
     try:
         job_repo = CrawlJobRepository(db)
-        # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so
-        # callers can use the public project_id returned in CrawlResponse.
-        job = await job_repo.get_by_id_or_project_id(audit_id)
+        # Resolve by audit_id (CrawlJob.id) first; fall back to audit_id so
+        # callers can use the public audit_id returned in CrawlResponse.
+        job = await job_repo.get_by_id_or_audit_id(audit_id)
         if not job:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -182,7 +182,6 @@ def _run_to_summary(run):
     from app.modules.audit.schemas.analysis_schemas import SeoAnalysisSummary
     return SeoAnalysisSummary(
         audit_id=str(run.audit_id),
-        crawl_id=str(run.audit_id),
         domain=run.domain,
         overall_score=float(run.overall_score) if run.overall_score else 0.0,
         grade=run.grade or "F",
@@ -238,7 +237,6 @@ async def get_pipeline_status(
 
         return PipelineStatusResponse(
             audit_id=str(audit_id),
-            crawl_id=str(audit_id),
             parse_status=parse_status,
             evaluate_status=evaluate_status,
             score_status=score_status,
@@ -322,7 +320,6 @@ async def get_pipeline_summary(
 
         return PipelineSummaryResponse(
             audit_id=str(audit_id),
-            crawl_id=str(audit_id),
             domain=domain,
             parse=parse_stage,
             evaluate=eval_stage,

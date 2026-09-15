@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 from uuid import UUID
 
 from app.core.config import settings
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.reports.services.pdf_generator import render_audit_report_pdf
 from app.modules.reports.services.report_data_service import build_audit_report
@@ -33,7 +34,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
     Celery task: build report data, generate PDF, and email as attachment.
 
     Args:
-        audit_id: Audit identifier (== crawl_id).
+        audit_id: Audit identifier (== audit_id).
         to_email: Recipient email address.
     """
     logger.info(
@@ -51,7 +52,13 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
         domain = urlparse(report.url).netloc or "unknown"
         pdf_path = f"{settings.REPORT_OUTPUT_DIR}/{domain}/{audit_id}.pdf"
 
-        rendered_path = render_audit_report_pdf(report, pdf_path)
+        rendered_path = render_audit_report_pdf(
+            report,
+            pdf_path,
+            logo_url=settings.REPORT_LOGO_URL,
+            company_name=settings.COMPANY_NAME,
+            copyright_text=settings.COPYRIGHT_TEXT,
+        )
         pdf_bytes = Path(rendered_path).read_bytes()
 
         # Additionally store a permanent copy in output/report/{domain}/{audit_id}.pdf
@@ -81,6 +88,49 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
         logger.info(
             f"reports.send_audit_report_email: successfully sent report email for audit_id={audit_id} to {to_email}"
         )
+
+        # Record the report in the DB (fire-and-forget via run_async)
+        def _record():
+            from app.core.database import async_session_factory
+            from app.modules.reports.models.seo_report import SeoReport
+
+            async def _do_record():
+                async with async_session_factory() as db:
+                    existing = await db.get(SeoReport, UUID(audit_id))
+                    if existing:
+                        new_version = existing.report_version + 1
+                        emails = list(existing.delivered_to)
+                        if to_email not in emails:
+                            emails.append(to_email)
+                        existing.report_version = new_version
+                        existing.delivered_to = emails
+                        existing.delivered_at = utc_now()
+                        logger.info(
+                            f"Updated SeoReport for audit_id={audit_id}, "
+                            f"version={new_version}, delivered_to={emails}"
+                        )
+                    else:
+                        db.add(SeoReport(
+                            audit_id=UUID(audit_id),
+                            report_version=1,
+                            delivered_to=[to_email],
+                            delivered_at=utc_now(),
+                        ))
+                        logger.info(
+                            f"Created SeoReport for audit_id={audit_id}, "
+                            f"version=1, delivered_to=[{to_email}]"
+                        )
+                    await db.commit()
+
+            run_async(_do_record())
+
+        try:
+            _record()
+        except Exception as db_exc:
+            logger.error(
+                f"Error recording SeoReport for audit_id={audit_id}: {db_exc}",
+                exc_info=True,
+            )
     except Exception as exc:
         logger.error(
             f"reports.send_audit_report_email: failed for audit_id={audit_id}, to_email={to_email}: {exc}",

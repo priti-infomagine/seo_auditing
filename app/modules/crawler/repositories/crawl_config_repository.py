@@ -30,10 +30,10 @@ class CrawlConfigRepository:
         )
         return result.scalar_one_or_none()
     
-    async def get_by_crawl_id(self, crawl_id: UUID) -> Optional[CrawlConfig]:
+    async def get_by_audit_id(self, audit_id: UUID) -> Optional[CrawlConfig]:
         """Get crawl config by crawl job ID."""
         result = await self.db.execute(
-            select(CrawlConfig).where(CrawlConfig.crawl_id == crawl_id)
+            select(CrawlConfig).where(CrawlConfig.audit_id == audit_id)
         )
         return result.scalar_one_or_none()
     

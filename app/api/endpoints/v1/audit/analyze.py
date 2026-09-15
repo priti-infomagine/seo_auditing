@@ -39,7 +39,7 @@ router = APIRouter()
     description=(
         "Creates a crawl job and enqueues it on the crawler queue. The crawl "
         "then triggers the parse → evaluate → score analysis pipeline. Returns "
-         "immediately with crawl_id / audit_id / task_id and status URLs for "
+         "immediately with audit_id / audit_id / task_id and status URLs for "
         "polling. The final result is fetched via GET /audit/result/{audit_id}."
     ),
 )
@@ -68,7 +68,7 @@ async def analyze_website(
         db: Database session
 
     Returns:
-        AuditAnalyzeQueuedResponse with audit_id, crawl_id, task_id and URLs.
+        AuditAnalyzeQueuedResponse with audit_id, audit_id, task_id and URLs.
 
     Raises:
         HTTPException: If the URL is invalid or the job cannot be queued.
@@ -146,7 +146,6 @@ async def analyze_website(
             url=url_str,
             domain=domain,
             audit_id=str(audit_id),
-            crawl_id=str(audit_id),
             task_id=async_result.id,
             task_status_url=f"/api/v1/audit/analyze/task/{async_result.id}",
             crawl_status_url=f"/api/v1/crawler/status/{audit_id}",

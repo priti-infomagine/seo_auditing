@@ -63,7 +63,7 @@ async def send_audit_report(
     Queue PDF report generation and email delivery for an audit.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
         body: Request containing optional recipient email.
         db: Database session.
 
@@ -74,9 +74,9 @@ async def send_audit_report(
 
     job_repo = CrawlJobRepository(db)
 
-    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
-    # can use the public project_id returned in CrawlResponse.
-    job = await job_repo.get_by_id_or_project_id(audit_id)
+    # Resolve by audit_id (CrawlJob.id) first; fall back to audit_id so callers
+    # can use the public audit_id returned in CrawlResponse.
+    job = await job_repo.get_by_id_or_audit_id(audit_id)
     if not job:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -126,7 +126,7 @@ async def download_audit_report(
     stored copy is returned directly without re-rendering.
 
     Args:
-        audit_id: The audit ID (== crawl_id, or the public project_id).
+        audit_id: The audit ID (== audit_id, or the public audit_id).
         db: Database session.
 
     Returns:
@@ -139,9 +139,9 @@ async def download_audit_report(
 
     job_repo = CrawlJobRepository(db)
 
-    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
-    # can use the public project_id returned in CrawlResponse.
-    job = await job_repo.get_by_id_or_project_id(audit_id)
+    # Resolve by audit_id (CrawlJob.id) first; fall back to audit_id so callers
+    # can use the public audit_id returned in CrawlResponse.
+    job = await job_repo.get_by_id_or_audit_id(audit_id)
     if not job:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -156,7 +156,13 @@ async def download_audit_report(
     # Reuse the stored copy if the PDF was already generated for this audit.
     if not output_path.exists():
         report = await build_audit_report(db, audit_id)
-        render_audit_report_pdf(report, str(output_path))
+        render_audit_report_pdf(
+            report,
+            str(output_path),
+            logo_url=settings.REPORT_LOGO_URL,
+            company_name=settings.COMPANY_NAME,
+            copyright_text=settings.COPYRIGHT_TEXT,
+        )
         logger.info(
             f"GET /reports/{audit_id}/download: generated {output_path}"
         )

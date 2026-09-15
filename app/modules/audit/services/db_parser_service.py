@@ -77,7 +77,7 @@ class DBParserService:
         logged and recorded, remaining pages continue processing.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             force: If True, re-parse pages that already have parsed facts.
 
         Returns:
@@ -89,7 +89,7 @@ class DBParserService:
                 f"DBParserService.parse_crawl: audit_id={audit_id}, force={force}"
             )
 
-            pages = await self.crawl_page_repo.get_by_crawl_id(audit_id)
+            pages = await self.crawl_page_repo.get_by_audit_id(audit_id)
             pages_to_parse = [p for p in pages if p.is_success]
 
             if not pages_to_parse:
@@ -193,7 +193,7 @@ class DBParserService:
         (batch-loaded by `parse_crawl`) to avoid per-page DB round trips.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             page: The CrawlPage row to parse.
             snapshot: Pre-fetched PageSnapshot (or None).
             network_data: Pre-fetched PageNetworkData (or None).

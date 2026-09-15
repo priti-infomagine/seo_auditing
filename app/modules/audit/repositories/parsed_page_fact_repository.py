@@ -173,7 +173,7 @@ class ParsedPageFactRepository:
         return out
 
     async def get_by_audit_id(self, audit_id: UUID) -> List[ParsedPageFact]:
-        """Get all parsed facts for an audit (== crawl_id)."""
+        """Get all parsed facts for an audit (== audit_id)."""
         result = await self.db.execute(
             select(ParsedPageFact).where(
                 ParsedPageFact.audit_id == audit_id

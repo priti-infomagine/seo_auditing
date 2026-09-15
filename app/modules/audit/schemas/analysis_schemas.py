@@ -1,7 +1,7 @@
 """
 Pydantic schemas for the DB-backed analysis pipeline API endpoints.
 
-All schemas use `audit_id` (== `crawl_id`) as the single tracking key.
+All schemas use `audit_id` (== `audit_id`) as the single tracking key.
 """
 from typing import Optional, Dict, Any, List
 from uuid import UUID
@@ -15,7 +15,7 @@ class ParseTriggerRequest(BaseModel):
 
     audit_id: Optional[UUID] = Field(
         None,
-        description="Audit identifier (== crawl_id).",
+        description="Audit identifier (== audit_id).",
     )
     force: bool = Field(
         False,
@@ -28,7 +28,7 @@ class EvaluateTriggerRequest(BaseModel):
 
     audit_id: Optional[UUID] = Field(
         None,
-        description="Audit identifier (== crawl_id).",
+        description="Audit identifier (== audit_id).",
     )
     force: bool = Field(
         False,
@@ -41,7 +41,7 @@ class ScoreTriggerRequest(BaseModel):
 
     audit_id: Optional[UUID] = Field(
         None,
-        description="Audit identifier (== crawl_id).",
+        description="Audit identifier (== audit_id).",
     )
     force: bool = Field(
         False,
@@ -53,7 +53,7 @@ class PipelineStatusResponse(BaseModel):
     """Status of all pipeline stages for an audit."""
 
     audit_id: str = Field(..., description="Audit identifier")
-    crawl_id: str = Field(..., description="Crawl job identifier (== audit_id)")
+    audit_id: str = Field(..., description="Crawl job identifier (== audit_id)")
     parse_status: str = Field(..., description="pending | completed | failed | missing")
     evaluate_status: str = Field(..., description="pending | completed | failed | missing")
     score_status: str = Field(..., description="pending | completed | failed | missing")
@@ -98,7 +98,7 @@ class PipelineSummaryResponse(BaseModel):
     """Full pipeline summary for an audit."""
 
     audit_id: str
-    crawl_id: str
+    audit_id: str
     domain: Optional[str] = None
     parse: ParseStageSummary
     evaluate: EvaluateStageSummary
@@ -127,7 +127,7 @@ class SeoAnalysisSummary(BaseModel):
     """Summary of an analysis run for history listing."""
 
     audit_id: str
-    crawl_id: str
+    audit_id: str
     domain: str
     overall_score: float
     grade: str

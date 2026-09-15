@@ -129,11 +129,11 @@ async def test_crawl_success(authenticated_client: AsyncClient, db_session):
     data = response.json()
     assert data["status"] == "queued"
     assert data["message"] == "Crawl job queued successfully"
-    assert "crawl_id" in data
+    assert "audit_id" in data
 
-    crawl_id = UUID(data["crawl_id"])
+    audit_id = UUID(data["audit_id"])
     repo = CrawlJobRepository(db_session)
-    job = await repo.get_by_id(crawl_id)
+    job = await repo.get_by_id(audit_id)
     assert job is not None
     assert job.domain == "example.com"
     assert job.status == "queued"
@@ -179,13 +179,13 @@ async def test_crawl_status_endpoint(authenticated_client: AsyncClient, db_sessi
         json={"url": "https://example.com/"},
     )
     assert response.status_code == 202
-    crawl_id = response.json()["crawl_id"]
+    audit_id = response.json()["audit_id"]
 
-    status_response = await authenticated_client.get(f"/api/v1/crawler/status/{crawl_id}")
+    status_response = await authenticated_client.get(f"/api/v1/crawler/status/{audit_id}")
     assert status_response.status_code == 200
 
     status_data = status_response.json()
-    assert status_data["crawl_id"] == crawl_id
+    assert status_data["audit_id"] == audit_id
     assert status_data["domain"] == "example.com"
     assert status_data["url"] == "https://example.com/"
     assert status_data["status"] == "queued"

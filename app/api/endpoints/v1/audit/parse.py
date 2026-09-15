@@ -35,7 +35,7 @@ async def parse_crawl(
     Trigger DB-backed parsing for a completed crawl.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
         body: Optional request with force flag.
         db: Database session.
 
@@ -76,7 +76,7 @@ async def parse_crawl(
 
         return {
             "audit_id": str(audit_id),
-            "crawl_id": str(audit_id),
+            "audit_id": str(audit_id),
             "status": "completed",
             "message": f"Parsing completed: {result['pages_parsed']} pages parsed, "
                        f"{result['pages_failed']} failed, {result['pages_skipped']} skipped",

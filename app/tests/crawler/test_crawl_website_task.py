@@ -6,7 +6,7 @@ missing (e.g. the DB was reset between the POST /audit/analyze and
 the worker picking up the task), the task must:
 
   1. NOT raise a ``ValueError`` (the historical behaviour).
-  2. Recreate the ``CrawlJob`` row from the task arguments (crawl_id,
+  2. Recreate the ``CrawlJob`` row from the task arguments (audit_id,
      url, user_id) with safe defaults.
   3. Continue so the orchestrator can run.
 """
@@ -36,7 +36,7 @@ class _FakeSelf:
 async def test_crawl_website_recreates_missing_crawljob_row(db_session):
     """When the CrawlJob row is missing, the task self-heals by INSERTing one."""
     fake_self = _FakeSelf()
-    crawl_id = uuid4()
+    audit_id = uuid4()
     user_id = uuid4()
     url = "https://radonindia.com/"
 
@@ -55,7 +55,7 @@ async def test_crawl_website_recreates_missing_crawljob_row(db_session):
             with patch("app.modules.crawler.tasks.celery_app") as fake_celery:
                 fake_celery.send_task = lambda *a, **k: SimpleNamespace(id="t1")
                 result = crawl_website_task.run(
-                    fake_self, str(crawl_id), url, str(user_id)
+                    fake_self, str(audit_id), url, str(user_id)
                 )
 
     assert result is not None
@@ -64,14 +64,14 @@ async def test_crawl_website_recreates_missing_crawljob_row(db_session):
     count = (
         await db_session.execute(
             select(func.count()).select_from(CrawlJob).where(
-                CrawlJob.id == crawl_id
+                CrawlJob.id == audit_id
             )
         )
     ).scalar_one()
     assert count == 1, "missing-row fallback did not recreate the CrawlJob"
 
     row = (
-        await db_session.execute(select(CrawlJob).where(CrawlJob.id == crawl_id))
+        await db_session.execute(select(CrawlJob).where(CrawlJob.id == audit_id))
     ).scalar_one()
     assert row.url == url
     assert row.domain == "radonindia.com"
@@ -86,10 +86,10 @@ async def test_crawl_website_recreates_missing_crawljob_row(db_session):
 async def test_crawl_website_skips_already_completed_job(db_session):
     """If the job exists but is already completed/failed/cancelled, the task
     returns early with the existing status — no recreate, no re-crawl."""
-    crawl_id = uuid4()
+    audit_id = uuid4()
 
     job = CrawlJob(
-        id=crawl_id,
+        id=audit_id,
         user_id=uuid4(),
         url="https://example.com",
         domain="example.com",
@@ -121,23 +121,23 @@ async def test_crawl_website_skips_already_completed_job(db_session):
                     "celery_app.send_task must not be called for a completed job"
                 )
                 result = crawl_website_task.run(
-                    fake_self, str(crawl_id), "https://example.com",
+                    fake_self, str(audit_id), "https://example.com",
                     str(uuid4()),
                 )
 
     assert result["status"] == "completed"
-    assert result["crawl_id"] == str(crawl_id)
+    assert result["audit_id"] == str(audit_id)
 
 
 @pytest.mark.asyncio
 async def test_crawl_website_runs_normally_when_row_exists(db_session):
     """The happy-path: row exists, status='queued', orchestrator runs,
     audit pipeline is fired."""
-    crawl_id = uuid4()
+    audit_id = uuid4()
     user_id = uuid4()
 
     job = CrawlJob(
-        id=crawl_id,
+        id=audit_id,
         user_id=user_id,
         url="https://example.com",
         domain="example.com",
@@ -174,7 +174,7 @@ async def test_crawl_website_runs_normally_when_row_exists(db_session):
 
                 fake_celery.send_task = _capture
                 result = crawl_website_task.run(
-                    fake_self, str(crawl_id), "https://example.com",
+                    fake_self, str(audit_id), "https://example.com",
                     str(user_id),
                 )
 

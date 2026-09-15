@@ -147,7 +147,7 @@ class RuleEvaluationResultRepository:
         return total_processed
 
     async def get_by_audit_id(self, audit_id: UUID) -> List[RuleEvaluationResult]:
-        """Get all rule evaluation results for an audit (== crawl_id)."""
+        """Get all rule evaluation results for an audit (== audit_id)."""
         result = await self.db.execute(
             select(RuleEvaluationResult).where(
                 RuleEvaluationResult.audit_id == audit_id

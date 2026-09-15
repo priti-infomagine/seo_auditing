@@ -18,8 +18,9 @@ from app.core.database import Base  # noqa: E402
 from app.core.config import settings  # noqa: E402
 
 # Import model modules so they register on Base.metadata
-import app.modules.auth.models  # noqa: E402, F401
-import app.modules.crawler.models  # noqa: E402, F401
+import app.modules.auth.models  # noqa: F401, F401
+import app.modules.crawler.models  # noqa: F401, F401
+import app.modules.reports.models  # noqa: F401, F401
 
 target_metadata = Base.metadata
 

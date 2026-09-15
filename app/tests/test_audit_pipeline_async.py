@@ -3,7 +3,7 @@ End-to-end integration tests for the async SEO audit pipeline.
 
 Covers the core endpoints and their full lifecycle:
 
-  1. POST /audit/analyze               -> 202 + { audit_id, crawl_id, task_id, urls }
+  1. POST /audit/analyze               -> 202 + { audit_id, audit_id, task_id, urls }
   2. GET  /audit/status/{audit_id}     -> { parse_status, evaluate_status, score_status }
   3. GET  /audit/result/{audit_id}     -> 200 (full audit payload after the pipeline finishes)
 """
@@ -105,7 +105,7 @@ async def _seed_crawl(
         url = f"https://example.com/page{i + 1}"
         norm = url
         page = CrawlPage(
-            crawl_id=audit_id,
+            audit_id=audit_id,
             url=url,
             normalized_url=norm,
             url_hash=hashlib.sha256(norm.encode()).hexdigest(),
@@ -200,10 +200,10 @@ async def test_post_analyze_queued_when_no_worker(mock_celery):
     assert data["domain"] == "example.com"
     assert data["full_pipeline"] is True
 
-    for key in ("audit_id", "crawl_id", "task_id"):
+    for key in ("audit_id", "audit_id", "task_id"):
         assert data[key], f"{key!r} is empty"
     uuid.UUID(data["audit_id"])
-    uuid.UUID(data["crawl_id"])
+    uuid.UUID(data["audit_id"])
     assert isinstance(data["task_id"], str) and data["task_id"]
 
     assert data["task_status_url"].endswith(f"/task/{data['task_id']}")

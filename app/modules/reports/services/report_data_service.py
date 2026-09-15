@@ -40,7 +40,7 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
 
     Args:
         db: Database session.
-        audit_id: Audit identifier (== crawl_id).
+        audit_id: Audit identifier (== audit_id).
 
     Returns:
         AuditReportResponse object.
@@ -51,24 +51,24 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
     logger.info(f"build_audit_report: fetching data for audit_id={audit_id}")
 
     job_repo = CrawlJobRepository(db)
-    # Resolve by crawl_id (CrawlJob.id) first; fall back to project_id so callers
-    # can use the public project_id returned in CrawlResponse.
-    crawl_job = await job_repo.get_by_id_or_project_id(audit_id)
+    
+    # can use the public audit_id returned in CrawlResponse.
+    crawl_job = await job_repo.get_by_id_or_audit_id(audit_id)
     if not crawl_job:
         raise ValueError(f"CrawlJob not found for audit_id={audit_id}")
 
-    # Use the resolved crawl_id for all downstream lookups.
-    resolved_crawl_id = crawl_job.id
+    # Use the resolved audit_id for all downstream lookups.
+    resolved_audit_id = crawl_job.id
 
     rule_repo = RuleEvaluationResultRepository(db)
-    rule_results = await rule_repo.get_by_audit_id(resolved_crawl_id)
+    rule_results = await rule_repo.get_by_audit_id(resolved_audit_id)
 
     page_repo = CrawlPageRepository(db)
-    crawl_pages = await page_repo.get_by_crawl_id(resolved_crawl_id)
+    crawl_pages = await page_repo.get_by_audit_id(resolved_audit_id)
     page_url_map: Dict[UUID, str] = {p.id: p.url for p in crawl_pages}
 
     analysis_repo = SeoAnalysisRunRepository(db)
-    seo_run = await analysis_repo.get_by_audit_id(resolved_crawl_id)
+    seo_run = await analysis_repo.get_by_audit_id(resolved_audit_id)
 
     check_results: list[CheckResult] = []
     for r in rule_results:
@@ -101,7 +101,7 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
     scanned_at_str = scanned_at_dt.isoformat()
 
     report = build_report_response(
-        scan_id=str(resolved_crawl_id),
+        scan_id=str(resolved_audit_id),
         url=crawl_job.url,
         site_category=site_category,
         scanned_at=scanned_at_str,

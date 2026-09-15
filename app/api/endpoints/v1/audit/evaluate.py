@@ -39,7 +39,7 @@ async def evaluate_crawl(
     Trigger rule evaluation for all parsed pages of a crawl.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
         body: Request with force flag.
         db: Database session.
 
@@ -82,7 +82,7 @@ async def evaluate_crawl(
 
         return {
             "audit_id": str(audit_id),
-            "crawl_id": str(audit_id),
+            "audit_id": str(audit_id),
             "status": "completed",
             "message": f"Evaluation completed: {result['pages_evaluated']} pages evaluated, "
                        f"{result['total_results']} total rule results, "

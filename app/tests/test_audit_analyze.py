@@ -85,7 +85,7 @@ async def _seed_crawl(db: AsyncSession, audit_id: uuid.UUID, n_pages: int):
         url = f"https://example.com/page{i + 1}"
         norm = url
         page = CrawlPage(
-            crawl_id=audit_id,
+            audit_id=audit_id,
             url=url,
             normalized_url=norm,
             url_hash=hashlib.sha256(norm.encode()).hexdigest(),
@@ -175,7 +175,7 @@ async def test_audit_analyze_queued_returns_202(mock_celery):
     data = response.json()
     assert data["success"] is True
     assert data["status"] == "queued"
-    for key in ("audit_id", "crawl_id", "task_id"):
+    for key in ("audit_id", "audit_id", "task_id"):
         assert data[key]
     assert data["task_status_url"].endswith(f"/task/{data['task_id']}")
     assert data["crawl_status_url"].endswith(f"/{data['audit_id']}")

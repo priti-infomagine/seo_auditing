@@ -5,22 +5,29 @@ Structure:
 1. Cover Header: URL, domain, scanned_at, pages_crawled, overall_score + grade badge.
 2. Executive Summary: overall score breakdown table + category summary table.
 3. Category Details: per-category breakdown of issues and affected pages.
+
+Every page includes a header (logo + company name) and a footer (copyright +
+company name + page number) via a PageTemplate.onPage callback.
 """
 from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
 from reportlab.platypus import (
+    BaseDocTemplate,
+    Frame,
     HRFlowable,
     KeepTogether,
     PageBreak,
+    PageTemplate,
     Paragraph,
-    SimpleDocTemplate,
     Spacer,
     Table,
     TableStyle,
@@ -40,32 +47,146 @@ COLOR_INFO = colors.HexColor("#4A5568")
 COLOR_LIGHT_BG = colors.HexColor("#F7FAFC")
 COLOR_BORDER = colors.HexColor("#E2E8F0")
 
+# Page dimensions and margins
+PAGE_W, PAGE_H = letter
+LEFT_M = 36
+RIGHT_M = 36
+TOP_M = 70
+BOTTOM_M = 70
+HEADER_HEIGHT = 20
+FOOTER_HEIGHT = 20
 
-def render_audit_report_pdf(report: AuditReportResponse, output_path: str) -> str:
+
+def _make_header_footer(
+    logo_url: str,
+    company_name: str,
+    copyright_text: str,
+):
+    """Return an onPage callback that draws header/logo and footer on every page."""
+    logo_reader = None
+    logo_w = logo_h = 0
+    if logo_url:
+        try:
+            logo_reader = ImageReader(logo_url)
+            iw, ih = logo_reader.getSize()
+            aspect = ih / iw
+            logo_w = 80
+            logo_h = logo_w * aspect
+        except Exception:
+            logo_reader = None
+
+    def _header_footer(canvas, doc):
+        canvas.saveState()
+
+        # Header
+        header_y = PAGE_H - TOP_M + HEADER_HEIGHT / 2 + 4
+        if logo_reader:
+            try:
+                canvas.drawImage(
+                    logo_reader,
+                    LEFT_M,
+                    header_y - logo_h / 2,
+                    width=logo_w,
+                    height=logo_h,
+                    preserveAspectRatio=True,
+                    mask="auto",
+                )
+            except Exception:
+                pass
+        canvas.setFont("Helvetica-Bold", 8)
+        canvas.setFillColor(COLOR_PRIMARY)
+        canvas.drawRightString(
+            PAGE_W - RIGHT_M,
+            header_y,
+            company_name,
+        )
+
+        # Footer
+        footer_y = BOTTOM_M - FOOTER_HEIGHT / 2 - 4
+        canvas.setFont("Helvetica", 7)
+        canvas.setFillColor(COLOR_INFO)
+        canvas.drawString(LEFT_M, footer_y, f"© {copyright_text}")
+        canvas.drawCentredString(
+            PAGE_W / 2,
+            footer_y,
+            company_name,
+        )
+        canvas.drawRightString(PAGE_W - RIGHT_M, footer_y, f"Page {doc.page}")
+
+        canvas.restoreState()
+
+    return _header_footer
+
+
+def render_audit_report_pdf(
+    report: AuditReportResponse,
+    output_path: str,
+    logo_url: Optional[str] = None,
+    company_name: Optional[str] = None,
+    copyright_text: Optional[str] = None,
+) -> str:
     """
     Render an AuditReportResponse object to a PDF file at output_path.
 
     Args:
         report: AuditReportResponse object containing structured report data.
-        output_path: Target filepath for saving the PDF (e.g. app/output/reports/domain_auditid.pdf).
+        output_path: Target filepath for saving the PDF.
+        logo_url: Optional logo URL/path for header. Defaults to settings.REPORT_LOGO_URL.
+        company_name: Optional company name for header/footer. Defaults to settings.COMPANY_NAME.
+        copyright_text: Optional copyright text for footer. Defaults to settings.COPYRIGHT_TEXT.
 
     Returns:
         The output_path string where the PDF was written.
     """
+    if logo_url is None:
+        logo_url = settings.REPORT_LOGO_URL
+    if company_name is None:
+        company_name = settings.COMPANY_NAME
+    if copyright_text is None:
+        copyright_text = settings.COPYRIGHT_TEXT
+
     logger.info(f"render_audit_report_pdf: generating PDF for scan_id={report.scan_id} at {output_path}")
 
     out_file = Path(output_path)
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
-    doc = SimpleDocTemplate(
+    # Build the story (content)
+    story = _build_story(report)
+
+    # Create doc with custom page template for header/footer
+    doc = BaseDocTemplate(
         str(out_file),
         pagesize=letter,
-        leftMargin=36,
-        rightMargin=36,
-        topMargin=36,
-        bottomMargin=36,
+        leftMargin=LEFT_M,
+        rightMargin=RIGHT_M,
+        topMargin=TOP_M,
+        bottomMargin=BOTTOM_M,
     )
 
+    frame = Frame(
+        LEFT_M,
+        BOTTOM_M,
+        PAGE_W - LEFT_M - RIGHT_M,
+        PAGE_H - TOP_M - BOTTOM_M,
+        id="normal",
+    )
+    header_footer = _make_header_footer(logo_url, company_name, copyright_text)
+    template = PageTemplate(
+        id="with_header_footer",
+        frames=[frame],
+        onPage=header_footer,
+    )
+    doc.addPageTemplates([template])
+
+    doc.build(story)
+
+    logger.info(f"render_audit_report_pdf: successfully generated PDF at {output_path}")
+
+    return str(out_file)
+
+
+def _build_story(report: AuditReportResponse) -> List:
+    """Build the Platypus story (content elements) for the report."""
     styles = getSampleStyleSheet()
 
     # Custom typography styles
@@ -128,7 +249,7 @@ def render_audit_report_pdf(report: AuditReportResponse, output_path: str) -> st
         textColor=colors.white,
     )
 
-    story = []
+    story: List = []
 
     # ── 1. COVER / HEADER SECTION ─────────────────────────────────────
     story.append(Paragraph(f"SEO Audit Report — {report.url}", style_title))
@@ -226,73 +347,73 @@ def render_audit_report_pdf(report: AuditReportResponse, output_path: str) -> st
     story.append(Spacer(1, 20))
 
     # ── 3. CATEGORY DETAILS & ISSUES ───────────────────────────────────
-    story.append(Paragraph("Category Details & Audit Issues", style_heading1))
+    applicable_cats_with_issues = [
+        c for c in report.categories if c.applicable and c.issues
+    ]
+    if applicable_cats_with_issues:
+        story.append(Paragraph("Category Details & Audit Issues", style_heading1))
 
-    for cat in report.categories:
-        if not cat.applicable:
-            continue
-        if not cat.issues:
-            continue
+        for idx, cat in enumerate(applicable_cats_with_issues):
+            cat_elements = []
+            cat_elements.append(Paragraph(f"{cat.label} Issues", style_heading2))
 
-        cat_elements = []
-        cat_elements.append(Paragraph(f"{cat.label} Issues", style_heading2))
+            for issue in cat.issues:
+                sev_color = COLOR_CRITICAL if issue.severity == "critical" else (COLOR_WARNING if issue.severity == "warning" else COLOR_INFO)
+                issue_header = Paragraph(
+                    f"<b>[{issue.severity.upper()}]</b> {issue.title} "
+                    f"<font color='{COLOR_INFO.hexval()}'>{issue.affected_page_count} page(s) affected</font>",
+                    ParagraphStyle("IssueTitle", parent=style_body_bold, textColor=sev_color, fontSize=10),
+                )
 
-        for issue in cat.issues:
-            sev_color = COLOR_CRITICAL if issue.severity == "critical" else (COLOR_WARNING if issue.severity == "warning" else COLOR_INFO)
-            issue_header = Paragraph(
-                f"<b>[{issue.severity.upper()}]</b> {issue.title} "
-                f"<font color='{COLOR_INFO.hexval()}'>({issue.affected_page_count} page(s) affected)</font>",
-                ParagraphStyle("IssueTitle", parent=style_body_bold, textColor=sev_color, fontSize=10),
-            )
-
-            issue_details = [
-                Paragraph(f"<b>Description:</b> {issue.description}", style_body),
-            ]
-            if issue.recommendation:
-                issue_details.append(
-                    Paragraph(
-                        f"<b>Recommendation:</b> {escape(issue.recommendation)}",
-                        style_body,
+                issue_details = [
+                    Paragraph(f"<b>Description:</b> {issue.description}", style_body),
+                ]
+                if issue.recommendation:
+                    issue_details.append(
+                        Paragraph(
+                            f"<b>Recommendation:</b> {escape(issue.recommendation)}",
+                            style_body,
+                        )
                     )
-                )
-            # Affected pages table (limit to REPORT_MAX_AFFECTED_PAGES_SHOWN)
-            pages_shown = issue.affected_pages[: settings.REPORT_MAX_AFFECTED_PAGES_SHOWN]
-            if pages_shown:
-                page_rows = [[
-                    Paragraph("Page URL", style_table_header),
-                    Paragraph("Found / Evidence", style_table_header),
-                ]]
-                for p in pages_shown:
-                    ev_str = str(p.found_value) if p.found_value is not None else str(p.evidence or "")
-                    page_rows.append([
-                        Paragraph(p.url, style_body),
-                        Paragraph(ev_str[:120], style_body),
-                    ])
-                p_table = Table(page_rows, colWidths=[270, 250])
-                p_table.setStyle(
-                    TableStyle([
-                        ("BACKGROUND", (0, 0), (-1, 0), COLOR_PRIMARY),
-                        ("GRID", (0, 0), (-1, -1), 0.5, COLOR_BORDER),
-                        ("PADDING", (0, 0), (-1, -1), 4),
-                    ])
-                )
-                issue_details.append(Spacer(1, 4))
-                issue_details.append(p_table)
+                # Affected pages table (limit to REPORT_MAX_AFFECTED_PAGES_SHOWN)
+                pages_shown = issue.affected_pages[: settings.REPORT_MAX_AFFECTED_PAGES_SHOWN]
+                if pages_shown:
+                    page_rows = [[
+                        Paragraph("Page URL", style_table_header),
+                        Paragraph("Found / Evidence", style_table_header),
+                    ]]
+                    for p in pages_shown:
+                        ev_str = str(p.found_value) if p.found_value is not None else str(p.evidence or "")
+                        page_rows.append([
+                            Paragraph(p.url, style_body),
+                            Paragraph(ev_str[:120], style_body),
+                        ])
+                    p_table = Table(page_rows, colWidths=[270, 250])
+                    p_table.setStyle(
+                        TableStyle([
+                            ("BACKGROUND", (0, 0), (-1, 0), COLOR_PRIMARY),
+                            ("GRID", (0, 0), (-1, -1), 0.5, COLOR_BORDER),
+                            ("PADDING", (0, 0), (-1, -1), 4),
+                        ])
+                    )
+                    issue_details.append(Spacer(1, 4))
+                    issue_details.append(p_table)
 
-            cat_elements.append(KeepTogether([
-                issue_header,
-                Spacer(1, 2),
-                *issue_details,
-                Spacer(1, 8),
-            ]))
+                cat_elements.append(KeepTogether([
+                    issue_header,
+                    Spacer(1, 2),
+                    *issue_details,
+                    Spacer(1, 8),
+                ]))
 
-        story.append(KeepTogether(cat_elements))
-        story.append(Spacer(1, 10))
+            story.append(KeepTogether(cat_elements))
+            # Conditional page break: only if not the last section with content
+            if idx < len(applicable_cats_with_issues) - 1:
+                story.append(Spacer(1, 10))
 
     # ── 4. NON-APPLICABLE CATEGORIES SUMMARY ──────────────────────────
     skipped_cats = [c for c in report.categories if not c.applicable]
     if skipped_cats:
-        story.append(Spacer(1, 10))
         story.append(Paragraph("Non-Applicable Categories", style_heading2))
         for sc in skipped_cats:
             story.append(
@@ -302,17 +423,14 @@ def render_audit_report_pdf(report: AuditReportResponse, output_path: str) -> st
                 )
             )
 
-    # Footer note
+    # Final note
     story.append(Spacer(1, 20))
     story.append(HRFlowable(width="100%", thickness=0.5, color=COLOR_BORDER, spaceAfter=8))
     story.append(
         Paragraph(
             f"Report generated by <b>{settings.APP_NAME}</b>.",
-            ParagraphStyle("Footer", parent=style_body, textColor=COLOR_INFO, alignment=1),
+            ParagraphStyle("FooterNote", parent=style_body, textColor=COLOR_INFO, alignment=1),
         )
     )
 
-    doc.build(story)
-    logger.info(f"render_audit_report_pdf: successfully generated PDF at {output_path}")
-
-    return str(out_file)
+    return story

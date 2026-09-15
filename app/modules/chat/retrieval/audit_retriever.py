@@ -16,13 +16,13 @@ class AuditRetriever:
         self.db = db
         self.repo = SeoAnalysisRunRepository(db)
 
-    async def get_latest_completed(self, project_id: UUID) -> Optional[dict]:
-        run = await self.repo.get_by_project_id(project_id)
+    async def get_latest_completed(self, audit_id: UUID) -> Optional[dict]:
+        run = await self.repo.get_by_audit_id(audit_id)
         if run is not None and run.analysis_status == "completed" and run.overall_score is not None:
             return {
                 "id": run.id,
-                "project_id": run.project_id,
-                "crawl_id": run.crawl_id,
+                "audit_id": run.audit_id,
+                "audit_id": run.audit_id,
                 "domain": run.domain,
                 "overall_score": float(run.overall_score),
                 "grade": run.grade,
@@ -37,15 +37,15 @@ class AuditRetriever:
                 "scored_at": run.scored_at.isoformat() if run.scored_at else None,
             }
 
-        fallback = self._load_from_output_file(project_id)
+        fallback = self._load_from_output_file(audit_id)
         if fallback is not None:
             return fallback
         return None
 
-    def _load_from_output_file(self, project_id: UUID) -> Optional[dict]:
+    def _load_from_output_file(self, audit_id: UUID) -> Optional[dict]:
         try:
             output_dir = Path(__file__).resolve().parents[4] / "app" / "output"
-            matches = sorted(output_dir.glob(f"*_{project_id}.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+            matches = sorted(output_dir.glob(f"*_{audit_id}.json"), key=lambda p: p.stat().st_mtime, reverse=True)
             if not matches:
                 return None
             with matches[0].open("r", encoding="utf-8") as f:
@@ -55,8 +55,8 @@ class AuditRetriever:
             category_scores = {c.get("id") or c.get("name"): c.get("score") for c in categories}
             return {
                 "id": None,
-                "project_id": str(project_id),
-                "crawl_id": data.get("audit", {}).get("crawl_id"),
+                "audit_id": str(audit_id),
+                "audit_id": data.get("audit", {}).get("audit_id"),
                 "domain": data.get("audit", {}).get("domain"),
                 "overall_score": summary.get("score"),
                 "grade": summary.get("health"),

@@ -8,7 +8,7 @@ no nested issue objects in categories, no raw headers/links/images.
 
 The legacy response shape is preserved untouched for backward
 compatibility — see `audit_response_schemas.py` and the existing
-`/audit/result/{crawl_id}` endpoint.
+`/audit/result/{audit_id}` endpoint.
 """
 from typing import Any, Dict, List, Optional
 

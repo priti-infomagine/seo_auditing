@@ -2,7 +2,7 @@
 CrawlError model.
 
 Fields:
-    id, crawl_id, page_id, error_type, error_message,
+    id, audit_id, page_id, error_type, error_message,
     created_at, updated_at
 """
 import uuid
@@ -23,7 +23,7 @@ class CrawlError(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("crawl_jobs.id", ondelete="CASCADE"),
         nullable=False,
@@ -57,7 +57,7 @@ class CrawlError(TimestampMixin, Base):
         return (
             f"<CrawlError "
             f"id={self.id} "
-            f"crawl_id={self.crawl_id} "
+            f"audit_id={self.audit_id} "
             f"error_type={self.error_type} "
             f"error_message={self.error_message[:50]} "
             f">"

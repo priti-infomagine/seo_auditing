@@ -14,8 +14,8 @@ class AuthorizationService:
         self.db = db
         self.crawl_job_repo = CrawlJobRepository(db)
 
-    async def validate_project_access(self, project_id: UUID, user_id: UUID) -> CrawlJob:
-        crawl_job = await self.crawl_job_repo.get_by_project_id(project_id)
+    async def validate_project_access(self, audit_id: UUID, user_id: UUID) -> CrawlJob:
+        crawl_job = await self.crawl_job_repo.get_by_audit_id(audit_id)
         if crawl_job is None:
             raise ValueError("Project not found")
         if crawl_job.user_id != user_id:

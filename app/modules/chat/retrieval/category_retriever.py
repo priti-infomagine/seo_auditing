@@ -13,8 +13,8 @@ class CategoryRetriever:
         self.db = db
         self.repo = RuleEvaluationResultRepository(db)
 
-    async def get_category_failed_rules(self, project_id: UUID, category: str, limit: int = 20) -> list[dict]:
-        results = await self.repo.get_by_category(project_id, category)
+    async def get_category_failed_rules(self, audit_id: UUID, category: str, limit: int = 20) -> list[dict]:
+        results = await self.repo.get_by_category(audit_id, category)
         failed = [r for r in results if not r.passed]
         failed.sort(key=lambda r: ({"critical": 0, "warning": 1, "error": 2}.get(r.severity, 3), r.rule_id))
         limited = failed[:limit]

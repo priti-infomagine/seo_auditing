@@ -1,6 +1,6 @@
 """
 Contract tests for the ``?format=compact|full`` query switch on
-``GET /api/v1/audit/result/{crawl_id}``.
+``GET /api/v1/audit/result/{audit_id}``.
 
 These tests are pure OpenAPI / dispatch tests — no real DB.
 
@@ -31,7 +31,7 @@ def test_format_query_param_is_registered():
     schema = app.openapi()
     params = schema["paths"][PATH]["get"].get("parameters", [])
     format_params = [p for p in params if p.get("name") == "format" and p.get("in") == "query"]
-    assert format_params, "format query param is missing from /audit/result/{crawl_id}"
+    assert format_params, "format query param is missing from /audit/result/{audit_id}"
     fp = format_params[0]
     schema_obj = fp["schema"]
     assert schema_obj["type"] == "string"
@@ -88,9 +88,9 @@ def test_route_source_dispatches_full_to_response_builder():
 
 
 def test_project_keyed_endpoint_has_format_query_param():
-    """GET /audit/result/project/{project_id} must declare ?format=compact|full."""
+    """GET /audit/result/project/{audit_id} must declare ?format=compact|full."""
     schema = app.openapi()
-    path = "/api/v1/audit/result/project/{project_id}"
+    path = "/api/v1/audit/result/project/{audit_id}"
     params = schema["paths"][path]["get"].get("parameters", [])
     format_params = [
         p for p in params

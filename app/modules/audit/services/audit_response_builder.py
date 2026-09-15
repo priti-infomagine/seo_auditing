@@ -87,7 +87,7 @@ class AuditResponseBuilder:
         Build the complete unified audit response.
 
         Args:
-            audit_id: The audit ID (== crawl_id), the single tracking key.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             eval_errors: optional list of {page_id, url, error} dicts from the
                 evaluation stage (synthetic ERROR rule results are also read
                 from DB and included).
@@ -102,7 +102,7 @@ class AuditResponseBuilder:
         audit_id = _coerce_uuid(audit_id)
 
         # --- Crawl pages (URL map, status, depth, counts) ---
-        crawl_pages = await self.crawl_page_repo.get_by_crawl_id(audit_id)
+        crawl_pages = await self.crawl_page_repo.get_by_audit_id(audit_id)
         page_url_map: Dict[UUID, str] = {}
         homepage_ids: set = set()
         status_code_counts: Dict[str, int] = defaultdict(int)
@@ -196,7 +196,7 @@ class AuditResponseBuilder:
                 recommendation=(
                     "Choose one canonical host (www or non-www) and 301-redirect the other."
                 ),
-                 page_id=None, crawl_id=str(audit_id),
+                 page_id=None, audit_id=str(audit_id),
             )
 
         # Dedupe parsed_facts to one per canonical page so top-level link/image/
@@ -300,7 +300,7 @@ class AuditResponseBuilder:
             for rr in p["results"]:
                 issue = self.converter.from_rule_result(
                      rr, page_url=p["url"],
-                     page_id=p["page_id"], crawl_id=str(audit_id),
+                     page_id=p["page_id"], audit_id=str(audit_id),
                  )
                 if issue is not None:
                     all_seo_issues.append(issue)

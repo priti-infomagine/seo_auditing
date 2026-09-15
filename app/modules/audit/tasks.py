@@ -7,7 +7,7 @@ Tasks:
   - audit.score_project: Scoring + output file generation
   - audit.run_analysis_pipeline: Full pipeline (parse → evaluate → score)
 
-All tasks use audit_id (== crawl_id) as the single tracking key.
+All tasks use audit_id (== audit_id) as the single tracking key.
 All tasks are fault-tolerant: per-page/rule failures are caught and
 recorded; only system-level failures cause the task to fail.
 """
@@ -41,7 +41,7 @@ def parse_crawl(audit_id: str, force: bool = False) -> dict:
     ParsedPageFact rows to PostgreSQL.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
 
     Returns:
         Summary dict from DBParserService.parse_crawl()
@@ -89,7 +89,7 @@ def evaluate_rules(audit_id: str, force: bool = False) -> dict:
     persist RuleEvaluationResult rows to PostgreSQL.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
 
     Returns:
         Summary dict from RuleEvaluatorService.evaluate_crawl()
@@ -137,7 +137,7 @@ def score_project(audit_id: str, force: bool = False) -> dict:
     and write the output JSON file.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
 
     Returns:
         Dict from AnalysisScorerService.score_project()
@@ -192,7 +192,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     the next from running.
 
     Args:
-        audit_id: The audit ID (== crawl_id).
+        audit_id: The audit ID (== audit_id).
 
     Returns:
         Dict with results from all three stages.
