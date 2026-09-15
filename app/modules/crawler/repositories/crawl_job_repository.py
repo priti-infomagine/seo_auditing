@@ -30,24 +30,25 @@ class CrawlJobRepository:
         )
         return result.scalar_one_or_none()
 
-    # async def get_by_audit_id(self, audit_id: UUID) -> Optional[CrawlJob]:
-    #     """Get crawl job by audit_id.
-    #     CrawlJob.id (audit_id) and audit_id are different UUIDs; the public
-    #     report endpoints can receive either. This lookup lets callers resolve
-    #     a CrawlJob from the user-facing audit_id returned in CrawlResponse.
-    #     """
-    #     result = await self.db.execute(
-    #         select(CrawlJob).where(CrawlJob.audit_id == audit_id)
-    #     )
-    #     return result.scalar_one_or_none()
+    async def get_by_audit_id(self, audit_id: UUID) -> Optional[CrawlJob]:
+        """Get crawl job by audit_id.
+
+        In this codebase CrawlJob.id **is** the audit_id (see analyze.py which
+        creates CrawlJob(id=audit_id)).  The public report and chat endpoints
+        receive the audit_id from CrawlResponse, so this is an alias that
+        resolves the same UUID against CrawlJob.id.
+        """
+        result = await self.db.execute(
+            select(CrawlJob).where(CrawlJob.id == audit_id)
+        )
+        return result.scalar_one_or_none()
 
     async def get_by_id_or_audit_id(self, key: UUID) -> Optional[CrawlJob]:
-        """Resolve a crawl job by either its audit_id (CrawlJob.id) or audit_id.
+        """Resolve a crawl job by its audit_id (CrawlJob.id).
 
-        Tries ``id`` first, falls back to ``audit_id``. This lets the public
-        ``/audit/result/project/{audit_id}`` and ``/reports/{audit_id}/send``
-        endpoints accept the audit_id from CrawlResponse without needing the
-        internal audit_id.
+        Tries ``id`` first, falls back to ``get_by_audit_id``. Both lookups
+        resolve the same column; the fallback exists so callers can use
+        whichever key they have from CrawlResponse.
         """
         job = await self.get_by_id(key)
         if job is not None:

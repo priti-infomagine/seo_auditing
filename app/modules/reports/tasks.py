@@ -5,6 +5,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from uuid import UUID
 
+from sqlalchemy import select
+
 from app.core.config import settings
 from app.core.datetime_utils import utc_now
 from app.core.logger import logger
@@ -96,7 +98,15 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
 
             async def _do_record():
                 async with async_session_factory() as db:
-                    existing = await db.get(SeoReport, UUID(audit_id))
+                    # Look up by the unique audit_id column (NOT the PK `id`);
+                    # `db.get()` would query the primary key and always miss.
+                    existing = (
+                        await db.execute(
+                            select(SeoReport).where(
+                                SeoReport.audit_id == UUID(audit_id)
+                            )
+                        )
+                    ).scalar_one_or_none()
                     if existing:
                         new_version = existing.report_version + 1
                         emails = list(existing.delivered_to)
@@ -104,7 +114,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
                             emails.append(to_email)
                         existing.report_version = new_version
                         existing.delivered_to = emails
-                        existing.delivered_at = utc_now()
+                        existing.delivered_at = utc_now().replace(tzinfo=None)
                         logger.info(
                             f"Updated SeoReport for audit_id={audit_id}, "
                             f"version={new_version}, delivered_to={emails}"
@@ -114,7 +124,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
                             audit_id=UUID(audit_id),
                             report_version=1,
                             delivered_to=[to_email],
-                            delivered_at=utc_now(),
+                            delivered_at=utc_now().replace(tzinfo=None),
                         ))
                         logger.info(
                             f"Created SeoReport for audit_id={audit_id}, "

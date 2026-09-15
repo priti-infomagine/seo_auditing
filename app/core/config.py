@@ -72,7 +72,7 @@ class Settings(BaseSettings):
 
     # ── Report Generation & Delivery ─────────────────────────────────
     DEFAULT_SITE_CATEGORY: str = "ecommerce"
-    REPORT_OUTPUT_DIR: str = "app/output/reports"
+    REPORT_OUTPUT_DIR: str = "none"
     REPORT_DEFAULT_RECIPIENT_EMAIL: str = "report@yopmail.com"
     REPORT_MAX_AFFECTED_PAGES_SHOWN: int =25
     REPORT_LOGO_URL: str = "C:\\Users\\user\\Downloads\\logo.jpg"
