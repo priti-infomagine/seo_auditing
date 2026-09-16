@@ -16066,3 +16066,160 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 2026-09-15T18:13:32+00:00 | INFO | AnalysisScorerService.score_project: score=90.3, grade=A, pages=109, audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75
 2026-09-15T18:13:32+00:00 | INFO | audit.run_analysis_pipeline: STAGE score finished audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75
 2026-09-15T18:13:32+00:00 | INFO | audit.run_analysis_pipeline: task finished for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75
+2026-09-16T10:00:43+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T10:00:51+00:00 | INFO | Worker process initialized with persistent event loop (pid=7908)
+2026-09-16T10:01:00+00:00 | INFO | Worker process initialized with persistent event loop (pid=21644)
+2026-09-16T10:01:09+00:00 | INFO | GET /crawler/status/c2f0489a-4317-47e6-8d04-e31093c5da75 - Status endpoint called
+2026-09-16T10:01:58+00:00 | INFO | GET /audit/status/c2f0489a-4317-47e6-8d04-e31093c5da75
+2026-09-16T10:03:05+00:00 | INFO | GET /audit/pipeline/c2f0489a-4317-47e6-8d04-e31093c5da75
+2026-09-16T10:07:55+00:00 | ERROR | get_db_session: database session error: 503: Chat service temporarily unavailable: All connection attempts failed
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 101, in handle_async_request
+    raise exc
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: All connection attempts failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\chat\services\chat_service.py", line 69, in chat
+    result = await agent.ainvoke({"messages": messages}, config={"recursion_limit": 6})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\pregel\main.py", line 4090, in ainvoke
+    async for chunk in self.astream(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\pregel\main.py", line 3440, in astream
+    async for _ in runner.atick(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\pregel\_runner.py", line 396, in atick
+    await arun_with_retry(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\pregel\_retry.py", line 744, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\_internal\_runnable.py", line 756, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langgraph\_internal\_runnable.py", line 522, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain\agents\factory.py", line 1534, in amodel_node
+    model_response = await _execute_model_async(request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain\agents\factory.py", line 1505, in _execute_model_async
+    output = await model_.ainvoke(messages)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_core\runnables\base.py", line 6027, in ainvoke
+    return await self.bound.ainvoke(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_core\language_models\chat_models.py", line 511, in ainvoke
+    llm_result = await self.agenerate_prompt(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1888, in agenerate_prompt
+    return await self.agenerate(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1846, in agenerate
+    raise exceptions[0]
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_core\language_models\chat_models.py", line 2179, in _agenerate_with_cache
+    result = await self._agenerate(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_ollama\chat_models.py", line 1388, in _agenerate
+    final_chunk = await self._achat_stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_ollama\chat_models.py", line 1161, in _achat_stream_with_aggregation
+    async for chunk in self._aiterate_over_stream(messages, stop, **kwargs):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_ollama\chat_models.py", line 1306, in _aiterate_over_stream
+    async for stream_resp in self._acreate_chat_stream(messages, stop, **kwargs):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\langchain_ollama\chat_models.py", line 1102, in _acreate_chat_stream
+    async for part in await self._async_client.chat(**chat_params):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\ollama\_client.py", line 777, in inner
+    async with self._client.stream(*args, **kwargs) as r:
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1583, in stream
+    response = await self.send(
+               ^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: All connection attempts failed
+During task with name 'model' and id '797928ca-32d1-4e38-71f4-e00379555ea2'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\dependencies.py", line 23, in get_db_session
+    yield session
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\fastapi\routing.py", line 142, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\fastapi\routing.py", line 704, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\fastapi\routing.py", line 350, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\chat\router.py", line 22, in chat
+    return await service.chat(audit_id=audit_id, message=payload.message)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\chat\services\chat_service.py", line 73, in chat
+    raise HTTPException(status_code=503, detail=f"Chat service temporarily unavailable: {exc}")
+fastapi.exceptions.HTTPException: 503: Chat service temporarily unavailable: All connection attempts failed
+2026-09-16T10:09:34+00:00 | INFO | POST /reports/c2f0489a-4317-47e6-8d04-e31093c5da75/send
+2026-09-16T10:09:34+00:00 | INFO | POST /reports/c2f0489a-4317-47e6-8d04-e31093c5da75/send: queued send_audit_report_email_task for user@example.com
+2026-09-16T10:09:34+00:00 | INFO | reports.send_audit_report_email: task started for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75, to_email=user@example.com
+2026-09-16T10:09:34+00:00 | INFO | build_audit_report: fetching data for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75
+2026-09-16T10:09:36+00:00 | INFO | build_audit_report: successfully built report for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75, score=98.6
+2026-09-16T10:09:36+00:00 | INFO | render_audit_report_pdf: generating PDF for scan_id=c2f0489a-4317-47e6-8d04-e31093c5da75 at none/oppo.com/c2f0489a-4317-47e6-8d04-e31093c5da75.pdf
+2026-09-16T10:09:37+00:00 | INFO | render_audit_report_pdf: successfully generated PDF at none/oppo.com/c2f0489a-4317-47e6-8d04-e31093c5da75.pdf
+2026-09-16T10:09:37+00:00 | INFO | Report archived at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\output\report\oppo.com\c2f0489a-4317-47e6-8d04-e31093c5da75.pdf
+2026-09-16T10:09:39+00:00 | INFO | reports.send_audit_report_email: successfully sent report email for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75 to user@example.com
+2026-09-16T10:09:39+00:00 | INFO | Created SeoReport for audit_id=c2f0489a-4317-47e6-8d04-e31093c5da75, version=1, delivered_to=[user@example.com]
+2026-09-16T10:09:46+00:00 | INFO | GET /reports/c2f0489a-4317-47e6-8d04-e31093c5da75/download
+2026-09-16T10:09:46+00:00 | INFO | GET /reports/c2f0489a-4317-47e6-8d04-e31093c5da75/download: returning existing none\oppo.com\c2f0489a-4317-47e6-8d04-e31093c5da75.pdf
+2026-09-16T10:13:18+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T10:15:54+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T10:17:17+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T10:18:13+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T10:18:34+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T11:45:24+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T11:45:35+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T11:45:40+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-16T11:49:50+00:00 | INFO | Celery broker connection pre-warmed successfully

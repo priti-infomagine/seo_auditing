@@ -340,7 +340,7 @@ class AuditReadModelService:
         offset: int = 0,
     ) -> IssueListResponse:
         """Paginated compact issue list."""
-        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        audit_id, _ = await self.repo.resolve_audit(audit_id)
         if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
@@ -349,7 +349,7 @@ class AuditReadModelService:
         offset = max(0, int(offset or 0))
 
         rows, total = await self.repo.rule_eval_repo.list_failed_by_audit_id_paginated(
-            audit_id, audit_id,
+            audit_id,
             category=category, severity=severity, status=status,
             limit=limit, offset=offset,
         )
@@ -406,13 +406,13 @@ class AuditReadModelService:
         self, audit_id: UUID, issue_id: str
     ) -> IssueDetailResponse:
         """Detailed view of one issue (rule-level)."""
-        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        audit_id, _ = await self.repo.resolve_audit(audit_id)
         if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
         rule_id = self._parse_issue_id(issue_id)
         samples = await self.repo.rule_eval_repo.get_first_samples_for_rule(
-            audit_id, audit_id, rule_id, n=3
+            audit_id, rule_id, n=3
         )
         if not samples:
             # Allow zero-affected: still return a skeleton
@@ -473,7 +473,7 @@ class AuditReadModelService:
         offset: int = 0,
     ) -> IssuePagesResponse:
         """Paginated affected pages for one issue."""
-        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        audit_id, _ = await self.repo.resolve_audit(audit_id)
         if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
@@ -482,7 +482,7 @@ class AuditReadModelService:
         offset = max(0, int(offset or 0))
 
         rows, total = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-            audit_id, audit_id, rule_id, limit=limit, offset=offset,
+            audit_id, rule_id, limit=limit, offset=offset,
         )
 
         # Resolve a URL map for the page_ids in this batch (batched single query)
@@ -520,7 +520,7 @@ class AuditReadModelService:
         images_offset: int = 0,
     ) -> IssueEvidenceResponse:
         """Lazy-load heavy evidence for one issue (links, images, rule_data)."""
-        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        audit_id, _ = await self.repo.resolve_audit(audit_id)
         if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
@@ -535,7 +535,7 @@ class AuditReadModelService:
         # endpoint is not the goal of this endpoint).
         HARD_CAP = 1000
         rows, total = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-            audit_id, audit_id, rule_id, limit=HARD_CAP, offset=0,
+            audit_id, rule_id, limit=HARD_CAP, offset=0,
         )
 
         # Batch-load URLs for the involved pages
@@ -624,7 +624,7 @@ class AuditReadModelService:
         include_facts: bool = False,
     ) -> PageDetailResponse:
         """Per-page breakdown for a single page (lazy, on demand)."""
-        audit_id, audit_id = await self.repo.resolve_audit(audit_id)
+        audit_id, _ = await self.repo.resolve_audit(audit_id)
         if audit_id is None:
             raise LookupError(f"No analysis run for audit_id={audit_id}")
 
@@ -637,7 +637,7 @@ class AuditReadModelService:
 
         # All failed rules for this page
         failed = await self.repo.rule_eval_repo.get_failed_for_page(
-            audit_id, audit_id, page_id
+            audit_id, page_id
         )
         page_issues: List[IssuePageRow] = []
         for r in failed:
