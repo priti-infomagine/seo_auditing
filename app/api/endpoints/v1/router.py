@@ -9,6 +9,7 @@ from app.api.endpoints.v1.scorer.router import router as scorer_router
 from app.modules.chat.router import router as chat_router
 from app.modules.audit.api import audit_detail_router
 from app.modules.reports.router import router as reports_router
+from app.modules.payment.router import router as payment_router
 
 router = APIRouter()
 
@@ -21,5 +22,6 @@ router.include_router(parser_router, prefix="/parser", tags=["Parser"])
 router.include_router(scorer_router, prefix="/scorer", tags=["Scorer"])
 router.include_router(chat_router, prefix="/chat", tags=["Chat"])
 router.include_router(reports_router, prefix="/reports", tags=["Reports"])
+router.include_router(payment_router, prefix="/plans", tags=["Plans"])
 
 __all__ = ["router"]
