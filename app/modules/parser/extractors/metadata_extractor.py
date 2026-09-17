@@ -65,7 +65,7 @@ class MetadataExtractor:
             return ""
 
         content = str(tag.get("content", "")).strip()
-        print("============MeatadataExtractor._description==============")
+        print("============MetadataExtractor______description==============")
         print("DESCRIPTION CONTENT:", repr(content))
         print("DESCRIPTION LENGTH:", len(content))
 
