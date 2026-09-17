@@ -8,7 +8,7 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base, TimestampMixin
-
+from app.modules.payment.models.subscriptions import Subscription
 
 class Plan(TimestampMixin, Base):
     """Plan model for subscription pricing tiers."""
@@ -33,7 +33,7 @@ class Plan(TimestampMixin, Base):
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     subscriptions: Mapped[List["Subscription"]] = relationship(
-        "Subscription", back_populates="plan"
+        "app.modules.payment.models.subscriptions.Subscription", back_populates="plan"
     )
 
     def __repr__(self) -> str:
