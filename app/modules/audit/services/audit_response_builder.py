@@ -17,13 +17,17 @@ page_network_data, crawl_pages); this builder only *reads* it — it never scrap
 Metrics that the pipeline does not measure are reported with
 {available: false, value: null, reason: ...} rather than misleading zeros.
 """
-from __future__ import annotations
-
+import asyncio
+import json
 import logging
 from collections import defaultdict
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 from uuid import UUID
+
+import httpx
+
+from app.core.config import settings
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -322,7 +326,7 @@ class AuditResponseBuilder:
         categories = self._build_categories(
             all_seo_issues, main_rules_per_cat, rule_cache, total_pages_analyzed
         )
-        issues = self._build_issues(all_seo_issues)
+        issues = await self._build_issues(all_seo_issues)
         crawl = await self._build_crawl_section(
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
@@ -351,12 +355,33 @@ class AuditResponseBuilder:
             links, images, content, external_deps, errors, metadata,
         )
 
-        return {
+        raw_response = {
             "audit": audit,
             "summary": summary,
             "categories": categories,
             "issues": issues,
         }
+        return self._strip_empty(raw_response) or {}
+
+    def _strip_empty(self, data: Any) -> Any:
+        """Recursively remove empty data: None, empty lists, and unavailable structs."""
+        if isinstance(data, dict):
+            # Prune `_unavailable` metrics completely
+            if data.get("available") is False and data.get("value") is None:
+                return None
+            
+            cleaned = {}
+            for k, v in data.items():
+                val = self._strip_empty(v)
+                if val is not None and val != []:
+                    cleaned[k] = val
+            return cleaned if cleaned else None
+        elif isinstance(data, list):
+            cleaned_list = [self._strip_empty(item) for item in data]
+            cleaned_list = [item for item in cleaned_list if item is not None and item != []]
+            return cleaned_list if cleaned_list else None
+        else:
+            return data
 
     # ------------------------------------------------------------------ summary
     def _build_summary(
@@ -468,8 +493,98 @@ class AuditResponseBuilder:
             out.append(entry)
         return out
 
+    def _make_hashable(self, val: Any) -> str:
+        try:
+            return json.dumps(val, sort_keys=True)
+        except Exception:
+            return str(val)
+
+    async def _generate_ollama_recommendation(
+        self,
+        title: str,
+        what: Optional[str] = None,
+        why: Optional[str] = None,
+        default_rec: Optional[str] = None,
+        client: Optional[httpx.AsyncClient] = None,
+        semaphore: Optional[asyncio.Semaphore] = None,
+    ) -> Optional[str]:
+        prompt = (
+            f"You are an expert technical SEO auditor. Write a single clear, actionable, professional recommendation "
+            f"(1-2 sentences max) to fix the following issue.\n"
+            f"Issue Title: {title}\n"
+        )
+        if what:
+            prompt += f"Problem (What): {what}\n"
+        if why:
+            prompt += f"Impact (Why): {why}\n"
+        prompt += "Do not include conversational intros or extra text. Provide ONLY the recommendation statement."
+
+        async def _call():
+            try:
+                url = f"{settings.OLLAMA_BASE_URL.rstrip('/')}/api/generate"
+                payload = {
+                    "model": settings.OLLAMA_MODEL,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.2,
+                        "num_predict": 100,
+                    },
+                }
+                if client:
+                    resp = await client.post(url, json=payload, timeout=min(10.0, float(settings.OLLAMA_TIMEOUT)))
+                else:
+                    async with httpx.AsyncClient() as c:
+                        resp = await c.post(url, json=payload, timeout=min(10.0, float(settings.OLLAMA_TIMEOUT)))
+
+                if resp.status_code == 200:
+                    data = resp.json()
+                    text = data.get("response", "").strip()
+                    if text:
+                        return text
+            except Exception as e:
+                logger.warning("Ollama recommendation generation skipped/failed for %r: %s", title, e)
+            return default_rec or None
+
+        if semaphore:
+            async with semaphore:
+                return await _call()
+        return await _call()
+
+    def _extract_locations(self, group: List[SEOIssue]) -> List[Dict[str, Any]]:
+        locations = []
+        for issue in group:
+            if not issue.evidence or not isinstance(issue.evidence, dict):
+                continue
+            
+            sample_items = None
+            for key in ("sample", "samples", "items", "issues", "urls", "broken_samples", "missing"):
+                val = issue.evidence.get(key)
+                if isinstance(val, list) and val:
+                    sample_items = val
+                    break
+
+            if sample_items:
+                for item in sample_items:
+                    loc = {"page_url": issue.page_url}
+                    if isinstance(item, dict):
+                        loc.update(item)
+                    else:
+                        loc["target"] = str(item)
+                    locations.append(loc)
+            else:
+                filtered = {
+                    k: v for k, v in issue.evidence.items()
+                    if k not in ("total_count", "without_alt", "coverage", "total_broken", "mixed_content_count", "word_count", "h1_count", "score_impact")
+                }
+                if filtered:
+                    loc = {"page_url": issue.page_url}
+                    loc.update(filtered)
+                    locations.append(loc)
+        return locations
+
     # ------------------------------------------------------------------ issues
-    def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
+    async def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
         by_rule: Dict[str, List[SEOIssue]] = defaultdict(list)
         for i in all_seo_issues:
             if i.status == "failed":
@@ -479,30 +594,66 @@ class AuditResponseBuilder:
         for rule_id, group in by_rule.items():
             first = group[0]
             seen_urls: set = set()
-            pages: List[Dict[str, Any]] = []
+            occurrence_map = {}
             for issue in group:
                 if issue.page_url in seen_urls:
                     continue
                 seen_urls.add(issue.page_url)
-                pages.append({
-                    "page_url": issue.page_url,
-                    "current_value": issue.current_value,
-                    "evidence": issue.evidence,
-                    "classified_images": _classify_images(issue.evidence),
-                })
-            out.append({
+                
+                key = self._make_hashable(issue.current_value)
+                if key not in occurrence_map:
+                    occurrence_map[key] = {
+                        "current_value": issue.current_value
+                    }
+
+            occurrences = list(occurrence_map.values())
+            locations = self._extract_locations(group)
+
+            issue_obj = {
                 "rule_id": rule_id,
                 "category": first.category,
                 "severity": first.severity.value,
                 "title": RULE_TITLES.get(rule_id, rule_id),
-                "why": RULE_WHY.get(rule_id),
-                "what": RULE_WHAT.get(rule_id),
-                "recommendation": first.recommendation,
-                "llm_tips": first.recommended,
                 "affected_pages": len(seen_urls),
-                "pages": pages,
-            })
-        out.sort(key=lambda x: _tier_priority(SeverityTier(x["severity"])))
+                "occurrences": occurrences,
+            }
+            if locations:
+                issue_obj["evidence"] = {"locations": locations[:50]}  # cap to top 50 sample locations per issue
+            elif first.evidence:
+                issue_obj["evidence"] = first.evidence
+
+            if RULE_WHY.get(rule_id):
+                issue_obj["why"] = RULE_WHY.get(rule_id)
+            if RULE_WHAT.get(rule_id):
+                issue_obj["what"] = RULE_WHAT.get(rule_id)
+            if first.recommendation:
+                issue_obj["recommendation"] = first.recommendation
+
+            out.append(issue_obj)
+
+        # Concurrently request LLM recommendations from Ollama for unique issues
+        sem = asyncio.Semaphore(3)
+        try:
+            async with httpx.AsyncClient() as client:
+                tasks = [
+                    self._generate_ollama_recommendation(
+                        title=item["title"],
+                        what=item.get("what"),
+                        why=item.get("why"),
+                        default_rec=item.get("recommendation"),
+                        client=client,
+                        semaphore=sem,
+                    )
+                    for item in out
+                ]
+                recs = await asyncio.gather(*tasks, return_exceptions=True)
+                for item, rec in zip(out, recs):
+                    if isinstance(rec, str) and rec:
+                        item["recommendation"] = rec
+        except Exception as err:
+            logger.warning("Failed to generate LLM recommendations via Ollama: %s", err)
+
+        out.sort(key=lambda x: _tier_priority(SeverityTier(x.get("severity", "info"))))
         return out
 
 
