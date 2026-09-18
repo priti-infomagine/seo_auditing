@@ -208,6 +208,32 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             "audit_id": audit_id,
         }
 
+        # Stage 0: Broken link check (runs after crawl, before parse)
+        self.update_state(
+            state="PROGRESS",
+            meta={"stage": "link_check", "audit_id": audit_id},
+        )
+        logger.info(
+            f"audit.run_analysis_pipeline: STAGE link_check starting "
+            f"audit_id={audit_id}"
+        )
+        try:
+            async with async_session_factory() as db:
+                from app.modules.crawler.services.broken_link_checker import BrokenLinkChecker
+                checker = BrokenLinkChecker(db)
+                results["link_check"] = (await checker.check_links(UUID(audit_id))).to_dict()
+                await db.commit()
+            logger.info(
+                f"audit.run_analysis_pipeline: STAGE link_check finished "
+                f"audit_id={audit_id}"
+            )
+        except Exception as exc:
+            logger.error(
+                f"audit.run_analysis_pipeline: link_check stage failed: {exc}",
+                exc_info=True,
+            )
+            results["link_check"] = {"error": str(exc)}
+
         # Stage 1: Parse
         self.update_state(
             state="PROGRESS",

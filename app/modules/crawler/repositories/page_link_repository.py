@@ -45,6 +45,23 @@ class PageLinkRepository:
         )
         return list(result.scalars().all())
 
+    async def get_broken_counts(self, crawl_job_id: UUID) -> dict:
+        """Count broken internal and external links for a crawl job.
+
+        A link is broken when ``target_status_code`` is set and >= 400.
+        """
+        result = await self.db.execute(
+            select(PageLink).where(
+                PageLink.crawl_job_id == crawl_job_id,
+                PageLink.target_status_code >= 400,
+            )
+        )
+        links = list(result.scalars().all())
+        return {
+            "broken_internal": sum(1 for l in links if l.is_internal),
+            "broken_external": sum(1 for l in links if l.is_external),
+        }
+
     async def delete_by_page_id(self, page_id: UUID) -> bool:
         """Delete all links for a page."""
         links = await self.get_by_page_id(page_id)

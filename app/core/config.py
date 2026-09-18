@@ -67,6 +67,11 @@ class Settings(BaseSettings):
     OLLAMA_TIMEOUT: int = 60
     OLLAMA_TEMPERATURE: float = 0.1
 
+    # ── Broken Link Checking ────────────────────────────────────────
+    LINK_CHECK_TIMEOUT: float = 10.0
+    LINK_CHECK_MAX_CONCURRENCY: int = 10
+    LINK_CHECK_EXTERNAL_ENABLED: bool = True
+
     # ── Chat Auth ───────────────────────────────────────────────────
     CHAT_AUTH_ENABLED: bool = False
 

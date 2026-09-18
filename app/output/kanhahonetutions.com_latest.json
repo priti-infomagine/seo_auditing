@@ -1,0 +1,264 @@
+{
+  "audit": {
+    "audit_id": "86637b4e-9993-47ed-a548-48e03468dfa3",
+    "url": "https://kanhahonetutions.com/",
+    "domain": "kanhahonetutions.com",
+    "started_at": "2026-09-18T06:25:43.730288+00:00",
+    "completed_at": "2026-09-18T06:25:47.532946+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 0,
+      "crawled": 0,
+      "analyzed": 0
+    },
+    "crawl_stats": {
+      "pages_discovered": 0,
+      "pages_crawled": 0,
+      "pages_analyzed": 0,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "redirects": 0,
+      "broken_pages": 0,
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "crawl_errors": 0,
+      "status_codes": {},
+      "started_at": "2026-09-18T06:25:43.730288+00:00",
+      "completed_at": "2026-09-18T06:25:47.532946+00:00"
+    },
+    "indexation": {
+      "indexable": 0,
+      "noindex": 0,
+      "canonicalized": 0,
+      "blocked_by_robots": {
+        "available": false,
+        "value": null,
+        "reason": "robots_txt_rules_not_analyzed"
+      },
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": false,
+      "core_web_vitals": {
+        "available": false,
+        "value": null,
+        "reason": "browser_performance_measurement_not_available"
+      },
+      "ttfb": {
+        "available": false,
+        "value": null,
+        "unit": "milliseconds",
+        "status": "unknown",
+        "reason": "response_time_ms_not_available"
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 0,
+      "valid": 0,
+      "invalid": 0,
+      "types": {}
+    },
+    "links": {
+      "internal": {
+        "total": 0,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": false,
+          "value": null,
+          "reason": "live_link_check_not_enabled"
+        }
+      },
+      "orphan_pages": {
+        "available": false,
+        "value": null,
+        "reason": "link_graph_analysis_not_implemented"
+      },
+      "total_links": 0
+    },
+    "images": {
+      "total": 0,
+      "missing_alt": 0,
+      "empty_alt": 0,
+      "missing_dimensions": 0,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 0
+    },
+    "content": {
+      "thin_pages": 0,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0,
+      "near_duplicate_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_similarity_analysis_not_implemented"
+      },
+      "missing_author": {
+        "available": false,
+        "value": null,
+        "reason": "author_extraction_not_implemented"
+      },
+      "outdated_pages": {
+        "available": false,
+        "value": null,
+        "reason": "content_freshness_tracking_not_implemented"
+      }
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 0,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 0.0,
+    "health": "critical",
+    "issues": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "total": 0
+    },
+    "checks": {
+      "passed": 0,
+      "failed": 0,
+      "total": 0
+    },
+    "recommended_score": 100.0,
+    "recommended_health": "excellent"
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    }
+  ],
+  "issues": []
+}

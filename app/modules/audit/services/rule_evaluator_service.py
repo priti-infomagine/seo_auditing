@@ -67,6 +67,7 @@ class RuleEvaluatorService:
         self.crawl_page_repo = CrawlPageRepository(db)
         self.seo_repo = PageSEODataRepository(db)
         self.network_repo = PageNetworkDataRepository(db)
+        self.page_link_repo = PageLinkRepository(db)
         self.scorer_service = ScorerService()
         self.rules: List[BaseRule] = self.scorer_service.rules
 
@@ -126,6 +127,13 @@ class RuleEvaluatorService:
             seo_map = await self.seo_repo.get_by_page_ids(page_ids)
             network_map = await self.network_repo.get_by_page_ids(page_ids)
 
+            # Fetch all links for this crawl job (for broken-link detection)
+            all_page_links = await self.page_link_repo.get_by_crawl_job_id(audit_id)
+            # Build {page_id: [links]} map
+            page_links_map: dict = {}
+            for pl in all_page_links:
+                page_links_map.setdefault(pl.page_id, []).append(pl)
+
             pages_evaluated = 0
             total_results = 0
             rules_run = 0
@@ -149,6 +157,7 @@ class RuleEvaluatorService:
                             crawl_pages.get(fact.page_id),
                             seo_map.get(fact.page_id),
                             network_map.get(fact.page_id),
+                            page_links_map.get(fact.page_id, []),
                         )
                         return page_results, fact.page_id
                     except Exception as exc:
@@ -231,6 +240,7 @@ class RuleEvaluatorService:
         crawl_page,
         seo_data,
         network_data,
+        page_links: list = None,
     ) -> List[RuleEvaluationResult]:
         """
         Evaluate all rules for a single page.
@@ -248,7 +258,8 @@ class RuleEvaluatorService:
             fact: The ParsedPageFact for this page (already loaded).
             crawl_page: The CrawlPage row (batch-fetched).
             seo_data: The PageSEOData row (batch-fetched) or None.
-            network_data: The PageNetworkData row (batch-fetched) or None.
+             network_data: The PageNetworkData row (batch-fetched) or None.
+            page_links: The PageLink rows for this page (batch-fetched) or None.
 
         Returns:
             List of RuleEvaluationResult objects (one per rule, or synthetic
@@ -257,7 +268,7 @@ class RuleEvaluatorService:
         try:
             page_id = fact.page_id
             # Reconstruct data dict from the batch-fetched objects
-            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data)
+            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links)
 
             # Run all rules concurrently with per-rule timeout
             rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
@@ -368,6 +379,7 @@ class RuleEvaluatorService:
         crawl_page,
         seo_data,
         network_data,
+        page_links: list = None,
     ) -> Dict[str, Any]:
         """
         Reconstruct the `data` dict that SEO rules expect.
@@ -406,7 +418,7 @@ class RuleEvaluatorService:
                 # Map parsed data keys to rule data keys
                 data["content"] = parsed_data.get("content", {})
                 data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
-                data["links"] = self._build_links_summary(parsed_data.get("links", []))
+                data["links"] = self._build_links_summary(parsed_data.get("links", []), page_links)
                 data["images"] = self._build_images_summary(parsed_data.get("images", []))
                 data["schemas"] = parsed_data.get("schemas", [])
                 data["structured_data"] = self._build_structured_data(parsed_data.get("schemas", []))
@@ -494,25 +506,49 @@ class RuleEvaluatorService:
 
         return data
 
-    def _build_links_summary(self, links: list) -> dict:
-        """Transform raw parsed links list into the dict structure that SEO rules expect."""
+    def _build_links_summary(self, links: list, page_links: list = None) -> dict:
+        """Transform raw parsed links list into the dict structure that SEO rules expect.
+
+        If ``page_links`` (PageLink ORM objects) are provided, enrich each link
+        dict with ``target_status_code`` and compute ``broken_internal`` /
+        ``broken_external`` lists from links whose status code is >= 400.
+        """
         internal_count = 0
         external_count = 0
         nofollow_count = 0
         internal_links = []
         external_links = []
+        broken_internal = []
+        broken_external = []
+
+        status_by_url: dict = {}
+        broken_link_data_available = page_links is not None
+        if page_links:
+            for pl in page_links:
+                if pl.target_url and pl.target_status_code:
+                    status_by_url[pl.target_url] = pl.target_status_code
+
         for link in links:
             if not isinstance(link, dict):
                 continue
+            match_key = link.get("absolute_url") or link.get("href", "")
+            status = status_by_url.get(match_key)
+            if status is not None:
+                link["target_status_code"] = status
+
             is_external = (
                 link.get("link_type") == "external" or link.get("is_external", False)
             )
             if is_external:
                 external_count += 1
                 external_links.append(link)
+                if status is not None and status >= 400:
+                    broken_external.append(link)
             else:
                 internal_count += 1
                 internal_links.append(link)
+                if status is not None and status >= 400:
+                    broken_internal.append(link)
             if link.get("nofollow") or link.get("is_nofollow"):
                 nofollow_count += 1
         return {
@@ -522,6 +558,9 @@ class RuleEvaluatorService:
             "nofollow_count": nofollow_count,
             "internal_links": internal_links,
             "external_links": external_links,
+            "broken_internal": broken_internal,
+            "broken_external": broken_external,
+            "broken_link_data_available": broken_link_data_available,
         }
 
     def _build_images_summary(self, images: list) -> dict:

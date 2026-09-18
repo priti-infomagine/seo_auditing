@@ -10,7 +10,10 @@ This service:
    rel-flag roll-ups. If ``deep_links`` is absent it falls back to ``links``.
 4. Returns the enriched link list (with summary) for persistence and enqueue
 
-Broken-link detection and redirect tracking require HTTP checks and are deferred.
+Broken-link detection (HTTP status checking) is handled by
+BrokenLinkChecker (app/modules/crawler/services/broken_link_checker.py),
+which runs as a post-crawl stage and populates target_status_code on
+PageLink rows.
 
 It does NOT:
 - Write to PostgreSQL
