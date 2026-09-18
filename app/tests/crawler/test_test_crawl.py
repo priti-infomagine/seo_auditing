@@ -46,7 +46,7 @@ class TestTestCrawlerEndpoint:
         assert data["status"] == "completed"
         assert data["url"] == "https://example.com/"
         assert data["domain"] == "example.com"
-        assert "crawl_id" in data
+        assert "audit_id" in data
         assert "pages_crawled" in data
         assert "total_errors" in data
         assert "duration_ms" in data
@@ -56,7 +56,7 @@ class TestTestCrawlerEndpoint:
         assert "errors" in data
         assert "crawl_config" in data
 
-        crawl_id = UUID(data["crawl_id"])
+        audit_id = UUID(data["audit_id"])
         assert data["status"] == "completed"
         assert data["domain"] == "example.com"
 

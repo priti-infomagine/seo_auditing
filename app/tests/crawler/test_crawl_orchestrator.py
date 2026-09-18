@@ -184,12 +184,12 @@ def make_enqueue_link(url, is_internal=True):
 
 
 class TestCrawlOrchestratorLifecycle:
-    async def test_get_summary_returns_crawl_id(self):
+    async def test_get_summary_returns_audit_id(self):
         job = FakeJob()
         orch = make_orchestrator(job)
         summary = await orch.get_summary()
         assert summary["status"] == "completed"
-        assert summary["crawl_id"] == str(job.id)
+        assert summary["audit_id"] == str(job.id)
 
     async def test_set_status_crawling_sets_started_at_once(self):
         job = FakeJob()
@@ -395,7 +395,7 @@ class TestCrawlOrchestratorRun:
         assert result["status"] == "completed"
         assert result["pages_crawled"] == 3
         assert result["pages_discovered"] == 5
-        assert result["crawl_id"] == str(job.id)
+        assert result["audit_id"] == str(job.id)
 
         # Job was finalized and counts persisted.
         assert job.status == "completed"
@@ -424,7 +424,7 @@ class TestCrawlOrchestratorRun:
         result = await orch.run(start_url="https://vivo.com/", respect_robots=False)
 
         assert result["status"] == "failed"
-        assert result["crawl_id"] == str(job.id)
+        assert result["audit_id"] == str(job.id)
         assert job.status == "failed"
         assert "scheduler exploded" in job.error
 
@@ -794,7 +794,7 @@ async def test_live_crawl_vivo_com(db_session):
 
     # The run always returns an orchestrator-shaped summary.
     assert "status" in result
-    assert result["crawl_id"] == str(job.id)
+    assert result["audit_id"] == str(job.id)
 
     refreshed = await repo.get_by_id(job.id)
     assert refreshed is not None

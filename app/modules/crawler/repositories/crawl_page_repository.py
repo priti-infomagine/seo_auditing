@@ -49,38 +49,38 @@ class CrawlPageRepository:
                 out[row.id] = row
         return out
 
-    async def get_by_crawl_id(self, crawl_id: UUID) -> List[CrawlPage]:
+    async def get_by_audit_id(self, audit_id: UUID) -> List[CrawlPage]:
         """Get all pages for a crawl job."""
         result = await self.db.execute(
-            select(CrawlPage).where(CrawlPage.crawl_id == crawl_id)
+            select(CrawlPage).where(CrawlPage.audit_id == audit_id)
         )
         return list(result.scalars().all())
 
-    async def get_by_url(self, crawl_id: UUID, normalized_url: str) -> Optional[CrawlPage]:
+    async def get_by_url(self, audit_id: UUID, normalized_url: str) -> Optional[CrawlPage]:
         """Get page by crawl ID and normalized URL."""
         result = await self.db.execute(
             select(CrawlPage).where(
-                CrawlPage.crawl_id == crawl_id,
+                CrawlPage.audit_id == audit_id,
                 CrawlPage.normalized_url == normalized_url,
             )
         )
         return result.scalar_one_or_none()
 
-    async def get_by_url_hash(self, crawl_id: UUID, url_hash: str) -> Optional[CrawlPage]:
+    async def get_by_url_hash(self, audit_id: UUID, url_hash: str) -> Optional[CrawlPage]:
         """Get page by crawl ID and URL hash."""
         result = await self.db.execute(
             select(CrawlPage).where(
-                CrawlPage.crawl_id == crawl_id,
+                CrawlPage.audit_id == audit_id,
                 CrawlPage.url_hash == url_hash,
             )
         )
         return result.scalar_one_or_none()
 
-    async def get_by_host(self, crawl_id: UUID, host: str) -> List[CrawlPage]:
+    async def get_by_host(self, audit_id: UUID, host: str) -> List[CrawlPage]:
         """Get all pages for a crawl job filtered by host."""
         result = await self.db.execute(
             select(CrawlPage).where(
-                CrawlPage.crawl_id == crawl_id,
+                CrawlPage.audit_id == audit_id,
                 CrawlPage.host == host,
             )
         )

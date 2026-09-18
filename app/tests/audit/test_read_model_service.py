@@ -68,7 +68,7 @@ def _stub_audit_repo():
         seo_repo=SimpleNamespace(get_by_page_id=lambda pid: None),
         network_repo=SimpleNamespace(get_by_page_id=lambda pid: None),
         parsed_fact_repo=SimpleNamespace(
-            get_by_page_id=lambda project_id, page_id: None,
+            get_by_page_id=lambda audit_id, page_id: None,
             get_by_page_ids=lambda page_ids: {},
         ),
         rule_eval_repo=SimpleNamespace(),
@@ -99,10 +99,10 @@ def test_severity_rank_orders_correctly():
 
 def test_issue_id_round_trip():
     s = AuditReadModelService.__new__(AuditReadModelService)
-    # Simulate crawl_id + rule_id with colons in the rule_id
-    crawl_id = "11111111-1111-1111-1111-111111111111"
+    # Simulate audit_id + rule_id with colons in the rule_id
+    audit_id = "11111111-1111-1111-1111-111111111111"
     rule_id = "a:b:c"
-    full = s._derive_issue_id(crawl_id, rule_id)
+    full = s._derive_issue_id(audit_id, rule_id)
     assert ":" in full
     parsed = s._parse_issue_id(full)
     assert parsed == rule_id
@@ -191,7 +191,7 @@ def _stub_service_with_overview_inputs(groups, failed_results, *, run=None, job=
     service = AuditReadModelService.__new__(AuditReadModelService)
     if run is None:
         run = SimpleNamespace(
-            project_id="proj-1", crawl_id="crawl-1", domain="example.com",
+            audit_id="proj-1", audit_id="crawl-1", domain="example.com",
             overall_score=72.0, grade="B", total_pages_scored=10,
             total_rules_evaluated=60, total_passed=45, total_failed=15,
             critical_issues=2, warnings=10,
@@ -261,7 +261,7 @@ def test_build_overview_zero_issues_returns_empty():
         {},
         [],
         run=SimpleNamespace(
-            project_id="proj-1", crawl_id="crawl-1", domain="example.com",
+            audit_id="proj-1", audit_id="crawl-1", domain="example.com",
             overall_score=100.0, grade="A+", total_pages_scored=10,
             total_rules_evaluated=60, total_passed=60, total_failed=0,
             critical_issues=0, warnings=0,

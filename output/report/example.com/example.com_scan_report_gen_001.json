@@ -1,0 +1,208 @@
+{
+  "scan_id": "scan_report_gen_001",
+  "url": "https://example.com",
+  "site_category": "ecommerce",
+  "scanned_at": "2026-09-14T12:00:00Z",
+  "pages_crawled": 2,
+  "overall_score": {
+    "value": 0.0,
+    "grade": "F",
+    "max_possible": 100.0,
+    "checks_run": 2,
+    "checks_applicable": 2,
+    "checks_excluded": 0,
+    "critical_issues": 1,
+    "warnings": 0,
+    "passed": 1
+  },
+  "categories": [
+    {
+      "id": "technical_seo",
+      "label": "Technical SEO",
+      "order": 2,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for technical seo.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "on_page_seo",
+      "label": "On-Page SEO",
+      "order": 3,
+      "applicable": true,
+      "reason_not_applicable": null,
+      "weight": 2.0,
+      "score": {
+        "value": 0.0,
+        "grade": "F",
+        "max_possible": 100.0
+      },
+      "status": null,
+      "issue_count": {
+        "critical": 1,
+        "warning": 0,
+        "info": 0
+      },
+      "issues": [
+        {
+          "issue_id": "iss_0001",
+          "check_id": "on_page_001",
+          "severity": "critical",
+          "title": "Missing Title Tag",
+          "description": "Page 1 is missing a <title> tag.",
+          "recommendation": "Add a descriptive <title> tag (30-60 characters).",
+          "priority": "high",
+          "estimated_impact": "high",
+          "affected_page_count": 1,
+          "affected_pages": [
+            {
+              "url": "https://example.com/page1",
+              "found_value": {
+                "title": ""
+              },
+              "expected_value": "30-60 chars",
+              "evidence": {
+                "title_len": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "label": "Content Quality",
+      "order": 4,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for content quality.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "off_page_seo",
+      "label": "Off-Page SEO",
+      "order": 5,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for off-page seo.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "local_seo",
+      "label": "Local SEO",
+      "order": 6,
+      "applicable": false,
+      "reason_not_applicable": "site_category 'ecommerce' does not require local seo signals.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "geo_ai_readiness",
+      "label": "Geo & AI Readiness",
+      "order": 7,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for geo & ai readiness.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "headers",
+      "label": "Security Headers",
+      "order": 8,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for security headers.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "images",
+      "label": "Images & Media",
+      "order": 9,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for images & media.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "social",
+      "label": "Social Signals",
+      "order": 10,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for social signals.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "performance",
+      "label": "Performance",
+      "order": 11,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for performance.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "order": 12,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for security.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "accessibility",
+      "label": "Accessibility",
+      "order": 13,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for accessibility.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile",
+      "order": 14,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for mobile.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    }
+  ]
+}

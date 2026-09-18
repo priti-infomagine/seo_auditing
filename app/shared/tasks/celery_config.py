@@ -8,4 +8,7 @@ task_routes = {
     "audit.*": {
         "queue": "audit",
     },
+    "reports.*": {
+        "queue": "email",
+    },
 }

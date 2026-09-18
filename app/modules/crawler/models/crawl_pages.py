@@ -20,7 +20,7 @@ class CrawlPage(TimestampMixin, Base):
     __tablename__ = "crawl_pages"
 
     __table_args__ = (
-        UniqueConstraint("crawl_id", "normalized_url", name="uq_crawl_pages_crawl_id_normalized_url"),
+        UniqueConstraint("audit_id", "normalized_url", name="uq_crawl_pages_audit_id_normalized_url"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
@@ -28,7 +28,7 @@ class CrawlPage(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         nullable=False,
         index=True,
@@ -132,7 +132,7 @@ class CrawlPage(TimestampMixin, Base):
         return (
             f"<CrawlPage "
             f"id={self.id} "
-            f"crawl_id={self.crawl_id} "
+            f"audit_id={self.audit_id} "
             f"url={self.url} "
             f"depth={self.depth}"
             f">"

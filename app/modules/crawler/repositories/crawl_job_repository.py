@@ -30,19 +30,37 @@ class CrawlJobRepository:
         )
         return result.scalar_one_or_none()
 
+    async def get_by_audit_id(self, audit_id: UUID) -> Optional[CrawlJob]:
+        """Get crawl job by audit_id.
+
+        In this codebase CrawlJob.id **is** the audit_id (see analyze.py which
+        creates CrawlJob(id=audit_id)).  The public report and chat endpoints
+        receive the audit_id from CrawlResponse, so this is an alias that
+        resolves the same UUID against CrawlJob.id.
+        """
+        result = await self.db.execute(
+            select(CrawlJob).where(CrawlJob.id == audit_id)
+        )
+        return result.scalar_one_or_none()
+
+    async def get_by_id_or_audit_id(self, key: UUID) -> Optional[CrawlJob]:
+        """Resolve a crawl job by its audit_id (CrawlJob.id).
+
+        Tries ``id`` first, falls back to ``get_by_audit_id``. Both lookups
+        resolve the same column; the fallback exists so callers can use
+        whichever key they have from CrawlResponse.
+        """
+        job = await self.get_by_id(key)
+        if job is not None:
+            return job
+        return await self.get_by_audit_id(key)
+
     async def get_by_user_id(self, user_id: UUID) -> list[CrawlJob]:
         """Get all crawl jobs for a user."""
         result = await self.db.execute(
             select(CrawlJob).where(CrawlJob.user_id == user_id)
         )
         return list(result.scalars().all())
-
-    async def get_by_project_id(self, project_id: UUID) -> Optional[CrawlJob]:
-        """Get crawl job by project ID."""
-        result = await self.db.execute(
-            select(CrawlJob).where(CrawlJob.project_id == project_id)
-        )
-        return result.scalar_one_or_none()
 
     async def update(self, crawl_job: CrawlJob) -> CrawlJob:
         """Update crawl job."""

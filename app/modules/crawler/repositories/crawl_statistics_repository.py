@@ -20,14 +20,14 @@ class CrawlStatisticsRepository:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def get_crawl_stats(self, crawl_id: UUID) -> Optional[dict]:
+    async def get_crawl_stats(self, audit_id: UUID) -> Optional[dict]:
         """
         Get comprehensive statistics for a crawl job.
 
         Aggregates counts across pages, links, assets, and errors tables.
         """
         result = await self.db.execute(
-            select(CrawlJob).where(CrawlJob.id == crawl_id)
+            select(CrawlJob).where(CrawlJob.id == audit_id)
         )
         job = result.scalar_one_or_none()
 
@@ -38,7 +38,7 @@ class CrawlStatisticsRepository:
         pages_result = await self.db.execute(
             select(func.count())
             .select_from(CrawlPage)
-            .where(CrawlPage.crawl_id == crawl_id)
+            .where(CrawlPage.audit_id == audit_id)
         )
         pages_count = pages_result.scalar_one()
 
@@ -47,7 +47,7 @@ class CrawlStatisticsRepository:
             select(func.count())
             .select_from(PageLink)
             .join(CrawlPage, PageLink.page_id == CrawlPage.id)
-            .where(CrawlPage.crawl_id == crawl_id)
+            .where(CrawlPage.audit_id == audit_id)
         )
         links_count = links_result.scalar_one()
 
@@ -56,7 +56,7 @@ class CrawlStatisticsRepository:
             select(func.count())
             .select_from(PageAsset)
             .join(CrawlPage, PageAsset.page_id == CrawlPage.id)
-            .where(CrawlPage.crawl_id == crawl_id)
+            .where(CrawlPage.audit_id == audit_id)
         )
         assets_count = assets_result.scalar_one()
 
@@ -64,7 +64,7 @@ class CrawlStatisticsRepository:
         errors_result = await self.db.execute(
             select(func.count())
             .select_from(CrawlError)
-            .where(CrawlError.crawl_id == crawl_id)
+            .where(CrawlError.audit_id == audit_id)
         )
         errors_count = errors_result.scalar_one()
 
@@ -73,12 +73,12 @@ class CrawlStatisticsRepository:
             select(func.count())
             .select_from(PageLink)
             .join(CrawlPage, PageLink.page_id == CrawlPage.id)
-            .where(CrawlPage.crawl_id == crawl_id, PageLink.is_internal == True)
+            .where(CrawlPage.audit_id == audit_id, PageLink.is_internal == True)
         )
         internal_links_count = internal_links_result.scalar_one()
 
         return {
-            "crawl_id": crawl_id,
+            "audit_id": audit_id,
             "domain": job.domain,
             "status": job.status,
             "started_at": job.started_at.isoformat() if job.started_at else None,

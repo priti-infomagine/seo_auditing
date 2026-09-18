@@ -96,7 +96,7 @@ class CrawlOrchestrator:
 
         await self.event_bus.emit(
             CrawlPipelineEvent.SCHEDULER_START,
-            crawl_id=str(self.crawl_job_id),
+            audit_id=str(self.crawl_job_id),
             start_url=start_url,
             max_depth=self.config.max_depth,
             max_pages=self.config.max_pages,
@@ -177,7 +177,7 @@ class CrawlOrchestrator:
             await scheduler.run()
         except Exception as exc:
             await self._mark_failed(str(exc))
-            return {"status": "failed", "crawl_id": str(self.crawl_job_id)}
+            return {"status": "failed", "audit_id": str(self.crawl_job_id)}
         finally:
             await self.persistence.flush_all()
             pages_crawled_count = scheduler.pages_crawled_count
@@ -196,7 +196,7 @@ class CrawlOrchestrator:
 
         await self.event_bus.emit(
             CrawlPipelineEvent.SCHEDULER_COMPLETE,
-            crawl_id=str(self.crawl_job_id),
+            audit_id=str(self.crawl_job_id),
             pages_crawled=pages_crawled_count,
             pages_discovered=pages_discovered_count,
             duration_ms=duration_ms,
@@ -219,7 +219,7 @@ class CrawlOrchestrator:
 
         return {
             "status": "completed",
-            "crawl_id": str(self.crawl_job_id),
+            "audit_id": str(self.crawl_job_id),
             "pages_crawled": pages_crawled_count,
             "pages_discovered": pages_discovered_count,
             "pages_failed": getattr(scheduler, 'pages_failed_count', 0),
@@ -362,7 +362,7 @@ class CrawlOrchestrator:
         url_hash = hashlib.md5(normalized_url.encode()).hexdigest()
 
         page = CrawlPage(
-            crawl_id=self.crawl_job_id,
+            audit_id=self.crawl_job_id,
             url=item.url,
             normalized_url=normalized_url,
             url_hash=url_hash,
@@ -484,7 +484,7 @@ class CrawlOrchestrator:
 
     async def get_summary(self) -> Optional[dict]:
         """Get crawl summary."""
-        return {"status": "completed", "crawl_id": str(self.crawl_job_id)}
+        return {"status": "completed", "audit_id": str(self.crawl_job_id)}
 
     # -- private helpers ----------------------------------------------
 

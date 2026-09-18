@@ -1,5 +1,3 @@
 """
-Reports module (placeholder).
+Reports package init.
 """
-
-__all__ = []

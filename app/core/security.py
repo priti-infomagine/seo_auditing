@@ -15,9 +15,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.jwt import decode_token
-from app.models.auth_models.token_blacklist import TokenBlacklist
-from app.models.auth_models.users import User
+from app.modules.auth.utils.auth_utils import decode_token
+from app.modules.auth.models.token_blacklist import TokenBlacklist
+from app.modules.auth.models.users import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer_scheme = HTTPBearer()

@@ -21,7 +21,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     # ── 1. Add new columns to crawl_jobs ─────────────────────────────────
-    op.add_column("crawl_jobs", sa.Column("project_id", sa.UUID(), nullable=True))
+    op.add_column("crawl_jobs", sa.Column("audit_id", sa.UUID(), nullable=True))
     op.add_column("crawl_jobs", sa.Column("crawl_type", sa.String(length=50), nullable=True))
     op.add_column("crawl_jobs", sa.Column("pages_discovered", sa.Integer(), nullable=False, server_default="0"))
     op.add_column("crawl_jobs", sa.Column("pages_crawled", sa.Integer(), nullable=False, server_default="0"))
@@ -43,11 +43,11 @@ def upgrade() -> None:
             'user_agent', cc.user_agent
         )
         FROM crawl_configs cc
-        WHERE crawl_jobs.id = cc.crawl_id
+        WHERE crawl_jobs.id = cc.audit_id
     """)
 
     # ── 3. Drop crawl_configs table ──────────────────────────────────────
-    op.drop_index(op.f("ix_crawl_configs_crawl_id"), table_name="crawl_configs")
+    op.drop_index(op.f("ix_crawl_configs_audit_id"), table_name="crawl_configs")
     op.drop_table("crawl_configs")
 
     # ── 4. Add new columns to crawl_pages ────────────────────────────────
@@ -109,7 +109,7 @@ def upgrade() -> None:
     op.execute("""
         UPDATE page_links
         SET
-            crawl_job_id = (SELECT crawl_id FROM crawl_pages WHERE crawl_pages.id = page_links.page_id),
+            crawl_job_id = (SELECT audit_id FROM crawl_pages WHERE crawl_pages.id = page_links.page_id),
             normalized_target_url = target_url,
             is_external = NOT is_internal
         WHERE crawl_job_id = '00000000-0000-0000-0000-000000000000'
@@ -225,7 +225,7 @@ def downgrade() -> None:
     op.create_table(
         "crawl_configs",
         sa.Column("id", sa.UUID(), nullable=False),
-        sa.Column("crawl_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
         sa.Column("max_depth", sa.Integer(), nullable=False),
         sa.Column("max_pages", sa.Integer(), nullable=False),
         sa.Column("concurrency", sa.Integer(), nullable=False),
@@ -236,10 +236,10 @@ def downgrade() -> None:
         sa.Column("user_agent", sa.Text(), nullable=True),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
-        sa.ForeignKeyConstraint(["crawl_id"], ["crawl_jobs.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(["audit_id"], ["crawl_jobs.id"], ondelete="CASCADE"),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index(op.f("ix_crawl_configs_crawl_id"), "crawl_configs", ["crawl_id"], unique=False)
+    op.create_index(op.f("ix_crawl_configs_audit_id"), "crawl_configs", ["audit_id"], unique=False)
 
     # ── Remove new columns from crawl_jobs ──────────────────────────────
     op.drop_column("crawl_jobs", "crawl_config")
@@ -248,7 +248,7 @@ def downgrade() -> None:
     op.drop_column("crawl_jobs", "pages_crawled")
     op.drop_column("crawl_jobs", "pages_discovered")
     op.drop_column("crawl_jobs", "crawl_type")
-    op.drop_column("crawl_jobs", "project_id")
+    op.drop_column("crawl_jobs", "audit_id")
 
     # ── Remove new columns from crawl_pages ─────────────────────────────
     op.drop_index(op.f("ix_crawl_pages_host"), table_name="crawl_pages")

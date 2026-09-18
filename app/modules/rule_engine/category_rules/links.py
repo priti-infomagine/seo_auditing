@@ -122,8 +122,9 @@ class BrokenLinksRule(BaseRule):
         links = data.get("links", {})
         broken_internal = links.get("broken_internal", [])
         broken_external = links.get("broken_external", [])
+        data_available = links.get("broken_link_data_available", False)
         
-        if not broken_internal and not broken_external:
+        if not data_available:
             return [self._create_result(
                 passed=True,
                 message="Live link check not enabled (broken link data unavailable)",

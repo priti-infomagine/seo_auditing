@@ -35,10 +35,6 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
         index=True,
     )
-    project_id: Mapped[uuid.UUID | None] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=True,
-    )
     url: Mapped[str] = mapped_column(
         String(2048),
         nullable=False,
@@ -117,6 +113,10 @@ class CrawlJob(TimestampMixin, Base):
     error: Mapped[str | None] = mapped_column(
         String(1024),
         nullable=True,
+    )
+    crawl_config_recovered: Mapped[bool] = mapped_column(
+        nullable=False,
+        default=False,
     )
 
     def __repr__(self) -> str:

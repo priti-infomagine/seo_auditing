@@ -34,10 +34,10 @@ class CrawlErrorRepository:
         await self.db.flush()
         return crawl_errors
     
-    async def get_by_crawl_id(self, crawl_id: UUID) -> List[CrawlError]:
+    async def get_by_audit_id(self, audit_id: UUID) -> List[CrawlError]:
         """Get all errors for a crawl job."""
         result = await self.db.execute(
-            select(CrawlError).where(CrawlError.crawl_id == crawl_id)
+            select(CrawlError).where(CrawlError.audit_id == audit_id)
         )
         return list(result.scalars().all())
     

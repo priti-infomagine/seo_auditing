@@ -2,7 +2,7 @@
 Quick test for password reset schema validations.
 """
 from pydantic import ValidationError
-from app.schemas.auth_schemas.forgot_password import (
+from app.modules.auth.schemas.forgot_password import (
     ForgotPasswordRequest,
     VerifyResetOTPRequest,
     ResetPasswordRequest,

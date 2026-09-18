@@ -1,11 +1,31 @@
+from datetime import datetime, timezone
+
+from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.core.config import settings
+
+
+class TimestampMixin:
+    """Adds created_at and updated_at timestamp columns."""
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        nullable=False,
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
+
 
 # ── Async Engine ─────────────────────────────────────────────────────
 engine = create_async_engine(
@@ -46,10 +66,20 @@ class Base(DeclarativeBase):
 # ── Lifecycle helpers ────────────────────────────────────────────────
 async def init_db() -> None:
     """Create all tables (useful for development / testing)."""
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception as exc:
+        from app.core.logger import logger
+        logger.error(f"init_db failed: {exc}", exc_info=True)
+        raise
 
 
 async def close_db() -> None:
     """Dispose the engine gracefully."""
-    await engine.dispose()
+    try:
+        await engine.dispose()
+    except Exception as exc:
+        from app.core.logger import logger
+        logger.error(f"close_db failed: {exc}", exc_info=True)
+        raise

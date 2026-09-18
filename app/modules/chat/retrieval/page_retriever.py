@@ -56,7 +56,7 @@ class PageRetriever:
 
     async def get_page_facts(
         self,
-        project_id: UUID,
+        audit_id: UUID,
         page_url: str,
     ) -> Optional[dict]:
         requested_url = self._normalize_url(page_url)
@@ -64,7 +64,7 @@ class PageRetriever:
 
         
 
-        facts = await self.parsed_repo.get_by_project_id(project_id)
+        facts = await self.parsed_repo.get_by_audit_id(audit_id)
 
         matched = None
 
@@ -183,10 +183,10 @@ class PageRetriever:
 
 #     async def get_page_facts(
 #         self,
-#         project_id: UUID,
+#         audit_id: UUID,
 #         page_url: str,
 #     ) -> Optional[dict]:
-#         facts = await self.parsed_repo.get_by_project_id(project_id)
+#         facts = await self.parsed_repo.get_by_audit_id(audit_id)
 
 #         matched = None
 
@@ -243,8 +243,8 @@ class PageRetriever:
 #         self.parsed_repo = ParsedPageFactRepository(db)
 #         self.seo_repo = PageSEODataRepository(db)
 
-#     async def get_page_facts(self, project_id: UUID, page_url: str) -> Optional[dict]:
-#         facts = await self.parsed_repo.get_by_project_id(project_id)
+#     async def get_page_facts(self, audit_id: UUID, page_url: str) -> Optional[dict]:
+#         facts = await self.parsed_repo.get_by_audit_id(audit_id)
 #         matched = None
 #         for fact in facts:
 #             if fact.url == page_url:

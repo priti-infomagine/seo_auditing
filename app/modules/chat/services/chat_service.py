@@ -28,17 +28,17 @@ class ChatService:
         self.category_retriever = CategoryRetriever(db)
         self.response_validator = ResponseValidator()
 
-    async def chat(self, project_id: UUID, message: str) -> ChatResponse:
-        audit = await self.audit_retriever.get_latest_completed(project_id)
+    async def chat(self, audit_id: UUID, message: str) -> ChatResponse:
+        audit = await self.audit_retriever.get_latest_completed(audit_id)
         if audit is None:
             return ChatResponse(
-                project_id=str(project_id),
-                audit_id=None,
+                
+                audit_id=audit_id,
                 answer="No completed audit is available for this project yet.",
                 references=[],
             )
 
-        tools = build_chat_tools(self.db, project_id)
+        tools = build_chat_tools(self.db, audit_id)
 
         from langchain_ollama import ChatOllama
         model = ChatOllama(
@@ -88,7 +88,7 @@ class ChatService:
         )
         
         return ChatResponse(
-            project_id=str(project_id),
+           
             audit_id=str(audit["id"]) if audit.get("id") else None,
             answer=validated["answer"],
             references=validated["references"],

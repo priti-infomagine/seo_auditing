@@ -53,27 +53,34 @@ class RuleEvaluatorService:
         "schemas", "hreflang", "resources", "technical",
     ]
 
-    def __init__(self, db: AsyncSession):
+    def __init__(
+        self,
+        db: AsyncSession,
+        rule_timeout: float = 20.0,
+        page_concurrency: int = 10,
+    ):
         self.db = db
+        self.rule_timeout = rule_timeout
+        self.page_concurrency = page_concurrency
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.crawl_page_repo = CrawlPageRepository(db)
         self.seo_repo = PageSEODataRepository(db)
         self.network_repo = PageNetworkDataRepository(db)
+        self.page_link_repo = PageLinkRepository(db)
         self.scorer_service = ScorerService()
         self.rules: List[BaseRule] = self.scorer_service.rules
 
     async def evaluate_crawl(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         force: bool = False,
     ) -> Dict[str, Any]:
         """
         Evaluate all rules for all parsed pages of a crawl.
 
         Steps:
-          1. Load all ParsedPageFact rows for (project_id, crawl_id).
+          1. Load all ParsedPageFact rows for audit_id.
           2. For each page: reconstruct the `data` dict rules expect.
           3. Run all 60+ rules against each page's data (concurrently per page).
           4. Bulk upsert RuleEvaluationResult rows (ON CONFLICT DO UPDATE).
@@ -82,32 +89,27 @@ class RuleEvaluatorService:
         Fault-tolerant: per-rule and per-page failures are caught and recorded.
 
         Args:
-            project_id: The project tracking key.
-            crawl_id: The crawl job ID.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             force: If True, re-evaluate rules even if results exist.
 
         Returns:
-            Dict with project_id, crawl_id, pages_evaluated, rules_run,
+            Dict with audit_id, pages_evaluated, rules_run,
             total_results, errors, evaluated_at.
         """
         try:
             logger.info(
-                f"RuleEvaluatorService.evaluate_crawl: project_id={project_id}, crawl_id={crawl_id}, force={force}"
+                f"RuleEvaluatorService.evaluate_crawl: audit_id={audit_id}, force={force}"
             )
 
-            parsed_facts = await self.parsed_fact_repo.get_by_crawl_id(crawl_id)
-
-            # Filter to only this project's facts (defensive — crawl_id is scoped to project)
-            parsed_facts = [f for f in parsed_facts if str(f.project_id) == str(project_id)]
+            parsed_facts = await self.parsed_fact_repo.get_by_audit_id(audit_id)
 
             if not parsed_facts:
                 logger.warning(
                     f"RuleEvaluatorService.evaluate_crawl: no parsed facts for "
-                    f"project_id={project_id}, crawl_id={crawl_id}"
+                    f"audit_id={audit_id}"
                 )
                 return {
-                    "project_id": str(project_id),
-                    "crawl_id": str(crawl_id),
+                    "audit_id": str(audit_id),
                     "pages_evaluated": 0,
                     "rules_run": 0,
                     "total_results": 0,
@@ -119,11 +121,18 @@ class RuleEvaluatorService:
             # Replaces per-page rule-result / crawl-page / seo / network re-fetches (N+1).
             page_ids = [f.page_id for f in parsed_facts]
             existing_ids = await self.rule_eval_repo.get_existing_page_ids(
-                project_id, page_ids
+                audit_id, page_ids
             )
             crawl_pages = await self.crawl_page_repo.get_by_ids(page_ids)
             seo_map = await self.seo_repo.get_by_page_ids(page_ids)
             network_map = await self.network_repo.get_by_page_ids(page_ids)
+
+            # Fetch all links for this crawl job (for broken-link detection)
+            all_page_links = await self.page_link_repo.get_by_crawl_job_id(audit_id)
+            # Build {page_id: [links]} map
+            page_links_map: dict = {}
+            for pl in all_page_links:
+                page_links_map.setdefault(pl.page_id, []).append(pl)
 
             pages_evaluated = 0
             total_results = 0
@@ -131,52 +140,72 @@ class RuleEvaluatorService:
             all_results: List[RuleEvaluationResult] = []
             errors: List[Dict[str, Any]] = []
 
-            for fact in parsed_facts:
-                try:
-                    if not force and fact.page_id in existing_ids:
-                        pages_evaluated += 1
-                        continue
+            # Semaphore for page-level concurrency
+            semaphore = asyncio.Semaphore(self.page_concurrency)
 
-                    page_results = await self.evaluate_page(
-                        project_id,
-                        crawl_id,
-                        fact,
-                        crawl_pages.get(fact.page_id),
-                        seo_map.get(fact.page_id),
-                        network_map.get(fact.page_id),
-                    )
-                    all_results.extend(page_results)
-                    total_results += len(page_results)
-                    rules_run += len(self.rules)
-                    pages_evaluated += 1
-                except Exception as exc:
+            async def evaluate_single_page(fact):
+                nonlocal pages_evaluated, total_results, rules_run
+                async with semaphore:
+                    try:
+                        if not force and fact.page_id in existing_ids:
+                            pages_evaluated += 1
+                            return None, None
+
+                        page_results = await self.evaluate_page(
+                            audit_id,
+                            fact,
+                            crawl_pages.get(fact.page_id),
+                            seo_map.get(fact.page_id),
+                            network_map.get(fact.page_id),
+                            page_links_map.get(fact.page_id, []),
+                        )
+                        return page_results, fact.page_id
+                    except Exception as exc:
+                        logger.error(
+                            f"RuleEvaluatorService: evaluation failed for page_id={fact.page_id}: {exc}",
+                            exc_info=True,
+                        )
+                        errors.append({
+                            "page_id": str(fact.page_id),
+                            "url": fact.url,
+                            "error": str(exc),
+                        })
+                        # Create a single error result for the page
+                        error_result = RuleEvaluationResult(
+                            id=uuid.uuid4(),
+                            audit_id=audit_id,
+                            page_id=fact.page_id,
+                            rule_id="evaluation_error",
+                            rule_name="Page Evaluation Error",
+                            category="error",
+                            severity=Severity.ERROR.value,
+                            passed=False,
+                            score_impact=0,
+                            message=str(exc),
+                            recommendation="Fix data or rule configuration",
+                            evaluated_at=utc_now(),
+                        )
+                        return [error_result], fact.page_id
+
+            # Run all pages concurrently with semaphore limiting concurrency
+            page_tasks = [evaluate_single_page(fact) for fact in parsed_facts]
+            page_results_list = await asyncio.gather(*page_tasks, return_exceptions=True)
+
+            for result in page_results_list:
+                if isinstance(result, Exception):
+                    # This shouldn't happen with our error handling, but just in case
                     logger.error(
-                        f"RuleEvaluatorService: evaluation failed for page_id={fact.page_id}: {exc}",
-                        exc_info=True,
+                        f"RuleEvaluatorService: unhandled exception in page evaluation: {result}"
                     )
-                    errors.append({
-                        "page_id": str(fact.page_id),
-                        "url": fact.url,
-                        "error": str(exc),
-                    })
-                    # Create a single error result for the page
-                    error_result = RuleEvaluationResult(
-                        id=uuid.uuid4(),
-                        project_id=project_id,
-                        crawl_id=crawl_id,
-                        page_id=fact.page_id,
-                        rule_id="evaluation_error",
-                        rule_name="Page Evaluation Error",
-                        category="error",
-                        severity=Severity.ERROR.value,
-                        passed=False,
-                        score_impact=0,
-                        message=str(exc),
-                        recommendation="Fix data or rule configuration",
-                        evaluated_at=utc_now(),
-                    )
-                    all_results.append(error_result)
-                    total_results += 1
+                    continue
+                page_results, page_id = result
+                if page_results is None:
+                    # Page was skipped (already evaluated)
+                    continue
+                all_results.extend(page_results)
+                total_results += len(page_results)
+                rules_run += len(self.rules)
+                pages_evaluated += 1
 
             # Bulk upsert all results
             if all_results:
@@ -185,12 +214,11 @@ class RuleEvaluatorService:
             logger.info(
                 f"RuleEvaluatorService.evaluate_crawl: pages_evaluated={pages_evaluated}, "
                 f"rules_run={rules_run}, total_results={total_results}, "
-                f"errors={len(errors)} for project_id={project_id}"
+                f"errors={len(errors)} for audit_id={audit_id}"
             )
 
             return {
-                "project_id": str(project_id),
-                "crawl_id": str(crawl_id),
+                "audit_id": str(audit_id),
                 "pages_evaluated": pages_evaluated,
                 "rules_run": rules_run,
                 "total_results": total_results,
@@ -200,19 +228,19 @@ class RuleEvaluatorService:
 
         except Exception as exc:
             logger.error(
-                f"RuleEvaluatorService.evaluate_crawl: unhandled error for crawl_id={crawl_id}: {exc}",
+                f"RuleEvaluatorService.evaluate_crawl: unhandled error for audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
             raise RuleEvaluationError(f"Crawl evaluation failed: {exc}") from exc
 
     async def evaluate_page(
         self,
-        project_id: UUID,
-        crawl_id: UUID,
+        audit_id: UUID,
         fact,
         crawl_page,
         seo_data,
         network_data,
+        page_links: list = None,
     ) -> List[RuleEvaluationResult]:
         """
         Evaluate all rules for a single page.
@@ -221,13 +249,17 @@ class RuleEvaluatorService:
         `crawl_page` / `seo_data` / `network_data` (passed by `evaluate_crawl`)
         instead of re-querying the database per page.
 
+        Rules are run concurrently using asyncio.gather with per-rule timeout.
+        Fault-tolerant: per-rule failures are caught and recorded as synthetic
+        error results; other rules continue executing.
+
         Args:
-            project_id: The project tracking key.
-            crawl_id: The crawl job ID.
+            audit_id: The audit ID (== audit_id), the single tracking key.
             fact: The ParsedPageFact for this page (already loaded).
             crawl_page: The CrawlPage row (batch-fetched).
             seo_data: The PageSEOData row (batch-fetched) or None.
-            network_data: The PageNetworkData row (batch-fetched) or None.
+             network_data: The PageNetworkData row (batch-fetched) or None.
+            page_links: The PageLink rows for this page (batch-fetched) or None.
 
         Returns:
             List of RuleEvaluationResult objects (one per rule, or synthetic
@@ -236,37 +268,17 @@ class RuleEvaluatorService:
         try:
             page_id = fact.page_id
             # Reconstruct data dict from the batch-fetched objects
-            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data)
+            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links)
 
-            # Run all rules concurrently for speed
-            rule_results: List[RuleResult] = []
-            for rule in self.rules:
-                try:
-                    results = await asyncio.wait_for(rule.evaluate(data), timeout=40.0)
-                    rule_results.extend(results)
-                except asyncio.TimeoutError:
-                    logger.warning(
-                        f"Rule {rule.rule_id} timed out for page_id={page_id}"
-                    )
-                    rule_results.append(self._create_error_result(
-                        rule, page_id, "Rule evaluation timed out after 30s"
-                    ))
-                except Exception as exc:
-                    logger.error(
-                        f"Rule {rule.rule_id} failed for page_id={page_id}: {exc}",
-                        exc_info=True,
-                    )
-                    rule_results.append(self._create_error_result(
-                        rule, page_id, f"Rule evaluation failed: {exc}"
-                    ))
+            # Run all rules concurrently with per-rule timeout
+            rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
 
-            # Convert to RuleEvaluationResult and set project_id/crawl_id/page_id
+            # Convert to RuleEvaluationResult and set audit_id/audit_id/page_id
             now = utc_now()
             eval_results = [
                 RuleEvaluationResult(
                     id=uuid.uuid4(),
-                    project_id=project_id,
-                    crawl_id=crawl_id,
+                    audit_id=audit_id,
                     page_id=page_id,
                     rule_id=rr.rule_id,
                     rule_name=rr.name,
@@ -292,12 +304,82 @@ class RuleEvaluatorService:
             )
             raise RuleEvaluationError(f"Page evaluation failed for page_id={page_id}: {exc}") from exc
 
+    async def _run_rules_concurrently(
+        self,
+        data: Dict[str, Any],
+        page_id: UUID,
+    ) -> List[RuleResult]:
+        """
+        Run all rules concurrently for a page with per-rule timeout and error isolation.
+
+        Uses asyncio.gather with return_exceptions=True to ensure a single
+        failing/timing-out rule doesn't kill the others. Each rule is wrapped
+        in its own wait_for with the configured rule_timeout.
+
+        Execution time is logged per rule for observability and timeout tuning.
+        """
+        async def run_single_rule(rule: BaseRule) -> RuleResult:
+            start = asyncio.get_event_loop().time()
+            try:
+                results = await asyncio.wait_for(
+                    rule.evaluate(data), timeout=self.rule_timeout
+                )
+                duration_ms = int((asyncio.get_event_loop().time() - start) * 1000)
+                logger.info(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} duration_ms={duration_ms}"
+                )
+                # rule.evaluate returns a list of RuleResult; extend into single result
+                # Most rules return a single-item list, but we handle multiple
+                if results:
+                    return results[0] if len(results) == 1 else results[0]
+                # If no results, create a passed result (edge case)
+                return self._create_error_result(rule, page_id, "Rule returned no results")
+            except asyncio.TimeoutError:
+                logger.warning(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
+                    f"timed out after {self.rule_timeout}s"
+                )
+                return self._create_error_result(
+                    rule, page_id, f"Rule evaluation timed out after {self.rule_timeout}s"
+                )
+            except Exception as exc:
+                logger.error(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} failed: {exc}",
+                    exc_info=True,
+                )
+                return self._create_error_result(
+                    rule, page_id, f"Rule evaluation failed: {exc}"
+                )
+
+        # Run all rules concurrently
+        rule_tasks = [run_single_rule(rule) for rule in self.rules]
+        gathered = await asyncio.gather(*rule_tasks, return_exceptions=True)
+
+        # Process results - return_exceptions=True means exceptions are returned as values
+        rule_results: List[RuleResult] = []
+        for i, result in enumerate(gathered):
+            if isinstance(result, Exception):
+                # This shouldn't happen with our error handling, but just in case
+                rule = self.rules[i]
+                logger.error(
+                    f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
+                    f"unhandled exception: {result}"
+                )
+                rule_results.append(self._create_error_result(
+                    rule, page_id, f"Unhandled rule exception: {result}"
+                ))
+            else:
+                rule_results.append(result)
+
+        return rule_results
+
     async def _build_rule_data(
         self,
         fact,
         crawl_page,
         seo_data,
         network_data,
+        page_links: list = None,
     ) -> Dict[str, Any]:
         """
         Reconstruct the `data` dict that SEO rules expect.
@@ -336,7 +418,7 @@ class RuleEvaluatorService:
                 # Map parsed data keys to rule data keys
                 data["content"] = parsed_data.get("content", {})
                 data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
-                data["links"] = self._build_links_summary(parsed_data.get("links", []))
+                data["links"] = self._build_links_summary(parsed_data.get("links", []), page_links)
                 data["images"] = self._build_images_summary(parsed_data.get("images", []))
                 data["schemas"] = parsed_data.get("schemas", [])
                 data["structured_data"] = self._build_structured_data(parsed_data.get("schemas", []))
@@ -424,25 +506,49 @@ class RuleEvaluatorService:
 
         return data
 
-    def _build_links_summary(self, links: list) -> dict:
-        """Transform raw parsed links list into the dict structure that SEO rules expect."""
+    def _build_links_summary(self, links: list, page_links: list = None) -> dict:
+        """Transform raw parsed links list into the dict structure that SEO rules expect.
+
+        If ``page_links`` (PageLink ORM objects) are provided, enrich each link
+        dict with ``target_status_code`` and compute ``broken_internal`` /
+        ``broken_external`` lists from links whose status code is >= 400.
+        """
         internal_count = 0
         external_count = 0
         nofollow_count = 0
         internal_links = []
         external_links = []
+        broken_internal = []
+        broken_external = []
+
+        status_by_url: dict = {}
+        broken_link_data_available = page_links is not None
+        if page_links:
+            for pl in page_links:
+                if pl.target_url and pl.target_status_code:
+                    status_by_url[pl.target_url] = pl.target_status_code
+
         for link in links:
             if not isinstance(link, dict):
                 continue
+            match_key = link.get("absolute_url") or link.get("href", "")
+            status = status_by_url.get(match_key)
+            if status is not None:
+                link["target_status_code"] = status
+
             is_external = (
                 link.get("link_type") == "external" or link.get("is_external", False)
             )
             if is_external:
                 external_count += 1
                 external_links.append(link)
+                if status is not None and status >= 400:
+                    broken_external.append(link)
             else:
                 internal_count += 1
                 internal_links.append(link)
+                if status is not None and status >= 400:
+                    broken_internal.append(link)
             if link.get("nofollow") or link.get("is_nofollow"):
                 nofollow_count += 1
         return {
@@ -452,6 +558,9 @@ class RuleEvaluatorService:
             "nofollow_count": nofollow_count,
             "internal_links": internal_links,
             "external_links": external_links,
+            "broken_internal": broken_internal,
+            "broken_external": broken_external,
+            "broken_link_data_available": broken_link_data_available,
         }
 
     def _build_images_summary(self, images: list) -> dict:

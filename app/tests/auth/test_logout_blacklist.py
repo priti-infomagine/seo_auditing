@@ -6,19 +6,21 @@ LogoutService and asserts that the access token JTI is stored in
 token_blacklist and the refresh token is revoked. Does not create or drop tables.
 """
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 import pytest
 from sqlalchemy import select
 
+from app.core.datetime_utils import utc_now
 from app.core.security import hash_token
-from app.models.auth_models.refresh_token import RefreshToken
-from app.models.auth_models.token_blacklist import TokenBlacklist
-from app.models.auth_models.users import User
-from app.schemas.auth_schemas.logout import LogoutRequest
-from app.services.auth_services.logout_service import LogoutService
+from app.modules.auth.models.refresh_token import RefreshToken
+from app.modules.auth.models.token_blacklist import TokenBlacklist
+from app.modules.auth.models.users import User
+from app.modules.auth.schemas.logout import LogoutRequest
+from app.modules.auth.services.logout_service import LogoutService
 
 
+@pytest.mark.asyncio
 async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_session):
     test_email = f"logout_test_{uuid.uuid4().hex[:8]}@example.com"
     test_password_hash = "hashed_test_password"
@@ -39,7 +41,7 @@ async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_sessi
     refresh_token = RefreshToken(
         user_id=user.id,
         token_hash=rt_hash,
-        expires_at=datetime.now(timezone.utc) + timedelta(days=7),
+        expires_at=utc_now() + timedelta(days=7),
         is_revoked=False,
     )
     db_session.add(refresh_token)
@@ -48,11 +50,11 @@ async def test_logout_blacklists_access_token_and_revokes_refresh_token(db_sessi
     assert refresh_token.id is not None
 
     logout_service = LogoutService(db_session)
-    logout_req = LogoutRequest(refresh_token=raw_refresh_token)
+    logout_req = LogoutRequest(refresh_token=raw_refresh_token, access_token="dummy")
     logout_resp = await logout_service.execute(
         logout_req,
         access_token_jti=access_token_jti,
-        access_token_expires_at=datetime.now(timezone.utc) + timedelta(
+        access_token_expires_at=utc_now() + timedelta(
             minutes=30
         ),
     )

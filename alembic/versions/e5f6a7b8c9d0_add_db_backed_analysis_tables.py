@@ -5,12 +5,12 @@ Revises: d1e2f3a4b5c6
 Create Date: 2026-08-17 13:55:00.000000
 
 Add three new tables for the DB-backed end-to-end analysis pipeline:
-  - parsed_page_facts  (project_id, page_id)
-  - rule_evaluation_results (project_id, page_id, rule_id)
-  - seo_analysis_runs  (project_id)
+  - parsed_page_facts  (audit_id, page_id)
+  - rule_evaluation_results (audit_id, page_id, rule_id)
+  - seo_analysis_runs  (audit_id)
 
-All use project_id as the main tracking key.
-crawl_id is kept for join-back to existing crawler tables.
+All use audit_id as the main tracking key.
+audit_id is kept for join-back to existing crawler tables.
 
 Indexes are limited to TWO columns per index.
 """
@@ -32,8 +32,8 @@ def upgrade() -> None:
     op.create_table(
         "parsed_page_facts",
         sa.Column("id", sa.UUID(), nullable=False),
-        sa.Column("project_id", sa.UUID(), nullable=False),
-        sa.Column("crawl_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
         sa.Column("page_id", sa.UUID(), nullable=False),
         sa.Column("url", sa.Text(), nullable=False),
         sa.Column("domain", sa.String(length=255), nullable=False),
@@ -52,14 +52,14 @@ def upgrade() -> None:
     op.create_index(
         "ix_parsed_page_facts_project_page",
         "parsed_page_facts",
-        ["project_id", "page_id"],
+        ["audit_id", "page_id"],
         unique=True,
     )
-    # Two-column non-unique index for crawl_id lookups
+    # Two-column non-unique index for audit_id lookups
     op.create_index(
         "ix_parsed_page_facts_project_crawl",
         "parsed_page_facts",
-        ["project_id", "crawl_id"],
+        ["audit_id", "audit_id"],
         unique=False,
     )
 
@@ -67,8 +67,8 @@ def upgrade() -> None:
     op.create_table(
         "rule_evaluation_results",
         sa.Column("id", sa.UUID(), nullable=False),
-        sa.Column("project_id", sa.UUID(), nullable=False),
-        sa.Column("crawl_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
         sa.Column("page_id", sa.UUID(), nullable=False),
         sa.Column("rule_id", sa.String(length=100), nullable=False),
         sa.Column("rule_name", sa.String(length=255), nullable=False),
@@ -89,13 +89,13 @@ def upgrade() -> None:
     op.create_index(
         "ix_rule_results_project_page_rule",
         "rule_evaluation_results",
-        ["project_id", "page_id"],
+        ["audit_id", "page_id"],
         unique=False,
     )
     op.create_index(
         "ix_rule_results_project_page_ruleid",
         "rule_evaluation_results",
-        ["project_id", "rule_id"],
+        ["audit_id", "rule_id"],
         unique=False,
     )
 
@@ -103,8 +103,8 @@ def upgrade() -> None:
     op.create_table(
         "seo_analysis_runs",
         sa.Column("id", sa.UUID(), nullable=False),
-        sa.Column("project_id", sa.UUID(), nullable=False),
-        sa.Column("crawl_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
+        sa.Column("audit_id", sa.UUID(), nullable=False),
         sa.Column("domain", sa.String(length=255), nullable=False),
         sa.Column("overall_score", sa.Float(), nullable=True),
         sa.Column("grade", sa.String(length=5), nullable=True),
@@ -126,11 +126,11 @@ def upgrade() -> None:
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
-    # Two-column unique index for project_id (also serves as domain lookup via separate index)
+    # Two-column unique index for audit_id (also serves as domain lookup via separate index)
     op.create_index(
-        "ix_seo_analysis_runs_project_id",
+        "ix_seo_analysis_runs_audit_id",
         "seo_analysis_runs",
-        ["project_id"],
+        ["audit_id"],
         unique=True,
     )
     # Two-column index for domain + status lookups
@@ -144,7 +144,7 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.drop_index("ix_seo_analysis_runs_domain_status", table_name="seo_analysis_runs")
-    op.drop_index("ix_seo_analysis_runs_project_id", table_name="seo_analysis_runs")
+    op.drop_index("ix_seo_analysis_runs_audit_id", table_name="seo_analysis_runs")
     op.drop_table("seo_analysis_runs")
 
     op.drop_index("ix_rule_results_project_page_ruleid", table_name="rule_evaluation_results")

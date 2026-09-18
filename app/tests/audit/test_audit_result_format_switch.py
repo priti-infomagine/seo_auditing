@@ -1,6 +1,6 @@
 """
 Contract tests for the ``?format=compact|full`` query switch on
-``GET /api/v1/audit/result/{crawl_id}``.
+``GET /api/v1/audit/result/{audit_id}``.
 
 These tests are pure OpenAPI / dispatch tests — no real DB.
 
@@ -21,7 +21,7 @@ import re
 from app.api.endpoints.v1.audit import results as results_module
 from app.main import app
 
-PATH = "/api/v1/audit/result/{crawl_id}"
+PATH = "/api/v1/audit/result/{audit_id}"
 
 
 # --------------------------------------------------------------------- OpenAPI
@@ -31,7 +31,7 @@ def test_format_query_param_is_registered():
     schema = app.openapi()
     params = schema["paths"][PATH]["get"].get("parameters", [])
     format_params = [p for p in params if p.get("name") == "format" and p.get("in") == "query"]
-    assert format_params, "format query param is missing from /audit/result/{crawl_id}"
+    assert format_params, "format query param is missing from /audit/result/{audit_id}"
     fp = format_params[0]
     schema_obj = fp["schema"]
     assert schema_obj["type"] == "string"
@@ -81,16 +81,16 @@ def test_route_source_dispatches_full_to_response_builder():
     assert "AuditResponseBuilder" in src
     assert "builder.build" in src
     # The full branch must be the fallthrough after the compact branch
-    assert ".build(project_id, crawl_id)" in src
+    assert ".build(audit_id)" in src
 
 
 # --------------------------------------------------------------------- project-keyed endpoint
 
 
 def test_project_keyed_endpoint_has_format_query_param():
-    """GET /audit/result/project/{project_id} must declare ?format=compact|full."""
+    """GET /audit/result/project/{audit_id} must declare ?format=compact|full."""
     schema = app.openapi()
-    path = "/api/v1/audit/result/project/{project_id}"
+    path = "/api/v1/audit/result/project/{audit_id}"
     params = schema["paths"][path]["get"].get("parameters", [])
     format_params = [
         p for p in params
@@ -145,21 +145,14 @@ def test_analyze_source_echoes_format_into_result_urls():
     src = inspect.getsource(analyze_module.analyze_website)
     # The handler must define a `format` param
     assert "format" in src
-    # The handler must reference the `format` variable in result_url and result_project_url
-    # Build a coarse check: both result_url and result_project_url lines exist
-    # and the `fmt` suffix is applied to both.
+    # The handler must reference the `format` variable in result_url
+    # Build a coarse check: result_url line exists and the `fmt` suffix is applied.
     assert "result_url=" in src
-    assert "result_project_url=" in src
     # The `fmt` variable is only used when format != full; assert that branch exists
     assert "fmt" in src
     assert "if format == \"full\"" in src
-    # Both URLs must include the {fmt} interpolation
-    # Look for the two URL f-strings
-    for marker in (
-        "result_url=f\"/api/v1/audit/result/{crawl_id}?project_id={project_id}{fmt}\"",
-        "result_project_url=f\"/api/v1/audit/result/project/{project_id}{fmt}\"",
-    ):
-        assert marker in src, f"missing URL pattern: {marker}"
+    # The result_url f-string must include the {fmt} interpolation
+    assert "result_url=f\"/api/v1/audit/result/{audit_id}{fmt}\"" in src
 
 
 # --------------------------------------------------------------------- legacy-preservation guard

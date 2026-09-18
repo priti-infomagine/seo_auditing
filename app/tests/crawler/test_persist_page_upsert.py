@@ -29,7 +29,7 @@ async def persistence(db_session):
 def make_page():
     def _make(**overrides):
         return CrawlPage(
-            crawl_id=overrides.get("crawl_id"),
+            audit_id=overrides.get("audit_id"),
             url=overrides.get("url", "https://example.com/page"),
             normalized_url=overrides.get("normalized_url", "https://example.com/page"),
             url_hash=overrides.get("url_hash", "abc123"),
@@ -44,28 +44,28 @@ def make_page():
 @pytest.mark.asyncio
 async def test_persist_page_insert_returns_id(persistence, make_page):
     """First call inserts and returns a CrawlPage with id populated."""
-    page = make_page(crawl_id=persistence.crawl_job_id)
+    page = make_page(audit_id=persistence.crawl_job_id)
     result = await persistence.persist_page(page)
     assert result.id is not None
 
 
 @pytest.mark.asyncio
 async def test_persist_page_upsert_no_duplicate(persistence, make_page, db_session):
-    """Second call with same crawl_id + normalized_url updates, no duplicate row.
+    """Second call with same audit_id + normalized_url updates, no duplicate row.
 
     CRITICAL: This test verifies SQLAlchemy 2.0's identity-map reconciliation
-    with .returning(). When the same (crawl_id, normalized_url) row is upserted
+    with .returning(). When the same (audit_id, normalized_url) row is upserted
     twice within the same DB session, the ORM should hand back the same Python
     object (same identity in the session's identity map), not a shadow copy.
     This is essential for the retry/redirect scenario in the crawl pipeline.
     """
-    page1 = make_page(crawl_id=persistence.crawl_job_id, normalized_url="https://example.com/page")
+    page1 = make_page(audit_id=persistence.crawl_job_id, normalized_url="https://example.com/page")
     result1 = await persistence.persist_page(page1)
     first_id = result1.id
     assert first_id is not None
 
     page2 = make_page(
-        crawl_id=persistence.crawl_job_id,
+        audit_id=persistence.crawl_job_id,
         normalized_url="https://example.com/page",  # SAME normalized_url
         url="https://example.com/page?v=2",
         status_code=201,
@@ -82,7 +82,7 @@ async def test_persist_page_upsert_no_duplicate(persistence, make_page, db_sessi
     # Verify only one row exists in the database
     count_result = await db_session.execute(
         select(func.count()).select_from(CrawlPage).where(
-            CrawlPage.crawl_id == persistence.crawl_job_id
+            CrawlPage.audit_id == persistence.crawl_job_id
         )
     )
     assert count_result.scalar_one() == 1
@@ -95,11 +95,11 @@ async def test_persist_page_upsert_no_duplicate(persistence, make_page, db_sessi
 
 @pytest.mark.asyncio
 async def test_persist_page_upsert_different_url_makes_new_row(persistence, make_page):
-    """Different normalized_url under same crawl_id creates a second row."""
-    page1 = make_page(crawl_id=persistence.crawl_job_id, normalized_url="https://example.com/a")
+    """Different normalized_url under same audit_id creates a second row."""
+    page1 = make_page(audit_id=persistence.crawl_job_id, normalized_url="https://example.com/a")
     result1 = await persistence.persist_page(page1)
 
-    page2 = make_page(crawl_id=persistence.crawl_job_id, normalized_url="https://example.com/b")
+    page2 = make_page(audit_id=persistence.crawl_job_id, normalized_url="https://example.com/b")
     result2 = await persistence.persist_page(page2)
 
     # result1.id is populated from RETURNING — compare against that, NOT page1.id

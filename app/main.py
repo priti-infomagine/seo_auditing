@@ -1,30 +1,98 @@
+import asyncio
+import sys
+
+if sys.platform == "win32":
+    # Playwright's async API requires a Proactor event loop on Windows —
+    # the default Windows Selector loop can't launch subprocesses.
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+else:
+    # Linux/macOS (incl. Docker deployment target): use uvloop if available
+    # for faster I/O dispatch; fall back to stock asyncio loop otherwise.
+    try:
+        import uvloop
+        uvloop.install()
+    except ImportError:
+        pass
+
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db, close_db
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
+
+
+async def _prewarm_celery_broker():
+    """Pre-warm the Celery producer pool at startup.
+
+    ``send_task`` is a synchronous blocking call. When wrapped in
+    ``asyncio.to_thread()`` it won't freeze the event loop, but the *first*
+    call still pays ~6s for Redis connection establishment because the
+    producer pool hasn't created a connection yet.
+
+    Celery's ``_connection()`` factory creates a **new** ``Connection`` object
+    each time, so calling ``ensure_connection`` on ``celery_app.connection()``
+    does **not** warm the pool that ``send_task`` uses.  Instead we must
+    access ``celery_app.producer_pool`` (the same cached pool ``send_task``
+    pulls from) and acquire/release a producer to force the underlying
+    Redis connection to be established.
+    """
+    try:
+        from app.shared.tasks.celery_app import celery_app
+
+        def _warm():
+            pool = celery_app.producer_pool  # force lazy creation of the pool
+            producer = pool.acquire(block=True)  # establishes Redis connection
+            pool.release(producer)  # return to pool for reuse by send_task
+
+        # Cap at 15s so startup isn't delayed if Redis is unreachable
+        await asyncio.wait_for(asyncio.to_thread(_warm), timeout=15.0)
+        logger.info("Celery broker connection pre-warmed successfully")
+    except asyncio.TimeoutError:
+        logger.warning(
+            "Celery broker pre-warm timed out after 15s "
+            "(brokers may be down; first request may be slower)"
+        )
+    except Exception as exc:
+        logger.warning(
+            f"Celery broker pre-warm failed (will retry on first request): {exc}",
+            exc_info=True,
+        )
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    # ── Startup ──────────────────────────────────────────────────────
-    logger.info("Application startup: initializing database")
-    await init_db()
-    logger.info("Application startup: database initialized successfully")
+    try:
+        await init_db()
+    except Exception as exc:
+        logger.error(
+            f"init_db failed during lifespan: {exc}",
+            exc_info=True,
+        )
+
+    await _prewarm_celery_broker()
+
     yield
-    # ── Shutdown ─────────────────────────────────────────────────────
-    logger.info("Application shutdown: closing database connections")
-    await close_db()
-    logger.info("Application shutdown: database connections closed")
+
+    try:
+        await close_db()
+    except Exception as exc:
+        logger.error(
+            f"close_db failed during lifespan shutdown: {exc}",
+            exc_info=True,
+        )
 
 
 app = FastAPI(
     title=settings.APP_NAME,
     lifespan=lifespan,
 )
-# ── CORS ─────────────────────────────────────────────────────────────
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -33,26 +101,122 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Routers ──────────────────────────────────────────────────────────
-from app.apis.router import api_router  
+
+from app.api.router import api_router
 
 app.include_router(api_router)
 
 
-# ── Root health-check (kept for convenience) ─────────────────────────
 @app.get("/")
 async def root():
-    logger.info("GET / - Root endpoint called")
-    return {"message": f"Welcome to the {settings.APP_NAME}!"}
+    return {
+        "message": f"Welcome to the {settings.APP_NAME}!"
+    }
 
 
 @app.get("/health", tags=["Health"])
 async def health_check():
-    from datetime import datetime, timezone
+    try:
+        return {
+            "status": "healthy",
+            "service": settings.APP_NAME,
+            "timestamp": utc_now().isoformat(),
+        }
+    except Exception as exc:
+        logger.error(
+            f"Health check failed: {exc}",
+            exc_info=True,
+        )
 
-    logger.info("GET /health - Health check endpoint called")
-    return {
-        "status": "healthy",
-        "service": settings.APP_NAME,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        return {
+            "status": "unhealthy",
+            "service": settings.APP_NAME,
+            "error": str(exc),
+        }
+
+
+@app.get("/health/detailed", tags=["Health"])
+async def detailed_health_check():
+    import redis
+
+    checks = {
+        "api": {"status": "healthy"},
+        "postgresql": {"status": "unknown"},
+        "redis": {"status": "unknown"},
+        "celery": {"status": "unknown"},
     }
+
+    try:
+        from app.core.database import engine
+
+        conn = await engine.connect()
+        await conn.close()
+
+        checks["postgresql"] = {"status": "healthy"}
+
+    except Exception as exc:
+        checks["postgresql"] = {
+            "status": "unhealthy",
+            "error": str(exc),
+        }
+
+    try:
+        r = redis.from_url(
+            str(settings.REDIS_URL),
+            socket_timeout=2,
+        )
+
+        r.ping()
+
+        checks["redis"] = {"status": "healthy"}
+
+    except Exception as exc:
+        checks["redis"] = {
+            "status": "unhealthy",
+            "error": str(exc),
+        }
+
+    try:
+        from app.shared.tasks.celery_app import celery_app
+
+        inspect = celery_app.control.inspect(timeout=2)
+        active = inspect.active() or {}
+
+        checks["celery"] = {
+            "status": "healthy" if active else "no_workers",
+            "active_workers": len(active),
+        }
+
+    except Exception as exc:
+        checks["celery"] = {
+            "status": "unhealthy",
+            "error": str(exc),
+        }
+
+    overall = (
+        "healthy"
+        if all(
+            c["status"] in ("healthy", "no_workers")
+            for c in checks.values()
+        )
+        else "degraded"
+    )
+
+    return {
+        "status": overall,
+        "service": settings.APP_NAME,
+        "timestamp": utc_now().isoformat(),
+        "checks": checks,
+    }
+ 
+ 
+ 
+@app.get("/debug/asyncio")
+async def debug_asyncio():
+    loop = asyncio.get_running_loop()
+
+    return {
+        "platform": sys.platform,
+        "policy": type(asyncio.get_event_loop_policy()).__name__,
+        "loop": type(loop).__name__,
+    }   

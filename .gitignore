@@ -1,7 +1,8 @@
 .env
 .venv
 venv
-
+.venv/
+venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -14,3 +15,11 @@ alembic/README
 .kilo
 .pytest_cache
 .alembic/
+./celery-test/mimio_data/
+./celery-test/__pycache__
+.kilo/
+.kilo
+.pytest_cache/
+.pytest_cache
+.clinerules
+.i

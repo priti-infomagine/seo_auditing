@@ -32,14 +32,14 @@ from app.shared.utils.url_utils import get_domain
     soft_time_limit=3300,
     track_started=True,
 )
-def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
+def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = False) -> dict:
     logger.info(
-        f"crawler.crawl_website: task started for crawl_id={crawl_id}, url={url}, "
+        f"crawler.crawl_website: task started for audit_id={audit_id}, url={url}, "
         f"user_id={user_id}"
     )
 
     async def _run():
-        crawl_uuid = UUID(crawl_id)
+        crawl_uuid = UUID(audit_id)
         try:
             user_uuid = UUID(user_id)
         except (ValueError, TypeError):
@@ -59,14 +59,13 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                 # with safe defaults so the rest of the pipeline (and the
                 # audit pipeline it eventually fires) can find it.
                 logger.warning(
-                    f"crawler.crawl_website: CrawlJob {crawl_id} not found; "
+                    f"crawler.crawl_website: CrawlJob {audit_id} not found; "
                     f"recreating from task args (url={url}, user_id={user_id})"
                 )
                 domain = get_domain(url) or ""
                 job = CrawlJob(
                     id=crawl_uuid,
                     user_id=user_uuid,
-                    project_id=None,
                     url=url,
                     domain=domain,
                     status="queued",
@@ -85,6 +84,7 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         "respect_robots": True,
                         "auto_analyze": True,
                     },
+                    crawl_config_recovered=True,
                 )
                 await job_repo.create(job)
                 await db.commit()
@@ -93,7 +93,7 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
 
             if job.status not in ("queued", "crawling"):
                 # Already completed / failed / cancelled — nothing to do.
-                return {"status": job.status, "crawl_id": crawl_id}
+                return {"status": job.status, "audit_id": audit_id}
 
             def _progress_callback(current_page: int, total_pages: int | None):
                 total = total_pages or 0
@@ -104,7 +104,7 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         "current": current_page,
                         "total": total,
                         "percent": percent,
-                        "crawl_id": crawl_id,
+                        "audit_id": audit_id,
                     },
                 )
 
@@ -126,26 +126,21 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
 
                 # Fire auto-analyze pipeline if requested
                 if cfg.get("auto_analyze"):
-                    project_id = job.project_id or uuid4()
-                    # Update project_id on the job if it was None
-                    if not job.project_id:
-                        job.project_id = project_id
-                        await job_repo.update(job)
                     await db.commit()
 
                     logger.info(
                         f"crawler.crawl_website: auto_analyze fired for "
-                        f"crawl_id={crawl_id}, project_id={project_id}"
+                        f"audit_id={audit_id}, force={force}"
                     )
 
                     # Fire the analysis pipeline asynchronously
                     celery_app.send_task(
                         "audit.run_analysis_pipeline",
-                        args=[str(project_id), str(crawl_uuid)],
+                        args=[str(crawl_uuid)],
+                        kwargs={"force": force},
                         queue="audit",
                     )
                     result["auto_analyze"] = True
-                    result["project_id"] = str(project_id)
 
                 self.update_state(
                     state="SUCCESS",
@@ -153,18 +148,18 @@ def crawl_website(self, crawl_id: str, url: str, user_id: str) -> dict:
                         "current": job.total_pages or 0,
                         "total": job.total_pages or 0,
                         "percent": 100,
-                        "crawl_id": crawl_id,
+                        "audit_id": audit_id,
                     },
                 )
                 logger.info(
-                    f"crawler.crawl_website: task succeeded for crawl_id={crawl_id}, "
+                    f"crawler.crawl_website: task succeeded for audit_id={audit_id}, "
                     f"pages_crawled={result.get('pages_crawled')}"
                 )
                 return result
             except Exception as exc:
                 await _mark_failed(db, crawl_uuid, str(exc))
                 logger.error(
-                    f"crawler.crawl_website: task failed for crawl_id={crawl_id}: {exc}",
+                    f"crawler.crawl_website: task failed for audit_id={audit_id}: {exc}",
                     exc_info=True,
                 )
                 raise

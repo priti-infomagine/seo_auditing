@@ -1,7 +1,7 @@
 """
 SeoAnalysisRun model.
 
-One row per project_id containing the aggregated SEO score.
+One row per audit_id containing the aggregated SEO score.
 The main tracking entity for the "SSEO Analyzer" pipeline.
 """
 import uuid
@@ -23,15 +23,11 @@ class SeoAnalysisRun(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    project_id: Mapped[uuid.UUID] = mapped_column(
+    audit_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         nullable=False,
         unique=True,
         index=True,
-    )
-    crawl_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        nullable=False,
     )
     domain: Mapped[str] = mapped_column(
         String(255),
@@ -114,7 +110,7 @@ class SeoAnalysisRun(TimestampMixin, Base):
         return (
             f"<SeoAnalysisRun "
             f"id={self.id} "
-            f"project_id={self.project_id} "
+            f"audit_id={self.audit_id} "
             f"domain={self.domain} "
             f"score={self.overall_score} "
             f"grade={self.grade}"

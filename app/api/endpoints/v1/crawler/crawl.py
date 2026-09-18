@@ -3,7 +3,7 @@ POST /crawler/crawl — Queue a URL for crawling.
 
 Takes a URL as input, creates a crawl job in the database,
 and enqueues a Celery task to perform the crawl asynchronously.
-Returns immediately with a crawl_id for status polling.
+Returns immediately with a audit_id for status polling.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -30,7 +30,7 @@ router = APIRouter()
     response_model=CrawlResponse,
     status_code=202,
     summary="Queue a URL for crawling",
-    description="Creates a crawl job and enqueues it for background processing. Returns crawl_id immediately.",
+    description="Creates a crawl job and enqueues it for background processing. Returns audit_id immediately.",
 )
 async def crawl_url(
     body: CrawlRequest,
@@ -46,7 +46,7 @@ async def crawl_url(
         current_user: Authenticated user (injected by get_current_user)
 
     Returns:
-        CrawlResponse with crawl_id and status
+        CrawlResponse with audit_id and status
 
     Raises:
         HTTPException: If URL is invalid or user is not authenticated
@@ -58,10 +58,10 @@ async def crawl_url(
         domain = get_domain(url_str)
         user_id = current_user.id
 
-        effective_max_pages = min(body.max_pages, settings.CRAWL_MAX_PAGES) if body.max_pages is not None else settings.CRAWL_MAX_PAGES
+        effective_max_pages =  settings.CRAWL_MAX_PAGES
 
         crawl_config = {
-            "max_depth": body.max_depth,
+            # "max_depth": body.max_depth,
             "max_pages": effective_max_pages,
             "concurrency": body.concurrency,
             "request_timeout": 120,
@@ -71,14 +71,13 @@ async def crawl_url(
             "auto_analyze": body.auto_analyze,
         }
 
-        # Determine project_id
-        project_id = body.project_id or uuid4()
+        # Determine audit_id
+        audit_id = body.audit_id or uuid4()
 
         # Create crawl job with config embedded as JSONB
         crawl_job = CrawlJob(
             id=uuid4(),
             user_id=user_id,
-            project_id=project_id,
             url=url_str,
             domain=domain,
             status="queued",
@@ -100,10 +99,9 @@ async def crawl_url(
         logger.info(f"Crawl job queued: {crawl_job.id} for URL: {body.url}")
 
         return CrawlResponse(
-            crawl_id=str(crawl_job.id),
+            audit_id=str(crawl_job.id),
             status="queued",
             message="Crawl job queued successfully",
-            project_id=str(project_id),
             task_id=async_result.id,
         )
 

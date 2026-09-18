@@ -15,7 +15,7 @@ class TestAuthorizationService:
         project = CrawlJob(
             id=uuid4(),
             user_id=uuid4(),
-            project_id=uuid4(),
+            audit_id=uuid4(),
             url="https://example.com",
             domain="example.com",
             status="completed",
@@ -25,4 +25,4 @@ class TestAuthorizationService:
         db_session.add(project)
         await db_session.flush()
         with pytest.raises(PermissionError, match="Not authorized"):
-            await service.validate_project_access(project.project_id, uuid4())
+            await service.validate_project_access(project.audit_id, uuid4())

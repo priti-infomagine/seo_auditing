@@ -37,7 +37,7 @@ def upgrade() -> None:
     op.create_index(op.f('ix_crawl_jobs_user_id'), 'crawl_jobs', ['user_id'], unique=False)
     op.create_table('crawl_configs',
     sa.Column('id', sa.UUID(), nullable=False),
-    sa.Column('crawl_id', sa.UUID(), nullable=False),
+    sa.Column('audit_id', sa.UUID(), nullable=False),
     sa.Column('max_depth', sa.Integer(), nullable=False),
     sa.Column('max_pages', sa.Integer(), nullable=False),
     sa.Column('concurrency', sa.Integer(), nullable=False),
@@ -48,13 +48,13 @@ def upgrade() -> None:
     sa.Column('user_agent', sa.Text(), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.ForeignKeyConstraint(['crawl_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['audit_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_crawl_configs_crawl_id'), 'crawl_configs', ['crawl_id'], unique=False)
+    op.create_index(op.f('ix_crawl_configs_audit_id'), 'crawl_configs', ['audit_id'], unique=False)
     op.create_table('crawl_pages',
     sa.Column('id', sa.UUID(), nullable=False),
-    sa.Column('crawl_id', sa.UUID(), nullable=False),
+    sa.Column('audit_id', sa.UUID(), nullable=False),
     sa.Column('parent_page_id', sa.UUID(), nullable=True),
     sa.Column('url', sa.Text(), nullable=False),
     sa.Column('normalized_url', sa.Text(), nullable=False),
@@ -69,25 +69,25 @@ def upgrade() -> None:
     sa.Column('crawled_at', sa.DateTime(timezone=True), nullable=True),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.ForeignKeyConstraint(['crawl_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['audit_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['parent_page_id'], ['crawl_pages.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_crawl_pages_crawl_id'), 'crawl_pages', ['crawl_id'], unique=False)
+    op.create_index(op.f('ix_crawl_pages_audit_id'), 'crawl_pages', ['audit_id'], unique=False)
     op.create_index(op.f('ix_crawl_pages_parent_page_id'), 'crawl_pages', ['parent_page_id'], unique=False)
     op.create_table('crawl_errors',
     sa.Column('id', sa.UUID(), nullable=False),
-    sa.Column('crawl_id', sa.UUID(), nullable=False),
+    sa.Column('audit_id', sa.UUID(), nullable=False),
     sa.Column('page_id', sa.UUID(), nullable=True),
     sa.Column('error_type', sa.Enum('fetch_error', 'crawl_error', 'parse_error', 'timeout', 'connection_error', 'robots_error', name='crawl_error_type_enum'), nullable=False),
     sa.Column('error_message', sa.Text(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
-    sa.ForeignKeyConstraint(['crawl_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['audit_id'], ['crawl_jobs.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['page_id'], ['crawl_pages.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_crawl_errors_crawl_id'), 'crawl_errors', ['crawl_id'], unique=False)
+    op.create_index(op.f('ix_crawl_errors_audit_id'), 'crawl_errors', ['audit_id'], unique=False)
     op.create_index(op.f('ix_crawl_errors_page_id'), 'crawl_errors', ['page_id'], unique=False)
     op.create_table('page_assets',
     sa.Column('id', sa.UUID(), nullable=False),
@@ -142,12 +142,12 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_page_assets_page_id'), table_name='page_assets')
     op.drop_table('page_assets')
     op.drop_index(op.f('ix_crawl_errors_page_id'), table_name='crawl_errors')
-    op.drop_index(op.f('ix_crawl_errors_crawl_id'), table_name='crawl_errors')
+    op.drop_index(op.f('ix_crawl_errors_audit_id'), table_name='crawl_errors')
     op.drop_table('crawl_errors')
     op.drop_index(op.f('ix_crawl_pages_parent_page_id'), table_name='crawl_pages')
-    op.drop_index(op.f('ix_crawl_pages_crawl_id'), table_name='crawl_pages')
+    op.drop_index(op.f('ix_crawl_pages_audit_id'), table_name='crawl_pages')
     op.drop_table('crawl_pages')
-    op.drop_index(op.f('ix_crawl_configs_crawl_id'), table_name='crawl_configs')
+    op.drop_index(op.f('ix_crawl_configs_audit_id'), table_name='crawl_configs')
     op.drop_table('crawl_configs')
     op.drop_index(op.f('ix_crawl_jobs_user_id'), table_name='crawl_jobs')
     op.drop_table('crawl_jobs')

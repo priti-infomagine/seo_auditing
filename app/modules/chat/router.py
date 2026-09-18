@@ -11,12 +11,12 @@ from app.modules.chat.services.chat_service import ChatService
 router = APIRouter()
 
 
-@router.post("/projects/{project_id}", response_model=ChatResponse)
+@router.post("/audits/{audit_id}", response_model=ChatResponse)
 async def chat(
-    project_id: UUID,
+    audit_id: UUID,
     payload: ChatRequest,
     db: AsyncSession = Depends(get_db_session),
 ) -> ChatResponse:
     service = ChatService(db=db)
     print("=========🔥 CHAT ENDPOINT HIT=========")
-    return await service.chat(project_id=project_id, message=payload.message)
+    return await service.chat(audit_id=audit_id, message=payload.message)

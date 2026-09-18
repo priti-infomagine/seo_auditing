@@ -60,5 +60,5 @@ class SEOIssue(BaseModel):
     )
 
     page_id: Optional[str] = Field(default=None, description="DB page uuid (internal)")
-    crawl_id: Optional[str] = Field(default=None, description="DB crawl uuid (internal)")
-    project_id: Optional[str] = Field(default=None, description="DB project uuid (internal)")
+    audit_id: Optional[str] = Field(default=None, description="DB crawl uuid (internal)")
+    audit_id: Optional[str] = Field(default=None, description="DB project uuid (internal)")

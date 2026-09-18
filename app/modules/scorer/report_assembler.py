@@ -232,7 +232,10 @@ def _build_category(
             cat_value = round(sum(c.score * c.weight for c in scored) / wsum, 1)
             cat_grade = _grade(cat_value)
 
-    score = CategoryScore(value=cat_value, grade=cat_grade or _grade(cat_value or 0.0))
+    score = CategoryScore(
+        value=cat_value if cat_value is not None else 0.0,
+        grade=cat_grade or _grade(cat_value or 0.0),
+    )
     failed = [c for c in applicable_checks if not c.passed]
     issues = _build_issues(failed, counter)
     counts = IssueCount(

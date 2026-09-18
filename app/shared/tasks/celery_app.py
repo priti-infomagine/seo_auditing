@@ -13,6 +13,7 @@ celery_app = Celery(
         "app.modules.auth.tasks",
         "app.modules.crawler.tasks",
         "app.modules.audit.tasks",
+        "app.modules.reports.tasks",
     ],
 )
 

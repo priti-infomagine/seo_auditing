@@ -5,12 +5,14 @@ Fields:
     id, name, email, password_hash, is_verified, created_at, updated_at
 """
 import uuid
+from typing import List
 
-from sqlalchemy import Boolean, String ,Integer
+from sqlalchemy import Boolean, String, Integer
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base, TimestampMixin
+from app.modules.payment.models.subscriptions import Subscription
 
 
 class User(TimestampMixin, Base):
@@ -49,6 +51,9 @@ class User(TimestampMixin, Base):
         Boolean,
         nullable=False,
         default=False,
+    )
+    subscriptions: Mapped[List["Subscription"]] = relationship(
+        "app.modules.payment.models.subscriptions.Subscription", back_populates="user"
     )
     model_config = {
         "from_attributes": True

@@ -25,14 +25,14 @@ NEW_PATHS = [
 
 LEGACY_PATHS_STILL_PRESENT = [
     "/api/v1/audit/analyze",
-    "/api/v1/audit/result/{crawl_id}",
-    "/api/v1/audit/result/project/{project_id}",
-    "/api/v1/audit/score/{crawl_id}",
-    "/api/v1/audit/evaluate/{crawl_id}",
-    "/api/v1/audit/parse/{crawl_id}",
+    "/api/v1/audit/result/{audit_id}",
+    "/api/v1/audit/result/project/{audit_id}",
+    "/api/v1/audit/score/{audit_id}",
+    "/api/v1/audit/evaluate/{audit_id}",
+    "/api/v1/audit/parse/{audit_id}",
     "/api/v1/audit/history",
-    "/api/v1/audit/status/{project_id}",
-    "/api/v1/audit/pipeline/{project_id}",
+    "/api/v1/audit/status/{audit_id}",
+    "/api/v1/audit/pipeline/{audit_id}",
     "/api/v1/audit/run",
 ]
 
@@ -80,12 +80,12 @@ def test_new_paths_under_audits_prefix_only():
 
 
 def test_legacy_audit_result_endpoint_gains_format_query_param():
-    """The existing /audit/result/{crawl_id} endpoint now supports ?format=compact|full.
+    """The existing /audit/result/{audit_id} endpoint now supports ?format=compact|full.
 
     The default is 'full' so existing clients are unaffected.
     """
     schema = app.openapi()
-    legacy_path = "/api/v1/audit/result/{crawl_id}"
+    legacy_path = "/api/v1/audit/result/{audit_id}"
     params = schema["paths"][legacy_path]["get"]["parameters"]
     format_param = next(
         (p for p in params if p.get("name") == "format" and p.get("in") == "query"),

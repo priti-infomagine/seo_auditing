@@ -103,10 +103,10 @@ async def test_crawl_url(
             await db.refresh(job)
 
         page_repo = CrawlPageRepository(db)
-        pages = await page_repo.get_by_crawl_id(crawl_job.id)
+        pages = await page_repo.get_by_audit_id(crawl_job.id)
 
         error_repo = CrawlErrorRepository(db)
-        errors = await error_repo.get_by_crawl_id(crawl_job.id)
+        errors = await error_repo.get_by_audit_id(crawl_job.id)
 
         link_repo = PageLinkRepository(db)
         all_links = await link_repo.get_by_crawl_job_id(crawl_job.id)
@@ -150,7 +150,7 @@ async def test_crawl_url(
 
         return TestCrawlResponse(
             success=job.status == "completed" if job else False,
-            crawl_id=str(crawl_job.id),
+            audit_id=str(crawl_job.id),
             status=job.status if job else "failed",
             url=job.url if job else url_str,
             domain=job.domain if job else domain,

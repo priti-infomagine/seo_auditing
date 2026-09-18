@@ -16,7 +16,7 @@ class ParsedPageRepository:
     async def bulk_save(self, parsed_pages: list[Any]) -> None:
         raise NotImplementedError
 
-    async def get_by_crawl_id(self, crawl_id: str) -> Any | None:
+    async def get_by_audit_id(self, audit_id: str) -> Any | None:
         raise NotImplementedError
 
     async def get_by_page_id(self, page_id: str) -> Any | None:
