@@ -6,11 +6,10 @@ shape defined in audit_response_schemas.UnifiedAuditResponse. The legacy
 AuditAnalyzeResponse / SeoAnalysisResponse names are kept as aliases for import
 backward-compatibility.
 """
-from uuid import UUID
 
 from app.core.config import settings
 from pydantic import BaseModel, Field, field_validator
-from typing import Optional, Dict, Any, List
+
 
 from app.modules.audit.schemas.audit_response_schemas import UnifiedAuditResponse
 

@@ -52376,3 +52376,781 @@
 2026-09-18T16:09:00+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-09-18T16:09:00+00:00 | WARNING | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
 2026-09-18T16:09:00+00:00 | WARNING | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-09-19T12:42:23+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-19T12:48:23+00:00 | INFO | Worker process initialized with persistent event loop (pid=15152)
+2026-09-19T12:48:31+00:00 | INFO | Worker process initialized with persistent event loop (pid=4968)
+2026-09-19T12:53:39+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-19T12:53:48+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-19T12:54:54+00:00 | INFO | POST /lighthouse/check — url=https://infomagine.in/, device=mobile, max_pages=50
+2026-09-19T12:54:57+00:00 | INFO | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-19T12:54:57+00:00 | INFO | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-19T12:54:57+00:00 | INFO | Crawl started: https://infomagine.in/ (max_pages=50, max_depth=3)
+2026-09-19T12:54:57+00:00 | INFO | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-19T12:54:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:57+00:00 | WARNING | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-staffing: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/android: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/angular: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/content-management-system: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/aws-services: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/codeigniter: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/custom-software: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/devops-services: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/azure-managed-cloud-services: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/full-stack-development: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/digital-marketing: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/it-consulting-services: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/ios: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/laravel: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/hybrid: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/flutter: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/Outsourcing-Dedicated-Hiring: Could not acquire browser page
+2026-09-19T12:54:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:58+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/php: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/react-native: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-and-qa: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/VueJs: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-qa: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/reactjs: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/casestudy/invitehive: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T12:54:59+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know: Could not acquire browser page
+2026-09-19T12:54:59+00:00 | INFO | Crawl completed: https://infomagine.in/ — pages_crawled=48, pages_discovered=48, pages_failed=0, duration=4389ms
+2026-09-19T12:54:59+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-19T12:54:59+00:00 | INFO | LighthouseCheckService: crawled 48 URLs for check_id=6a90b1ec-5294-4071-835d-802e01d85f02, domain=infomagine.in
+2026-09-19T12:55:24+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/angular (perf=56)
+2026-09-19T12:55:24+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/android (perf=56)
+2026-09-19T12:55:25+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-staffing (perf=56)
+2026-09-19T12:55:26+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/reactjs (perf=56)
+2026-09-19T12:55:33+00:00 | INFO | Pagespeed check OK: https://infomagine.in/ (perf=40)
+2026-09-19T12:55:45+00:00 | INFO | Pagespeed check OK: https://infomagine.in/career (perf=62)
+2026-09-19T12:55:46+00:00 | INFO | Pagespeed check OK: https://infomagine.in/contact-us (perf=38)
+2026-09-19T12:55:48+00:00 | INFO | Pagespeed check OK: https://infomagine.in/portfolio (perf=56)
+2026-09-19T12:55:54+00:00 | INFO | Pagespeed check OK: https://infomagine.in/hire-developer (perf=56)
+2026-09-19T12:55:55+00:00 | INFO | Pagespeed check OK: https://infomagine.in/about-us (perf=52)
+2026-09-19T12:56:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/sitemap (perf=65)
+2026-09-19T12:56:03+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blogs (perf=39)
+2026-09-19T12:56:11+00:00 | INFO | Pagespeed check OK: https://infomagine.in/web-applications (perf=62)
+2026-09-19T12:56:12+00:00 | INFO | Pagespeed check OK: https://infomagine.in/mobile-applications (perf=57)
+2026-09-19T12:56:13+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/content-management-system (perf=63)
+2026-09-19T12:56:20+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/codeigniter (perf=62)
+2026-09-19T12:56:23+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/aws-services (perf=59)
+2026-09-19T12:56:27+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/custom-software (perf=61)
+2026-09-19T12:56:31+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/devops-services (perf=60)
+2026-09-19T12:56:37+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/azure-managed-cloud-services (perf=61)
+2026-09-19T12:56:41+00:00 | INFO | Pagespeed check OK: https://infomagine.in/desktop-applications (perf=63)
+2026-09-19T12:56:43+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/full-stack-development (perf=55)
+2026-09-19T12:56:44+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-consulting (perf=46)
+2026-09-19T12:56:49+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/digital-marketing (perf=62)
+2026-09-19T12:56:55+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/it-consulting-services (perf=60)
+2026-09-19T12:57:00+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/laravel (perf=61)
+2026-09-19T12:57:03+00:00 | WARNING | Pagespeed API error for https://infomagine.in/services/hybrid: status=400
+2026-09-19T12:57:04+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/ios (perf=59)
+2026-09-19T12:57:07+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/flutter (perf=62)
+2026-09-19T12:57:16+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/Outsourcing-Dedicated-Hiring (perf=57)
+2026-09-19T12:57:19+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-and-qa (perf=63)
+2026-09-19T12:57:20+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/react-native (perf=61)
+2026-09-19T12:57:25+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/php (perf=53)
+2026-09-19T12:57:31+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding (perf=36)
+2026-09-19T12:57:39+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025 (perf=38)
+2026-09-19T12:57:40+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-qa (perf=63)
+2026-09-19T12:57:45+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/VueJs (perf=50)
+2026-09-19T12:57:53+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership (perf=33)
+2026-09-19T12:58:05+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained (perf=36)
+2026-09-19T12:58:05+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026 (perf=35)
+2026-09-19T12:58:07+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices (perf=35)
+2026-09-19T12:58:13+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company (perf=37)
+2026-09-19T12:58:22+00:00 | INFO | Pagespeed check OK: https://infomagine.in/casestudy/invitehive (perf=61)
+2026-09-19T12:58:26+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert (perf=37)
+2026-09-19T12:58:28+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity (perf=35)
+2026-09-19T12:58:31+00:00 | ERROR | Pagespeed check failed for https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\connection.py", line 103, in handle_async_request
+    return await self._connection.handle_async_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 136, in handle_async_request
+    raise exc
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 106, in handle_async_request
+    ) = await self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 177, in _receive_response_headers
+    event = await self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_async\http11.py", line 217, in _receive_event
+    data = await self._network_stream.read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_backends\anyio.py", line 32, in read
+    with map_exceptions(exc_map):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 226, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\pagespeed_client.py", line 57, in fetch
+    resp = await client.get(self.BASE_URL, params=params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1768, in get
+    return await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1540, in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout
+2026-09-19T12:58:33+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices (perf=36)
+2026-09-19T12:58:42+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know (perf=36)
+2026-09-19T12:58:42+00:00 | INFO | LighthouseCheckService: persisted 48 results for check_id=6a90b1ec-5294-4071-835d-802e01d85f02
+2026-09-19T13:50:18+00:00 | INFO | Celery broker connection pre-warmed successfully
+2026-09-19T13:50:19+00:00 | INFO | Worker process initialized with persistent event loop (pid=4052)
+2026-09-19T13:50:28+00:00 | INFO | Worker process initialized with persistent event loop (pid=5016)
+2026-09-19T13:54:31+00:00 | INFO | POST /lighthouse/check — url=https://infomagine.in/, device=mobile, max_pages=70
+2026-09-19T13:54:33+00:00 | INFO | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-19T13:54:33+00:00 | INFO | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-19T13:54:33+00:00 | INFO | Crawl started: https://infomagine.in/ (max_pages=70, max_depth=3)
+2026-09-19T13:54:33+00:00 | INFO | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-09-19T13:54:33+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:33+00:00 | WARNING | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-staffing: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/custom-software: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/android: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/content-management-system: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/codeigniter: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/angular: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/aws-services: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/azure-managed-cloud-services: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/devops-services: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/flutter: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/digital-marketing: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/full-stack-development: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/laravel: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/it-consulting-services: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/hybrid: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/ios: Could not acquire browser page
+2026-09-19T13:54:34+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:34+00:00 | WARNING | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/Outsourcing-Dedicated-Hiring: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/php: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-qa: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-and-qa: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/reactjs: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/VueJs: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/react-native: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/casestudy/invitehive: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:54:35+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices: Could not acquire browser page
+2026-09-19T13:54:35+00:00 | INFO | Crawl completed: https://infomagine.in/ — pages_crawled=48, pages_discovered=48, pages_failed=0, duration=3483ms
+2026-09-19T13:54:35+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-19T13:54:35+00:00 | INFO | LighthouseCheckService: crawled 48 URLs for check_id=d1125561-a7f6-4804-aad8-0d27395cc53c, domain=infomagine.in
+2026-09-19T13:55:00+00:00 | INFO | Pagespeed check OK: https://infomagine.in/portfolio (perf=56)
+2026-09-19T13:55:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/hire-developer (perf=57)
+2026-09-19T13:55:03+00:00 | INFO | Pagespeed check OK: https://infomagine.in/contact-us (perf=43)
+2026-09-19T13:55:06+00:00 | INFO | Pagespeed check OK: https://infomagine.in/about-us (perf=61)
+2026-09-19T13:55:16+00:00 | INFO | Pagespeed check OK: https://infomagine.in/ (perf=22)
+2026-09-19T13:55:18+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blogs (perf=62)
+2026-09-19T13:55:20+00:00 | INFO | Pagespeed check OK: https://infomagine.in/career (perf=62)
+2026-09-19T13:55:25+00:00 | INFO | Pagespeed check OK: https://infomagine.in/sitemap (perf=61)
+2026-09-19T13:55:33+00:00 | INFO | Pagespeed check OK: https://infomagine.in/mobile-applications (perf=59)
+2026-09-19T13:55:35+00:00 | INFO | Pagespeed check OK: https://infomagine.in/web-applications (perf=63)
+2026-09-19T13:55:36+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-staffing (perf=62)
+2026-09-19T13:55:44+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-consulting (perf=56)
+2026-09-19T13:55:45+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/custom-software (perf=56)
+2026-09-19T13:55:50+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/content-management-system (perf=61)
+2026-09-19T13:55:52+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/android (perf=59)
+2026-09-19T13:55:54+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/codeigniter (perf=59)
+2026-09-19T13:56:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/aws-services (perf=61)
+2026-09-19T13:56:03+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/angular (perf=63)
+2026-09-19T13:56:09+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/devops-services (perf=61)
+2026-09-19T13:56:10+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/azure-managed-cloud-services (perf=61)
+2026-09-19T13:56:13+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/flutter (perf=63)
+2026-09-19T13:56:20+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/full-stack-development (perf=52)
+2026-09-19T13:56:20+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/digital-marketing (perf=60)
+2026-09-19T13:56:27+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/laravel (perf=61)
+2026-09-19T13:56:27+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/it-consulting-services (perf=62)
+2026-09-19T13:56:29+00:00 | INFO | POST /lighthouse/check — url=https://infomagine.in/, device=mobile, max_pages=70
+2026-09-19T13:56:30+00:00 | INFO | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-19T13:56:30+00:00 | INFO | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-19T13:56:30+00:00 | INFO | Crawl started: https://infomagine.in/ (max_pages=70, max_depth=3)
+2026-09-19T13:56:30+00:00 | INFO | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-19T13:56:30+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:30+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/angular: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/it-staffing: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/android: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/codeigniter: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/aws-services: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/custom-software: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/devops-services: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/content-management-system: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/azure-managed-cloud-services: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/digital-marketing: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/ios: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/flutter: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/Outsourcing-Dedicated-Hiring: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/hybrid: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/react-native: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/full-stack-development: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/it-consulting-services: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/laravel: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/php: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/reactjs: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-qa: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/software-testing-and-qa: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/services/VueJs: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding: Could not acquire browser page
+2026-09-19T13:56:31+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:31+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T13:56:32+00:00 | WARNING | Browser fallback failed for https://infomagine.in/casestudy/invitehive: Could not acquire browser page
+2026-09-19T13:56:32+00:00 | INFO | Crawl completed: https://infomagine.in/ — pages_crawled=48, pages_discovered=48, pages_failed=0, duration=2434ms
+2026-09-19T13:56:32+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-19T13:56:32+00:00 | INFO | LighthouseCheckService: crawled 48 URLs for check_id=e18155c4-ab38-4538-9446-dec51908447a, domain=infomagine.in
+2026-09-19T13:56:33+00:00 | WARNING | Pagespeed API error for https://infomagine.in/services/hybrid: status=400
+2026-09-19T13:56:35+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/flutter (perf=63)
+2026-09-19T13:56:36+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/ios (perf=63)
+2026-09-19T13:56:41+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/php (perf=62)
+2026-09-19T13:56:44+00:00 | INFO | Pagespeed check OK: https://infomagine.in/desktop-applications (perf=57)
+2026-09-19T13:56:44+00:00 | INFO | Pagespeed check OK: https://infomagine.in/desktop-applications (perf=57)
+2026-09-19T13:56:52+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/Outsourcing-Dedicated-Hiring (perf=59)
+2026-09-19T13:56:57+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-and-qa (perf=62)
+2026-09-19T13:56:57+00:00 | INFO | Pagespeed check OK: https://infomagine.in/career (perf=57)
+2026-09-19T13:56:58+00:00 | INFO | Pagespeed check OK: https://infomagine.in/sitemap (perf=59)
+2026-09-19T13:57:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-qa (perf=56)
+2026-09-19T13:57:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/about-us (perf=56)
+2026-09-19T13:57:02+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/reactjs (perf=64)
+2026-09-19T13:57:03+00:00 | INFO | Pagespeed check OK: https://infomagine.in/ (perf=34)
+2026-09-19T13:57:03+00:00 | INFO | Pagespeed check OK: https://infomagine.in/portfolio (perf=62)
+2026-09-19T13:57:05+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding (perf=31)
+2026-09-19T13:57:12+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/VueJs (perf=59)
+2026-09-19T13:57:15+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025 (perf=38)
+2026-09-19T13:57:16+00:00 | INFO | Pagespeed check OK: https://infomagine.in/contact-us (perf=47)
+2026-09-19T13:57:18+00:00 | INFO | Pagespeed check OK: https://infomagine.in/mobile-applications (perf=62)
+2026-09-19T13:57:18+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/react-native (perf=65)
+2026-09-19T13:57:19+00:00 | INFO | Pagespeed check OK: https://infomagine.in/hire-developer (perf=62)
+2026-09-19T13:57:21+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership (perf=39)
+2026-09-19T13:57:22+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025 (perf=63)
+2026-09-19T13:57:24+00:00 | INFO | Pagespeed check OK: https://infomagine.in/web-applications (perf=60)
+2026-09-19T13:57:26+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blogs (perf=34)
+2026-09-19T13:57:27+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026 (perf=39)
+2026-09-19T13:57:32+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained (perf=37)
+2026-09-19T13:57:36+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/angular (perf=61)
+2026-09-19T13:57:36+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-staffing (perf=63)
+2026-09-19T13:57:38+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices (perf=39)
+2026-09-19T13:57:39+00:00 | INFO | Pagespeed check OK: https://infomagine.in/it-consulting (perf=60)
+2026-09-19T13:57:41+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity (perf=35)
+2026-09-19T13:57:42+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/android (perf=60)
+2026-09-19T13:57:45+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company (perf=40)
+2026-09-19T13:57:46+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know (perf=38)
+2026-09-19T13:57:47+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/codeigniter (perf=56)
+2026-09-19T13:57:52+00:00 | INFO | Pagespeed check OK: https://infomagine.in/casestudy/invitehive (perf=59)
+2026-09-19T13:57:53+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/custom-software (perf=60)
+2026-09-19T13:57:55+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/devops-services (perf=62)
+2026-09-19T13:57:56+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/aws-services (perf=62)
+2026-09-19T13:57:58+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert (perf=62)
+2026-09-19T13:58:00+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/content-management-system (perf=61)
+2026-09-19T13:58:01+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices (perf=38)
+2026-09-19T13:58:01+00:00 | INFO | LighthouseCheckService: persisted 48 results for check_id=d1125561-a7f6-4804-aad8-0d27395cc53c
+2026-09-19T13:58:04+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/azure-managed-cloud-services (perf=61)
+2026-09-19T13:58:10+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/digital-marketing (perf=62)
+2026-09-19T13:58:14+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/Outsourcing-Dedicated-Hiring (perf=61)
+2026-09-19T13:58:15+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/ios (perf=61)
+2026-09-19T13:58:20+00:00 | WARNING | Pagespeed API error for https://infomagine.in/services/hybrid: status=400
+2026-09-19T13:58:28+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/full-stack-development (perf=51)
+2026-09-19T13:58:28+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/react-native (perf=56)
+2026-09-19T13:58:32+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/laravel (perf=64)
+2026-09-19T13:58:33+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/it-consulting-services (perf=59)
+2026-09-19T13:58:37+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/php (perf=61)
+2026-09-19T13:58:47+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained (perf=37)
+2026-09-19T13:58:47+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/reactjs (perf=63)
+2026-09-19T13:58:54+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025 (perf=37)
+2026-09-19T13:58:54+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-and-qa (perf=59)
+2026-09-19T13:58:57+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/software-testing-qa (perf=60)
+2026-09-19T13:59:05+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026 (perf=63)
+2026-09-19T13:59:05+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership (perf=38)
+2026-09-19T13:59:10+00:00 | INFO | Pagespeed check OK: https://infomagine.in/services/VueJs (perf=62)
+2026-09-19T13:59:14+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding (perf=38)
+2026-09-19T13:59:18+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025 (perf=37)
+2026-09-19T13:59:25+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know (perf=36)
+2026-09-19T13:59:28+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices (perf=35)
+2026-09-19T13:59:32+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity (perf=39)
+2026-09-19T13:59:32+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert (perf=34)
+2026-09-19T13:59:36+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices (perf=38)
+2026-09-19T13:59:43+00:00 | INFO | Pagespeed check OK: https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company (perf=61)
+2026-09-19T13:59:50+00:00 | INFO | Pagespeed check OK: https://infomagine.in/casestudy/invitehive (perf=60)
+2026-09-19T13:59:50+00:00 | INFO | LighthouseCheckService: persisted 48 results for check_id=e18155c4-ab38-4538-9446-dec51908447a
+2026-09-19T14:00:53+00:00 | INFO | POST /lighthouse/check — url=https://kanhahometutions.com/, device=mobile, max_pages=70
+2026-09-19T14:00:54+00:00 | INFO | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-19T14:00:54+00:00 | INFO | Robots policy attached to scheduler for kanhahometutions.com (sitemaps: 0)
+2026-09-19T14:00:54+00:00 | INFO | Crawl started: https://kanhahometutions.com/ (max_pages=70, max_depth=3)
+2026-09-19T14:00:54+00:00 | INFO | Submitted 97 sitemap URLs to crawl queue (total discovered: 98)
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://kanhahometutions.com/sitemap: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/terms-conditions: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/refund-policy: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://kanhahometutions.com/deleteStudentAccount: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/post-teacher-job: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-kota: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://kanhahometutions.com/: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://kanhahometutions.com/deleteTutorAccount: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-jaipur: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-noida: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-delhi: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-gurgaon: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-bengaluru: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-ajmer: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-ahmedabad: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-chandigarh: Could not acquire browser page
+2026-09-19T14:00:55+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:55+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-surat: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-mumbai: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-chennai: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-kolkata: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-indore: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-pune: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-hyderabad: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-kanpur: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-patna: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-kota: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-jaipur: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-delhi: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutor-in-greater-noida: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-noida: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-gurgaon: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-ajmer: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-greater-noida: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-surat: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-chandigarh: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-ahmedabad: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-kolkata: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-bengaluru: Could not acquire browser page
+2026-09-19T14:00:56+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:56+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-mumbai: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-indore: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-pune: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-kanpur: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-hyderabad: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chandigarh: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-chennai: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tutions-in-patna: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-bengaluru: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kolkata: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-mumbai: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-indore: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chennai: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kota: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-hyderabad: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-patna: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kanpur: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-pune: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-jaipur: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-noida: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-gurgaon: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ahmedabad: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-greater-noida: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-bengaluru: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-surat: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ajmer: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-chandigarh: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-kolkata: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-indore: Could not acquire browser page
+2026-09-19T14:00:57+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:57+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-kota: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-mumbai: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-chennai: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-pune: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-kanpur: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-hyderabad: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-patna: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-jaipur: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/home-tution-near-by-me-in-delhi: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | ERROR | Browser launch failed: NotImplementedError()
+2026-09-19T14:00:58+00:00 | WARNING | Browser fallback failed for https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-delhi: Could not acquire browser page
+2026-09-19T14:00:58+00:00 | INFO | Crawl completed: https://kanhahometutions.com/ — pages_crawled=79, pages_discovered=102, pages_failed=0, duration=4751ms
+2026-09-19T14:00:58+00:00 | INFO | URL diagnostics: {'external_host': 0, 'duplicate': 7, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-19T14:00:58+00:00 | INFO | LighthouseCheckService: crawled 79 URLs for check_id=e1b52cb4-f131-4611-8d43-5a0209dc8685, domain=kanhahometutions.com
+2026-09-19T14:01:12+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/privacypolicy.html (perf=92)
+2026-09-19T14:01:21+00:00 | INFO | Pagespeed check OK: https://kanhahometutions.com/sitemap (perf=45)
+2026-09-19T14:01:23+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/terms-conditions (perf=41)
+2026-09-19T14:01:30+00:00 | INFO | Pagespeed check OK: https://kanhahometutions.com/ (perf=37)
+2026-09-19T14:01:31+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/ (perf=40)
+2026-09-19T14:01:32+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/refund-policy (perf=45)
+2026-09-19T14:01:41+00:00 | INFO | Pagespeed check OK: https://kanhahometutions.com/deleteStudentAccount (perf=39)
+2026-09-19T14:01:46+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/post-teacher-job (perf=37)
+2026-09-19T14:01:49+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-kota (perf=44)
+2026-09-19T14:01:52+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-jaipur (perf=40)
+2026-09-19T14:01:55+00:00 | INFO | Pagespeed check OK: https://kanhahometutions.com/deleteTutorAccount (perf=41)
+2026-09-19T14:02:02+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-noida (perf=42)
+2026-09-19T14:02:10+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-delhi (perf=39)
+2026-09-19T14:02:12+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-gurgaon (perf=45)
+2026-09-19T14:02:16+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-bengaluru (perf=38)
+2026-09-19T14:02:20+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-ajmer (perf=37)
+2026-09-19T14:02:22+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-ahmedabad (perf=43)
+2026-09-19T14:02:27+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-chandigarh (perf=47)
+2026-09-19T14:02:37+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-surat (perf=39)
+2026-09-19T14:02:41+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-mumbai (perf=40)
+2026-09-19T14:02:45+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-chennai (perf=37)
+2026-09-19T14:02:51+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-kolkata (perf=40)
+2026-09-19T14:02:54+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-indore (perf=40)
+2026-09-19T14:03:02+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-pune (perf=41)
+2026-09-19T14:03:11+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-hyderabad (perf=43)
+2026-09-19T14:03:16+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-kanpur (perf=37)
+2026-09-19T14:03:20+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-patna (perf=34)
+2026-09-19T14:03:23+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-kota (perf=40)
+2026-09-19T14:03:29+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-jaipur (perf=35)
+2026-09-19T14:03:32+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-delhi (perf=46)
+2026-09-19T14:03:41+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-noida (perf=42)
+2026-09-19T14:03:45+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutor-in-greater-noida (perf=34)
+2026-09-19T14:03:47+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-gurgaon (perf=39)
+2026-09-19T14:03:55+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-greater-noida (perf=39)
+2026-09-19T14:03:56+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-ajmer (perf=38)
+2026-09-19T14:04:03+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-surat (perf=40)
+2026-09-19T14:04:10+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-chandigarh (perf=38)
+2026-09-19T14:04:15+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-ahmedabad (perf=35)
+2026-09-19T14:04:18+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-bengaluru (perf=43)
+2026-09-19T14:04:23+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-kolkata (perf=44)
+2026-09-19T14:04:30+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-mumbai (perf=38)
+2026-09-19T14:04:34+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-indore (perf=41)
+2026-09-19T14:04:40+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-pune (perf=38)
+2026-09-19T14:04:43+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-kanpur (perf=40)
+2026-09-19T14:04:49+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-hyderabad (perf=35)
+2026-09-19T14:04:58+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chandigarh (perf=38)
+2026-09-19T14:05:01+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-chennai (perf=39)
+2026-09-19T14:05:09+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-bengaluru (perf=35)
+2026-09-19T14:05:09+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tutions-in-patna (perf=33)
+2026-09-19T14:05:09+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kolkata (perf=43)
+2026-09-19T14:05:21+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-indore (perf=42)
+2026-09-19T14:05:27+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-chennai (perf=45)
+2026-09-19T14:05:28+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-mumbai (perf=41)
+2026-09-19T14:05:34+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-hyderabad (perf=41)
+2026-09-19T14:05:36+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kota (perf=39)
+2026-09-19T14:05:44+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-patna (perf=43)
+2026-09-19T14:05:51+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-kanpur (perf=40)
+2026-09-19T14:05:51+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-pune (perf=40)
+2026-09-19T14:05:55+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-jaipur (perf=43)
+2026-09-19T14:06:01+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-noida (perf=46)
+2026-09-19T14:06:05+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-gurgaon (perf=43)
+2026-09-19T14:06:14+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ahmedabad (perf=43)
+2026-09-19T14:06:20+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-greater-noida (perf=34)
+2026-09-19T14:06:23+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-bengaluru (perf=37)
+2026-09-19T14:06:27+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-surat (perf=40)
+2026-09-19T14:06:36+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-ajmer (perf=35)
+2026-09-19T14:06:41+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-chandigarh (perf=43)
+2026-09-19T14:06:48+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-kota (perf=42)
+2026-09-19T14:06:50+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-indore (perf=36)
+2026-09-19T14:06:56+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-kolkata (perf=31)
+2026-09-19T14:06:58+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-mumbai (perf=42)
+2026-09-19T14:07:09+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-chennai (perf=35)
+2026-09-19T14:07:18+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-hyderabad (perf=43)
+2026-09-19T14:07:19+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-kanpur (perf=35)
+2026-09-19T14:07:22+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-pune (perf=33)
+2026-09-19T14:07:33+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-jaipur (perf=40)
+2026-09-19T14:07:39+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/online-tutions-with-personal-tutor-in-delhi (perf=40)
+2026-09-19T14:07:42+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-delhi (perf=39)
+2026-09-19T14:07:46+00:00 | INFO | Pagespeed check OK: https://www.kanhahometutions.com/home-tution-near-by-me-in-patna (perf=34)
+2026-09-19T14:07:46+00:00 | INFO | LighthouseCheckService: persisted 79 results for check_id=e1b52cb4-f131-4611-8d43-5a0209dc8685
