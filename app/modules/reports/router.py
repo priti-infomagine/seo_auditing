@@ -18,7 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.reports.services.pdf_generator import render_audit_report_pdf
 from app.modules.reports.services.report_data_service import build_audit_report
@@ -70,7 +70,7 @@ async def send_audit_report(
     Returns:
         SendReportResponse with audit_id, queued_for, status.
     """
-    #loggger.info(f"POST /reports/{audit_id}/send")
+    logger.info(f"POST /reports/{audit_id}/send")
 
     job_repo = CrawlJobRepository(db)
 
@@ -91,7 +91,7 @@ async def send_audit_report(
 
     send_audit_report_email_task.delay(str(audit_id), email)
 
-    #loggger.info(
+    logger.info(
         f"POST /reports/{audit_id}/send: queued send_audit_report_email_task for {email}"
     )
 
@@ -135,7 +135,7 @@ async def download_audit_report(
     Raises:
         HTTPException 404: If the audit job does not exist.
     """
-    #loggger.info(f"GET /reports/{audit_id}/download")
+    logger.info(f"GET /reports/{audit_id}/download")
 
     job_repo = CrawlJobRepository(db)
 
@@ -163,11 +163,11 @@ async def download_audit_report(
             company_name=settings.COMPANY_NAME,
             copyright_text=settings.COPYRIGHT_TEXT,
         )
-        #loggger.info(
+        logger.info(
             f"GET /reports/{audit_id}/download: generated {output_path}"
         )
     else:
-        #loggger.info(
+        logger.info(
             f"GET /reports/{audit_id}/download: returning existing {output_path}"
         )
 

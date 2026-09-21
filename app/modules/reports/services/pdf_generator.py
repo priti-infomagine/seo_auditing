@@ -34,7 +34,7 @@ from reportlab.platypus import (
 )
 from xml.sax.saxutils import escape
 from app.core.config import settings
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.schemas.report_schemas import AuditReportResponse, Category, Issue
 
 # Color Constants
@@ -145,7 +145,7 @@ def render_audit_report_pdf(
     if copyright_text is None:
         copyright_text = settings.COPYRIGHT_TEXT
 
-    #loggger.info(f"render_audit_report_pdf: generating PDF for scan_id={report.scan_id} at {output_path}")
+    logger.info(f"render_audit_report_pdf: generating PDF for scan_id={report.scan_id} at {output_path}")
 
     out_file = Path(output_path)
     out_file.parent.mkdir(parents=True, exist_ok=True)
@@ -180,7 +180,7 @@ def render_audit_report_pdf(
 
     doc.build(story)
 
-    #loggger.info(f"render_audit_report_pdf: successfully generated PDF at {output_path}")
+    logger.info(f"render_audit_report_pdf: successfully generated PDF at {output_path}")
 
     return str(out_file)
 

@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.audit.schemas.analysis_schemas import (
     ScoreTriggerRequest,
     SeoAnalysisResponse,
@@ -54,7 +54,7 @@ async def score_project(
     Raises:
         HTTPException 404: No rule results or crawl job.
     """
-    #loggger.info(f"POST /audit/score/{audit_id}")
+    logger.info(f"POST /audit/score/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -71,7 +71,7 @@ async def score_project(
 
         existing = await analysis_repo.get_by_audit_id(audit_id)
         if existing and existing.analysis_status == "completed" and not force:
-            #loggger.info(f"POST /audit/score/{audit_id}: returning cached result")
+            logger.info(f"POST /audit/score/{audit_id}: returning cached result")
             return await builder.build(audit_id)
 
         rule_eval_repo = RuleEvaluationResultRepository(db)
@@ -87,7 +87,7 @@ async def score_project(
         scorer = AnalysisScorerService(db)
         unified = await scorer.score_project(audit_id, force=force)
 
-        #loggger.info(
+        logger.info(
             f"POST /audit/score/{audit_id} - "
             f"score={unified['summary']['score']}"
         )
@@ -97,7 +97,7 @@ async def score_project(
     except HTTPException:
         raise
     except Exception as exc:
-        #loggger.error(
+        logger.error(
             f"POST /audit/score/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )

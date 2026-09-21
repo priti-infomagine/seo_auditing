@@ -17,7 +17,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.core.config import settings
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
@@ -73,7 +73,7 @@ async def analyze_website(
     Raises:
         HTTPException: If the URL is invalid or the job cannot be queued.
     """
-    #loggger.info(
+    logger.info(
         f"POST /audit/analyze - Queuing audit for URL: {body.url}, "
         
     )
@@ -121,7 +121,7 @@ async def analyze_website(
         job_repo = CrawlJobRepository(db)
         await job_repo.create(crawl_job)
 
-        #loggger.info(
+        logger.info(
             f"CrawlJob created: audit_id={audit_id}, domain={domain}"
         )
 
@@ -133,7 +133,7 @@ async def analyze_website(
             queue="crawler",
         )
 
-        #loggger.info(
+        logger.info(
             f"Audit enqueued: audit_id={audit_id}, task_id={async_result.id}, queued on 'crawler'"
         )
 
@@ -155,7 +155,7 @@ async def analyze_website(
         )
 
     except ValueError as e:
-        #loggger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
+        logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid URL: {str(e)}"
@@ -163,7 +163,7 @@ async def analyze_website(
     except HTTPException:
         raise
     except Exception as e:
-        #loggger.error(
+        logger.error(
             f"Unexpected error queuing audit for URL: {body.url}", exc_info=True
         )
         raise HTTPException(
@@ -183,7 +183,7 @@ async def analyze_website(
 async def get_analyze_task_status(
     task_id: str,
 ) -> dict:
-    #loggger.info(f"GET /audit/analyze/task/{task_id}")
+    logger.info(f"GET /audit/analyze/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {
         "task_id": task_id,
@@ -208,7 +208,7 @@ async def audit_health_check():
             "endpoints": ["/api/v1/audit/analyze"],
         }
     except Exception as exc:
-        #loggger.error(f"audit_health_check: unexpected error: {exc}", exc_info=True)
+        logger.error(f"audit_health_check: unexpected error: {exc}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Audit service health check failed",

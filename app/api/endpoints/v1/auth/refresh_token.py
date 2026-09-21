@@ -16,7 +16,7 @@ from app.core.config import settings
 from app.core.database import get_db
 from app.core.datetime_utils import utc_now
 from app.modules.auth.utils.auth_utils import decode_token
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.auth.schemas.refresh import (
     RefreshTokenRequest,
     RefreshTokenResponse,
@@ -38,7 +38,7 @@ async def refresh_token(
     db: AsyncSession = Depends(get_db),
 ) -> RefreshTokenResponse:
     """Revoke old refresh token and return a new access + refresh token pair."""
-    #loggger.info("POST /auth/refresh - Refresh token endpoint called")
+    logger.info("POST /auth/refresh - Refresh token endpoint called")
     # ── Read refresh token from cookie ─────────────────────────────────
     refresh_token_value = request.cookies.get("refresh_token")
     if refresh_token_value is None:

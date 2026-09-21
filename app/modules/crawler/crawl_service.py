@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Optional
 
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.utils.url import normalize_url_canonical
@@ -219,7 +219,7 @@ class CrawlerService:
                 except Exception:
                     continue
         except Exception as exc:
-            #loggger.warning(
+            logger.warning(
                 "CrawlerService._discover_sitemap_urls: "
                 "sitemap/robots discovery failed for %s: %s "
                 "— falling back to BFS link discovery",

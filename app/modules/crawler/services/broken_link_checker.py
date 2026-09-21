@@ -24,7 +24,7 @@ import httpx
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.page_links import PageLink
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
@@ -66,7 +66,7 @@ class BrokenLinkChecker:
            timeout).  Skipped entirely when ``LINK_CHECK_EXTERNAL_ENABLED``
            is ``False``.
         """
-        #loggger.info(
+        logger.info(
             "BrokenLinkChecker.check_links: starting audit_id=%s", audit_id
         )
 
@@ -129,7 +129,7 @@ class BrokenLinkChecker:
                             stats.broken_external += 1
 
         await self.db.flush()
-        #loggger.info(
+        logger.info(
             "BrokenLinkChecker.check_links: done audit_id=%s stats=%s",
             audit_id,
             stats.to_dict(),

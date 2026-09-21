@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 
 from .parser_orchestrator import ParserOrchestrator
 
@@ -45,7 +45,7 @@ class BatchParserService:
             )
 
         actual_domain = crawl_file.parent.name
-        #loggger.info("Parsing crawl file: %s", crawl_file)
+        logger.info("Parsing crawl file: %s", crawl_file)
 
         crawl_data = self._load_json(crawl_file)
         html = crawl_data.get("html", "")
@@ -78,7 +78,7 @@ class BatchParserService:
 
         filepath, test_number = self._save_parsed_data(parsed_output, actual_domain)
 
-        #loggger.info("Parsing completed: %s", filepath)
+        logger.info("Parsing completed: %s", filepath)
 
         return {
             "success": True,

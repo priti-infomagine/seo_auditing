@@ -24,7 +24,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.shared.tasks.celery_app import celery_app
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
@@ -69,7 +69,7 @@ async def run_lighthouse_check(
     4. Persist the Celery `task_id` back onto the job for correlation.
     5. Return 202 with check_id, task_id, domain, and poll/result URLs.
     """
-    #loggger.info(
+    logger.info(
         f"POST /lighthouse/check — url={body.url}, device={body.device}, "
         f"max_pages={body.max_pages}, category={body.effective_category}"
     )
@@ -133,7 +133,7 @@ async def run_lighthouse_check(
     # Phase: record the task id for correlation.
     await service.record_task_id(db, check_id, async_result.id)
 
-    #loggger.info(
+    logger.info(
         f"Lighthouse check queued: check_id={check_id}, "
         f"task_id={async_result.id}, domain={setup['domain']}"
     )
@@ -256,7 +256,7 @@ async def get_lighthouse_status(
     except HTTPException:
         raise
     except Exception as e:
-        #loggger.error(
+        logger.error(
             f"GET /lighthouse/status/{check_id}: unexpected error - {e}",
             exc_info=True,
         )

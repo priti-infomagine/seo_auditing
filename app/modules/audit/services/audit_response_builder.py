@@ -28,7 +28,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import to_iso
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.repositories.page_link_repository import PageLinkRepository
 from app.modules.audit.repositories.parsed_page_fact_repository import (
@@ -61,7 +61,7 @@ from app.modules.scorer.services.score_calculator import (
     PASS_THRESHOLD,
 )
 
-#loggger = logging.get#loggger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class AuditResponseBuilder:
@@ -97,7 +97,7 @@ class AuditResponseBuilder:
         Returns:
             Unified audit response dict matching audit_response_schemas.UnifiedAuditResponse.
         """
-        #loggger.info("AuditResponseBuilder.build: audit_id=%s", audit_id)
+        logger.info("AuditResponseBuilder.build: audit_id=%s", audit_id)
 
         crawl_job = await self.crawl_job_repo.get_by_id(audit_id)
         domain = crawl_job.domain if crawl_job else ""

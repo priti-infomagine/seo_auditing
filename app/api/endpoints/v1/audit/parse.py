@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.audit.schemas.analysis_schemas import (
     ParseTriggerRequest,
 )
@@ -46,7 +46,7 @@ async def parse_crawl(
         HTTPException 404: CrawlJob not found.
         HTTPException 409: CrawlJob still in progress.
     """
-    #loggger.info(f"POST /audit/parse/{audit_id}")
+    logger.info(f"POST /audit/parse/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -69,7 +69,7 @@ async def parse_crawl(
         parser_service = DBParserService(db)
         result = await parser_service.parse_crawl(audit_id, force=force)
 
-        #loggger.info(
+        logger.info(
             f"POST /audit/parse/{audit_id} - "
             f"parsed={result['pages_parsed']}, failed={result['pages_failed']}"
         )
@@ -90,7 +90,7 @@ async def parse_crawl(
     except HTTPException:
         raise
     except Exception as exc:
-        #loggger.error(
+        logger.error(
             f"POST /audit/parse/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )

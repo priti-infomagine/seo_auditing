@@ -26,7 +26,7 @@ from uuid import UUID
 
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.page_seo_data import PageSEOData
@@ -88,7 +88,7 @@ class CrawlPersistenceService:
                     job.error = error[:1024]
                 await self.job_repo.update(job)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.update_job_status: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.update_job_status: error: {exc}", exc_info=True)
             raise
 
     async def update_progress(
@@ -110,7 +110,7 @@ class CrawlPersistenceService:
                 job.progress_percent = None
             await self.job_repo.update(job)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
 
     async def persist_page(self, page: CrawlPage) -> CrawlPage:
         """Persist a crawl page via an atomic upsert on (audit_id, normalized_url)."""
@@ -149,7 +149,7 @@ class CrawlPersistenceService:
                 await self.db.refresh(page)
                 return page
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_page: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_page: error: {exc}", exc_info=True)
             raise
 
     async def persist_seo_data(self, seo_data: PageSEOData) -> PageSEOData:
@@ -158,7 +158,7 @@ class CrawlPersistenceService:
             async with self._write_lock:
                 return await self.seo_repo.upsert(seo_data)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_seo_data: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_seo_data: error: {exc}", exc_info=True)
             raise
 
     def _coerce_int(self, value):
@@ -180,7 +180,7 @@ class CrawlPersistenceService:
             async with self._write_lock:
                 return await self.resource_repo.create_batch(resource_objects)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_resources: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_resources: error: {exc}", exc_info=True)
             raise
 
     async def persist_network_data(self, network_data: PageNetworkData) -> PageNetworkData:
@@ -189,7 +189,7 @@ class CrawlPersistenceService:
             async with self._write_lock:
                 return await self.network_repo.upsert(network_data)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_network_data: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_network_data: error: {exc}", exc_info=True)
             raise
 
     async def persist_site_data(self, site_data: CrawlSiteData) -> CrawlSiteData:
@@ -198,7 +198,7 @@ class CrawlPersistenceService:
             async with self._write_lock:
                 return await self.site_repo.upsert(site_data)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_site_data: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_site_data: error: {exc}", exc_info=True)
             raise
 
     async def persist_snapshot(
@@ -228,7 +228,7 @@ class CrawlPersistenceService:
                     page_id, content_to_store, compressed, parsed_data=parsed_data
                 )
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_snapshot: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_snapshot: error: {exc}", exc_info=True)
             raise
 
     async def persist_error(
@@ -248,7 +248,7 @@ class CrawlPersistenceService:
                 )
                 return await self.error_repo.create(error)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_error: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_error: error: {exc}", exc_info=True)
             raise
 
     async def persist_links(self, page_id: UUID, links: list) -> list:
@@ -260,7 +260,7 @@ class CrawlPersistenceService:
             async with self._write_lock:
                 return await self.link_repo.create_batch(link_objects)
         except Exception as exc:
-            #loggger.error(f"CrawlPersistenceService.persist_links: error: {exc}", exc_info=True)
+            logger.error(f"CrawlPersistenceService.persist_links: error: {exc}", exc_info=True)
             raise
 
     # -- Buffer management -------------------------------------------------
@@ -488,7 +488,7 @@ class CrawlPersistenceService:
                 try:
                     await flush_fn()
                 except Exception as exc:
-                    #loggger.error(
+                    logger.error(
                         f"CrawlPersistenceService.flush_all: {flush_fn.__name__} failed: {exc}",
                         exc_info=True,
                     )

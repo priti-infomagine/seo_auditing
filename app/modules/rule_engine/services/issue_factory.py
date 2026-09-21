@@ -23,7 +23,7 @@ from app.modules.rule_engine.models.rule_evidence_map import (
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.rule_engine.models.seo_issue import SEOIssue, SeverityTier
 
-#loggger = logging.get#loggger(__name__)
+logger = logging.getLogger(__name__)
 
 # Rules whose WARNING should NOT be promoted to high (explicit negative set is the
 # HIGH_IMPACT_WARNINGS positive set; everything else default applies).
@@ -53,7 +53,7 @@ class RuleResultToSEOIssueConverter:
         """Resolve the affected_part from the registry; 'unknown' + log if missing."""
         part = RULE_AFFECTED_PART.get(rule_id)
         if part is None:
-            #loggger.warning(
+            logger.warning(
                 "rule_evidence_map: rule_id %r has no affected_part mapping; "
                 "using 'unknown'. Add it to RULE_AFFECTED_PART.", rule_id
             )

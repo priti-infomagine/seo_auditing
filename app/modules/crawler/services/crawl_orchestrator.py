@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 from uuid import UUID
 
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.crawl_site_data import CrawlSiteData
@@ -254,7 +254,7 @@ class CrawlOrchestrator:
             duration_ms,
         )
         if url_diagnostics:
-            #loggger.info("URL diagnostics: %s", url_diagnostics)
+            logger.info("URL diagnostics: %s", url_diagnostics)
 
         return {
             "status": "completed",
@@ -324,7 +324,7 @@ class CrawlOrchestrator:
                 url=item.normalized_url,
                 error=crawl_result.error,
             )
-            #loggger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
+            logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
             return False
 
         document = crawl_result.document
@@ -534,7 +534,7 @@ class CrawlOrchestrator:
         try:
             await self.persistence.update_progress(current_page, total)
         except Exception as exc:
-            #loggger.warning(f"_update_progress: {exc}", exc_info=True)
+            logger.warning(f"_update_progress: {exc}", exc_info=True)
         if self._progress_callback:
             self._progress_callback(current_page, total)
 

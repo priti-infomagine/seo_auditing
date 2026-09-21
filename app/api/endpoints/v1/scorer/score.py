@@ -8,7 +8,7 @@ from app.modules.scorer.schemas.scorer_schemas import ScoreRequest, SeoScoreResp
 from app.modules.scorer.services.scorer_service import ScorerService
 from app.modules.crawler.crawl_service import CrawlerService
 from app.modules.parser.services.parser_service import ParserService
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 
 
 router = APIRouter()
@@ -29,12 +29,12 @@ async def score_parsed_data(request: ScoreRequest):
         
         # Option 1: Score provided parsed data directly
         if request.parsed_data:
-            #loggger.info("Scoring provided parsed data")
+            logger.info("Scoring provided parsed data")
             return await scorer_service.score_parsed_data(request.parsed_data)
         
         # Option 2: Crawl URL, parse, and score
         if request.url:
-            #loggger.info(f"Scoring URL: {request.url}")
+            logger.info(f"Scoring URL: {request.url}")
             
             # Crawl the URL
             crawl_service = CrawlerService()
@@ -71,7 +71,7 @@ async def score_parsed_data(request: ScoreRequest):
         
         # Option 3: Load existing crawl data by domain
         if request.domain:
-            #loggger.info(f"Scoring domain: {request.domain}")
+            logger.info(f"Scoring domain: {request.domain}")
             
             # This would integrate with your storage service
             # For now, we'll use a simple file-based approach
@@ -118,7 +118,7 @@ async def score_parsed_data(request: ScoreRequest):
     except HTTPException:
         raise
     except Exception as e:
-        #loggger.error(f"score_parsed_data: unexpected error: {e}", exc_info=True)
+        logger.error(f"score_parsed_data: unexpected error: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred during scoring"
@@ -138,7 +138,7 @@ async def get_rule_statistics():
             categories=stats["categories"]
         )
     except Exception as exc:
-        #loggger.error(f"get_rule_statistics: unexpected error: {exc}", exc_info=True)
+        logger.error(f"get_rule_statistics: unexpected error: {exc}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred fetching rule statistics",
@@ -159,7 +159,7 @@ async def get_rule_categories():
             "total_rules": len(scorer_service.rules),
         }
     except Exception as exc:
-        #loggger.error(f"get_rule_categories: unexpected error: {exc}", exc_info=True)
+        logger.error(f"get_rule_categories: unexpected error: {exc}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred fetching rule categories",

@@ -1,40 +1,48 @@
+
 import logging
 import os
 import sys
-from datetime import datetime, timezone
 
 
 # Ensure logs directory exists
 os.makedirs("logs", exist_ok=True)
 
-file_handler = logging.FileHandler(
-    "logs/app.log"
-)
 
-formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)s | %(message)s",
-    datefmt="%Y-%m-%dT%H:%M:%S+00:00",
-)
+def setup_logger() -> logging.Logger:
+    logger = logging.getLogger("app")
+    logger.setLevel(logging.INFO)
 
-file_handler.setFormatter(formatter)
-
-
-def setup_#loggger():
-    #loggger = logging.get#loggger("app")
-    #loggger.setLevel(logging.INFO)
+    # Prevent duplicate handlers if setup_logger() is called multiple times
+    if logger.handlers:
+        return logger
 
     formatter = logging.Formatter(
         "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S+00:00",
+        datefmt="%Y-%m-%dT%H:%M:%S",
     )
 
+    # Console handler
     console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
 
-    #loggger.addHandler(console_handler)
+    # File handler
+    file_handler = logging.FileHandler(
+        "logs/app.log",
+        encoding="utf-8",
+    )
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
 
-    return #loggger
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+
+    # Avoid propagating messages to the root logger,
+    # which can otherwise cause duplicate output.
+    logger.propagate = False
+
+    return logger
 
 
-#loggger = setup_#loggger()
-#loggger.addHandler(file_handler)
+logger = setup_logger()
+

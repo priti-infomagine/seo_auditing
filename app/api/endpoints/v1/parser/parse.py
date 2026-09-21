@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.parser.schemas.parser_schema import ParseRequest, ParseResponse
 from app.modules.parser.services.batch_parser_service import BatchParserService
 
@@ -40,7 +40,7 @@ async def parse_website(
     Raises:
         HTTPException: If no crawl data found or parsing fails
     """
-    #loggger.info(f"POST /parser/parse - Parse endpoint called for website: {body.website}")
+    logger.info(f"POST /parser/parse - Parse endpoint called for website: {body.website}")
 
     try:
         # Initialize parse service
@@ -49,7 +49,7 @@ async def parse_website(
         # Perform parsing
         result = service.parse_website(body.website)
 
-        #loggger.info(f"Parse successful for website: {body.website}")
+        logger.info(f"Parse successful for website: {body.website}")
 
         return ParseResponse(
             success=True,
@@ -64,21 +64,21 @@ async def parse_website(
 
     except ValueError as e:
         # No crawl data found or invalid website
-        #loggger.warning(f"No crawl data for website: {body.website} - {str(e)}")
+        logger.warning(f"No crawl data for website: {body.website} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e),
         )
     except RuntimeError as e:
         # Parsing failed
-        #loggger.error(f"Parse failed for website: {body.website} - {str(e)}")
+        logger.error(f"Parse failed for website: {body.website} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Parsing failed: {str(e)}",
         )
     except Exception as e:
         # Unexpected error
-        #loggger.error(f"Unexpected error during parse for website: {body.website}", exc_info=True)
+        logger.error(f"Unexpected error during parse for website: {body.website}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred during parsing",

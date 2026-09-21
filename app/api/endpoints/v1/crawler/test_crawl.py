@@ -13,7 +13,7 @@ from sqlalchemy import select
 
 from app.core.database import get_db
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.core.security import get_current_user
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -54,7 +54,7 @@ async def test_crawl_url(
     Returns:
         TestCrawlResponse with complete crawl results
     """
-    #loggger.info(f"POST /crawler/test-crawler - Running synchronous crawl for URL: {body.url}")
+    logger.info(f"POST /crawler/test-crawler - Running synchronous crawl for URL: {body.url}")
 
     try:
         url_str = str(body.url)
@@ -90,7 +90,7 @@ async def test_crawl_url(
                 concurrency=body.concurrency,
             )
         except Exception as exc:
-            #loggger.error(f"Synchronous crawl failed for {url_str}: {exc}", exc_info=True)
+            logger.error(f"Synchronous crawl failed for {url_str}: {exc}", exc_info=True)
             job = await job_repo.get_by_id(crawl_job.id)
             if job and job.status not in ("completed", "failed", "cancelled"):
                 job.status = "failed"
@@ -165,7 +165,7 @@ async def test_crawl_url(
         )
 
     except ValueError as e:
-        #loggger.warning(f"Invalid URL for test crawl: {body.url} - {str(e)}")
+        logger.warning(f"Invalid URL for test crawl: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid URL: {str(e)}"
@@ -173,7 +173,7 @@ async def test_crawl_url(
     except HTTPException:
         raise
     except Exception as e:
-        #loggger.error(f"Unexpected error in test-crawler for URL: {body.url}", exc_info=True)
+        logger.error(f"Unexpected error in test-crawler for URL: {body.url}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"An unexpected error occurred: {str(e)}"

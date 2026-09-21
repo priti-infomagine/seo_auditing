@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.auth.schemas.verify_otp import (
     VerifyOTPRequest,
     VerifyOTPResponse,
@@ -35,7 +35,7 @@ async def verify_otp(
     db: AsyncSession = Depends(get_db),
 ) -> VerifyOTPResponse:
     """Verify OTP, mark email as verified, and return JWT tokens."""
-    #loggger.info("POST /auth/verify-otp - Verify OTP endpoint called")
+    logger.info("POST /auth/verify-otp - Verify OTP endpoint called")
     # Extract device info from request
     ip_address = request.client.host if request.client else None
     user_agent = request.headers.get("user-agent")

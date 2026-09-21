@@ -19,7 +19,7 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
@@ -112,7 +112,7 @@ async def build_per_page_breakdown(
     Returns:
         List of per-page dicts, one per crawled page with rule results.
     """
-    #loggger.info(
+    logger.info(
         f"build_per_page_breakdown: audit_id={audit_id}, audit_id={audit_id}"
     )
 
@@ -248,7 +248,7 @@ async def build_per_page_breakdown(
     # Sort by overall_score ascending (worst pages first) for actionable output
     per_page.sort(key=lambda p: p["overall_score"])
 
-    #loggger.info(
+    logger.info(
         f"build_per_page_breakdown: built {len(per_page)} page entries "
         f"for audit_id={audit_id}"
     )

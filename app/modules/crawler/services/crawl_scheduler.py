@@ -7,7 +7,7 @@ from typing import Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 from uuid import UUID
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.services.deduplication_service import DeduplicationService
 from app.modules.crawler.types import DiscoveredURL
@@ -136,7 +136,7 @@ class CrawlScheduler:
         else:
             self._diagnostics["non_html"] += 1
         if url:
-            #loggger.debug("URL rejected [%s]: %s", key, url)
+            logger.debug("URL rejected [%s]: %s", key, url)
 
     @staticmethod
     def _classification_to_diagnostic(classification: str) -> str:

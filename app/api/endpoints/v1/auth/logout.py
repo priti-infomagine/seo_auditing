@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.core.datetime_utils import utc_now
 from app.modules.auth.utils.auth_utils import decode_token
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.auth.schemas.logout import LogoutRequest, LogoutResponse
 from app.modules.auth.services.logout_service import LogoutService
 
@@ -42,7 +42,7 @@ async def logout(
     Logout user by revoking refresh token and blacklisting access token.
     """
 
-    #loggger.info("POST /auth/logout - Logout endpoint called")
+    logger.info("POST /auth/logout - Logout endpoint called")
 
     # ── 1. Read refresh token from HttpOnly cookie ─────────────────────
     refresh_token = request.cookies.get("refresh_token")
@@ -101,6 +101,6 @@ async def logout(
         path="/",
     )
 
-    #loggger.info("User logged out successfully")
+    logger.info("User logged out successfully")
 
     return result

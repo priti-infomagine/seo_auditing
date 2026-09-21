@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.core.security import get_current_user
 from app.modules.auth.models.users import User
 
@@ -22,7 +22,7 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
         async for session in get_db():
             yield session
     except Exception as exc:
-        #loggger.error(f"get_db_session: database session error: {exc}", exc_info=True)
+        logger.error(f"get_db_session: database session error: {exc}", exc_info=True)
         raise
 
 

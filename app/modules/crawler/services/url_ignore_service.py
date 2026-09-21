@@ -13,7 +13,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.config.models.url_ignore_pattern import UrlIgnorePattern
 
 
@@ -66,7 +66,7 @@ class UrlIgnoreService:
                         try:
                             self._regex_cache[p.pattern] = re.compile(p.pattern, re.IGNORECASE)
                         except re.error as e:
-                            #loggger.warning(f"Invalid regex pattern '{p.pattern}': {e}")
+                            logger.warning(f"Invalid regex pattern '{p.pattern}': {e}")
         all_patterns: List[UrlIgnorePattern] = []
         for s in target_scopes:
             all_patterns.extend(self._pattern_cache.get(s, []))
@@ -219,7 +219,7 @@ class UrlIgnoreService:
     ) -> Optional[UrlIgnorePattern]:
         """Insert a skip record (record_type='skip') into the url_ignore_patterns table."""
         if not self.db:
-            #loggger.warning("log_skip called without db session")
+            logger.warning("log_skip called without db session")
             return None
 
         from app.modules.config.repositories.url_ignore_repository import UrlIgnorePatternRepository

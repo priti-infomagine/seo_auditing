@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.audit.schemas.audit_schemas import AuditRequest, AuditResponse
 from app.modules.audit.services.mock_audit_service import MockAuditService
 
@@ -41,7 +41,7 @@ async def run_audit(
     Raises:
         HTTPException: If the audit fails
     """
-    #loggger.info(f"POST /audit/run - Mock audit endpoint called for URL: {body.url}")
+    logger.info(f"POST /audit/run - Mock audit endpoint called for URL: {body.url}")
 
     try:
         # Initialize mock audit service
@@ -50,7 +50,7 @@ async def run_audit(
         # Run mock audit
         result = service.audit_website(body.url, deep_crawl=body.deep_crawl)
 
-        #loggger.info(f"Mock audit successful for URL: {body.url}")
+        logger.info(f"Mock audit successful for URL: {body.url}")
 
         return AuditResponse(
             success=True,
@@ -63,13 +63,13 @@ async def run_audit(
         )
 
     except ValueError as e:
-        #loggger.warning(f"Invalid URL for audit: {body.url} - {str(e)}")
+        logger.warning(f"Invalid URL for audit: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
         )
     except Exception as e:
-        #loggger.error(f"Unexpected error during mock audit for URL: {body.url}", exc_info=True)
+        logger.error(f"Unexpected error during mock audit for URL: {body.url}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred during mock audit",

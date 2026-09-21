@@ -17,7 +17,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.audit.models.parsed_page_facts import ParsedPageFact
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -85,7 +85,7 @@ class DBParserService:
                             pages_skipped, errors, parsed_at.
         """
         try:
-            #loggger.info(
+            logger.info(
                 f"DBParserService.parse_crawl: audit_id={audit_id}, force={force}"
             )
 
@@ -93,7 +93,7 @@ class DBParserService:
             pages_to_parse = [p for p in pages if p.is_success]
 
             if not pages_to_parse:
-                #loggger.warning(
+                logger.warning(
                     f"DBParserService.parse_crawl: no crawled pages found for audit_id={audit_id}"
                 )
                 return {
@@ -144,7 +144,7 @@ class DBParserService:
                         })
                 except Exception as exc:
                     failed_count += 1
-                    #loggger.error(
+                    logger.error(
                         f"DBParserService: parse failed for page_id={page.id}: {exc}",
                         exc_info=True,
                     )
@@ -154,7 +154,7 @@ class DBParserService:
                         "error": str(exc),
                     })
 
-            #loggger.info(
+            logger.info(
                 f"DBParserService.parse_crawl: parsed={parsed_count}, "
                 f"failed={failed_count}, skipped={skipped_count} for audit_id={audit_id}"
             )
@@ -171,7 +171,7 @@ class DBParserService:
         except ParserError:
             raise
         except Exception as exc:
-            #loggger.error(
+            logger.error(
                 f"DBParserService.parse_crawl: unhandled error for audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
@@ -207,7 +207,7 @@ class DBParserService:
             page_id = page.id
 
             if not snapshot or not snapshot.content:
-                #loggger.warning(f"DBParserService.parse_page: no snapshot for page_id={page_id}")
+                logger.warning(f"DBParserService.parse_page: no snapshot for page_id={page_id}")
                 return None
 
             network_dict: Dict[str, Any] = {}
@@ -290,14 +290,14 @@ class DBParserService:
             # Persist (upsert)
             result = await self.parsed_fact_repo.upsert(fact)
 
-            #loggger.debug(
+            logger.debug(
                 f"DBParserService.parse_page: parsed page_id={page_id}, "
                 f"url={page.normalized_url}"
             )
             return result
 
         except Exception as exc:
-            #loggger.error(
+            logger.error(
                 f"DBParserService.parse_page: error for page_id={page_id}: {exc}",
                 exc_info=True,
             )

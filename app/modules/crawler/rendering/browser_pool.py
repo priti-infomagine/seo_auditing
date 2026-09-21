@@ -5,7 +5,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator, Optional
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
 
 try:
@@ -56,7 +56,7 @@ class BrowserPool:
                     )
                 except Exception as exc:
                     print('BROWSER LAUNCH ERROR:', repr(exc))
-                    #loggger.error('Browser launch failed: %s', repr(exc))
+                    logger.error('Browser launch failed: %s', repr(exc))
                     self._browser = None
                     return None
             return self._browser
@@ -82,7 +82,7 @@ class BrowserPool:
             cfg.browser_concurrency != self.config.browser_concurrency
             and not self._concurrency_mismatch_warned
         ):
-            #loggger.warning(
+            logger.warning(
                 "BrowserPool: browser_concurrency=%d requested but this worker "
                 "process's pool was initialized with %d; the original limit "
                 "stays in effect until the worker process restarts.",
@@ -110,7 +110,7 @@ class BrowserPool:
                 yield page
             except Exception as exc:
                 print('CONTEXT ERROR:', repr(exc))
-                #loggger.error('Browser context/page failed: %s', repr(exc))
+                logger.error('Browser context/page failed: %s', repr(exc))
                 yield None
             finally:
                 if page:

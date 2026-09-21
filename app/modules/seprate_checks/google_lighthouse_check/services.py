@@ -30,7 +30,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import async_session_factory
 from app.core.datetime_utils import utc_now
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
@@ -155,12 +155,12 @@ class LighthouseCheckService:
         try:
             check_uuid = UUID(check_id)
         except (ValueError, TypeError):
-            #loggger.warning(f"record_task_id: invalid check_id={check_id!r}")
+            logger.warning(f"record_task_id: invalid check_id={check_id!r}")
             return
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(check_uuid)
         if job is None:
-            #loggger.warning(f"record_task_id: CrawlJob {check_id} not found")
+            logger.warning(f"record_task_id: CrawlJob {check_id} not found")
             return
         # crawl_config is a plain JSONB column (not Mutable), so in-place dict
         # mutations are not flushed — reassign a fresh dict via the helper.
@@ -215,7 +215,7 @@ class LighthouseCheckService:
         try:
             crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
         except Exception as exc:
-            #loggger.error(
+            logger.error(
                 f"LighthouseCheckService: crawl failed for check_id={check_id}: {exc}",
                 exc_info=True,
             )
@@ -261,13 +261,13 @@ class LighthouseCheckService:
                         parsed["status"] = "success"
                         return target_url, parsed, None
                     except httpx.HTTPStatusError as e:
-                        #loggger.warning(
+                        logger.warning(
                             f"Pagespeed API error for {target_url}: "
                             f"status={e.response.status_code}"
                         )
                         return target_url, None, f"API error: {e.response.status_code}"
                     except Exception as e:
-                        #loggger.error(
+                        logger.error(
                             f"Pagespeed check failed for {target_url}: {e}", exc_info=True
                         )
                         return target_url, None, str(e)[:255]
@@ -467,7 +467,7 @@ class LighthouseCheckService:
             job_repo = CrawlJobRepository(db)
             job = await job_repo.get_by_id(check_id)
             if job is None:
-                #loggger.warning(f"_set_check_phase: CrawlJob {check_id} not found")
+                logger.warning(f"_set_check_phase: CrawlJob {check_id} not found")
                 return
             if status:
                 job.status = status

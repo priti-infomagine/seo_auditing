@@ -12,7 +12,7 @@ import random
 from urllib.parse import urlparse
 from typing import Dict, Any
 
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 
 
 class MockAuditService:
@@ -29,7 +29,7 @@ class MockAuditService:
         Returns:
             Dictionary with mock crawl and parse results
         """
-        #loggger.info(f"[MOCK] Running audit for URL: {url} (deep_crawl={deep_crawl})")
+        logger.info(f"[MOCK] Running audit for URL: {url} (deep_crawl={deep_crawl})")
 
         # Extract domain
         parsed = urlparse(url)
@@ -66,7 +66,7 @@ class MockAuditService:
             "seo_grade": seo_grade,
         }
 
-        #loggger.info(f"[MOCK] Audit complete for {url}. SEO Score: {seo_score} ({seo_grade})")
+        logger.info(f"[MOCK] Audit complete for {url}. SEO Score: {seo_score} ({seo_grade})")
 
         return {
             "success": True,

@@ -5,7 +5,7 @@ from typing import Dict, Any, List, Optional
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.scorer.services.score_calculator import ScoreCalculator
 from app.modules.rule_engine.models.rule_result import RuleResult
-from app.core.#loggger import #loggger
+from app.core.logger import logger
 
 
 # Import all rule classes
@@ -115,7 +115,7 @@ class ScorerService:
             PageSizeRule(), JavaScriptErrorsRule(), CoreWebVitalsRule(),
         ]
         
-        #loggger.info(f"Loaded {len(rules)} scoring rules")
+        logger.info(f"Loaded {len(rules)} scoring rules")
         return rules
     
     async def score_parsed_data(self, parsed_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -129,7 +129,7 @@ class ScorerService:
             Complete SEO score report
         """
         try:
-            #loggger.info("Starting SEO scoring...")
+            logger.info("Starting SEO scoring...")
             
             # Prepare rule data: transforms parsed lists into summary dicts that rules expect
             rule_data = self._prepare_rule_data(parsed_data)
@@ -141,7 +141,7 @@ class ScorerService:
                     results = await rule.evaluate(rule_data)
                     rule_results.extend(results)
                 except Exception as e:
-                    #loggger.error(f"Error running rule {rule.rule_id}: {e}")
+                    logger.error(f"Error running rule {rule.rule_id}: {e}")
                     # Create synthetic error result so the rule is visible in output
                     from app.modules.rule_engine.models.rule_result import RuleResult, Severity
                     error_result = RuleResult(
@@ -158,7 +158,7 @@ class ScorerService:
                     rule_results.append(error_result)
                     continue
             
-            #loggger.info(f"Completed {len(rule_results)} rule evaluations")
+            logger.info(f"Completed {len(rule_results)} rule evaluations")
             
             # Calculate final score
             score_report = self.score_calculator.calculate_score(rule_results)
@@ -166,14 +166,14 @@ class ScorerService:
             # Add raw results for transparency
             score_report["rule_results"] = rule_results
             
-            #loggger.info(
+            logger.info(
                 f"SEO Score calculated: {score_report['overall_score']}/100 "
                 f"(Grade {score_report['grade']})"
             )
             
             return score_report
         except Exception as ex:
-            #loggger.error(f"ScorerService.score_parsed_data: unhandled error: {ex}", exc_info=True)
+            logger.error(f"ScorerService.score_parsed_data: unhandled error: {ex}", exc_info=True)
             raise
     
     async def score_url(self, url: str, crawl_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -199,7 +199,7 @@ class ScorerService:
         except ValueError:
             raise
         except Exception as exc:
-            #loggger.error(f"ScorerService.score_url: error for url={url}: {exc}", exc_info=True)
+            logger.error(f"ScorerService.score_url: error for url={url}: {exc}", exc_info=True)
             raise
     
     def _prepare_rule_data(self, parsed_data):
