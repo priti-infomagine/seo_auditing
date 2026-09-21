@@ -27,6 +27,7 @@ from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRu
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+# from app.modules.config.repositories.url_ignore_repository import UrlIgnorePatternRepository
 
 router = APIRouter()
 
@@ -235,6 +236,13 @@ async def get_pipeline_status(
             grade = run.grade
             output_file_path = run.output_file_path
 
+        # Fetch skip data
+        ignore_repo = UrlIgnorePatternRepository(db)
+        skip_count_from_repo = await ignore_repo.get_skip_count_by_audit(audit_id)
+        skip_breakdown = await ignore_repo.get_skip_breakdown_by_audit(audit_id)
+        # Prefer job-level pages_skipped if available, fall back to repo count
+        pages_skipped = job.pages_skipped if job and job.pages_skipped > 0 else skip_count_from_repo
+
         return PipelineStatusResponse(
             audit_id=str(audit_id),
             parse_status=parse_status,
@@ -251,6 +259,8 @@ async def get_pipeline_status(
                 if job and job.crawl_config_recovered
                 else None
             ),
+            pages_skipped=pages_skipped,
+            skip_breakdown=skip_breakdown,
         )
 
     except HTTPException:
@@ -289,9 +299,16 @@ async def get_pipeline_summary(
         parsed_repo = ParsedPageFactRepository(db)
         parse_facts = await parsed_repo.get_by_audit_id(audit_id)
         parse_count = len(parse_facts)
+
+        # Fetch skip data for parse stage
+        ignore_repo = UrlIgnorePatternRepository(db)
+        pages_skipped = await ignore_repo.get_skip_count_by_audit(audit_id)
+
         parse_stage = ParseStageSummary(
             status="completed" if parse_count > 0 else "missing",
             count=parse_count,
+            pages_parsed=parse_count,
+            pages_skipped=pages_skipped,
         )
 
         rule_repo = RuleEvaluationResultRepository(db)

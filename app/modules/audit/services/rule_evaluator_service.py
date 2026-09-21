@@ -32,6 +32,7 @@ from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.scorer.services.scorer_service import ScorerService
 from app.modules.scorer.services.base_rule import BaseRule
+# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.shared.exceptions import RuleEvaluationError
 
 
@@ -117,9 +118,33 @@ class RuleEvaluatorService:
                     "evaluated_at": utc_now().isoformat(),
                 }
 
+            # Load SEO category ignore patterns
+            ignore_service = UrlIgnoreService(self.db)
+            await ignore_service.load_patterns(self.db, scope="seo")
+
+            # Filter out URLs matching SEO ignore patterns
+            filtered_facts: List = []
+            pages_skipped = 0
+            for fact in parsed_facts:
+                is_ignored, reason, _ = ignore_service.check_url(fact.url, "seo")
+                if is_ignored:
+                    await ignore_service.log_skip(
+                        self.db, audit_id, fact.url, fact.url, reason, "seo"
+                    )
+                    pages_skipped += 1
+                else:
+                    filtered_facts.append(fact)
+
+            if pages_skipped:
+                await self.db.commit()
+                logger.info(
+                    f"RuleEvaluatorService.evaluate_crawl: skipped {pages_skipped} pages "
+                    f"matching SEO ignore patterns for audit_id={audit_id}"
+                )
+
             # --- Batch fetch everything needed for the evaluate stage (O(1) queries) ---
             # Replaces per-page rule-result / crawl-page / seo / network re-fetches (N+1).
-            page_ids = [f.page_id for f in parsed_facts]
+            page_ids = [f.page_id for f in filtered_facts]
             existing_ids = await self.rule_eval_repo.get_existing_page_ids(
                 audit_id, page_ids
             )
@@ -188,7 +213,7 @@ class RuleEvaluatorService:
                         return [error_result], fact.page_id
 
             # Run all pages concurrently with semaphore limiting concurrency
-            page_tasks = [evaluate_single_page(fact) for fact in parsed_facts]
+            page_tasks = [evaluate_single_page(fact) for fact in filtered_facts]
             page_results_list = await asyncio.gather(*page_tasks, return_exceptions=True)
 
             for result in page_results_list:
@@ -214,12 +239,13 @@ class RuleEvaluatorService:
             logger.info(
                 f"RuleEvaluatorService.evaluate_crawl: pages_evaluated={pages_evaluated}, "
                 f"rules_run={rules_run}, total_results={total_results}, "
-                f"errors={len(errors)} for audit_id={audit_id}"
+                f"pages_skipped={pages_skipped}, errors={len(errors)} for audit_id={audit_id}"
             )
 
             return {
                 "audit_id": str(audit_id),
                 "pages_evaluated": pages_evaluated,
+                "pages_skipped": pages_skipped,
                 "rules_run": rules_run,
                 "total_results": total_results,
                 "errors": errors,

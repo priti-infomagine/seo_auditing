@@ -3,7 +3,7 @@ CrawlScheduler - Dynamic asynchronous worker pool scheduler for recursive crawli
 Terminates ONLY when queue is empty AND active_workers == 0.
 """
 import asyncio
-from typing import Awaitable, Callable, Dict, List, Optional, Set
+from typing import Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 from uuid import UUID
 
@@ -13,6 +13,7 @@ from app.modules.crawler.services.deduplication_service import DeduplicationServ
 from app.modules.crawler.types import DiscoveredURL
 from app.modules.crawler.utils.url import normalize_url_canonical
 from app.modules.crawler.utils.url_classifier import UrlClassification, classify_url
+# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.shared.utils.url_utils import normalize_host
 
 
@@ -51,10 +52,14 @@ class CrawlScheduler:
         config: CrawlConfig,
         worker_func: Callable[[DiscoveredURL], Awaitable[None]],
         base_domain: str = "",
+        # ignore_service: Optional[UrlIgnoreService] = None,
+        audit_id: Optional[UUID] = None,
     ):
         self.config = config
         self.worker_func = worker_func
         self.base_domain = normalize_host(base_domain) if base_domain else ""
+        self.ignore_service = ignore_service
+        self.audit_id = audit_id
 
         self.queue: asyncio.Queue[DiscoveredURL] = asyncio.Queue()
         self.dedup = DeduplicationService()
@@ -62,7 +67,9 @@ class CrawlScheduler:
         self.pages_crawled_count: int = 0
         self.pages_discovered_count: int = 0
         self.pages_failed_count: int = 0
+        self.pages_skipped_count: int = 0
         self.cancelled: bool = False
+        self.skipped_urls: List[Tuple[str, str, str, str]] = []
 
         self._condition = asyncio.Condition()
         self._http_semaphore = asyncio.Semaphore(self.config.http_concurrency)
@@ -157,6 +164,15 @@ class CrawlScheduler:
             self._record_rejection("invalid_url", seed_url)
             return False
 
+        # Check global ignore patterns before dedup/classify
+        if self.ignore_service and self.audit_id:
+            is_ignored, reason, _ = self.ignore_service.check_url(canonical, "global")
+            if is_ignored:
+                self._record_rejection(reason, canonical)
+                self.pages_skipped_count += 1
+                self.skipped_urls.append((canonical, canonical, reason, "global"))
+                return False
+
         if self.dedup.is_url_visited(canonical):
             self._record_rejection("duplicate", seed_url)
             return False
@@ -196,6 +212,15 @@ class CrawlScheduler:
         except Exception:
             self._record_rejection("invalid_url", url)
             return False
+
+        # -- global ignore patterns (DB-backed) ----------------------------
+        if self.ignore_service and self.audit_id:
+            is_ignored, reason, _ = self.ignore_service.check_url(canonical, "global")
+            if is_ignored:
+                self._record_rejection(reason, canonical)
+                self.pages_skipped_count += 1
+                self.skipped_urls.append((url, canonical, reason, "global"))
+                return False
 
         # -- content-type / host classification --------------------------
         classification, reason = classify_url(canonical, base_domain=self.base_domain)

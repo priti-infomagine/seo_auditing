@@ -34,6 +34,7 @@ from app.modules.crawler.services.redirect_service import RedirectService
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.services.robots_service import RobotsPolicy
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
+# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.types import DiscoveredURL
 from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
@@ -57,6 +58,7 @@ class CrawlOrchestrator:
         self.event_bus = CrawlPipelineBus()
         self._scheduler: Optional[CrawlScheduler] = None
         self._progress_callback: Optional[callable] = None
+        self._ignore_service: Optional[UrlIgnoreService] = None
 
     async def run(
         self,
@@ -136,10 +138,17 @@ class CrawlOrchestrator:
                 )
             )
 
+        # Initialize ignore service and load global patterns
+        self._ignore_service = UrlIgnoreService(self.db)
+        if self.db:
+            await self._ignore_service.load_patterns(self.db, "global")
+
         scheduler = CrawlScheduler(
             config=self.config,
             worker_func=self._crawl_page,
             base_domain=start_domain,
+            ignore_service=self._ignore_service,
+            audit_id=self.crawl_job_id,
         )
         self._scheduler = scheduler
 
@@ -177,7 +186,23 @@ class CrawlOrchestrator:
             await scheduler.run()
         except Exception as exc:
             await self._mark_failed(str(exc))
-            return {"status": "failed", "audit_id": str(self.crawl_job_id)}
+            # Persist skip records even on failure
+            if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
+                for url, normalized_url, reason, scope in scheduler.skipped_urls:
+                    await self._ignore_service.log_skip(
+                        self.db,
+                        self.crawl_job_id,
+                        url,
+                        normalized_url,
+                        reason,
+                        scope,
+                    )
+                await self.db.commit()
+            return {
+                "status": "failed",
+                "audit_id": str(self.crawl_job_id),
+                "pages_skipped": getattr(scheduler, "pages_skipped_count", 0),
+            }
         finally:
             await self.persistence.flush_all()
             pages_crawled_count = scheduler.pages_crawled_count
@@ -189,7 +214,21 @@ class CrawlOrchestrator:
         if job:
             job.pages_crawled = pages_crawled_count
             job.pages_discovered = pages_discovered_count
+            job.pages_skipped = getattr(scheduler, "pages_skipped_count", 0)
             await self.job_repository.update(job)
+
+        # Persist skip records to DB
+        if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
+            for url, normalized_url, reason, scope in scheduler.skipped_urls:
+                await self._ignore_service.log_skip(
+                    self.db,
+                    self.crawl_job_id,
+                    url,
+                    normalized_url,
+                    reason,
+                    scope,
+                )
+            await self.db.commit()
 
         duration_ms = int((time.time() - start_time) * 1000)
         await self._mark_completed(duration_ms)
@@ -222,6 +261,7 @@ class CrawlOrchestrator:
             "audit_id": str(self.crawl_job_id),
             "pages_crawled": pages_crawled_count,
             "pages_discovered": pages_discovered_count,
+            "pages_skipped": getattr(scheduler, 'pages_skipped_count', 0),
             "pages_failed": getattr(scheduler, 'pages_failed_count', 0),
             "url_diagnostics": url_diagnostics,
         }

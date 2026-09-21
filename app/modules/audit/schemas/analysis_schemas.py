@@ -64,6 +64,8 @@ class PipelineStatusResponse(BaseModel):
     output_file_path: Optional[str] = Field(None, description="Path to output JSON file")
     crawl_config_recovered: bool = Field(False, description="Whether crawl config was recovered from defaults due to missing CrawlJob row")
     crawl_config_recovery_note: Optional[str] = Field(None, description="Human-readable note about config recovery if applicable")
+    pages_skipped: int = Field(0, description="Number of URLs skipped during crawl (ignore patterns, runtime conditions)")
+    skip_breakdown: Optional[Dict[str, int]] = Field(None, description="Skip counts by reason code")
 
 
 class StageSummary(BaseModel):
