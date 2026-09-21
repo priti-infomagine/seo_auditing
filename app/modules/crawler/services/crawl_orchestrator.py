@@ -156,14 +156,14 @@ class CrawlOrchestrator:
         if respect_robots and site_result and site_result.robots.content:
             robots_policy = RobotsPolicy(site_result.robots.content)
             scheduler.set_robots_policy(robots_policy)
-            #loggger.info(
+            loggger.info(
                 "Robots policy attached to scheduler for %s (sitemaps: %d)",
                 start_domain,
                 len(site_result.robots.sitemap_references),
             )
 
         scheduler.submit_seed(start_url)
-        #loggger.info(
+        loggger.info(
             "Crawl started: %s (max_pages=%d, max_depth=%d)",
             start_url,
             self.config.max_pages,
@@ -177,7 +177,7 @@ class CrawlOrchestrator:
                 site_result.discovered_urls,
                 source_url=start_url,
             )
-            #loggger.info(
+            loggger.info(
                 f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
                 f"(total discovered: {len(site_result.discovered_urls)})"
             )
@@ -245,7 +245,7 @@ class CrawlOrchestrator:
         url_diagnostics = scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
         
 
-        #loggger.info(
+        loggger.info(
             "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",
             start_url,
             pages_crawled_count,
@@ -348,7 +348,7 @@ class CrawlOrchestrator:
             effective_host = urlparse(effective_url).hostname or ""
             current_base = self._scheduler.base_domain
             if current_base and not is_same_site(effective_host, current_base):
-                #loggger.warning(
+                loggger.warning(
                     "Redirect to unrelated host %s — base domain stays %s",
                     effective_host,
                     current_base,
@@ -606,14 +606,14 @@ class CrawlOrchestrator:
                     parent_page_id=page_id,
                 )
                 if submitted:
-                    #loggger.debug(
+                    loggger.debug(
                         "URL queued [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,
                         page_url,
                     )
                 else:
-                    #loggger.debug(
+                    loggger.debug(
                         "URL rejected [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,

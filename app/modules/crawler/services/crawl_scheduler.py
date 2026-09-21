@@ -327,7 +327,7 @@ class CrawlScheduler:
                     self.pages_failed_count += 1
             except Exception as e:
                 self.pages_failed_count += 1
-                #loggger.error(
+                loggger.error(
                     f"Worker {worker_id}: error processing {item.normalized_url}: {e}",
                     exc_info=True,
                 )

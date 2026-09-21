@@ -89,13 +89,13 @@ async def run_lighthouse_check(
     except HTTPException:
         raise
     except ValueError as e:
-        #loggger.warning(f"Lighthouse check rejected — validation error: {e}")
+        loggger.warning(f"Lighthouse check rejected — validation error: {e}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
         )
     except Exception as e:
-        #loggger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
+        loggger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while preparing the lighthouse check",
@@ -123,7 +123,7 @@ async def run_lighthouse_check(
             queue="lighthouse",
         )
     except Exception as e:
-        #loggger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
+        loggger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
         await service.mark_check_failed(UUID(check_id), f"enqueue_failed: {e}"[:1024])
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -169,7 +169,7 @@ async def get_lighthouse_status(
     db: AsyncSession = Depends(get_db),
 ):
     """Get the status + progress of a lighthouse check by check_id."""
-    #loggger.info(f"GET /lighthouse/status/{check_id}")
+    loggger.info(f"GET /lighthouse/status/{check_id}")
 
     try:
         check_uuid = UUID(check_id)
@@ -278,7 +278,7 @@ async def get_lighthouse_status(
 )
 async def get_lighthouse_task_status(task_id: str) -> dict:
     """Poll the Celery task state for a lighthouse check."""
-    #loggger.info(f"GET /lighthouse/task/{task_id}")
+    loggger.info(f"GET /lighthouse/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {"task_id": task_id, "state": async_result.state}
     if async_result.state == "PROGRESS":
@@ -343,7 +343,7 @@ async def get_lighthouse_results(
     except HTTPException:
         raise
     except Exception as e:
-        #loggger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
+        loggger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),

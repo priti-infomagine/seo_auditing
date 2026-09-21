@@ -135,7 +135,7 @@ class LighthouseCheckService:
         await job_repo.create(job)
         await db.commit()
 
-        #loggger.info(
+        logger.info(
             f"LighthouseCheckService: prepared check_id={check_id}, domain={domain}, "
             f"device={device_enum.value}, max_pages={effective_max_pages}"
         )
@@ -225,7 +225,7 @@ class LighthouseCheckService:
             raise
 
         total = len(crawled_urls)
-        #loggger.info(
+        logger.info(
             f"LighthouseCheckService: crawl done for check_id={check_id}, "
             f"discovered {total} URLs — starting pagespeed phase"
         )
@@ -354,7 +354,7 @@ class LighthouseCheckService:
                     },
                 )
 
-            #loggger.info(
+            logger.info(
                 f"LighthouseCheckService: completed check_id={check_id}, "
                 f"total={total}, succeeded={succeeded}, failed={failed}"
             )
