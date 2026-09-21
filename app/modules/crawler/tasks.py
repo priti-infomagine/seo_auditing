@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 
 from app.core.datetime_utils import utc_now
 from app.core.database import async_session_factory
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
@@ -33,7 +33,7 @@ from app.shared.utils.url_utils import get_domain
     track_started=True,
 )
 def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = False) -> dict:
-    logger.info(
+    #loggger.info(
         f"crawler.crawl_website: task started for audit_id={audit_id}, url={url}, "
         f"user_id={user_id}"
     )
@@ -58,7 +58,7 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                 # We self-heal: create a fresh row from the task args
                 # with safe defaults so the rest of the pipeline (and the
                 # audit pipeline it eventually fires) can find it.
-                logger.warning(
+                #loggger.warning(
                     f"crawler.crawl_website: CrawlJob {audit_id} not found; "
                     f"recreating from task args (url={url}, user_id={user_id})"
                 )
@@ -128,7 +128,7 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                 if cfg.get("auto_analyze"):
                     await db.commit()
 
-                    logger.info(
+                    #loggger.info(
                         f"crawler.crawl_website: auto_analyze fired for "
                         f"audit_id={audit_id}, force={force}"
                     )
@@ -151,14 +151,14 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                         "audit_id": audit_id,
                     },
                 )
-                logger.info(
+                #loggger.info(
                     f"crawler.crawl_website: task succeeded for audit_id={audit_id}, "
                     f"pages_crawled={result.get('pages_crawled')}"
                 )
                 return result
             except Exception as exc:
                 await _mark_failed(db, crawl_uuid, str(exc))
-                logger.error(
+                #loggger.error(
                     f"crawler.crawl_website: task failed for audit_id={audit_id}: {exc}",
                     exc_info=True,
                 )

@@ -24,7 +24,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.shared.tasks.celery_app import celery_app
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
@@ -51,7 +51,11 @@ router = APIRouter()
     summary="Queue a Google Lighthouse/Pagespeed check",
     description=(
         "Creates a tracking CrawlJob (`check_id == CrawlJob.id`) and enqueues a "
-        "Celery task on the `lighthouse` queue."
+        "Celery task on the `lighthouse` queue. The task crawls the seed URL, "
+        "discovers internal pages, then runs the PageSpeed Insights (Lighthouse) "
+        "API concurrently per page. Returns immediately with `check_id`, "
+        "`task_id`, and `domain`. Poll `GET /lighthouse/status/{check_id}` for "
+        "progress and `GET /lighthouse/results/{check_id}` for results."
     ),
 )
 async def run_lighthouse_check(
@@ -65,7 +69,7 @@ async def run_lighthouse_check(
     4. Persist the Celery `task_id` back onto the job for correlation.
     5. Return 202 with check_id, task_id, domain, and poll/result URLs.
     """
-    logger.info(
+    #loggger.info(
         f"POST /lighthouse/check — url={body.url}, device={body.device}, "
         f"max_pages={body.max_pages}, category={body.effective_category}"
     )
@@ -74,7 +78,6 @@ async def run_lighthouse_check(
 
     # Phase: prepare (validate + create tracking CrawlJob).
     try:
-        print(f"========Preparing lighthouse check for url={body.url}, device={body.device}, max_pages={body.max_pages}, category={body.effective_category}")
         setup = await service.prepare_check(
             db=db,
             url=body.url,
@@ -86,13 +89,13 @@ async def run_lighthouse_check(
     except HTTPException:
         raise
     except ValueError as e:
-        logger.warning(f"Lighthouse check rejected — validation error: {e}")
+        #loggger.warning(f"Lighthouse check rejected — validation error: {e}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
         )
     except Exception as e:
-        logger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
+        #loggger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while preparing the lighthouse check",
@@ -104,8 +107,6 @@ async def run_lighthouse_check(
     # Redis operation — run it in a thread to avoid stalling the event loop,
     # mirroring POST /audit/analyze.
     try:
-        
-        print(f"========Enqueuing lighthouse check task for check_id={check_id}, url={setup['url']}, device={setup['device']}, max_pages={setup['max_pages']}, categories={setup['categories']}, pagespeed_concurrency={setup['pagespeed_concurrency']}")
         async_result = await asyncio.to_thread(
             celery_app.send_task,
             "lighthouse.run_check",
@@ -119,10 +120,10 @@ async def run_lighthouse_check(
                 "category": setup["categories"],
                 "pagespeed_concurrency": setup["pagespeed_concurrency"],
             },
-            queue="crawler",
+            queue="lighthouse",
         )
     except Exception as e:
-        logger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
+        #loggger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
         await service.mark_check_failed(UUID(check_id), f"enqueue_failed: {e}"[:1024])
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -130,10 +131,9 @@ async def run_lighthouse_check(
         )
 
     # Phase: record the task id for correlation.
-    print(f"========Recording task id for check_id={check_id}, task_id={async_result.id}")
     await service.record_task_id(db, check_id, async_result.id)
 
-    logger.info(
+    #loggger.info(
         f"Lighthouse check queued: check_id={check_id}, "
         f"task_id={async_result.id}, domain={setup['domain']}"
     )
@@ -169,7 +169,7 @@ async def get_lighthouse_status(
     db: AsyncSession = Depends(get_db),
 ):
     """Get the status + progress of a lighthouse check by check_id."""
-    logger.info(f"GET /lighthouse/status/{check_id}")
+    #loggger.info(f"GET /lighthouse/status/{check_id}")
 
     try:
         check_uuid = UUID(check_id)
@@ -256,7 +256,7 @@ async def get_lighthouse_status(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(
+        #loggger.error(
             f"GET /lighthouse/status/{check_id}: unexpected error - {e}",
             exc_info=True,
         )
@@ -278,7 +278,7 @@ async def get_lighthouse_status(
 )
 async def get_lighthouse_task_status(task_id: str) -> dict:
     """Poll the Celery task state for a lighthouse check."""
-    logger.info(f"GET /lighthouse/task/{task_id}")
+    #loggger.info(f"GET /lighthouse/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {"task_id": task_id, "state": async_result.state}
     if async_result.state == "PROGRESS":
@@ -343,7 +343,7 @@ async def get_lighthouse_results(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
+        #loggger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),

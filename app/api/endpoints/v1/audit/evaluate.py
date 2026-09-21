@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.schemas.analysis_schemas import (
     EvaluateTriggerRequest,
 )
@@ -49,7 +49,7 @@ async def evaluate_crawl(
     Raises:
         HTTPException 404: CrawlJob not found or no parsed facts.
     """
-    logger.info(f"POST /audit/evaluate/{audit_id}")
+    #loggger.info(f"POST /audit/evaluate/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -74,7 +74,7 @@ async def evaluate_crawl(
         evaluator = RuleEvaluatorService(db)
         result = await evaluator.evaluate_crawl(audit_id, force=force)
 
-        logger.info(
+        #loggger.info(
             f"POST /audit/evaluate/{audit_id} - "
             f"pages_evaluated={result['pages_evaluated']}, "
             f"total_results={result['total_results']}"
@@ -97,7 +97,7 @@ async def evaluate_crawl(
     except HTTPException:
         raise
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"POST /audit/evaluate/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )

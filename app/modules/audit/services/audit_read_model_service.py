@@ -65,7 +65,7 @@ from app.modules.rule_engine.models.rule_evidence_map import (
 )
 from app.modules.scorer.services.score_calculator import get_status
 
-logger = logging.getLogger(__name__)
+#loggger = logging.get#loggger(__name__)
 
 
 class AuditReadModelService:

@@ -22,7 +22,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.database import init_db, close_db
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 
 
 async def _prewarm_celery_broker():
@@ -50,14 +50,14 @@ async def _prewarm_celery_broker():
 
         # Cap at 15s so startup isn't delayed if Redis is unreachable
         await asyncio.wait_for(asyncio.to_thread(_warm), timeout=15.0)
-        logger.info("Celery broker connection pre-warmed successfully")
+        #loggger.info("Celery broker connection pre-warmed successfully")
     except asyncio.TimeoutError:
-        logger.warning(
+        #loggger.warning(
             "Celery broker pre-warm timed out after 15s "
             "(brokers may be down; first request may be slower)"
         )
     except Exception as exc:
-        logger.warning(
+        #loggger.warning(
             f"Celery broker pre-warm failed (will retry on first request): {exc}",
             exc_info=True,
         )
@@ -69,7 +69,7 @@ async def lifespan(app: FastAPI):
     try:
         await init_db()
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"init_db failed during lifespan: {exc}",
             exc_info=True,
         )
@@ -81,7 +81,7 @@ async def lifespan(app: FastAPI):
     try:
         await close_db()
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"close_db failed during lifespan shutdown: {exc}",
             exc_info=True,
         )
@@ -123,7 +123,7 @@ async def health_check():
             "timestamp": utc_now().isoformat(),
         }
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"Health check failed: {exc}",
             exc_info=True,
         )

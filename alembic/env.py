@@ -9,7 +9,7 @@ from alembic import context
 # Alembic Config object
 config = context.config
 
-# Set up loggers
+# Set up #logggers
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 

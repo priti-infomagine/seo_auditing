@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
 from app.core.database import get_db
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.crawl_errors import CrawlError
@@ -41,7 +41,7 @@ async def get_crawl_status(
     Raises:
         HTTPException: If crawl job not found
     """
-    logger.info(f"GET /crawler/status/{audit_id} - Status endpoint called")
+    #loggger.info(f"GET /crawler/status/{audit_id} - Status endpoint called")
     
     try:
         crawl_uuid = UUID(audit_id)
@@ -101,7 +101,7 @@ async def get_crawl_status(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error fetching crawl status for {audit_id}", exc_info=True)
+        #loggger.error(f"Error fetching crawl status for {audit_id}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while fetching crawl status"

@@ -10,7 +10,7 @@ from typing import List, Literal, Optional, Union
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.services.audit_read_model_service import AuditReadModelService
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
 from app.modules.audit.schemas.analysis_schemas import (
@@ -27,7 +27,7 @@ from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRu
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-# from app.modules.config.repositories.url_ignore_repository import UrlIgnorePatternRepository
+from app.modules.config.repositories.url_ignore_repository import UrlIgnorePatternRepository
 
 router = APIRouter()
 
@@ -59,7 +59,7 @@ async def get_analysis_result(
     db: AsyncSession = Depends(get_db),
 ) -> _AuditResultResponse:
     """Fetch the existing analysis result for an audit."""
-    logger.info(f"GET /audit/result/{audit_id} - format={format}")
+    #loggger.info(f"GET /audit/result/{audit_id} - format={format}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -90,7 +90,7 @@ async def get_analysis_result(
     except HTTPException:
         raise
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"GET /audit/result/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )
@@ -131,7 +131,7 @@ async def get_analysis_history(
     db: AsyncSession = Depends(get_db),
 ) -> PaginatedAnalyses:
     """Fetch analysis history."""
-    logger.info(f"GET /audit/history - limit={limit}, offset={offset}")
+    #loggger.info(f"GET /audit/history - limit={limit}, offset={offset}")
 
     try:
         analysis_repo = SeoAnalysisRunRepository(db)
@@ -168,7 +168,7 @@ async def get_analysis_history(
         )
 
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"GET /audit/history: unexpected error - {exc}",
             exc_info=True,
         )
@@ -203,7 +203,7 @@ async def get_pipeline_status(
     db: AsyncSession = Depends(get_db),
 ) -> PipelineStatusResponse:
     """Fetch the current status of all pipeline stages for an audit."""
-    logger.info(f"GET /audit/status/{audit_id}")
+    #loggger.info(f"GET /audit/status/{audit_id}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -266,7 +266,7 @@ async def get_pipeline_status(
     except HTTPException:
         raise
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"GET /audit/status/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )
@@ -287,7 +287,7 @@ async def get_pipeline_summary(
     db: AsyncSession = Depends(get_db),
 ) -> PipelineSummaryResponse:
     """Fetch comprehensive pipeline summary for an audit."""
-    logger.info(f"GET /audit/pipeline/{audit_id}")
+    #loggger.info(f"GET /audit/pipeline/{audit_id}")
 
     try:
         domain = None
@@ -346,7 +346,7 @@ async def get_pipeline_summary(
     except HTTPException:
         raise
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"GET /audit/pipeline/{audit_id}: unexpected error - {exc}",
             exc_info=True,
         )

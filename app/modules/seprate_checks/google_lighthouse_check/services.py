@@ -30,7 +30,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import async_session_factory
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
@@ -50,13 +50,8 @@ from app.modules.seprate_checks.google_lighthouse_check.validation import (
     validate_url,
 )
 from app.shared.utils.url_utils import get_domain, normalize_url
-# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
+from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 
-try:
-    from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
-except ImportError:
-    UrlIgnoreService = None
-    
 # Map PageSpeed category names to DB scope names
 _CATEGORY_TO_SCOPE = {
     "performance": "performance",
@@ -140,7 +135,7 @@ class LighthouseCheckService:
         await job_repo.create(job)
         await db.commit()
 
-        logger.info(
+        #loggger.info(
             f"LighthouseCheckService: prepared check_id={check_id}, domain={domain}, "
             f"device={device_enum.value}, max_pages={effective_max_pages}"
         )
@@ -160,12 +155,12 @@ class LighthouseCheckService:
         try:
             check_uuid = UUID(check_id)
         except (ValueError, TypeError):
-            logger.warning(f"record_task_id: invalid check_id={check_id!r}")
+            #loggger.warning(f"record_task_id: invalid check_id={check_id!r}")
             return
         job_repo = CrawlJobRepository(db)
         job = await job_repo.get_by_id(check_uuid)
         if job is None:
-            logger.warning(f"record_task_id: CrawlJob {check_id} not found")
+            #loggger.warning(f"record_task_id: CrawlJob {check_id} not found")
             return
         # crawl_config is a plain JSONB column (not Mutable), so in-place dict
         # mutations are not flushed — reassign a fresh dict via the helper.
@@ -204,7 +199,7 @@ class LighthouseCheckService:
         """
         Execute the full check inside a Celery worker.
 
-        Runs crawl ( 1) then parallel PageSpeed checks (Phase 2), persisting
+        Runs crawl (Phase 1) then parallel PageSpeed checks (Phase 2), persisting
         live progress to the DB so ``GET /lighthouse/status/{check_id}`` works
         even if the worker dies mid-run.
         """
@@ -220,23 +215,17 @@ class LighthouseCheckService:
         try:
             crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"LighthouseCheckService: crawl failed for check_id={check_id}: {exc}",
                 exc_info=True,
             )
             await self.mark_check_failed(check_id, str(exc)[:1024])
             if update_state:
-                update_state(
-                    state="FAILURE",
-                    meta={
-                        "check_id": str(check_id),
-                        "error": str(exc)[:255],
-                    },
-                )
+                update_state("FAILURE", {"check_id": str(check_id), "error": str(exc)[:255]})
             raise
 
         total = len(crawled_urls)
-        logger.info(
+        #loggger.info(
             f"LighthouseCheckService: crawl done for check_id={check_id}, "
             f"discovered {total} URLs — starting pagespeed phase"
         )
@@ -272,13 +261,13 @@ class LighthouseCheckService:
                         parsed["status"] = "success"
                         return target_url, parsed, None
                     except httpx.HTTPStatusError as e:
-                        logger.warning(
+                        #loggger.warning(
                             f"Pagespeed API error for {target_url}: "
                             f"status={e.response.status_code}"
                         )
                         return target_url, None, f"API error: {e.response.status_code}"
                     except Exception as e:
-                        logger.error(
+                        #loggger.error(
                             f"Pagespeed check failed for {target_url}: {e}", exc_info=True
                         )
                         return target_url, None, str(e)[:255]
@@ -317,8 +306,8 @@ class LighthouseCheckService:
                     await db.commit()
                     if update_state:
                         update_state(
-                            state="PROGRESS",
-                            meta={
+                            "PROGRESS",
+                            {
                                 "current": succeeded + failed,
                                 "total": total,
                                 "succeeded": succeeded,
@@ -334,7 +323,7 @@ class LighthouseCheckService:
                 await db.rollback()
                 await self.mark_check_failed(check_id, str(exc)[:1024])
                 if update_state:
-                    update_state(state="FAILURE", meta={"check_id": str(check_id), "error": str(exc)[:255]})
+                    update_state("FAILURE", {"check_id": str(check_id), "error": str(exc)[:255]})
                 raise
 
             # Finalize: mark the check completed.
@@ -356,8 +345,8 @@ class LighthouseCheckService:
 
             if update_state:
                 update_state(
-                    state="SUCCESS",
-                    meta={
+                    "SUCCESS",
+                    {
                         "total": total,
                         "succeeded": succeeded,
                         "failed": failed,
@@ -365,7 +354,7 @@ class LighthouseCheckService:
                     },
                 )
 
-            logger.info(
+            #loggger.info(
                 f"LighthouseCheckService: completed check_id={check_id}, "
                 f"total={total}, succeeded={succeeded}, failed={failed}"
             )
@@ -409,14 +398,7 @@ class LighthouseCheckService:
         ]
 
         # Load category-specific ignore patterns
-        ignore_service = UrlIgnoreService(db=None) if UrlIgnoreService else None
-        
-        logger.info(
-        "UrlIgnoreService resolved: %r, type=%r",
-        ignore_service,
-        type(ignore_service),
-    )
-        
+        ignore_service = UrlIgnoreService(db=None)
         async with async_session_factory() as db:
             if lighthouse_scopes:
                 await ignore_service.load_patterns(db, scopes=lighthouse_scopes)
@@ -485,7 +467,7 @@ class LighthouseCheckService:
             job_repo = CrawlJobRepository(db)
             job = await job_repo.get_by_id(check_id)
             if job is None:
-                logger.warning(f"_set_check_phase: CrawlJob {check_id} not found")
+                #loggger.warning(f"_set_check_phase: CrawlJob {check_id} not found")
                 return
             if status:
                 job.status = status

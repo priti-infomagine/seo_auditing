@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 from uuid import UUID
 
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.crawl_site_data import CrawlSiteData
@@ -34,7 +34,7 @@ from app.modules.crawler.services.redirect_service import RedirectService
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.services.robots_service import RobotsPolicy
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
-# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
+from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.types import DiscoveredURL
 from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
@@ -156,14 +156,14 @@ class CrawlOrchestrator:
         if respect_robots and site_result and site_result.robots.content:
             robots_policy = RobotsPolicy(site_result.robots.content)
             scheduler.set_robots_policy(robots_policy)
-            logger.info(
+            #loggger.info(
                 "Robots policy attached to scheduler for %s (sitemaps: %d)",
                 start_domain,
                 len(site_result.robots.sitemap_references),
             )
 
         scheduler.submit_seed(start_url)
-        logger.info(
+        #loggger.info(
             "Crawl started: %s (max_pages=%d, max_depth=%d)",
             start_url,
             self.config.max_pages,
@@ -177,7 +177,7 @@ class CrawlOrchestrator:
                 site_result.discovered_urls,
                 source_url=start_url,
             )
-            logger.info(
+            #loggger.info(
                 f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
                 f"(total discovered: {len(site_result.discovered_urls)})"
             )
@@ -245,7 +245,7 @@ class CrawlOrchestrator:
         url_diagnostics = scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
         
 
-        logger.info(
+        #loggger.info(
             "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",
             start_url,
             pages_crawled_count,
@@ -254,7 +254,7 @@ class CrawlOrchestrator:
             duration_ms,
         )
         if url_diagnostics:
-            logger.info("URL diagnostics: %s", url_diagnostics)
+            #loggger.info("URL diagnostics: %s", url_diagnostics)
 
         return {
             "status": "completed",
@@ -324,7 +324,7 @@ class CrawlOrchestrator:
                 url=item.normalized_url,
                 error=crawl_result.error,
             )
-            logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
+            #loggger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
             return False
 
         document = crawl_result.document
@@ -348,7 +348,7 @@ class CrawlOrchestrator:
             effective_host = urlparse(effective_url).hostname or ""
             current_base = self._scheduler.base_domain
             if current_base and not is_same_site(effective_host, current_base):
-                logger.warning(
+                #loggger.warning(
                     "Redirect to unrelated host %s — base domain stays %s",
                     effective_host,
                     current_base,
@@ -534,7 +534,7 @@ class CrawlOrchestrator:
         try:
             await self.persistence.update_progress(current_page, total)
         except Exception as exc:
-            logger.warning(f"_update_progress: {exc}", exc_info=True)
+            #loggger.warning(f"_update_progress: {exc}", exc_info=True)
         if self._progress_callback:
             self._progress_callback(current_page, total)
 
@@ -606,14 +606,14 @@ class CrawlOrchestrator:
                     parent_page_id=page_id,
                 )
                 if submitted:
-                    logger.debug(
+                    #loggger.debug(
                         "URL queued [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,
                         page_url,
                     )
                 else:
-                    logger.debug(
+                    #loggger.debug(
                         "URL rejected [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,

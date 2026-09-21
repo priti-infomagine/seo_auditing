@@ -9,7 +9,7 @@ from sqlalchemy import select
 
 from app.core.config import settings
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.reports.services.pdf_generator import render_audit_report_pdf
 from app.modules.reports.services.report_data_service import build_audit_report
 from app.shared.services.email_service import send_email_sync
@@ -39,7 +39,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
         audit_id: Audit identifier (== audit_id).
         to_email: Recipient email address.
     """
-    logger.info(
+    #loggger.info(
         f"reports.send_audit_report_email: task started for audit_id={audit_id}, to_email={to_email}"
     )
 
@@ -67,7 +67,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
         archive_path = OUTPUT_ROOT / domain / f"{audit_id}.pdf"
         archive_path.parent.mkdir(parents=True, exist_ok=True)
         archive_path.write_bytes(pdf_bytes)
-        logger.info(f"Report archived at {archive_path}")
+        #loggger.info(f"Report archived at {archive_path}")
 
         subject = f"SEO Audit Report — {report.url}"
         content = (
@@ -87,7 +87,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
             attachments=[(attachment_filename, pdf_bytes)],
         )
 
-        logger.info(
+        #loggger.info(
             f"reports.send_audit_report_email: successfully sent report email for audit_id={audit_id} to {to_email}"
         )
 
@@ -115,7 +115,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
                         existing.report_version = new_version
                         existing.delivered_to = emails
                         existing.delivered_at = utc_now().replace(tzinfo=None)
-                        logger.info(
+                        #loggger.info(
                             f"Updated SeoReport for audit_id={audit_id}, "
                             f"version={new_version}, delivered_to={emails}"
                         )
@@ -126,7 +126,7 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
                             delivered_to=[to_email],
                             delivered_at=utc_now().replace(tzinfo=None),
                         ))
-                        logger.info(
+                        #loggger.info(
                             f"Created SeoReport for audit_id={audit_id}, "
                             f"version=1, delivered_to=[{to_email}]"
                         )
@@ -137,12 +137,12 @@ def send_audit_report_email_task(audit_id: str, to_email: str) -> None:
         try:
             _record()
         except Exception as db_exc:
-            logger.error(
+            #loggger.error(
                 f"Error recording SeoReport for audit_id={audit_id}: {db_exc}",
                 exc_info=True,
             )
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"reports.send_audit_report_email: failed for audit_id={audit_id}, to_email={to_email}: {exc}",
             exc_info=True,
         )

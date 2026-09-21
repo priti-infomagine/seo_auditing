@@ -7,13 +7,13 @@ from typing import Awaitable, Callable, Dict, List, Optional, Set, Tuple
 from urllib.parse import urlparse
 from uuid import UUID
 
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.services.deduplication_service import DeduplicationService
 from app.modules.crawler.types import DiscoveredURL
 from app.modules.crawler.utils.url import normalize_url_canonical
 from app.modules.crawler.utils.url_classifier import UrlClassification, classify_url
-# from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
+from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.shared.utils.url_utils import normalize_host
 
 
@@ -52,7 +52,7 @@ class CrawlScheduler:
         config: CrawlConfig,
         worker_func: Callable[[DiscoveredURL], Awaitable[None]],
         base_domain: str = "",
-        # ignore_service: Optional[UrlIgnoreService] = None,
+        ignore_service: Optional[UrlIgnoreService] = None,
         audit_id: Optional[UUID] = None,
     ):
         self.config = config
@@ -136,7 +136,7 @@ class CrawlScheduler:
         else:
             self._diagnostics["non_html"] += 1
         if url:
-            logger.debug("URL rejected [%s]: %s", key, url)
+            #loggger.debug("URL rejected [%s]: %s", key, url)
 
     @staticmethod
     def _classification_to_diagnostic(classification: str) -> str:
@@ -327,7 +327,7 @@ class CrawlScheduler:
                     self.pages_failed_count += 1
             except Exception as e:
                 self.pages_failed_count += 1
-                logger.error(
+                #loggger.error(
                     f"Worker {worker_id}: error processing {item.normalized_url}: {e}",
                     exc_info=True,
                 )

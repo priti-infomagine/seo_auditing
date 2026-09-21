@@ -34,11 +34,9 @@ class LighthouseCheckRequest(BaseModel):
     )
     max_pages: Optional[int] = Field(
         None,
-        description=(
-            "Maximum number of pages to crawl and check. Defaults to 100 "
-            "when omitted."
-        ),
+        description="Cap on total pages to crawl and check",
     )
+
     @field_validator("url")
     @classmethod
     def _validate_url(cls, v: str) -> str:
