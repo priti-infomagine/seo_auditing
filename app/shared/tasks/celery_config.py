@@ -5,6 +5,9 @@ task_routes = {
     "crawler.*": {
         "queue": "crawler",
     },
+    "lighthouse.*": {
+        "queue": "crawler",
+    },
     "audit.*": {
         "queue": "audit",
     },

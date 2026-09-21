@@ -14,6 +14,7 @@ celery_app = Celery(
         "app.modules.crawler.tasks",
         "app.modules.audit.tasks",
         "app.modules.reports.tasks",
+        "app.modules.seprate_checks.google_lighthouse_check.tasks",
     ],
 )
 

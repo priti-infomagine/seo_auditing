@@ -11,6 +11,9 @@ from app.modules.chat.router import router as chat_router
 from app.modules.audit.api import audit_detail_router
 from app.modules.reports.router import router as reports_router
 from app.modules.payment.router import router as payment_router
+from app.modules.seprate_checks.google_lighthouse_check.router import (
+    router as lighthouse_router,
+)
 
 router = APIRouter()
 
@@ -25,5 +28,6 @@ router.include_router(config_router, prefix="/config/ignore-patterns", tags=["Co
 router.include_router(chat_router, prefix="/chat", tags=["Chat"])
 router.include_router(reports_router, prefix="/reports", tags=["Reports"])
 router.include_router(payment_router, prefix="/plans", tags=["Plans"])
+router.include_router(lighthouse_router, prefix="/lighthouse", tags=["Lighthouse"])
 
 __all__ = ["router"]

@@ -72,6 +72,11 @@ class CrawlJob(TimestampMixin, Base):
         nullable=False,
         default=0,
     )
+    pages_skipped: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        default=0,
+    )
     pages_failed: Mapped[int] = mapped_column(
         Integer,
         nullable=False,
