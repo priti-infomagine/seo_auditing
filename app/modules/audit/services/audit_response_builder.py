@@ -34,6 +34,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.datetime_utils import to_iso
 from app.core.logger import logger
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.crawler.repositories.page_link_repository import PageLinkRepository
 from app.modules.audit.repositories.parsed_page_fact_repository import (
     ParsedPageFactRepository,
 )
@@ -74,6 +75,7 @@ class AuditResponseBuilder:
         self.db = db
         self.crawl_job_repo = CrawlJobRepository(db)
         self.crawl_page_repo = CrawlPageRepository(db)
+        self.page_link_repo = PageLinkRepository(db)
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.seo_repo = PageSEODataRepository(db)
@@ -339,7 +341,7 @@ class AuditResponseBuilder:
         indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts, seo_map)
         performance = await self._build_performance(canonical_parsed_facts)
         structured_data = self._build_structured_data(canonical_parsed_facts)
-        links = await self._build_links(canonical_parsed_facts)
+        links = await self._build_links(canonical_parsed_facts, audit_id)
         images = self._build_images(canonical_parsed_facts)
         content = self._build_content(canonical_parsed_facts)
         external_deps = self._build_external_dependencies()
@@ -768,7 +770,7 @@ class AuditResponseBuilder:
         }
 
     # ------------------------------------------------------------------- links
-    async def _build_links(self, parsed_facts: List) -> Dict[str, Any]:
+    async def _build_links(self, parsed_facts: List, audit_id) -> Dict[str, Any]:
         internal = 0
         external = 0
         total = 0
@@ -776,7 +778,6 @@ class AuditResponseBuilder:
             parsed_data = fact.parsed_data or {}
             links = parsed_data.get("links") or {}
             if isinstance(links, dict):
-                # rule_evaluator stores a summary: {internal_count, external_count, total_links}
                 internal += int(links.get("internal_count", 0) or 0)
                 external += int(links.get("external_count", 0) or 0)
                 total += int(links.get("total_links", 0) or 0)
@@ -793,9 +794,20 @@ class AuditResponseBuilder:
                         external += 1
                     else:
                         internal += 1
+
+        broken_counts = await self.page_link_repo.get_broken_counts(audit_id)
+        broken_internal = broken_counts.get("broken_internal", 0)
+        broken_external = broken_counts.get("broken_external", 0)
+
         return {
-            "internal": {"total": internal, "broken": _unavailable("live_link_check_not_enabled")},
-            "external": {"total": external, "broken": _unavailable("live_link_check_not_enabled")},
+            "internal": {
+                "total": internal,
+                "broken": {"available": True, "value": broken_internal},
+            },
+            "external": {
+                "total": external,
+                "broken": {"available": True, "value": broken_external},
+            },
             "orphan_pages": _unavailable("link_graph_analysis_not_implemented"),
             "total_links": total,
         }

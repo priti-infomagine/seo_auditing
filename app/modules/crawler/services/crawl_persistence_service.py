@@ -318,6 +318,7 @@ class CrawlPersistenceService:
                 ugc=link.get("ugc", False),
                 sponsored=link.get("sponsored", False),
                 is_crawlable=link.get("is_internal", True),
+                target_status_code=link.get("target_status_code"),
             )
             for link in links
             if isinstance(link, dict)

@@ -232,6 +232,8 @@ class ScorerService:
         ic = ec = nc = 0
         il = []
         el = []
+        broken_internal = []
+        broken_external = []
         for link in links_list:
             if isinstance(link, dict):
                 is_ext = link.get('link_type') == 'external' or link.get('is_external', False)
@@ -243,7 +245,10 @@ class ScorerService:
                     il.append(link)
                 if link.get('nofollow') or link.get('is_nofollow'):
                     nc += 1
-        data['links'] = {'total_links': len(links_list), 'internal_count': ic, 'external_count': ec, 'nofollow_count': nc, 'internal_links': il, 'external_links': el}
+                status = link.get('target_status_code')
+                if status is not None and status >= 400:
+                    (broken_external if is_ext else broken_internal).append(link)
+        data['links'] = {'total_links': len(links_list), 'internal_count': ic, 'external_count': ec, 'nofollow_count': nc, 'internal_links': il, 'external_links': el, 'broken_internal': broken_internal, 'broken_external': broken_external, 'broken_link_data_available': bool(broken_internal or broken_external)}
 
         images_list = parsed_data.get('images', [])
         wa = 0

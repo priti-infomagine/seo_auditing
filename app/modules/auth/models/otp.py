@@ -3,7 +3,6 @@ OTP model.
 
 Stores one-time passwords for email verification.
 """
-
 import enum
 import uuid
 from datetime import datetime

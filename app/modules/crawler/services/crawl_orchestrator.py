@@ -34,6 +34,7 @@ from app.modules.crawler.services.redirect_service import RedirectService
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.crawler.services.robots_service import RobotsPolicy
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService
+from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.types import DiscoveredURL
 from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
@@ -57,6 +58,7 @@ class CrawlOrchestrator:
         self.event_bus = CrawlPipelineBus()
         self._scheduler: Optional[CrawlScheduler] = None
         self._progress_callback: Optional[callable] = None
+        self._ignore_service: Optional[UrlIgnoreService] = None
 
     async def run(
         self,
@@ -136,10 +138,17 @@ class CrawlOrchestrator:
                 )
             )
 
+        # Initialize ignore service and load global patterns
+        self._ignore_service = UrlIgnoreService(self.db)
+        if self.db:
+            await self._ignore_service.load_patterns(self.db, "global")
+
         scheduler = CrawlScheduler(
             config=self.config,
             worker_func=self._crawl_page,
             base_domain=start_domain,
+            ignore_service=self._ignore_service,
+            audit_id=self.crawl_job_id,
         )
         self._scheduler = scheduler
 
@@ -147,14 +156,14 @@ class CrawlOrchestrator:
         if respect_robots and site_result and site_result.robots.content:
             robots_policy = RobotsPolicy(site_result.robots.content)
             scheduler.set_robots_policy(robots_policy)
-            logger.info(
+            loggger.info(
                 "Robots policy attached to scheduler for %s (sitemaps: %d)",
                 start_domain,
                 len(site_result.robots.sitemap_references),
             )
 
         scheduler.submit_seed(start_url)
-        logger.info(
+        loggger.info(
             "Crawl started: %s (max_pages=%d, max_depth=%d)",
             start_url,
             self.config.max_pages,
@@ -168,7 +177,7 @@ class CrawlOrchestrator:
                 site_result.discovered_urls,
                 source_url=start_url,
             )
-            logger.info(
+            loggger.info(
                 f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
                 f"(total discovered: {len(site_result.discovered_urls)})"
             )
@@ -177,7 +186,23 @@ class CrawlOrchestrator:
             await scheduler.run()
         except Exception as exc:
             await self._mark_failed(str(exc))
-            return {"status": "failed", "audit_id": str(self.crawl_job_id)}
+            # Persist skip records even on failure
+            if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
+                for url, normalized_url, reason, scope in scheduler.skipped_urls:
+                    await self._ignore_service.log_skip(
+                        self.db,
+                        self.crawl_job_id,
+                        url,
+                        normalized_url,
+                        reason,
+                        scope,
+                    )
+                await self.db.commit()
+            return {
+                "status": "failed",
+                "audit_id": str(self.crawl_job_id),
+                "pages_skipped": getattr(scheduler, "pages_skipped_count", 0),
+            }
         finally:
             await self.persistence.flush_all()
             pages_crawled_count = scheduler.pages_crawled_count
@@ -189,7 +214,21 @@ class CrawlOrchestrator:
         if job:
             job.pages_crawled = pages_crawled_count
             job.pages_discovered = pages_discovered_count
+            job.pages_skipped = getattr(scheduler, "pages_skipped_count", 0)
             await self.job_repository.update(job)
+
+        # Persist skip records to DB
+        if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
+            for url, normalized_url, reason, scope in scheduler.skipped_urls:
+                await self._ignore_service.log_skip(
+                    self.db,
+                    self.crawl_job_id,
+                    url,
+                    normalized_url,
+                    reason,
+                    scope,
+                )
+            await self.db.commit()
 
         duration_ms = int((time.time() - start_time) * 1000)
         await self._mark_completed(duration_ms)
@@ -206,7 +245,7 @@ class CrawlOrchestrator:
         url_diagnostics = scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
         
 
-        logger.info(
+        loggger.info(
             "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",
             start_url,
             pages_crawled_count,
@@ -222,6 +261,7 @@ class CrawlOrchestrator:
             "audit_id": str(self.crawl_job_id),
             "pages_crawled": pages_crawled_count,
             "pages_discovered": pages_discovered_count,
+            "pages_skipped": getattr(scheduler, 'pages_skipped_count', 0),
             "pages_failed": getattr(scheduler, 'pages_failed_count', 0),
             "url_diagnostics": url_diagnostics,
         }
@@ -308,7 +348,7 @@ class CrawlOrchestrator:
             effective_host = urlparse(effective_url).hostname or ""
             current_base = self._scheduler.base_domain
             if current_base and not is_same_site(effective_host, current_base):
-                logger.warning(
+                loggger.warning(
                     "Redirect to unrelated host %s — base domain stays %s",
                     effective_host,
                     current_base,
@@ -566,14 +606,14 @@ class CrawlOrchestrator:
                     parent_page_id=page_id,
                 )
                 if submitted:
-                    logger.debug(
+                    loggger.debug(
                         "URL queued [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,
                         page_url,
                     )
                 else:
-                    logger.debug(
+                    loggger.debug(
                         "URL rejected [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,
