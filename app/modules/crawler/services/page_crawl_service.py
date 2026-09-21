@@ -13,7 +13,7 @@ from uuid import UUID
 from functools import partial
 import asyncio
 
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.extractors.document_extractor import create_document_facts, DocumentFacts
 from app.modules.crawler.fetchers.base import Fetcher
@@ -131,13 +131,13 @@ class PageCrawlService:
                         html_content = browser_result.content.decode("utf-8", errors="replace")
                         http_result = _merge_render_into_fetch(initial_fetch_result, browser_result)
                     else:
-                        logger.warning(
+                        #loggger.warning(
                             "Browser fallback failed for %s: %s",
                             normalized_url,
                             browser_result.error or "no content returned",
                         )
                 except Exception as browser_exc:
-                    logger.warning(
+                    #loggger.warning(
                         "Browser fallback exception for %s: %s",
                         normalized_url,
                         browser_exc,

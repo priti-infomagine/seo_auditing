@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional, Tuple
 from urllib.parse import urlparse
 
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 
 from .parser_service import ParserService
 
@@ -44,7 +44,7 @@ class ParseService:
             )
 
         actual_domain = crawl_file.parent.name
-        logger.info("Parsing crawl file: %s", crawl_file)
+        #loggger.info("Parsing crawl file: %s", crawl_file)
 
         crawl_data = self._load_json(crawl_file)
         html = crawl_data.get("html", "")
@@ -77,7 +77,7 @@ class ParseService:
 
         filepath, test_number = self._save_parsed_data(parsed_output, actual_domain)
 
-        logger.info("Parsing completed: %s", filepath)
+        #loggger.info("Parsing completed: %s", filepath)
 
         return {
             "success": True,

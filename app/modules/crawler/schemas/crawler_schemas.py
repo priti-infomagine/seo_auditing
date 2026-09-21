@@ -64,6 +64,7 @@ class CrawlStatusResponse(BaseModel):
     completed_at: str | None = Field(None, description="When crawl completed")
     duration_ms: int | None = Field(None, description="Crawl duration in milliseconds")
     pages_crawled: int = Field(0, description="Number of pages crawled")
+    pages_skipped: int = Field(0, description="Number of URLs skipped due to ignore patterns or runtime conditions")
     pages_discovered: int | None = Field(None, description="Total pages discovered")
     pages_failed: int = Field(0, description="Number of failed pages")
     total_pages: int | None = Field(None, description="Total pages configured to crawl")

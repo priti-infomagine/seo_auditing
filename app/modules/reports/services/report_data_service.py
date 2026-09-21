@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRunRepository
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
@@ -48,7 +48,7 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
     Raises:
         ValueError: If CrawlJob is not found.
     """
-    logger.info(f"build_audit_report: fetching data for audit_id={audit_id}")
+    #loggger.info(f"build_audit_report: fetching data for audit_id={audit_id}")
 
     job_repo = CrawlJobRepository(db)
     
@@ -109,7 +109,7 @@ async def build_audit_report(db: AsyncSession, audit_id: UUID) -> AuditReportRes
         check_results=check_results,
     )
 
-    logger.info(
+    #loggger.info(
         f"build_audit_report: successfully built report for audit_id={audit_id}, "
         f"score={report.overall_score.value if report.overall_score else 0}"
     )

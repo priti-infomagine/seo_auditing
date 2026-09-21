@@ -6,7 +6,7 @@ from celery.signals import worker_process_init, worker_process_shutdown
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import async_session_factory, engine
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 
 
 # Per-worker-process persistent event loop.
@@ -47,9 +47,9 @@ def _init_worker_loop(sender, **kwargs):
         # Best-effort: clear any connections inherited from the parent process.
         # Normally a no-op since the engine is lazy (no connections until first use).
         _worker_loop.run_until_complete(engine.dispose())
-        logger.info("Worker process initialized with persistent event loop (pid=%d)", os.getpid())
+        #loggger.info("Worker process initialized with persistent event loop (pid=%d)", os.getpid())
     except Exception as exc:
-        logger.error("Failed to initialize worker event loop: %s", exc, exc_info=True)
+        #loggger.error("Failed to initialize worker event loop: %s", exc, exc_info=True)
 
 
 @worker_process_shutdown.connect

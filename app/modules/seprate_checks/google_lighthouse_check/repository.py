@@ -7,7 +7,7 @@ Uses AsyncSession + sqlalchemy.select(), matching the codebase pattern
 from typing import Optional
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .model import LighthousePageResult, Device, PageStatus
@@ -39,6 +39,30 @@ class LighthousePageResultRepository:
             )
         )
         return list(result.scalars().all())
+
+    async def get_count_by_check_id(self, check_id: UUID) -> dict:
+        """Aggregate pagespeed result counts for a check.
+
+        Returns {"success": int, "failed": int, "skipped": int, "total": int}.
+        Used by the status endpoint to report live pagespeed progress without
+        loading every row.
+        """
+        result = await self.db.execute(
+            select(
+                LighthousePageResult.status,
+                func.count(LighthousePageResult.id),
+            )
+            .where(LighthousePageResult.check_id == check_id)
+            .group_by(LighthousePageResult.status)
+        )
+        counts = {status.value: 0 for status in PageStatus}
+        total = 0
+        for status_enum, count in result.all():
+            key = status_enum.value if hasattr(status_enum, "value") else status_enum
+            counts[key] = count
+            total += count
+        counts["total"] = total
+        return counts
 
     async def get_by_check_id_domain_url_device(
         self,

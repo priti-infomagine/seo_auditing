@@ -16,7 +16,7 @@ import os
 import sys
 from uuid import UUID
 
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
@@ -46,7 +46,7 @@ def parse_crawl(audit_id: str, force: bool = False) -> dict:
     Returns:
         Summary dict from DBParserService.parse_crawl()
     """
-    logger.info(
+    #loggger.info(
         f"audit.parse_crawl: task started for audit_id={audit_id}"
     )
 
@@ -60,12 +60,12 @@ def parse_crawl(audit_id: str, force: bool = False) -> dict:
 
     try:
         result = run_async(_run())
-        logger.info(
+        #loggger.info(
             f"audit.parse_crawl: task finished for audit_id={audit_id}"
         )
         return result
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"audit.parse_crawl: task failed for audit_id={audit_id}: {exc}",
             exc_info=True,
         )
@@ -94,7 +94,7 @@ def evaluate_rules(audit_id: str, force: bool = False) -> dict:
     Returns:
         Summary dict from RuleEvaluatorService.evaluate_crawl()
     """
-    logger.info(
+    #loggger.info(
         f"audit.evaluate_rules: task started for audit_id={audit_id}"
     )
 
@@ -108,12 +108,12 @@ def evaluate_rules(audit_id: str, force: bool = False) -> dict:
 
     try:
         result = run_async(_run())
-        logger.info(
+        #loggger.info(
             f"audit.evaluate_rules: task finished for audit_id={audit_id}"
         )
         return result
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"audit.evaluate_rules: task failed for audit_id={audit_id}: {exc}",
             exc_info=True,
         )
@@ -142,7 +142,7 @@ def score_project(audit_id: str, force: bool = False) -> dict:
     Returns:
         Dict from AnalysisScorerService.score_project()
     """
-    logger.info(
+    #loggger.info(
         f"audit.score_project: task started for audit_id={audit_id}"
     )
 
@@ -156,12 +156,12 @@ def score_project(audit_id: str, force: bool = False) -> dict:
 
     try:
         result = run_async(_run())
-        logger.info(
+        #loggger.info(
             f"audit.score_project: task finished for audit_id={audit_id}"
         )
         return result
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"audit.score_project: task failed for audit_id={audit_id}: {exc}",
             exc_info=True,
         )
@@ -197,7 +197,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     Returns:
         Dict with results from all three stages.
     """
-    logger.info(
+    #loggger.info(
         f"audit.run_analysis_pipeline: task started for audit_id={audit_id}"
     )
 
@@ -213,7 +213,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             state="PROGRESS",
             meta={"stage": "link_check", "audit_id": audit_id},
         )
-        logger.info(
+        #loggger.info(
             f"audit.run_analysis_pipeline: STAGE link_check starting "
             f"audit_id={audit_id}"
         )
@@ -223,12 +223,12 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                 checker = BrokenLinkChecker(db)
                 results["link_check"] = (await checker.check_links(UUID(audit_id))).to_dict()
                 await db.commit()
-            logger.info(
+            #loggger.info(
                 f"audit.run_analysis_pipeline: STAGE link_check finished "
                 f"audit_id={audit_id}"
             )
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"audit.run_analysis_pipeline: link_check stage failed: {exc}",
                 exc_info=True,
             )
@@ -239,7 +239,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             state="PROGRESS",
             meta={"stage": "parse", "audit_id": audit_id},
         )
-        logger.info(
+        #loggger.info(
             f"audit.run_analysis_pipeline: STAGE parse starting "
             f"audit_id={audit_id}, force={force}"
         )
@@ -250,12 +250,12 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                     UUID(audit_id), force=force
                 )
                 await db.commit()
-            logger.info(
+            #loggger.info(
                 f"audit.run_analysis_pipeline: STAGE parse finished "
                 f"audit_id={audit_id}"
             )
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"audit.run_analysis_pipeline: parse stage failed: {exc}",
                 exc_info=True,
             )
@@ -266,7 +266,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             state="PROGRESS",
             meta={"stage": "evaluate", "audit_id": audit_id},
         )
-        logger.info(
+        #loggger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
             f"audit_id={audit_id}, force={force}"
         )
@@ -277,12 +277,12 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                     UUID(audit_id), force=force
                 )
                 await db.commit()
-            logger.info(
+            #loggger.info(
                 f"audit.run_analysis_pipeline: STAGE evaluate finished "
                 f"audit_id={audit_id}"
             )
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"audit.run_analysis_pipeline: evaluate stage failed: {exc}",
                 exc_info=True,
             )
@@ -293,7 +293,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             state="PROGRESS",
             meta={"stage": "score", "audit_id": audit_id},
         )
-        logger.info(
+        #loggger.info(
             f"audit.run_analysis_pipeline: STAGE score starting "
             f"audit_id={audit_id}, force={force}"
         )
@@ -304,12 +304,12 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                     UUID(audit_id), force=force
                 )
                 await db.commit()
-            logger.info(
+            #loggger.info(
                 f"audit.run_analysis_pipeline: STAGE score finished "
                 f"audit_id={audit_id}"
             )
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"audit.run_analysis_pipeline: score stage failed: {exc}",
                 exc_info=True,
             )
@@ -320,13 +320,13 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
 
     try:
         result = run_async(_run())
-        logger.info(
+        #loggger.info(
             f"audit.run_analysis_pipeline: task finished for "
             f"audit_id={audit_id}"
         )
         return result
     except Exception as exc:
-        logger.error(
+        #loggger.error(
             f"audit.run_analysis_pipeline: pipeline failed for "
             f"audit_id={audit_id}: {exc}",
             exc_info=True,

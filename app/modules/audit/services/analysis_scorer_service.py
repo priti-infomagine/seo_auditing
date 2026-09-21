@@ -18,7 +18,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import to_iso, utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.models.seo_analysis_runs import SeoAnalysisRun
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRunRepository
@@ -58,7 +58,7 @@ class AnalysisScorerService:
             The unified audit response dict (see audit_response_schemas.UnifiedAuditResponse).
         """
         try:
-            logger.info(
+            #loggger.info(
                 f"AnalysisScorerService.score_project: audit_id={audit_id}, "
                 f"force={force}"
             )
@@ -115,7 +115,7 @@ class AnalysisScorerService:
 
             await self.analysis_repo.upsert(run)
 
-            logger.info(
+            #loggger.info(
                 f"AnalysisScorerService.score_project: "
                 f"score={overall}, grade={grade}, "
                 f"pages={unified['audit']['pages']['analyzed']}, "
@@ -127,7 +127,7 @@ class AnalysisScorerService:
         except ScoringError:
             raise
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"AnalysisScorerService.score_project: unhandled error "
                 f"for audit_id={audit_id}: {exc}",
                 exc_info=True,
@@ -168,7 +168,7 @@ class AnalysisScorerService:
             return str(filepath)
 
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"Failed to write output file for domain={domain}, audit_id={audit_id}: {exc}",
                 exc_info=True,
             )

@@ -19,7 +19,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import utc_now
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResult
@@ -32,6 +32,7 @@ from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.scorer.services.scorer_service import ScorerService
 from app.modules.scorer.services.base_rule import BaseRule
+from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
 from app.shared.exceptions import RuleEvaluationError
 
 
@@ -97,14 +98,14 @@ class RuleEvaluatorService:
             total_results, errors, evaluated_at.
         """
         try:
-            logger.info(
+            #loggger.info(
                 f"RuleEvaluatorService.evaluate_crawl: audit_id={audit_id}, force={force}"
             )
 
             parsed_facts = await self.parsed_fact_repo.get_by_audit_id(audit_id)
 
             if not parsed_facts:
-                logger.warning(
+                #loggger.warning(
                     f"RuleEvaluatorService.evaluate_crawl: no parsed facts for "
                     f"audit_id={audit_id}"
                 )
@@ -117,9 +118,33 @@ class RuleEvaluatorService:
                     "evaluated_at": utc_now().isoformat(),
                 }
 
+            # Load SEO category ignore patterns
+            ignore_service = UrlIgnoreService(self.db)
+            await ignore_service.load_patterns(self.db, scope="seo")
+
+            # Filter out URLs matching SEO ignore patterns
+            filtered_facts: List = []
+            pages_skipped = 0
+            for fact in parsed_facts:
+                is_ignored, reason, _ = ignore_service.check_url(fact.url, "seo")
+                if is_ignored:
+                    await ignore_service.log_skip(
+                        self.db, audit_id, fact.url, fact.url, reason, "seo"
+                    )
+                    pages_skipped += 1
+                else:
+                    filtered_facts.append(fact)
+
+            if pages_skipped:
+                await self.db.commit()
+                #loggger.info(
+                    f"RuleEvaluatorService.evaluate_crawl: skipped {pages_skipped} pages "
+                    f"matching SEO ignore patterns for audit_id={audit_id}"
+                )
+
             # --- Batch fetch everything needed for the evaluate stage (O(1) queries) ---
             # Replaces per-page rule-result / crawl-page / seo / network re-fetches (N+1).
-            page_ids = [f.page_id for f in parsed_facts]
+            page_ids = [f.page_id for f in filtered_facts]
             existing_ids = await self.rule_eval_repo.get_existing_page_ids(
                 audit_id, page_ids
             )
@@ -161,7 +186,7 @@ class RuleEvaluatorService:
                         )
                         return page_results, fact.page_id
                     except Exception as exc:
-                        logger.error(
+                        #loggger.error(
                             f"RuleEvaluatorService: evaluation failed for page_id={fact.page_id}: {exc}",
                             exc_info=True,
                         )
@@ -188,13 +213,13 @@ class RuleEvaluatorService:
                         return [error_result], fact.page_id
 
             # Run all pages concurrently with semaphore limiting concurrency
-            page_tasks = [evaluate_single_page(fact) for fact in parsed_facts]
+            page_tasks = [evaluate_single_page(fact) for fact in filtered_facts]
             page_results_list = await asyncio.gather(*page_tasks, return_exceptions=True)
 
             for result in page_results_list:
                 if isinstance(result, Exception):
                     # This shouldn't happen with our error handling, but just in case
-                    logger.error(
+                    #loggger.error(
                         f"RuleEvaluatorService: unhandled exception in page evaluation: {result}"
                     )
                     continue
@@ -211,15 +236,16 @@ class RuleEvaluatorService:
             if all_results:
                 await self.rule_eval_repo.bulk_upsert(all_results)
 
-            logger.info(
+            #loggger.info(
                 f"RuleEvaluatorService.evaluate_crawl: pages_evaluated={pages_evaluated}, "
                 f"rules_run={rules_run}, total_results={total_results}, "
-                f"errors={len(errors)} for audit_id={audit_id}"
+                f"pages_skipped={pages_skipped}, errors={len(errors)} for audit_id={audit_id}"
             )
 
             return {
                 "audit_id": str(audit_id),
                 "pages_evaluated": pages_evaluated,
+                "pages_skipped": pages_skipped,
                 "rules_run": rules_run,
                 "total_results": total_results,
                 "errors": errors,
@@ -227,7 +253,7 @@ class RuleEvaluatorService:
             }
 
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"RuleEvaluatorService.evaluate_crawl: unhandled error for audit_id={audit_id}: {exc}",
                 exc_info=True,
             )
@@ -298,7 +324,7 @@ class RuleEvaluatorService:
             return eval_results
 
         except Exception as exc:
-            logger.error(
+            #loggger.error(
                 f"RuleEvaluatorService.evaluate_page: error for page_id={page_id}: {exc}",
                 exc_info=True,
             )
@@ -325,7 +351,7 @@ class RuleEvaluatorService:
                     rule.evaluate(data), timeout=self.rule_timeout
                 )
                 duration_ms = int((asyncio.get_event_loop().time() - start) * 1000)
-                logger.info(
+                #loggger.info(
                     f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} duration_ms={duration_ms}"
                 )
                 # rule.evaluate returns a list of RuleResult; extend into single result
@@ -335,7 +361,7 @@ class RuleEvaluatorService:
                 # If no results, create a passed result (edge case)
                 return self._create_error_result(rule, page_id, "Rule returned no results")
             except asyncio.TimeoutError:
-                logger.warning(
+                #loggger.warning(
                     f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
                     f"timed out after {self.rule_timeout}s"
                 )
@@ -343,7 +369,7 @@ class RuleEvaluatorService:
                     rule, page_id, f"Rule evaluation timed out after {self.rule_timeout}s"
                 )
             except Exception as exc:
-                logger.error(
+                #loggger.error(
                     f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} failed: {exc}",
                     exc_info=True,
                 )
@@ -361,7 +387,7 @@ class RuleEvaluatorService:
             if isinstance(result, Exception):
                 # This shouldn't happen with our error handling, but just in case
                 rule = self.rules[i]
-                logger.error(
+                #loggger.error(
                     f"RuleEvaluatorService: rule={rule.rule_id} page_id={page_id} "
                     f"unhandled exception: {result}"
                 )
@@ -429,7 +455,7 @@ class RuleEvaluatorService:
                 # Flatten page_facts for quick access
                 data["_page_facts"] = fact.page_facts or {}
         except Exception as exc:
-            logger.debug(f"Could not load parsed facts for page_id={page_id}: {exc}")
+            #loggger.debug(f"Could not load parsed facts for page_id={page_id}: {exc}")
 
         try:
             # --- Crawl page (url info) ---
@@ -446,7 +472,7 @@ class RuleEvaluatorService:
                     "url": page.url or "",
                 }
         except Exception as exc:
-            logger.debug(f"Could not load crawl page for page_id={page_id}: {exc}")
+            #loggger.debug(f"Could not load crawl page for page_id={page_id}: {exc}")
 
         try:
             # --- SEO data (basic) ---
@@ -473,7 +499,7 @@ class RuleEvaluatorService:
                 }
                 data["seo"] = data["basic"].copy()
         except Exception as exc:
-            logger.debug(f"Could not load SEO data for page_id={page_id}: {exc}")
+            #loggger.debug(f"Could not load SEO data for page_id={page_id}: {exc}")
 
         try:
             # --- Network data ---
@@ -497,7 +523,7 @@ class RuleEvaluatorService:
                 if isinstance(data["technical"], dict):
                     data["technical"]["security"] = network_data.security or {}
         except Exception as exc:
-            logger.debug(f"Could not load network data for page_id={page_id}: {exc}")
+            #loggger.debug(f"Could not load network data for page_id={page_id}: {exc}")
 
         # Set defaults for remaining keys if not already populated
         data.setdefault("media", data.get("images", {}))

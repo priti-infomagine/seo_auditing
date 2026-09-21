@@ -70,8 +70,8 @@ async def init_db() -> None:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
     except Exception as exc:
-        from app.core.logger import logger
-        logger.error(f"init_db failed: {exc}", exc_info=True)
+        from app.core.#loggger import #loggger
+        #loggger.error(f"init_db failed: {exc}", exc_info=True)
         raise
 
 
@@ -80,6 +80,6 @@ async def close_db() -> None:
     try:
         await engine.dispose()
     except Exception as exc:
-        from app.core.logger import logger
-        logger.error(f"close_db failed: {exc}", exc_info=True)
+        from app.core.#loggger import #loggger
+        #loggger.error(f"close_db failed: {exc}", exc_info=True)
         raise

@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import asyncio
 
 from app.core.database import get_db
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.core.security import get_current_user
 from app.core.config import settings
 from app.modules.crawler.models.crawl_jobs import CrawlJob
@@ -51,7 +51,7 @@ async def crawl_url(
     Raises:
         HTTPException: If URL is invalid or user is not authenticated
     """
-    logger.info(f"POST /crawler/crawl - Queuing crawl for URL: {body.url}")
+    #loggger.info(f"POST /crawler/crawl - Queuing crawl for URL: {body.url}")
 
     try:
         url_str = str(body.url)
@@ -96,7 +96,7 @@ async def crawl_url(
             queue="crawler",
         )
 
-        logger.info(f"Crawl job queued: {crawl_job.id} for URL: {body.url}")
+        #loggger.info(f"Crawl job queued: {crawl_job.id} for URL: {body.url}")
 
         return CrawlResponse(
             audit_id=str(crawl_job.id),
@@ -106,13 +106,13 @@ async def crawl_url(
         )
 
     except ValueError as e:
-        logger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
+        #loggger.warning(f"Invalid URL provided: {body.url} - {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid URL: {str(e)}"
         )
     except Exception as e:
-        logger.error(f"Unexpected error queuing crawl for URL: {body.url}", exc_info=True)
+        #loggger.error(f"Unexpected error queuing crawl for URL: {body.url}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while queuing crawl job"

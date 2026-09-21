@@ -21,7 +21,7 @@ from urllib.parse import urljoin, urlparse
 
 import xml.etree.ElementTree as ET
 
-from app.core.logger import logger
+from app.core.#loggger import #loggger
 from app.shared.utils.http_client import HTTPClient
 from app.shared.utils.url_utils import get_domain
 
@@ -130,7 +130,7 @@ class SiteDiscoveryService:
 
         discovered_urls = discovered_urls[: self._max_total_page_urls]
 
-        logger.info(
+        #loggger.info(
             "Site discovery complete for %s: robots=%s, sitemaps=%d, page_urls=%d",
             self.base_url,
             robots.exists,
@@ -175,14 +175,14 @@ class SiteDiscoveryService:
                         match = re.match(r"sitemap:\s*(\S+)", line, re.IGNORECASE)
                         if match:
                             evidence.sitemap_references.append(match.group(1))
-                    logger.debug(
+                    #loggger.debug(
                         "Fetched robots.txt for %s: exists=%s, sitemaps=%d",
                         self.domain,
                         evidence.exists,
                         len(evidence.sitemap_references),
                     )
         except Exception:
-            logger.debug("Failed to fetch robots.txt for %s", self.domain)
+            #loggger.debug("Failed to fetch robots.txt for %s", self.domain)
 
         return evidence
 
@@ -228,7 +228,7 @@ class SiteDiscoveryService:
 
         for sitemap_url, result in zip(candidates_to_fetch, results):
             if isinstance(result, Exception):
-                logger.debug("Candidate fetch failed for %s: %s", sitemap_url, result)
+                #loggger.debug("Candidate fetch failed for %s: %s", sitemap_url, result)
                 continue
             if result.exists:
                 sitemaps.append(result)
@@ -260,12 +260,12 @@ class SiteDiscoveryService:
             if child_url in seen:
                 continue
             if depth > self._max_sitemap_index_depth:
-                logger.debug(
+                #loggger.debug(
                     "Sitemap index depth limit reached, skipping %s", child_url
                 )
                 continue
             if len(sitemaps) >= self._max_sitemap_files:
-                logger.debug(
+                #loggger.debug(
                     "Sitemap child limit (%d) reached, skipping %s",
                     self._max_sitemap_files,
                     child_url,
@@ -294,7 +294,7 @@ class SiteDiscoveryService:
 
         for child_url, child_evidence in zip(children_to_fetch, results):
             if isinstance(child_evidence, Exception):
-                logger.debug(
+                #loggger.debug(
                     "Child sitemap fetch failed for %s: %s", child_url, child_evidence
                 )
                 continue
@@ -305,7 +305,7 @@ class SiteDiscoveryService:
                         child_evidence, seen, depth=depth + 1, sitemaps=sitemaps
                     )
             if child_evidence.error:
-                logger.debug(
+                #loggger.debug(
                     "Sitemap child fetch failed for %s: %s",
                     child_url,
                     child_evidence.error,
@@ -333,7 +333,7 @@ class SiteDiscoveryService:
                             pass
                     text = content.decode("utf-8", errors="ignore")
                     self._parse_sitemap_xml(text, evidence, sitemap_url)
-                    logger.debug(
+                    #loggger.debug(
                         "Fetched sitemap %s: status=%d, urls=%d, child_sitemaps=%d, is_index=%s",
                         sitemap_url,
                         evidence.status_code,
@@ -343,7 +343,7 @@ class SiteDiscoveryService:
                     )
         except Exception as exc:
             evidence.error = str(exc)
-            logger.debug(
+            #loggger.debug(
                 "Sitemap fetch failed for %s: %s", sitemap_url, exc
             )
 

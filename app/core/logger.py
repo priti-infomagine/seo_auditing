@@ -19,9 +19,9 @@ formatter = logging.Formatter(
 file_handler.setFormatter(formatter)
 
 
-def setup_logger():
-    logger = logging.getLogger("app")
-    logger.setLevel(logging.INFO)
+def setup_#loggger():
+    #loggger = logging.get#loggger("app")
+    #loggger.setLevel(logging.INFO)
 
     formatter = logging.Formatter(
         "%(asctime)s | %(levelname)s | %(name)s | %(message)s",
@@ -31,10 +31,10 @@ def setup_logger():
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)
 
-    logger.addHandler(console_handler)
+    #loggger.addHandler(console_handler)
 
-    return logger
+    return #loggger
 
 
-logger = setup_logger()
-logger.addHandler(file_handler)
+#loggger = setup_#loggger()
+#loggger.addHandler(file_handler)
