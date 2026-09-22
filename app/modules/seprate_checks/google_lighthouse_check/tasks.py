@@ -87,7 +87,7 @@ def run_check(
             max_pages=max_pages,
             category=category,
             pagespeed_concurrency=pagespeed_concurrency,
-            update_state=self.update_state,
+            update_state=lambda state, meta=None: self.update_state(state=state, meta=meta),
         )
         return result
 

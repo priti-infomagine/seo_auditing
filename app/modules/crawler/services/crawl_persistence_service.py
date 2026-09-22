@@ -95,6 +95,7 @@ class CrawlPersistenceService:
         self,
         current_page: int,
         total_pages: Optional[int] = None,
+        pages_discovered: Optional[int] = None,
     ) -> None:
         """Update crawl job progress fields and report to subscribers."""
         try:
@@ -104,11 +105,16 @@ class CrawlPersistenceService:
             if total_pages is not None:
                 job.total_pages = total_pages
             job.current_page = current_page
+            job.pages_crawled = current_page
+            if pages_discovered is not None:
+                job.pages_discovered = pages_discovered
             if total_pages and total_pages > 0:
                 job.progress_percent = min(100, int((current_page / total_pages) * 100))
             else:
                 job.progress_percent = None
             await self.job_repo.update(job)
+            if self.db:
+                await self.db.commit()
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
 

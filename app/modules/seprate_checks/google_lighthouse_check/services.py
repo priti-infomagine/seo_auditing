@@ -220,8 +220,6 @@ class LighthouseCheckService:
                 exc_info=True,
             )
             await self.mark_check_failed(check_id, str(exc)[:1024])
-            if update_state:
-                update_state("FAILURE", {"check_id": str(check_id), "error": str(exc)[:255]})
             raise
 
         total = len(crawled_urls)
@@ -320,11 +318,9 @@ class LighthouseCheckService:
                 for t in tasks:
                     if not t.done():
                         t.cancel()
-                await db.rollback()
-                await self.mark_check_failed(check_id, str(exc)[:1024])
-                if update_state:
-                    update_state("FAILURE", {"check_id": str(check_id), "error": str(exc)[:255]})
-                raise
+                    await db.rollback()
+                    await self.mark_check_failed(check_id, str(exc)[:1024])
+                    raise
 
             # Finalize: mark the check completed.
             job = await job_repo.get_by_id(check_id)
@@ -342,17 +338,6 @@ class LighthouseCheckService:
                 )
                 await job_repo.update(job)
                 await db.commit()
-
-            if update_state:
-                update_state(
-                    "SUCCESS",
-                    {
-                        "total": total,
-                        "succeeded": succeeded,
-                        "failed": failed,
-                        "check_id": str(check_id),
-                    },
-                )
 
             logger.info(
                 f"LighthouseCheckService: completed check_id={check_id}, "
@@ -471,6 +456,8 @@ class LighthouseCheckService:
                 return
             if status:
                 job.status = status
+                if status == "crawling" and not job.started_at:
+                    job.started_at = utc_now()
             extra = dict(extra) if extra else {}
             if phase:
                 extra["phase"] = phase

@@ -156,14 +156,14 @@ class CrawlOrchestrator:
         if respect_robots and site_result and site_result.robots.content:
             robots_policy = RobotsPolicy(site_result.robots.content)
             scheduler.set_robots_policy(robots_policy)
-            loggger.info(
+            logger.info(
                 "Robots policy attached to scheduler for %s (sitemaps: %d)",
                 start_domain,
                 len(site_result.robots.sitemap_references),
             )
 
         scheduler.submit_seed(start_url)
-        loggger.info(
+        logger.info(
             "Crawl started: %s (max_pages=%d, max_depth=%d)",
             start_url,
             self.config.max_pages,
@@ -177,10 +177,11 @@ class CrawlOrchestrator:
                 site_result.discovered_urls,
                 source_url=start_url,
             )
-            loggger.info(
+            logger.info(
                 f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
                 f"(total discovered: {len(site_result.discovered_urls)})"
             )
+            await self._update_progress(0)
 
         try:
             await scheduler.run()
@@ -245,7 +246,7 @@ class CrawlOrchestrator:
         url_diagnostics = scheduler.url_diagnostics if hasattr(scheduler, "url_diagnostics") else {}
         
 
-        loggger.info(
+        logger.info(
             "Crawl completed: %s — pages_crawled=%d, pages_discovered=%d, pages_failed=%d, duration=%dms",
             start_url,
             pages_crawled_count,
@@ -348,7 +349,7 @@ class CrawlOrchestrator:
             effective_host = urlparse(effective_url).hostname or ""
             current_base = self._scheduler.base_domain
             if current_base and not is_same_site(effective_host, current_base):
-                loggger.warning(
+                logger.warning(
                     "Redirect to unrelated host %s — base domain stays %s",
                     effective_host,
                     current_base,
@@ -520,6 +521,7 @@ class CrawlOrchestrator:
             url=item.normalized_url,
             page_id=str(page.id),
         )
+        await self._update_progress(getattr(self._scheduler, "pages_crawled_count", 0) + 1)
 
 
     async def get_summary(self) -> Optional[dict]:
@@ -531,8 +533,12 @@ class CrawlOrchestrator:
     async def _update_progress(self, current_page: int) -> None:
         """Update CrawlJob progress fields and notify subscribers."""
         total = self.config.max_pages if self.config else None
+        discovered = getattr(self._scheduler, "pages_discovered_count", None)
         try:
-            await self.persistence.update_progress(current_page, total)
+            if discovered is not None:
+                await self.persistence.update_progress(current_page, total, pages_discovered=discovered)
+            else:
+                await self.persistence.update_progress(current_page, total)
         except Exception as exc:
             logger.warning(f"_update_progress: {exc}", exc_info=True)
         if self._progress_callback:
@@ -552,6 +558,8 @@ class CrawlOrchestrator:
             job.completed_at = utc_now()
             job.progress_percent = 100
             await self.job_repository.update(job)
+            if self.db:
+                await self.db.commit()
             if self._progress_callback:
                 self._progress_callback(
                     job.current_page or 0,
@@ -565,6 +573,8 @@ class CrawlOrchestrator:
                 job.started_at = utc_now()
             job.status = status
             await self.job_repository.update(job)
+            if self.db:
+                await self.db.commit()
 
     async def _finalize_status(self, status: str, duration_ms: int) -> None:
         job = await self.job_repository.get_by_id(self.crawl_job_id)
@@ -576,6 +586,8 @@ class CrawlOrchestrator:
             if job.total_pages:
                 job.current_page = job.total_pages
             await self.job_repository.update(job)
+            if self.db:
+                await self.db.commit()
             if self._progress_callback:
                 self._progress_callback(job.total_pages or 0, job.total_pages)
 
@@ -606,14 +618,14 @@ class CrawlOrchestrator:
                     parent_page_id=page_id,
                 )
                 if submitted:
-                    loggger.debug(
+                    logger.debug(
                         "URL queued [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,
                         page_url,
                     )
                 else:
-                    loggger.debug(
+                    logger.debug(
                         "URL rejected [html_link]: %s (depth=%d, source=%s)",
                         clean_url,
                         next_depth,

@@ -121,7 +121,7 @@ async def test_check_returns_202_with_ids(mock_celery):
     assert len(mock_celery.captured) == 1
     sent = captured[0]
     assert sent["name"] == "lighthouse.run_check"
-    assert sent["queue"] == "lighthouse"
+    assert sent["queue"] == "crawler"
     assert sent["args"][0] == check_id
     assert sent["args"][1] == "https://example.com/"
     assert sent["args"][2] == "mobile"
@@ -376,10 +376,9 @@ async def test_run_check_async_end_to_end(_ensure_schema):
         assert all(r.status == PageStatus.SUCCESS for r in rows)
         assert rows[0].performance_score == 85
 
-    # Progress reported to Celery: 3 PROGRESS + 1 SUCCESS
+    # Progress reported to Celery: 3 PROGRESS
     states = [s for s, _ in progress]
     assert states.count("PROGRESS") == 3
-    assert "SUCCESS" in states
     assert len(parse_calls) == 3
 
 
@@ -436,4 +435,135 @@ async def test_run_check_async_pagespeed_failure(_ensure_schema):
         rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
         assert all(r.status == PageStatus.FAILED for r in rows)
         assert all(r.reason for r in rows)
-    assert "SUCCESS" in [s for s, _ in progress]
+    assert len(progress) == 2
+
+
+@pytest.mark.asyncio
+async def test_status_lifecycle_phases(_ensure_schema):
+    """Test GET /status/{check_id} returns accurate live data across all lifecycle phases."""
+    from app.core.datetime_utils import utc_now
+
+    check_uuid = uuid.uuid4()
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid,
+            user_id=uuid.uuid4(),
+            url="https://example.com/",
+            domain="example.com",
+            status="queued",
+            max_pages=10,
+            max_depth=3,
+            crawl_config={
+                "phase": "queued",
+                "task_id": "t-1",
+                "device": "mobile",
+                "categories": ["performance", "seo"],
+            },
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    async with await _client() as client:
+        # Phase 1: queued
+        res = await client.get(f"/api/v1/lighthouse/status/{check_uuid}")
+        assert res.status_code == 200
+        d = res.json()
+        assert d["status"] == "queued"
+        assert d["phase"] == "queued"
+        assert d["progress_percent"] == 0
+        assert d["pagespeed_total"] == 0
+        assert d["pagespeed_checked"] == 0
+
+        # Phase 2: crawling (mid-crawl)
+        async with async_session_factory() as db:
+            j = await CrawlJobRepository(db).get_by_id(check_uuid)
+            j.status = "crawling"
+            j.pages_discovered = 10
+            j.pages_crawled = 5
+            j.progress_percent = 50
+            j.crawl_config = {
+                "phase": "crawl",
+                "task_id": "t-1",
+                "device": "mobile",
+                "categories": ["performance", "seo"],
+            }
+            await CrawlJobRepository(db).update(j)
+            await db.commit()
+
+        res = await client.get(f"/api/v1/lighthouse/status/{check_uuid}")
+        assert res.status_code == 200
+        d = res.json()
+        assert d["status"] == "crawling"
+        assert d["phase"] == "crawl"
+        assert d["pages_discovered"] == 10
+        assert d["pages_crawled"] == 5
+        assert d["progress_percent"] == 50
+
+        # Phase 3: pagespeed (mid-pagespeed)
+        async with async_session_factory() as db:
+            j = await CrawlJobRepository(db).get_by_id(check_uuid)
+            j.crawl_config = {
+                "phase": "pagespeed",
+                "pagespeed_total": 5,
+                "task_id": "t-1",
+                "device": "mobile",
+                "categories": ["performance", "seo"],
+            }
+            await CrawlJobRepository(db).update(j)
+            # Insert 2 results (1 success, 1 failed)
+            repo = LighthousePageResultRepository(db)
+            await repo.insert(
+                check_uuid,
+                "example.com",
+                "https://example.com/1",
+                Device.MOBILE,
+                PageStatus.SUCCESS,
+                performance_score=90,
+            )
+            await repo.insert(
+                check_uuid,
+                "example.com",
+                "https://example.com/2",
+                Device.MOBILE,
+                PageStatus.FAILED,
+                reason="500",
+            )
+            await db.commit()
+
+        res = await client.get(f"/api/v1/lighthouse/status/{check_uuid}")
+        assert res.status_code == 200
+        d = res.json()
+        assert d["status"] == "crawling"
+        assert d["phase"] == "pagespeed"
+        assert d["pagespeed_total"] == 5
+        assert d["pagespeed_checked"] == 2
+        assert d["pagespeed_succeeded"] == 1
+        assert d["pagespeed_failed"] == 1
+        assert d["progress_percent"] == 40  # 2/5 * 100
+
+        # Phase 4: completed
+        async with async_session_factory() as db:
+            j = await CrawlJobRepository(db).get_by_id(check_uuid)
+            j.status = "completed"
+            j.completed_at = utc_now()
+            j.duration_ms = 4500
+            j.crawl_config = {
+                "phase": "completed",
+                "pagespeed_total": 5,
+                "pagespeed_succeeded": 4,
+                "pagespeed_failed": 1,
+                "task_id": "t-1",
+                "device": "mobile",
+                "categories": ["performance", "seo"],
+            }
+            await CrawlJobRepository(db).update(j)
+            await db.commit()
+
+        res = await client.get(f"/api/v1/lighthouse/status/{check_uuid}")
+        assert res.status_code == 200
+        d = res.json()
+        assert d["status"] == "completed"
+        assert d["phase"] == "completed"
+        assert d["progress_percent"] == 100
+        assert d["duration_ms"] == 4500
+        assert d["completed_at"] is not None

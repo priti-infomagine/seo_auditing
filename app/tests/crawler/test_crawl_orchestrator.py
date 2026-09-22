@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests for the CrawlOrchestrator (app/modules/crawler/services/crawl_orchestrator.py).
 
 Two layers are covered:
@@ -74,7 +74,7 @@ class FakePersistence:
         self.progress_updates = []
         self.site_data = []
 
-    async def update_progress(self, current_page, total):
+    async def update_progress(self, current_page, total, *args, **kwargs):
         self.progress_updates.append((current_page, total))
 
     async def persist_site_data(self, data):
