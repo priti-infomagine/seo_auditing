@@ -276,7 +276,7 @@ class LighthouseCheckService:
                     done_url, parsed, err = await coro
                     if parsed:
                         succeeded += 1
-                        await results_repo.insert(
+                        await results_repo.upsert(
                             check_id=check_id,
                             domain=domain,
                             url=parsed["url"],
@@ -292,7 +292,7 @@ class LighthouseCheckService:
                         )
                     else:
                         failed += 1
-                        await results_repo.insert(
+                        await results_repo.upsert(
                             check_id=check_id,
                             domain=domain,
                             url=done_url,
