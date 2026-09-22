@@ -240,119 +240,136 @@ class LighthouseCheckService:
         succeeded = 0
         failed = 0
 
-        async with async_session_factory() as db:
-            results_repo = LighthousePageResultRepository(db)
-            job_repo = CrawlJobRepository(db)
+        try:
+            async with async_session_factory() as db:
+                results_repo = LighthousePageResultRepository(db)
+                job_repo = CrawlJobRepository(db)
 
-            semaphore = asyncio.Semaphore(pagespeed_concurrency)
-            strategy = device_enum.value
+                semaphore = asyncio.Semaphore(pagespeed_concurrency)
+                strategy = device_enum.value
 
-            async def _check_one(target_url: str) -> tuple[str, Optional[dict], Optional[str]]:
-                async with semaphore:
-                    try:
-                        raw = await self.pagespeed_client.fetch(
-                            url=target_url,
-                            strategy=strategy,
-                            category=categories,
-                        )
-                        parsed = PagespeedClient.parse_result(raw, target_url, strategy)
-                        parsed["status"] = "success"
-                        return target_url, parsed, None
-                    except httpx.HTTPStatusError as e:
-                        logger.warning(
-                            f"Pagespeed API error for {target_url}: "
-                            f"status={e.response.status_code}"
-                        )
-                        return target_url, None, f"API error: {e.response.status_code}"
-                    except Exception as e:
-                        logger.error(
-                            f"Pagespeed check failed for {target_url}: {e}", exc_info=True
-                        )
-                        return target_url, None, str(e)[:255]
+                async def _check_one(target_url: str) -> tuple[str, Optional[dict], Optional[str]]:
+                    async with semaphore:
+                        try:
+                            raw = await self.pagespeed_client.fetch(
+                                url=target_url,
+                                strategy=strategy,
+                                category=categories,
+                            )
+                            parsed = PagespeedClient.parse_result(raw, target_url, strategy)
+                            parsed["status"] = "success"
+                            return target_url, parsed, None
+                        except httpx.HTTPStatusError as e:
+                            error_detail = ""
+                            try:
+                                error_json = e.response.json()
+                                google_error = error_json.get("error", {})
+                                error_detail = (
+                                    google_error.get("message", "")
+                                    or e.response.text[:300]
+                                )
+                            except Exception:
+                                error_detail = e.response.text[:300] if e.response.text else str(e)
 
-            tasks = [asyncio.ensure_future(_check_one(u)) for u in crawled_urls]
-            try:
-                for coro in asyncio.as_completed(tasks):
-                    done_url, parsed, err = await coro
-                    if parsed:
-                        succeeded += 1
-                        await results_repo.upsert(
-                            check_id=check_id,
-                            domain=domain,
-                            url=parsed["url"],
-                            device=device_enum,
-                            status=PageStatus.SUCCESS,
-                            reason=None,
-                            performance_score=parsed.get("performance_score"),
-                            seo_score=parsed.get("seo_score"),
-                            fcp_ms=parsed.get("fcp_ms"),
-                            lcp_ms=parsed.get("lcp_ms"),
-                            tbt_ms=parsed.get("tbt_ms"),
-                            cls=parsed.get("cls"),
-                        )
-                    else:
-                        failed += 1
-                        await results_repo.upsert(
-                            check_id=check_id,
-                            domain=domain,
-                            url=done_url,
-                            device=device_enum,
-                            status=PageStatus.FAILED,
-                            reason=err,
-                        )
-                    # Commit each result so /status sees live progress.
-                    await db.commit()
-                    if update_state:
-                        update_state(
-                            "PROGRESS",
-                            {
-                                "current": succeeded + failed,
-                                "total": total,
-                                "succeeded": succeeded,
-                                "failed": failed,
-                                "phase": "pagespeed",
-                                "check_id": str(check_id),
-                            },
-                        )
-            except Exception as exc:
-                for t in tasks:
-                    if not t.done():
-                        t.cancel()
+                            logger.warning(
+                                f"Pagespeed API error for {target_url}: "
+                                f"status={e.response.status_code}, body={error_detail}"
+                            )
+                            return target_url, None, f"API error {e.response.status_code}: {error_detail}"
+                        except Exception as e:
+                            logger.error(
+                                f"Pagespeed check failed for {target_url}: {e}", exc_info=True
+                            )
+                            reason = str(e)[:255] if str(e) else e.__class__.__name__
+                            return target_url, None, reason
+
+                tasks = [asyncio.ensure_future(_check_one(u)) for u in crawled_urls]
+                try:
+                    for coro in asyncio.as_completed(tasks):
+                        done_url, parsed, err = await coro
+                        if parsed:
+                            succeeded += 1
+                            await results_repo.upsert(
+                                check_id=check_id,
+                                domain=domain,
+                                url=parsed["url"],
+                                device=device_enum,
+                                status=PageStatus.SUCCESS,
+                                reason=None,
+                                performance_score=parsed.get("performance_score"),
+                                seo_score=parsed.get("seo_score"),
+                                fcp_ms=parsed.get("fcp_ms"),
+                                lcp_ms=parsed.get("lcp_ms"),
+                                tbt_ms=parsed.get("tbt_ms"),
+                                cls=parsed.get("cls"),
+                            )
+                        else:
+                            failed += 1
+                            await results_repo.upsert(
+                                check_id=check_id,
+                                domain=domain,
+                                url=done_url,
+                                device=device_enum,
+                                status=PageStatus.FAILED,
+                                reason=err,
+                            )
+                        # Commit each result so /status sees live progress.
+                        await db.commit()
+                        if update_state:
+                            update_state(
+                                "PROGRESS",
+                                {
+                                    "current": succeeded + failed,
+                                    "total": total,
+                                    "succeeded": succeeded,
+                                    "failed": failed,
+                                    "phase": "pagespeed",
+                                    "check_id": str(check_id),
+                                },
+                            )
+                except Exception as exc:
+                    for t in tasks:
+                        if not t.done():
+                            t.cancel()
                     await db.rollback()
                     await self.mark_check_failed(check_id, str(exc)[:1024])
                     raise
 
-            # Finalize: mark the check completed.
-            job = await job_repo.get_by_id(check_id)
-            if job:
-                job.status = "completed"
-                job.completed_at = utc_now()
-                job.duration_ms = int((time.time() - start) * 1000)
-                self._mutate_crawl_config(
-                    job,
-                    {
-                        "phase": "completed",
-                        "pagespeed_succeeded": succeeded,
-                        "pagespeed_failed": failed,
-                    },
+                # Finalize: mark the check completed.
+                job = await job_repo.get_by_id(check_id)
+                if job:
+                    job.status = "completed"
+                    job.completed_at = utc_now()
+                    job.duration_ms = int((time.time() - start) * 1000)
+                    self._mutate_crawl_config(
+                        job,
+                        {
+                            "phase": "completed",
+                            "pagespeed_succeeded": succeeded,
+                            "pagespeed_failed": failed,
+                        },
+                    )
+                    await job_repo.update(job)
+                    await db.commit()
+
+                logger.info(
+                    f"LighthouseCheckService: completed check_id={check_id}, "
+                    f"total={total}, succeeded={succeeded}, failed={failed}"
                 )
-                await job_repo.update(job)
-                await db.commit()
 
-            logger.info(
-                f"LighthouseCheckService: completed check_id={check_id}, "
-                f"total={total}, succeeded={succeeded}, failed={failed}"
-            )
-
-            return {
-                "check_id": str(check_id),
-                "domain": domain,
-                "device": device,
-                "pagespeed_total": total,
-                "pagespeed_succeeded": succeeded,
-                "pagespeed_failed": failed,
-                "status": "completed",
-            }
+                return {
+                    "check_id": str(check_id),
+                    "domain": domain,
+                    "device": device,
+                    "pagespeed_total": total,
+                    "pagespeed_succeeded": succeeded,
+                    "pagespeed_failed": failed,
+                    "status": "completed",
+                }
+        finally:
+            # Close the pooled httpx client to release sockets / connections.
+            # This runs whether the pagespeed phase succeeded, failed, or raised.
+            await self.pagespeed_client.close()
 
     # ── Crawl + collect URLs (Phase 1) ───────────────────────────────────
 
@@ -433,6 +450,15 @@ class LighthouseCheckService:
                 valid_urls.remove(seed_norm)
                 valid_urls.insert(0, seed_norm)
 
+            if len(valid_urls) > max_pages:
+                skipped = len(valid_urls) - max_pages
+                logger.info(
+                    f"LighthouseCheckService: max_pages cap — "
+                    f"truncating {len(valid_urls)} discovered URLs to {max_pages} "
+                    f"(skipped {skipped} from pagespeed check)"
+                )
+                valid_urls = valid_urls[:max_pages]
+
             return valid_urls
 
     # ── Phase/status helpers ─────────────────────────────────────────────
@@ -458,6 +484,11 @@ class LighthouseCheckService:
                 job.status = status
                 if status == "crawling" and not job.started_at:
                     job.started_at = utc_now()
+                # Clear stale completed_at from the crawl phase so the status
+                # endpoint doesn't report contradictory state
+                # (status: "crawling" + completed_at: timestamp + progress: 80%).
+                if status == "crawling" and job.completed_at is not None:
+                    job.completed_at = None
             extra = dict(extra) if extra else {}
             if phase:
                 extra["phase"] = phase

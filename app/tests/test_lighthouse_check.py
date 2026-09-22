@@ -11,9 +11,12 @@ from __future__ import annotations
 
 import uuid
 from types import SimpleNamespace
+from unittest.mock import AsyncMock, MagicMock
 
+import httpx
 import pytest
 
+from app.core.datetime_utils import utc_now
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
@@ -566,4 +569,295 @@ async def test_status_lifecycle_phases(_ensure_schema):
         assert d["phase"] == "completed"
         assert d["progress_percent"] == 100
         assert d["duration_ms"] == 4500
-        assert d["completed_at"] is not None
+    assert d["completed_at"] is not None
+
+
+# ── New tests for max_pages cap, error body capture, and pooled client ──────
+
+
+@pytest.mark.asyncio
+async def test_max_pages_cap_truncates_crawl_overshoot(_ensure_schema):
+    """Crawl scheduler can overshoot max_pages due to worker concurrency race.
+    The defensive [:max_pages] slice in _crawl_and_collect must truncate to
+    exactly max_pages so pagespeed_total is correct."""
+    from unittest.mock import patch, AsyncMock as _AsyncMock
+    from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+    from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
+    from app.modules.crawler.models.crawl_pages import CrawlPage
+
+    check_uuid = uuid.uuid4()
+
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid, user_id=uuid.uuid4(),
+            url="https://example.com/", domain="example.com",
+            status="queued", max_pages=4, max_depth=3,
+            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+                          "categories": ["performance"]},
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    service = LighthouseCheckService()
+    # Simulate crawl overshooting: 5 pages in the DB when max_pages=4
+    fake_page_urls = [f"https://example.com/p{i}" for i in range(5)]
+
+    fake_pages = [
+        CrawlPage(
+            audit_id=check_uuid,
+            url=u,
+            normalized_url=u,
+            url_hash="hash",
+            scheme="https",
+            host="example.com",
+            path="/p0",
+            status_code=200,
+            is_crawled=True,
+            is_success=True,
+        )
+        for u in fake_page_urls
+    ]
+    # Insert the seed URL first so it gets priority
+    seed_page = CrawlPage(
+        audit_id=check_uuid,
+        url="https://example.com/",
+        normalized_url="https://example.com/",
+        url_hash="seed_hash",
+        scheme="https",
+        host="example.com",
+        path="/",
+        status_code=200,
+        is_crawled=True,
+        is_success=True,
+    )
+    fake_pages.insert(0, seed_page)
+
+    with patch.object(CrawlOrchestrator, "run", new_callable=_AsyncMock) as mock_run:
+        service.pagespeed_client.fetch = _AsyncMock(return_value={"lighthouseResult": {"categories": {}, "audits": {}}})
+        PagespeedClient.parse_result = staticmethod(
+            lambda raw, url, device: {"url": url, "device": device, "performance_score": 85, "seo_score": 90}
+        )
+
+        # Patch CrawlPageRepository.get_by_audit_id to return the fake pages
+        with patch.object(
+            CrawlPageRepository,
+            "get_by_audit_id",
+            new_callable=_AsyncMock,
+            return_value=fake_pages,
+        ):
+            result = await service.run_check_async(
+                check_id=check_uuid, url="https://example.com/",
+                device="mobile", max_pages=4, pagespeed_concurrency=5,
+            )
+
+    assert result["pagespeed_total"] == 4   # capped at 4, not 5
+    assert result["pagespeed_succeeded"] == 4
+    assert result["pagespeed_failed"] == 0
+
+    async with async_session_factory() as db:
+        counts = await LighthousePageResultRepository(db).get_count_by_check_id(check_uuid)
+        assert counts["total"] == 4
+        assert counts["success"] == 4
+
+
+@pytest.mark.asyncio
+async def test_no_truncation_when_under_max_pages(_ensure_schema):
+    """When crawl returns fewer URLs than max_pages, no truncation occurs."""
+    check_uuid = uuid.uuid4()
+
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid, user_id=uuid.uuid4(),
+            url="https://example.com/", domain="example.com",
+            status="queued", max_pages=10, max_depth=3,
+            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+                          "categories": ["performance"]},
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    service = LighthouseCheckService()
+    fake_urls = ["https://example.com/", "https://example.com/a"]
+
+    async def fake_crawl(cid, url, max_pages, categories):
+        return list(fake_urls)
+
+    service._crawl_and_collect = fake_crawl
+    service.pagespeed_client.fetch = AsyncMock(return_value={"lighthouseResult": {"categories": {}, "audits": {}}})
+    PagespeedClient.parse_result = staticmethod(
+        lambda raw, url, device: {"url": url, "device": device}
+    )
+
+    result = await service.run_check_async(
+        check_id=check_uuid, url="https://example.com/",
+        device="mobile", max_pages=10, pagespeed_concurrency=2,
+    )
+
+    assert result["pagespeed_total"] == 2  # not truncated
+    assert result["pagespeed_succeeded"] == 2
+
+
+@pytest.mark.asyncio
+async def test_error_body_captured_from_http_status_error(_ensure_schema):
+    """When PageSpeed returns an HTTP error with a JSON body,
+    the reason stored in the DB should contain Google's actual error message,
+    not just the status code."""
+    import json
+    check_uuid = uuid.uuid4()
+
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid, user_id=uuid.uuid4(),
+            url="https://example.com/", domain="example.com",
+            status="queued", max_pages=10, max_depth=3,
+            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+                          "categories": ["performance"]},
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    service = LighthouseCheckService()
+    fake_urls = ["https://example.com/"]
+
+    async def fake_crawl(cid, url, max_pages, categories):
+        return list(fake_urls)
+
+    service._crawl_and_collect = fake_crawl
+
+    # Simulate Google returning a 400 with a JSON error body
+    error_body = json.dumps({
+        "error": {
+            "code": 400,
+            "message": "API key not valid. Please pass a valid API key.",
+            "status": "INVALID_ARGUMENT",
+        }
+    })
+    mock_response = MagicMock()
+    mock_response.status_code = 400
+    mock_response.text = error_body
+    mock_response.json = MagicMock(return_value=json.loads(error_body))
+    mock_response.reason_phrase = "Bad Request"
+
+    http_error = httpx.HTTPStatusError(
+        "Client error", request=MagicMock(), response=mock_response
+    )
+
+    async def failing_fetch(url, strategy=None, category=None):
+        raise http_error
+
+    service.pagespeed_client.fetch = failing_fetch
+
+    result = await service.run_check_async(
+        check_id=check_uuid, url="https://example.com/",
+        device="mobile", max_pages=10, pagespeed_concurrency=2,
+    )
+
+    assert result["pagespeed_succeeded"] == 0
+    assert result["pagespeed_failed"] == 1
+
+    async with async_session_factory() as db:
+        rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
+        assert len(rows) == 1
+        assert rows[0].status == PageStatus.FAILED
+        # The reason should contain Google's actual error message
+        assert "API key not valid" in rows[0].reason
+        assert "400" in rows[0].reason
+
+
+@pytest.mark.asyncio
+async def test_empty_exception_reason_falls_back_to_class_name(_ensure_schema):
+    """When an exception has an empty str(e), the reason should fall back
+    to the exception class name so it's never blank."""
+    check_uuid = uuid.uuid4()
+
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid, user_id=uuid.uuid4(),
+            url="https://example.com/", domain="example.com",
+            status="queued", max_pages=10, max_depth=3,
+            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+                          "categories": ["performance"]},
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    service = LighthouseCheckService()
+    fake_urls = ["https://example.com/"]
+
+    async def fake_crawl(cid, url, max_pages, categories):
+        return list(fake_urls)
+
+    service._crawl_and_collect = fake_crawl
+
+    class EmptyException(Exception):
+        def __str__(self):
+            return ""
+
+    async def failing_fetch(url, strategy=None, category=None):
+        raise EmptyException()
+
+    service.pagespeed_client.fetch = failing_fetch
+
+    result = await service.run_check_async(
+        check_id=check_uuid, url="https://example.com/",
+        device="mobile", max_pages=10, pagespeed_concurrency=2,
+    )
+
+    assert result["pagespeed_failed"] == 1
+
+    async with async_session_factory() as db:
+        rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
+        assert len(rows) == 1
+        assert rows[0].status == PageStatus.FAILED
+        assert rows[0].reason  # non-empty
+        assert "EmptyException" in rows[0].reason
+
+
+@pytest.mark.asyncio
+async def test_pooled_client_reused_across_fetches():
+    """PagespeedClient should create a single httpx.AsyncClient instance
+    and reuse it across multiple fetch() calls."""
+    from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
+        PagespeedClient,
+    )
+
+    client = PagespeedClient(api_key="test-key")
+
+    c1 = client._get_client()
+    c2 = client._get_client()
+    assert c1 is c2  # same instance, not a new client
+
+    await client.close()
+    assert client._client is None  # closed and cleared
+
+    c3 = client._get_client()
+    assert c3 is not None
+    assert c3 is not c1  # new client after close
+
+    await client.close()
+
+
+@pytest.mark.asyncio
+async def test_stale_completed_at_cleared_when_reopening(_ensure_schema):
+    """When _set_check_phase re-opens a job from 'completed' → 'crawling',
+    completed_at should be cleared to avoid contradictory status."""
+    check_uuid = uuid.uuid4()
+
+    async with async_session_factory() as db:
+        job = CrawlJob(
+            id=check_uuid, user_id=uuid.uuid4(),
+            url="https://example.com/", domain="example.com",
+            status="completed", max_pages=10, max_depth=3,
+            crawl_config={"phase": "completed", "task_id": "t-1", "device": "mobile"},
+            completed_at=utc_now(),
+        )
+        await CrawlJobRepository(db).create(job)
+        await db.commit()
+
+    service = LighthouseCheckService()
+    await service._set_check_phase(check_uuid, status="crawling", phase="pagespeed")
+
+    async with async_session_factory() as db:
+        job = await CrawlJobRepository(db).get_by_id(check_uuid)
+        assert job.status == "crawling"
+        assert job.completed_at is None  # cleared!

@@ -233,6 +233,8 @@ async def get_pipeline_status(
         if run:
             score_status = run.analysis_status or "missing"
             overall_score = float(run.overall_score) if run.overall_score else None
+            print(f"-------------{audit_id} run.overall_score: {run.overall_score}, overall_score: {overall_score}")
+            print(f"-------------{audit_id} run.score  {run.category_scores}")
             grade = run.grade
             output_file_path = run.output_file_path
 

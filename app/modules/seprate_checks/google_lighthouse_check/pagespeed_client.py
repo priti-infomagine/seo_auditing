@@ -18,6 +18,39 @@ class PagespeedClient:
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or settings.GOOGLE_PAGESPEED_API_KEY
+        self._client: Optional[httpx.AsyncClient] = None
+
+    def _get_client(self) -> httpx.AsyncClient:
+        """Lazily create a shared, connection-pooled httpx client.
+
+        Reuses a single client across all fetch() calls to avoid
+        socket exhaustion (WinError 10055) from creating a new client
+        per request. Connection limits prevent unbounded socket growth.
+        """
+        if self._client is None or self._client.is_closed:
+            self._client = httpx.AsyncClient(
+                timeout=120.0,
+                limits=httpx.Limits(
+                    max_keepalive_connections=5,
+                    max_connections=10,
+                    keepalive_expiry=60,
+                ),
+            )
+            logger.debug("PagespeedClient: created pooled httpx.AsyncClient")
+        return self._client
+
+    async def close(self) -> None:
+        """Close the underlying pooled client. Call after the pagespeed batch."""
+        if self._client and not self._client.is_closed:
+            await self._client.aclose()
+            logger.debug("PagespeedClient: closed pooled client")
+            self._client = None
+
+    async def __aenter__(self) -> "PagespeedClient":
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
+        await self.close()
 
     async def fetch(
         self,
@@ -53,10 +86,10 @@ class PagespeedClient:
             "category": category,
         }
 
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            resp = await client.get(self.BASE_URL, params=params)
-            resp.raise_for_status()
-            return resp.json()
+        client = self._get_client()
+        resp = await client.get(self.BASE_URL, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     @staticmethod
     def parse_result(raw: dict, url: str, device: str) -> dict:

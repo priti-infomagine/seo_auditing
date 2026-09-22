@@ -91,8 +91,8 @@ class AnalysisScorerService:
                     + unified["summary"]["issues"]["medium"]
                     + unified["summary"]["issues"]["low"]
                 ),
-                error_pages=len({e.get("page_id") for e in unified["audit"]["errors"] if e.get("page_id")}),
-                error_summary={"errors": unified["audit"]["errors"]} if unified["audit"]["errors"] else None,
+                error_pages=len({e.get("page_id") for e in unified.get("audit", {}).get("errors", []) if e.get("page_id")}),
+                error_summary={"errors": unified.get("audit", {}).get("errors", [])} if unified.get("audit", {}).get("errors") else None,
                 category_scores={
                     "tier_counts": {
                         "critical": unified["summary"]["issues"]["critical"],
