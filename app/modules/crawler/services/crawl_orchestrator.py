@@ -16,6 +16,7 @@ from typing import Optional
 from urllib.parse import urlparse
 from uuid import UUID
 
+from app.core.database import async_session_factory
 from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
@@ -315,11 +316,19 @@ class CrawlOrchestrator:
         )
 
         if crawl_result.error:
-            await self.persistence.persist_error(
-                page_id=item.parent_page_id,
-                error_type=crawl_result.error_type or "crawl_error",
-                error_message=crawl_result.error,
-            )
+            async with async_session_factory() as worker_db:
+                logger.debug(
+                    "Crawler worker session: url=%s session=%s",
+                    item.normalized_url[:80],
+                    id(worker_db),
+                )
+                worker_persistence = self._create_worker_persistence(worker_db)
+                await worker_persistence.persist_error(
+                    page_id=item.parent_page_id,
+                    error_type=crawl_result.error_type or "crawl_error",
+                    error_message=crawl_result.error,
+                )
+                await worker_db.commit()
             await self.event_bus.emit(
                 CrawlPipelineEvent.PAGE_ERROR,
                 url=item.normalized_url,
@@ -423,105 +432,124 @@ class CrawlOrchestrator:
             is_redirect=len(redirect_chain) > 0,
             is_error=technical_result.status_code >= 400,
         )
-        page = await self.persistence.persist_page(page)
-
-        await self.persistence.persist_snapshot(
-            page.id,
-            document.raw_html,
-            parsed_data=parsed.model_dump(mode="json"),
-        )
-
-        await self.persistence.buffer_network(
-            network_data=PageNetworkData(
-                page_id=page.id,
-                status_code=technical_result.status_code,
-                content_type=technical_result.content_type,
-                content_length=technical_result.content_length,
-                response_time_ms=technical_result.response_time_ms,
-                headers=technical_result.headers,
-                redirects=technical_result.redirects,
-                security=technical_result.security,
-                performance=technical_result.performance,
+        # ---- Persist: each page gets its own session so concurrent
+        # workers never share an AsyncSession ----
+        async with async_session_factory() as worker_db:
+            logger.debug(
+                "Crawler worker session: url=%s session=%s",
+                item.normalized_url[:80],
+                id(worker_db),
             )
-        )
+            worker_persistence = self._create_worker_persistence(worker_db)
+            redirect_service = RedirectService(worker_db, page.id)
 
-        page_metadata = {
-            "title": page_facts.metadata.title,
-            "meta_description": page_facts.metadata.meta_description,
-            "canonical": page_facts.metadata.canonical,
-            "robots_meta": page_facts.metadata.robots_meta,
-            "googlebot": page_facts.metadata.googlebot,
-            "viewport": page_facts.metadata.viewport,
-            "charset": page_facts.metadata.charset,
-            "favicon": page_facts.metadata.favicon,
-            "open_graph": page_facts.metadata.open_graph or {},
-            "twitter": page_facts.metadata.twitter or {},
-            "hreflang": [
-                {"url": h.get("url", ""), "hreflang": h.get("hreflang", "")}
-                for h in (page_facts.metadata.hreflang or [])
-            ],
-        }
+            page = await worker_persistence.persist_page(page)
 
-        await self.persistence.buffer_seo(
-            seo_data=PageSEOData(
-                page_id=page.id,
-                title=page_facts.metadata.title,
-                title_length=page_facts.metadata.title_length,
-                meta_description=page_facts.metadata.meta_description,
-                meta_description_length=page_facts.metadata.meta_description_length,
-                canonical=page_facts.metadata.canonical,
-                robots_meta=page_facts.metadata.robots_meta,
-                language=document.language,
-                charset=page_facts.metadata.charset or document.charset,
-                viewport=page_facts.metadata.viewport,
-                favicon=page_facts.metadata.favicon,
-                word_count=page_facts.content.word_count,
-                content_hash=page_facts.content.content_hash,
-                headings=page_facts.content.headings,
-                content={
-                    "text": page_facts.content.text,
-                    "word_count": page_facts.content.word_count,
-                    "character_count": len(page_facts.content.text),
-                    "paragraph_count": page_facts.content.paragraph_count,
-                    "sentence_count": page_facts.content.sentence_count,
-                    "language": document.language,
-                    "content_hash": page_facts.content.content_hash,
-                },
-                structured_data={
-                    "exists": len(technical_result.json_ld) > 0,
-                    "items": technical_result.json_ld,
-                    "types": [item.get("type") for item in technical_result.json_ld],
-                },
-                social={
-                    "open_graph": page_facts.metadata.open_graph,
-                    "twitter": page_facts.metadata.twitter,
-                },
-                indexability={
-                    "robots_meta": page_facts.metadata.robots_meta,
-                    "canonical": page_facts.metadata.canonical,
-                },
-                accessibility=technical_result.accessibility,
-                page_metadata=page_metadata,
+            await worker_persistence.persist_snapshot(
+                page.id,
+                document.raw_html,
+                parsed_data=parsed.model_dump(mode="json"),
             )
-        )
 
-        await self.persistence.buffer_resources(page.id, page_facts.resources.resources, page_url=effective_url)
-        await self.persistence.buffer_links(page.id, link_result.links)
+            await worker_persistence.buffer_network(
+                network_data=PageNetworkData(
+                    page_id=page.id,
+                    status_code=technical_result.status_code,
+                    content_type=technical_result.content_type,
+                    content_length=technical_result.content_length,
+                    response_time_ms=technical_result.response_time_ms,
+                    headers=technical_result.headers,
+                    redirects=technical_result.redirects,
+                    security=technical_result.security,
+                    performance=technical_result.performance,
+                )
+            )
 
-        redirect_links = link_result.redirect_links
-        if redirect_links:
-            redirect_service = self.redirect_service_factory(page.id)
-            await redirect_service.process_and_save_redirects(redirect_links)
+            page_metadata = {
+                "title": page_facts.metadata.title,
+                "meta_description": page_facts.metadata.meta_description,
+                "canonical": page_facts.metadata.canonical,
+                "robots_meta": page_facts.metadata.robots_meta,
+                "googlebot": page_facts.metadata.googlebot,
+                "viewport": page_facts.metadata.viewport,
+                "charset": page_facts.metadata.charset,
+                "favicon": page_facts.metadata.favicon,
+                "open_graph": page_facts.metadata.open_graph or {},
+                "twitter": page_facts.metadata.twitter or {},
+                "hreflang": [
+                    {"url": h.get("url", ""), "hreflang": h.get("hreflang", "")}
+                    for h in (page_facts.metadata.hreflang or [])
+                ],
+            }
 
-        if document.is_html:
-            self._enqueue_links(link_result.links, page.id, effective_url, item.depth)
+            await worker_persistence.buffer_seo(
+                seo_data=PageSEOData(
+                    page_id=page.id,
+                    title=page_facts.metadata.title,
+                    title_length=page_facts.metadata.title_length,
+                    meta_description=page_facts.metadata.meta_description,
+                    meta_description_length=page_facts.metadata.meta_description_length,
+                    canonical=page_facts.metadata.canonical,
+                    robots_meta=page_facts.metadata.robots_meta,
+                    language=document.language,
+                    charset=page_facts.metadata.charset or document.charset,
+                    viewport=page_facts.metadata.viewport,
+                    favicon=page_facts.metadata.favicon,
+                    word_count=page_facts.content.word_count,
+                    content_hash=page_facts.content.content_hash,
+                    headings=page_facts.content.headings,
+                    content={
+                        "text": page_facts.content.text,
+                        "word_count": page_facts.content.word_count,
+                        "character_count": len(page_facts.content.text),
+                        "paragraph_count": page_facts.content.paragraph_count,
+                        "sentence_count": page_facts.content.sentence_count,
+                        "language": document.language,
+                        "content_hash": page_facts.content.content_hash,
+                    },
+                    structured_data={
+                        "exists": len(technical_result.json_ld) > 0,
+                        "items": technical_result.json_ld,
+                        "types": [lk.get("type") for lk in technical_result.json_ld],
+                    },
+                    social={
+                        "open_graph": page_facts.metadata.open_graph,
+                        "twitter": page_facts.metadata.twitter,
+                    },
+                    indexability={
+                        "robots_meta": page_facts.metadata.robots_meta,
+                        "canonical": page_facts.metadata.canonical,
+                    },
+                    accessibility=technical_result.accessibility,
+                    page_metadata=page_metadata,
+                )
+            )
 
-        await self.event_bus.emit(
-            CrawlPipelineEvent.PAGE_PERSISTED,
-            url=item.normalized_url,
-            page_id=str(page.id),
-        )
-        await self._update_progress(getattr(self._scheduler, "pages_crawled_count", 0) + 1)
+            await worker_persistence.buffer_resources(page.id, page_facts.resources.resources, page_url=effective_url)
+            await worker_persistence.buffer_links(page.id, link_result.links)
+
+            redirect_links = link_result.redirect_links
+            if redirect_links:
+                await redirect_service.process_and_save_redirects(redirect_links)
+
+            if document.is_html:
+                self._enqueue_links(link_result.links, page.id, effective_url, item.depth)
+
+            await self.event_bus.emit(
+                CrawlPipelineEvent.PAGE_PERSISTED,
+                url=item.normalized_url,
+                page_id=str(page.id),
+            )
+
+            # Flush buffered data into the session, then update progress
+            # (which commits).  flush_all before commit ensures buffered
+            # items are not lost when the session closes.
+            await worker_persistence.flush_all()
+            await self._update_progress(
+                getattr(self._scheduler, "pages_crawled_count", 0) + 1,
+                persistence=worker_persistence,
+            )
+            await worker_db.commit()
 
 
     async def get_summary(self) -> Optional[dict]:
@@ -530,15 +558,33 @@ class CrawlOrchestrator:
 
     # -- private helpers ----------------------------------------------
 
-    async def _update_progress(self, current_page: int) -> None:
-        """Update CrawlJob progress fields and notify subscribers."""
+    def _create_worker_persistence(self, db) -> CrawlPersistenceService:
+        """Create a worker-local persistence service bound to *db*.
+
+        Each concurrent _crawl_page call gets its own AsyncSession and its
+        own CrawlPersistenceService instance so buffers and transactions
+        never cross worker boundaries.
+        """
+        persistence = CrawlPersistenceService(db, self.crawl_job_id)
+        flush_every = getattr(self.config, "write_buffer_flush_every", 20) if self.config else 20
+        persistence.set_flush_every(flush_every)
+        return persistence
+
+    async def _update_progress(self, current_page: int, persistence: Optional[CrawlPersistenceService] = None) -> None:
+        """Update crawl job progress fields and report to subscribers.
+
+        When *persistence* is provided (worker context), that worker-local
+        service is used instead of the orchestrator's shared one.  This keeps
+        progress commits on the worker's own AsyncSession.
+        """
         total = self.config.max_pages if self.config else None
         discovered = getattr(self._scheduler, "pages_discovered_count", None)
+        svc = persistence or self.persistence
         try:
             if discovered is not None:
-                await self.persistence.update_progress(current_page, total, pages_discovered=discovered)
+                await svc.update_progress(current_page, total, pages_discovered=discovered)
             else:
-                await self.persistence.update_progress(current_page, total)
+                await svc.update_progress(current_page, total)
         except Exception as exc:
             logger.warning(f"_update_progress: {exc}", exc_info=True)
         if self._progress_callback:

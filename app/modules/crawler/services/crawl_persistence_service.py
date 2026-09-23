@@ -55,6 +55,15 @@ class CrawlPersistenceService:
     def __init__(self, db, crawl_job_id: UUID, flush_every: int = 20):
         self.db = db
         self.crawl_job_id = crawl_job_id
+        # The _write_lock serializes DB writes within a single
+        # CrawlPersistenceService instance.  In the per-worker-session
+        # architecture each _crawl_page call creates its own instance
+        # backed by its own AsyncSession, so this lock no longer guards
+        # against concurrent *cross-worker* session sharing — that is
+        # eliminated by session ownership.  The lock is retained as a
+        # safety net for intra-call ordering (e.g. buffer_* ->
+        # _flush_*_locked call chains) and for the orchestrator's
+        # sequential operations.
         self._write_lock = asyncio.Lock()
         self._flush_every = flush_every
         self._buf_network: list[PageNetworkData] = []

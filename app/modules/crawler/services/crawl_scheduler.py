@@ -293,6 +293,7 @@ class CrawlScheduler:
         await asyncio.gather(*workers, return_exceptions=True)
 
     async def _worker_loop(self, worker_id: int) -> None:
+        logger.debug("CrawlScheduler worker=%d started", worker_id)
         while not self.cancelled:
             async with self._condition:
                 while self.queue.empty() and not self.cancelled:
