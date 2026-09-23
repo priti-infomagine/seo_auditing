@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
+from sqlalchemy import DateTime, func, text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.core.config import settings
@@ -63,16 +64,21 @@ class Base(DeclarativeBase):
     pass
 
 
+
 # ── Lifecycle helpers ────────────────────────────────────────────────
 async def init_db() -> None:
     """Create all tables (useful for development / testing)."""
     try:
         async with engine.begin() as conn:
+
+            # Existing behavior
             await conn.run_sync(Base.metadata.create_all)
+
     except Exception as exc:
         from app.core.logger import logger
         logger.error(f"init_db failed: {exc}", exc_info=True)
         raise
+
 
 
 async def close_db() -> None:

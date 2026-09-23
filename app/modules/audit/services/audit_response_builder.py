@@ -45,6 +45,9 @@ from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepo
 from app.modules.crawler.repositories.page_seo_data_repository import (
     PageSEODataRepository,
 )
+from app.modules.seprate_checks.robots_check.repository import (
+    RobotCheckRepository,
+)
 from app.modules.rule_engine.models.rule_evidence_map import (
     CATEGORY_DISPLAY,
     CHECK_KEY_TO_RULE_IDS,
@@ -79,6 +82,7 @@ class AuditResponseBuilder:
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.seo_repo = PageSEODataRepository(db)
+        self.robots_repo = RobotCheckRepository(db)
         self.calculator = ScoreCalculator()
         self.converter = RuleResultToSEOIssueConverter()
         from app.modules.scorer.services.scorer_service import ScorerService
@@ -105,6 +109,8 @@ class AuditResponseBuilder:
 
         crawl_job = await self.crawl_job_repo.get_by_id(audit_id)
         domain = crawl_job.domain if crawl_job else ""
+
+        robots_check = await self.robots_repo.get_latest_by_domain(domain) if domain else None
         audit_id = _coerce_uuid(audit_id)
 
         # --- Crawl pages (URL map, status, depth, counts) ---
@@ -332,13 +338,16 @@ class AuditResponseBuilder:
         crawl = await self._build_crawl_section(
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
+            robots_check,
         )
         # Batch-fetch SEO data for all crawl pages once (O(1)) instead of
         # per-page get_by_page_id inside _build_indexation (N+1 fix).
         seo_map = await self.seo_repo.get_by_page_ids(
             [p.id for p in crawl_pages]
         )
-        indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts, seo_map)
+        indexation = await self._build_indexation(
+            crawl_pages, canonical_parsed_facts, seo_map, robots_check
+        )
         performance = await self._build_performance(canonical_parsed_facts)
         structured_data = self._build_structured_data(canonical_parsed_facts)
         links = await self._build_links(canonical_parsed_facts, audit_id)
@@ -647,6 +656,7 @@ class AuditResponseBuilder:
         redirect_count: int,
         broken_pages: int,
         crawl_errors: int,
+        robots_check=None,
     ) -> Dict[str, Any]:
         started_at = to_iso(crawl_job.created_at) if crawl_job else None
         completed_at = to_iso(crawl_job.completed_at) if crawl_job else None
@@ -654,7 +664,7 @@ class AuditResponseBuilder:
             "pages_discovered": pages_discovered,
             "pages_crawled": pages_crawled,
             "pages_analyzed": pages_analyzed,
-            "blocked_by_robots": _unavailable("robots_txt_rules_not_analyzed"),
+            "blocked_by_robots": _robots_blocked_info(robots_check),
             "redirects": redirect_count,
             "broken_pages": broken_pages,
             "orphan_pages": _unavailable("link_graph_analysis_not_implemented"),

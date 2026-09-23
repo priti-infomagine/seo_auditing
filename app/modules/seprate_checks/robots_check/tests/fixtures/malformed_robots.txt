@@ -1,0 +1,6 @@
+garbage line no colon
+also garbage line
+User-agent: *
+Disallow: /private
+UnknownDirective: /foo
+Sitemap: https://example.com/sitemap.xml

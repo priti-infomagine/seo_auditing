@@ -127290,3 +127290,402 @@ AttributeError: 'coroutine' object has no attribute 'current_page'
 2026-09-23T15:37:32 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing Article schema': 
 2026-09-23T15:37:35 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing Product schema': 
 2026-09-23T15:37:39 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or inconsistent www canonicalization': 
+2026-09-23T16:38:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:39:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:39:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:40:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:45:01 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:45:17 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:45:42 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:46:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:47:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:47:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:48:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:48:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:49:28 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:49:58 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T16:50:39 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T17:11:38 | WARNING | app | parse_robots_txt: protego parse failure: cannot access local variable 'field' where it is not associated with a value
+2026-09-23T17:11:43 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (unknown_error: '<=' not supported between instances of 'int' and 'AsyncMock') — trying HTTP fallback
+2026-09-23T17:11:46 | WARNING | app | parse_robots_txt: protego parse failure: cannot access local variable 'field' where it is not associated with a value
+2026-09-23T17:11:58 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (unknown_error: '<=' not supported between instances of 'int' and 'AsyncMock') — trying HTTP fallback
+2026-09-23T17:12:13 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt could not be fetched': 
+2026-09-23T17:12:49 | WARNING | app | parse_robots_txt: protego parse failure: cannot access local variable 'field' where it is not associated with a value
+2026-09-23T17:14:57 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:14:58 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (unknown_error: '<=' not supported between instances of 'int' and 'AsyncMock') — trying HTTP fallback
+2026-09-23T17:16:19 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:17:36 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:17:36 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:19:41 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:19:42 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:19:43 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:19:45 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:21:12 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:21:14 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:21:16 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:26:43 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:26:44 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:26:48 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:27:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T17:30:42 | INFO | app | fetch_robots_txt: HTTPS failed for https (connection_error: [Errno 11001] getaddrinfo failed) — trying HTTP fallback
+2026-09-23T17:31:05 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt could not be fetched': 
+2026-09-23T17:31:51 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:31:52 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:32:01 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:32:03 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:32:06 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:32:06 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:32:07 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:32:08 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:32:10 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:37:28 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T17:37:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T17:38:05 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:38:05 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:38:13 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:38:15 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:38:19 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:38:20 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:38:21 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:38:22 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:38:24 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:45:41 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:45:42 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:45:54 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:45:56 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:46:00 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:46:01 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:46:02 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:46:02 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:46:05 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:47:51 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-23T17:47:52 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-23T17:48:05 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:48:06 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:48:10 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:48:11 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:48:13 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:48:13 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:48:17 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:50:24 | ERROR | app | check_robots: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "robot_check" does not exist
+[SQL: SELECT robot_check.id, robot_check.domain, robot_check.exists, robot_check.status_code, robot_check.fetch_status, robot_check.size_bytes, robot_check.raw_content, robot_check.fetched_url, robot_check.user_agent_groups, robot_check.sitemaps_declared, robot_check.sitemap_reachability, robot_check.syntax_warnings, robot_check.blocks_entire_site, robot_check.blocks_assets, robot_check.oversized, robot_check.overall_status, robot_check.severity, robot_check.evidence, robot_check.why, robot_check.recommendation, robot_check.check_version, robot_check.created_at, robot_check.updated_at 
+FROM robot_check 
+WHERE robot_check.domain = $1::VARCHAR ORDER BY robot_check.created_at DESC 
+ LIMIT $2::INTEGER]
+[parameters: ('https', 1)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "robot_check" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "robot_check" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\router.py", line 97, in check_robots
+    result = await service.run_check(body.domain)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\service.py", line 57, in run_check
+    cached = await self.get_latest(normalized_domain)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\service.py", line 163, in get_latest
+    return await repo.get_latest_by_domain(normalized_domain)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\repository.py", line 29, in get_latest_by_domain
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "robot_check" does not exist
+[SQL: SELECT robot_check.id, robot_check.domain, robot_check.exists, robot_check.status_code, robot_check.fetch_status, robot_check.size_bytes, robot_check.raw_content, robot_check.fetched_url, robot_check.user_agent_groups, robot_check.sitemaps_declared, robot_check.sitemap_reachability, robot_check.syntax_warnings, robot_check.blocks_entire_site, robot_check.blocks_assets, robot_check.oversized, robot_check.overall_status, robot_check.severity, robot_check.evidence, robot_check.why, robot_check.recommendation, robot_check.check_version, robot_check.created_at, robot_check.updated_at 
+FROM robot_check 
+WHERE robot_check.domain = $1::VARCHAR ORDER BY robot_check.created_at DESC 
+ LIMIT $2::INTEGER]
+[parameters: ('https', 1)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-23T17:54:06 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-23T17:54:07 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:54:08 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:54:10 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-23T17:55:15 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Thin or overly long content': 
+2026-09-23T17:55:15 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poorly sized meta description': 
+2026-09-23T17:55:15 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poor page title': 
+2026-09-23T17:55:25 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': 
+2026-09-23T17:57:39 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:00:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:04:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:04:20 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = await db.execute(
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:04:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:05:08 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = await db.execute(
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:05:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:05:16 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = await db.execute(
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:05:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:05:34 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = await db.execute(
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:05:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:05:57 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = await db.execute(
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:05:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:06:09 | ERROR | app | init_db failed during lifespan: name 'db' is not defined
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    result = async with engine.begin() as conn:
+                   ^^
+NameError: name 'db' is not defined
+2026-09-23T18:06:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:06:41 | ERROR | app | init_db failed during lifespan: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    with engine.begin() as conn:
+TypeError: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+2026-09-23T18:06:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:07:02 | ERROR | app | init_db failed during lifespan: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    with engine.begin() as conn:
+TypeError: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+2026-09-23T18:07:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:07:53 | ERROR | app | init_db failed during lifespan: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 72, in init_db
+    await conn.run_sync(Base.metadata.create_all)
+TypeError: '_AsyncGeneratorContextManager' object does not support the context manager protocol
+2026-09-23T18:07:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:08:09 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:08:39 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:09:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:09:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:12:12 | ERROR | app | init_db failed: This result object is closed.
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 95, in init_db
+    db_info = result.mappings().one()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 2172, in one
+    return self._only_one_row(
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 796, in _only_one_row
+    row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 1730, in _fetchone_impl
+    return self._real_result._fetchone_impl(hard_close=hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 2258, in _fetchone_impl
+    return self.cursor_strategy.fetchone(self, self.cursor, hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1045, in fetchone
+    return self._non_result(result, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1089, in _non_result
+    raise exc.ResourceClosedError(
+sqlalchemy.exc.ResourceClosedError: This result object is closed.
+2026-09-23T18:12:12 | ERROR | app | init_db failed during lifespan: This result object is closed.
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 95, in init_db
+    db_info = result.mappings().one()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 2172, in one
+    return self._only_one_row(
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 796, in _only_one_row
+    row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 1730, in _fetchone_impl
+    return self._real_result._fetchone_impl(hard_close=hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 2258, in _fetchone_impl
+    return self.cursor_strategy.fetchone(self, self.cursor, hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1045, in fetchone
+    return self._non_result(result, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1089, in _non_result
+    raise exc.ResourceClosedError(
+sqlalchemy.exc.ResourceClosedError: This result object is closed.
+2026-09-23T18:12:13 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:12:32 | ERROR | app | init_db failed: This result object is closed.
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 95, in init_db
+    db_info = result.mappings().one()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 2172, in one
+    return self._only_one_row(
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 796, in _only_one_row
+    row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 1730, in _fetchone_impl
+    return self._real_result._fetchone_impl(hard_close=hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 2258, in _fetchone_impl
+    return self.cursor_strategy.fetchone(self, self.cursor, hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1045, in fetchone
+    return self._non_result(result, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1089, in _non_result
+    raise exc.ResourceClosedError(
+sqlalchemy.exc.ResourceClosedError: This result object is closed.
+2026-09-23T18:12:32 | ERROR | app | init_db failed during lifespan: This result object is closed.
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\main.py", line 70, in lifespan
+    await init_db()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\core\database.py", line 95, in init_db
+    db_info = result.mappings().one()
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 2172, in one
+    return self._only_one_row(
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 796, in _only_one_row
+    row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\result.py", line 1730, in _fetchone_impl
+    return self._real_result._fetchone_impl(hard_close=hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 2258, in _fetchone_impl
+    return self.cursor_strategy.fetchone(self, self.cursor, hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1045, in fetchone
+    return self._non_result(result, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\cursor.py", line 1089, in _non_result
+    raise exc.ResourceClosedError(
+sqlalchemy.exc.ResourceClosedError: This result object is closed.
+2026-09-23T18:12:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:14:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:14:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:15:00 | INFO | app | fetch_robots_txt: HTTPS failed for https (connection_error: [Errno 11001] getaddrinfo failed) — trying HTTP fallback
+2026-09-23T18:15:23 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt could not be fetched': 
+2026-09-23T18:15:28 | INFO | app | RobotsCheckService: cache hit for https (age=0.0h)
+2026-09-23T18:23:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:24:05 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': 
+2026-09-23T18:24:53 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 
+2026-09-23T18:27:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:27:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-23T18:29:15 | INFO | app | Celery broker connection pre-warmed successfully

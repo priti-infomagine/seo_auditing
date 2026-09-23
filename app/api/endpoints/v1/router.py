@@ -14,6 +14,9 @@ from app.modules.payment.router import router as payment_router
 from app.modules.seprate_checks.google_lighthouse_check.router import (
     router as lighthouse_router,
 )
+from app.modules.seprate_checks.robots_check.router import (
+    router as robots_router,
+)
 
 router = APIRouter()
 
@@ -29,5 +32,6 @@ router.include_router(chat_router, prefix="/chat", tags=["Chat"])
 router.include_router(reports_router, prefix="/reports", tags=["Reports"])
 router.include_router(payment_router, prefix="/plans", tags=["Plans"])
 router.include_router(lighthouse_router, prefix="/lighthouse", tags=["Lighthouse"])
+router.include_router(robots_router, prefix="/robots", tags=["Robots"])
 
 __all__ = ["router"]

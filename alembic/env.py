@@ -22,6 +22,7 @@ import app.modules.auth.models  # noqa: F401, F401
 import app.modules.crawler.models  # noqa: F401, F401
 import app.modules.reports.models  # noqa: F401, F401
 import app.modules.payment.models  # noqa: F401, F401
+import app.modules.seprate_checks.robots_check.model  # noqa: F401
 
 target_metadata = Base.metadata
 

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /css/
+Disallow: /js/
+Disallow: /static/
+Sitemap: https://example.com/sitemap.xml
