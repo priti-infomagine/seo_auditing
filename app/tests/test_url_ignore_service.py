@@ -248,7 +248,7 @@ class TestRuntimeConditions:
         assert is_skipped is True
         assert reason == "error_page"
 
-    def test_url_too_long(self):
+    def test_long_url_not_skipped(self):
         svc = UrlIgnoreService(db=None)
         long_path = "/" + "a" * 2100
         page = SimpleNamespace(
@@ -259,8 +259,9 @@ class TestRuntimeConditions:
             path=long_path,
         )
         is_skipped, reason = svc.check_runtime_conditions(page)
-        assert is_skipped is True
-        assert reason == "url_too_long"
+        assert is_skipped is False
+        assert reason is None
+
 
     def test_too_many_params(self):
         svc = UrlIgnoreService(db=None)
@@ -323,3 +324,74 @@ class TestParamExtraction:
         svc = UrlIgnoreService(db=None)
         params = svc._extract_param_names(None)
         assert params == []
+
+
+class TestCategoryEvaluations:
+    def test_performance_skip_error_and_redirect(self):
+        svc = UrlIgnoreService(db=None)
+        redirect_page = SimpleNamespace(
+            is_redirect=True,
+            status_code=301,
+            url="https://example.com/old",
+            normalized_url="https://example.com/old",
+            path="/old",
+        )
+        should_check, reason = svc.should_check_performance(redirect_page)
+        assert should_check is False
+        assert reason == "redirect_source"
+
+    def test_performance_template_sampling(self):
+        svc = UrlIgnoreService(db=None)
+        counts = {}
+        for i in range(7):
+            page = SimpleNamespace(
+                is_redirect=False,
+                status_code=200,
+                url=f"https://example.com/products/{i}",
+                normalized_url=f"https://example.com/products/{i}",
+                path=f"/products/{i}",
+            )
+            should_check, reason = svc.should_check_performance(page, template_cluster_counts=counts, max_sample_per_template=5)
+            if i < 5:
+                assert should_check is True
+            else:
+                assert should_check is False
+                assert reason == "same_template_sample_capped"
+
+    def test_accessibility_template_dedup(self):
+        svc = UrlIgnoreService(db=None)
+        seen = set()
+        p1 = SimpleNamespace(
+            is_redirect=False,
+            status_code=200,
+            url="https://example.com/blog/101",
+            normalized_url="https://example.com/blog/101",
+            path="/blog/101",
+        )
+        p2 = SimpleNamespace(
+            is_redirect=False,
+            status_code=200,
+            url="https://example.com/blog/102",
+            normalized_url="https://example.com/blog/102",
+            path="/blog/102",
+        )
+        c1, r1 = svc.should_check_accessibility(p1, template_seen=seen)
+        c2, r2 = svc.should_check_accessibility(p2, template_seen=seen)
+        assert c1 is True
+        assert c2 is False
+        assert r2 == "same_template_duplicate"
+
+    def test_seo_intentionally_hidden_noindex(self):
+        svc = UrlIgnoreService(db=None)
+        page = SimpleNamespace(
+            is_redirect=False,
+            status_code=200,
+            url="https://example.com/lp/sale",
+            normalized_url="https://example.com/lp/sale",
+            path="/lp/sale",
+        )
+        should_check, reason, is_hidden = svc.should_check_seo(page, robots_meta="noindex, follow")
+        assert should_check is True
+        assert reason == "noindex_by_design"
+        assert is_hidden is True
+

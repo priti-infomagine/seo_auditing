@@ -417,6 +417,7 @@ class LighthouseCheckService:
 
             seen: set[str] = set()
             valid_urls: list[str] = []
+            template_counts: dict[str, int] = {}
             for page in pages:
                 if not page.is_success:
                     continue
@@ -428,22 +429,40 @@ class LighthouseCheckService:
                 if norm in seen:
                     continue
 
-                # Check category-specific ignore patterns
+                # Check performance runtime conditions & category-specific ignore patterns
+                should_check, skip_reason = ignore_service.should_check_performance(
+                    page,
+                    template_cluster_counts=template_counts,
+                    max_sample_per_template=5,
+                )
+                if not should_check:
+                    await ignore_service.log_skip(
+                        db,
+                        check_id,
+                        norm,
+                        norm,
+                        skip_reason or "performance_skip",
+                        "performance",
+                    )
+                    continue
+
+                # Check other loaded category scopes if applicable
                 if ignore_service and lighthouse_scopes:
                     is_ignored, reason, scope = ignore_service.check_url(norm, None, all_loaded=True)
-                    if is_ignored:
+                    if is_ignored and scope != "performance":
                         await ignore_service.log_skip(
                             db,
                             check_id,
                             norm,
                             norm,
-                            reason,
-                            scope,
+                            reason or "category_skip",
+                            scope or "global",
                         )
                         continue
 
                 seen.add(norm)
                 valid_urls.append(norm)
+
 
             seed_norm = normalize_url(url)
             if seed_norm in valid_urls:
