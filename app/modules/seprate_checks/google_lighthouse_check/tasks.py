@@ -18,7 +18,7 @@ Design:
   - ``check_id`` travels as a string over the wire (it is ``str(CrawlJob.id)``
     when enqueued) and is coerced to ``UUID`` here.
 """
-from typing import Optional
+from typing import Optional, Union
 from uuid import UUID
 
 from app.core.logger import logger
@@ -47,9 +47,10 @@ def run_check(
     self,
     check_id: str,
     url: str,
-    device: str,
+    device: Union[str, list[str]],
     max_pages: int,
     category: Optional[list[str]] = None,
+    version: Optional[Union[str, list[str]]] = None,
     pagespeed_concurrency: int = LighthouseCheckService.PAGESPEED_CONCURRENCY,
 ) -> dict:
     """
@@ -63,11 +64,13 @@ def run_check(
         check_id: UUID string of the CrawlJob (``CrawlJob.id``).  Created
             by ``LighthouseCheckService.prepare_check`` in the API request.
         url: The seed URL to crawl + check.
-        device: Device strategy ("mobile" or "desktop").
+         device: Device strategy ("mobile", "desktop", or a list of them).
         max_pages: Maximum number of pages to crawl.
         category: Optional list of Lighthouse categories
             (performance, seo, best-practices, accessibility).
             Defaults to all four when None.
+        version: Optional Lighthouse version(s). Accepts a single version
+            string or a list of version strings. Defaults to all when None.
         pagespeed_concurrency: Max concurrent PageSpeed API calls.
 
     Returns:
@@ -75,7 +78,7 @@ def run_check(
     """
     logger.info(
         f"lighthouse.run_check: task started for check_id={check_id}, "
-        f"url={url}, device={device}, max_pages={max_pages}"
+        f"url={url}, device={device}, max_pages={max_pages}, version={version}"
     )
 
     async def _run():
@@ -86,6 +89,7 @@ def run_check(
             device=device,
             max_pages=max_pages,
             category=category,
+            version=version,
             pagespeed_concurrency=pagespeed_concurrency,
             update_state=lambda state, meta=None: self.update_state(state=state, meta=meta),
         )

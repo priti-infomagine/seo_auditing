@@ -1,14 +1,17 @@
 from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
-from typing import Optional, List
+from typing import Optional, List, Union
 
 from app.modules.seprate_checks.google_lighthouse_check.validation import (
     DEFAULT_CATEGORIES,
+    DEFAULT_DEVICES,
     normalize_categories,
+    normalize_devices,
     normalize_device,
     validate_max_pages,
     validate_url,
+    validate_versions,
 )
 
 
@@ -17,9 +20,13 @@ class LighthouseCheckRequest(BaseModel):
         ...,
         description="The seed URL to crawl and run Lighthouse checks against",
     )
-    device: str = Field(
+    device: Union[str, List[str]] = Field(
         ...,
-        description="The device type for the check ('mobile' or 'desktop')",
+        description=(
+            "Device strategy for the check. Accepts a single string "
+            "or a list of them (e.g. "
+            "['mobile', 'desktop']). Defaults to both when None/empty."
+        ),
     )
     category: Optional[List[str]] = Field(
         None,
@@ -28,14 +35,26 @@ class LighthouseCheckRequest(BaseModel):
             "best-practices, accessibility]. Defaults to all four."
         ),
     )
-    version: Optional[str] = Field(
+    version: Optional[Union[str, List[str]]] = Field(
         None,
-        description="Lighthouse version hint (currently unused)",
+        description=(
+            "Lighthouse version(s). Accepts a single version string "
+            "(e.g. '7') or a list (e.g. ['6', '7']). Defaults to all "
+            "when None/empty."
+        ),
     )
     max_pages: Optional[int] = Field(
         None,
         description="Cap on total pages to crawl and check",
     )
+    
+    @field_validator("version")
+    @classmethod
+    def _validate_version(cls, v: Optional[Union[str, List[str]]]) -> Optional[List[str]]:
+        if v is None:
+            return None
+        return validate_versions(v)
+
 
     @field_validator("url")
     @classmethod
@@ -44,8 +63,8 @@ class LighthouseCheckRequest(BaseModel):
 
     @field_validator("device")
     @classmethod
-    def _validate_device(cls, v: str) -> str:
-        return normalize_device(v)
+    def _validate_device(cls, v: Union[str, List[str]]) -> List[str]:
+        return normalize_devices(v)
 
     @field_validator("category")
     @classmethod
@@ -61,6 +80,11 @@ class LighthouseCheckRequest(BaseModel):
     @property
     def effective_category(self) -> List[str]:
         return self.category or list(DEFAULT_CATEGORIES)
+
+    @property
+    def effective_devices(self) -> List[str]:
+        """Return the normalized list of device strategies."""
+        return normalize_devices(self.device)
 
 
 class LighthouseRecommendation(BaseModel):
@@ -208,13 +232,17 @@ class LighthouseCheckQueuedResponse(BaseModel):
         ...,
         description="The domain name extracted from the seed URL",
     )
-    device: str = Field(
+    devices: List[str] = Field(
         ...,
-        description="The device strategy for the check (mobile/desktop)",
+        description="The device strategies for the check (mobile/desktop)",
     )
     categories: List[str] = Field(
         ...,
         description="The Lighthouse categories requested",
+    )
+    version: Optional[List[str]] = Field(
+        None,
+        description="The Lighthouse versions requested",
     )
     status_url: str = Field(
         ...,
@@ -247,13 +275,17 @@ class LighthouseCheckStatusResponse(BaseModel):
         ...,
         description="The domain name being checked",
     )
-    device: str = Field(
+    devices: List[str] = Field(
         ...,
-        description="The device strategy for the check",
+        description="The device strategies for the check",
     )
     categories: List[str] = Field(
         ...,
         description="The Lighthouse categories requested",
+    )
+    version: Optional[List[str]] = Field(
+        None,
+        description="The Lighthouse versions requested",
     )
     pages_discovered: int = Field(
         ...,

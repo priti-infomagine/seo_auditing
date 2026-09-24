@@ -70,8 +70,8 @@ async def run_lighthouse_check(
     5. Return 202 with check_id, task_id, domain, and poll/result URLs.
     """
     logger.info(
-        f"POST /lighthouse/check — url={body.url}, device={body.device}, "
-        f"max_pages={body.max_pages}, category={body.effective_category}"
+        f"POST /lighthouse/check — url={body.url}, devices={body.effective_devices}, "
+        f"max_pages={body.max_pages}, category={body.effective_category}, version={body.version}"
     )
 
     service = LighthouseCheckService()
@@ -84,6 +84,7 @@ async def run_lighthouse_check(
             device=body.device,
             max_pages=body.max_pages,
             category=body.effective_category,
+            version=body.version,
             pagespeed_concurrency=service.PAGESPEED_CONCURRENCY,
         )
     except HTTPException:
@@ -113,11 +114,12 @@ async def run_lighthouse_check(
             args=[
                 check_id,
                 setup["url"],
-                setup["device"],
+                setup["devices"],
                 setup["max_pages"],
             ],
             kwargs={
                 "category": setup["categories"],
+                "version": setup["version"],
                 "pagespeed_concurrency": setup["pagespeed_concurrency"],
             },
             queue="crawler",
@@ -146,8 +148,9 @@ async def run_lighthouse_check(
         task_id=async_result.id,
         url=setup["url"],
         domain=setup["domain"],
-        device=setup["device"],
+        devices=setup["devices"],
         categories=setup["categories"],
+        version=setup["version"],
         status_url=f"/api/v1/lighthouse/status/{check_id}",
         result_url=f"/api/v1/lighthouse/results/{check_id}",
     )
@@ -232,10 +235,11 @@ async def get_lighthouse_status(
             status=job.status,
             phase=phase,
             domain=job.domain,
-            device=(job.crawl_config or {}).get("device", "mobile"),
+            devices=(job.crawl_config or {}).get("devices", ["mobile", "desktop"]),
             categories=(job.crawl_config or {}).get(
                 "categories", ["performance", "seo", "best-practices", "accessibility"],
             ),
+            version=(job.crawl_config or {}).get("version"),
             pages_discovered=job.pages_discovered or 0,
             pages_crawled=job.pages_crawled or 0,
             pagespeed_total=pagespeed_total,

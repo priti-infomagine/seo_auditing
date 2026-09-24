@@ -119417,3 +119417,540 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 2026-09-24T14:54:53 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
 2026-09-24T14:55:04 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
 2026-09-24T14:55:05 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-24T16:08:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:08:22 | INFO | app | Worker process initialized with persistent event loop (pid=14376)
+2026-09-24T16:08:34 | INFO | app | Worker process initialized with persistent event loop (pid=25116)
+2026-09-24T16:11:54 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 
+2026-09-24T16:13:06 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': 
+2026-09-24T16:31:00 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=5, category=['performance', 'seo']
+2026-09-24T16:31:00 | INFO | app | LighthouseCheckService: prepared check_id=e22cad1c-b1ce-4624-835d-a9767a4f3079, domain=example.com, device=mobile, max_pages=5
+2026-09-24T16:31:00 | INFO | app | Lighthouse check queued: check_id=e22cad1c-b1ce-4624-835d-a9767a4f3079, task_id=fake-task-b1d8ca1e-ba7d-40b9-be08-adecbbcbacf8, domain=example.com
+2026-09-24T16:31:01 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=desktop, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:01 | INFO | app | LighthouseCheckService: prepared check_id=dffdf349-8b02-4a3c-bd96-038382ec4dba, domain=example.com, device=desktop, max_pages=100
+2026-09-24T16:31:01 | INFO | app | Lighthouse check queued: check_id=dffdf349-8b02-4a3c-bd96-038382ec4dba, task_id=fake-task-0c439ddf-c406-4949-9033-d058340a903d, domain=example.com
+2026-09-24T16:31:02 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:02 | INFO | app | LighthouseCheckService: prepared check_id=31073054-a343-48f4-9aad-d4d70d10de42, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:02 | INFO | app | Lighthouse check queued: check_id=31073054-a343-48f4-9aad-d4d70d10de42, task_id=fake-task-78d36006-fa32-4db0-a483-3cfc6466deef, domain=example.com
+2026-09-24T16:31:02 | INFO | app | GET /lighthouse/status/31073054-a343-48f4-9aad-d4d70d10de42
+2026-09-24T16:31:03 | INFO | app | GET /lighthouse/status/58af23e4-9e40-42b0-bc6a-37ebfc2122da
+2026-09-24T16:31:03 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T16:31:04 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:04 | INFO | app | LighthouseCheckService: prepared check_id=876d9ee8-a8b2-45b5-9915-4fa4f5cf7180, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:04 | INFO | app | Lighthouse check queued: check_id=876d9ee8-a8b2-45b5-9915-4fa4f5cf7180, task_id=fake-task-bf125fe9-85fd-4de5-a9f5-9cb38459be8e, domain=example.com
+2026-09-24T16:31:04 | INFO | app | GET /lighthouse/task/fake-task-bf125fe9-85fd-4de5-a9f5-9cb38459be8e
+2026-09-24T16:31:05 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:05 | INFO | app | LighthouseCheckService: prepared check_id=a646eaeb-2e01-4e32-9e3e-817c73d3b979, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:05 | INFO | app | Lighthouse check queued: check_id=a646eaeb-2e01-4e32-9e3e-817c73d3b979, task_id=fake-task-d415276f-156a-4faf-bfe1-322c33020340, domain=example.com
+2026-09-24T16:31:09 | INFO | app | LighthouseCheckService: crawl done for check_id=df3ec27c-c214-4df0-8da2-2c34c0441a41, discovered 3 URLs — starting pagespeed phase
+2026-09-24T16:31:09 | INFO | app | LighthouseCheckService: completed check_id=df3ec27c-c214-4df0-8da2-2c34c0441a41, total=3, succeeded=3, failed=0
+2026-09-24T16:31:09 | INFO | app | LighthouseCheckService: crawl done for check_id=973162a6-cfe5-4d00-8416-79d6ea6e3d5b, discovered 2 URLs — starting pagespeed phase
+2026-09-24T16:31:09 | ERROR | app | Pagespeed check failed for https://example.com/: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 412, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T16:31:09 | ERROR | app | Pagespeed check failed for https://example.com/a: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 412, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T16:31:10 | INFO | app | LighthouseCheckService: completed check_id=973162a6-cfe5-4d00-8416-79d6ea6e3d5b, total=2, succeeded=0, failed=2
+2026-09-24T16:31:10 | INFO | app | GET /lighthouse/status/adec64f2-7575-4c4b-a4ac-55db9eae6cbf
+2026-09-24T16:31:10 | INFO | app | GET /lighthouse/status/adec64f2-7575-4c4b-a4ac-55db9eae6cbf
+2026-09-24T16:31:10 | INFO | app | GET /lighthouse/status/adec64f2-7575-4c4b-a4ac-55db9eae6cbf
+2026-09-24T16:31:11 | INFO | app | GET /lighthouse/status/adec64f2-7575-4c4b-a4ac-55db9eae6cbf
+2026-09-24T16:31:12 | INFO | app | LighthouseCheckService: max_pages cap — truncating 6 discovered URLs to 4 (skipped 2 from pagespeed check)
+2026-09-24T16:31:12 | INFO | app | LighthouseCheckService: crawl done for check_id=6085ed17-a811-43b6-9188-e025ef422996, discovered 4 URLs — starting pagespeed phase
+2026-09-24T16:31:12 | INFO | app | LighthouseCheckService: completed check_id=6085ed17-a811-43b6-9188-e025ef422996, total=4, succeeded=4, failed=0
+2026-09-24T16:31:13 | INFO | app | LighthouseCheckService: crawl done for check_id=6394d206-0232-457f-ab51-b1d232c3ae91, discovered 2 URLs — starting pagespeed phase
+2026-09-24T16:31:13 | INFO | app | LighthouseCheckService: completed check_id=6394d206-0232-457f-ab51-b1d232c3ae91, total=2, succeeded=2, failed=0
+2026-09-24T16:31:13 | INFO | app | LighthouseCheckService: crawl done for check_id=0237216d-0cf6-4354-8ebb-6ec15b3251fc, discovered 1 URLs — starting pagespeed phase
+2026-09-24T16:31:13 | WARNING | app | Pagespeed API error for https://example.com/: status=400, body=API key not valid. Please pass a valid API key.
+2026-09-24T16:31:13 | INFO | app | LighthouseCheckService: completed check_id=0237216d-0cf6-4354-8ebb-6ec15b3251fc, total=1, succeeded=0, failed=1
+2026-09-24T16:31:14 | INFO | app | LighthouseCheckService: crawl done for check_id=b9eafa20-f0f0-45dd-9d30-8877d417513c, discovered 1 URLs — starting pagespeed phase
+2026-09-24T16:31:14 | ERROR | app | Pagespeed check failed for https://example.com/: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 797, in failing_fetch
+    raise EmptyException()
+test_lighthouse_check.test_empty_exception_reason_falls_back_to_class_name.<locals>.EmptyException
+2026-09-24T16:31:14 | INFO | app | LighthouseCheckService: completed check_id=b9eafa20-f0f0-45dd-9d30-8877d417513c, total=1, succeeded=0, failed=1
+2026-09-24T16:31:52 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=5, category=['performance', 'seo']
+2026-09-24T16:31:52 | INFO | app | LighthouseCheckService: prepared check_id=97ef7764-2462-4ae0-a29a-9e796112bc8d, domain=example.com, device=mobile, max_pages=5
+2026-09-24T16:31:52 | INFO | app | Lighthouse check queued: check_id=97ef7764-2462-4ae0-a29a-9e796112bc8d, task_id=fake-task-73d24ea8-f41c-44c6-a77c-d2d5d9f5ee40, domain=example.com
+2026-09-24T16:31:52 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=desktop, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:52 | INFO | app | LighthouseCheckService: prepared check_id=870ed749-9a70-42fd-93f6-a6e6ddccedce, domain=example.com, device=desktop, max_pages=100
+2026-09-24T16:31:52 | INFO | app | Lighthouse check queued: check_id=870ed749-9a70-42fd-93f6-a6e6ddccedce, task_id=fake-task-f5ecefa4-38b7-45c5-8a4b-95386444b601, domain=example.com
+2026-09-24T16:31:53 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:53 | INFO | app | LighthouseCheckService: prepared check_id=bfd0407f-82fd-4d67-ae0f-0155d7b095b1, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:53 | INFO | app | Lighthouse check queued: check_id=bfd0407f-82fd-4d67-ae0f-0155d7b095b1, task_id=fake-task-8a3eafc1-d914-44f8-922d-ce226fe8d973, domain=example.com
+2026-09-24T16:31:53 | INFO | app | GET /lighthouse/status/bfd0407f-82fd-4d67-ae0f-0155d7b095b1
+2026-09-24T16:31:54 | INFO | app | GET /lighthouse/status/583f28ae-35fb-455b-9893-b6ee7234bb79
+2026-09-24T16:31:55 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T16:31:55 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:55 | INFO | app | LighthouseCheckService: prepared check_id=5a2f18e3-5190-4b72-a52a-3769fa799f85, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:55 | INFO | app | Lighthouse check queued: check_id=5a2f18e3-5190-4b72-a52a-3769fa799f85, task_id=fake-task-e913c163-893c-476a-9633-3279d4c0c8a8, domain=example.com
+2026-09-24T16:31:55 | INFO | app | GET /lighthouse/task/fake-task-e913c163-893c-476a-9633-3279d4c0c8a8
+2026-09-24T16:31:56 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=mobile, max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T16:31:56 | INFO | app | LighthouseCheckService: prepared check_id=17a316a2-6faa-4c53-a8b9-89351b7041b9, domain=example.com, device=mobile, max_pages=100
+2026-09-24T16:31:56 | INFO | app | Lighthouse check queued: check_id=17a316a2-6faa-4c53-a8b9-89351b7041b9, task_id=fake-task-b1ee4731-c44d-48db-b630-36074a7c2eef, domain=example.com
+2026-09-24T16:31:59 | INFO | app | LighthouseCheckService: crawl done for check_id=ebc0f353-70a3-470e-ab1b-154a69a5cdc9, discovered 3 URLs — starting pagespeed phase
+2026-09-24T16:31:59 | INFO | app | LighthouseCheckService: completed check_id=ebc0f353-70a3-470e-ab1b-154a69a5cdc9, total=3, succeeded=3, failed=0
+2026-09-24T16:32:00 | INFO | app | LighthouseCheckService: crawl done for check_id=40c61bd7-d5bc-4a2e-885b-eb1477a75d06, discovered 2 URLs — starting pagespeed phase
+2026-09-24T16:32:00 | ERROR | app | Pagespeed check failed for https://example.com/: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 412, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T16:32:00 | ERROR | app | Pagespeed check failed for https://example.com/a: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 412, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T16:32:00 | INFO | app | LighthouseCheckService: completed check_id=40c61bd7-d5bc-4a2e-885b-eb1477a75d06, total=2, succeeded=0, failed=2
+2026-09-24T16:32:01 | INFO | app | GET /lighthouse/status/46e23ed7-4952-4cc4-950e-658c8da808e5
+2026-09-24T16:32:01 | INFO | app | GET /lighthouse/status/46e23ed7-4952-4cc4-950e-658c8da808e5
+2026-09-24T16:32:01 | INFO | app | GET /lighthouse/status/46e23ed7-4952-4cc4-950e-658c8da808e5
+2026-09-24T16:32:01 | INFO | app | GET /lighthouse/status/46e23ed7-4952-4cc4-950e-658c8da808e5
+2026-09-24T16:32:03 | INFO | app | LighthouseCheckService: max_pages cap — truncating 6 discovered URLs to 4 (skipped 2 from pagespeed check)
+2026-09-24T16:32:03 | INFO | app | LighthouseCheckService: crawl done for check_id=948c8e96-aafb-4340-99d4-1e404bcf0665, discovered 4 URLs — starting pagespeed phase
+2026-09-24T16:32:03 | INFO | app | LighthouseCheckService: completed check_id=948c8e96-aafb-4340-99d4-1e404bcf0665, total=4, succeeded=4, failed=0
+2026-09-24T16:32:04 | INFO | app | LighthouseCheckService: crawl done for check_id=9d28c92b-4b3f-40b0-912d-57b9d9065517, discovered 2 URLs — starting pagespeed phase
+2026-09-24T16:32:04 | INFO | app | LighthouseCheckService: completed check_id=9d28c92b-4b3f-40b0-912d-57b9d9065517, total=2, succeeded=2, failed=0
+2026-09-24T16:32:05 | INFO | app | LighthouseCheckService: crawl done for check_id=82adbd92-ece8-4389-89af-c81295dda789, discovered 1 URLs — starting pagespeed phase
+2026-09-24T16:32:05 | WARNING | app | Pagespeed API error for https://example.com/: status=400, body=API key not valid. Please pass a valid API key.
+2026-09-24T16:32:05 | INFO | app | LighthouseCheckService: completed check_id=82adbd92-ece8-4389-89af-c81295dda789, total=1, succeeded=0, failed=1
+2026-09-24T16:32:05 | INFO | app | LighthouseCheckService: crawl done for check_id=ed3705b7-5961-443d-a7dc-f3d4f3a74fda, discovered 1 URLs — starting pagespeed phase
+2026-09-24T16:32:05 | ERROR | app | Pagespeed check failed for https://example.com/: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 254, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 797, in failing_fetch
+    raise EmptyException()
+test_lighthouse_check.test_empty_exception_reason_falls_back_to_class_name.<locals>.EmptyException
+2026-09-24T16:32:05 | INFO | app | LighthouseCheckService: completed check_id=ed3705b7-5961-443d-a7dc-f3d4f3a74fda, total=1, succeeded=0, failed=1
+2026-09-24T16:42:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:42:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:49:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:56:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:58:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T16:59:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:00:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:00:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:01:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:02:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:08:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:26:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:26:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:26:59 | INFO | app | Worker process initialized with persistent event loop (pid=15944)
+2026-09-24T17:27:01 | INFO | app | Worker process initialized with persistent event loop (pid=1976)
+2026-09-24T17:27:54 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['v11', 'v10', 'v9']
+2026-09-24T17:27:54 | WARNING | app | Lighthouse check rejected — validation error: Invalid version 'v11'. Must be a positive integer as a string.
+2026-09-24T17:28:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:29:01 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:29:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:29:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:29:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:31:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:31:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:32:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:37:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:37:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:42:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:42:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:43:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:44:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:44:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:44:23 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:44:24 | INFO | app | LighthouseCheckService: prepared check_id=c4c5a70e-9e90-4536-a448-5551ecea40d3, domain=oppo.com, devices=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:44:24 | ERROR | app | Failed to enqueue lighthouse check task: 'device'
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 117, in run_lighthouse_check
+    setup["device"],
+    ~~~~~^^^^^^^^^^
+KeyError: 'device'
+2026-09-24T17:44:33 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=5, category=['performance', 'seo'], version=None
+2026-09-24T17:44:33 | INFO | app | LighthouseCheckService: prepared check_id=8f6a0d4c-e1ed-453f-91d8-4bf6a0666fbe, domain=example.com, devices=['mobile'], max_pages=5, version=None
+2026-09-24T17:44:33 | ERROR | app | Failed to enqueue lighthouse check task: 'device'
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 117, in run_lighthouse_check
+    setup["device"],
+    ~~~~~^^^^^^^^^^
+KeyError: 'device'
+2026-09-24T17:45:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:45:14 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:45:14 | INFO | app | LighthouseCheckService: prepared check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, domain=oppo.com, devices=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:45:14 | INFO | app | Lighthouse check queued: check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, task_id=296e6f0e-3ba7-4f0b-aa0f-b8c6c84e9ebc, domain=oppo.com
+2026-09-24T17:45:14 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:14 | INFO | app | lighthouse.run_check: task started for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:45:15 | ERROR | app | lighthouse.run_check: task failed for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 99, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 86, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 221, in run_check_async
+    version_norm = validate_versions(version)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\validation.py", line 160, in validate_versions
+    else:
+          
+app.modules.seprate_checks.google_lighthouse_check.validation.LighthouseValidationError: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+2026-09-24T17:45:16 | INFO | app | lighthouse.run_check: task started for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:45:16 | ERROR | app | lighthouse.run_check: task failed for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 99, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 86, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 221, in run_check_async
+    version_norm = validate_versions(version)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\validation.py", line 160, in validate_versions
+    else:
+          
+app.modules.seprate_checks.google_lighthouse_check.validation.LighthouseValidationError: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+2026-09-24T17:45:17 | INFO | app | lighthouse.run_check: task started for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:45:17 | ERROR | app | lighthouse.run_check: task failed for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 99, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 86, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 221, in run_check_async
+    version_norm = validate_versions(version)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\validation.py", line 160, in validate_versions
+    else:
+          
+app.modules.seprate_checks.google_lighthouse_check.validation.LighthouseValidationError: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+2026-09-24T17:45:17 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:18 | INFO | app | lighthouse.run_check: task started for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:45:18 | ERROR | app | lighthouse.run_check: task failed for check_id=16824b53-27fc-4c29-8c18-0e20a06d6906: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 99, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 86, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 221, in run_check_async
+    version_norm = validate_versions(version)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\validation.py", line 160, in validate_versions
+    else:
+          
+app.modules.seprate_checks.google_lighthouse_check.validation.LighthouseValidationError: Invalid version '11'. Allowed: 1, 2, 3, 4, 5, 6, 7
+2026-09-24T17:45:19 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:21 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:22 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:24 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:26 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:28 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:30 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:32 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:34 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:36 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:38 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:40 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:42 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:44 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:46 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:48 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:50 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:52 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:54 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:56 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:45:58 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:00 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:02 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:04 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:06 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:08 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:10 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:12 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:14 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:16 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:18 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:20 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:22 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:24 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:26 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:28 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:30 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:32 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:34 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:36 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:38 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:40 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:42 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:45 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:47 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:49 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:51 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:53 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:55 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:57 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:46:59 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:47:01 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:47:03 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:47:04 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:47:06 | INFO | app | GET /lighthouse/status/16824b53-27fc-4c29-8c18-0e20a06d6906
+2026-09-24T17:47:52 | INFO | app | Worker process initialized with persistent event loop (pid=13200)
+2026-09-24T17:47:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:48:17 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:48:18 | INFO | app | LighthouseCheckService: prepared check_id=ebb5d685-baa4-4209-931e-aa4fabede061, domain=oppo.com, devices=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:48:18 | INFO | app | Lighthouse check queued: check_id=ebb5d685-baa4-4209-931e-aa4fabede061, task_id=b412b6b9-71ea-4b2d-bfda-62e95a1e6eb6, domain=oppo.com
+2026-09-24T17:48:18 | INFO | app | lighthouse.run_check: task started for check_id=ebb5d685-baa4-4209-931e-aa4fabede061, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:48:18 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:20 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:22 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:24 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:26 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:26 | INFO | app | Site discovery complete for https://oppo.com/: robots=True, sitemaps=41, page_urls=500
+2026-09-24T17:48:26 | INFO | app | Robots policy attached to scheduler for oppo.com (sitemaps: 1)
+2026-09-24T17:48:26 | INFO | app | Crawl started: https://oppo.com/ (max_pages=4, max_depth=3)
+2026-09-24T17:48:26 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T17:48:28 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:30 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:32 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:48:34 | INFO | app | Crawl completed: https://oppo.com/ — pages_crawled=13, pages_discovered=622, pages_failed=0, duration=14740ms
+2026-09-24T17:48:34 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 809, 'non_html': 0, 'resource': 3, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:48:34 | INFO | app | LighthouseCheckService: crawl done for check_id=ebb5d685-baa4-4209-931e-aa4fabede061, discovered 0 URLs across 2 devices — starting pagespeed phase (0 checks)
+2026-09-24T17:48:34 | INFO | app | LighthouseCheckService: completed check_id=ebb5d685-baa4-4209-931e-aa4fabede061, total=0, succeeded=0, failed=0
+2026-09-24T17:48:34 | INFO | app | lighthouse.run_check: task finished for check_id=ebb5d685-baa4-4209-931e-aa4fabede061, status=completed
+2026-09-24T17:48:34 | INFO | app | GET /lighthouse/status/ebb5d685-baa4-4209-931e-aa4fabede061
+2026-09-24T17:50:28 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:51:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:51:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:52:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:52:30 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:52:33 | INFO | app | Worker process initialized with persistent event loop (pid=19172)
+2026-09-24T17:52:37 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:52:37 | ERROR | app | Unexpected error preparing lighthouse check: 'LighthouseCheckRequest' object has no attribute 'devices'
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 84, in run_lighthouse_check
+    device=body.devices,
+           ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'LighthouseCheckRequest' object has no attribute 'devices'
+2026-09-24T17:53:19 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:53:19 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:53:19 | INFO | app | LighthouseCheckService: prepared check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, domain=oppo.com, devices=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:53:19 | INFO | app | Lighthouse check queued: check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, task_id=088a7699-fece-40b8-8150-c7585e46f22e, domain=oppo.com
+2026-09-24T17:53:19 | INFO | app | lighthouse.run_check: task started for check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:53:19 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:22 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:24 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:25 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:27 | INFO | app | Site discovery complete for https://oppo.com/: robots=True, sitemaps=41, page_urls=500
+2026-09-24T17:53:27 | INFO | app | Robots policy attached to scheduler for oppo.com (sitemaps: 1)
+2026-09-24T17:53:27 | INFO | app | Crawl started: https://oppo.com/ (max_pages=4, max_depth=3)
+2026-09-24T17:53:27 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:27 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T17:53:29 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:31 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:33 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:53:34 | INFO | app | Crawl completed: https://oppo.com/ — pages_crawled=13, pages_discovered=622, pages_failed=0, duration=14363ms
+2026-09-24T17:53:34 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 809, 'non_html': 0, 'resource': 3, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | WARNING | app | log_skip called without db session
+2026-09-24T17:53:34 | INFO | app | LighthouseCheckService: crawl done for check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, discovered 0 URLs across 2 devices — starting pagespeed phase (0 checks)
+2026-09-24T17:53:34 | INFO | app | LighthouseCheckService: completed check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, total=0, succeeded=0, failed=0
+2026-09-24T17:53:34 | INFO | app | lighthouse.run_check: task finished for check_id=22bff0a1-7bea-4b9c-a224-5690f1cd1636, status=completed
+2026-09-24T17:53:35 | INFO | app | GET /lighthouse/status/22bff0a1-7bea-4b9c-a224-5690f1cd1636
+2026-09-24T17:54:14 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, devices=['mobile', 'desktop'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-24T17:54:14 | INFO | app | LighthouseCheckService: prepared check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, domain=oppo.com, devices=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:54:14 | INFO | app | Lighthouse check queued: check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, task_id=4809e3c2-1f50-4579-bfa4-d196faf29fde, domain=oppo.com
+2026-09-24T17:54:14 | INFO | app | lighthouse.run_check: task started for check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4, version=['11', '10', '9']
+2026-09-24T17:54:15 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:17 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:19 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:20 | INFO | app | Site discovery complete for https://oppo.com/: robots=True, sitemaps=41, page_urls=500
+2026-09-24T17:54:20 | INFO | app | Robots policy attached to scheduler for oppo.com (sitemaps: 1)
+2026-09-24T17:54:20 | INFO | app | Crawl started: https://oppo.com/ (max_pages=4, max_depth=3)
+2026-09-24T17:54:21 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T17:54:21 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:23 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:25 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:27 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:54:28 | INFO | app | Crawl completed: https://oppo.com/ — pages_crawled=13, pages_discovered=622, pages_failed=0, duration=13146ms
+2026-09-24T17:54:28 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 809, 'non_html': 0, 'resource': 3, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | WARNING | app | log_skip called without db session
+2026-09-24T17:54:28 | INFO | app | LighthouseCheckService: crawl done for check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, discovered 0 URLs across 2 devices — starting pagespeed phase (0 checks)
+2026-09-24T17:54:28 | INFO | app | LighthouseCheckService: completed check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, total=0, succeeded=0, failed=0
+2026-09-24T17:54:28 | INFO | app | lighthouse.run_check: task finished for check_id=e2d67fca-8c34-422c-8540-04024d8c9c37, status=completed
+2026-09-24T17:54:29 | INFO | app | GET /lighthouse/status/e2d67fca-8c34-422c-8540-04024d8c9c37
+2026-09-24T17:55:20 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=5, category=['performance', 'seo'], version=None
+2026-09-24T17:55:21 | INFO | app | LighthouseCheckService: prepared check_id=e9e1064e-c79c-48a5-9e19-e2388421665a, domain=example.com, devices=['mobile'], max_pages=5, version=None
+2026-09-24T17:55:21 | INFO | app | Lighthouse check queued: check_id=e9e1064e-c79c-48a5-9e19-e2388421665a, task_id=fake-task-0688bfd4-c86f-4a77-a92e-6d52cbba859b, domain=example.com
+2026-09-24T17:55:23 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['desktop'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T17:55:23 | INFO | app | LighthouseCheckService: prepared check_id=34e032da-1d78-4038-8406-6f31d735e7cf, domain=example.com, devices=['desktop'], max_pages=100, version=None
+2026-09-24T17:55:23 | INFO | app | Lighthouse check queued: check_id=34e032da-1d78-4038-8406-6f31d735e7cf, task_id=fake-task-e28c471b-074a-4473-8b1a-ba1205cbab9a, domain=example.com
+2026-09-24T17:55:25 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T17:55:25 | INFO | app | LighthouseCheckService: prepared check_id=2d635920-8dcf-4eed-b6eb-c5e1a2d346d7, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T17:55:25 | INFO | app | Lighthouse check queued: check_id=2d635920-8dcf-4eed-b6eb-c5e1a2d346d7, task_id=fake-task-cb0259e6-b45d-48d0-a6ea-56a8ee7ed0bd, domain=example.com
+2026-09-24T17:55:25 | INFO | app | GET /lighthouse/status/2d635920-8dcf-4eed-b6eb-c5e1a2d346d7
+2026-09-24T17:55:27 | INFO | app | GET /lighthouse/status/f43520c9-9a2a-4390-8460-5725f1f0df07
+2026-09-24T17:55:29 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T17:55:31 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T17:55:31 | INFO | app | LighthouseCheckService: prepared check_id=9d3149fa-85c8-4165-b0fb-5941c72cc8c1, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T17:55:31 | INFO | app | Lighthouse check queued: check_id=9d3149fa-85c8-4165-b0fb-5941c72cc8c1, task_id=fake-task-158e9f01-19e6-48da-8bfb-f8f54fe9b854, domain=example.com
+2026-09-24T17:55:31 | INFO | app | GET /lighthouse/task/fake-task-158e9f01-19e6-48da-8bfb-f8f54fe9b854
+2026-09-24T17:55:34 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T17:55:34 | INFO | app | LighthouseCheckService: prepared check_id=9b73743c-e0df-4d43-918d-6a0f81b55561, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T17:55:34 | INFO | app | Lighthouse check queued: check_id=9b73743c-e0df-4d43-918d-6a0f81b55561, task_id=fake-task-319f4c87-09cb-4530-a7b7-3e867b3d1be2, domain=example.com
+2026-09-24T17:55:41 | INFO | app | LighthouseCheckService: crawl done for check_id=3aedb07c-6583-47e4-9086-5e9174f626d3, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-24T17:57:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T17:57:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T18:04:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T18:04:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T18:05:15 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=5, category=['performance', 'seo'], version=None
+2026-09-24T18:05:15 | INFO | app | LighthouseCheckService: prepared check_id=d33d9397-b28c-4487-89bf-ed64ab3a4fb2, domain=example.com, devices=['mobile'], max_pages=5, version=None
+2026-09-24T18:05:15 | INFO | app | Lighthouse check queued: check_id=d33d9397-b28c-4487-89bf-ed64ab3a4fb2, task_id=fake-task-c9c75143-4dad-4584-b639-566987644a57, domain=example.com
+2026-09-24T18:05:16 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['desktop'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T18:05:16 | INFO | app | LighthouseCheckService: prepared check_id=2f770be8-ded0-4b4d-9e42-71452df0a0fe, domain=example.com, devices=['desktop'], max_pages=100, version=None
+2026-09-24T18:05:16 | INFO | app | Lighthouse check queued: check_id=2f770be8-ded0-4b4d-9e42-71452df0a0fe, task_id=fake-task-8249878b-0f68-4791-a431-246af1faef85, domain=example.com
+2026-09-24T18:05:17 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T18:05:17 | INFO | app | LighthouseCheckService: prepared check_id=e693cfd3-dbd2-4039-9047-c7316a308c93, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T18:05:17 | INFO | app | Lighthouse check queued: check_id=e693cfd3-dbd2-4039-9047-c7316a308c93, task_id=fake-task-78ca4d62-7432-4858-a07d-71ef3ed4b4a7, domain=example.com
+2026-09-24T18:05:17 | INFO | app | GET /lighthouse/status/e693cfd3-dbd2-4039-9047-c7316a308c93
+2026-09-24T18:05:18 | INFO | app | GET /lighthouse/status/f10375c8-ca11-4504-95c0-81a522bed88b
+2026-09-24T18:05:19 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T18:05:21 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T18:05:21 | INFO | app | LighthouseCheckService: prepared check_id=7cd18e36-43e7-485a-803f-a50d45154791, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T18:05:21 | INFO | app | Lighthouse check queued: check_id=7cd18e36-43e7-485a-803f-a50d45154791, task_id=fake-task-843a456f-13ee-4c95-a9a9-a2f340382d9a, domain=example.com
+2026-09-24T18:05:21 | INFO | app | GET /lighthouse/task/fake-task-843a456f-13ee-4c95-a9a9-a2f340382d9a
+2026-09-24T18:05:23 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-24T18:05:23 | INFO | app | LighthouseCheckService: prepared check_id=32eaff8a-8cca-4612-b2de-2b28d61e6c5f, domain=example.com, devices=['mobile'], max_pages=100, version=None
+2026-09-24T18:05:23 | INFO | app | Lighthouse check queued: check_id=32eaff8a-8cca-4612-b2de-2b28d61e6c5f, task_id=fake-task-d4706c2a-8ebd-4fb5-a101-0584064fa2a8, domain=example.com
+2026-09-24T18:05:29 | INFO | app | LighthouseCheckService: crawl done for check_id=f5744503-00b2-4750-8f51-52c2fb4e9e59, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-24T18:05:29 | INFO | app | LighthouseCheckService: completed check_id=f5744503-00b2-4750-8f51-52c2fb4e9e59, total=3, succeeded=3, failed=0
+2026-09-24T18:05:31 | INFO | app | LighthouseCheckService: crawl done for check_id=cb84e2ab-563e-448b-9160-0b083db55d2f, discovered 2 URLs across 1 devices — starting pagespeed phase (2 checks)
+2026-09-24T18:05:31 | ERROR | app | Pagespeed check failed for https://example.com/: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 265, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 414, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T18:05:31 | ERROR | app | Pagespeed check failed for https://example.com/a: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 265, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 414, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T18:05:31 | INFO | app | LighthouseCheckService: completed check_id=cb84e2ab-563e-448b-9160-0b083db55d2f, total=2, succeeded=0, failed=2
+2026-09-24T18:05:32 | INFO | app | GET /lighthouse/status/98f6ae4a-d1ec-46db-bdc7-6442a47faa45
+2026-09-24T18:05:32 | INFO | app | GET /lighthouse/status/98f6ae4a-d1ec-46db-bdc7-6442a47faa45
+2026-09-24T18:05:32 | INFO | app | GET /lighthouse/status/98f6ae4a-d1ec-46db-bdc7-6442a47faa45
+2026-09-24T18:05:32 | INFO | app | GET /lighthouse/status/98f6ae4a-d1ec-46db-bdc7-6442a47faa45
+2026-09-24T18:05:35 | INFO | app | LighthouseCheckService: max_pages cap — truncating 6 discovered URLs to 4 (skipped 2 from pagespeed check)
+2026-09-24T18:05:35 | INFO | app | LighthouseCheckService: crawl done for check_id=a16ff1df-1abe-4985-8ab9-548cd5b96450, discovered 4 URLs across 1 devices — starting pagespeed phase (4 checks)
+2026-09-24T18:05:35 | INFO | app | LighthouseCheckService: completed check_id=a16ff1df-1abe-4985-8ab9-548cd5b96450, total=4, succeeded=4, failed=0
+2026-09-24T18:05:36 | INFO | app | LighthouseCheckService: crawl done for check_id=d48c6f64-a528-42a3-a42e-b180b9551aaf, discovered 2 URLs across 1 devices — starting pagespeed phase (2 checks)
+2026-09-24T18:05:36 | INFO | app | LighthouseCheckService: completed check_id=d48c6f64-a528-42a3-a42e-b180b9551aaf, total=2, succeeded=2, failed=0
+2026-09-24T18:05:37 | INFO | app | LighthouseCheckService: crawl done for check_id=6a7f7151-0391-4ee9-b9af-e120713da0bc, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-24T18:05:37 | WARNING | app | Pagespeed API error for https://example.com/: status=400, body=API key not valid. Please pass a valid API key.
+2026-09-24T18:05:37 | INFO | app | LighthouseCheckService: completed check_id=6a7f7151-0391-4ee9-b9af-e120713da0bc, total=1, succeeded=0, failed=1
+2026-09-24T18:05:38 | INFO | app | LighthouseCheckService: crawl done for check_id=41fc18fc-cfcb-4479-ab6a-b10742b6b179, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-24T18:05:38 | ERROR | app | Pagespeed check failed for https://example.com/: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 265, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 799, in failing_fetch
+    raise EmptyException()
+test_lighthouse_check.test_empty_exception_reason_falls_back_to_class_name.<locals>.EmptyException
+2026-09-24T18:05:38 | INFO | app | LighthouseCheckService: completed check_id=41fc18fc-cfcb-4479-ab6a-b10742b6b179, total=1, succeeded=0, failed=1
+2026-09-24T18:05:44 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['7']
+2026-09-24T18:05:44 | INFO | app | LighthouseCheckService: prepared check_id=ca4f0930-5a69-4def-b3d4-b09c3d61badc, domain=example.com, devices=['mobile'], max_pages=100, version=['7']
+2026-09-24T18:05:44 | INFO | app | Lighthouse check queued: check_id=ca4f0930-5a69-4def-b3d4-b09c3d61badc, task_id=fake-task-c9715814-583b-445d-9424-a22007c9c09e, domain=example.com
+2026-09-24T18:05:45 | INFO | app | POST /lighthouse/check — url=https://example.com/, devices=['mobile', 'desktop'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['6', '7']
+2026-09-24T18:05:45 | INFO | app | LighthouseCheckService: prepared check_id=9453216b-bebd-4cdf-9901-ab2e37ae32be, domain=example.com, devices=['mobile', 'desktop'], max_pages=100, version=['6', '7']
+2026-09-24T18:05:45 | INFO | app | Lighthouse check queued: check_id=9453216b-bebd-4cdf-9901-ab2e37ae32be, task_id=fake-task-48c94f6d-8a44-44fa-998e-4a85bed02f6a, domain=example.com
