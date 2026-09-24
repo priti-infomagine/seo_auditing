@@ -118003,3 +118003,1417 @@ WHERE lighthouse_page_results.check_id = $1::UUID]
 2026-09-24T08:51:21 | INFO | app | LighthouseCheckService: crawl done for check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, discovered 8 URLs — starting pagespeed phase
 2026-09-24T08:52:05 | INFO | app | LighthouseCheckService: completed check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, total=8, succeeded=8, failed=0
 2026-09-24T08:52:05 | INFO | app | lighthouse.run_check: task finished for check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, status=completed
+2026-09-24T10:00:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T10:00:57 | INFO | app | Worker process initialized with persistent event loop (pid=24664)
+2026-09-24T10:01:31 | INFO | app | Worker process initialized with persistent event loop (pid=4736)
+2026-09-24T10:12:42 | INFO | app | POST /lighthouse/check — url=https://vivo.com/, device=mobile, max_pages=8, category=['accessibility', 'seo', 'performance']
+2026-09-24T10:12:42 | INFO | app | LighthouseCheckService: prepared check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, domain=vivo.com, device=mobile, max_pages=8
+2026-09-24T10:12:42 | INFO | app | Lighthouse check queued: check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, task_id=c64ebde3-0198-412e-a7cc-c17ea91156ac, domain=vivo.com
+2026-09-24T10:12:43 | INFO | app | lighthouse.run_check: task started for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, url=https://vivo.com/, device=mobile, max_pages=8
+2026-09-24T10:12:54 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T10:12:54 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T10:12:54 | INFO | app | Crawl started: https://vivo.com/ (max_pages=8, max_depth=3)
+2026-09-24T10:12:54 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T10:13:01 | ERROR | app | Lighthouse results fetch failed: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 325, in get_lighthouse_results
+    rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 33, in get_by_check_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:13:09 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=17, pages_discovered=545, pages_failed=0, duration=25104ms
+2026-09-24T10:13:09 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1022, 'non_html': 0, 'resource': 16, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T10:13:09 | WARNING | app | log_skip called without db session
+2026-09-24T10:13:09 | INFO | app | LighthouseCheckService: max_pages cap — truncating 16 discovered URLs to 8 (skipped 8 from pagespeed check)
+2026-09-24T10:13:09 | INFO | app | LighthouseCheckService: crawl done for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, discovered 8 URLs — starting pagespeed phase
+2026-09-24T10:13:12 | ERROR | app | Lighthouse results fetch failed: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 325, in get_lighthouse_results
+    rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 33, in get_by_check_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:13:31 | ERROR | app | lighthouse.run_check: task failed for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('08c7cfa8-aac9-429b-bda0-e084075a1b3a'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/empower-your-future', 'MOBILE', 'SUCCESS', None, 43, 92, 6513, 16199, 544, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (39297 characters truncated) ... tion": "Fix `[aria-hidden=\\"true\\"]` elements contain focusable descendents. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 95, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 83, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 292, in run_check_async
+    await results_repo.upsert(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 137, in upsert
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('08c7cfa8-aac9-429b-bda0-e084075a1b3a'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/empower-your-future', 'MOBILE', 'SUCCESS', None, 43, 92, 6513, 16199, 544, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (39297 characters truncated) ... tion": "Fix `[aria-hidden=\\"true\\"]` elements contain focusable descendents. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:13:32 | INFO | app | lighthouse.run_check: task started for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, url=https://vivo.com/, device=mobile, max_pages=8
+2026-09-24T10:13:42 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T10:13:42 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T10:13:42 | INFO | app | Crawl started: https://vivo.com/ (max_pages=8, max_depth=3)
+2026-09-24T10:13:42 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T10:13:49 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=17, pages_discovered=545, pages_failed=0, duration=16905ms
+2026-09-24T10:13:49 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1022, 'non_html': 0, 'resource': 16, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T10:13:49 | WARNING | app | log_skip called without db session
+2026-09-24T10:13:49 | INFO | app | LighthouseCheckService: max_pages cap — truncating 16 discovered URLs to 8 (skipped 8 from pagespeed check)
+2026-09-24T10:13:49 | INFO | app | LighthouseCheckService: crawl done for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, discovered 8 URLs — starting pagespeed phase
+2026-09-24T10:13:51 | ERROR | app | lighthouse.run_check: task failed for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('c5cc5ac8-ba8d-411f-89e0-d08fe70ccbef'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/news', 'MOBILE', 'SUCCESS', None, 39, 92, 3849, 17911, 1076, 0.009612758349339832, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (37209 characters truncated) ... nings": [], "error_message": null, "recommendation": "Fix Time to Interactive. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 95, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 83, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 292, in run_check_async
+    await results_repo.upsert(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 137, in upsert
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('c5cc5ac8-ba8d-411f-89e0-d08fe70ccbef'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/news', 'MOBILE', 'SUCCESS', None, 39, 92, 3849, 17911, 1076, 0.009612758349339832, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (37209 characters truncated) ... nings": [], "error_message": null, "recommendation": "Fix Time to Interactive. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:13:52 | INFO | app | lighthouse.run_check: task started for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, url=https://vivo.com/, device=mobile, max_pages=8
+2026-09-24T10:14:03 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T10:14:03 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T10:14:03 | INFO | app | Crawl started: https://vivo.com/ (max_pages=8, max_depth=3)
+2026-09-24T10:14:03 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T10:14:09 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=17, pages_discovered=545, pages_failed=0, duration=17231ms
+2026-09-24T10:14:09 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1022, 'non_html': 0, 'resource': 16, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T10:14:09 | WARNING | app | log_skip called without db session
+2026-09-24T10:14:09 | INFO | app | LighthouseCheckService: max_pages cap — truncating 16 discovered URLs to 8 (skipped 8 from pagespeed check)
+2026-09-24T10:14:09 | INFO | app | LighthouseCheckService: crawl done for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, discovered 8 URLs — starting pagespeed phase
+2026-09-24T10:14:11 | ERROR | app | lighthouse.run_check: task failed for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('8fb1559f-d7d1-43a4-8059-48faeea71edb'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/cookie-policy', 'MOBILE', 'SUCCESS', None, 40, 91, 6602, 15710, 752, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (34161 characters truncated) ... error_message": null, "recommendation": "Fix Reduce JavaScript execution time. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 95, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 83, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 292, in run_check_async
+    await results_repo.upsert(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 137, in upsert
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('8fb1559f-d7d1-43a4-8059-48faeea71edb'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo/cookie-policy', 'MOBILE', 'SUCCESS', None, 40, 91, 6602, 15710, 752, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (34161 characters truncated) ... error_message": null, "recommendation": "Fix Reduce JavaScript execution time. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:14:11 | INFO | app | lighthouse.run_check: task started for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, url=https://vivo.com/, device=mobile, max_pages=8
+2026-09-24T10:14:21 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T10:14:21 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T10:14:21 | INFO | app | Crawl started: https://vivo.com/ (max_pages=8, max_depth=3)
+2026-09-24T10:14:21 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T10:14:28 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=17, pages_discovered=545, pages_failed=0, duration=17132ms
+2026-09-24T10:14:28 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1022, 'non_html': 0, 'resource': 16, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T10:14:28 | WARNING | app | log_skip called without db session
+2026-09-24T10:14:28 | INFO | app | LighthouseCheckService: max_pages cap — truncating 16 discovered URLs to 8 (skipped 8 from pagespeed check)
+2026-09-24T10:14:28 | INFO | app | LighthouseCheckService: crawl done for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec, discovered 8 URLs — starting pagespeed phase
+2026-09-24T10:14:33 | ERROR | app | lighthouse.run_check: task failed for check_id=0d1260c4-2e59-43bc-a458-0c204c7e11ec: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('a28e87af-5be4-4c52-8ff6-08a805448852'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo', 'MOBILE', 'SUCCESS', None, 40, 92, 5410, 19100, 676, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (39026 characters truncated) ... ], "warnings": [], "error_message": null, "recommendation": "Fix Font display. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 95, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\tasks.py", line 83, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 292, in run_check_async
+    await results_repo.upsert(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 137, in upsert
+    result = await self.db.execute(stmt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "recommendations" of relation "lighthouse_page_results" does not exist
+[SQL: INSERT INTO lighthouse_page_results (id, check_id, domain, url, device, status, reason, performance_score, seo_score, fcp_ms, lcp_ms, tbt_ms, cls, recommendations) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::device, $6::pagestatus, $7::VARCHAR, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::FLOAT, $14::JSONB) ON CONFLICT ON CONSTRAINT uq_check_url_device DO UPDATE SET domain = excluded.domain, status = excluded.status, reason = excluded.reason, performance_score = excluded.performance_score, seo_score = excluded.seo_score, fcp_ms = excluded.fcp_ms, lcp_ms = excluded.lcp_ms, tbt_ms = excluded.tbt_ms, cls = excluded.cls, recommendations = excluded.recommendations RETURNING lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at]
+[parameters: (UUID('a28e87af-5be4-4c52-8ff6-08a805448852'), UUID('0d1260c4-2e59-43bc-a458-0c204c7e11ec'), 'vivo.com', 'https://www.vivo.com/sa/ar/about-vivo', 'MOBILE', 'SUCCESS', None, 40, 92, 5410, 19100, 676, 0.02952774796295448, '[{"audit_id": "unused-javascript", "category": "Performance", "category_weight": 0.0, "title": "Reduce unused JavaScript", "score": 0, "score_display ... (39026 characters truncated) ... ], "warnings": [], "error_message": null, "recommendation": "Fix Font display. Apply the changes shown in the audit details and re-run Lighthouse."}]')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T10:54:51 | INFO | app | POST /lighthouse/check — url=https://vivo.com/, device=mobile, max_pages=8, category=['accessibility', 'seo', 'performance']
+2026-09-24T10:54:51 | INFO | app | LighthouseCheckService: prepared check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, domain=vivo.com, device=mobile, max_pages=8
+2026-09-24T10:54:51 | INFO | app | Lighthouse check queued: check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, task_id=3e7d7be0-b85a-4c01-a5f7-43f17f3fe835, domain=vivo.com
+2026-09-24T10:54:52 | INFO | app | lighthouse.run_check: task started for check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, url=https://vivo.com/, device=mobile, max_pages=8
+2026-09-24T10:55:04 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T10:55:04 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T10:55:04 | INFO | app | Crawl started: https://vivo.com/ (max_pages=8, max_depth=3)
+2026-09-24T10:55:04 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T10:55:15 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=17, pages_discovered=545, pages_failed=0, duration=23138ms
+2026-09-24T10:55:15 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1022, 'non_html': 0, 'resource': 16, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T10:55:15 | WARNING | app | log_skip called without db session
+2026-09-24T10:55:15 | INFO | app | LighthouseCheckService: max_pages cap — truncating 16 discovered URLs to 8 (skipped 8 from pagespeed check)
+2026-09-24T10:55:15 | INFO | app | LighthouseCheckService: crawl done for check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, discovered 8 URLs — starting pagespeed phase
+2026-09-24T10:56:04 | INFO | app | LighthouseCheckService: completed check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, total=8, succeeded=8, failed=0
+2026-09-24T10:56:04 | INFO | app | lighthouse.run_check: task finished for check_id=e9e550f5-aa39-4373-b092-9bdaea22bf1e, status=completed
+2026-09-24T11:15:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:16:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:16:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:16:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:17:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:17:36 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:18:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:18:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:19:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:19:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:20:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:22:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:26:13 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:27:39 | ERROR | app | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 504, in flush_all
+    await flush_fn()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-09-24T11:29:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:37:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:47:36 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:50:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:55:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:56:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:56:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:57:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:57:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T11:57:56 | ERROR | app | CrawlPersistenceService.flush_all: failing_flush_network failed: network flush failed
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_persistence_service.py", line 498, in flush_all
+    await flush_fn()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tests\unit\test_persistence_buffer.py", line 208, in failing_flush_network
+    raise RuntimeError("network flush failed")
+RuntimeError: network flush failed
+2026-09-24T12:14:13 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:14:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:14:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:14:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:15:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:15:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:16:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:16:31 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:16:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:16:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:17:31 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:20:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:20:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:22:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:22:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:23:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:24:00 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:24:17 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:24:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:24:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:25:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:25:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:25:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:30:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:30:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:31:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:34:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:39:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T12:39:14 | INFO | app | Worker process initialized with persistent event loop (pid=3696)
+2026-09-24T12:39:21 | INFO | app | Worker process initialized with persistent event loop (pid=14628)
+2026-09-24T12:41:18 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': 
+2026-09-24T12:41:38 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=5, category=['performance', 'seo']
+2026-09-24T12:41:38 | INFO | app | LighthouseCheckService: prepared check_id=c7c1363d-2347-450e-b665-00bbdb960133, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=5
+2026-09-24T12:41:38 | INFO | app | Lighthouse check queued: check_id=c7c1363d-2347-450e-b665-00bbdb960133, task_id=fake-task-f17c82fc-1677-4b8e-be5d-c4157ec6841a, domain=example.com
+2026-09-24T12:41:39 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['desktop'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:39 | INFO | app | LighthouseCheckService: prepared check_id=dfc46d41-4219-4b54-a51e-de2e368fe0c4, domain=example.com, device=[<Device.DESKTOP: 'desktop'>], max_pages=100
+2026-09-24T12:41:39 | INFO | app | Lighthouse check queued: check_id=dfc46d41-4219-4b54-a51e-de2e368fe0c4, task_id=fake-task-35ffa61a-ba57-4a61-b360-5c9885afa0f8, domain=example.com
+2026-09-24T12:41:40 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:40 | INFO | app | LighthouseCheckService: prepared check_id=48c6daac-39e0-43cd-b7a0-f64225c66d99, domain=example.com, device=[<Device.MOBILE: 'mobile'>, <Device.DESKTOP: 'desktop'>], max_pages=100
+2026-09-24T12:41:40 | INFO | app | Lighthouse check queued: check_id=48c6daac-39e0-43cd-b7a0-f64225c66d99, task_id=fake-task-7cb47aa9-b5ad-441c-b94b-cbbd539f9eb4, domain=example.com
+2026-09-24T12:41:41 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:41 | INFO | app | LighthouseCheckService: prepared check_id=28b77bd6-7c85-4b7f-824d-4b2899315c0e, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:41:41 | INFO | app | Lighthouse check queued: check_id=28b77bd6-7c85-4b7f-824d-4b2899315c0e, task_id=fake-task-c8f53ad0-6c05-4412-b831-a5f9ffb035a7, domain=example.com
+2026-09-24T12:41:42 | INFO | app | LighthouseCheckService: crawl done for check_id=4eb6e361-c2ec-4b91-b03a-173a8ea463a5, discovered 3 URLs × 2 devices = 6 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:42 | INFO | app | LighthouseCheckService: completed check_id=4eb6e361-c2ec-4b91-b03a-173a8ea463a5, total=6, succeeded=6, failed=0
+2026-09-24T12:41:43 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:43 | INFO | app | LighthouseCheckService: prepared check_id=59c7c52f-9f00-4929-b97d-093fddf3da8f, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:41:43 | INFO | app | Lighthouse check queued: check_id=59c7c52f-9f00-4929-b97d-093fddf3da8f, task_id=fake-task-030f953b-ed77-4d0d-b2a0-6294beb1f2d3, domain=example.com
+2026-09-24T12:41:43 | INFO | app | GET /lighthouse/status/59c7c52f-9f00-4929-b97d-093fddf3da8f
+2026-09-24T12:41:45 | INFO | app | GET /lighthouse/status/8eed4a4b-7adb-4265-bbb2-ced2623702e4
+2026-09-24T12:41:46 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T12:41:47 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:47 | INFO | app | LighthouseCheckService: prepared check_id=e9ec9536-d6ae-4ae9-af4e-dc37ceb72cb8, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:41:47 | INFO | app | Lighthouse check queued: check_id=e9ec9536-d6ae-4ae9-af4e-dc37ceb72cb8, task_id=fake-task-d34b7b7a-a2de-4410-bbf7-f6c53a5f4079, domain=example.com
+2026-09-24T12:41:47 | INFO | app | GET /lighthouse/task/fake-task-d34b7b7a-a2de-4410-bbf7-f6c53a5f4079
+2026-09-24T12:41:49 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:41:49 | INFO | app | LighthouseCheckService: prepared check_id=9c0b822f-aa8f-4ae5-94c1-31f2c09c945f, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:41:49 | INFO | app | Lighthouse check queued: check_id=9c0b822f-aa8f-4ae5-94c1-31f2c09c945f, task_id=fake-task-0535cbec-92e3-4085-94d0-a2a21bdb91dd, domain=example.com
+2026-09-24T12:41:53 | INFO | app | LighthouseCheckService: crawl done for check_id=24104c9e-a8b7-418f-adfe-6ca8bf932f6f, discovered 3 URLs × 1 devices = 3 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:53 | INFO | app | LighthouseCheckService: completed check_id=24104c9e-a8b7-418f-adfe-6ca8bf932f6f, total=3, succeeded=3, failed=0
+2026-09-24T12:41:54 | INFO | app | LighthouseCheckService: crawl done for check_id=6381e005-2ead-4d64-b43d-2dc39fd661c4, discovered 2 URLs × 1 devices = 2 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:54 | ERROR | app | Pagespeed check failed for https://example.com/: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 535, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T12:41:54 | ERROR | app | Pagespeed check failed for https://example.com/a: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 535, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T12:41:54 | INFO | app | LighthouseCheckService: completed check_id=6381e005-2ead-4d64-b43d-2dc39fd661c4, total=2, succeeded=0, failed=2
+2026-09-24T12:41:55 | INFO | app | GET /lighthouse/status/035bbec3-ffaf-488f-b81c-c2dc66b2caae
+2026-09-24T12:41:55 | INFO | app | GET /lighthouse/status/035bbec3-ffaf-488f-b81c-c2dc66b2caae
+2026-09-24T12:41:55 | INFO | app | GET /lighthouse/status/035bbec3-ffaf-488f-b81c-c2dc66b2caae
+2026-09-24T12:41:55 | INFO | app | GET /lighthouse/status/035bbec3-ffaf-488f-b81c-c2dc66b2caae
+2026-09-24T12:41:57 | INFO | app | LighthouseCheckService: max_pages cap — truncating 6 discovered URLs to 4 (skipped 2 from pagespeed check)
+2026-09-24T12:41:57 | INFO | app | LighthouseCheckService: crawl done for check_id=8d674f70-dac4-4a3d-953f-65c8330d5d28, discovered 4 URLs × 1 devices = 4 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:57 | INFO | app | LighthouseCheckService: completed check_id=8d674f70-dac4-4a3d-953f-65c8330d5d28, total=4, succeeded=4, failed=0
+2026-09-24T12:41:58 | INFO | app | LighthouseCheckService: crawl done for check_id=aa644895-f251-4c25-a59a-8db2da5b0d87, discovered 2 URLs × 1 devices = 2 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:58 | INFO | app | LighthouseCheckService: completed check_id=aa644895-f251-4c25-a59a-8db2da5b0d87, total=2, succeeded=2, failed=0
+2026-09-24T12:41:59 | INFO | app | LighthouseCheckService: crawl done for check_id=0c3882d8-3824-41cc-be2f-abca720ce0b5, discovered 1 URLs × 1 devices = 1 pagespeed checks — starting pagespeed phase
+2026-09-24T12:41:59 | WARNING | app | Pagespeed API error for https://example.com/: status=400, body=API key not valid. Please pass a valid API key.
+2026-09-24T12:41:59 | INFO | app | LighthouseCheckService: completed check_id=0c3882d8-3824-41cc-be2f-abca720ce0b5, total=1, succeeded=0, failed=1
+2026-09-24T12:42:01 | INFO | app | LighthouseCheckService: crawl done for check_id=0fdbfea9-ac0c-44aa-9370-236c4aadf44e, discovered 1 URLs × 1 devices = 1 pagespeed checks — starting pagespeed phase
+2026-09-24T12:42:01 | ERROR | app | Pagespeed check failed for https://example.com/: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 920, in failing_fetch
+    raise EmptyException()
+test_lighthouse_check.test_empty_exception_reason_falls_back_to_class_name.<locals>.EmptyException
+2026-09-24T12:42:01 | INFO | app | LighthouseCheckService: completed check_id=0fdbfea9-ac0c-44aa-9370-236c4aadf44e, total=1, succeeded=0, failed=1
+2026-09-24T12:45:58 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=5, category=['performance', 'seo']
+2026-09-24T12:45:58 | INFO | app | LighthouseCheckService: prepared check_id=b862311e-9dbf-465e-b745-0c7ca47c977a, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=5
+2026-09-24T12:45:58 | INFO | app | Lighthouse check queued: check_id=b862311e-9dbf-465e-b745-0c7ca47c977a, task_id=fake-task-c62ad0d8-b3f0-49e2-af03-d8c39b54ea6f, domain=example.com
+2026-09-24T12:45:59 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['desktop'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:45:59 | INFO | app | LighthouseCheckService: prepared check_id=9ee297e5-1e0b-4794-9ad5-c30d28516f08, domain=example.com, device=[<Device.DESKTOP: 'desktop'>], max_pages=100
+2026-09-24T12:45:59 | INFO | app | Lighthouse check queued: check_id=9ee297e5-1e0b-4794-9ad5-c30d28516f08, task_id=fake-task-0b954f16-7925-44c7-b78d-736fd6fb01be, domain=example.com
+2026-09-24T12:46:00 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:46:00 | INFO | app | LighthouseCheckService: prepared check_id=b10b0d3c-7be7-46fe-880f-ed2b08620897, domain=example.com, device=[<Device.MOBILE: 'mobile'>, <Device.DESKTOP: 'desktop'>], max_pages=100
+2026-09-24T12:46:00 | INFO | app | Lighthouse check queued: check_id=b10b0d3c-7be7-46fe-880f-ed2b08620897, task_id=fake-task-e113b93c-f177-491e-8fcb-e360b855baa7, domain=example.com
+2026-09-24T12:46:01 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:46:01 | INFO | app | LighthouseCheckService: prepared check_id=3f984fc3-c653-4251-825e-15e79274edbe, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:46:01 | INFO | app | Lighthouse check queued: check_id=3f984fc3-c653-4251-825e-15e79274edbe, task_id=fake-task-77babead-8a0e-49df-a77e-8ed400c6a60b, domain=example.com
+2026-09-24T12:46:02 | INFO | app | LighthouseCheckService: crawl done for check_id=475a61e4-0a3d-4803-b8ad-defa4e0ac855, discovered 3 URLs × 2 devices = 6 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:02 | INFO | app | LighthouseCheckService: completed check_id=475a61e4-0a3d-4803-b8ad-defa4e0ac855, total=6, succeeded=6, failed=0
+2026-09-24T12:46:02 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:46:02 | INFO | app | LighthouseCheckService: prepared check_id=d1206459-4100-49ff-8a80-bb46b3cf79bc, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:46:02 | INFO | app | Lighthouse check queued: check_id=d1206459-4100-49ff-8a80-bb46b3cf79bc, task_id=fake-task-69ccc19d-bb10-4b84-afe0-bfbd9ec54bf1, domain=example.com
+2026-09-24T12:46:02 | INFO | app | GET /lighthouse/status/d1206459-4100-49ff-8a80-bb46b3cf79bc
+2026-09-24T12:46:04 | INFO | app | GET /lighthouse/status/7e8b98da-22b8-42d4-93e2-01d25ed50497
+2026-09-24T12:46:05 | INFO | app | GET /lighthouse/status/not-a-uuid
+2026-09-24T12:46:06 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:46:06 | INFO | app | LighthouseCheckService: prepared check_id=f84467e9-5f04-4bb6-9d9b-05daca0ae214, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:46:06 | INFO | app | Lighthouse check queued: check_id=f84467e9-5f04-4bb6-9d9b-05daca0ae214, task_id=fake-task-258ffb30-2d03-44bd-8301-77de6bae2dc7, domain=example.com
+2026-09-24T12:46:06 | INFO | app | GET /lighthouse/task/fake-task-258ffb30-2d03-44bd-8301-77de6bae2dc7
+2026-09-24T12:46:08 | INFO | app | POST /lighthouse/check — url=https://example.com/, device=['mobile'], version=['v11', 'v10', 'v9'], max_pages=None, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T12:46:08 | INFO | app | LighthouseCheckService: prepared check_id=10704de4-d061-40e1-b165-1b63acbadf9a, domain=example.com, device=[<Device.MOBILE: 'mobile'>], max_pages=100
+2026-09-24T12:46:08 | INFO | app | Lighthouse check queued: check_id=10704de4-d061-40e1-b165-1b63acbadf9a, task_id=fake-task-3064e565-39ca-43a1-96dd-245d5741ef64, domain=example.com
+2026-09-24T12:46:12 | INFO | app | LighthouseCheckService: crawl done for check_id=405c8777-a1ce-453e-8713-d5e4aa3c80d7, discovered 3 URLs × 1 devices = 3 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:12 | INFO | app | LighthouseCheckService: completed check_id=405c8777-a1ce-453e-8713-d5e4aa3c80d7, total=3, succeeded=3, failed=0
+2026-09-24T12:46:13 | INFO | app | LighthouseCheckService: crawl done for check_id=35e143b6-298d-488b-9e31-e1785058676e, discovered 2 URLs × 1 devices = 2 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:13 | ERROR | app | Pagespeed check failed for https://example.com/: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 535, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T12:46:13 | ERROR | app | Pagespeed check failed for https://example.com/a: upstream 5xx
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 535, in failing_fetch
+    raise Exception("upstream 5xx")
+Exception: upstream 5xx
+2026-09-24T12:46:13 | INFO | app | LighthouseCheckService: completed check_id=35e143b6-298d-488b-9e31-e1785058676e, total=2, succeeded=0, failed=2
+2026-09-24T12:46:14 | INFO | app | GET /lighthouse/status/5047d348-56e1-4281-92e8-8519696dddd2
+2026-09-24T12:46:14 | INFO | app | GET /lighthouse/status/5047d348-56e1-4281-92e8-8519696dddd2
+2026-09-24T12:46:14 | INFO | app | GET /lighthouse/status/5047d348-56e1-4281-92e8-8519696dddd2
+2026-09-24T12:46:14 | INFO | app | GET /lighthouse/status/5047d348-56e1-4281-92e8-8519696dddd2
+2026-09-24T12:46:17 | INFO | app | LighthouseCheckService: max_pages cap — truncating 6 discovered URLs to 4 (skipped 2 from pagespeed check)
+2026-09-24T12:46:17 | INFO | app | LighthouseCheckService: crawl done for check_id=6dba409f-f01f-44ae-91c1-c18433b00f58, discovered 4 URLs × 1 devices = 4 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:17 | INFO | app | LighthouseCheckService: completed check_id=6dba409f-f01f-44ae-91c1-c18433b00f58, total=4, succeeded=4, failed=0
+2026-09-24T12:46:18 | INFO | app | LighthouseCheckService: crawl done for check_id=8bd25442-361e-4e1b-9610-8d143cc9b229, discovered 2 URLs × 1 devices = 2 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:18 | INFO | app | LighthouseCheckService: completed check_id=8bd25442-361e-4e1b-9610-8d143cc9b229, total=2, succeeded=2, failed=0
+2026-09-24T12:46:19 | INFO | app | LighthouseCheckService: crawl done for check_id=c0816a46-0d11-40d4-acf4-a4e2ef46fec3, discovered 1 URLs × 1 devices = 1 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:19 | WARNING | app | Pagespeed API error for https://example.com/: status=400, body=API key not valid. Please pass a valid API key.
+2026-09-24T12:46:20 | INFO | app | LighthouseCheckService: completed check_id=c0816a46-0d11-40d4-acf4-a4e2ef46fec3, total=1, succeeded=0, failed=1
+2026-09-24T12:46:21 | INFO | app | LighthouseCheckService: crawl done for check_id=9f48ac2c-902d-477f-a5aa-09bec1f2d609, discovered 1 URLs × 1 devices = 1 pagespeed checks — starting pagespeed phase
+2026-09-24T12:46:21 | ERROR | app | Pagespeed check failed for https://example.com/: 
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 268, in _check_one
+    raw = await self.pagespeed_client.fetch(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\tests\test_lighthouse_check.py", line 920, in failing_fetch
+    raise EmptyException()
+test_lighthouse_check.test_empty_exception_reason_falls_back_to_class_name.<locals>.EmptyException
+2026-09-24T12:46:21 | INFO | app | LighthouseCheckService: completed check_id=9f48ac2c-902d-477f-a5aa-09bec1f2d609, total=1, succeeded=0, failed=1
+2026-09-24T13:43:23 | INFO | app | POST /lighthouse/check — url=https://kanhahometutions.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=12, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T13:43:24 | INFO | app | LighthouseCheckService: prepared check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, domain=kanhahometutions.com, device=[<Device.MOBILE: 'mobile'>, <Device.DESKTOP: 'desktop'>], max_pages=12
+2026-09-24T13:43:24 | INFO | app | Lighthouse check queued: check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, task_id=ffea574e-21ef-4cae-abd6-f714fdc074f7, domain=kanhahometutions.com
+2026-09-24T13:43:24 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:25 | INFO | app | lighthouse.run_check: task started for check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, url=https://kanhahometutions.com/, device=['mobile', 'desktop'], max_pages=12
+2026-09-24T13:43:26 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:28 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:29 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-24T13:43:29 | INFO | app | Robots policy attached to scheduler for kanhahometutions.com (sitemaps: 0)
+2026-09-24T13:43:29 | INFO | app | Crawl started: https://kanhahometutions.com/ (max_pages=12, max_depth=3)
+2026-09-24T13:43:29 | INFO | app | Submitted 97 sitemap URLs to crawl queue (total discovered: 98)
+2026-09-24T13:43:30 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:32 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:34 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:36 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:40 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:40 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:42 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:44 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:46 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:48 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:50 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:52 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:54 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:56 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:43:58 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:00 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:02 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:04 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:05 | INFO | app | Crawl completed: https://kanhahometutions.com/ — pages_crawled=21, pages_discovered=298, pages_failed=0, duration=37580ms
+2026-09-24T13:44:05 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1206, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T13:44:05 | INFO | app | LighthouseCheckService: max_pages cap — truncating 21 discovered URLs to 12 (skipped 9 from pagespeed check)
+2026-09-24T13:44:05 | INFO | app | LighthouseCheckService: crawl done for check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, discovered 12 URLs × 2 devices = 24 pagespeed checks — starting pagespeed phase
+2026-09-24T13:44:07 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:09 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:11 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:13 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:15 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:17 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:19 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:21 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:23 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:25 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:27 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:29 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:31 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:33 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:35 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:37 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:39 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:40 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:42 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:44 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:46 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:48 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:51 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:53 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:55 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:57 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:44:59 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:01 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:02 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:04 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:06 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:08 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:10 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:12 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:14 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:16 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:18 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:20 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:22 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:24 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:26 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:28 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:30 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:32 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:34 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:36 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:38 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:40 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:42 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:44 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:46 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:48 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:50 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:52 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:54 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:56 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:45:58 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:00 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:02 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:04 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:06 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:08 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:10 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:12 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:14 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:16 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T13:46:16 | INFO | app | LighthouseCheckService: completed check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, total=24, succeeded=24, failed=0
+2026-09-24T13:46:16 | INFO | app | lighthouse.run_check: task finished for check_id=4885a54d-fdc7-49c6-b20b-cbb659a64f51, status=completed
+2026-09-24T13:46:18 | INFO | app | GET /lighthouse/status/4885a54d-fdc7-49c6-b20b-cbb659a64f51
+2026-09-24T14:02:22 | ERROR | app | check_robots: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.InvalidCachedStatementError) <class 'asyncpg.exceptions.InvalidCachedStatementError'>: cached statement plan is invalid due to a database schema or configuration change (SQLAlchemy asyncpg dialect will now invalidate all prepared caches in response to this exception)
+[SQL: SELECT robot_check.id, robot_check.domain, robot_check.exists, robot_check.status_code, robot_check.fetch_status, robot_check.size_bytes, robot_check.raw_content, robot_check.fetched_url, robot_check.user_agent_groups, robot_check.sitemaps_declared, robot_check.sitemap_reachability, robot_check.syntax_warnings, robot_check.findings, robot_check.blocks_entire_site, robot_check.blocks_assets, robot_check.oversized, robot_check.overall_status, robot_check.severity, robot_check.evidence, robot_check.why, robot_check.recommendation, robot_check.check_version, robot_check.created_at, robot_check.updated_at 
+FROM robot_check 
+WHERE robot_check.domain = $1::VARCHAR ORDER BY robot_check.created_at DESC 
+ LIMIT $2::INTEGER]
+[parameters: ('vivo.com', 1)]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidCachedStatementError: cached statement plan is invalid due to a database schema or configuration change
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.InvalidCachedStatementError: <class 'asyncpg.exceptions.InvalidCachedStatementError'>: cached statement plan is invalid due to a database schema or configuration change (SQLAlchemy asyncpg dialect will now invalidate all prepared caches in response to this exception)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\router.py", line 170, in check_robots
+    result = await service.run_check(body.domain)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\service.py", line 57, in run_check
+    cached = await self.get_latest(normalized_domain)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\service.py", line 164, in get_latest
+    return await repo.get_latest_by_domain(normalized_domain)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\robots_check\repository.py", line 29, in get_latest_by_domain
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.NotSupportedError: (sqlalchemy.dialects.postgresql.asyncpg.InvalidCachedStatementError) <class 'asyncpg.exceptions.InvalidCachedStatementError'>: cached statement plan is invalid due to a database schema or configuration change (SQLAlchemy asyncpg dialect will now invalidate all prepared caches in response to this exception)
+[SQL: SELECT robot_check.id, robot_check.domain, robot_check.exists, robot_check.status_code, robot_check.fetch_status, robot_check.size_bytes, robot_check.raw_content, robot_check.fetched_url, robot_check.user_agent_groups, robot_check.sitemaps_declared, robot_check.sitemap_reachability, robot_check.syntax_warnings, robot_check.findings, robot_check.blocks_entire_site, robot_check.blocks_assets, robot_check.oversized, robot_check.overall_status, robot_check.severity, robot_check.evidence, robot_check.why, robot_check.recommendation, robot_check.check_version, robot_check.created_at, robot_check.updated_at 
+FROM robot_check 
+WHERE robot_check.domain = $1::VARCHAR ORDER BY robot_check.created_at DESC 
+ LIMIT $2::INTEGER]
+[parameters: ('vivo.com', 1)]
+(Background on this error at: https://sqlalche.me/e/20/tw8g)
+2026-09-24T14:05:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T14:05:18 | INFO | app | Worker process initialized with persistent event loop (pid=5472)
+2026-09-24T14:05:22 | INFO | app | Worker process initialized with persistent event loop (pid=17596)
+2026-09-24T14:05:46 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 
+2026-09-24T14:07:52 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': 
+2026-09-24T14:15:11 | INFO | app | POST /lighthouse/check — url=https://vivo.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T14:15:11 | INFO | app | LighthouseCheckService: prepared check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, domain=vivo.com, device=[<Device.MOBILE: 'mobile'>, <Device.DESKTOP: 'desktop'>], max_pages=4
+2026-09-24T14:15:12 | INFO | app | Lighthouse check queued: check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, task_id=4ab937f5-0198-4c24-ac6e-52ecfd7f9704, domain=vivo.com
+2026-09-24T14:15:12 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:12 | INFO | app | lighthouse.run_check: task started for check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, url=https://vivo.com/, device=['mobile', 'desktop'], max_pages=4
+2026-09-24T14:15:14 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:16 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:18 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:21 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:23 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:25 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:27 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:28 | INFO | app | Site discovery complete for https://vivo.com/: robots=True, sitemaps=42, page_urls=500
+2026-09-24T14:15:28 | INFO | app | Robots policy attached to scheduler for vivo.com (sitemaps: 1)
+2026-09-24T14:15:28 | INFO | app | Crawl started: https://vivo.com/ (max_pages=4, max_depth=3)
+2026-09-24T14:15:28 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T14:15:29 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:31 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:33 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:35 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:37 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:39 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:41 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:43 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:45 | INFO | app | Crawl completed: https://vivo.com/ — pages_crawled=13, pages_discovered=545, pages_failed=0, duration=30556ms
+2026-09-24T14:15:45 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 770, 'non_html': 0, 'resource': 12, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T14:15:45 | WARNING | app | log_skip called without db session
+2026-09-24T14:15:45 | INFO | app | LighthouseCheckService: max_pages cap — truncating 12 discovered URLs to 4 (skipped 8 from pagespeed check)
+2026-09-24T14:15:45 | INFO | app | LighthouseCheckService: crawl done for check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, discovered 4 URLs × 2 devices = 8 pagespeed checks — starting pagespeed phase
+2026-09-24T14:15:45 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:47 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:49 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:51 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:53 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:55 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:57 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:15:59 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:01 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:03 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:05 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:07 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:09 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:11 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:13 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:15 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:17 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:19 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:44 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:16:49 | INFO | app | LighthouseCheckService: completed check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, total=8, succeeded=8, failed=0
+2026-09-24T14:16:49 | INFO | app | lighthouse.run_check: task finished for check_id=72f46908-18d3-4316-9f03-0ed39fa8b0cb, status=completed
+2026-09-24T14:16:56 | INFO | app | GET /lighthouse/status/72f46908-18d3-4316-9f03-0ed39fa8b0cb
+2026-09-24T14:22:11 | INFO | app | fetch_robots_txt: HTTPS failed for htts (connection_error: [Errno 11001] getaddrinfo failed) — trying HTTP fallback
+2026-09-24T14:22:34 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt could not be fetched': 
+2026-09-24T14:41:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T14:41:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T14:42:18 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T14:42:18 | INFO | app | LighthouseCheckService: prepared check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, domain=oppo.com, device=[<Device.MOBILE: 'mobile'>, <Device.DESKTOP: 'desktop'>], max_pages=4
+2026-09-24T14:42:18 | INFO | app | Lighthouse check queued: check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, task_id=a5de3e71-538b-4d05-a770-06e1c801fcb8, domain=oppo.com
+2026-09-24T14:42:18 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:18 | INFO | app | lighthouse.run_check: task started for check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, url=https://oppo.com/, device=['mobile', 'desktop'], max_pages=4
+2026-09-24T14:42:20 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:22 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:24 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:26 | INFO | app | Site discovery complete for https://oppo.com/: robots=True, sitemaps=41, page_urls=500
+2026-09-24T14:42:26 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:26 | INFO | app | Robots policy attached to scheduler for oppo.com (sitemaps: 1)
+2026-09-24T14:42:26 | INFO | app | Crawl started: https://oppo.com/ (max_pages=4, max_depth=3)
+2026-09-24T14:42:26 | INFO | app | Submitted 500 sitemap URLs to crawl queue (total discovered: 500)
+2026-09-24T14:42:28 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:30 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:32 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:34 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:36 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:38 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:42:40 | INFO | app | Crawl completed: https://oppo.com/ — pages_crawled=13, pages_discovered=622, pages_failed=0, duration=20766ms
+2026-09-24T14:42:40 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 809, 'non_html': 0, 'resource': 3, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | WARNING | app | log_skip called without db session
+2026-09-24T14:42:40 | INFO | app | LighthouseCheckService: crawl done for check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, discovered 0 URLs × 2 devices = 0 pagespeed checks — starting pagespeed phase
+2026-09-24T14:42:40 | INFO | app | LighthouseCheckService: completed check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, total=0, succeeded=0, failed=0
+2026-09-24T14:42:40 | INFO | app | lighthouse.run_check: task finished for check_id=1338aa8e-2aee-41cb-afb6-1715ba9395d1, status=completed
+2026-09-24T14:42:40 | INFO | app | GET /lighthouse/status/1338aa8e-2aee-41cb-afb6-1715ba9395d1
+2026-09-24T14:44:03 | INFO | app | POST /lighthouse/check — url=https://oppo.com/, device=['mobile', 'desktop'], version=['v11', 'v10', 'v9'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility']
+2026-09-24T14:44:03 | ERROR | app | Unexpected error preparing lighthouse check: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "crawl_jobs" does not exist
+[SQL: INSERT INTO crawl_jobs (id, user_id, url, domain, status, crawl_type, max_pages, max_depth, pages_discovered, pages_crawled, pages_skipped, pages_failed, error_count, total_pages, current_page, progress_percent, crawl_config, started_at, completed_at, duration_ms, error, crawl_config_recovered) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::INTEGER, $15::INTEGER, $16::INTEGER, $17::JSONB, $18::TIMESTAMP WITH TIME ZONE, $19::TIMESTAMP WITH TIME ZONE, $20::INTEGER, $21::VARCHAR, $22::BOOLEAN) RETURNING crawl_jobs.created_at, crawl_jobs.updated_at]
+[parameters: (UUID('33fafa86-b81c-48e8-8dca-68c3ec0554f6'), UUID('dd8d3707-a2e2-4653-b15a-7a69f0e95ee1'), 'https://oppo.com/', 'oppo.com', 'queued', None, 4, 3, 0, 0, 0, 0, 0, None, None, None, '{"max_pages": 4, "max_depth": 3, "concurrency": 10, "request_timeout": 60, "delay_ms": 0, "follow_redirects": true, "respect_robots": true, "auto_ana ... (67 characters truncated) ... v10", "v9"], "categories": ["performance", "seo", "best-practices", "accessibility"], "pagespeed_concurrency": 5, "task_id": null, "phase": "queued"}', None, None, None, None, False)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.UndefinedTableError: relation "crawl_jobs" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "crawl_jobs" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\router.py", line 98, in run_lighthouse_check
+    setup = await service.prepare_check(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\google_lighthouse_check\services.py", line 139, in prepare_check
+    await job_repo.create(job)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\repositories\crawl_job_repository.py", line 22, in create
+    await self.db.flush()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "crawl_jobs" does not exist
+[SQL: INSERT INTO crawl_jobs (id, user_id, url, domain, status, crawl_type, max_pages, max_depth, pages_discovered, pages_crawled, pages_skipped, pages_failed, error_count, total_pages, current_page, progress_percent, crawl_config, started_at, completed_at, duration_ms, error, crawl_config_recovered) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::INTEGER, $8::INTEGER, $9::INTEGER, $10::INTEGER, $11::INTEGER, $12::INTEGER, $13::INTEGER, $14::INTEGER, $15::INTEGER, $16::INTEGER, $17::JSONB, $18::TIMESTAMP WITH TIME ZONE, $19::TIMESTAMP WITH TIME ZONE, $20::INTEGER, $21::VARCHAR, $22::BOOLEAN) RETURNING crawl_jobs.created_at, crawl_jobs.updated_at]
+[parameters: (UUID('33fafa86-b81c-48e8-8dca-68c3ec0554f6'), UUID('dd8d3707-a2e2-4653-b15a-7a69f0e95ee1'), 'https://oppo.com/', 'oppo.com', 'queued', None, 4, 3, 0, 0, 0, 0, 0, None, None, None, '{"max_pages": 4, "max_depth": 3, "concurrency": 10, "request_timeout": 60, "delay_ms": 0, "follow_redirects": true, "respect_robots": true, "auto_ana ... (67 characters truncated) ... v10", "v9"], "categories": ["performance", "seo", "best-practices", "accessibility"], "pagespeed_concurrency": 5, "task_id": null, "phase": "queued"}', None, None, None, None, False)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T14:49:00 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-24T14:49:01 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-24T14:49:08 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:49:09 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:49:12 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:49:13 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-24T14:49:14 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:49:14 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:49:17 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:53:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T14:54:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T14:54:46 | INFO | app | RobotsCheckService: cache hit for example.com (age=1.0h)
+2026-09-24T14:54:47 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:54:49 | WARNING | app | ai_insight: Ollama failed for 'No sitemap declared in robots.txt': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:54:53 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T14:55:04 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused) — trying HTTP fallback
+2026-09-24T14:55:05 | INFO | app | fetch_robots_txt: HTTPS failed for example.com (connection_error: Connection refused on HTTPS) — trying HTTP fallback

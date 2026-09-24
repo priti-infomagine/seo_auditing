@@ -13,18 +13,50 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# ── Import all models so Alembic can detect them ─────────────────────
-from app.core.database import Base  # noqa: E402
-from app.core.config import settings  # noqa: E402
+from app.core.database import Base
+from app.core.config import settings
 
-# Import model modules so they register on Base.metadata
-import app.modules.auth.models  # noqa: F401, F401
-import app.modules.crawler.models  # noqa: F401, F401
-import app.modules.reports.models  # noqa: F401, F401
-import app.modules.payment.models  # noqa: F401, F401
+# ============================================================
+# IMPORT ALL MODEL MODULES BEFORE target_metadata
+# ============================================================
+
+# Auth
+import app.modules.auth.models  # noqa: F401
+
+# Crawler
+import app.modules.crawler.models  # noqa: F401
+
+# Reports
+import app.modules.reports.models  # noqa: F401
+
+# Payments
+import app.modules.payment.models  # noqa: F401
+
+# Robots
 import app.modules.seprate_checks.robots_check.model  # noqa: F401
 
+# Audit
+import app.modules.audit.models.parsed_page_facts  # noqa: F401
+import app.modules.audit.models.rule_evaluation_results  # noqa: F401
+import app.modules.audit.models.seo_analysis_runs  # noqa: F401
+# Lighthouse
+import app.modules.seprate_checks.google_lighthouse_check.model  # noqa: F401
+
+# Config
+import app.modules.config.models  # noqa: F401
+
+# IMPORTANT: set this AFTER all models are imported
 target_metadata = Base.metadata
+
+target_metadata = Base.metadata
+print("\n=== REGISTERED SQLALCHEMY TABLES ===")
+for table_name in sorted(Base.metadata.tables.keys()):
+    print(table_name)
+
+
+
+print(f"\nTOTAL TABLES: {len(Base.metadata.tables)}")
+print("====================================\n")
 
 # Override sqlalchemy.url with our sync URL from settings
 sync_url = settings.sync_database_url
