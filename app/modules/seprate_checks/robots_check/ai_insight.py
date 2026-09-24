@@ -57,6 +57,11 @@ def _template_for_code(code: str) -> str:
     )
 
 
+def recommendation_for_code(code: str) -> str:
+    """Return the deterministic fallback recommendation for a finding code."""
+    return _template_for_code(code)
+
+
 def _build_ollama_prompt(
     title: str,
     what: Optional[str],

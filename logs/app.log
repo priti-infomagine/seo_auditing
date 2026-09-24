@@ -117771,3 +117771,235 @@ RuntimeError: db down
 2026-09-23T09:20:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poorly sized meta description': Request URL is missing an 'http://' or 'https://' protocol.
 2026-09-23T09:20:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Thin or overly long content': Request URL is missing an 'http://' or 'https://' protocol.
 2026-09-23T09:20:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': Request URL is missing an 'http://' or 'https://' protocol.
+2026-09-24T08:25:13 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:25:21 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:25:22 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:25:23 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:25:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:26:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:27:09 | INFO | app | Worker process initialized with persistent event loop (pid=21420)
+2026-09-24T08:27:25 | INFO | app | Worker process initialized with persistent event loop (pid=27608)
+2026-09-24T08:28:15 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': Request URL is missing an 'http://' or 'https://' protocol.
+2026-09-24T08:29:23 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': Request URL is missing an 'http://' or 'https://' protocol.
+2026-09-24T08:29:23 | INFO | app | RobotsCheckService: cache hit for infomagine.in (age=0.0h)
+2026-09-24T08:29:25 | INFO | app | RobotsCheckService: cache hit for infomagine.in (age=0.0h)
+2026-09-24T08:31:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:31:58 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:32:08 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:32:09 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:32:10 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt not configured': 'MockSitemapClient' object has no attribute 'post'
+2026-09-24T08:33:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:33:37 | WARNING | app | ai_insight: Ollama failed for 'Syntax issues in robots.txt': Request URL is missing an 'http://' or 'https://' protocol.
+2026-09-24T08:39:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:39:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:40:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:41:25 | INFO | app | POST /lighthouse/check — url=https://infomagine.in/, device=mobile, max_pages=8, category=['performance']
+2026-09-24T08:41:25 | INFO | app | LighthouseCheckService: prepared check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, domain=infomagine.in, device=mobile, max_pages=8
+2026-09-24T08:41:25 | INFO | app | Lighthouse check queued: check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, task_id=529f3d06-8457-45e2-9b63-faa8b4a430a2, domain=infomagine.in
+2026-09-24T08:41:25 | INFO | app | lighthouse.run_check: task started for check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, url=https://infomagine.in/, device=mobile, max_pages=8
+2026-09-24T08:41:27 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-24T08:41:27 | INFO | app | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-24T08:41:27 | INFO | app | Crawl started: https://infomagine.in/ (max_pages=8, max_depth=3)
+2026-09-24T08:41:27 | INFO | app | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-09-24T08:41:29 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:29 | WARNING | app | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-24T08:41:29 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:29 | WARNING | app | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-24T08:41:30 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:30 | WARNING | app | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-24T08:41:30 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:30 | WARNING | app | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-24T08:41:30 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:30 | WARNING | app | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-24T08:41:31 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:31 | WARNING | app | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-24T08:41:31 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:31 | WARNING | app | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-24T08:41:31 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:31 | WARNING | app | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-24T08:41:32 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:32 | WARNING | app | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-24T08:41:32 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:32 | WARNING | app | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-24T08:41:32 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:32 | WARNING | app | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-24T08:41:33 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:33 | WARNING | app | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-24T08:41:33 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:33 | WARNING | app | Browser fallback failed for https://infomagine.in/it-staffing: Could not acquire browser page
+2026-09-24T08:41:33 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:33 | WARNING | app | Browser fallback failed for https://infomagine.in/services/android: Could not acquire browser page
+2026-09-24T08:41:34 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:34 | WARNING | app | Browser fallback failed for https://infomagine.in/services/angular: Could not acquire browser page
+2026-09-24T08:41:34 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:34 | WARNING | app | Browser fallback failed for https://infomagine.in/services/content-management-system: Could not acquire browser page
+2026-09-24T08:41:34 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:41:34 | WARNING | app | Browser fallback failed for https://infomagine.in/services/codeigniter: Could not acquire browser page
+2026-09-24T08:41:34 | INFO | app | Crawl completed: https://infomagine.in/ — pages_crawled=17, pages_discovered=48, pages_failed=0, duration=8282ms
+2026-09-24T08:41:34 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T08:41:34 | INFO | app | LighthouseCheckService: max_pages cap — truncating 17 discovered URLs to 8 (skipped 9 from pagespeed check)
+2026-09-24T08:41:34 | INFO | app | LighthouseCheckService: crawl done for check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, discovered 8 URLs — starting pagespeed phase
+2026-09-24T08:42:20 | INFO | app | LighthouseCheckService: completed check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, total=8, succeeded=8, failed=0
+2026-09-24T08:42:20 | INFO | app | lighthouse.run_check: task finished for check_id=836e59cd-9f1b-4293-9abe-6e37f64280e6, status=completed
+2026-09-24T08:42:46 | INFO | app | GET /lighthouse/status/836e59cd-9f1b-4293-9abe-6e37f64280e6
+2026-09-24T08:43:05 | ERROR | app | Lighthouse results fetch failed: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('836e59cd-9f1b-4293-9abe-6e37f64280e6'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\google_lighthouse_check\router.py", line 325, in get_lighthouse_results
+    rows = await LighthousePageResultRepository(db).get_by_check_id(check_uuid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\google_lighthouse_check\repository.py", line 33, in get_by_check_id
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column lighthouse_page_results.recommendations does not exist
+[SQL: SELECT lighthouse_page_results.id, lighthouse_page_results.check_id, lighthouse_page_results.domain, lighthouse_page_results.url, lighthouse_page_results.device, lighthouse_page_results.status, lighthouse_page_results.reason, lighthouse_page_results.performance_score, lighthouse_page_results.seo_score, lighthouse_page_results.fcp_ms, lighthouse_page_results.lcp_ms, lighthouse_page_results.tbt_ms, lighthouse_page_results.cls, lighthouse_page_results.recommendations, lighthouse_page_results.created_at, lighthouse_page_results.updated_at 
+FROM lighthouse_page_results 
+WHERE lighthouse_page_results.check_id = $1::UUID]
+[parameters: (UUID('836e59cd-9f1b-4293-9abe-6e37f64280e6'),)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-24T08:47:17 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-24T08:51:15 | INFO | app | POST /lighthouse/check — url=https://infomagine.in/, device=mobile, max_pages=8, category=['performance']
+2026-09-24T08:51:15 | INFO | app | LighthouseCheckService: prepared check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, domain=infomagine.in, device=mobile, max_pages=8
+2026-09-24T08:51:15 | INFO | app | lighthouse.run_check: task started for check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, url=https://infomagine.in/, device=mobile, max_pages=8
+2026-09-24T08:51:15 | INFO | app | Lighthouse check queued: check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, task_id=57512803-0060-40c3-8d10-1ba31bae9728, domain=infomagine.in
+2026-09-24T08:51:16 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-24T08:51:16 | INFO | app | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-24T08:51:16 | INFO | app | Crawl started: https://infomagine.in/ (max_pages=8, max_depth=3)
+2026-09-24T08:51:16 | INFO | app | Submitted 47 sitemap URLs to crawl queue (total discovered: 48)
+2026-09-24T08:51:16 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:16 | WARNING | app | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-24T08:51:17 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:17 | WARNING | app | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-24T08:51:17 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:17 | WARNING | app | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-24T08:51:17 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:17 | WARNING | app | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-24T08:51:18 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:18 | WARNING | app | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-24T08:51:18 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:18 | WARNING | app | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-24T08:51:18 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:18 | WARNING | app | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-24T08:51:18 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:18 | WARNING | app | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-24T08:51:19 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:19 | WARNING | app | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-24T08:51:19 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:19 | WARNING | app | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-24T08:51:19 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:19 | WARNING | app | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-24T08:51:20 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:20 | WARNING | app | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-24T08:51:20 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:20 | WARNING | app | Browser fallback failed for https://infomagine.in/it-staffing: Could not acquire browser page
+2026-09-24T08:51:20 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:20 | WARNING | app | Browser fallback failed for https://infomagine.in/services/android: Could not acquire browser page
+2026-09-24T08:51:21 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:21 | WARNING | app | Browser fallback failed for https://infomagine.in/services/angular: Could not acquire browser page
+2026-09-24T08:51:21 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:21 | WARNING | app | Browser fallback failed for https://infomagine.in/services/content-management-system: Could not acquire browser page
+2026-09-24T08:51:21 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-24T08:51:21 | WARNING | app | Browser fallback failed for https://infomagine.in/services/codeigniter: Could not acquire browser page
+2026-09-24T08:51:21 | INFO | app | Crawl completed: https://infomagine.in/ — pages_crawled=17, pages_discovered=48, pages_failed=0, duration=6251ms
+2026-09-24T08:51:21 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-24T08:51:21 | INFO | app | LighthouseCheckService: max_pages cap — truncating 17 discovered URLs to 8 (skipped 9 from pagespeed check)
+2026-09-24T08:51:21 | INFO | app | LighthouseCheckService: crawl done for check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, discovered 8 URLs — starting pagespeed phase
+2026-09-24T08:52:05 | INFO | app | LighthouseCheckService: completed check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, total=8, succeeded=8, failed=0
+2026-09-24T08:52:05 | INFO | app | lighthouse.run_check: task finished for check_id=c9beda15-8058-46a6-8b5a-5679c2debaff, status=completed

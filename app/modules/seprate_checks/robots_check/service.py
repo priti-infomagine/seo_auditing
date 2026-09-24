@@ -137,6 +137,7 @@ class RobotsCheckService:
             sitemaps_declared=parsed.sitemaps if parsed else [],
             sitemap_reachability=sitemap_reachability,
             syntax_warnings=parsed.syntax_warnings if parsed else [],
+            findings=evaluation.findings,
             blocks_entire_site=evaluation.blocks_entire_site,
             blocks_assets=evaluation.blocks_assets,
             oversized=evaluation.oversized,

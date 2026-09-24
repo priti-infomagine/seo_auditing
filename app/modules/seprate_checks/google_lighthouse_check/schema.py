@@ -63,6 +63,64 @@ class LighthouseCheckRequest(BaseModel):
         return self.category or list(DEFAULT_CATEGORIES)
 
 
+class LighthouseRecommendation(BaseModel):
+    audit_id: str = Field(..., description="Stable Lighthouse audit identifier")
+    category: str = Field(..., description="Lighthouse category, such as Performance")
+    category_weight: Optional[float] = Field(
+        None,
+        description="Weight of this audit in its Lighthouse category score",
+    )
+    title: str = Field(..., description="Human-readable audit title")
+    score: Optional[int] = Field(None, description="Audit score from 0 to 100")
+    score_display_mode: Optional[str] = Field(
+        None,
+        description="Lighthouse score display mode, such as metricSavings or binary",
+    )
+    display_value: Optional[str] = Field(None, description="Lighthouse display value")
+    numeric_value: Optional[float] = Field(
+        None,
+        description="Raw Lighthouse numeric audit value",
+    )
+    numeric_unit: Optional[str] = Field(
+        None,
+        description="Unit for numeric_value, such as millisecond or byte",
+    )
+    description: Optional[str] = Field(None, description="What Lighthouse detected")
+    explanation: Optional[str] = Field(
+        None,
+        description="Lighthouse explanation of the detected issue",
+    )
+    details_type: Optional[str] = Field(
+        None,
+        description="Lighthouse details type, such as opportunity or diagnostic",
+    )
+    estimated_savings_ms: Optional[int] = Field(
+        None,
+        description="Estimated time savings when Lighthouse provides overallSavingsMs",
+    )
+    estimated_savings_bytes: Optional[int] = Field(
+        None,
+        description="Estimated byte savings when Lighthouse provides overallSavingsBytes",
+    )
+    warnings: list[str] = Field(
+        default_factory=list,
+        description="Warnings returned by Lighthouse for this audit",
+    )
+    error_message: Optional[str] = Field(
+        None,
+        description="Error returned by Lighthouse for this audit, if any",
+    )
+    evidence: list[dict] = Field(
+        default_factory=list,
+        description="Structured URLs, selectors, sources, snippets, and node labels from audit details",
+    )
+    where_to_fix: str = Field(
+        ...,
+        description="URL, selector, source, or node identified by Lighthouse",
+    )
+    recommendation: str = Field(..., description="Actionable fix recommendation")
+
+
 class LighthouseCheckResponse(BaseModel):
     id: UUID = Field(
         ...,
@@ -107,6 +165,13 @@ class LighthouseCheckResponse(BaseModel):
     cls: Optional[float] = Field(
         None,
         description="Cumulative Layout Shift score",
+    )
+    recommendations: list[LighthouseRecommendation] = Field(
+        default_factory=list,
+        description=(
+            "Actionable Lighthouse recommendations with category, evidence, "
+            "estimated savings, and where to fix the issue"
+        ),
     )
 
 

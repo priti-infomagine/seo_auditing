@@ -95,6 +95,7 @@ class LighthousePageResultRepository:
         lcp_ms: Optional[int] = None,
         tbt_ms: Optional[int] = None,
         cls: Optional[float] = None,
+        recommendations: Optional[list[dict]] = None,
     ) -> LighthousePageResult:
         """Insert or update a Lighthouse result atomically.
 
@@ -114,6 +115,7 @@ class LighthousePageResultRepository:
             lcp_ms=lcp_ms,
             tbt_ms=tbt_ms,
             cls=cls,
+            recommendations=recommendations or [],
         )
 
         stmt = stmt.on_conflict_do_update(
@@ -128,6 +130,7 @@ class LighthousePageResultRepository:
                 "lcp_ms": stmt.excluded.lcp_ms,
                 "tbt_ms": stmt.excluded.tbt_ms,
                 "cls": stmt.excluded.cls,
+                "recommendations": stmt.excluded.recommendations,
             },
         ).returning(LighthousePageResult)
 
@@ -148,6 +151,7 @@ class LighthousePageResultRepository:
         lcp_ms: Optional[int] = None,
         tbt_ms: Optional[int] = None,
         cls: Optional[float] = None,
+        recommendations: Optional[list[dict]] = None,
     ) -> LighthousePageResult:
         """Insert a single result.
 
@@ -166,6 +170,7 @@ class LighthousePageResultRepository:
             lcp_ms=lcp_ms,
             tbt_ms=tbt_ms,
             cls=cls,
+            recommendations=recommendations or [],
         )
         self.db.add(result)
         return result

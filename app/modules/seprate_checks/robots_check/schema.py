@@ -31,6 +31,12 @@ class RobotsFinding(BaseModel):
     evidence: Optional[str] = Field(default=None, description="Supporting evidence string")
 
 
+class RobotsRecommendation(BaseModel):
+    code: str = Field(..., description="Finding code this recommendation addresses")
+    recommendation: str = Field(..., description="Actionable remediation guidance")
+    evidence: Optional[str] = Field(default=None, description="Evidence supporting the recommendation")
+
+
 class RobotsCheckResponse(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
@@ -43,6 +49,14 @@ class RobotsCheckResponse(BaseModel):
     fetch_status: str = Field(..., description="success | not_found | unreachable")
     fetch_url: Optional[str] = Field(default=None, description="Final URL after redirects")
     size_bytes: Optional[int] = Field(default=None, description="Response body size in bytes")
+    raw_content: Optional[str] = Field(
+        default=None,
+        description="The complete robots.txt response body, when it was fetched",
+    )
+    report_markdown: str = Field(
+        default="",
+        description="Human-readable Markdown report containing rules, content, evidence, and fixes",
+    )
 
     sitemaps_declared: list[str] = Field(
         default_factory=list, description="Sitemap URLs declared in robots.txt"
@@ -56,6 +70,10 @@ class RobotsCheckResponse(BaseModel):
 
     findings: list[RobotsFinding] = Field(
         default_factory=list, description="List of individual findings"
+    )
+    recommendations: list[RobotsRecommendation] = Field(
+        default_factory=list,
+        description="Actionable recommendation and evidence for each finding",
     )
 
     overall_status: str = Field(..., description="pass | warning | fail | not_applicable")

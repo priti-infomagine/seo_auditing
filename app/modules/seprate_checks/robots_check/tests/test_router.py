@@ -103,6 +103,17 @@ async def test_router_check_success(db_session, patch_clients):
     assert data["domain"] == "example.com"
     assert data["exists"] is True
     assert data["fetch_status"] == "success"
+    assert data["raw_content"] == body
+    assert data["findings"]
+    assert data["findings"][0]["evidence"]
+    assert data["recommendations"]
+    assert data["recommendations"][0]["recommendation"]
+    assert "### Sitemaps" in data["report_markdown"]
+    assert "### Crawler rules" in data["report_markdown"]
+    assert "### Raw robots.txt" in data["report_markdown"]
+    assert "### Recommendations and fixes" in data["report_markdown"]
+    assert "- Disallow: /private/" in data["report_markdown"]
+    assert body in data["report_markdown"]
 
 
 @pytest.mark.asyncio
@@ -158,6 +169,13 @@ async def test_router_result_returns_cached(db_session, patch_clients):
         fetch_status=_FS.SUCCESS,
         size_bytes=len(body),
         raw_content=body,
+        findings=[{
+            "code": "robots_ok",
+            "severity": "none",
+            "status": "pass",
+            "message": "robots.txt is well-formed",
+            "evidence": "All checks passed",
+        }],
         fetched_url="https://cached-test.com/robots.txt",
         user_agent_groups=[],
         sitemaps_declared=["https://cached-test.com/sitemap.xml"],
@@ -182,6 +200,9 @@ async def test_router_result_returns_cached(db_session, patch_clients):
     data = response.json()
     assert data["domain"] == "cached-test.com"
     assert data["fetch_status"] == "success"
+    assert data["raw_content"] == body
+    assert data["findings"][0]["evidence"] == "All checks passed"
+    assert data["recommendations"][0]["recommendation"]
 
 
 @pytest.mark.asyncio

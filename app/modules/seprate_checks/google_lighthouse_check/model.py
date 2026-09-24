@@ -2,7 +2,7 @@ import enum
 import uuid
 
 from sqlalchemy import Enum, Float, Index, Integer, String, Text, UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base, TimestampMixin
@@ -46,3 +46,4 @@ class LighthousePageResult(TimestampMixin, Base):
     lcp_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)  # Largest Contentful Paint
     tbt_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)  # Total Blocking Time
     cls: Mapped[float | None] = mapped_column(Float, nullable=True)  # Cumulative Layout Shift
+    recommendations: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)

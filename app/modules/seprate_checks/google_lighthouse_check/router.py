@@ -337,6 +337,7 @@ async def get_lighthouse_results(
                 lcp_ms=r.lcp_ms,
                 tbt_ms=r.tbt_ms,
                 cls=r.cls,
+                recommendations=r.recommendations or [],
             )
             for r in rows
         ]

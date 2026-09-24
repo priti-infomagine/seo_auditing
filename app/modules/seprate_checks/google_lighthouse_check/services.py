@@ -302,6 +302,7 @@ class LighthouseCheckService:
                                 lcp_ms=parsed.get("lcp_ms"),
                                 tbt_ms=parsed.get("tbt_ms"),
                                 cls=parsed.get("cls"),
+                                recommendations=parsed.get("recommendations", []),
                             )
                         else:
                             failed += 1

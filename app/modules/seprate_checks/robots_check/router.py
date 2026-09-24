@@ -23,10 +23,67 @@ from .service import RobotsCheckService
 router = APIRouter()
 
 
+def _markdown_report(
+    row,
+    findings,
+    recommendations,
+) -> str:
+    """Render the robots result in a readable Markdown format."""
+    lines = ["### Sitemaps", ""]
+    sitemaps = row.sitemaps_declared or []
+    if sitemaps:
+        lines.extend(f"- {sitemap}" for sitemap in sitemaps)
+    else:
+        lines.append("- None declared")
+
+    lines.extend(["", "### Crawler rules", ""])
+    groups = row.user_agent_groups or []
+    if groups:
+        for group in groups:
+            user_agents = group.get("user_agents") or ["*"]
+            label = ", ".join(
+                "All crawlers" if user_agent == "*" else user_agent
+                for user_agent in user_agents
+            )
+            lines.append(label)
+            for directive in group.get("disallow", []):
+                lines.append(f"- Disallow: {directive}")
+            for directive in group.get("allow", []):
+                lines.append(f"- Allow: {directive}")
+            if group.get("crawl_delay") is not None:
+                lines.append(f"- Crawl-delay: {group['crawl_delay']}")
+            lines.append("")
+    else:
+        lines.append("- No crawler rules parsed")
+
+    lines.extend([
+        "### Raw robots.txt",
+        "",
+        "```",
+        row.raw_content or "",
+        "```",
+        "",
+        "### Recommendations and fixes",
+        "",
+    ])
+    for item in recommendations:
+        lines.append(f"#### `{item.code}`")
+        lines.append(f"- Fix: {item.recommendation}")
+        if item.evidence:
+            lines.append(f"- Evidence: {item.evidence}")
+        lines.append("")
+
+    if not recommendations:
+        lines.append("- No recommendations. The robots.txt checks passed.")
+
+    return "\n".join(lines).rstrip()
+
+
 def _to_response(row) -> RobotsCheckResponse:
-    from .schema import RobotsFinding
+    from .ai_insight import recommendation_for_code
+    from .schema import RobotsFinding, RobotsRecommendation
     findings = []
-    raw_findings = row.evidence or []
+    raw_findings = getattr(row, "findings", None) or []
     if isinstance(raw_findings, list):
         for f in raw_findings:
             if isinstance(f, dict):
@@ -54,7 +111,20 @@ def _to_response(row) -> RobotsCheckResponse:
             evidence=row.evidence,
         )]
 
-    return RobotsCheckResponse(
+    recommendations = []
+    for index, finding in enumerate(findings):
+        recommendation = (
+            row.recommendation
+            if index == 0 and row.recommendation
+            else recommendation_for_code(finding.code)
+        )
+        recommendations.append(RobotsRecommendation(
+            code=finding.code,
+            recommendation=recommendation,
+            evidence=finding.evidence,
+        ))
+
+    response = RobotsCheckResponse(
         id=row.id,
         domain=row.domain,
         checked_at=row.created_at.isoformat() if row.created_at else None,
@@ -63,15 +133,20 @@ def _to_response(row) -> RobotsCheckResponse:
         fetch_status=row.fetch_status.value if hasattr(row.fetch_status, "value") else row.fetch_status,
         fetch_url=row.fetched_url,
         size_bytes=row.size_bytes,
+        raw_content=row.raw_content,
+        report_markdown="",
         sitemaps_declared=row.sitemaps_declared or [],
         sitemap_reachability=row.sitemap_reachability or [],
         syntax_warnings=row.syntax_warnings or [],
         findings=findings,
+        recommendations=recommendations,
         overall_status=row.overall_status.value if hasattr(row.overall_status, "value") else row.overall_status,
         severity=row.severity.value if hasattr(row.severity, "value") else row.severity,
         why=row.why,
         recommendation=row.recommendation,
     )
+    response.report_markdown = _markdown_report(row, findings, recommendations)
+    return response
 
 
 @router.post(

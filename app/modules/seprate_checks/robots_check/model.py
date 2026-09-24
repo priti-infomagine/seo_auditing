@@ -51,6 +51,7 @@ class RobotCheck(TimestampMixin, Base):
     sitemaps_declared: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list)
     sitemap_reachability: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
     syntax_warnings: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list)
+    findings: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
 
     blocks_entire_site: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     blocks_assets: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
