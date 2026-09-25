@@ -35,6 +35,7 @@ from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 from app.modules.seprate_checks.google_lighthouse_check.model import Device, PageStatus
 from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
     PagespeedClient,
@@ -422,11 +423,43 @@ class LighthouseCheckService:
             if lighthouse_scopes:
                 await ignore_service.load_patterns(db, scopes=lighthouse_scopes)
 
+            # Discover sitemap candidates before crawling page content. If the
+            # sitemap already contains enough URLs, prevent HTML-link expansion
+            # beyond the PageSpeed budget.
+            preflight = SiteDiscoveryService(
+                url,
+                timeout=60,
+                max_total_page_urls=max_pages,
+            )
+            preflight_result = await preflight.discover()
+            seed_norm = normalize_url(url)
+            selected_urls: list[str] = []
+            selected_seen: set[str] = set()
+            for candidate in [seed_norm, *preflight_result.discovered_urls]:
+                normalized = normalize_url(candidate)
+                if normalized in selected_seen:
+                    continue
+                selected_seen.add(normalized)
+                selected_urls.append(normalized)
+                if len(selected_urls) >= max_pages:
+                    break
+
+            sitemap_has_budget = len(preflight_result.discovered_urls) >= max_pages
+            logger.info(
+                "Lighthouse preflight: discovered=%d, selected=%d, source=%s",
+                len(preflight_result.discovered_urls),
+                len(selected_urls),
+                "sitemap" if preflight_result.discovered_urls else "html-fallback",
+            )
+
             orchestrator = CrawlOrchestrator(db, check_id)
             await orchestrator.run(
                 start_url=url,
                 max_pages=max_pages,
                 max_depth=3,
+                preflight_site_result=preflight_result,
+                preselected_urls=selected_urls,
+                restrict_to_preselected=sitemap_has_budget,
             )
 
             page_repo = CrawlPageRepository(db)
@@ -481,7 +514,6 @@ class LighthouseCheckService:
                 valid_urls.append(norm)
 
 
-            seed_norm = normalize_url(url)
             if seed_norm in valid_urls:
                 valid_urls.remove(seed_norm)
                 valid_urls.insert(0, seed_norm)

@@ -46,6 +46,7 @@ class SitemapEvidence:
     status_code: Optional[int] = None
     content_type: Optional[str] = None
     content_length: int = 0
+    raw_content: Optional[str] = None
     urls: list = field(default_factory=list)
     child_sitemaps: list = field(default_factory=list)
     is_index: bool = False
@@ -332,6 +333,7 @@ class SiteDiscoveryService:
                         except Exception:
                             pass
                     text = content.decode("utf-8", errors="ignore")
+                    evidence.raw_content = text
                     self._parse_sitemap_xml(text, evidence, sitemap_url)
                     logger.debug(
                         "Fetched sitemap %s: status=%d, urls=%d, child_sitemaps=%d, is_index=%s",

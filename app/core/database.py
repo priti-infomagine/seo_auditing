@@ -1,12 +1,11 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy import DateTime, func, text
+from sqlalchemy import DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.core.config import settings
@@ -31,9 +30,9 @@ class TimestampMixin:
 # ── Async Engine ─────────────────────────────────────────────────────
 engine = create_async_engine(
     settings.DATABASE_URL,
-    echo=settings.DEBUG,
+    echo=settings.DATABASE_ECHO,
     pool_pre_ping=True,
-    pool_size=10,
+    pool_size=5,
     max_overflow=20,
 )
 

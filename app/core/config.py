@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     # ── App ──────────────────────────────────────────────────────────
     APP_NAME: str = "Automated SEO & Website Audit Tool"
     DEBUG: bool = False
+    DATABASE_ECHO: bool = False
     SECRET_KEY: str = "change-me-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30

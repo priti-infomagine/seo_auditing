@@ -60,6 +60,8 @@ class CrawlOrchestrator:
         self._scheduler: Optional[CrawlScheduler] = None
         self._progress_callback: Optional[callable] = None
         self._ignore_service: Optional[UrlIgnoreService] = None
+        self._preselected_urls: Optional[set[str]] = None
+        self._restrict_to_preselected = False
 
     async def run(
         self,
@@ -73,6 +75,9 @@ class CrawlOrchestrator:
         respect_robots: bool = True,
         user_agent: Optional[str] = None,
         progress_callback: Optional[callable] = None,
+        preflight_site_result=None,
+        preselected_urls: Optional[list[str]] = None,
+        restrict_to_preselected: bool = False,
     ) -> dict:
         """
         Run a full recursive crawl using CrawlScheduler dynamic worker pool.
@@ -106,15 +111,18 @@ class CrawlOrchestrator:
         )
 
         if respect_robots:
-            discovery = SiteDiscoveryService(
-                start_url,
-                timeout=timeout_seconds,
-                max_child_sitemaps=self.config.max_sitemap_files,
-                max_urls_per_sitemap=self.config.max_sitemap_page_urls,
-                max_total_page_urls=self.config.max_sitemap_page_urls,
-                max_sitemap_index_depth=self.config.max_sitemap_index_depth,
-            )
-            site_result = await discovery.discover()
+            if preflight_site_result is not None:
+                site_result = preflight_site_result
+            else:
+                discovery = SiteDiscoveryService(
+                    start_url,
+                    timeout=timeout_seconds,
+                    max_child_sitemaps=self.config.max_sitemap_files,
+                    max_urls_per_sitemap=self.config.max_sitemap_page_urls,
+                    max_total_page_urls=self.config.max_sitemap_page_urls,
+                    max_sitemap_index_depth=self.config.max_sitemap_index_depth,
+                )
+                site_result = await discovery.discover()
             await self.persistence.persist_site_data(
                 CrawlSiteData(
                     crawl_job_id=self.crawl_job_id,
@@ -143,6 +151,13 @@ class CrawlOrchestrator:
         self._ignore_service = UrlIgnoreService(self.db)
         if self.db:
             await self._ignore_service.load_patterns(self.db, "global")
+
+        self._preselected_urls = (
+            {normalize_url(candidate) for candidate in preselected_urls}
+            if preselected_urls
+            else None
+        )
+        self._restrict_to_preselected = restrict_to_preselected
 
         scheduler = CrawlScheduler(
             config=self.config,
@@ -173,14 +188,21 @@ class CrawlOrchestrator:
 
         # Submit sitemap-discovered page URLs into the crawl queue so they
         # participate in the same safety checks as link-discovered URLs.
-        if site_result and site_result.discovered_urls:
+        sitemap_urls = (
+            preselected_urls
+            if preselected_urls is not None
+            else site_result.discovered_urls
+            if site_result
+            else []
+        )
+        if sitemap_urls:
             sitemap_submitted = scheduler.submit_sitemap_urls(
-                site_result.discovered_urls,
+                sitemap_urls,
                 source_url=start_url,
             )
             logger.info(
                 f"Submitted {sitemap_submitted} sitemap URLs to crawl queue "
-                f"(total discovered: {len(site_result.discovered_urls)})"
+                f"(total selected: {len(sitemap_urls)})"
             )
             await self._update_progress(0)
 
@@ -656,6 +678,12 @@ class CrawlOrchestrator:
             if link.get("is_internal"):
                 raw_url = link["url"]
                 clean_url = strip_tracking_params(raw_url)
+                if (
+                    self._restrict_to_preselected
+                    and self._preselected_urls is not None
+                    and normalize_url(clean_url) not in self._preselected_urls
+                ):
+                    continue
                 submitted = self._scheduler.submit_discovered_url(
                     url=clean_url,
                     source_url=page_url,

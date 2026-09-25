@@ -247,6 +247,23 @@ Redis, workers, or Beat, so those services must still be supplied separately.
 The detailed health endpoint checks PostgreSQL, Redis, and Celery. A status of
 `no_workers` for Celery means the API is reachable but no worker responded.
 
+### Sitemap Check API
+
+The sitemap checker uses a lightweight summary response and paginated follow-up
+endpoints. This prevents Swagger and frontend clients from loading every URL
+and raw XML document at once:
+
+```text
+POST /api/v1/sitemap/check
+GET  /api/v1/sitemap/{check_id}/files?page=1&page_size=20
+GET  /api/v1/sitemap/{check_id}/files/{file_index}/urls?page=1&page_size=100
+GET  /api/v1/sitemap/{check_id}/files/{file_index}/raw
+```
+
+The POST response contains the check ID, summary, robots.txt evidence, and
+recommendations. File metadata, URL lists, and raw XML are loaded separately.
+Run `alembic upgrade head` before using this API on a new database.
+
 ## Tests
 
 Run the normal test suite:

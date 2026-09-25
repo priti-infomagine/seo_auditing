@@ -17,6 +17,9 @@ from app.modules.seprate_checks.google_lighthouse_check.router import (
 from app.modules.seprate_checks.robots_check.router import (
     router as robots_router,
 )
+from app.modules.seprate_checks.sitemap_check.router import (
+    router as sitemap_router,
+)
 
 router = APIRouter()
 
@@ -33,5 +36,6 @@ router.include_router(reports_router, prefix="/reports", tags=["Reports"])
 router.include_router(payment_router, prefix="/plans", tags=["Plans"])
 router.include_router(lighthouse_router, prefix="/lighthouse", tags=["Lighthouse"])
 router.include_router(robots_router, prefix="/robots", tags=["Robots"])
+router.include_router(sitemap_router, prefix="/sitemap", tags=["Sitemap"])
 
 __all__ = ["router"]
