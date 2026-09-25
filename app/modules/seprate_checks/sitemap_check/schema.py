@@ -1,129 +1,91 @@
-"""Schemas for the sitemap single-check API."""
-from typing import Optional
-from urllib.parse import urlparse
-from uuid import UUID
-
+"""Schemas for the sitemap single-check API - Simplified format."""
+from typing import Optional, List, Literal
 from pydantic import BaseModel, Field, field_validator
+from uuid import UUID
 
 
 class SitemapCheckRequest(BaseModel):
     url: str = Field(
         ...,
-        description="Website URL whose robots.txt and sitemap files should be checked",
+        min_length=1,
+        description="Website URL or bare domain to check (e.g. example.com, https://example.com/path)",
     )
 
     @field_validator("url")
     @classmethod
     def validate_url(cls, value: str) -> str:
         normalized = value.strip()
-        parsed = urlparse(normalized)
-        if parsed.scheme not in {"http", "https"} or not parsed.hostname:
-            raise ValueError("url must be an absolute http or https URL")
-        return normalized.rstrip("/")
+        if not normalized:
+            raise ValueError("url must not be empty")
+        return normalized
 
 
-class SitemapFinding(BaseModel):
-    code: str = Field(..., description="Stable finding identifier")
-    severity: str = Field(..., description="none | low | medium | high | critical")
-    status: str = Field(..., description="pass | warning | fail | not_applicable")
-    message: str = Field(..., description="What was detected")
-    evidence: str = Field(..., description="Evidence from the checked sitemap files")
-    recommendation: str = Field(..., description="How to fix the finding")
+class SitemapIssue(BaseModel):
+    """Issue detected for a sitemap."""
+    code: str = Field(..., description="Stable issue identifier")
+    severity: Literal["none", "low", "medium", "high", "critical"] = Field(..., description="Issue severity")
+    message: str = Field(..., description="Human-readable issue description")
+    evidence: str = Field(..., description="Evidence from the checked sitemap")
 
 
 class SitemapRecommendation(BaseModel):
-    code: str
-    priority: str
-    title: str
-    message: str
-    evidence: list[str] = Field(default_factory=list)
-    fix: str
+    """Recommendation to fix an issue."""
+    code: str = Field(..., description="Links to issue code")
+    priority: Literal["critical", "high", "medium", "low", "info"] = Field(..., description="Fix priority")
+    title: str = Field(..., description="Short recommendation title")
+    message: str = Field(..., description="Detailed recommendation message")
+    fix: str = Field(..., description="Actionable fix instruction")
+    where_to_fix: Literal["sitemap_xml", "robots_txt", "server_config", "cms", "cdn", "dns"] = Field(
+        ..., description="Where to apply the fix"
+    )
 
 
-class SitemapRobotsSummary(BaseModel):
-    url: str
-    exists: bool
-    status_code: Optional[int] = None
-    sitemap_references: list[str] = Field(default_factory=list)
+class SitemapEntry(BaseModel):
+    """Individual sitemap file result."""
+    url: str = Field(..., description="Sitemap URL that was checked")
+    status: int = Field(..., description="HTTP status code")
+    contentType: str = Field(..., description="Content-Type header value")
+    entries: int = Field(..., description="Number of URL entries in sitemap (0 for index)")
+    isIndex: bool = Field(default=False, description="Whether this is a sitemap index")
+    issues: List[SitemapIssue] = Field(default_factory=list, description="Issues detected for this sitemap")
+    recommendations: List[SitemapRecommendation] = Field(default_factory=list, description="Fix recommendations")
+    urls: List[str] = Field(default_factory=list, description="URLs in this sitemap (for pagination)")
+    raw_content: Optional[str] = Field(default=None, description="Raw XML content")
+    content_length: int = Field(default=0, description="Content length in bytes")
 
 
-class SitemapCheckSummary(BaseModel):
-    status: str
-    severity: str
-    sitemap_files: int
-    sitemap_indexes: int
-    url_sets: int
-    page_urls: int
-    passed_checks: int
-    warning_count: int
-    failure_count: int
-
-
-class SitemapFileResult(BaseModel):
-    url: str
-    status_code: Optional[int] = None
-    exists: bool = False
-    is_index: bool = False
-    content_type: Optional[str] = None
-    content_length: int = 0
-    child_sitemaps: list[str] = Field(default_factory=list)
-    url_count: int = 0
-    urls: list[str] = Field(default_factory=list)
-    raw_content: Optional[str] = None
-    error: Optional[str] = None
-    kind: str = "urlset"
-    health: str = "unknown"
-    issues: list[str] = Field(default_factory=list)
-    duplicate_url_count: int = 0
-    invalid_url_count: int = 0
-    cross_host_url_count: int = 0
+class SitemapCheckData(BaseModel):
+    """Main data payload."""
+    url: str = Field(..., description="The URL that was checked")
+    sitemaps: List[SitemapEntry] = Field(default_factory=list, description="Discovered sitemap files")
 
 
 class SitemapCheckResponse(BaseModel):
-    checked_url: str
-    robots_url: str
-    robots_status_code: Optional[int] = None
-    robots_sitemap_references: list[str] = Field(default_factory=list)
-    sitemap_files: list[SitemapFileResult] = Field(default_factory=list)
-    total_sitemap_files: int = 0
-    total_page_urls: int = 0
-    findings: list[SitemapFinding] = Field(default_factory=list)
-    overall_status: str
-    severity: str
-    recommendations: list[str] = Field(default_factory=list)
-    recommendation_items: list[SitemapRecommendation] = Field(default_factory=list)
-    summary: SitemapCheckSummary
-    robots: SitemapRobotsSummary
-    report_markdown: str
+    """Top-level API response."""
+    data: SitemapCheckData
+    cost: float = Field(default=0.0, description="API cost in seconds")
 
 
 class SitemapCheckAcceptedResponse(BaseModel):
-    check_id: UUID
-    checked_url: str
-    status: str
-    summary: SitemapCheckSummary
-    robots: SitemapRobotsSummary
-    findings: list[SitemapFinding] = Field(default_factory=list)
-    recommendation_items: list[SitemapRecommendation] = Field(default_factory=list)
-    files_url: str
+    """Response for the check endpoint with check_id for pagination."""
+    check_id: str
+    data: SitemapCheckData
+    cost: float = Field(default=0.0)
 
 
+# Pagination schemas (for /files, /files/{idx}/urls, /files/{idx}/raw)
 class SitemapFilePageItem(BaseModel):
     index: int
     url: str
-    kind: str
-    health: str
-    status_code: Optional[int] = None
-    content_type: Optional[str] = None
-    content_length: int = 0
-    url_count: int = 0
-    child_sitemap_count: int = 0
-    issues: list[str] = Field(default_factory=list)
-    error: Optional[str] = None
+    status: int
+    contentType: str
+    entries: int
+    isIndex: bool
+    issues: List[SitemapIssue] = Field(default_factory=list)
 
 
 class SitemapFilePage(BaseModel):
-    items: list[SitemapFilePageItem]
+    items: List[SitemapFilePageItem]
     page: int
     page_size: int
     total: int
@@ -132,7 +94,7 @@ class SitemapFilePage(BaseModel):
 
 class SitemapUrlPage(BaseModel):
     sitemap_url: str
-    items: list[str]
+    items: List[str]
     page: int
     page_size: int
     total: int

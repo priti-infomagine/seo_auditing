@@ -1,0 +1,4871 @@
+{
+  "audit": {
+    "audit_id": "3c1336d5-af40-4a29-a541-3180e2d1d0c9",
+    "url": "https://infomagine.in/",
+    "domain": "infomagine.in",
+    "started_at": "2026-09-25T04:21:52.846921+00:00",
+    "completed_at": "2026-09-25T04:23:16.930754+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 58,
+      "crawled": 58,
+      "analyzed": 57
+    },
+    "crawl_stats": {
+      "pages_discovered": 58,
+      "pages_crawled": 58,
+      "pages_analyzed": 57,
+      "redirects": 2,
+      "broken_pages": 0,
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 58
+      },
+      "started_at": "2026-09-25T04:21:52.846921+00:00",
+      "completed_at": "2026-09-25T04:23:16.930754+00:00"
+    },
+    "indexation": {
+      "indexable": 58,
+      "noindex": 0,
+      "canonicalized": 57,
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "ttfb": {
+        "available": true,
+        "value": 5723.0,
+        "unit": "milliseconds",
+        "status": "critical"
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 56,
+      "pages_without_schema": 1,
+      "valid": 85,
+      "invalid": 1,
+      "types": {
+        "Organization": 77,
+        "JobPosting": 1,
+        "Service": 5,
+        "ContactPage": 1,
+        "CreativeWork": 1
+      }
+    },
+    "links": {
+      "internal": {
+        "total": 3485,
+        "broken": {
+          "available": true,
+          "value": 0
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": true,
+          "value": 14
+        }
+      },
+      "total_links": 3485
+    },
+    "images": {
+      "total": 585,
+      "missing_alt": 123,
+      "empty_alt": 0,
+      "missing_dimensions": 524,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 19
+    },
+    "content": {
+      "thin_pages": 7,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [
+      {
+        "rule_id": "missing_www_redirect",
+        "page_id": "",
+        "url": "",
+        "error": "Both www and non-www host variants resolve"
+      }
+    ],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 1501,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 89.9,
+    "health": "excellent",
+    "issues": {
+      "critical": 1,
+      "high": 5,
+      "medium": 8,
+      "low": 14,
+      "total": 28
+    },
+    "checks": {
+      "passed": 37,
+      "failed": 28,
+      "total": 65
+    }
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 54.6,
+      "status": "poor",
+      "checks_total": 9,
+      "checks_passed": 3,
+      "checks_failed": 6
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 69.0,
+      "status": "needs_improvement",
+      "checks_total": 13,
+      "checks_passed": 7,
+      "checks_failed": 6
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 69.8,
+      "status": "needs_improvement",
+      "checks_total": 10,
+      "checks_passed": 6,
+      "checks_failed": 4
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 58.2,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 1,
+      "checks_failed": 4
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 30.4,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 1,
+      "checks_failed": 5
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 50.6,
+      "status": "poor",
+      "checks_total": 6,
+      "checks_passed": 2,
+      "checks_failed": 4
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 32.7,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 0,
+      "checks_failed": 3
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 2,
+      "checks_passed": 0,
+      "checks_failed": 2
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 1,
+      "checks_passed": 1,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 78.6,
+      "status": "good",
+      "checks_total": 9,
+      "checks_passed": 7,
+      "checks_failed": 2
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "critical",
+      "title": "Slow server response time (TTFB)",
+      "affected_pages": 53,
+      "occurrences": [
+        {
+          "current_value": "Very slow response time: 5.34s"
+        },
+        {
+          "current_value": "Very slow response time: 4.99s"
+        },
+        {
+          "current_value": "Very slow response time: 4.98s"
+        },
+        {
+          "current_value": "Very slow response time: 5.64s"
+        },
+        {
+          "current_value": "Very slow response time: 5.72s"
+        },
+        {
+          "current_value": "Very slow response time: 4.83s"
+        },
+        {
+          "current_value": "Very slow response time: 4.60s"
+        },
+        {
+          "current_value": "Very slow response time: 4.09s"
+        },
+        {
+          "current_value": "Very slow response time: 5.38s"
+        },
+        {
+          "current_value": "Very slow response time: 5.56s"
+        },
+        {
+          "current_value": "Very slow response time: 6.04s"
+        },
+        {
+          "current_value": "Very slow response time: 4.76s"
+        },
+        {
+          "current_value": "Very slow response time: 4.72s"
+        },
+        {
+          "current_value": "Very slow response time: 7.99s"
+        },
+        {
+          "current_value": "Very slow response time: 5.51s"
+        },
+        {
+          "current_value": "Very slow response time: 5.71s"
+        },
+        {
+          "current_value": "Very slow response time: 4.16s"
+        },
+        {
+          "current_value": "Very slow response time: 4.15s"
+        },
+        {
+          "current_value": "Very slow response time: 5.77s"
+        },
+        {
+          "current_value": "Very slow response time: 4.75s"
+        },
+        {
+          "current_value": "Very slow response time: 5.06s"
+        },
+        {
+          "current_value": "Very slow response time: 4.49s"
+        },
+        {
+          "current_value": "Very slow response time: 4.56s"
+        },
+        {
+          "current_value": "Very slow response time: 4.25s"
+        },
+        {
+          "current_value": "Very slow response time: 6.62s"
+        },
+        {
+          "current_value": "Very slow response time: 6.42s"
+        },
+        {
+          "current_value": "Very slow response time: 7.96s"
+        },
+        {
+          "current_value": "Very slow response time: 4.91s"
+        },
+        {
+          "current_value": "Very slow response time: 5.24s"
+        },
+        {
+          "current_value": "Very slow response time: 5.42s"
+        },
+        {
+          "current_value": "Very slow response time: 5.45s"
+        },
+        {
+          "current_value": "Very slow response time: 4.43s"
+        },
+        {
+          "current_value": "Very slow response time: 4.66s"
+        },
+        {
+          "current_value": "Very slow response time: 4.33s"
+        },
+        {
+          "current_value": "Very slow response time: 3.51s"
+        },
+        {
+          "current_value": "Very slow response time: 4.38s"
+        },
+        {
+          "current_value": "Very slow response time: 4.51s"
+        },
+        {
+          "current_value": "Very slow response time: 5.00s"
+        },
+        {
+          "current_value": "Very slow response time: 5.30s"
+        },
+        {
+          "current_value": "Very slow response time: 4.08s"
+        },
+        {
+          "current_value": "Very slow response time: 4.69s"
+        },
+        {
+          "current_value": "Very slow response time: 5.14s"
+        },
+        {
+          "current_value": "Very slow response time: 6.28s"
+        },
+        {
+          "current_value": "Very slow response time: 3.42s"
+        },
+        {
+          "current_value": "Very slow response time: 3.15s"
+        },
+        {
+          "current_value": "Very slow response time: 4.31s"
+        },
+        {
+          "current_value": "Very slow response time: 8.31s"
+        },
+        {
+          "current_value": "Very slow response time: 6.59s"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "response_time": 5.34
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "response_time": 4.991
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "response_time": 4.984
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "response_time": 5.642
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "response_time": 5.721
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "response_time": 4.825
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "response_time": 4.598
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "response_time": 4.091
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "response_time": 5.384
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "response_time": 5.558
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "response_time": 6.04
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "response_time": 4.759
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "response_time": 4.725
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "response_time": 7.991
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "response_time": 5.513
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "response_time": 5.715
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "response_time": 4.161
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "response_time": 4.149
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "response_time": 5.767
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "response_time": 4.603
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "response_time": 4.753
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "response_time": 5.064
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "response_time": 4.488
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "response_time": 4.562
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "response_time": 4.251
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "response_time": 6.615
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "response_time": 6.425
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "response_time": 7.961
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "response_time": 4.906
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "response_time": 5.244
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "response_time": 5.421
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "response_time": 5.449
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "response_time": 4.432
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "response_time": 4.663
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "response_time": 4.331
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "response_time": 3.512
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "response_time": 4.385
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "response_time": 4.511
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "response_time": 5.005
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "response_time": 5.447
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "response_time": 4.754
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "response_time": 5.296
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "response_time": 4.08
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "response_time": 4.692
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "response_time": 4.664
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "response_time": 5.144
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "response_time": 6.278
+          },
+          {
+            "page_url": "https://infomagine.in/services/flutter",
+            "response_time": 5.708
+          },
+          {
+            "page_url": "https://infomagine.in/services/VueJs",
+            "response_time": 3.415
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/madstack-innovation",
+            "response_time": 3.152
+          }
+        ]
+      },
+      "recommendation": "Critical: Optimize server, database queries, and caching"
+    },
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No canonical URL set"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "canonical_url": ""
+          }
+        ]
+      },
+      "recommendation": "Add canonical URL tag and ensure unique content"
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "3 images missing width/height attributes"
+        },
+        {
+          "current_value": "4 images missing width/height attributes"
+        },
+        {
+          "current_value": "10 images missing width/height attributes"
+        },
+        {
+          "current_value": "6 images missing width/height attributes"
+        },
+        {
+          "current_value": "9 images missing width/height attributes"
+        },
+        {
+          "current_value": "7 images missing width/height attributes"
+        },
+        {
+          "current_value": "5 images missing width/height attributes"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "missing_dimensions": 4
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "missing_dimensions": 4
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "missing_dimensions": 6
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "missing_dimensions": 7
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "missing_dimensions": 4
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "missing_dimensions": 5
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "missing_dimensions": 7
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "missing_dimensions": 6
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "missing_dimensions": 7
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "missing_dimensions": 6
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "missing_dimensions": 7
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "missing_dimensions": 4
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "missing_dimensions": 4
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "missing_dimensions": 5
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "missing_dimensions": 3
+          },
+          {
+            "page_url": "https://infomagine.in/services/flutter",
+            "missing_dimensions": 10
+          }
+        ]
+      },
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)"
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "63 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "92 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "60 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "64 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "62 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "59 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "65 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "66 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "73 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "61 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "123 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "67 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "31 links have generic/non-descriptive anchor text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "total_links": 63,
+            "generic_count": 63
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "total_links": 92,
+            "generic_count": 92
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "total_links": 62,
+            "generic_count": 62
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "total_links": 65,
+            "generic_count": 65
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "total_links": 66,
+            "generic_count": 66
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "total_links": 73,
+            "generic_count": 73
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "total_links": 63,
+            "generic_count": 63
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "total_links": 62,
+            "generic_count": 62
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "total_links": 61,
+            "generic_count": 61
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "total_links": 63,
+            "generic_count": 63
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "total_links": 123,
+            "generic_count": 123
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "total_links": 63,
+            "generic_count": 63
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "total_links": 64,
+            "generic_count": 64
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "total_links": 59,
+            "generic_count": 59
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "total_links": 60,
+            "generic_count": 60
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "total_links": 67,
+            "generic_count": 67
+          },
+          {
+            "page_url": "https://infomagine.in/services/flutter",
+            "total_links": 59,
+            "generic_count": 59
+          }
+        ]
+      },
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility"
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "Missing canonical URL tag"
+        }
+      ],
+      "recommendation": "Ensure all pages have a single canonical URL to improve SEO consistency and prevent duplicate content issues."
+    },
+    {
+      "rule_id": "technical_007",
+      "category": "technical",
+      "severity": "high",
+      "title": "Missing or incomplete security headers",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "All headers present: "
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "missing_optional": [
+              "x-frame-options",
+              "x-content-type-options"
+            ],
+            "missing_required": [
+              "strict-transport-security",
+              "content-security-policy"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          }
+        ]
+      },
+      "recommendation": "Add missing security headers: strict-transport-security, content-security-policy; consider adding: x-frame-options, x-content-type-options"
+    },
+    {
+      "rule_id": "links_003",
+      "category": "links",
+      "severity": "high",
+      "title": "Broken links detected",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "1 broken links"
+        },
+        {
+          "current_value": "5 broken links"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "href": "https://en.wikipedia.org/wiki/Low-code_development_platform",
+            "text": "low-code",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "https://en.wikipedia.org/wiki/Low-code_development_platform",
+              "style": "text-decoration:none"
+            },
+            "absolute_url": "https://en.wikipedia.org/wiki/Low-code_development_platform",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "href": "https://en.wikipedia.org/wiki/Software_development",
+            "text": "software development services",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "https://en.wikipedia.org/wiki/Software_development"
+            },
+            "absolute_url": "https://en.wikipedia.org/wiki/Software_development",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ],
+            "href": "https://codeigniter.com/",
+            "text": "CodeIgniter",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener noreferrer",
+              "href": "https://codeigniter.com/",
+              "class": "block",
+              "target": "_blank"
+            },
+            "absolute_url": "https://codeigniter.com/",
+            "target_status_code": 404
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ],
+            "href": "https://www.zend.com/",
+            "text": "Zend",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener noreferrer",
+              "href": "https://www.zend.com/",
+              "class": "block",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.zend.com/",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ],
+            "href": "https://www.opencart.com/",
+            "text": "OpenCart",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener noreferrer",
+              "href": "https://www.opencart.com/",
+              "class": "block",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.opencart.com/",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "href": "https://en.wikipedia.org/wiki/Front_end_and_back_end",
+            "text": "Frontend and backend",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "https://en.wikipedia.org/wiki/Front_end_and_back_end",
+              "style": "text-decoration:none"
+            },
+            "absolute_url": "https://en.wikipedia.org/wiki/Front_end_and_back_end",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://infomagine.in/meet-the-ceo",
+            "rel": [
+              "noreferrer"
+            ],
+            "href": "https://in.linkedin.com/in/rahulvkkhandelwal",
+            "text": "LinkedIn",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noreferrer",
+              "href": "https://in.linkedin.com/in/rahulvkkhandelwal",
+              "class": "flex items-center gap-2.5 py-4 text-[#f7f8f8] hover:text-[#9e9e9e] transition-colors",
+              "style": "border-top-width: 1px; border-top-style: dashed; border-image: repeating-linear-gradient(to right, rgba(255, 255, 255, 0.28) 0px, rgba(255, 255, 255, 0.28) 2px, transparent 2px, transparent 4px) 1 / 1 / 0 stretch; border-bottom-width: 1px; border-bottom-style: dashed;",
+              "target": "_blank"
+            },
+            "absolute_url": "https://in.linkedin.com/in/rahulvkkhandelwal",
+            "target_status_code": 405
+          }
+        ]
+      },
+      "recommendation": "Fix 1 broken links to improve user experience and SEO"
+    },
+    {
+      "rule_id": "content_001",
+      "category": "content",
+      "severity": "high",
+      "title": "Thin or overly long content",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "10 words on unknown page"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "page_type": "unknown"
+          }
+        ]
+      },
+      "recommendation": "Increase content to at least 150 words"
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "No structured data / schema markup found"
+        }
+      ],
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "Paragraph structure needs improvement",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No paragraphs found"
+        }
+      ],
+      "recommendation": "Break content into paragraphs for better readability"
+    },
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poorly sized meta description",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "Meta description: Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services. (164 chars)"
+        },
+        {
+          "current_value": "Meta description: Independent practice spanning software architecture, engineering management, product design, and frontend engineering. Design systems, scalable production interfaces, and technical leadership for growing teams. (210 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Infomagine is a leading IT software company in Jaipur, India offering custom software development, web development, mobile app development & IT consulting services.",
+            "pixel_width_estimate": 1066
+          }
+        ]
+      },
+      "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display"
+    },
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or multiple H1 tags",
+      "affected_pages": 28,
+      "occurrences": [
+        {
+          "current_value": "H1: How to Optimize Database Performance:\nTips and Best Practices"
+        },
+        {
+          "current_value": "Missing H1 tag"
+        },
+        {
+          "current_value": "6 H1 tags: Hire Dedicated Tech Talent Scale Faster, Accelerate Growth with Smart IT Outsourcing, Build your remote team with hand-picked developers, designers and digital experts—fully aligned with your business goals."
+        },
+        {
+          "current_value": "2 H1 tags: NPM Supply Chain Attacks: What Every Business Using ReactJS, NodeJS, or VueJS Must Know (Sept 8, 2025 Alert), What Exactly Happened on Sept 8, 2025?"
+        },
+        {
+          "current_value": "H1: Python"
+        },
+        {
+          "current_value": "H1: Delivering Excellence as a Leading QA & Software Testing Partner"
+        },
+        {
+          "current_value": "H1: 404 Error - Page Not Found"
+        },
+        {
+          "current_value": "H1: Single Page & Custom VueJS Application Development Services"
+        },
+        {
+          "current_value": "5 H1 tags: AWS Services, Why AWS?, AWS Benefits"
+        },
+        {
+          "current_value": "H1: Case Study"
+        },
+        {
+          "current_value": "H1: Your Trusted Partner for Apple App Development Services in India"
+        },
+        {
+          "current_value": "3 H1 tags: InviteHive, Kanha Home Tutions, MadStack Innovation"
+        },
+        {
+          "current_value": "H1: Flutter vs React Native: Which Framework is Right for Your Next App in 2025?"
+        },
+        {
+          "current_value": "3 H1 tags: Reliable Linux Hosting & Server Solutions, Linux & Web Hosting Services, Why Choose Infomagine for Web Hosting Management"
+        },
+        {
+          "current_value": "H1: Why Server Monitoring is Critical for Modern Businesses: Risks, Benefits and Best Practices"
+        },
+        {
+          "current_value": "2 H1 tags: Leading IT Services & Consulting Company in India, Empower Your Start-Up with Premium IT Solutions"
+        },
+        {
+          "current_value": "H1: Build, Manage, and Grow Your Website with Ease"
+        },
+        {
+          "current_value": "H1: Best AngularJS Development Company in India for Modern Solutions"
+        },
+        {
+          "current_value": "H1: Azure Managed Cloud Services"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "h1_text": "How to Optimize Database Performance:\nTips and Best Practices",
+            "h1_length": 61,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "h1_tags": [
+              "Hire Dedicated Tech Talent Scale Faster",
+              "Accelerate Growth with Smart IT Outsourcing",
+              "Build your remote team with hand-picked developers, designers and digital experts—fully aligned with your business goals."
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "h1_tags": [
+              "NPM Supply Chain Attacks: What Every Business Using ReactJS, NodeJS, or VueJS Must Know (Sept 8, 2025 Alert)",
+              "What Exactly Happened on Sept 8, 2025?"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "h1_text": "Python",
+            "h1_length": 6,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "h1_text": "Delivering Excellence as a Leading QA & Software Testing Partner",
+            "h1_length": 64,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "h1_text": "404 Error - Page Not Found",
+            "h1_length": 26,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "h1_text": "Single Page & Custom VueJS Application Development Services",
+            "h1_length": 59,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "h1_tags": [
+              "AWS Services",
+              "Why AWS?",
+              "AWS Benefits"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "h1_text": "Case Study",
+            "h1_length": 10,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "h1_text": "Your Trusted Partner for Apple App Development Services in India",
+            "h1_length": 64,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "h1_tags": [
+              "InviteHive",
+              "Kanha Home Tutions",
+              "MadStack Innovation"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "h1_text": "Case Study",
+            "h1_length": 10,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "h1_text": "Flutter vs React Native: Which Framework is Right for Your Next App in 2025?",
+            "h1_length": 76,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "h1_tags": [
+              "Reliable Linux Hosting & Server Solutions",
+              "Linux & Web Hosting Services",
+              "Why Choose Infomagine for Web Hosting Management"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "h1_tags": [
+              "Hire Dedicated Tech Talent Scale Faster",
+              "Accelerate Growth with Smart IT Outsourcing",
+              "Build your remote team with hand-picked developers, designers and digital experts—fully aligned with your business goals."
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "h1_text": "Why Server Monitoring is Critical for Modern Businesses: Risks, Benefits and Best Practices",
+            "h1_length": 91,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "h1_tags": [
+              "Leading IT Services & Consulting Company in India",
+              "Empower Your Start-Up with Premium IT Solutions"
+            ]
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "h1_text": "Build, Manage, and Grow Your Website with Ease",
+            "h1_length": 46,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "h1_text": "Best AngularJS Development Company in India for Modern Solutions",
+            "h1_length": 64,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/VueJs",
+            "h1_text": "Single Page & Custom VueJS Application Development Services",
+            "h1_length": 59,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/madstack-innovation",
+            "h1_text": "Case Study",
+            "h1_length": 10,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://infomagine.in/services/azure-managed-cloud-services",
+            "h1_text": "Azure Managed Cloud Services",
+            "h1_length": 28,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          }
+        ]
+      },
+      "recommendation": "Use one concise H1 tag that aligns with the page title"
+    },
+    {
+      "rule_id": "on_page_004",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Illogical heading hierarchy",
+      "affected_pages": 53,
+      "occurrences": [
+        {
+          "current_value": "Heading issues: H1=1, H2=2, H3=22, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=1, H3=21, H4=0, H5=0, H6=0 — Missing H1, Excessive headings, 6 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=2, H3=12, H4=2, H5=0, H6=0 — Missing H1, 1 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=1, H3=18, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=33, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=12, H4=12, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=22, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=21, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=6, H3=12, H4=0, H5=0, H6=0 — Missing H1"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=6, H3=23, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=28, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=6, H2=0, H3=28, H4=0, H5=0, H6=0 — H3 used without H2, Excessive headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=7, H3=17, H4=3, H5=0, H6=0 — Excessive headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=20, H4=11, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=0, H3=0, H4=0, H5=0, H6=0 — Missing H1"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=29, H4=7, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=3, H3=18, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=0, H3=12, H4=0, H5=0, H6=0 — H3 used without H2"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=18, H4=12, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=6, H3=19, H4=4, H5=0, H6=0 — Missing H1, Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=7, H3=12, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=5, H2=1, H3=20, H4=8, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=12, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=16, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=6, H3=16, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=6, H3=24, H4=12, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=3, H2=0, H3=12, H4=0, H5=0, H6=0 — H3 used without H2"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=36, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=18, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=6, H3=23, H4=12, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=14, H4=2, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=6, H3=21, H4=12, H5=0, H6=0 — Excessive headings, 6 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=22, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=12, H4=18, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=31, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=10, H3=17, H4=3, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=1, H3=12, H4=11, H5=10, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=3, H3=26, H4=0, H5=0, H6=0 — Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=15, H3=13, H4=3, H5=0, H6=0 — Excessive headings, 1 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=0, H2=9, H3=12, H4=0, H5=0, H6=0 — Missing H1, Excessive headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=36, H4=0, H5=0, H6=0 — Excessive headings"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "target": "Missing H1"
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "target": "6 duplicate headings"
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "target": "Missing H1"
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "target": "1 duplicate headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "target": "Missing H1"
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "target": "Missing H1"
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "target": "Missing H1"
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "target": "6 duplicate headings"
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "target": "Excessive headings"
+          }
+        ]
+      },
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
+    },
+    {
+      "rule_id": "security_005",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing HSTS header",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "HSTS header not found"
+        }
+      ],
+      "recommendation": "Add Strict-Transport-Security header"
+    },
+    {
+      "rule_id": "security_006",
+      "category": "security",
+      "severity": "medium",
+      "title": "Missing XSS protection headers",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No XSS protection headers found"
+        }
+      ],
+      "recommendation": "Add X-XSS-Protection and Content-Security-Policy headers"
+    },
+    {
+      "rule_id": "technical_003",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing HTML language declaration",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "HTML language attribute not specified"
+        }
+      ],
+      "recommendation": "Add lang attribute to <html> tag (e.g., <html lang='en'>)"
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing DOCTYPE declaration",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "Missing DOCTYPE declaration"
+        }
+      ],
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document"
+    },
+    {
+      "rule_id": "links_001",
+      "category": "links",
+      "severity": "medium",
+      "title": "Insufficient internal links",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "No internal links found"
+        }
+      ],
+      "recommendation": "Add internal links to other pages on your website"
+    },
+    {
+      "rule_id": "on_page_008",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing Open Graph tags",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/meet-the-ceo",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://infomagine.in/meet-the-ceo",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://infomagine.in/meet-the-ceo",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://infomagine.in/meet-the-ceo",
+            "target": "og:url"
+          }
+        ]
+      },
+      "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url"
+    },
+    {
+      "rule_id": "social_005",
+      "category": "social",
+      "severity": "medium",
+      "title": "Missing social media image",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "No social media image specified"
+        }
+      ],
+      "recommendation": "Add og:image and twitter:image tags for better social sharing"
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "Missing content freshness dates",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No content freshness dates found"
+        }
+      ],
+      "recommendation": "Consider adding article published/modified dates"
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "Lazy loading not implemented",
+      "affected_pages": 52,
+      "occurrences": [
+        {
+          "current_value": "Lazy loading not detected"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-seo-how-aeo-and-geo-are-redefining-search-optimization-in-2025",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-your-website-is-slow-how-to-fix-it-complete-guide-for-2026",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/full-stack-development",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/vuejs",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/it-staffing",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/reactjs",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/portfolio",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/cloud-vs-traditional-hosting-which-is-better-for-your-business-in-2026",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/linux-and-web-hosting-services",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/it-consulting-services",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/react-native",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/beyond-automationhow-ai-is-redefining-human-centered-leadership",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/blog/how-ai-is-transforming-software-development-in-2026-and-what-businesses-must-do",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/flutter",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/VueJs",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/madstack-innovation",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://infomagine.in/services/php",
+            "lazy_loading": false
+          }
+        ]
+      },
+      "recommendation": "Add loading='lazy' attribute to images below the fold"
+    },
+    {
+      "rule_id": "images_005",
+      "category": "images",
+      "severity": "low",
+      "title": "Missing responsive image attributes",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "No responsive images (srcset) detected"
+        }
+      ],
+      "recommendation": "Consider using srcset and sizes for responsive images"
+    },
+    {
+      "rule_id": "images_006",
+      "category": "images",
+      "severity": "low",
+      "title": "Only traditional image formats detected",
+      "affected_pages": 55,
+      "occurrences": [
+        {
+          "current_value": "Only traditional image formats detected"
+        }
+      ],
+      "recommendation": "Consider using WebP or AVIF for better compression"
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "No external links found",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No external links found"
+        }
+      ],
+      "recommendation": "Consider linking to authoritative external sources"
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "low",
+      "title": "Missing or poor page title",
+      "affected_pages": 37,
+      "occurrences": [
+        {
+          "current_value": "Title: Custom Software & Web Development Company in Jaipur | Infomagine (64 chars)"
+        },
+        {
+          "current_value": "Title: Let’s Turn Your Software Project into Reality – Contact Us Today (64 chars)"
+        },
+        {
+          "current_value": "Missing page title tag"
+        },
+        {
+          "current_value": "Title: Personalized Software | Mobile Application Development | IT Solutions Provider (78 chars)"
+        },
+        {
+          "current_value": "Title: Low-Code vs No-Code vs Traditional Development: Complete Guide (62 chars)"
+        },
+        {
+          "current_value": "Title: Latest Digital transformation, Web & Mobile Technology Blog | Infomagine (72 chars)"
+        },
+        {
+          "current_value": "Title: Hire Dedicated Developers | IT Outsourcing & Remote Tech Talent | Infomagine (76 chars)"
+        },
+        {
+          "current_value": "Title: Custom CMS Web | Drupal CMS | Webflow CMS Development Company (61 chars)"
+        },
+        {
+          "current_value": "Title: Software Testing Services | Quality Assurance company - Infomagine Softwares (76 chars)"
+        },
+        {
+          "current_value": "Title: Hire Dedicated Developers for Web & Mobile | Infomagine Softwares (65 chars)"
+        },
+        {
+          "current_value": "Title: The Secret to a Successful Project | PHP Development Company in India (69 chars)"
+        },
+        {
+          "current_value": "Title: Innovative iOS App Development | UI/UX Design Company | Infomagine (66 chars)"
+        },
+        {
+          "current_value": "Title: Web Application Development Services | USA, UK, UAE | Infomagine (64 chars)"
+        },
+        {
+          "current_value": "Title: Expert Android Mobile App Development Company | Infomagine Softwares (68 chars)"
+        },
+        {
+          "current_value": "Title: Custom software | Application | Web Development Services | Infomagine (69 chars)"
+        },
+        {
+          "current_value": "Title: From UI Bugs to Server Errors: Frontend & Backend Challenges Explained (70 chars)"
+        },
+        {
+          "current_value": "Title: DevOps Services | CI/CD, Cloud Automation & Infrastructure | Infomagine (71 chars)"
+        },
+        {
+          "current_value": "Title: Infomagine Career and Culture (29 chars)"
+        },
+        {
+          "current_value": "Title: Angular JS | Angular Web App Development Company | Infomagine softwares (71 chars)"
+        },
+        {
+          "current_value": "Title: Affordable | Custom Laravel Development Services in India | Infomagine (70 chars)"
+        },
+        {
+          "current_value": "Title: Codeigniter | Web Development Services in India | Infomagine Softwares (70 chars)"
+        },
+        {
+          "current_value": "Title: Custom Mobile App Development Services | USA, UK, UAE | Infomagine (66 chars)"
+        },
+        {
+          "current_value": "Title: Top-Notch iOS Flutter | Api Integration Services | Infomagine Softwares (71 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/how-to-optimize-database-performance-tips-and-best-practices",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/sitemap",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "title": "Let’s Turn Your Software Project into Reality – Contact Us Today",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 385,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/custom-software",
+            "title": "Personalized Software | Mobile Application Development | IT Solutions Provider",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 78,
+            "truncation_risk": false,
+            "pixel_width_estimate": 448,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/it-consulting",
+            "title": "",
+            "length_status": "missing",
+            "character_count": 0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/low-code-vs-no-code-vs-traditional-development-what-you-need-to-know",
+            "title": "Low-Code vs No-Code vs Traditional Development: Complete Guide",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 368,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blogs",
+            "title": "Latest Digital transformation, Web & Mobile Technology Blog | Infomagine",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 72,
+            "truncation_risk": false,
+            "pixel_width_estimate": 417,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "title": "Hire Dedicated Developers | IT Outsourcing & Remote Tech Talent | Infomagine",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 76,
+            "truncation_risk": false,
+            "pixel_width_estimate": 444,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/python-development-services",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/hybrid",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/content-management-system",
+            "title": "Custom CMS Web | Drupal CMS | Webflow CMS Development Company",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 61,
+            "truncation_risk": false,
+            "pixel_width_estimate": 376,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-and-qa",
+            "title": "Software Testing Services | Quality Assurance company - Infomagine Softwares",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 76,
+            "truncation_risk": false,
+            "pixel_width_estimate": 454,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/software-testing-qa",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/hire-developer",
+            "title": "Hire Dedicated Developers for Web & Mobile | Infomagine Softwares",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 65,
+            "truncation_risk": false,
+            "pixel_width_estimate": 384,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/the-secret-to-a-successful-project-the-right-php-development-company",
+            "title": "The Secret to a Successful Project | PHP Development Company in India",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 69,
+            "truncation_risk": false,
+            "pixel_width_estimate": 406,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/ai-in-software-development-how-artificial-intelligence-is-reshaping-the-future-of-coding",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/ios",
+            "title": "Innovative iOS App Development | UI/UX Design Company | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 66,
+            "truncation_risk": false,
+            "pixel_width_estimate": 383,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/invitehive",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/web-applications",
+            "title": "Web Application Development Services | USA, UK, UAE | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 370,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/flutter-vs-react-native-which-framework-is-right-for-your-next-app-in-2025",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/outsourcing-dedicated-hiring",
+            "title": "Hire Dedicated Developers | IT Outsourcing & Remote Tech Talent | Infomagine",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 76,
+            "truncation_risk": false,
+            "pixel_width_estimate": 444,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/android",
+            "title": "Expert Android Mobile App Development Company | Infomagine Softwares",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 68,
+            "truncation_risk": false,
+            "pixel_width_estimate": 406,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/",
+            "title": "Custom software | Application | Web Development Services | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 69,
+            "truncation_risk": false,
+            "pixel_width_estimate": 398,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/blog/from-ui-bugs-to-server-errors-common-frontend-backend-challenges-explained",
+            "title": "From UI Bugs to Server Errors: Frontend & Backend Challenges Explained",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 70,
+            "truncation_risk": false,
+            "pixel_width_estimate": 419,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/devops-services",
+            "title": "DevOps Services | CI/CD, Cloud Automation & Infrastructure | Infomagine",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 71,
+            "truncation_risk": false,
+            "pixel_width_estimate": 418,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/wordpress",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/career",
+            "title": "Infomagine Career and Culture",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 172,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/angular",
+            "title": "Angular JS | Angular Web App Development Company | Infomagine softwares",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 71,
+            "truncation_risk": false,
+            "pixel_width_estimate": 420,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/laravel",
+            "title": "Affordable | Custom Laravel Development Services in India | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 70,
+            "truncation_risk": false,
+            "pixel_width_estimate": 399,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/codeigniter",
+            "title": "Codeigniter | Web Development Services in India | Infomagine Softwares",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 70,
+            "truncation_risk": false,
+            "pixel_width_estimate": 402,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/mobile-applications",
+            "title": "Custom Mobile App Development Services | USA, UK, UAE | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 66,
+            "truncation_risk": false,
+            "pixel_width_estimate": 384,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/flutter",
+            "title": "Top-Notch iOS Flutter | Api Integration Services | Infomagine Softwares",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 71,
+            "truncation_risk": false,
+            "pixel_width_estimate": 414,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/madstack-innovation",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://infomagine.in/services/azure-managed-cloud-services",
+            "title": "Custom Software & Web Development Company in Jaipur | Infomagine",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          }
+        ]
+      },
+      "recommendation": "Consider shortening the title to make the main topic clearer and reduce the possibility of SERP truncation."
+    },
+    {
+      "rule_id": "perf_005",
+      "category": "performance",
+      "severity": "low",
+      "title": "Missing browser caching headers",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No cache headers found"
+        }
+      ],
+      "recommendation": "Add cache-control and expires headers to optimize browser caching."
+    },
+    {
+      "rule_id": "schema_003",
+      "category": "schema",
+      "severity": "low",
+      "title": "Missing Breadcrumb schema",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "No breadcrumb schema found"
+        }
+      ],
+      "recommendation": "Add BreadcrumbList schema for better navigation display"
+    },
+    {
+      "rule_id": "schema_004",
+      "category": "schema",
+      "severity": "low",
+      "title": "Missing Article schema",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "No Article schema found"
+        }
+      ],
+      "recommendation": "Add the article schema markup to the HTML of the affected pages to improve search visibility and user experience."
+    },
+    {
+      "rule_id": "schema_005",
+      "category": "schema",
+      "severity": "low",
+      "title": "Missing Product schema",
+      "affected_pages": 56,
+      "occurrences": [
+        {
+          "current_value": "No Product schema found"
+        }
+      ],
+      "recommendation": "Add Product schema for e-commerce pages"
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No social media links found"
+        }
+      ],
+      "recommendation": "Add links to your social media profiles"
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing Facebook domain verification",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No Facebook App ID or admins meta tag"
+        }
+      ],
+      "recommendation": "Add Facebook domain verification to ensure proper indexing and social sharing on your website."
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "affected_pages": 57,
+      "occurrences": [
+        {
+          "current_value": "No sitemap data available"
+        }
+      ],
+      "recommendation": "Create and submit XML sitemap to search engines"
+    },
+    {
+      "rule_id": "images_001",
+      "category": "images",
+      "severity": "low",
+      "title": "Images missing alt text",
+      "affected_pages": 19,
+      "occurrences": [
+        {
+          "current_value": "1/4 images missing alt text"
+        },
+        {
+          "current_value": "11/15 images missing alt text"
+        },
+        {
+          "current_value": "7/10 images missing alt text"
+        },
+        {
+          "current_value": "3/7 images missing alt text"
+        },
+        {
+          "current_value": "2/7 images missing alt text"
+        },
+        {
+          "current_value": "3/13 images missing alt text"
+        },
+        {
+          "current_value": "6/10 images missing alt text"
+        },
+        {
+          "current_value": "6/16 images missing alt text"
+        },
+        {
+          "current_value": "10/23 images missing alt text"
+        },
+        {
+          "current_value": "2/6 images missing alt text"
+        },
+        {
+          "current_value": "6/15 images missing alt text"
+        },
+        {
+          "current_value": "30/33 images missing alt text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "alt": "",
+            "src": "/assets/hireDeveloperHeader-BrO81Wfa.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/contact-us",
+            "alt": "Infomagine Logo",
+            "src": "/assets/main-logo-J4jGbqZe.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "/assets/seoHeader-DxYFpSTt.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "About Us",
+            "src": "/assets/imgseo-C2NV4JW1.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "",
+            "src": "/assets/Marketing%20Agency-BWTtjsuV.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/digital-marketing",
+            "alt": "Infomagine Logo",
+            "src": "/assets/main-logo-J4jGbqZe.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/desktopheader-CESQMy7C.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/problem%20solving-DYSQ74WT.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/design-CoUso7y1.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/development-DC_k1Q-o.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/testing-CErrLFlu.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/lunch-lMMswoWY.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "",
+            "src": "/assets/market-4M2g6yQC.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/desktop-applications",
+            "alt": "Infomagine Logo",
+            "src": "/assets/main-logo-J4jGbqZe.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "iOS App",
+            "src": "/assets/headerhire-wiM_U4Sj.jpeg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "",
+            "src": "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "",
+            "src": "/assets/section3img-BsXjj0jF.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "",
+            "src": "/assets/section5img-B9CX1Hlt.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/Outsourcing-Dedicated-Hiring",
+            "alt": "Infomagine Logo",
+            "src": "/assets/main-logo-J4jGbqZe.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "iOS App",
+            "src": "/assets/awsimgbg-BWTdl31z.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "AWS Logo",
+            "src": "/assets/awslogopng-D4BzdJkG.png",
+            "sizes": "",
+            "title": "",
+            "width": "100",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "",
+            "src": "/assets/awssectionimg-D4PDN2cy.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "",
+            "src": "/assets/awssectionimg2-tISX7G9-.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/services/aws-services",
+            "alt": "Infomagine Logo",
+            "src": "/assets/main-logo-J4jGbqZe.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "Infomagine Logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "logo",
+            "src": "/assets/infomagine%20logo-BsvjEvw5.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "",
+            "src": "/assets/khtlogo-BsE1ns28.png",
+            "sizes": "",
+            "title": "",
+            "width": "150",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "",
+            "src": "/assets/khtheadimg-BHK8oddr.png",
+            "sizes": "",
+            "title": "",
+            "width": "600",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "icon",
+            "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAABACAYAAACtK6/LAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAUmSURBVHgB7ZvNbttGEIBnVj/prc4TRHmCyj1EMHqRnyDOE9i+F7V0bBzDMhq1R9lA71GeIM4TVD4Urnto3Cco8wRRL0VM2TudISXDIpfkrkwRScQPkAEuubM7+zu7MwYoKSkpWREQCuanwXkbUT1FwCY/rvFvTECXRHB20G2dQoEUprwoXUH1igAaKZ95GqF3sNd6DQWgoAD6g4ueQvVbhuJCQxEM5XsogKX3fKAIwiG4QnC03231YIlYKX84eLdWBb8dPunxQXdjZJPvl8F5Q6P6BxZEk960KUvqV4f/GjyQm5qnzjX/jrobXla+VOXDyldecTe0I6/GnHF4RfWjo+76OCl///hPybsDC4Oj/c6TzaS3odJ+h7XYg3DxnMvr081uWiMkKt8fnO8AqkFc6Byez71jKiCoGPof4J74VH9oauBpx7zhxm2m5ecFdCdpATUueCLYQnGhUQ8qEKcKH5uQA1XlPzWl2yguyAIqO43xXYJgHq6Zik+hZv/kjz2D4AbkABrkBKPSQvHbumDFuODGlA96PT7H0yG1BUWClW2n71mfl7/+9SiaGlP+mldMcMaxsdxkXxrSnOtIN5N2NE3FE7TlcJ9HFriI4BHkAOqb94bkheoYJaa8BjWGBYiuyD8GOwCO4H54+93vDD0PznVEoFgew7Cvj1yF88FkZErXdHME90Ds/IRXI3BkounvaFpM+bAH0el0RYhDU7pYZ0iw0CGFV/nTpP2ZLb8TcIKGJlvEuNX5VOty4R7YiAU4TjuFXUG9w6pcghN4ydbjbtLboFG5XLCDDTEyjsBEC0+2PMo8ieGQzc9dsODlycUhj4Je1nfSmJMMs3nGz8cXA/6+k/JJogUqpNr2gYmqrraRsHO3EWSOK6V6z394cgYOTE3SQ1582pFG9fj5VCk8dZUpBg9Pu22+HGnPyUMYTnT9JK0RrY+00hC1Gn09meC/Nr1StDxBDJk85ZWUfIHMzXk5+tmexuTGJOmWxUVOkWVF5VTlT3/wexOx+oZcKsyXBNGkheRYIMZI//jCY+Nm19gIfCvsIgfo+pmYzWi3n8cY73daD+8mTO/r3kFOh46kcrnim1F7nxX64FjumPf/dSX7rmtPkeGYqcMLg2UqDoF8rA3iyeTq7FirodqTkeB+NjabvrlcW1mUHiuHDZwFTnmwpdjayqW38pJjQawcPv0tZNQU4rH5VCmVX1VK5VeVUvlVpVR+VSmVX1XYfY2retk35p7Xjg6FLwM+lrPyCJ+b8nGHI7nfIyCyn8DXD16Do2NSGY6VBU4fD2Jlu1+b+ZreKrngZ++Grd9rChouFMye2vwhL56Gjj0fOi6D1V7cOuDW+41oMMIN6bdQABpNHmSnSI1bx2WgvPQ+34w+cxAQi7a6hq9k7Vj60L/Wes6XN420su55TdCdOS5v9/ngSpivhm2FSOT03efFpo8rcT+7cghOCmLy7kR2zxk5+92NoSL92MY3z9/sRIf+AtPHBaOfHe2CoTxU2I7GEcQsPImled5pPZZRkNEIa9EAwXD6gPXocUFCVKK9LkM+K4SdR2PPp/q6yfWd6aIWLwyp+iMuvhlmoDFBxZvo6lmSK9g2EMEWUeDFXssYXSGj70Fl8g2RbtJ01VcSt1+pjV58/+37NLnW/nlX8mqANMXvy9IONkGFs6dOGmNA6ixLcWFpPT9jForCfbgFdltSsGtkhZTkwdKVnxHGxn/cgnCLbEx/wT8YyU9LnA+fM8TcLsNKSkpKSnLmf+SzTjGA47nsAAAAAElFTkSuQmCC",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "icon",
+            "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOCSURBVHgB7dtLbhNBEAbgv3omgJAQ5gbDChGEsFnwWJGcgHACwgl4L1glrJDCI3ACzAnCDTALZAELm5CIJcMNjJAgie0uug3hESI57mmXbVHfJlISTya/u2d6qtqAUkoppZRSSkVHGBON5UYJGxulqcSW2lMH88r1SgtjYKQBvb9fnyFjLrqTmAej9OfPiJAzuGYtPzt5+3wNIzKSgD4s1zPuJk9dADN7egFx1Ri+e/z6+RzCxAPyo8YYs7JzxPTjR1TX2ivSo0k0oLXlV2Xqpg0UYNnOSoZkIMRPK2PTFRRkyKz4Y0GIWEDWJgvMyFBcyXbNMoSITDH/jrt/6iMiMok9KnHRFhlBbM1VRGatuQwBMlOMqYzIiGkGAmRGEDh6QMM45m6kLtIDrXlGeMx/iN3FJpVMQG4VjPhEHmalRlATkblrUPRj7kYkIGKuITqqQoBIQJvJ/meIOSUYebttX0KASEC94hfhMWIxqFbuyJQ+RJ/m1x+8cU/yBdcvTM0Tt89UIET0Nr/V7l7y0wOh3Gu3Ou4YgkQD8tNiq2NnCVTDgHz51b9WamptG1lNenWpPp+QWXBnkPX51RaBF6dvnXuCERh5V2P90duL3LUzbi1QJqKs901Gy9WOaiah59M3zojcrZRSSk2god3FGvfqme+zM5leYauTHmjG6rf7Pv5U+2s2jGPvFDWg7V67W33O7dbi8QtEMlwF2ZeDdiR8KPt58zKsmdutZb3dy4/doo4SUO8d7bYX3YJugO4FNZl8GcS+Y4u80/n7ESRNkZHxIZtTPwr0AzzDRezlFw6otxHBmheRmoLR+BFFxs4WDalQQOMazrYYIRV6WB3ncDx/brabFNoPEBzQ2sP6/DiH8xuX1x++XkCg4IAMTPAfFce4hkBBAa0+eD03GaPnl5JfgiBAUEAp4QImjF+fIUDYFBvCZoRhc62nDAH+m9YzB/bytTffhwbUhwbUhwbUR1BATDbHhHEPnTkCBAXkPz+BCZMSBe0NCAqot9OdsIhJ4c712M2z7xCgULmjsfSmvM/g6s9i1ngtHn2FkX2F0VSLNB+jllzXll6VTTp12M3BMhOV3Oqs7MqgJVdq9Yu0DPE2XvrtNK77yjn8tYWplSRoWpgW2aQ5fev0J0Qi3npuLLja8iE+bO23I70w98Kmuf+y+YU+V+6OxwftlFJKKaWUUqqA780zVveXaQ6+AAAAAElFTkSuQmCC",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://infomagine.in/casestudy/kanha-home-tutions",
+            "alt": "icon",
+            "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABHCAYAAABVsFofAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAblSURBVHgB7ZvNbhNXFMfPuWNPQSDibrpteAJCd5BQ4nUXJASQusJZIIW0Es4TOHkCjFQcJBZxVlWhNMkTOBBQlwlPUPMEmK+2jD339B5/hGDfGd87Htuhmp+U2JnJzNz8fe49XzcACQkJCQkJCQn/TxDGzNLWn5OpRmPy6LFGKlU9ASdqxfnzNRgjYxdn+cmLAgCtak8i1FDCAaA4QOnv/HL90i6MkOMtTjeIVSDYBR/ulW5MH8CQEfAlQTSpvuXAof2ffn9e+fnx3iwMkS9LnCMQwqwUWFGWt8HrFgyBL1acT1BOSP+v5cd7qxAzKYgJ/vQc8je8Bq48HMF60IPAgrKib9233kpxMRuLl4vFclgYQbJCBLNphyq3Hr2YggFBgpz7tv61WoTnlNcoKwup9r+Kct6Eux/XNBtYnI4wrcWySSYugdgCSlend+4vzCyWFi6dJRSzSrbt0IvUOHg8cQg0kDgaYTrEJtBR1q9efFpamJ6XXv1sqCXFJFBkcUKE6TAUgZgHP2arbElqnVkN/CU1Lsf3t/IblQxEJLI4jpSFEGE6DE0gpjQ/vSYlZTmS1p1X7n6qfiZdgIhEipBvP3meVxfetbikVvcxq/NiSyqQE0Jc7j5e92HH1Ovd2noxlSZSVgxaK2EBH0RIPazFaU0nfz9oICEEChQHoQKptMN94523dfHW06o1nfTCKKWLIQvlUKfYw3klOuGK9qSa/t4Z9w5YYiUOWw1xbqOnrFzuivQa2XEJpDxZufUB6aC87eJsJU7TavQPrir3usbv2JOMU6C04HFon52xtR5jccKtRpRZlM5P4xSoOK/WFZ/W9GftrMdYHCHlrP4MqZhjumcw4xSodOP7cpD1/Hs6Zfw8Y3EQ6ab2eEg4P9YpJkRZf1jcBEOMxMlvVTKcVOrO+V79Xti14xLIBS9gXDQHhhiJ02joTVEJtnt0rQliHALx2oOoSqqaZ5k+x0gcmXLOaS9GMA7oxmJBpB+fK+gcGGAkDko5qTtOEnfBglELRL58qT2hci4wwKwSyDej3sN1gldHf15+sreKhFfU25oUTnn96oXN7mtYoKVfK1nhpirqxpO9dz0UyCjV4DxPWfAVkJCRCJvrCzOfgsC0cwCyd+AEaOTOB6rnnPrgVTvvl//YU4PCAmfCXPxG8su3f3umXfzisiBVFs1xAszOgp/L71utnhYShD5b719NaGIkTtDNPkvkCHujz5QT6Db7C0Q1x/dCE0V9eEF5iIlYasjs6rUniELNN1ggah438IQZw2ORMFuQEbWfYCcUD3GbZehDr0DGwihj1QagZYgJw2ml2rAa6t9MTHTe+x/ri3g4MKoBifz6tZlNMKAjEMdNpsIwXAlsl0lq/MXXq47FYdmie4PCIQEfdjemfSv9wvb3P7xgNj1W+w9abH9Z074+C5ZwmUS96Os4yNO6t54njNo8pmuOQL1LRZyEY4xEffBKJKpggFmE3PC1wRQhzcIxBgPGR8IssjcS50Sqob0ZAs0O0voYJmHJMve/wAAjccKSOJv6yCjxpKsNQHnRBkOM4xzVitXWbRzEyH2hoYIQNK4yGGIsjgsftW6ZU4WlIW8isoXTiqCG41fv6jtgiLE4zdpsQNXv2FlPiNXY9K6s0gcppba6xtbD2TEMQH5rP8Pb2PgVBoArA0FW0+mQmGIlDrdUAxZmDrXuRq3DsLCe/PCat7Hxa9RdWq09goFWXDaNvDtYJ56cJgQ17tMp2LLd9rGs2rg9fXeBBVuh+bnSERv6s5/6ajZYi8Pqkw/6B0XaF4OXdUdNS5lM3+0w5BRtrYaJVLJYvz5TDJpe1gLVG290h6UwC/H77xOi7dK1i/cgApHrOc3pFZTAtQUKqgQexU3729hVqEdVGDeJYpeUy27t+AgUhrP9FYjIQDvY++2LaT+irKxg7cH8hWrQb3Co79WdOXCcy6pqf+C+a2yGuVz2aB69X9VWHw+hmhLmfJTpdDhyGBAjgRCrBGJVufynYSL1oymKfJ9X97sT/oFQre43VIE+a9w60jGwOIyZBTWfpopguK367pup1OkDk/+KYUEajfdTktu4qLqVfTdNUVUJMz+oMK3hxoRqt0yGtFv0D1drC2Gzyvj5mqNaJwSUQSLuZFi4dPMSq9H4IEZYIMdNF1SnKAcjhsul6bf1tbh2r7fvGT/Lj57lVMJVsLGi6FCV0MmZ1mhsGIo4HYYrEhfVRVG3NyguhipOh6ZIQtwBq/VDDxerVAVyu5+7j4ORiNOhuWinU1dI4BwvtmDUs25ayK6Kf3bx5Knt+z989wpGxEjF6Ybrzx8nvjqH7Jnk591Rz8GXrnvy9SjFSEhISEhISEhISID/AFa76XSgxlXeAAAAAElFTkSuQmCC",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          }
+        ]
+      },
+      "recommendation": "Add descriptive alt text to 1 images"
+    },
+    {
+      "rule_id": "url_001",
+      "category": "technical",
+      "severity": "low",
+      "title": "Poor URL structure",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "URL check"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert",
+            "target": "URL too long"
+          }
+        ]
+      },
+      "recommendation": "Use clean URLs with hyphens, lowercase, and no unnecessary parameters"
+    },
+    {
+      "rule_id": "technical_010",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing structured data / schema markup",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "No structured data / schema markup found"
+        }
+      ],
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "missing_www_redirect",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing or inconsistent www canonicalization",
+      "affected_pages": 1,
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "infomagine.in",
+            "www_and_nonwww": [
+              "infomagine.in"
+            ]
+          }
+        ]
+      },
+      "recommendation": "Choose one canonical host (www or non-www) and 301-redirect the other."
+    }
+  ]
+}

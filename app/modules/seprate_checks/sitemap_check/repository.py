@@ -22,3 +22,11 @@ class SitemapCheckRepository:
             select(SitemapCheck).where(SitemapCheck.id == check_id)
         )
         return result.scalar_one_or_none()
+
+    async def get_by_domain(self, domain: str) -> Optional[SitemapCheck]:
+        result = await self.db.execute(
+            select(SitemapCheck)
+            .where(SitemapCheck.domain == domain)
+            .order_by(SitemapCheck.created_at.desc())
+        )
+        return result.scalar_one_or_none()

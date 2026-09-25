@@ -73,8 +73,8 @@ class LighthouseCheckService:
     ``run_check_async`` runs inside the Celery worker.
     """
 
-    PAGESPEED_CONCURRENCY = 5
-    PAGESPEED_TIMEOUT = 60  # seconds per API call
+    PAGESPEED_CONCURRENCY = 15
+    PAGESPEED_TIMEOUT = 40  # seconds per API call
 
     def __init__(self):
         self.pagespeed_client = PagespeedClient()
@@ -418,21 +418,21 @@ class LighthouseCheckService:
         ]
 
         # Load category-specific ignore patterns
-        ignore_service = UrlIgnoreService(db=None)
         async with async_session_factory() as db:
+            ignore_service = UrlIgnoreService(db)
             if lighthouse_scopes:
                 await ignore_service.load_patterns(db, scopes=lighthouse_scopes)
 
             # Discover sitemap candidates before crawling page content. If the
             # sitemap already contains enough URLs, prevent HTML-link expansion
             # beyond the PageSpeed budget.
+            seed_norm = normalize_url(url)
             preflight = SiteDiscoveryService(
                 url,
                 timeout=60,
                 max_total_page_urls=max_pages,
             )
             preflight_result = await preflight.discover()
-            seed_norm = normalize_url(url)
             selected_urls: list[str] = []
             selected_seen: set[str] = set()
             for candidate in [seed_norm, *preflight_result.discovered_urls]:
@@ -486,33 +486,42 @@ class LighthouseCheckService:
                     max_sample_per_template=5,
                 )
                 if not should_check:
-                    await ignore_service.log_skip(
-                        db,
-                        check_id,
-                        norm,
-                        norm,
-                        skip_reason or "performance_skip",
-                        "performance",
-                    )
+                    try:
+                        await ignore_service.log_skip(
+                            check_id,
+                            norm,
+                            norm,
+                            skip_reason or "performance_skip",
+                            "performance",
+                        )
+                    except Exception as skip_exc:  # noqa: BLE001
+                        logger.warning(
+                            "Failed to persist skip record for %s: %s",
+                            norm, skip_exc,
+                        )
                     continue
 
                 # Check other loaded category scopes if applicable
                 if ignore_service and lighthouse_scopes:
                     is_ignored, reason, scope = ignore_service.check_url(norm, None, all_loaded=True)
                     if is_ignored and scope != "performance":
-                        await ignore_service.log_skip(
-                            db,
-                            check_id,
-                            norm,
-                            norm,
-                            reason or "category_skip",
-                            scope or "global",
-                        )
+                        try:
+                            await ignore_service.log_skip(
+                                check_id,
+                                norm,
+                                norm,
+                                reason or "category_skip",
+                                scope or "global",
+                            )
+                        except Exception as skip_exc:  # noqa: BLE001
+                            logger.warning(
+                                "Failed to persist skip record for %s: %s",
+                                norm, skip_exc,
+                            )
                         continue
 
                 seen.add(norm)
                 valid_urls.append(norm)
-
 
             if seed_norm in valid_urls:
                 valid_urls.remove(seed_norm)
@@ -530,7 +539,6 @@ class LighthouseCheckService:
             return valid_urls
 
     # ── Phase/status helpers ─────────────────────────────────────────────
-
     async def _set_check_phase(
         self,
         check_id: UUID,

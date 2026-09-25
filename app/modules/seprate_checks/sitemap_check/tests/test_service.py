@@ -2,8 +2,8 @@ import pytest
 
 from app.modules.crawler.services.site_discovery_service import (
     RobotsTxtEvidence,
-    SitemapEvidence,
     SiteDiscoveryResult,
+    SitemapEvidence,
 )
 from app.modules.seprate_checks.sitemap_check.service import SitemapCheckService
 

@@ -2,7 +2,7 @@
 Robots check service — orchestrates fetch → parse → evaluate → AI insight → persist.
 
 All methods are ``async def``. No Celery. A single ``POST /check`` completes
-the full flow within the request lifecycle (or short-circuits on a fresh cache).
+the full flow within the request lifecycle .
 """
 import asyncio
 from contextlib import asynccontextmanager

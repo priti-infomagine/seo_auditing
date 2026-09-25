@@ -213,14 +213,19 @@ class CrawlOrchestrator:
             # Persist skip records even on failure
             if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
                 for url, normalized_url, reason, scope in scheduler.skipped_urls:
-                    await self._ignore_service.log_skip(
-                        self.db,
-                        self.crawl_job_id,
-                        url,
-                        normalized_url,
-                        reason,
-                        scope,
-                    )
+                    try:
+                        await self._ignore_service.log_skip(
+                            self.crawl_job_id,
+                            url,
+                            normalized_url,
+                            reason,
+                            scope,
+                        )
+                    except Exception as skip_exc:  # noqa: BLE001
+                        logger.warning(
+                            "Failed to persist skip record for %s: %s",
+                            url, skip_exc,
+                        )
                 await self.db.commit()
             return {
                 "status": "failed",
@@ -244,14 +249,19 @@ class CrawlOrchestrator:
         # Persist skip records to DB
         if self.db and self._ignore_service and hasattr(scheduler, "skipped_urls"):
             for url, normalized_url, reason, scope in scheduler.skipped_urls:
-                await self._ignore_service.log_skip(
-                    self.db,
-                    self.crawl_job_id,
-                    url,
-                    normalized_url,
-                    reason,
-                    scope,
-                )
+                try:
+                    await self._ignore_service.log_skip(
+                        self.crawl_job_id,
+                        url,
+                        normalized_url,
+                        reason,
+                        scope,
+                    )
+                except Exception as skip_exc:  # noqa: BLE001
+                    logger.warning(
+                        "Failed to persist skip record for %s: %s",
+                        url, skip_exc,
+                    )
             await self.db.commit()
 
         duration_ms = int((time.time() - start_time) * 1000)

@@ -1,4 +1,12 @@
-"""Sitemap single-check API routes."""
+"""
+Sitemap single-check API routes - New simplified format.
+
+POST /check  — Discover sitemaps, evaluate, return structured result.
+GET  /{check_id}/files  — Paginated list of sitemap files.
+GET  /{check_id}/files/{file_index}/urls  — Paginated URLs from a sitemap.
+GET  /{check_id}/files/{file_index}/raw  — Raw XML content.
+"""
+import time
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -13,11 +21,11 @@ from .schema import (
     SitemapCheckAcceptedResponse,
     SitemapCheckRequest,
     SitemapFilePage,
-    SitemapFilePageItem,
     SitemapRawResponse,
     SitemapUrlPage,
 )
-from .service import SitemapCheckService
+from .service import SitemapCheckService, generate_domain_issues, generate_domain_recommendations
+from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService
 
 router = APIRouter()
 
@@ -29,8 +37,7 @@ router = APIRouter()
     summary="Check all sitemap files for a URL",
     description=(
         "Discovers sitemap files from robots.txt and common sitemap locations, "
-        "expands sitemap indexes, returns each sitemap contents, and provides "
-        "structured findings and recommendations. This endpoint does not crawl page HTML."
+        "expands sitemap indexes, returns each sitemap with issues and recommendations."
     ),
 )
 async def check_sitemap(
@@ -38,7 +45,10 @@ async def check_sitemap(
     db: AsyncSession = Depends(get_db),
 ) -> SitemapCheckAcceptedResponse:
     try:
-        result = await SitemapCheckService().run_check(body.url)
+        service = SitemapCheckService()
+        result = await service.run_check(body.url)
+        
+        # Persist
         check = await SitemapCheckRepository(db).create(
             SitemapCheck(
                 url=body.url,
@@ -47,16 +57,13 @@ async def check_sitemap(
             )
         )
         await db.commit()
+        
         return SitemapCheckAcceptedResponse(
-            check_id=check.id,
-            checked_url=result.checked_url,
-            status="completed",
-            summary=result.summary,
-            robots=result.robots,
-            findings=result.findings,
-            recommendation_items=result.recommendation_items,
-            files_url=f"/api/v1/sitemap/{check.id}/files",
+            check_id=str(check.id),
+            data=result.data,
+            cost=result.cost,
         )
+        
     except ValueError as exc:
         logger.warning("check_sitemap: validation error: %s", exc)
         raise HTTPException(status_code=400, detail=str(exc))
@@ -100,22 +107,18 @@ async def list_sitemap_files(
     db: AsyncSession = Depends(get_db),
 ) -> SitemapFilePage:
     check = await _load_check(check_id, db)
-    files = (check.payload or {}).get("sitemap_files", [])
+    files = (check.payload or {}).get("data", {}).get("sitemaps", [])
     start = (page - 1) * page_size
     selected = files[start:start + page_size]
     items = [
         SitemapFilePageItem(
             index=start + index,
             url=item.get("url", ""),
-            kind=item.get("kind", "urlset"),
-            health=item.get("health", "unknown"),
-            status_code=item.get("status_code"),
-            content_type=item.get("content_type"),
-            content_length=item.get("content_length", 0),
-            url_count=item.get("url_count", 0),
-            child_sitemap_count=len(item.get("child_sitemaps", [])),
+            status=item.get("status", 0),
+            contentType=item.get("contentType", ""),
+            entries=item.get("entries", 0),
+            isIndex=item.get("isIndex", False),
             issues=item.get("issues", []),
-            error=item.get("error"),
         )
         for index, item in enumerate(selected)
     ]
@@ -141,7 +144,7 @@ async def list_sitemap_urls(
     db: AsyncSession = Depends(get_db),
 ) -> SitemapUrlPage:
     check = await _load_check(check_id, db)
-    files = (check.payload or {}).get("sitemap_files", [])
+    files = (check.payload or {}).get("data", {}).get("sitemaps", [])
     if file_index < 0 or file_index >= len(files):
         raise HTTPException(status_code=404, detail="Sitemap file not found")
     file_data = files[file_index]
@@ -168,13 +171,13 @@ async def get_sitemap_raw(
     db: AsyncSession = Depends(get_db),
 ) -> SitemapRawResponse:
     check = await _load_check(check_id, db)
-    files = (check.payload or {}).get("sitemap_files", [])
+    files = (check.payload or {}).get("data", {}).get("sitemaps", [])
     if file_index < 0 or file_index >= len(files):
         raise HTTPException(status_code=404, detail="Sitemap file not found")
     file_data = files[file_index]
     return SitemapRawResponse(
         sitemap_url=file_data.get("url", ""),
-        content_type=file_data.get("content_type"),
+        content_type=file_data.get("contentType"),
         content_length=file_data.get("content_length", 0),
         raw_content=file_data.get("raw_content"),
     )
