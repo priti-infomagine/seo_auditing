@@ -8,6 +8,9 @@ task_routes = {
     "lighthouse.*": {
         "queue": "crawler",
     },
+    "sitemap.*": {
+        "queue": "crawler",
+    },
     "audit.*": {
         "queue": "audit",
     },

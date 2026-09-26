@@ -1,14 +1,16 @@
-"""Schemas for the sitemap single-check API - Simplified format."""
-from typing import Optional, List, Literal
-from pydantic import BaseModel, Field, field_validator
+"""Schemas for the asynchronous Sitemap check API."""
+from typing import List, Literal, Optional
 from uuid import UUID
+from pydantic import BaseModel, Field, field_validator
+
+from .model import SitemapCheckStatus, SitemapOverallStatus, SitemapSeverity
 
 
 class SitemapCheckRequest(BaseModel):
     url: str = Field(
         ...,
         min_length=1,
-        description="Website URL or bare domain to check (e.g. example.com, https://example.com/path)",
+        description="Website URL or bare domain to check (e.g. example.com, https://example.com)",
     )
 
     @field_validator("url")
@@ -20,89 +22,94 @@ class SitemapCheckRequest(BaseModel):
         return normalized
 
 
+class SitemapCheckQueuedResponse(BaseModel):
+    """Returned immediately upon queuing the check (HTTP 202)."""
+    check_id: UUID = Field(..., description="Unique check identifier")
+    task_id: Optional[str] = Field(None, description="Celery background task ID")
+    url: str = Field(..., description="Target URL")
+    domain: str = Field(..., description="Normalized domain")
+    status: SitemapCheckStatus = Field(
+        default=SitemapCheckStatus.QUEUED, description="Current check status"
+    )
+    created_at: Optional[str] = Field(None, description="ISO timestamp of creation")
+
+
 class SitemapIssue(BaseModel):
-    """Issue detected for a sitemap."""
-    code: str = Field(..., description="Stable issue identifier")
-    severity: Literal["none", "low", "medium", "high", "critical"] = Field(..., description="Issue severity")
+    """Issue detected for a sitemap or domain."""
+    code: str = Field(..., description="Stable issue identifier code")
+    severity: Literal["none", "low", "medium", "high", "critical"] = Field(
+        ..., description="Issue severity"
+    )
+    status: Literal["pass", "warning", "fail"] = Field(
+        default="warning", description="Status classification"
+    )
     message: str = Field(..., description="Human-readable issue description")
-    evidence: str = Field(..., description="Evidence from the checked sitemap")
+    evidence: Optional[str] = Field(None, description="Supporting evidence")
 
 
 class SitemapRecommendation(BaseModel):
-    """Recommendation to fix an issue."""
-    code: str = Field(..., description="Links to issue code")
-    priority: Literal["critical", "high", "medium", "low", "info"] = Field(..., description="Fix priority")
+    """Actionable fix recommendation."""
+    code: str = Field(..., description="Associated issue code")
+    priority: Literal["critical", "high", "medium", "low", "info"] = Field(
+        ..., description="Fix priority"
+    )
     title: str = Field(..., description="Short recommendation title")
-    message: str = Field(..., description="Detailed recommendation message")
+    message: str = Field(..., description="Detailed explanation")
     fix: str = Field(..., description="Actionable fix instruction")
-    where_to_fix: Literal["sitemap_xml", "robots_txt", "server_config", "cms", "cdn", "dns"] = Field(
-        ..., description="Where to apply the fix"
+    where_to_fix: Literal[
+        "sitemap_xml", "robots_txt", "server_config", "cms", "cdn", "dns"
+    ] = Field(..., description="Where to apply the fix")
+    evidence: Optional[str] = Field(None, description="Context / evidence")
+
+
+class SitemapFileItem(BaseModel):
+    """Individual sitemap file audit result."""
+    url: str = Field(..., description="Sitemap URL")
+    is_index: bool = Field(default=False, description="Whether this is a sitemap index")
+    status_code: int = Field(..., description="HTTP status code")
+    content_type: str = Field(..., description="Content-Type header")
+    entry_count: int = Field(..., description="Number of entries in this sitemap")
+    content_length: int = Field(default=0, description="Size in bytes")
+    response_time_ms: int = Field(default=0, description="Response time in milliseconds")
+    error: Optional[str] = Field(None, description="Fetch or parse error if any")
+    issues: List[SitemapIssue] = Field(
+        default_factory=list, description="Issues specific to this sitemap file"
+    )
+    recommendations: List[SitemapRecommendation] = Field(
+        default_factory=list, description="Recommendations for this file"
     )
 
 
-class SitemapEntry(BaseModel):
-    """Individual sitemap file result."""
-    url: str = Field(..., description="Sitemap URL that was checked")
-    status: int = Field(..., description="HTTP status code")
-    contentType: str = Field(..., description="Content-Type header value")
-    entries: int = Field(..., description="Number of URL entries in sitemap (0 for index)")
-    isIndex: bool = Field(default=False, description="Whether this is a sitemap index")
-    issues: List[SitemapIssue] = Field(default_factory=list, description="Issues detected for this sitemap")
-    recommendations: List[SitemapRecommendation] = Field(default_factory=list, description="Fix recommendations")
-    urls: List[str] = Field(default_factory=list, description="URLs in this sitemap (for pagination)")
-    raw_content: Optional[str] = Field(default=None, description="Raw XML content")
-    content_length: int = Field(default=0, description="Content length in bytes")
+class SitemapSummary(BaseModel):
+    """High-level summary of sitemap discovery and health."""
+    total_sitemaps: int = Field(0, description="Total sitemap files discovered")
+    sitemap_indexes: int = Field(0, description="Total sitemap index files")
+    url_sitemaps: int = Field(0, description="Total standard URL sitemaps")
+    total_urls_declared: int = Field(0, description="Total page URLs declared across sitemaps")
+    total_issues: int = Field(0, description="Total issues detected")
 
 
-class SitemapCheckData(BaseModel):
-    """Main data payload."""
-    url: str = Field(..., description="The URL that was checked")
-    sitemaps: List[SitemapEntry] = Field(default_factory=list, description="Discovered sitemap files")
-
-
-class SitemapCheckResponse(BaseModel):
-    """Top-level API response."""
-    data: SitemapCheckData
-    cost: float = Field(default=0.0, description="API cost in seconds")
-
-
-class SitemapCheckAcceptedResponse(BaseModel):
-    """Response for the check endpoint with check_id for pagination."""
-    check_id: str
-    data: SitemapCheckData
-    cost: float = Field(default=0.0)
-
-
-# Pagination schemas (for /files, /files/{idx}/urls, /files/{idx}/raw)
-class SitemapFilePageItem(BaseModel):
-    index: int
+class SitemapCheckResultResponse(BaseModel):
+    """Complete sitemap audit result payload."""
+    check_id: UUID
     url: str
-    status: int
-    contentType: str
-    entries: int
-    isIndex: bool
-    issues: List[SitemapIssue] = Field(default_factory=list)
+    domain: str
+    status: SitemapCheckStatus
+    checked_at: Optional[str] = None
+    overall_status: Optional[str] = None
+    severity: Optional[str] = None
+    summary: Optional[SitemapSummary] = None
+    sitemaps: List[SitemapFileItem] = Field(default_factory=list)
+    findings: List[SitemapIssue] = Field(default_factory=list)
+    recommendations: List[SitemapRecommendation] = Field(default_factory=list)
+    cost_seconds: Optional[float] = None
 
 
-class SitemapFilePage(BaseModel):
-    items: List[SitemapFilePageItem]
-    page: int
-    page_size: int
-    total: int
-    has_next: bool
-
-
-class SitemapUrlPage(BaseModel):
-    sitemap_url: str
-    items: List[str]
-    page: int
-    page_size: int
-    total: int
-    has_next: bool
-
-
-class SitemapRawResponse(BaseModel):
-    sitemap_url: str
-    content_type: Optional[str] = None
-    content_length: int = 0
-    raw_content: Optional[str] = None
+class SitemapCheckStatusResponse(BaseModel):
+    """Response returned when polling /status/{check_id}."""
+    check_id: UUID
+    url: str
+    domain: str
+    status: SitemapCheckStatus
+    progress: Optional[dict] = None
+    error: Optional[str] = None

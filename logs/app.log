@@ -13318,3 +13318,882 @@ sqlalchemy.exc.InternalError: (sqlalchemy.dialects.postgresql.asyncpg.InternalSe
 2026-09-25T17:14:32 | INFO | app | Celery broker connection pre-warmed successfully
 2026-09-25T17:15:38 | INFO | app | Celery broker connection pre-warmed successfully
 2026-09-25T17:16:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T07:59:48 | ERROR | app | check_sitemap: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "domain" of relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::sitemapcheckstatus, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::sitemapoverallstatus, $9::sitemapseverity, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('ed720b8d-e15b-4185-9366-1f5b5abf43f6'), 'https://example.com', 'example.com', 'QUEUED', None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "domain" of relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "domain" of relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\router.py", line 156, in check_sitemap
+    check = await SitemapCheckService.prepare_check(body.url, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 75, in prepare_check
+    saved = await repo.create(check)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 21, in create
+    await self.db.flush()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "domain" of relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::sitemapcheckstatus, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::sitemapoverallstatus, $9::sitemapseverity, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('ed720b8d-e15b-4185-9366-1f5b5abf43f6'), 'https://example.com', 'example.com', 'QUEUED', None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-26T07:59:51 | ERROR | app | run_check_async failed for check_id=433bd421-08db-4d3a-8d3f-59dc751c15d9: (sqlalchemy.dialects.postgresql.asyncpg.InternalServerError) <class 'asyncpg.exceptions.InternalServerError'>: cache lookup failed for type 455702
+[SQL: UPDATE sitemap_checks SET status=$1::sitemapcheckstatus, progress=$2::JSONB, updated_at=now() WHERE sitemap_checks.id = $3::UUID]
+[parameters: ('PROCESSING', '{"phase": "discovering", "message": "Discovering sitemaps and robots.txt for example.com..."}', UUID('433bd421-08db-4d3a-8d3f-59dc751c15d9'))]
+(Background on this error at: https://sqlalche.me/e/20/2j85)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InternalServerError: cache lookup failed for type 455702
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.InternalServerError: <class 'asyncpg.exceptions.InternalServerError'>: cache lookup failed for type 455702
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 97, in run_check_async
+    await repo.update_progress(
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 52, in update_progress
+    await self.db.execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1660, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.InternalError: (sqlalchemy.dialects.postgresql.asyncpg.InternalServerError) <class 'asyncpg.exceptions.InternalServerError'>: cache lookup failed for type 455702
+[SQL: UPDATE sitemap_checks SET status=$1::sitemapcheckstatus, progress=$2::JSONB, updated_at=now() WHERE sitemap_checks.id = $3::UUID]
+[parameters: ('PROCESSING', '{"phase": "discovering", "message": "Discovering sitemaps and robots.txt for example.com..."}', UUID('433bd421-08db-4d3a-8d3f-59dc751c15d9'))]
+(Background on this error at: https://sqlalche.me/e/20/2j85)
+2026-09-26T08:04:06 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused) — trying HTTP fallback
+2026-09-26T08:04:06 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-26T08:13:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:13:33 | INFO | app | Worker process initialized with persistent event loop (pid=3484)
+2026-09-26T08:13:47 | INFO | app | Worker process initialized with persistent event loop (pid=31408)
+2026-09-26T08:14:51 | INFO | app | sitemap.run_check: task started for check_id=941717ac-a45f-4595-912b-578638dd4782, url=https://vivo.com
+2026-09-26T08:15:00 | INFO | app | Site discovery complete for https://vivo.com: robots=True, sitemaps=42, page_urls=9335
+2026-09-26T08:15:01 | INFO | app | sitemap.run_check: task finished for check_id=941717ac-a45f-4595-912b-578638dd4782, status=completed
+2026-09-26T08:24:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:25:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:26:49 | ERROR | app | check_sitemap: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('55c934bd-9b8e-4f62-9056-00b9364a63f8'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\router.py", line 162, in check_sitemap
+    check = await SitemapCheckService.prepare_check(body.url, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 75, in prepare_check
+    saved = await repo.create(check)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 27, in create
+    await self.db.flush()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('55c934bd-9b8e-4f62-9056-00b9364a63f8'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-26T08:27:20 | INFO | app | Worker process initialized with persistent event loop (pid=27176)
+2026-09-26T08:27:24 | ERROR | app | check_sitemap: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('6af1cb8d-71de-4583-ac92-8cfda2cc1e0e'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\router.py", line 162, in check_sitemap
+    check = await SitemapCheckService.prepare_check(body.url, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 75, in prepare_check
+    saved = await repo.create(check)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 27, in create
+    await self.db.flush()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('6af1cb8d-71de-4583-ac92-8cfda2cc1e0e'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-26T08:30:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:30:24 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused) — trying HTTP fallback
+2026-09-26T08:30:24 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-26T08:31:04 | ERROR | app | check_sitemap: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('5fceb27d-68e9-4058-a91d-6735b644929d'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\router.py", line 162, in check_sitemap
+    check = await SitemapCheckService.prepare_check(body.url, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 75, in prepare_check
+    saved = await repo.create(check)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 27, in create
+    await self.db.flush()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('5fceb27d-68e9-4058-a91d-6735b644929d'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-26T08:31:34 | ERROR | app | check_sitemap: unexpected error: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('66ec0b24-ec16-4b49-aa3d-d8d6f329f0ff'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedTableError: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\router.py", line 162, in check_sitemap
+    check = await SitemapCheckService.prepare_check(body.url, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\service.py", line 75, in prepare_check
+    saved = await repo.create(check)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\app\modules\seprate_checks\sitemap_check\repository.py", line 27, in create
+    await self.db.flush()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "D:\seo_auditing\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedTableError'>: relation "sitemap_checks" does not exist
+[SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::JSONB, $11::JSONB, $12::JSONB, $13::VARCHAR, $14::FLOAT, $15::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
+[parameters: (UUID('66ec0b24-ec16-4b49-aa3d-d8d6f329f0ff'), 'https://oppo.com', 'oppo.com', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, None, None, '[]', '[]', '[]', None, None, '2.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-26T08:33:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:33:06 | INFO | app | Worker process initialized with persistent event loop (pid=21928)
+2026-09-26T08:34:06 | INFO | app | sitemap.run_check: task started for check_id=48dc4ca5-8a83-48bc-8bc2-070271b59f69, url=https://oppo.com
+2026-09-26T08:34:26 | INFO | app | Site discovery complete for https://oppo.com: robots=True, sitemaps=41, page_urls=6657
+2026-09-26T08:34:26 | INFO | app | sitemap.run_check: task finished for check_id=48dc4ca5-8a83-48bc-8bc2-070271b59f69, status=completed
+2026-09-26T08:37:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:38:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T08:46:43 | INFO | app | sitemap.run_check: task started for check_id=5b9b87eb-bd25-43ce-bcd4-8008b0940ecb, url=https://oppo.com
+2026-09-26T08:46:47 | INFO | app | Site discovery complete for https://oppo.com: robots=True, sitemaps=41, page_urls=6657
+2026-09-26T08:46:47 | INFO | app | sitemap.run_check: task finished for check_id=5b9b87eb-bd25-43ce-bcd4-8008b0940ecb, status=completed
+2026-09-26T08:48:50 | INFO | app | sitemap.run_check: task started for check_id=78fb1ad4-585f-4441-ba97-5a13dcf7936f, url=https://oppo.com
+2026-09-26T08:48:53 | INFO | app | Site discovery complete for https://oppo.com: robots=True, sitemaps=41, page_urls=6657
+2026-09-26T08:48:54 | INFO | app | sitemap.run_check: task finished for check_id=78fb1ad4-585f-4441-ba97-5a13dcf7936f, status=completed
+2026-09-26T08:55:30 | WARNING | app | ai_insight: Ollama failed for 'Robots.txt is properly configured': Request URL is missing an 'http://' or 'https://' protocol.
+2026-09-26T08:56:31 | INFO | app | POST /lighthouse/check — url=https://infomagine.com/, devices=['mobile'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-26T08:56:31 | INFO | app | LighthouseCheckService: prepared check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, domain=infomagine.com, devices=['mobile'], max_pages=4, version=None
+2026-09-26T08:56:31 | INFO | app | lighthouse.run_check: task started for check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, url=https://infomagine.com/, device=['mobile'], max_pages=4, version=None
+2026-09-26T08:56:31 | INFO | app | Lighthouse check queued: check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, task_id=80374572-8c91-46d0-8c8b-30818f09bae1, domain=infomagine.com
+2026-09-26T08:56:31 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:32 | INFO | app | Site discovery complete for https://infomagine.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-26T08:56:32 | INFO | app | Lighthouse preflight: discovered=0, selected=1, source=html-fallback
+2026-09-26T08:56:33 | INFO | app | Crawl started: https://infomagine.com/ (max_pages=4, max_depth=3)
+2026-09-26T08:56:33 | INFO | app | Submitted 0 sitemap URLs to crawl queue (total selected: 1)
+2026-09-26T08:56:33 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:35 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T08:56:35 | WARNING | app | Browser fallback failed for https://infomagine.com/: Could not acquire browser page
+2026-09-26T08:56:35 | INFO | app | Crawl completed: https://infomagine.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=2667ms
+2026-09-26T08:56:35 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-26T08:56:35 | INFO | app | LighthouseCheckService: crawl done for check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-26T08:56:35 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:37 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:39 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:41 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:43 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:45 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:47 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:56:48 | INFO | app | LighthouseCheckService: completed check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, total=1, succeeded=1, failed=0
+2026-09-26T08:56:48 | INFO | app | lighthouse.run_check: task finished for check_id=3cd1ebae-107a-4953-aa0a-6baa503c414e, status=completed
+2026-09-26T08:56:49 | INFO | app | GET /lighthouse/status/3cd1ebae-107a-4953-aa0a-6baa503c414e
+2026-09-26T08:57:23 | INFO | app | POST /lighthouse/check — url=https://infomagine.com/, devices=['mobile'], max_pages=20, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-26T08:57:23 | INFO | app | LighthouseCheckService: prepared check_id=97b144f0-6330-48c5-8162-2c3f199511e6, domain=infomagine.com, devices=['mobile'], max_pages=20, version=None
+2026-09-26T08:57:23 | INFO | app | lighthouse.run_check: task started for check_id=97b144f0-6330-48c5-8162-2c3f199511e6, url=https://infomagine.com/, device=['mobile'], max_pages=20, version=None
+2026-09-26T08:57:23 | INFO | app | Lighthouse check queued: check_id=97b144f0-6330-48c5-8162-2c3f199511e6, task_id=8c55b1c5-f396-4451-9f98-66e32d88bf16, domain=infomagine.com
+2026-09-26T08:57:23 | INFO | app | GET /lighthouse/status/97b144f0-6330-48c5-8162-2c3f199511e6
+2026-09-26T08:57:24 | INFO | app | Site discovery complete for https://infomagine.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-26T08:57:24 | INFO | app | Lighthouse preflight: discovered=0, selected=1, source=html-fallback
+2026-09-26T08:57:24 | INFO | app | Crawl started: https://infomagine.com/ (max_pages=20, max_depth=3)
+2026-09-26T08:57:24 | INFO | app | Submitted 0 sitemap URLs to crawl queue (total selected: 1)
+2026-09-26T08:57:25 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T08:57:25 | WARNING | app | Browser fallback failed for https://infomagine.com/: Could not acquire browser page
+2026-09-26T08:57:25 | INFO | app | Crawl completed: https://infomagine.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=438ms
+2026-09-26T08:57:25 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-26T08:57:25 | INFO | app | LighthouseCheckService: crawl done for check_id=97b144f0-6330-48c5-8162-2c3f199511e6, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-26T08:57:25 | INFO | app | GET /lighthouse/status/97b144f0-6330-48c5-8162-2c3f199511e6
+2026-09-26T08:57:26 | INFO | app | LighthouseCheckService: completed check_id=97b144f0-6330-48c5-8162-2c3f199511e6, total=1, succeeded=1, failed=0
+2026-09-26T08:57:26 | INFO | app | lighthouse.run_check: task finished for check_id=97b144f0-6330-48c5-8162-2c3f199511e6, status=completed
+2026-09-26T08:57:27 | INFO | app | GET /lighthouse/status/97b144f0-6330-48c5-8162-2c3f199511e6
+2026-09-26T09:03:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T09:03:08 | INFO | app | Worker process initialized with persistent event loop (pid=27568)
+2026-09-26T09:03:15 | INFO | app | POST /lighthouse/check — url=https://infomagine.com/, devices=['mobile'], max_pages=20, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-26T09:03:15 | INFO | app | LighthouseCheckService: prepared check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, domain=infomagine.com, devices=['mobile'], max_pages=20, version=None
+2026-09-26T09:03:15 | INFO | app | Lighthouse check queued: check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, task_id=4e36c618-b309-4d85-99b7-f9d75e9783d8, domain=infomagine.com
+2026-09-26T09:03:15 | INFO | app | lighthouse.run_check: task started for check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, url=https://infomagine.com/, device=['mobile'], max_pages=20, version=None
+2026-09-26T09:03:15 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:16 | INFO | app | Site discovery complete for https://infomagine.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-26T09:03:16 | INFO | app | Lighthouse preflight: discovered=0, selected=1, source=html-fallback
+2026-09-26T09:03:16 | INFO | app | Crawl started: https://infomagine.com/ (max_pages=20, max_depth=3)
+2026-09-26T09:03:16 | INFO | app | Submitted 0 sitemap URLs to crawl queue (total selected: 1)
+2026-09-26T09:03:16 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:03:16 | WARNING | app | Browser fallback failed for https://infomagine.com/: Could not acquire browser page
+2026-09-26T09:03:16 | INFO | app | Crawl completed: https://infomagine.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=482ms
+2026-09-26T09:03:16 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-26T09:03:16 | INFO | app | LighthouseCheckService: crawl done for check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-26T09:03:17 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:19 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:21 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:23 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:25 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:27 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:29 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:03:31 | INFO | app | LighthouseCheckService: completed check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, total=1, succeeded=1, failed=0
+2026-09-26T09:03:31 | INFO | app | lighthouse.run_check: task finished for check_id=46323b41-edce-4c6c-8f13-6c5904966b7b, status=completed
+2026-09-26T09:03:31 | INFO | app | GET /lighthouse/status/46323b41-edce-4c6c-8f13-6c5904966b7b
+2026-09-26T09:10:46 | INFO | app | POST /lighthouse/check — url=https://infomagine.com/, devices=['mobile'], max_pages=20, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-26T09:10:46 | INFO | app | LighthouseCheckService: prepared check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, domain=infomagine.com, devices=['mobile'], max_pages=20, version=None
+2026-09-26T09:10:46 | INFO | app | lighthouse.run_check: task started for check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, url=https://infomagine.com/, device=['mobile'], max_pages=20, version=None
+2026-09-26T09:10:46 | INFO | app | Lighthouse check queued: check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, task_id=e9284594-e674-49d0-982a-af4ea9439a44, domain=infomagine.com
+2026-09-26T09:10:46 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:10:47 | INFO | app | Site discovery complete for https://infomagine.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-26T09:10:47 | INFO | app | Lighthouse preflight: discovered=0, selected=1, source=html-fallback
+2026-09-26T09:10:47 | INFO | app | Crawl started: https://infomagine.com/ (max_pages=20, max_depth=3)
+2026-09-26T09:10:47 | INFO | app | Submitted 0 sitemap URLs to crawl queue (total selected: 1)
+2026-09-26T09:10:47 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:10:47 | WARNING | app | Browser fallback failed for https://infomagine.com/: Could not acquire browser page
+2026-09-26T09:10:47 | INFO | app | Crawl completed: https://infomagine.com/ — pages_crawled=1, pages_discovered=1, pages_failed=0, duration=459ms
+2026-09-26T09:10:47 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-26T09:10:47 | INFO | app | LighthouseCheckService: crawl done for check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, discovered 1 URLs across 1 devices — starting pagespeed phase (1 checks)
+2026-09-26T09:10:48 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:10:50 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:10:52 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:10:54 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:10:56 | INFO | app | GET /lighthouse/status/73d8f093-b119-422d-9d6d-95ec1cac2505
+2026-09-26T09:11:01 | INFO | app | LighthouseCheckService: completed check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, total=1, succeeded=1, failed=0
+2026-09-26T09:11:01 | INFO | app | lighthouse.run_check: task finished for check_id=73d8f093-b119-422d-9d6d-95ec1cac2505, status=completed
+2026-09-26T09:11:12 | INFO | app | Worker process initialized with persistent event loop (pid=16504)
+2026-09-26T09:12:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-26T09:12:41 | INFO | app | Worker process initialized with persistent event loop (pid=30948)
+2026-09-26T09:12:44 | INFO | app | POST /lighthouse/check — url=https://infomagine.in/, devices=['mobile'], max_pages=12, category=['performance', 'seo', 'best-practices', 'accessibility'], version=None
+2026-09-26T09:12:45 | INFO | app | LighthouseCheckService: prepared check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, domain=infomagine.in, devices=['mobile'], max_pages=12, version=None
+2026-09-26T09:12:45 | INFO | app | Lighthouse check queued: check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, task_id=78434f68-0b69-4fab-95d4-aaa8fc17b7c2, domain=infomagine.in
+2026-09-26T09:12:45 | INFO | app | lighthouse.run_check: task started for check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, url=https://infomagine.in/, device=['mobile'], max_pages=12, version=None
+2026-09-26T09:12:45 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:46 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=12
+2026-09-26T09:12:46 | INFO | app | Lighthouse preflight: discovered=12, selected=12, source=sitemap
+2026-09-26T09:12:46 | INFO | app | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-26T09:12:46 | INFO | app | Crawl started: https://infomagine.in/ (max_pages=12, max_depth=3)
+2026-09-26T09:12:46 | INFO | app | Submitted 11 sitemap URLs to crawl queue (total selected: 12)
+2026-09-26T09:12:47 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:47 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:47 | WARNING | app | Browser fallback failed for https://infomagine.in/career: Could not acquire browser page
+2026-09-26T09:12:47 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:47 | WARNING | app | Browser fallback failed for https://infomagine.in/about-us: Could not acquire browser page
+2026-09-26T09:12:47 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:47 | WARNING | app | Browser fallback failed for https://infomagine.in/: Could not acquire browser page
+2026-09-26T09:12:48 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:48 | WARNING | app | Browser fallback failed for https://infomagine.in/desktop-applications: Could not acquire browser page
+2026-09-26T09:12:48 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:48 | WARNING | app | Browser fallback failed for https://infomagine.in/blogs: Could not acquire browser page
+2026-09-26T09:12:48 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:48 | WARNING | app | Browser fallback failed for https://infomagine.in/contact-us: Could not acquire browser page
+2026-09-26T09:12:49 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:49 | WARNING | app | Browser fallback failed for https://infomagine.in/hire-developer: Could not acquire browser page
+2026-09-26T09:12:49 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:49 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:49 | WARNING | app | Browser fallback failed for https://infomagine.in/portfolio: Could not acquire browser page
+2026-09-26T09:12:49 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:49 | WARNING | app | Browser fallback failed for https://infomagine.in/sitemap: Could not acquire browser page
+2026-09-26T09:12:50 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:50 | WARNING | app | Browser fallback failed for https://infomagine.in/mobile-applications: Could not acquire browser page
+2026-09-26T09:12:50 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:50 | WARNING | app | Browser fallback failed for https://infomagine.in/web-applications: Could not acquire browser page
+2026-09-26T09:12:50 | ERROR | app | Browser launch failed: Error("BrowserType.launch: Executable doesn't exist at C:\\Users\\priti\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1234\\chrome-headless-shell-win64\\chrome-headless-shell.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     playwright install                                     ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝")
+2026-09-26T09:12:50 | WARNING | app | Browser fallback failed for https://infomagine.in/it-consulting: Could not acquire browser page
+2026-09-26T09:12:50 | INFO | app | Crawl completed: https://infomagine.in/ — pages_crawled=12, pages_discovered=12, pages_failed=0, duration=4241ms
+2026-09-26T09:12:50 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 1, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-26T09:12:50 | INFO | app | LighthouseCheckService: crawl done for check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, discovered 12 URLs across 1 devices — starting pagespeed phase (12 checks)
+2026-09-26T09:12:51 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:53 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:55 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:57 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:12:59 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:01 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:03 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:05 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:07 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:09 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:11 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:13 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:15 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:17 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:19 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:21 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:23 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:25 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:27 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:29 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:31 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:33 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:35 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:37 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:39 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
+2026-09-26T09:13:39 | INFO | app | LighthouseCheckService: completed check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, total=12, succeeded=12, failed=0
+2026-09-26T09:13:39 | INFO | app | lighthouse.run_check: task finished for check_id=09b28fd0-7350-42dd-a3e8-eedb3e890c31, status=completed
+2026-09-26T09:13:41 | INFO | app | GET /lighthouse/status/09b28fd0-7350-42dd-a3e8-eedb3e890c31
