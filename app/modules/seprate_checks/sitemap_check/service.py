@@ -22,6 +22,7 @@ from .model import (
     SitemapOverallStatus,
     SitemapSeverity,
 )
+from app.modules.seprate_checks.robots_check.model import FetchStatus
 from .repository import SitemapCheckRepository
 from .schema import (
     SitemapFileItem,
@@ -70,6 +71,7 @@ class SitemapCheckService:
             domain=domain,
             status=SitemapCheckStatus.QUEUED,
             progress={"phase": "queued", "message": "Check queued in worker"},
+            robots_fetch_status=FetchStatus.UNREACHABLE,  # Will be updated after robots.txt fetch
         )
         repo = SitemapCheckRepository(db)
         saved = await repo.create(check)

@@ -19,19 +19,42 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    bind = op.get_bind()
+    inspector = sa.inspect(bind)
+    existing_types = {row[0] for row in bind.execute(sa.text("SELECT typname FROM pg_type WHERE typname IN ('fetchstatus', 'overallstatus', 'severity')")).fetchall()}
+    
+    # Create enum types if they don't exist
+    if "fetchstatus" not in existing_types:
+        fetchstatus_enum = sa.Enum("SUCCESS", "NOT_FOUND", "UNREACHABLE", name="fetchstatus", create_type=True)
+        fetchstatus_enum.create(bind, checkfirst=True)
+    else:
+        fetchstatus_enum = sa.Enum("SUCCESS", "NOT_FOUND", "UNREACHABLE", name="fetchstatus", create_type=False)
+    
+    if "overallstatus" not in existing_types:
+        overallstatus_enum = sa.Enum("PASS", "WARNING", "FAIL", "NOT_APPLICABLE", name="overallstatus", create_type=True)
+        overallstatus_enum.create(bind, checkfirst=True)
+    else:
+        overallstatus_enum = sa.Enum("PASS", "WARNING", "FAIL", "NOT_APPLICABLE", name="overallstatus", create_type=False)
+    
+    if "severity" not in existing_types:
+        severity_enum = sa.Enum("NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL", name="severity", create_type=True)
+        severity_enum.create(bind, checkfirst=True)
+    else:
+        severity_enum = sa.Enum("NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL", name="severity", create_type=False)
+
     op.create_table(
         "sitemap_checks",
         sa.Column("id", postgresql.UUID(as_uuid=True), nullable=False),
         sa.Column("domain", sa.String(length=255), nullable=False),
-        sa.Column("robots_fetch_status", sa.Enum("SUCCESS", "NOT_FOUND", "UNREACHABLE", name="fetchstatus"), nullable=False),
+        sa.Column("robots_fetch_status", fetchstatus_enum, nullable=False),
         sa.Column("robots_status_code", sa.SmallInteger(), nullable=True),
         sa.Column("robots_final_url", sa.Text(), nullable=True),
         sa.Column("raw_robots_content", sa.Text(), nullable=True),
         sa.Column("sitemaps_declared", postgresql.JSONB(), nullable=False, server_default=sa.text("'[]'::jsonb")),
         sa.Column("sitemap_results", postgresql.JSONB(), nullable=False, server_default=sa.text("'[]'::jsonb")),
         sa.Column("findings", postgresql.JSONB(), nullable=False, server_default=sa.text("'[]'::jsonb")),
-        sa.Column("overall_status", sa.Enum("PASS", "WARNING", "FAIL", "NOT_APPLICABLE", name="overallstatus"), nullable=False),
-        sa.Column("severity", sa.Enum("NONE", "LOW", "MEDIUM", "HIGH", "CRITICAL", name="severity"), nullable=False),
+        sa.Column("overall_status", overallstatus_enum, nullable=False),
+        sa.Column("severity", severity_enum, nullable=False),
         sa.Column("check_version", sa.String(length=20), nullable=False, server_default="1.0.0"),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),

@@ -174,6 +174,14 @@ class LighthouseCheckResponse(BaseModel):
         None,
         description="The SEO score from the Lighthouse check (0-100)",
     )
+    accessibility_score: Optional[int] = Field(
+        None,
+        description="The Accessibility score from the Lighthouse check (0-100)",
+    )
+    best_practices_score: Optional[int] = Field(
+        None,
+        description="The Best Practices score from the Lighthouse check (0-100)",
+    )
     fcp_ms: Optional[int] = Field(
         None,
         description="First Contentful Paint in milliseconds",

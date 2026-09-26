@@ -42,6 +42,8 @@ class LighthousePageResult(TimestampMixin, Base):
 
     performance_score: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 0-100
     seo_score: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 0-100
+    accessibility_score: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 0-100
+    best_practices_score: Mapped[int | None] = mapped_column(Integer, nullable=True)  # 0-100
     fcp_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)  # First Contentful Paint
     lcp_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)  # Largest Contentful Paint
     tbt_ms: Mapped[int | None] = mapped_column(Integer, nullable=True)  # Total Blocking Time

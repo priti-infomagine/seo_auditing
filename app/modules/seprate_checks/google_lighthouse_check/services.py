@@ -314,6 +314,8 @@ class LighthouseCheckService:
                                 reason=None,
                                 performance_score=parsed.get("performance_score"),
                                 seo_score=parsed.get("seo_score"),
+                                accessibility_score=parsed.get("accessibility_score"),
+                                best_practices_score=parsed.get("best_practices_score"),
                                 fcp_ms=parsed.get("fcp_ms"),
                                 lcp_ms=parsed.get("lcp_ms"),
                                 tbt_ms=parsed.get("tbt_ms"),

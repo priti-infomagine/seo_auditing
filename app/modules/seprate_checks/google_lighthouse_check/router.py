@@ -337,6 +337,8 @@ async def get_lighthouse_results(
                 reason=r.reason,
                 performance_score=r.performance_score,
                 seo_score=r.seo_score,
+                accessibility_score=r.accessibility_score,
+                best_practices_score=r.best_practices_score,
                 fcp_ms=r.fcp_ms,
                 lcp_ms=r.lcp_ms,
                 tbt_ms=r.tbt_ms,

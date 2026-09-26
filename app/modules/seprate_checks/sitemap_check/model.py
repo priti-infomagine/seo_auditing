@@ -1,7 +1,7 @@
 import enum
 import uuid
 
-from sqlalchemy import Float, Index, String, Text
+from sqlalchemy import Enum, Float, Index, String, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -70,9 +70,26 @@ class SitemapCheck(TimestampMixin, Base):
     progress: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    # Evaluation results
-    overall_status: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    severity: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    # Robots.txt and sitemap data (from migration 07c3d4e5f6a7)
+    robots_fetch_status: Mapped[FetchStatus] = mapped_column(
+        Enum(FetchStatus, name="fetchstatus", create_type=False, validate_strings=True),
+        nullable=False
+    )
+    robots_status_code: Mapped[int | None] = mapped_column(nullable=True)
+    robots_final_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    raw_robots_content: Mapped[str | None] = mapped_column(Text, nullable=True)
+    sitemaps_declared: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
+    sitemap_results: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
+
+    # Evaluation results - use existing DB enum types
+    overall_status: Mapped[SitemapOverallStatus | None] = mapped_column(
+        Enum(SitemapOverallStatus, name="overallstatus", create_type=False, validate_strings=True),
+        nullable=True
+    )
+    severity: Mapped[SitemapSeverity | None] = mapped_column(
+        Enum(SitemapSeverity, name="severity", create_type=False, validate_strings=True),
+        nullable=True
+    )
     summary: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     sitemaps: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
     findings: Mapped[list[dict]] = mapped_column(JSONB, nullable=False, default=list)
