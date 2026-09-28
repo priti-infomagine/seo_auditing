@@ -46,6 +46,7 @@ def _to_result_response(check: SitemapCheck) -> SitemapCheckResultResponse:
         url_sitemaps=summary_data.get("url_sitemaps", 0),
         total_urls_declared=summary_data.get("total_urls_declared", 0),
         total_issues=summary_data.get("total_issues", 0),
+        lighthouse_scored_pages=summary_data.get("lighthouse_scored_pages", 0),
     )
 
     sitemap_items = [
@@ -120,6 +121,8 @@ def _to_result_response(check: SitemapCheck) -> SitemapCheckResultResponse:
         sitemaps=sitemap_items,
         findings=findings,
         recommendations=recommendations,
+        accessibility_score=check.accessibility_score,
+        best_practices_score=check.best_practices_score,
         cost_seconds=check.cost_seconds,
     )
 

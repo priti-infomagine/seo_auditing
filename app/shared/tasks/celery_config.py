@@ -11,6 +11,9 @@ task_routes = {
     "sitemap.*": {
         "queue": "crawler",
     },
+    "link_analysis.*": {
+        "queue": "crawler",
+    },
     "audit.*": {
         "queue": "audit",
     },

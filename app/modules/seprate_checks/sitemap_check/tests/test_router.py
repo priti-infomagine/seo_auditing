@@ -196,3 +196,45 @@ async def test_router_status_not_found(db_session):
         response = await ac.get(f"/api/v1/sitemap/status/{random_id}")
 
     assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_router_result_includes_lighthouse_scores(db_session):
+    """GET /result/{check_id} returns accessibility_score and best_practices_score."""
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.COMPLETED,
+        overall_status=SitemapOverallStatus.PASS,
+        severity=SitemapSeverity.NONE,
+        summary={
+            "total_sitemaps": 1,
+            "sitemap_indexes": 0,
+            "url_sitemaps": 1,
+            "total_urls_declared": 25,
+            "total_issues": 0,
+            "lighthouse_scored_pages": 3,
+        },
+        sitemaps=[],
+        findings=[],
+        recommendations=[],
+        report_markdown="# Sitemap Audit Report",
+        cost_seconds=1.5,
+        accessibility_score=75,
+        best_practices_score=82,
+    )
+    db_session.add(check)
+    await db_session.commit()
+    await db_session.refresh(check)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/result/{check.id}")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "completed"
+    assert data["accessibility_score"] == 75
+    assert data["best_practices_score"] == 82
+    assert data["summary"]["lighthouse_scored_pages"] == 3

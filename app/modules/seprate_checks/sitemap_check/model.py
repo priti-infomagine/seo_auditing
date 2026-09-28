@@ -1,7 +1,7 @@
 import enum
 import uuid
 
-from sqlalchemy import Enum, Float, Index, String, Text
+from sqlalchemy import Enum, Float, Index, Integer, String, Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -71,9 +71,10 @@ class SitemapCheck(TimestampMixin, Base):
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     # Robots.txt and sitemap data (from migration 07c3d4e5f6a7)
-    robots_fetch_status: Mapped[FetchStatus] = mapped_column(
+    robots_fetch_status: Mapped[FetchStatus | None] = mapped_column(
         Enum(FetchStatus, name="fetchstatus", create_type=False, validate_strings=True),
-        nullable=False
+        nullable=True,
+        default=None,
     )
     robots_status_code: Mapped[int | None] = mapped_column(nullable=True)
     robots_final_url: Mapped[str | None] = mapped_column(Text, nullable=True)
@@ -98,6 +99,10 @@ class SitemapCheck(TimestampMixin, Base):
     )
     report_markdown: Mapped[str | None] = mapped_column(Text, nullable=True)
     cost_seconds: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+    # Page-level Lighthouse scores (aggregated from Pagespeed API for sampled URLs)
+    accessibility_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    best_practices_score: Mapped[int | None] = mapped_column(Integer, nullable=True)
     check_version: Mapped[str] = mapped_column(
         String(20), nullable=False, default="2.0.0"
     )

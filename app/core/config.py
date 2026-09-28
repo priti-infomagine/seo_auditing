@@ -73,6 +73,22 @@ class Settings(BaseSettings):
     LINK_CHECK_MAX_CONCURRENCY: int = 5
     LINK_CHECK_EXTERNAL_ENABLED: bool = True
 
+    # ── Link Analysis ───────────────────────────────────────────────
+    LINK_ANALYSIS_MAX_PAGES: int = 2000
+    LINK_ANALYSIS_MAX_DEPTH: int = 15
+    LINK_ANALYSIS_CRAWL_CONCURRENCY: int = 10
+    LINK_ANALYSIS_PAGE_TIMEOUT: float = 20.0
+    LINK_ANALYSIS_MAX_REDIRECT_HOPS: int = 5
+    LINK_ANALYSIS_MAX_EXTERNAL_CHECKS: int = 1000
+    LINK_ANALYSIS_MAX_SITEMAP_ONLY_CHECKS: int = 500
+    LINK_ANALYSIS_PER_HOST_CONCURRENCY: int = 2
+    LINK_ANALYSIS_EVIDENCE_SOURCE_CAP: int = 20
+    LINK_ANALYSIS_DEEP_PAGE_THRESHOLD: int = 3
+    LINK_ANALYSIS_MAX_OUTLINKS: int = 150
+    LINK_ANALYSIS_PROGRESS_EVERY: int = 25
+    LINK_ANALYSIS_TIME_LIMIT: int = 1800
+    LINK_ANALYSIS_SOFT_TIME_LIMIT: int = 1700
+
     # ── Chat Auth ───────────────────────────────────────────────────
     CHAT_AUTH_ENABLED: bool = False
 

@@ -73,6 +73,8 @@ class SitemapCheckRepository:
         recommendations: List[Dict[str, Any]],
         report_markdown: str,
         cost_seconds: float,
+        accessibility_score: Optional[int] = None,
+        best_practices_score: Optional[int] = None,
     ) -> Optional[SitemapCheck]:
         await self.db.execute(
             update(SitemapCheck)
@@ -87,6 +89,8 @@ class SitemapCheckRepository:
                 recommendations=recommendations,
                 report_markdown=report_markdown,
                 cost_seconds=cost_seconds,
+                accessibility_score=accessibility_score,
+                best_practices_score=best_practices_score,
                 error=None,
             )
         )

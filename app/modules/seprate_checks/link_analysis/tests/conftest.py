@@ -1,7 +1,5 @@
-"""
-Test fixtures for the sitemap_check module.
-"""
-from pathlib import Path
+"""Test fixtures for the link_analysis module."""
+from unittest.mock import MagicMock
 
 import pytest
 import pytest_asyncio
@@ -10,22 +8,6 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from app.core.config import settings
 from app.core.database import Base, get_db
 from app.main import app
-
-FIXTURES_DIR = Path(__file__).parent / "fixtures"
-
-
-def load_fixture(name: str) -> str:
-    path = FIXTURES_DIR / name
-    if not path.exists():
-        return ""
-    return path.read_text()
-
-
-def load_fixture_bytes(name: str) -> bytes:
-    path = FIXTURES_DIR / name
-    if not path.exists():
-        return b""
-    return path.read_bytes()
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -68,3 +50,29 @@ def _override_db(db_session):
     app.dependency_overrides[get_db] = lambda: db_session
     yield
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def mock_redis():
+    """Mock Redis client that stores data in-memory."""
+    store: dict = {}
+
+    class _MockRedis:
+        async def get(self, key):
+            return store.get(key)
+
+        async def set(self, key, value, ex=None):
+            store[key] = value
+            return True
+
+        async def delete(self, key):
+            store.pop(key, None)
+            return 1
+
+        async def close(self):
+            pass
+
+        async def flushdb(self):
+            store.clear()
+
+    return _MockRedis()

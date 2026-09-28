@@ -87,6 +87,9 @@ class SitemapSummary(BaseModel):
     url_sitemaps: int = Field(0, description="Total standard URL sitemaps")
     total_urls_declared: int = Field(0, description="Total page URLs declared across sitemaps")
     total_issues: int = Field(0, description="Total issues detected")
+    lighthouse_scored_pages: int = Field(
+        0, description="Number of discovered page URLs audited via PageSpeed Insights"
+    )
 
 
 class SitemapCheckResultResponse(BaseModel):
@@ -102,6 +105,12 @@ class SitemapCheckResultResponse(BaseModel):
     sitemaps: List[SitemapFileItem] = Field(default_factory=list)
     findings: List[SitemapIssue] = Field(default_factory=list)
     recommendations: List[SitemapRecommendation] = Field(default_factory=list)
+    accessibility_score: Optional[int] = Field(
+        None, description="Average PageSpeed accessibility score (0-100) for sampled page URLs"
+    )
+    best_practices_score: Optional[int] = Field(
+        None, description="Average PageSpeed best practices score (0-100) for sampled page URLs"
+    )
     cost_seconds: Optional[float] = None
 
 
