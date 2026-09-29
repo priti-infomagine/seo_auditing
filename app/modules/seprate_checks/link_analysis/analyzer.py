@@ -3,6 +3,7 @@
 Takes a LinkGraph + CheckResults + sitemap results and produces
 LinkFinding objects grouped by target URL. No I/O, no DB.
 """
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
@@ -608,6 +609,61 @@ def analyze_optimization(
     return findings
 
 
+def compute_page_analysis(
+    graph: LinkGraph,
+    findings: List[FindingCandidate],
+) -> List[Dict[str, Any]]:
+    """Compute per-page link analysis metrics and issues without duplicate bloat."""
+    # Index issues by URL (both where page is source and target)
+    issues_by_page: Dict[str, List[str]] = {}
+
+    for f in findings:
+        ft = f.type.value if hasattr(f.type, "value") else str(f.type)
+        if f.target_url:
+            msg = f"Target of {ft}"
+            if f.status_code:
+                msg += f" (HTTP {f.status_code})"
+            issues_by_page.setdefault(f.target_url, []).append(msg)
+
+        for s in f.sources:
+            if s.source_url:
+                msg = f"Links to {ft}: {f.target_url}"
+                if msg not in issues_by_page.setdefault(s.source_url, []):
+                    issues_by_page[s.source_url].append(msg)
+
+    homepage_url = None
+    for url in graph.pages:
+        if normalize_host(urlparse(url).netloc or "") == graph.base_host:
+            if not homepage_url or len(url) < len(homepage_url):
+                homepage_url = url
+
+    pages: List[Dict[str, Any]] = []
+    for url, node in graph.pages.items():
+        inbound = graph.inbound_counts.get(url, 0)
+        out_internal = sum(1 for e in node.outgoing_edges if e.is_internal)
+        out_external = sum(1 for e in node.outgoing_edges if not e.is_internal)
+        is_orphan = (inbound == 0 and url != homepage_url)
+        is_dead_end = (node.status_code == 200 and out_internal == 0)
+
+        page_issues = issues_by_page.get(url, [])
+
+        pages.append({
+            "url": url,
+            "status_code": node.status_code,
+            "depth": node.depth,
+            "inbound_internal_links": inbound,
+            "outbound_internal_links": out_internal,
+            "outbound_external_links": out_external,
+            "is_orphan": is_orphan,
+            "is_dead_end": is_dead_end,
+            "issues": page_issues[:10],
+        })
+
+    # Sort pages by depth then inbound links descending
+    pages.sort(key=lambda p: (p["depth"], -p["inbound_internal_links"]))
+    return pages
+
+
 def compute_summary(
     graph: LinkGraph,
     checked_urls: Dict[str, CheckResult],
@@ -615,7 +671,7 @@ def compute_summary(
     sitemap_urls: Set[str],
     crawl_truncated: bool,
 ) -> Dict[str, Any]:
-    """Build the small JSONB summary for the check master row."""
+    """Build the clean JSONB summary and page analysis for the check master row."""
     internal_targets = len({
         url for url in checked_urls
         if graph.is_same_site(urlparse(url).netloc or "")
@@ -643,6 +699,8 @@ def compute_summary(
         sv = f.severity.value if hasattr(f.severity, "value") else f.severity
         by_severity[sv] = by_severity.get(sv, 0) + 1
 
+    pages_list = compute_page_analysis(graph, findings)
+
     return {
         "pages_crawled": len(graph.pages),
         "crawl_truncated": crawl_truncated,
@@ -662,6 +720,7 @@ def compute_summary(
         "counts_by_severity": by_severity,
         "total_issues": len(standard_findings),
         "total_opportunities": len(optimization_findings),
+        "pages": pages_list,
     }
 
 

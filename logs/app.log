@@ -25436,3 +25436,65 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 (Background on this error at: https://sqlalche.me/e/20/dbapi)
 2026-09-28T17:49:33 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused) — trying HTTP fallback
 2026-09-28T17:49:36 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-29T08:27:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:27:17 | INFO | app | Worker process initialized with persistent event loop (pid=17564)
+2026-09-29T08:27:35 | INFO | app | Worker process initialized with persistent event loop (pid=32388)
+2026-09-29T08:28:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:29:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:29:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:29:21 | INFO | app | link_analysis.run_check: task started for check_id=a04c5d95-5883-4563-a1f5-9c0d100eb0de, url=https://example.com
+2026-09-29T08:29:21 | INFO | app | Site discovery complete for https://example.com: robots=False, sitemaps=0, page_urls=0
+2026-09-29T08:29:23 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=a04c5d95-5883-4563-a1f5-9c0d100eb0de, pages=1, findings=2, overall=pass, cost=2.116s
+2026-09-29T08:29:23 | INFO | app | link_analysis.run_check: task finished for check_id=a04c5d95-5883-4563-a1f5-9c0d100eb0de, status=completed
+2026-09-29T08:30:17 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:30:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:31:09 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:31:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:31:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:31:48 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:32:01 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:32:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:33:38 | INFO | app | link_analysis.run_check: task started for check_id=8e36f3bf-13f3-441d-b56c-997cea1195dd, url=https://example.com
+2026-09-29T08:33:38 | INFO | app | Site discovery complete for https://example.com: robots=False, sitemaps=0, page_urls=0
+2026-09-29T08:33:39 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=8e36f3bf-13f3-441d-b56c-997cea1195dd, pages=1, findings=2, overall=pass, cost=1.804s
+2026-09-29T08:33:39 | INFO | app | link_analysis.run_check: task finished for check_id=8e36f3bf-13f3-441d-b56c-997cea1195dd, status=completed
+2026-09-29T08:34:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:36:17 | INFO | app | link_analysis.run_check: task started for check_id=5e5dd296-ede8-4b5a-8e6e-cc7bcb2e066b, url=https://infomagine.in
+2026-09-29T08:36:18 | INFO | app | Site discovery complete for https://infomagine.in: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:36:20 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=5e5dd296-ede8-4b5a-8e6e-cc7bcb2e066b, pages=1, findings=48, overall=warning, cost=2.839s
+2026-09-29T08:36:20 | INFO | app | link_analysis.run_check: task finished for check_id=5e5dd296-ede8-4b5a-8e6e-cc7bcb2e066b, status=completed
+2026-09-29T08:41:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:41:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:42:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:42:15 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:43:30 | INFO | app | link_analysis.run_check: task started for check_id=54c79ab4-889e-4da7-ac64-706df6d45244, url=https://infomagine.in/
+2026-09-29T08:43:30 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:43:32 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=54c79ab4-889e-4da7-ac64-706df6d45244, pages=1, findings=48, overall=warning, cost=2.273s
+2026-09-29T08:43:32 | INFO | app | link_analysis.run_check: task finished for check_id=54c79ab4-889e-4da7-ac64-706df6d45244, status=completed
+2026-09-29T08:45:21 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:45:37 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:45:46 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=c93db8f9-f43f-4a48-9156-06ddc9c52b1b, pages=48, findings=95, overall=warning, cost=8.981s
+2026-09-29T08:46:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:46:24 | INFO | app | link_analysis.run_check: task started for check_id=f71fab3f-af06-4e28-90cb-ed4f997c037b, url=https://infomagine.in/
+2026-09-29T08:46:24 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:46:26 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=f71fab3f-af06-4e28-90cb-ed4f997c037b, pages=1, findings=48, overall=warning, cost=2.376s
+2026-09-29T08:46:26 | INFO | app | link_analysis.run_check: task finished for check_id=f71fab3f-af06-4e28-90cb-ed4f997c037b, status=completed
+2026-09-29T08:46:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:46:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:46:56 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:47:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:47:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:49:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:49:24 | INFO | app | Worker process initialized with persistent event loop (pid=15764)
+2026-09-29T08:49:29 | INFO | app | Worker process initialized with persistent event loop (pid=33068)
+2026-09-29T08:49:39 | INFO | app | link_analysis.run_check: task started for check_id=e5402524-cd59-47e9-a75f-b5d977f5bc1f, url=https://infomagine.in/, max_pages=None
+2026-09-29T08:49:40 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T08:49:53 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=e5402524-cd59-47e9-a75f-b5d977f5bc1f, pages=48, findings=95, overall=warning, cost=14.061s
+2026-09-29T08:49:53 | INFO | app | link_analysis.run_check: task finished for check_id=e5402524-cd59-47e9-a75f-b5d977f5bc1f, status=completed
+2026-09-29T08:54:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:55:46 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:55:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:58:17 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:58:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:58:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T08:58:59 | INFO | app | Celery broker connection pre-warmed successfully

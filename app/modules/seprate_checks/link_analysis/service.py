@@ -51,7 +51,10 @@ def _normalize_target_url(raw_url: str) -> str:
     host = parsed.hostname or ""
     if not host:
         raise ValueError(f"Invalid URL or domain provided: {raw_url}")
-    canonical = f"{parsed.scheme or 'https'}://{host}"
+    path = parsed.path or "/"
+    if parsed.query:
+        path = f"{path}?{parsed.query}"
+    canonical = f"{parsed.scheme or 'https'}://{parsed.netloc}{path}"
     return canonical
 
 
@@ -108,17 +111,25 @@ class LinkAnalysisService:
         url: str,
         db: AsyncSession,
         redis: Optional[Redis] = None,
+        max_pages: Optional[int] = None,
     ) -> LinkAnalysisCheck:
         """Validate input and create initial queued record in DB."""
         canonical_url = _normalize_target_url(url)
         parsed = urlparse(canonical_url)
         domain = normalize_host(parsed.netloc) or ""
 
+        progress_payload: Dict[str, Any] = {
+            "phase": "queued",
+            "message": "Check queued in worker",
+        }
+        if max_pages is not None:
+            progress_payload["max_pages"] = max_pages
+
         check = LinkAnalysisCheck(
             url=canonical_url,
             domain=domain,
-            status=LinkAnalysisCheckStatus.QUEUED,
-            progress={"phase": "queued", "message": "Check queued in worker"},
+            status=LinkAnalysisCheckStatus.QUEUED.value,
+            progress=progress_payload,
         )
         repo = LinkAnalysisRepository(db, redis=redis)
         saved = await repo.create(check)
@@ -127,7 +138,7 @@ class LinkAnalysisService:
         await repo.set_status(
             check_id=saved.id,
             status=LinkAnalysisCheckStatus.QUEUED,
-            progress={"phase": "queued", "message": "Check queued in worker"},
+            progress=progress_payload,
         )
         return saved
 
@@ -160,6 +171,7 @@ class LinkAnalysisService:
         check_id: UUID,
         url: str,
         db: Optional[AsyncSession] = None,
+        max_pages: Optional[int] = None,
         update_state: Optional[Callable[[str, Optional[dict]], None]] = None,
     ) -> Dict[str, Any]:
         """Execute the link analysis workflow: discover -> crawl -> check -> analyze -> persist.
@@ -175,11 +187,11 @@ class LinkAnalysisService:
             update_state("PROGRESS", {"phase": "processing", "message": "Starting link analysis..."})
 
         if db is not None:
-            return await self._execute(check_id, domain, db, update_state, start_time)
+            return await self._execute(check_id, domain, db, max_pages, update_state, start_time)
 
         async with async_session_factory() as session:
             try:
-                result = await self._execute(check_id, domain, session, update_state, start_time)
+                result = await self._execute(check_id, domain, session, max_pages, update_state, start_time)
                 await session.commit()
                 return result
             except Exception:
@@ -191,6 +203,7 @@ class LinkAnalysisService:
         check_id: UUID,
         domain: str,
         db: AsyncSession,
+        max_pages: Optional[int],
         update_state: Optional[Callable[[str, Optional[dict]], None]],
         start_time: float,
     ) -> Dict[str, Any]:
@@ -221,6 +234,7 @@ class LinkAnalysisService:
             crawler = SiteCrawler(
                 canonical_url=check.url,
                 domain=domain,
+                max_pages=max_pages,
                 progress_callback=progress_cb,
             )
             crawl_result: CrawlResult = await crawler.crawl()

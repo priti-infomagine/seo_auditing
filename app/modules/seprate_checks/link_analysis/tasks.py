@@ -11,6 +11,9 @@ from app.shared.tasks.db import run_async
 from redis.asyncio import Redis
 
 
+from typing import Optional
+
+
 @celery_app.task(
     name="link_analysis.run_check",
     queue="crawler",
@@ -29,9 +32,10 @@ def run_check(
     self,
     check_id: str,
     url: str,
+    max_pages: Optional[int] = None,
 ) -> dict:
     """Celery task: run asynchronous link analysis crawl and evaluation."""
-    logger.info(f"link_analysis.run_check: task started for check_id={check_id}, url={url}")
+    logger.info(f"link_analysis.run_check: task started for check_id={check_id}, url={url}, max_pages={max_pages}")
 
     async def _run():
         redis_client = Redis.from_url(
@@ -41,6 +45,7 @@ def run_check(
         result = await service.run_check_async(
             check_id=UUID(check_id),
             url=url,
+            max_pages=max_pages,
             update_state=lambda state, meta=None: self.update_state(
                 state=state, meta=meta
             ),

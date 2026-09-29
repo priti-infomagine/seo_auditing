@@ -4,28 +4,21 @@ from unittest.mock import MagicMock
 import pytest
 import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy import text
 
 from app.core.config import settings
-from app.core.database import Base, get_db
+from app.core.database import get_db
 from app.main import app
 
 
-@pytest_asyncio.fixture(scope="function")
-async def db_engine():
+@pytest_asyncio.fixture(scope="session")
+def db_engine():
     engine = create_async_engine(
         settings.DATABASE_URL,
         echo=False,
         pool_pre_ping=True,
     )
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-
     yield engine
-
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-    await engine.dispose()
 
 
 @pytest_asyncio.fixture
@@ -34,22 +27,13 @@ async def db_session(db_engine) -> AsyncSession:
         db_engine, class_=AsyncSession, expire_on_commit=False
     )
     async with session_factory() as session:
+        app.dependency_overrides[get_db] = lambda: session
         yield session
+        app.dependency_overrides.pop(get_db, None)
         try:
             await session.rollback()
         except Exception:
             pass
-        try:
-            await session.close()
-        except Exception:
-            pass
-
-
-@pytest.fixture(autouse=True)
-def _override_db(db_session):
-    app.dependency_overrides[get_db] = lambda: db_session
-    yield
-    app.dependency_overrides.clear()
 
 
 @pytest.fixture

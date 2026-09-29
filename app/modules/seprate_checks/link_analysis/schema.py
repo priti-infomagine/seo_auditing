@@ -23,6 +23,12 @@ class LinkAnalysisRequest(BaseModel):
         min_length=1,
         description="Website URL or bare domain to analyze",
     )
+    max_pages: Optional[int] = Field(
+        default=None,
+        ge=1,
+        le=5000,
+        description="Maximum number of pages to crawl and analyze",
+    )
 
     def validate_url(self) -> str:
         normalized = self.url.strip()
@@ -37,7 +43,14 @@ class LinkAnalysisQueuedResponse(BaseModel):
     url: str
     domain: str
     status: LinkAnalysisCheckStatus
+    max_pages: Optional[int] = None
     created_at: Optional[str] = None
+
+
+class SourceReference(BaseModel):
+    source_url: str
+    anchor_text: Optional[str] = ""
+    rel: List[str] = Field(default_factory=list)
 
 
 class FindingResponse(BaseModel):
@@ -47,8 +60,22 @@ class FindingResponse(BaseModel):
     target_url: str
     status_code: Optional[int] = None
     final_url: Optional[str] = None
+    total_sources: int = 0
+    sources: List[SourceReference] = Field(default_factory=list)
+    recommendation: Optional[Union[str, Dict[str, Any]]] = None
     evidence: Optional[Dict[str, Any]] = None
-    recommendation: Optional[Dict[str, Any]] = None
+
+
+class PageAnalysisItem(BaseModel):
+    url: str
+    status_code: Optional[int] = None
+    depth: int = 0
+    inbound_internal_links: int = 0
+    outbound_internal_links: int = 0
+    outbound_external_links: int = 0
+    is_orphan: bool = False
+    is_dead_end: bool = False
+    issues: List[str] = Field(default_factory=list)
 
 
 class LinkAnalysisSummary(BaseModel):
@@ -88,6 +115,7 @@ class LinkAnalysisCheckResponse(BaseModel):
     severity: Optional[str] = None
     cost_seconds: Optional[float] = None
     summary: Optional[LinkAnalysisSummary] = None
+    pages: List[PageAnalysisItem] = Field(default_factory=list)
     findings: List[FindingResponse] = Field(default_factory=list)
     total_findings: int = 0
 
@@ -103,6 +131,8 @@ class PaginatedFindings(BaseModel):
 __all__ = [
     "LinkAnalysisRequest",
     "LinkAnalysisQueuedResponse",
+    "SourceReference",
+    "PageAnalysisItem",
     "FindingResponse",
     "LinkAnalysisSummary",
     "LinkAnalysisProgress",
@@ -115,3 +145,4 @@ __all__ = [
     "LinkAnalysisSeverity",
     "LinkStatusClass",
 ]
+

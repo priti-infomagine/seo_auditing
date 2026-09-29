@@ -9,7 +9,7 @@ from typing import Dict, List, Optional, Set
 from urllib.parse import urlparse
 
 from app.modules.seprate_checks.link_analysis.model import LinkStatusClass
-from app.shared.utils.url_utils import normalize_host
+from app.shared.utils.url_utils import is_same_site as check_same_site, normalize_host
 
 
 @dataclass
@@ -89,4 +89,6 @@ class LinkGraph:
         self.pages[node.url] = node
 
     def is_same_site(self, host: str) -> bool:
-        return normalize_host(host) == self.base_host
+        if not host:
+            return False
+        return normalize_host(host) == self.base_host or check_same_site(host, self.base_host)
