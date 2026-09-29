@@ -10,7 +10,7 @@ and overall verdict. Use query filters (category, type, severity) to
 narrow the findings list and pagination to browse.
 """
 import asyncio
-from typing import Optional
+from typing import Optional ,List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status

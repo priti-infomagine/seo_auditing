@@ -25436,3 +25436,27 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 (Background on this error at: https://sqlalche.me/e/20/dbapi)
 2026-09-28T17:49:33 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused) — trying HTTP fallback
 2026-09-28T17:49:36 | INFO | app | fetch_sitemap: HTTPS failed for https://example.com/sitemap.xml (unreachable: Connection refused on HTTPS) — trying HTTP fallback
+2026-09-29T09:45:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T09:46:16 | INFO | app | Worker process initialized with persistent event loop (pid=9184)
+2026-09-29T09:46:40 | INFO | app | Worker process initialized with persistent event loop (pid=9380)
+2026-09-29T09:59:08 | INFO | app | Worker process initialized with persistent event loop (pid=9036)
+2026-09-29T09:59:10 | INFO | app | Worker process initialized with persistent event loop (pid=23412)
+2026-09-29T10:01:24 | INFO | app | link_analysis.run_check: task started for check_id=d3fd9c6f-6a08-4157-b0f6-3cba33b1dde4, url=https://infomagine.in/, max_pages=10
+2026-09-29T10:01:27 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=9, page_urls=48
+2026-09-29T10:01:34 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=d3fd9c6f-6a08-4157-b0f6-3cba33b1dde4, pages=10, findings=57, overall=warning, cost=9.151s
+2026-09-29T10:01:34 | INFO | app | link_analysis.run_check: task finished for check_id=d3fd9c6f-6a08-4157-b0f6-3cba33b1dde4, status=completed
+2026-09-29T11:20:36 | INFO | app | sitemap.run_check: task started for check_id=c9a26d8d-19ec-41b8-a9bc-af9913e4141a, url=https://infomagine.in
+2026-09-29T11:20:40 | INFO | app | Site discovery complete for https://infomagine.in: robots=True, sitemaps=9, page_urls=48
+2026-09-29T11:26:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:03:08 | INFO | app | link_analysis.run_check: task started for check_id=66f18730-952c-420c-b037-5660974bc0a6, url=https://infomagine.com/, max_pages=10
+2026-09-29T12:03:12 | INFO | app | Site discovery complete for https://infomagine.com/: robots=False, sitemaps=0, page_urls=0
+2026-09-29T12:03:15 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=66f18730-952c-420c-b037-5660974bc0a6, pages=1, findings=1, overall=pass, cost=6.61s
+2026-09-29T12:03:15 | INFO | app | link_analysis.run_check: task finished for check_id=66f18730-952c-420c-b037-5660974bc0a6, status=completed
+2026-09-29T12:04:00 | INFO | app | link_analysis.run_check: task started for check_id=17d23bc3-f5f8-4da7-98b6-abd86e5ccdb5, url=https://kanhahometutions.com/, max_pages=10
+2026-09-29T12:04:02 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-29T12:04:11 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=17d23bc3-f5f8-4da7-98b6-abd86e5ccdb5, pages=10, findings=107, overall=warning, cost=10.383s
+2026-09-29T12:04:11 | INFO | app | link_analysis.run_check: task finished for check_id=17d23bc3-f5f8-4da7-98b6-abd86e5ccdb5, status=completed
+2026-09-29T12:26:29 | INFO | app | link_analysis.run_check: task started for check_id=2ddfb90b-c4d9-4c3c-a03a-0cec08c7a70f, url=https://kanhahometutions.com/, max_pages=10
+2026-09-29T12:26:30 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-29T12:26:41 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=2ddfb90b-c4d9-4c3c-a03a-0cec08c7a70f, pages=10, findings=107, overall=warning, cost=12.348s
+2026-09-29T12:26:41 | INFO | app | link_analysis.run_check: task finished for check_id=2ddfb90b-c4d9-4c3c-a03a-0cec08c7a70f, status=completed
