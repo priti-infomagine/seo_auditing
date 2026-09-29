@@ -17,10 +17,22 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     # Make overall_status and severity nullable since they're only set after check completes
-    op.alter_column("sitemap_checks", "overall_status", nullable=True)
-    op.alter_column("sitemap_checks", "severity", nullable=True)
+    bind = op.get_bind()
+    inspector = sa.inspect(bind)
+    if "sitemap_checks" in inspector.get_table_names():
+        cols = {c["name"] for c in inspector.get_columns("sitemap_checks")}
+        if "overall_status" in cols:
+            op.alter_column("sitemap_checks", "overall_status", nullable=True)
+        if "severity" in cols:
+            op.alter_column("sitemap_checks", "severity", nullable=True)
 
 
 def downgrade() -> None:
-    op.alter_column("sitemap_checks", "overall_status", nullable=False)
-    op.alter_column("sitemap_checks", "severity", nullable=False)
+    bind = op.get_bind()
+    inspector = sa.inspect(bind)
+    if "sitemap_checks" in inspector.get_table_names():
+        cols = {c["name"] for c in inspector.get_columns("sitemap_checks")}
+        if "overall_status" in cols:
+            op.alter_column("sitemap_checks", "overall_status", nullable=False)
+        if "severity" in cols:
+            op.alter_column("sitemap_checks", "severity", nullable=False)

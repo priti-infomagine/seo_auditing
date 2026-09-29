@@ -27,7 +27,7 @@ from app.modules.parser.services.document_parser_service import (
     DocumentContext,
     DocumentParserService,
 )
-from app.shared.utils.url_utils import normalize_host, normalize_url
+from app.shared.utils.url_utils import is_same_site as check_same_site, normalize_host, normalize_url
 
 from .constants import ASSET_EXTENSIONS, NON_HTTP_SCHEMES, USER_AGENT
 from .graph import CheckResult, LinkEdge, LinkGraph, PageNode, RedirectInfo
@@ -56,7 +56,8 @@ def _classify_url(url: str, base_host: str) -> Tuple[bool, bool]:
     if scheme not in ("http", "https"):
         return False, False
     host = normalize_host(parsed.netloc)
-    return host == base_host, True
+    is_internal = (host == base_host) or check_same_site(parsed.netloc, base_host)
+    return is_internal, True
 
 
 def _should_skip_link(href: str) -> bool:
@@ -123,10 +124,12 @@ class SiteCrawler:
         self,
         canonical_url: str,
         domain: str,
+        max_pages: Optional[int] = None,
         progress_callback: Optional[Any] = None,
     ):
         self.canonical_url = canonical_url
         self.domain = domain
+        self._custom_max_pages = max_pages
         self._progress_callback = progress_callback
 
     @property
@@ -135,7 +138,7 @@ class SiteCrawler:
 
     @property
     def max_pages(self) -> int:
-        return settings.LINK_ANALYSIS_MAX_PAGES
+        return self._custom_max_pages or settings.LINK_ANALYSIS_MAX_PAGES
 
     @property
     def max_depth(self) -> int:
@@ -299,6 +302,18 @@ class SiteCrawler:
 
         queue: asyncio.Queue = asyncio.Queue()
         await queue.put((home_final, 0))
+
+        # Seed internal URLs discovered from sitemaps so all site pages get crawled and analyzed
+        for s_url in sitemap_urls:
+            is_internal, is_http = _classify_url(s_url, base_host)
+            if is_internal and is_http:
+                try:
+                    s_norm = normalize_url(s_url)
+                except Exception:
+                    s_norm = s_url
+                if s_norm not in state.seen and len(state.seen) < self.max_pages:
+                    state.seen.add(s_norm)
+                    await queue.put((s_norm, 1))
 
         semaphore = asyncio.Semaphore(self.concurrency)
         workers = [

@@ -13,6 +13,7 @@ from redis.asyncio import Redis
 from sqlalchemy import func, select, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.logger import logger
 from .model import (
     LinkAnalysisCheck,
     LinkAnalysisCheckStatus,
@@ -54,23 +55,30 @@ class LinkAnalysisRepository:
             payload["progress"] = progress
         if error is not None:
             payload["error"] = error
-        await self.redis.set(self._redis_key(check_id), json.dumps(payload), ex=3600)
+        try:
+            await self.redis.set(self._redis_key(check_id), json.dumps(payload), ex=3600)
+        except Exception as exc:
+            logger.warning("Failed to set Redis status for check %s: %s", check_id, exc)
 
     async def get_status(self, check_id: UUID) -> Optional[Dict[str, Any]]:
         if self.redis is None:
             return None
-        raw = await self.redis.get(self._redis_key(check_id))
-        if raw is None:
-            return None
         try:
+            raw = await self.redis.get(self._redis_key(check_id))
+            if raw is None:
+                return None
             return json.loads(raw)
-        except (json.JSONDecodeError, TypeError):
+        except Exception as exc:
+            logger.warning("Failed to get Redis status for check %s: %s", check_id, exc)
             return None
 
     async def clear_status(self, check_id: UUID) -> None:
         if self.redis is None:
             return
-        await self.redis.delete(self._redis_key(check_id))
+        try:
+            await self.redis.delete(self._redis_key(check_id))
+        except Exception as exc:
+            logger.warning("Failed to clear Redis status for check %s: %s", check_id, exc)
 
     # -- DB: check master row ------------------------------------------
 
@@ -202,19 +210,25 @@ class LinkAnalysisRepository:
     async def get_findings(
         self,
         check_id: UUID,
-        category: Optional[FindingCategory] = None,
-        finding_type: Optional[FindingType] = None,
-        severity: Optional[LinkAnalysisSeverity] = None,
+        category: Optional[Union[FindingCategory, str]] = None,
+        finding_type: Optional[Union[FindingType, str]] = None,
+        severity: Optional[Union[LinkAnalysisSeverity, str]] = None,
+        search: Optional[str] = None,
         limit: int = 200,
         offset: int = 0,
     ) -> List[LinkFinding]:
         stmt = select(LinkFinding).where(LinkFinding.check_id == check_id)
-        if category is not None:
-            stmt = stmt.where(LinkFinding.category == _val(category))
-        if finding_type is not None:
-            stmt = stmt.where(LinkFinding.type == _val(finding_type))
-        if severity is not None:
-            stmt = stmt.where(LinkFinding.severity == _val(severity))
+        if category is not None and str(category).strip():
+            cat_val = _val(category)
+            stmt = stmt.where(func.lower(LinkFinding.category) == str(cat_val).strip().lower())
+        if finding_type is not None and str(finding_type).strip():
+            type_val = _val(finding_type)
+            stmt = stmt.where(func.lower(LinkFinding.type) == str(type_val).strip().lower())
+        if severity is not None and str(severity).strip():
+            sev_val = _val(severity)
+            stmt = stmt.where(func.lower(LinkFinding.severity) == str(sev_val).strip().lower())
+        if search is not None and search.strip():
+            stmt = stmt.where(LinkFinding.target_url.ilike(f"%{search.strip()}%"))
         stmt = stmt.order_by(LinkFinding.created_at).limit(limit).offset(offset)
         result = await self.db.execute(stmt)
         return list(result.scalars().all())
@@ -222,22 +236,28 @@ class LinkAnalysisRepository:
     async def count_findings(
         self,
         check_id: UUID,
-        category: Optional[FindingCategory] = None,
-        finding_type: Optional[FindingType] = None,
-        severity: Optional[LinkAnalysisSeverity] = None,
+        category: Optional[Union[FindingCategory, str]] = None,
+        finding_type: Optional[Union[FindingType, str]] = None,
+        severity: Optional[Union[LinkAnalysisSeverity, str]] = None,
+        search: Optional[str] = None,
         is_standard: Optional[bool] = None,
     ) -> int:
         stmt = select(func.count()).select_from(LinkFinding).where(LinkFinding.check_id == check_id)
-        if category is not None:
-            stmt = stmt.where(LinkFinding.category == _val(category))
-        if finding_type is not None:
-            stmt = stmt.where(LinkFinding.type == _val(finding_type))
-        if severity is not None:
-            stmt = stmt.where(LinkFinding.severity == _val(severity))
+        if category is not None and str(category).strip():
+            cat_val = _val(category)
+            stmt = stmt.where(func.lower(LinkFinding.category) == str(cat_val).strip().lower())
+        if finding_type is not None and str(finding_type).strip():
+            type_val = _val(finding_type)
+            stmt = stmt.where(func.lower(LinkFinding.type) == str(type_val).strip().lower())
+        if severity is not None and str(severity).strip():
+            sev_val = _val(severity)
+            stmt = stmt.where(func.lower(LinkFinding.severity) == str(sev_val).strip().lower())
+        if search is not None and search.strip():
+            stmt = stmt.where(LinkFinding.target_url.ilike(f"%{search.strip()}%"))
         if is_standard is True:
-            stmt = stmt.where(LinkFinding.category == FindingCategory.STANDARD.value)
+            stmt = stmt.where(func.lower(LinkFinding.category) == FindingCategory.STANDARD.value)
         elif is_standard is False:
-            stmt = stmt.where(LinkFinding.category == FindingCategory.OPTIMIZATION.value)
+            stmt = stmt.where(func.lower(LinkFinding.category) == FindingCategory.OPTIMIZATION.value)
         result = await self.db.execute(stmt)
         return result.scalar_one() or 0
 
@@ -246,3 +266,4 @@ class LinkAnalysisRepository:
             select(func.count()).select_from(LinkFinding).where(LinkFinding.check_id == check_id)
         )
         return result.scalar_one() or 0
+
