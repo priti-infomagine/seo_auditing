@@ -238,7 +238,7 @@ class SiteCrawler:
     def _build_page_node(
         self,
         fetch_result: FetchResult,
-        depth: int,
+        depth: Optional[int],
     ) -> PageNode:
         redirects = _redirect_info_from_fetch(fetch_result)
         return PageNode(
@@ -313,7 +313,7 @@ class SiteCrawler:
                     s_norm = s_url
                 if s_norm not in state.seen and len(state.seen) < self.max_pages:
                     state.seen.add(s_norm)
-                    await queue.put((s_norm, 1))
+                    await queue.put((s_norm, None))
 
         semaphore = asyncio.Semaphore(self.concurrency)
         workers = [
@@ -357,7 +357,7 @@ class SiteCrawler:
     async def _process_url(
         self,
         url: str,
-        depth: int,
+        depth: Optional[int],
         state: CrawlState,
         robot_parser: Optional[Protego],
         queue: asyncio.Queue,
@@ -384,6 +384,8 @@ class SiteCrawler:
 
         state.checked_urls[norm_url] = self._make_check_result(result)
         state.graph.pages[norm_url] = self._build_page_node(result, depth)
+        if depth is not None:
+            state.graph.set_min_depth(norm_url, depth)
         state.pages_crawled += 1
 
         self._maybe_signal_progress(state, "crawling")
@@ -444,6 +446,10 @@ class SiteCrawler:
             state.graph.add_edge(edge)
             page_node.outgoing_edges.append(edge)
 
+            # Update target depth if already crawled and we have a real depth
+            if depth is not None:
+                state.graph.set_min_depth(target_norm, depth + 1)
+
             # Skip assets — record as edge only (already done above)
             if _is_asset_url(target_norm):
                 state.assets_skipped += 1
@@ -454,7 +460,11 @@ class SiteCrawler:
                 continue
             if target_norm in state.seen:
                 continue
-            if depth + 1 >= self.max_depth:
-                continue
-            state.seen.add(target_norm)
-            await queue.put((target_norm, depth + 1))
+            if depth is not None:
+                if depth + 1 >= self.max_depth:
+                    continue
+                state.seen.add(target_norm)
+                await queue.put((target_norm, depth + 1))
+            else:
+                state.seen.add(target_norm)
+                await queue.put((target_norm, None))

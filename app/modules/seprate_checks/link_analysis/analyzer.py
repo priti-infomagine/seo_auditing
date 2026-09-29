@@ -336,7 +336,7 @@ def _find_deep_pages(
     threshold = settings.LINK_ANALYSIS_DEEP_PAGE_THRESHOLD
 
     for url, node in graph.pages.items():
-        if node.status_code == 200 and node.depth > threshold:
+        if node.status_code == 200 and node.depth is not None and node.depth > threshold:
             findings.append(FindingCandidate(
                 category=FindingCategory.OPTIMIZATION,
                 type=FindingType.DEEP_PAGE,
@@ -650,7 +650,7 @@ def compute_page_analysis(
         pages.append({
             "url": url,
             "status_code": node.status_code,
-            "depth": node.depth,
+            "depth": -1 if node.depth is None else node.depth,
             "inbound_internal_links": inbound,
             "outbound_internal_links": out_internal,
             "outbound_external_links": out_external,
@@ -660,7 +660,10 @@ def compute_page_analysis(
         })
 
     # Sort pages by depth then inbound links descending
-    pages.sort(key=lambda p: (p["depth"], -p["inbound_internal_links"]))
+    pages.sort(key=lambda p: (
+        float("inf") if p["depth"] == -1 else p["depth"],
+        -p["inbound_internal_links"],
+    ))
     return pages
 
 

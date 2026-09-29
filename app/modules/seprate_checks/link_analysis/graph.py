@@ -40,7 +40,7 @@ class PageNode:
     final_url: str
     status_code: int
     content_type: Optional[str]
-    depth: int
+    depth: Optional[int] = None
     redirect_chain: List[RedirectInfo] = field(default_factory=list)
     error_type: Optional[str] = None
     outgoing_edges: List["LinkEdge"] = field(default_factory=list)
@@ -87,6 +87,21 @@ class LinkGraph:
 
     def add_page(self, node: PageNode) -> None:
         self.pages[node.url] = node
+
+    def set_min_depth(self, url: str, new_depth: int) -> None:
+        """Update a page's depth, keeping the minimum known value.
+
+        ``None`` depth means "not established via a real internal-link
+        traversal from the homepage."  Once an integer depth is set it is
+        never reset to ``None``; the smallest value seen so far wins.
+        """
+        node = self.pages.get(url)
+        if node is None or new_depth is None:
+            return
+        if node.depth is None:
+            node.depth = new_depth
+        else:
+            node.depth = min(node.depth, new_depth)
 
     def is_same_site(self, host: str) -> bool:
         if not host:

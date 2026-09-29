@@ -263,6 +263,70 @@ class TestFindDeepPages:
         assert f.category == FindingCategory.OPTIMIZATION
         assert f.extra["depth"] == 4
 
+    def test_finds_deep_page_at_depth_5(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/deep5", status_code=200, depth=5)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 1
+        f = findings[0]
+        assert f.type == FindingType.DEEP_PAGE
+        assert f.category == FindingCategory.OPTIMIZATION
+        assert f.extra["depth"] == 5
+
+    def test_none_depth_page_not_flagged(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/orphan-seed", status_code=200, depth=None)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 0
+
+    def test_non_200_none_depth_page_not_flagged(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/broken-seed", status_code=404, depth=None)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 0
+
+
+# ---------------------------------------------------------------------------
+# set_min_depth
+# ---------------------------------------------------------------------------
+
+
+class TestSetMinDepth:
+    def test_sets_depth_from_none(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/orphan-seed", depth=None)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/orphan-seed", 4)
+        assert graph.pages["https://example.com/orphan-seed"].depth == 4
+
+    def test_keeps_minimum_depth(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page", depth=3)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/page", 5)
+        assert graph.pages["https://example.com/page"].depth == 3
+
+    def test_never_resets_to_none(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page", depth=3)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/page", None)
+        assert graph.pages["https://example.com/page"].depth == 3
+
+    def test_unknown_url_is_noop(self):
+        graph = _make_graph()
+        graph.set_min_depth("https://example.com/nope", 4)
+        assert len(graph.pages) == 0
+
 
 # ---------------------------------------------------------------------------
 # _find_dead_end_pages

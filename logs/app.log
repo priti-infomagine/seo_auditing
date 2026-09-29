@@ -25460,3 +25460,26 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 2026-09-29T12:26:30 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
 2026-09-29T12:26:41 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=2ddfb90b-c4d9-4c3c-a03a-0cec08c7a70f, pages=10, findings=107, overall=warning, cost=12.348s
 2026-09-29T12:26:41 | INFO | app | link_analysis.run_check: task finished for check_id=2ddfb90b-c4d9-4c3c-a03a-0cec08c7a70f, status=completed
+2026-09-29T12:48:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:49:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:50:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:50:19 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:51:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T12:51:58 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T13:43:15 | INFO | app | Worker process initialized with persistent event loop (pid=25932)
+2026-09-29T13:43:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-29T13:43:24 | INFO | app | Worker process initialized with persistent event loop (pid=26036)
+2026-09-29T13:44:09 | INFO | app | link_analysis.run_check: task started for check_id=cd18af3d-d233-4fc3-9fae-c8617e8e52c9, url=https://kanhahometutions.com/, max_pages=None
+2026-09-29T13:44:11 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-29T13:45:17 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=cd18af3d-d233-4fc3-9fae-c8617e8e52c9, pages=102, findings=205, overall=warning, cost=68.112s
+2026-09-29T13:45:17 | INFO | app | link_analysis.run_check: task finished for check_id=cd18af3d-d233-4fc3-9fae-c8617e8e52c9, status=completed
+2026-09-29T13:48:34 | INFO | app | link_analysis.run_check: task started for check_id=62bd0c83-cd9e-4340-8e4a-d8701651282c, url=https://oppo.com/, max_pages=20
+2026-09-29T13:48:41 | INFO | app | Site discovery complete for https://oppo.com/: robots=True, sitemaps=41, page_urls=5000
+2026-09-29T13:49:56 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=62bd0c83-cd9e-4340-8e4a-d8701651282c, pages=29, findings=6870, overall=fail, cost=80.191s
+2026-09-29T13:49:56 | INFO | app | link_analysis.run_check: task finished for check_id=62bd0c83-cd9e-4340-8e4a-d8701651282c, status=completed
+2026-09-29T14:02:42 | INFO | app | link_analysis.run_check: task started for check_id=2224c750-beaa-4b9b-89a1-f45281a3bf12, url=https://kanhahometutions.com/, max_pages=20
+2026-09-29T14:02:44 | INFO | app | Site discovery complete for https://kanhahometutions.com/: robots=True, sitemaps=8, page_urls=98
+2026-09-29T14:03:00 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=2224c750-beaa-4b9b-89a1-f45281a3bf12, pages=20, findings=117, overall=warning, cost=17.886s
+2026-09-29T14:03:00 | INFO | app | link_analysis.run_check: task finished for check_id=2224c750-beaa-4b9b-89a1-f45281a3bf12, status=completed
+2026-09-29T14:30:30 | INFO | app | sitemap.run_check: task started for check_id=c9a26d8d-19ec-41b8-a9bc-af9913e4141a, url=https://infomagine.in
+2026-09-29T14:30:36 | INFO | app | Site discovery complete for https://infomagine.in: robots=True, sitemaps=9, page_urls=48
