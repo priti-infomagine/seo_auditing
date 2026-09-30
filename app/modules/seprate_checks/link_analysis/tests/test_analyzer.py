@@ -21,6 +21,8 @@ from app.modules.seprate_checks.link_analysis.graph import (
 from app.modules.seprate_checks.link_analysis.model import (
     FindingCategory,
     FindingType,
+    LinkAnalysisCheck,
+    LinkAnalysisOverallStatus,
     LinkAnalysisSeverity,
     LinkStatusClass,
 )
@@ -545,6 +547,54 @@ class TestAnalyzeOptimization:
 
 
 class TestComputeSummary:
+    def test_page_counts_include_mailto_and_tel_without_duplicate_final_urls(self):
+        graph = _make_graph()
+        page_url = "https://example.com/contact-us"
+        page = _make_page(page_url)
+
+        internal_targets = [f"https://example.com/page-{index}" for index in range(32)]
+        for index in range(51):
+            edge = _make_edge(page_url, internal_targets[index % len(internal_targets)])
+            page.outgoing_edges.append(edge)
+            graph.add_edge(edge)
+
+        for index in range(7):
+            page.outgoing_edges.append(_make_edge(
+                page_url,
+                f"https://external.example/link-{index}",
+                is_internal=False,
+            ))
+
+        page.non_http_links.extend([
+            _make_edge(page_url, "mailto:hello@example.com"),
+            _make_edge(page_url, "tel:+1234567890"),
+        ])
+        graph.add_page(page)
+
+        checked_urls = {
+            internal_targets[0]: CheckResult(
+                status_class=LinkStatusClass.OK,
+                status_code=200,
+                final_url=internal_targets[0],
+            ),
+            internal_targets[1]: CheckResult(
+                status_class=LinkStatusClass.REDIRECT,
+                status_code=301,
+                final_url="https://example.com/page-1-destination",
+            ),
+        }
+        summary = compute_summary(graph, checked_urls, [], set(), False)
+        page_summary = summary["pages"][0]
+
+        assert page_summary["total_links"] == 60
+        assert page_summary["unique_links"] == 41
+        assert page_summary["outbound_internal_links"] == 53
+        assert page_summary["outbound_external_links"] == 7
+        assert "final_url" not in page_summary["internal_links"][0]
+        assert page_summary["internal_links"][1]["final_url"] == (
+            "https://example.com/page-1-destination"
+        )
+
     def test_summary_counts(self):
         graph = _make_graph()
         home = _make_page("https://example.com/", status_code=200)
@@ -589,6 +639,19 @@ class TestComputeSummary:
         graph.add_edge(external_edge)
 
         assert graph.inbound_counts.get("https://example.com/page", 0) == 0
+
+    def test_database_enums_bind_lowercase_values(self):
+        from sqlalchemy.dialects.postgresql import dialect
+
+        bind_overall = LinkAnalysisCheck.__table__.c.overall_status.type.bind_processor(
+            dialect()
+        )
+        bind_severity = LinkAnalysisCheck.__table__.c.severity.type.bind_processor(
+            dialect()
+        )
+
+        assert bind_overall(LinkAnalysisOverallStatus.WARNING) == "warning"
+        assert bind_severity(LinkAnalysisSeverity.MEDIUM) == "medium"
 
 
 # ---------------------------------------------------------------------------

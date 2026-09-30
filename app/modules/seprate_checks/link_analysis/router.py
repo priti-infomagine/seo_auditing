@@ -217,6 +217,22 @@ async def get_check(
                     "inbound_internal_links": page.inbound_internal_links,
                     "outbound_internal_links": page.outbound_internal_links,
                     "outbound_external_links": page.outbound_external_links,
+                    "total_links": page.outbound_internal_links + page.outbound_external_links,
+                    "unique_links": len({
+                        link.get("target_url")
+                        for link in page.internal_links + page.external_links
+                        if link.get("target_url")
+                    }),
+                    "unique_internal_targets": len({
+                        link.get("target_url")
+                        for link in page.internal_links
+                        if link.get("target_url")
+                    }),
+                    "unique_external_targets": len({
+                        link.get("target_url")
+                        for link in page.external_links
+                        if link.get("target_url")
+                    }),
                     "broken_internal_links": page.broken_internal_links,
                     "broken_external_links": page.broken_external_links,
                     "internal_links": page.internal_links,
@@ -242,6 +258,28 @@ async def get_check(
                 continue
             if has_issues is False and p_dict.get("issues"):
                 continue
+            internal_links = p_dict.get("internal_links", [])
+            external_links = p_dict.get("external_links", [])
+            p_dict.setdefault(
+                "total_links",
+                p_dict.get("outbound_internal_links", 0)
+                + p_dict.get("outbound_external_links", 0),
+            )
+            p_dict.setdefault("unique_links", len({
+                link.get("target_url")
+                for link in internal_links + external_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
+            p_dict.setdefault("unique_internal_targets", len({
+                link.get("target_url")
+                for link in internal_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
+            p_dict.setdefault("unique_external_targets", len({
+                link.get("target_url")
+                for link in external_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
             page_items.append(PageAnalysisItem(**p_dict))
 
         finding_responses = []

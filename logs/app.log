@@ -34058,3 +34058,429 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 [SQL: INSERT INTO sitemap_checks (id, url, domain, status, task_id, progress, error, robots_fetch_status, robots_status_code, robots_final_url, raw_robots_content, sitemaps_declared, sitemap_results, overall_status, severity, sitemaps, findings, recommendations, report_markdown, cost_seconds, accessibility_score, best_practices_score, check_version) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSONB, $7::VARCHAR, $8::fetchstatus, $9::INTEGER, $10::VARCHAR, $11::VARCHAR, $12::JSONB, $13::JSONB, $14::overallstatus, $15::severity, $16::JSONB, $17::JSONB, $18::JSONB, $19::VARCHAR, $20::FLOAT, $21::INTEGER, $22::INTEGER, $23::VARCHAR) RETURNING sitemap_checks.created_at, sitemap_checks.updated_at]
 [parameters: (UUID('3ce5d27e-2b12-4f69-87a1-2b49839ffb42'), 'https://moneymatters.co.in', 'moneymatters.co.in', <SitemapCheckStatus.QUEUED: 'queued'>, None, '{"phase": "queued", "message": "Check queued in worker"}', None, 'UNREACHABLE', None, None, None, '[]', '[]', None, None, '[]', '[]', '[]', None, None, None, None, '2.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-30T15:55:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T15:55:50 | INFO | app | Worker process initialized with persistent event loop (pid=25160)
+2026-09-30T15:55:50 | INFO | app | sitemap.run_check: task started for check_id=c9a26d8d-19ec-41b8-a9bc-af9913e4141a, url=https://infomagine.in
+2026-09-30T15:55:52 | INFO | app | Site discovery complete for https://infomagine.in: robots=True, sitemaps=1, page_urls=48
+2026-09-30T15:55:52 | INFO | app | sitemap.run_check: task finished for check_id=c9a26d8d-19ec-41b8-a9bc-af9913e4141a, status=completed
+2026-09-30T15:55:52 | INFO | app | sitemap.run_check: task started for check_id=a3d8b76f-dace-487c-bd25-8b6f15c052a2, url=https://moneymatters.co.in
+2026-09-30T15:55:54 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
+2026-09-30T15:55:54 | INFO | app | sitemap.run_check: task finished for check_id=a3d8b76f-dace-487c-bd25-8b6f15c052a2, status=completed
+2026-09-30T15:55:54 | INFO | app | sitemap.run_check: task started for check_id=c22ae124-7700-4720-a7bd-04d6a6e3a92f, url=https://moneymatters.co.in
+2026-09-30T15:55:55 | INFO | app | Worker process initialized with persistent event loop (pid=9492)
+2026-09-30T15:55:56 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
+2026-09-30T15:55:56 | INFO | app | sitemap.run_check: task finished for check_id=c22ae124-7700-4720-a7bd-04d6a6e3a92f, status=completed
+2026-09-30T15:56:21 | INFO | app | sitemap.run_check: task started for check_id=fd3d1311-cb0f-49d4-a63e-9e1fd51de36b, url=https://moneymatters.co.in
+2026-09-30T15:56:22 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
+2026-09-30T15:56:22 | INFO | app | sitemap.run_check: task finished for check_id=fd3d1311-cb0f-49d4-a63e-9e1fd51de36b, status=completed
+2026-09-30T16:00:50 | INFO | app | sitemap.run_check: task started for check_id=d9075337-2e82-4dbb-bb54-1f73f240f8a4, url=https://vivo.com
+2026-09-30T16:01:02 | INFO | app | Site discovery complete for https://vivo.com: robots=True, sitemaps=41, page_urls=9335
+2026-09-30T16:01:04 | INFO | app | sitemap.run_check: task finished for check_id=d9075337-2e82-4dbb-bb54-1f73f240f8a4, status=completed
+2026-09-30T16:03:15 | INFO | app | sitemap.run_check: task started for check_id=3a134c8c-094b-4bea-b11e-29c4f3453aab, url=https://moneymatters.co.in
+2026-09-30T16:03:15 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
+2026-09-30T16:03:15 | INFO | app | sitemap.run_check: task finished for check_id=3a134c8c-094b-4bea-b11e-29c4f3453aab, status=completed
+2026-09-30T16:07:37 | INFO | app | POST /lighthouse/check — url=https://infomagine.in/, devices=['mobile'], max_pages=4, category=['performance', 'seo', 'best-practices', 'accessibility'], version=['11', '10', '9']
+2026-09-30T16:07:37 | INFO | app | LighthouseCheckService: prepared check_id=f46242aa-1c3f-4687-b213-158e96c19f64, domain=infomagine.in, devices=['mobile'], max_pages=4, version=['11', '10', '9']
+2026-09-30T16:07:38 | INFO | app | Lighthouse check queued: check_id=f46242aa-1c3f-4687-b213-158e96c19f64, task_id=21ab7fa7-0b73-4f9c-9e59-f8d649502abc, domain=infomagine.in
+2026-09-30T16:07:38 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:38 | INFO | app | lighthouse.run_check: task started for check_id=f46242aa-1c3f-4687-b213-158e96c19f64, url=https://infomagine.in/, device=['mobile'], max_pages=4, version=['11', '10', '9']
+2026-09-30T16:07:41 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:41 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=1, page_urls=4
+2026-09-30T16:07:41 | INFO | app | Lighthouse preflight: discovered=4, selected=4, source=sitemap
+2026-09-30T16:07:42 | INFO | app | Robots policy attached to scheduler for infomagine.in (sitemaps: 1)
+2026-09-30T16:07:42 | INFO | app | Crawl started: https://infomagine.in/ (max_pages=4, max_depth=3)
+2026-09-30T16:07:42 | INFO | app | Submitted 3 sitemap URLs to crawl queue (total selected: 4)
+2026-09-30T16:07:43 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:46 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:48 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:51 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:53 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:56 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:07:58 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:00 | INFO | app | Crawl completed: https://infomagine.in/ — pages_crawled=4, pages_discovered=4, pages_failed=0, duration=17789ms
+2026-09-30T16:08:00 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 51, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:08:00 | INFO | app | LighthouseCheckService: crawl done for check_id=f46242aa-1c3f-4687-b213-158e96c19f64, discovered 4 URLs across 1 devices — starting pagespeed phase (4 checks)
+2026-09-30T16:08:01 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:03 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:06 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:08 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:11 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:13 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:16 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:18 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:21 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:23 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:26 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:28 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:31 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:08:31 | INFO | app | LighthouseCheckService: completed check_id=f46242aa-1c3f-4687-b213-158e96c19f64, total=4, succeeded=4, failed=0
+2026-09-30T16:08:31 | INFO | app | lighthouse.run_check: task finished for check_id=f46242aa-1c3f-4687-b213-158e96c19f64, status=completed
+2026-09-30T16:08:33 | INFO | app | GET /lighthouse/status/f46242aa-1c3f-4687-b213-158e96c19f64
+2026-09-30T16:09:42 | INFO | app | link_analysis.run_check: task started for check_id=8aad2acb-87c8-45bd-acc4-08a0bb546a1a, url=https://infomagine.in/, max_pages=10
+2026-09-30T16:09:43 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=1, page_urls=48
+2026-09-30T16:10:43 | ERROR | app | LinkAnalysisService._execute failed for check_id=8aad2acb-87c8-45bd-acc4-08a0bb546a1a: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum link_analysis_overall_status: "WARNING"
+[SQL: UPDATE link_analysis_checks SET status=$1::VARCHAR, error=$2::VARCHAR, summary=$3::JSONB, pages_crawled=$4::INTEGER, crawl_truncated=$5::BOOLEAN, overall_status=$6::link_analysis_overall_status, severity=$7::link_analysis_severity, cost_seconds=$8::FLOAT, updated_at=now() WHERE link_analysis_checks.id = $9::UUID]
+[parameters: ('completed', None, '{"pages_crawled": 10, "crawl_truncated": true, "blocked_by_robots": 0, "internal_link_occurrences": 544, "external_link_occurrences": 127, "unique_in ... (276 characters truncated) ... edirect_external": 1, "orphan": 45, "empty_anchor": 7}, "counts_by_severity": {"medium": 3, "low": 52}, "total_issues": 48, "total_opportunities": 7}', 10, True, 'WARNING', 'MEDIUM', 61.039, UUID('8aad2acb-87c8-45bd-acc4-08a0bb546a1a'))]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 550, in _prepare_and_execute
+    self._rows = deque(await prepared_stmt.fetch(*parameters))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 177, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 268, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\prepared_stmt.py", line 257, in __do_execute
+    return await executor(protocol)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 205, in bind_execute
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum link_analysis_overall_status: "WARNING"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum link_analysis_overall_status: "WARNING"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\service.py", line 347, in _execute
+    await repo.mark_completed(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\repository.py", line 164, in mark_completed
+    await self.db.execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1660, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum link_analysis_overall_status: "WARNING"
+[SQL: UPDATE link_analysis_checks SET status=$1::VARCHAR, error=$2::VARCHAR, summary=$3::JSONB, pages_crawled=$4::INTEGER, crawl_truncated=$5::BOOLEAN, overall_status=$6::link_analysis_overall_status, severity=$7::link_analysis_severity, cost_seconds=$8::FLOAT, updated_at=now() WHERE link_analysis_checks.id = $9::UUID]
+[parameters: ('completed', None, '{"pages_crawled": 10, "crawl_truncated": true, "blocked_by_robots": 0, "internal_link_occurrences": 544, "external_link_occurrences": 127, "unique_in ... (276 characters truncated) ... edirect_external": 1, "orphan": 45, "empty_anchor": 7}, "counts_by_severity": {"medium": 3, "low": 52}, "total_issues": 48, "total_opportunities": 7}', 10, True, 'WARNING', 'MEDIUM', 61.039, UUID('8aad2acb-87c8-45bd-acc4-08a0bb546a1a'))]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-30T16:10:43 | ERROR | app | link_analysis.run_check: task failed for check_id=8aad2acb-87c8-45bd-acc4-08a0bb546a1a: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+[SQL: UPDATE link_analysis_checks SET status=$1::VARCHAR, error=$2::VARCHAR, updated_at=now() WHERE link_analysis_checks.id = $3::UUID]
+[parameters: ('failed', '(sqlalchemy.dialects.postgresql.asyncpg.Error) <class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum link_analy ... (733 characters truncated) ... rue, \'WARNING\', \'MEDIUM\', 61.039, UUID(\'8aad2acb-87c8-45bd-acc4-08a0bb546a1a\'))]\n(Background on this error at: https://sqlalche.me/e/20/dbapi)', UUID('8aad2acb-87c8-45bd-acc4-08a0bb546a1a'))]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.InFailedSQLTransactionError: current transaction is aborted, commands ignored until end of transaction block
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\tasks.py", line 56, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 88, in run_async
+    return _worker_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\tasks.py", line 45, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\service.py", line 194, in run_check_async
+    result = await self._execute(check_id, domain, session, max_pages, update_state, start_time)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\link_analysis\service.py", line 383, in _execute
+    await repo.mark_failed(check_id, str(exc))
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\bulk_persistence.py", line 1660, in orm_execute_statement
+    return super().orm_execute_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+[SQL: UPDATE link_analysis_checks SET status=$1::VARCHAR, error=$2::VARCHAR, updated_at=now() WHERE link_analysis_checks.id = $3::UUID]
+[parameters: ('failed', '(sqlalchemy.dialects.postgresql.asyncpg.Error) <class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum link_analy ... (733 characters truncated) ... rue, \'WARNING\', \'MEDIUM\', 61.039, UUID(\'8aad2acb-87c8-45bd-acc4-08a0bb546a1a\'))]\n(Background on this error at: https://sqlalche.me/e/20/dbapi)', UUID('8aad2acb-87c8-45bd-acc4-08a0bb546a1a'))]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2026-09-30T16:14:43 | INFO | app | sitemap.run_check: task started for check_id=b804bbcd-6abe-4425-9a5e-b8186dce5e05, url=https://kanhahometutions.com
+2026-09-30T16:14:48 | INFO | app | Site discovery complete for https://kanhahometutions.com: robots=True, sitemaps=1, page_urls=98
+2026-09-30T16:14:48 | INFO | app | sitemap.run_check: task finished for check_id=b804bbcd-6abe-4425-9a5e-b8186dce5e05, status=completed
+2026-09-30T16:15:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T16:21:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T16:22:39 | INFO | app | Worker process initialized with persistent event loop (pid=23100)
+2026-09-30T16:22:43 | INFO | app | Worker process initialized with persistent event loop (pid=27224)
+2026-09-30T16:23:24 | INFO | app | link_analysis.run_check: task started for check_id=dcde5071-3bd1-4d1c-ab6a-deb2211d1821, url=https://infomagine.in/, max_pages=20
+2026-09-30T16:23:27 | INFO | app | Site discovery complete for https://infomagine.in/: robots=True, sitemaps=1, page_urls=48
+2026-09-30T16:24:37 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=dcde5071-3bd1-4d1c-ab6a-deb2211d1821, pages=20, findings=47, overall=warning, cost=73.149s
+2026-09-30T16:24:37 | INFO | app | link_analysis.run_check: task finished for check_id=dcde5071-3bd1-4d1c-ab6a-deb2211d1821, status=completed
+2026-09-30T16:26:09 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-09-30T16:26:09 | INFO | app | LighthouseCheckService: prepared check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-09-30T16:26:10 | INFO | app | Lighthouse check queued: check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, task_id=d43aaf3a-8474-4c65-adca-f7487c82c182, domain=moneymatters.co.in
+2026-09-30T16:26:10 | INFO | app | lighthouse.run_check: task started for check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-09-30T16:26:10 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:11 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-09-30T16:26:11 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-09-30T16:26:11 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-09-30T16:26:11 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-09-30T16:26:11 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-09-30T16:26:12 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:15 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=3487ms
+2026-09-30T16:26:15 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:26:15 | INFO | app | LighthouseCheckService: crawl done for check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-30T16:26:15 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:18 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:22 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:25 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:28 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:31 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:34 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:26:36 | INFO | app | LighthouseCheckService: completed check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, total=3, succeeded=3, failed=0
+2026-09-30T16:26:36 | INFO | app | lighthouse.run_check: task finished for check_id=f86ecc03-573e-4e07-806f-07e8e4790a72, status=completed
+2026-09-30T16:26:37 | INFO | app | GET /lighthouse/status/f86ecc03-573e-4e07-806f-07e8e4790a72
+2026-09-30T16:31:10 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-09-30T16:31:10 | INFO | app | LighthouseCheckService: prepared check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-09-30T16:31:10 | INFO | app | Lighthouse check queued: check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, task_id=d3c192ef-6010-45f0-b669-f238bb98a511, domain=moneymatters.co.in
+2026-09-30T16:31:10 | INFO | app | lighthouse.run_check: task started for check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-09-30T16:31:10 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:11 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-09-30T16:31:11 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-09-30T16:31:11 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-09-30T16:31:11 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-09-30T16:31:11 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-09-30T16:31:13 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:15 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=3649ms
+2026-09-30T16:31:15 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:31:15 | INFO | app | LighthouseCheckService: crawl done for check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-30T16:31:15 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:18 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:21 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:23 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:26 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:29 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:31 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:31:34 | INFO | app | LighthouseCheckService: completed check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, total=3, succeeded=3, failed=0
+2026-09-30T16:31:34 | INFO | app | lighthouse.run_check: task finished for check_id=d2ee1d67-c415-4b3c-a343-1594d4d66d63, status=completed
+2026-09-30T16:31:34 | INFO | app | GET /lighthouse/status/d2ee1d67-c415-4b3c-a343-1594d4d66d63
+2026-09-30T16:36:13 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-09-30T16:36:13 | INFO | app | LighthouseCheckService: prepared check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-09-30T16:36:13 | INFO | app | lighthouse.run_check: task started for check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-09-30T16:36:13 | INFO | app | Lighthouse check queued: check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, task_id=e8f03a47-0579-4925-b380-f5cc7b5556ec, domain=moneymatters.co.in
+2026-09-30T16:36:14 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:14 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-09-30T16:36:14 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-09-30T16:36:15 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-09-30T16:36:15 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-09-30T16:36:15 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-09-30T16:36:16 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:18 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=3641ms
+2026-09-30T16:36:18 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:36:18 | INFO | app | LighthouseCheckService: crawl done for check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-30T16:36:19 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:22 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:24 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:27 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:30 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:32 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:35 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:36:36 | INFO | app | LighthouseCheckService: completed check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, total=3, succeeded=3, failed=0
+2026-09-30T16:36:36 | INFO | app | lighthouse.run_check: task finished for check_id=2c03f1ff-c912-4c44-8583-bcdc68f8dc17, status=completed
+2026-09-30T16:36:38 | INFO | app | GET /lighthouse/status/2c03f1ff-c912-4c44-8583-bcdc68f8dc17
+2026-09-30T16:45:48 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-09-30T16:45:48 | INFO | app | LighthouseCheckService: prepared check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-09-30T16:45:48 | INFO | app | Lighthouse check queued: check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, task_id=3872d21d-4a2f-42dd-9431-8037932c0b53, domain=moneymatters.co.in
+2026-09-30T16:45:49 | INFO | app | lighthouse.run_check: task started for check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-09-30T16:45:49 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:45:50 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-09-30T16:45:50 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-09-30T16:45:50 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-09-30T16:45:50 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-09-30T16:45:50 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-09-30T16:45:52 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:45:54 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:45:57 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:45:59 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=8191ms
+2026-09-30T16:45:59 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:45:59 | INFO | app | LighthouseCheckService: crawl done for check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-30T16:46:00 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:03 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:06 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:08 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:11 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:14 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:15 | INFO | app | LighthouseCheckService: completed check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, total=3, succeeded=3, failed=0
+2026-09-30T16:46:15 | INFO | app | lighthouse.run_check: task finished for check_id=95d41e9b-d074-4ff6-9dda-7c52e4ea5f61, status=completed
+2026-09-30T16:46:16 | INFO | app | GET /lighthouse/status/95d41e9b-d074-4ff6-9dda-7c52e4ea5f61
+2026-09-30T16:46:46 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['desktop'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-09-30T16:46:47 | INFO | app | LighthouseCheckService: prepared check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, domain=moneymatters.co.in, devices=['desktop'], max_pages=3, version=None
+2026-09-30T16:46:47 | INFO | app | Lighthouse check queued: check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, task_id=7224234b-9c33-4ca0-a12a-0613490b40cb, domain=moneymatters.co.in
+2026-09-30T16:46:47 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:46:47 | INFO | app | lighthouse.run_check: task started for check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, url=https://moneymatters.co.in/, device=['desktop'], max_pages=3, version=None
+2026-09-30T16:46:49 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-09-30T16:46:49 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-09-30T16:46:50 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:46:50 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-09-30T16:46:50 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-09-30T16:46:50 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-09-30T16:46:53 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:46:55 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:46:56 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=6338ms
+2026-09-30T16:46:56 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-09-30T16:46:56 | INFO | app | LighthouseCheckService: crawl done for check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-09-30T16:46:58 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:01 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:04 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:06 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:09 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:12 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:14 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:17 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:47:19 | INFO | app | LighthouseCheckService: completed check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, total=3, succeeded=3, failed=0
+2026-09-30T16:47:19 | INFO | app | lighthouse.run_check: task finished for check_id=67e5cfbb-5bf6-45c6-afec-601da0aac369, status=completed
+2026-09-30T16:47:20 | INFO | app | GET /lighthouse/status/67e5cfbb-5bf6-45c6-afec-601da0aac369
+2026-09-30T16:48:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T16:50:28 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T17:04:36 | INFO | app | Celery broker connection pre-warmed successfully
+2026-09-30T17:40:16 | INFO | app | sitemap.run_check: task started for check_id=e4de4e0a-25bc-43bc-b15c-99e8f9e9b782, url=https://moneymatters.co.in
+2026-09-30T17:40:19 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
+2026-09-30T17:40:19 | INFO | app | sitemap.run_check: task finished for check_id=e4de4e0a-25bc-43bc-b15c-99e8f9e9b782, status=completed

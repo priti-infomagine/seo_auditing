@@ -129,6 +129,7 @@ class LinkAnalysisCheck(TimestampMixin, Base):
             name="link_analysis_overall_status",
             create_type=False,
             validate_strings=True,
+            values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=True,
     )
@@ -138,6 +139,7 @@ class LinkAnalysisCheck(TimestampMixin, Base):
             name="link_analysis_severity",
             create_type=False,
             validate_strings=True,
+            values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=True,
     )

@@ -187,15 +187,34 @@ class LinkAnalysisService:
             update_state("PROGRESS", {"phase": "processing", "message": "Starting link analysis..."})
 
         if db is not None:
-            return await self._execute(check_id, domain, db, max_pages, update_state, start_time)
+            try:
+                return await self._execute(check_id, domain, db, max_pages, update_state, start_time)
+            except Exception as exc:
+                await db.rollback()
+                try:
+                    await LinkAnalysisRepository(db, redis=self.redis).mark_failed(
+                        check_id, str(exc)
+                    )
+                except Exception:
+                    await db.rollback()
+                    logger.exception("Failed to persist link-analysis failure for %s", check_id)
+                raise
 
         async with async_session_factory() as session:
             try:
                 result = await self._execute(check_id, domain, session, max_pages, update_state, start_time)
                 await session.commit()
                 return result
-            except Exception:
+            except Exception as exc:
                 await session.rollback()
+                try:
+                    await LinkAnalysisRepository(session, redis=self.redis).mark_failed(
+                        check_id, str(exc)
+                    )
+                    await session.commit()
+                except Exception:
+                    await session.rollback()
+                    logger.exception("Failed to persist link-analysis failure for %s", check_id)
                 raise
 
     async def _execute(
@@ -380,7 +399,6 @@ class LinkAnalysisService:
                 f"LinkAnalysisService._execute failed for check_id={check_id}: {exc}",
                 exc_info=True,
             )
-            await repo.mark_failed(check_id, str(exc))
             if update_state:
                 update_state("FAILURE", {"exc": str(exc)})
             raise

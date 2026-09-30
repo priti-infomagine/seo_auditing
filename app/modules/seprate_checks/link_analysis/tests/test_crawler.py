@@ -79,3 +79,40 @@ async def test_sitemap_urls_omitted_by_page_cap_mark_crawl_truncated():
 
     assert result.pages_crawled == 1
     assert result.crawl_truncated is True
+
+
+@pytest.mark.asyncio
+async def test_contact_anchors_are_recorded_without_being_crawled():
+    crawler = SiteCrawler(
+        canonical_url="https://example.com/contact-us",
+        domain="example.com",
+        max_pages=5,
+    )
+    state = CrawlState(graph=LinkGraph(base_host="example.com"))
+    queue = asyncio.Queue()
+
+    async def fetch(url):
+        return SimpleNamespace(
+            normalized_url=url,
+            status_code=200,
+            final_url=url,
+            redirect_chain=[],
+            content_type="text/html",
+            content=(
+                b'<a href="mailto:hello@example.com">Email</a>'
+                b'<a href="tel:+1234567890">Call</a>'
+                b'<a href="/about">About</a>'
+            ),
+            error_type=None,
+            success=True,
+        )
+
+    crawler._safe_fetch = fetch
+    await crawler._process_url(
+        "https://example.com/contact-us", 0, state, None, queue
+    )
+
+    page = state.graph.pages["https://example.com/contact-us"]
+    assert len(page.non_http_links) == 2
+    assert len(page.outgoing_edges) == 1
+    assert queue.qsize() == 1

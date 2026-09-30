@@ -151,7 +151,7 @@ def _to_compact_result_response(check: SitemapCheck) -> CompactSitemapResultResp
         for path in ("sitemap.xml", "sitemap_index.xml"):
             probe_url = f"{check.url.rstrip('/')}/{path}"
             probe = probes_by_url.get(probe_url.rstrip("/").lower())
-            if probe is None:
+            if probe is None or probe.get("status_code") == 200:
                 continue
             sitemap_items.append(
                 CompactSitemapFileItem(

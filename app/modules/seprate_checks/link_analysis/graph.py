@@ -44,6 +44,7 @@ class PageNode:
     redirect_chain: List[RedirectInfo] = field(default_factory=list)
     error_type: Optional[str] = None
     outgoing_edges: List["LinkEdge"] = field(default_factory=list)
+    non_http_links: List["LinkEdge"] = field(default_factory=list)
     blocked_by_robots: bool = False
     is_asset: bool = False
 

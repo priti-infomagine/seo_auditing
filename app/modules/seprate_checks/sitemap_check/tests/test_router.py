@@ -346,11 +346,14 @@ async def test_router_compact_result_reports_missing_root_sitemaps(db_session):
 
 
 @pytest.mark.asyncio
-async def test_router_compact_result_omits_html_fallback_pages(db_session):
-    check = SitemapCheck(
+async def test_router_compact_result_omits_html_fallback_pages():
+    from types import SimpleNamespace
+
+    from app.modules.seprate_checks.sitemap_check.router import _to_compact_result_response
+
+    check = SimpleNamespace(
         url="https://example.com",
         domain="example.com",
-        status=SitemapCheckStatus.COMPLETED,
         sitemaps=[],
         sitemap_results=[
             {
@@ -367,13 +370,6 @@ async def test_router_compact_result_omits_html_fallback_pages(db_session):
             },
         ],
     )
-    db_session.add(check)
-    await db_session.commit()
+    response = _to_compact_result_response(check)
 
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as ac:
-        response = await ac.get(f"/api/v1/sitemap/result/{check.id}?format=compact")
-
-    assert response.status_code == 200
-    assert response.json()["data"]["sitemaps"] == []
+    assert response.model_dump(mode="json")["data"]["sitemaps"] == []

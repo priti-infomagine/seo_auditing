@@ -643,31 +643,41 @@ def compute_page_analysis(
         inbound = graph.inbound_counts.get(url, 0)
         internal_edges = [edge for edge in node.outgoing_edges if edge.is_internal]
         external_edges = [edge for edge in node.outgoing_edges if not edge.is_internal]
+        all_internal_edges = internal_edges + node.non_http_links
 
         def edge_evidence(edge) -> Dict[str, Any]:
             result = (checked_urls or {}).get(edge.target_url)
             status_class = result.status_class.value if result and hasattr(result.status_class, "value") else (
                 str(result.status_class) if result else None
             )
-            return {
+            evidence = {
                 "target_url": edge.target_url,
                 "anchor_text": edge.anchor_text,
                 "rel": edge.rel,
                 "href": edge.href_raw,
                 "status_class": status_class,
                 "status_code": result.status_code if result else None,
-                "final_url": result.final_url if result else None,
-                "check_status": "checked" if result else "not_checked",
+                "check_status": (
+                    "checked" if result else
+                    "not_applicable" if edge in node.non_http_links else
+                    "not_checked"
+                ),
             }
+            if result and result.final_url and result.final_url != edge.target_url:
+                evidence["final_url"] = result.final_url
+            return evidence
 
-        internal_links = [edge_evidence(edge) for edge in internal_edges]
+        internal_links = [edge_evidence(edge) for edge in all_internal_edges]
         external_links = [edge_evidence(edge) for edge in external_edges]
         broken_internal = sum(link["status_class"] == LinkStatusClass.BROKEN.value for link in internal_links)
         broken_external = sum(link["status_class"] == LinkStatusClass.BROKEN.value for link in external_links)
-        out_internal = len(internal_edges)
+        out_internal = len(all_internal_edges)
         out_external = len(external_edges)
+        unique_internal_targets = {edge.target_url for edge in all_internal_edges}
+        unique_external_targets = {edge.target_url for edge in external_edges}
+        unique_targets = unique_internal_targets | unique_external_targets
         is_orphan = (inbound == 0 and url != homepage_url)
-        is_dead_end = (node.status_code == 200 and out_internal == 0)
+        is_dead_end = (node.status_code == 200 and not internal_edges)
 
         page_issues = issues_by_page.get(url, [])
 
@@ -678,6 +688,10 @@ def compute_page_analysis(
             "inbound_internal_links": inbound,
             "outbound_internal_links": out_internal,
             "outbound_external_links": out_external,
+            "total_links": out_internal + out_external,
+            "unique_links": len(unique_targets),
+            "unique_internal_targets": len(unique_internal_targets),
+            "unique_external_targets": len(unique_external_targets),
             "broken_internal_links": broken_internal,
             "broken_external_links": broken_external,
             "internal_links": internal_links,
@@ -704,8 +718,13 @@ def compute_summary(
 ) -> Dict[str, Any]:
     """Build the clean JSONB summary and page analysis for the check master row."""
     all_edges = [edge for page in graph.pages.values() for edge in page.outgoing_edges]
-    internal_targets = {edge.target_url for edge in all_edges if edge.is_internal}
-    external_targets = {edge.target_url for edge in all_edges if not edge.is_internal}
+    all_page_links = [
+        edge
+        for page in graph.pages.values()
+        for edge in page.outgoing_edges + page.non_http_links
+    ]
+    internal_targets = {edge.target_url for edge in all_page_links if edge.is_internal}
+    external_targets = {edge.target_url for edge in all_page_links if not edge.is_internal}
 
     broken_count = sum(
         1 for r in checked_urls.values()
@@ -748,9 +767,9 @@ def compute_summary(
         "crawl_truncated": crawl_truncated,
         "blocked_by_robots": 0,  # set by caller
         "internal_link_occurrences": sum(
-            1 for edge in all_edges if edge.is_internal
+            1 for edge in all_page_links if edge.is_internal
         ),
-        "external_link_occurrences": sum(1 for edge in all_edges if not edge.is_internal),
+        "external_link_occurrences": sum(1 for edge in all_page_links if not edge.is_internal),
         "unique_internal_targets": len(internal_targets),
         "unique_external_targets": len(external_targets),
         "broken_internal_link_occurrences": broken_internal_occurrences,

@@ -73,6 +73,10 @@ class PageAnalysisItem(BaseModel):
     inbound_internal_links: int = 0
     outbound_internal_links: int = 0
     outbound_external_links: int = 0
+    total_links: int = 0
+    unique_links: int = 0
+    unique_internal_targets: int = 0
+    unique_external_targets: int = 0
     broken_internal_links: int = 0
     broken_external_links: int = 0
     internal_links: List[Dict[str, Any]] = Field(default_factory=list)

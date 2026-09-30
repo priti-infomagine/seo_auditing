@@ -477,11 +477,26 @@ class SiteCrawler:
 
         for link_data in links:
             href = link_data.href
-            if _should_skip_link(href):
+            if not href or not href.strip():
                 continue
 
             absolute = link_data.absolute_url or href
             if not absolute:
+                continue
+
+            scheme = urlparse(href).scheme.lower()
+            if scheme in {"mailto", "tel"}:
+                page_node.non_http_links.append(LinkEdge(
+                    source_url=norm_url,
+                    target_url=absolute,
+                    anchor_text=link_data.text,
+                    rel=link_data.rel,
+                    is_internal=True,
+                    href_raw=href,
+                ))
+                continue
+
+            if _should_skip_link(href):
                 continue
 
             is_internal, is_http = _classify_url(absolute, base_host)
