@@ -14,57 +14,16 @@ from app.modules.seprate_checks.sitemap_check.model import (
 )
 from app.modules.seprate_checks.sitemap_check.repository import SitemapCheckRepository
 from app.modules.seprate_checks.sitemap_check.service import SitemapCheckService
-
-
-@pytest.fixture
-def _empty_api_key(monkeypatch):
-    """Ensure GOOGLE_PAGESPEED_API_KEY is empty for graceful-degradation tests."""
-    monkeypatch.setattr(settings, "GOOGLE_PAGESPEED_API_KEY", "")
-    yield
+from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
+    PagespeedClient,
+)
 
 
 @pytest.fixture
 def _set_api_key(monkeypatch):
-    """Set a non-empty GOOGLE_PAGESPEED_API_KEY for tests that need PageSpeed."""
+    """Set a non-empty key to verify sitemap checks do not invoke PageSpeed."""
     monkeypatch.setattr(settings, "GOOGLE_PAGESPEED_API_KEY", "fake-api-key")
     yield
-
-
-class FakePagespeedClient:
-    """Mock PagespeedClient that returns deterministic scores."""
-
-    def __init__(self, api_key=None):
-        self.api_key = api_key
-
-    async def fetch(self, url, strategy="mobile", category=None):
-        return {
-            "lighthouseResult": {
-                "categories": {
-                    "accessibility": {"score": 0.9},
-                    "best-practices": {"score": 0.8},
-                },
-                "audits": {},
-            }
-        }
-
-    async def close(self):
-        pass
-
-    @staticmethod
-    def parse_result(raw, url, device):
-        return {
-            "url": url,
-            "device": device,
-            "performance_score": 85,
-            "seo_score": 90,
-            "accessibility_score": 90,
-            "best_practices_score": 80,
-            "fcp_ms": 1000,
-            "lcp_ms": 2000,
-            "tbt_ms": 300,
-            "cls": 0.1,
-            "recommendations": [],
-        }
 
 
 def _make_site_discovery_result():
@@ -100,6 +59,21 @@ def _make_site_discovery_result():
             "https://example.com/",
             "https://example.com/about",
             "https://example.com/blog",
+        ],
+        sitemap_probes=[
+            SitemapEvidence(
+                url="https://example.com/sitemap.xml",
+                exists=True,
+                status_code=200,
+                content_type="application/xml",
+                urls=["https://example.com/", "https://example.com/about"],
+            ),
+            SitemapEvidence(
+                url="https://example.com/sitemap_index.xml",
+                exists=False,
+                status_code=404,
+                content_type="text/html; charset=utf-8",
+            ),
         ],
     )
 
@@ -156,6 +130,11 @@ async def test_sitemap_check_async_success(monkeypatch, db_session):
     assert saved.overall_status == SitemapOverallStatus.PASS
     assert saved.summary["total_sitemaps"] == 2
     assert len(saved.sitemaps) == 2
+    assert any(
+        probe["url"] == "https://example.com/sitemap_index.xml"
+        and probe["status_code"] == 404
+        for probe in saved.sitemap_results
+    )
     assert saved.cost_seconds is not None
     assert "# Sitemap Audit Report" in saved.report_markdown
     assert (
@@ -216,10 +195,10 @@ async def test_sitemap_check_async_reports_missing_sitemap(monkeypatch, db_sessi
 
 
 @pytest.mark.asyncio
-async def test_sitemap_check_async_with_pagespeed_scores(
+async def test_sitemap_check_async_does_not_call_pagespeed(
     monkeypatch, db_session, _set_api_key
 ):
-    """run_check_async calls PageSpeed and persists accessibility + best-practices scores."""
+    """Sitemap checks never construct a PageSpeed client, even with an API key."""
     check_id = uuid.uuid4()
     check = SitemapCheck(
         id=check_id,
@@ -234,49 +213,10 @@ async def test_sitemap_check_async_with_pagespeed_scores(
         "app.modules.seprate_checks.sitemap_check.service.SiteDiscoveryService",
         FakeDiscovery,
     )
-    monkeypatch.setattr(
-        "app.modules.seprate_checks.sitemap_check.service.PagespeedClient",
-        FakePagespeedClient,
-    )
+    def fail_if_constructed(*args, **kwargs):
+        pytest.fail("Sitemap checks must not construct a PageSpeed client")
 
-    summary_res = await SitemapCheckService().run_check_async(
-        check_id=check_id, url="https://example.com", db=db_session
-    )
-
-    assert summary_res["status"] == "completed"
-
-    saved = await SitemapCheckRepository(db_session).get(check_id)
-    assert saved.status == SitemapCheckStatus.COMPLETED
-    assert saved.accessibility_score is not None
-    assert saved.best_practices_score is not None
-    assert 0 <= saved.accessibility_score <= 100
-    assert 0 <= saved.best_practices_score <= 100
-    assert saved.summary["lighthouse_scored_pages"] > 0
-    assert "Page-Level Lighthouse Scores" in saved.report_markdown
-    assert (
-        f"Accessibility Score (avg)" in saved.report_markdown
-    )
-
-
-@pytest.mark.asyncio
-async def test_sitemap_check_async_degrades_without_api_key(
-    monkeypatch, db_session, _empty_api_key
-):
-    """When GOOGLE_PAGESPEED_API_KEY is empty, sitemap check still succeeds with scores = None."""
-    check_id = uuid.uuid4()
-    check = SitemapCheck(
-        id=check_id,
-        url="https://example.com",
-        domain="example.com",
-        status=SitemapCheckStatus.QUEUED,
-    )
-    db_session.add(check)
-    await db_session.commit()
-
-    monkeypatch.setattr(
-        "app.modules.seprate_checks.sitemap_check.service.SiteDiscoveryService",
-        FakeDiscovery,
-    )
+    monkeypatch.setattr(PagespeedClient, "__init__", fail_if_constructed)
 
     summary_res = await SitemapCheckService().run_check_async(
         check_id=check_id, url="https://example.com", db=db_session
@@ -289,11 +229,23 @@ async def test_sitemap_check_async_degrades_without_api_key(
     assert saved.accessibility_score is None
     assert saved.best_practices_score is None
     assert saved.summary["lighthouse_scored_pages"] == 0
+    assert "Page-Level Lighthouse Scores" not in saved.report_markdown
 
-    # No lighthouse-related findings should be added when API key is missing
-    finding_codes = {f["code"] for f in saved.findings}
-    assert "lighthouse_scores_unavailable" not in finding_codes
-    assert "lighthouse_api_key_missing" not in finding_codes
 
-    # Overall status should still be PASS (no extra low findings)
-    assert saved.overall_status == SitemapOverallStatus.PASS
+def test_sitemap_index_entry_count_uses_child_sitemap_count():
+    sitemap = SitemapEvidence(
+        url="https://example.com/sitemap_index.xml",
+        exists=True,
+        status_code=200,
+        content_type="application/xml",
+        child_sitemaps=[
+            "https://example.com/posts.xml",
+            "https://example.com/pages.xml",
+            "https://example.com/products.xml",
+        ],
+        is_index=True,
+    )
+
+    result = SitemapCheckService()._evaluate_sitemap_file(sitemap, "example.com")
+
+    assert result.entry_count == 3

@@ -98,6 +98,38 @@ class TestSiteDiscoveryFetchSitemap:
 
     @pytest.mark.asyncio
     @patch("app.modules.crawler.services.site_discovery_service.HTTPClient")
+    async def test_html_fallback_is_not_counted_as_sitemap(self, mock_http_cls):
+        _make_response(
+            mock_http_cls,
+            "<html><body>Not found</body></html>",
+            headers={"content-type": "text/html"},
+        )
+
+        service = SiteDiscoveryService("https://example.com")
+        evidence = await service._fetch_sitemap("https://example.com/sitemap.xml")
+
+        assert evidence.status_code == 200
+        assert evidence.exists is False
+        assert evidence.error is not None
+
+    @pytest.mark.asyncio
+    @patch("app.modules.crawler.services.site_discovery_service.HTTPClient")
+    async def test_valid_sitemap_xml_with_html_content_type_is_kept(self, mock_http_cls):
+        _make_response(
+            mock_http_cls,
+            SITEMAP_INDEX_XML,
+            headers={"content-type": "text/html"},
+        )
+
+        service = SiteDiscoveryService("https://example.com")
+        evidence = await service._fetch_sitemap("https://example.com/sitemap_index.xml")
+
+        assert evidence.exists is True
+        assert evidence.is_index is True
+        assert len(evidence.child_sitemaps) == 2
+
+    @pytest.mark.asyncio
+    @patch("app.modules.crawler.services.site_discovery_service.HTTPClient")
     async def test_relative_urls_resolved(self, mock_http_cls):
         xml = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -259,6 +291,11 @@ class TestSiteDiscoveryIndexExpansion:
         assert "https://example.com/page1" in all_urls
         # The failed child should not have its URLs
         assert "https://example.com/post1" not in all_urls
+        failed_probe = next(
+            probe for probe in service._sitemap_probes
+            if probe.url == "https://example.com/sitemap-posts.xml"
+        )
+        assert failed_probe.status_code == 404
 
     @pytest.mark.asyncio
     async def test_cycles_avoided(self):

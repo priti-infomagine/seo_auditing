@@ -238,3 +238,142 @@ async def test_router_result_includes_lighthouse_scores(db_session):
     assert data["accessibility_score"] == 75
     assert data["best_practices_score"] == 82
     assert data["summary"]["lighthouse_scored_pages"] == 3
+
+
+@pytest.mark.asyncio
+async def test_router_compact_result_includes_recursive_sitemaps(db_session):
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.COMPLETED,
+        sitemaps=[
+            {
+                "url": "https://example.com/sitemap_index.xml",
+                "is_index": True,
+                "status_code": 200,
+                "content_type": "application/xml; charset=utf-8",
+                "entry_count": 3,
+            },
+            {
+                "url": "https://example.com/blog-sitemap.xml",
+                "is_index": False,
+                "status_code": 200,
+                "content_type": "application/xml",
+                "entry_count": 98,
+            },
+        ],
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/result/{check.id}?format=compact")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "data": {
+            "url": "https://example.com/",
+            "sitemaps": [
+                {
+                    "url": "https://example.com/sitemap_index.xml",
+                    "status": 200,
+                    "contentType": "application/xml",
+                    "entries": 3,
+                },
+                {
+                    "url": "https://example.com/blog-sitemap.xml",
+                    "status": 200,
+                    "contentType": "application/xml",
+                    "entries": 98,
+                },
+            ],
+        }
+    }
+
+
+@pytest.mark.asyncio
+async def test_router_compact_result_reports_missing_root_sitemaps(db_session):
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.COMPLETED,
+        sitemaps=[],
+        sitemap_results=[
+            {
+                "url": "https://example.com/sitemap.xml",
+                "status_code": 404,
+                "content_type": "text/html; charset=utf-8",
+                "entry_count": 0,
+            },
+            {
+                "url": "https://example.com/sitemap_index.xml",
+                "status_code": 404,
+                "content_type": "text/html; charset=utf-8",
+                "entry_count": 0,
+            },
+        ],
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/result/{check.id}?format=compact")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "data": {
+            "url": "https://example.com/",
+            "sitemaps": [
+                {
+                    "url": "https://example.com/sitemap.xml",
+                    "status": 404,
+                    "contentType": "text/html",
+                    "entries": 0,
+                },
+                {
+                    "url": "https://example.com/sitemap_index.xml",
+                    "status": 404,
+                    "contentType": "text/html",
+                    "entries": 0,
+                },
+            ],
+        }
+    }
+
+
+@pytest.mark.asyncio
+async def test_router_compact_result_omits_html_fallback_pages(db_session):
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.COMPLETED,
+        sitemaps=[],
+        sitemap_results=[
+            {
+                "url": "https://example.com/sitemap.xml",
+                "status_code": 200,
+                "content_type": "text/html; charset=utf-8",
+                "entry_count": 0,
+            },
+            {
+                "url": "https://example.com/sitemap_index.xml",
+                "status_code": 200,
+                "content_type": "text/html; charset=utf-8",
+                "entry_count": 0,
+            },
+        ],
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/result/{check.id}?format=compact")
+
+    assert response.status_code == 200
+    assert response.json()["data"]["sitemaps"] == []

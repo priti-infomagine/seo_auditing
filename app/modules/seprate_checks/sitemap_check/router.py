@@ -5,9 +5,10 @@ Endpoints:
 - GET  /status/{check_id}   — Poll progress and retrieve results upon completion
 - GET  /result/{check_id}   — Retrieve stored results once completed
 """
+from typing import Union
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -21,6 +22,9 @@ from .schema import (
     SitemapCheckRequest,
     SitemapCheckResultResponse,
     SitemapCheckStatusResponse,
+    CompactSitemapData,
+    CompactSitemapFileItem,
+    CompactSitemapResultResponse,
     SitemapFileItem,
     SitemapIssue,
     SitemapRecommendation,
@@ -127,6 +131,45 @@ def _to_result_response(check: SitemapCheck) -> SitemapCheckResultResponse:
     )
 
 
+def _to_compact_result_response(check: SitemapCheck) -> CompactSitemapResultResponse:
+    """Build the compact URL/sitemap list while preserving recursive results."""
+    sitemap_items = [
+        CompactSitemapFileItem(
+            url=item.get("url", ""),
+            status=item.get("status_code", 0),
+            contentType=(item.get("content_type") or "unknown").split(";", 1)[0].strip(),
+            entries=item.get("entry_count", 0),
+        )
+        for item in (check.sitemaps or [])
+    ]
+
+    if not sitemap_items:
+        probes_by_url = {
+            (probe.get("url") or "").rstrip("/").lower(): probe
+            for probe in (check.sitemap_results or [])
+        }
+        for path in ("sitemap.xml", "sitemap_index.xml"):
+            probe_url = f"{check.url.rstrip('/')}/{path}"
+            probe = probes_by_url.get(probe_url.rstrip("/").lower())
+            if probe is None:
+                continue
+            sitemap_items.append(
+                CompactSitemapFileItem(
+                    url=probe.get("url", probe_url),
+                    status=probe.get("status_code", 0),
+                    contentType=(probe.get("content_type") or "unknown").split(";", 1)[0].strip(),
+                    entries=probe.get("entry_count", 0),
+                )
+            )
+
+    return CompactSitemapResultResponse(
+        data=CompactSitemapData(
+            url=check.url if check.url.endswith("/") else f"{check.url}/",
+            sitemaps=sitemap_items,
+        )
+    )
+
+
 async def _get_check_or_404(check_id: str, db: AsyncSession) -> SitemapCheck:
     try:
         parsed_id = UUID(check_id)
@@ -219,14 +262,15 @@ async def get_check_status(
 
 @router.get(
     "/result/{check_id}",
-    response_model=SitemapCheckResultResponse,
+    response_model=Union[SitemapCheckResultResponse, CompactSitemapResultResponse],
     summary="Get completed sitemap check results",
     description="Retrieve the complete audit findings, sitemaps, and recommendations once completed.",
 )
 async def get_check_result(
     check_id: str,
+    response_format: str = Query(default="detailed", alias="format", pattern="^(detailed|compact)$"),
     db: AsyncSession = Depends(get_db),
-) -> SitemapCheckResultResponse:
+) -> Union[SitemapCheckResultResponse, CompactSitemapResultResponse]:
     check = await _get_check_or_404(check_id, db)
 
     status_str = _str_status(check.status)
@@ -236,4 +280,6 @@ async def get_check_result(
             detail=f"Sitemap check is not completed yet (current status: '{status_str}')",
         )
 
+    if response_format == "compact":
+        return _to_compact_result_response(check)
     return _to_result_response(check)

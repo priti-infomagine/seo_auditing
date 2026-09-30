@@ -81,9 +81,10 @@ class LinkGraph:
     def add_edge(self, edge: LinkEdge) -> None:
         self._ensure_edge_index(edge.source_url)
         self.edges_by_source[edge.source_url].add(edge.target_url)
-        self.inbound_counts[edge.target_url] = (
-            self.inbound_counts.get(edge.target_url, 0) + 1
-        )
+        if edge.is_internal:
+            self.inbound_counts[edge.target_url] = (
+                self.inbound_counts.get(edge.target_url, 0) + 1
+            )
 
     def add_page(self, node: PageNode) -> None:
         self.pages[node.url] = node

@@ -322,10 +322,12 @@ class LinkAnalysisService:
                 crawl_truncated=crawl_result.crawl_truncated,
             )
             summary["blocked_by_robots"] = crawl_result.blocked_by_robots
+            page_analysis = summary.pop("pages", [])
 
             cost_seconds = round(time.perf_counter() - start_time, 3)
 
             await repo.delete_findings(check_id)
+            await repo.replace_pages(check_id, page_analysis)
 
             finding_rows: List[LinkFinding] = [
                 _candidate_to_finding_row(check_id, f) for f in all_findings

@@ -133,7 +133,7 @@ class LinkChecker:
         current_url = url
         seen_urls: Set[str] = {url}
 
-        for hop in range(self.max_redirects + 1):
+        for _ in range(self.max_redirects + 1):
             # SSRF check on every hop
             try:
                 validate_url_ssrf(current_url, allow_private=False)
@@ -253,7 +253,10 @@ class LinkChecker:
         try:
             req = client.build_request("GET", url)
             resp = await client.send(req, stream=True)
-            return resp.status_code, resp.headers.get("location"), None
+            try:
+                return resp.status_code, resp.headers.get("location"), None
+            finally:
+                await resp.aclose()
         except httpx.TimeoutException:
             return None, None, "timeout"
         except httpx.HTTPError:

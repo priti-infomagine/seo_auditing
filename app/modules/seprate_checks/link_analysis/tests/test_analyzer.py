@@ -565,7 +565,30 @@ class TestComputeSummary:
         assert summary["broken_links"] == 1
         assert summary["unique_external_targets"] == 1
         assert summary["internal_link_occurrences"] == 1
+        assert summary["external_link_occurrences"] == 1
+        assert summary["broken_external_link_occurrences"] == 1
         assert summary["crawl_truncated"] is False
+        page = summary["pages"][0]
+        assert page["outbound_internal_links"] == 1
+        assert page["outbound_external_links"] == 1
+        assert page["internal_links"][0]["target_url"] == "https://example.com/page1"
+        assert page["internal_links"][0]["status_class"] == "ok"
+        assert page["external_links"][0]["target_url"] == "https://external.com"
+        assert page["external_links"][0]["status_code"] == 404
+
+    def test_external_edges_do_not_increase_internal_inbound_count(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page")
+        graph.add_page(page)
+        external_edge = _make_edge(
+            "https://external.com/",
+            "https://example.com/page",
+            is_internal=False,
+        )
+
+        graph.add_edge(external_edge)
+
+        assert graph.inbound_counts.get("https://example.com/page", 0) == 0
 
 
 # ---------------------------------------------------------------------------

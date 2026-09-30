@@ -207,7 +207,28 @@ async def get_check(
             if k in allowed_keys
         })
 
-        raw_pages = summary_data.get("pages", [])
+        stored_pages = await redis_repo.get_pages(check.id)
+        if stored_pages:
+            raw_pages = [
+                {
+                    "url": page.page_url,
+                    "status_code": page.status_code,
+                    "depth": page.depth,
+                    "inbound_internal_links": page.inbound_internal_links,
+                    "outbound_internal_links": page.outbound_internal_links,
+                    "outbound_external_links": page.outbound_external_links,
+                    "broken_internal_links": page.broken_internal_links,
+                    "broken_external_links": page.broken_external_links,
+                    "internal_links": page.internal_links,
+                    "external_links": page.external_links,
+                    "is_orphan": page.is_orphan,
+                    "is_dead_end": page.is_dead_end,
+                    "issues": page.issues,
+                }
+                for page in stored_pages
+            ]
+        else:
+            raw_pages = summary_data.get("pages", [])
         page_items: List[PageAnalysisItem] = []
         for p in raw_pages:
             p_dict = p if isinstance(p, dict) else (p.model_dump() if hasattr(p, "model_dump") else p.__dict__)

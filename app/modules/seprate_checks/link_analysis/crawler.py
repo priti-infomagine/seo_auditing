@@ -15,7 +15,9 @@ from protego import Protego
 
 from app.core.config import settings
 from app.core.logger import logger
+from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.services.fetch_service import FetchResult, fetch_page
+from app.modules.crawler.services.page_crawl_service import PageCrawlService
 from app.modules.crawler.services.site_discovery_service import (
     RobotsTxtEvidence,
     SiteDiscoveryResult,
@@ -98,6 +100,7 @@ class CrawlState:
     checked_urls: Dict[str, CheckResult] = field(default_factory=dict)
     seen: Set[str] = field(default_factory=set)
     pages_crawled: int = 0
+    pages_reserved: int = 0
     blocked_by_robots: int = 0
     assets_skipped: int = 0
     crawl_truncated: bool = False
@@ -131,6 +134,7 @@ class SiteCrawler:
         self.domain = domain
         self._custom_max_pages = max_pages
         self._progress_callback = progress_callback
+        self._page_crawler: Optional[PageCrawlService] = None
 
     @property
     def page_timeout(self) -> float:
@@ -176,7 +180,7 @@ class SiteCrawler:
             )
 
     async def _safe_fetch(self, url: str) -> FetchResult:
-        """Fetch with SSRF protection; returns zeroed result on SSRF block."""
+        """Fetch with SSRF protection + browser rendering for SPA shells."""
         try:
             validate_url_ssrf(url, allow_private=False)
         except Exception as exc:
@@ -196,6 +200,38 @@ class SiteCrawler:
                 error=str(exc),
                 error_type="ssrf_blocked",
             )
+
+        # Use PageCrawlService: HttpFetcher (browser headers) → RenderDetector
+        # (SPA detection) → BrowserFetcher (Playwright fallback).
+        if self._page_crawler is not None:
+            try:
+                page_result = await self._page_crawler.crawl_page(
+                    url,
+                    timeout=self.page_timeout,
+                    user_agent=USER_AGENT,
+                )
+                if page_result.fetch_result is not None:
+                    return page_result.fetch_result
+                if page_result.error:
+                    return FetchResult(
+                        url=url,
+                        normalized_url=url,
+                        status_code=0,
+                        content=b"",
+                        headers={},
+                        final_url=url,
+                        content_type=None,
+                        content_length=0,
+                        response_time_ms=0,
+                        redirect_chain=[],
+                        success=False,
+                        error=page_result.error,
+                        error_type=page_result.error_type or "fetch_error",
+                    )
+            except Exception as exc:
+                logger.warning(f"SiteCrawler: PageCrawlService failed for {url}: {exc}")
+
+        # Fallback to original fetch_page
         try:
             return await fetch_page(
                 url,
@@ -224,7 +260,10 @@ class SiteCrawler:
 
     def _is_html_page(self, result: FetchResult) -> bool:
         ct = result.content_type
-        return bool(ct) and ct in ("text/html", "application/xhtml+xml")
+        if not ct:
+            return False
+        ct = ct.split(";", 1)[0].strip().lower()
+        return ct in ("text/html", "application/xhtml+xml")
 
     def _make_check_result(self, result: FetchResult) -> CheckResult:
         return CheckResult(
@@ -264,6 +303,32 @@ class SiteCrawler:
 
     async def crawl(self) -> CrawlResult:
         """Execute the full BFS crawl starting from the homepage."""
+        # Initialize browser-capable fetcher (HttpFetcher + RenderDetector + BrowserFetcher)
+        # to handle SPAs that serve empty HTML shells to basic HTTP clients.
+        crawl_config = CrawlConfig(
+            max_pages=self.max_pages,
+            max_depth=self.max_depth,
+            request_timeout=self.page_timeout,
+            user_agent=USER_AGENT,
+            accept_language="en-US,en;q=0.9",
+            enable_browser_rendering=True,
+            render_fallback_enabled=True,
+            max_redirects=settings.LINK_ANALYSIS_MAX_REDIRECT_HOPS,
+            browser_timeout=int(self.page_timeout),
+        )
+        self._page_crawler = PageCrawlService(config=crawl_config)
+
+        try:
+            return await self._run_crawl()
+        finally:
+            # Close the HttpFetcher's connection pool; BrowserPool is a singleton
+            # managed at the application level.
+            if self._page_crawler is not None:
+                await self._page_crawler.http_fetcher.close()
+                self._page_crawler = None
+
+    async def _run_crawl(self) -> CrawlResult:
+        """Execute the BFS crawl body."""
         discovery = await self.discover()
 
         sitemap_urls: Set[str] = set()
@@ -304,16 +369,20 @@ class SiteCrawler:
         await queue.put((home_final, 0))
 
         # Seed internal URLs discovered from sitemaps so all site pages get crawled and analyzed
-        for s_url in sitemap_urls:
+        for s_url in sorted(sitemap_urls):
             is_internal, is_http = _classify_url(s_url, base_host)
             if is_internal and is_http:
                 try:
                     s_norm = normalize_url(s_url)
                 except Exception:
                     s_norm = s_url
-                if s_norm not in state.seen and len(state.seen) < self.max_pages:
-                    state.seen.add(s_norm)
-                    await queue.put((s_norm, None))
+                if s_norm in state.seen:
+                    continue
+                if len(state.seen) >= self.max_pages:
+                    state.crawl_truncated = True
+                    continue
+                state.seen.add(s_norm)
+                await queue.put((s_norm, None))
 
         semaphore = asyncio.Semaphore(self.concurrency)
         workers = [
@@ -363,10 +432,8 @@ class SiteCrawler:
         queue: asyncio.Queue,
     ) -> None:
         """Fetch a single URL, extract links, enqueue discovered internal links."""
-        # Truncation check
-        if state.pages_crawled >= self.max_pages:
-            if len(state.graph.pages) >= self.max_pages and not state.crawl_truncated:
-                state.crawl_truncated = bool(queue.qsize())
+        if state.pages_reserved >= self.max_pages:
+            state.crawl_truncated = True
             return
 
         # Robots check — skip disallowed URLs (do NOT report as broken)
@@ -374,6 +441,7 @@ class SiteCrawler:
             state.blocked_by_robots += 1
             return
 
+        state.pages_reserved += 1
         result = await self._safe_fetch(url)
 
         # Register checked result
@@ -392,10 +460,6 @@ class SiteCrawler:
 
         # Only parse HTML pages for links
         if not result.success or not self._is_html_page(result):
-            return
-
-        if state.pages_crawled >= self.max_pages:
-            state.crawl_truncated = bool(queue.empty())
             return
 
         # Parse and extract links from final_url (post-redirect)

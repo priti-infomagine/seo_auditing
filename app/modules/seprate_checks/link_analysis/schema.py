@@ -73,6 +73,10 @@ class PageAnalysisItem(BaseModel):
     inbound_internal_links: int = 0
     outbound_internal_links: int = 0
     outbound_external_links: int = 0
+    broken_internal_links: int = 0
+    broken_external_links: int = 0
+    internal_links: List[Dict[str, Any]] = Field(default_factory=list)
+    external_links: List[Dict[str, Any]] = Field(default_factory=list)
     is_orphan: bool = False
     is_dead_end: bool = False
     issues: List[str] = Field(default_factory=list)
@@ -85,6 +89,9 @@ class LinkAnalysisSummary(BaseModel):
     internal_link_occurrences: int = 0
     unique_internal_targets: int = 0
     unique_external_targets: int = 0
+    external_link_occurrences: int = 0
+    broken_internal_link_occurrences: int = 0
+    broken_external_link_occurrences: int = 0
     unverified_links: int = 0
     broken_links: int = 0
     counts_by_category: Optional[Dict[str, int]] = None
