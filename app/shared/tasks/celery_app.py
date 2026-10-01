@@ -17,6 +17,7 @@ celery_app = Celery(
         "app.modules.seprate_checks.google_lighthouse_check.tasks",
         "app.modules.seprate_checks.sitemap_check.tasks",
         "app.modules.seprate_checks.link_analysis.tasks",
+        "app.modules.seprate_checks.meta_check.tasks",
     ],
 )
 

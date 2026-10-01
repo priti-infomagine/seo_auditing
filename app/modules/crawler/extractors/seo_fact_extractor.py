@@ -142,8 +142,14 @@ def parsed_document_to_page_facts(
 
     def _first_robot_content(meta_tags, name):
         for t in (meta_tags or []):
-            if t.name == name:
+            if t.name.lower() == name.lower():
                 return t.content
+        return ""
+
+    def _first_named_content(meta_tags, name):
+        for tag in (meta_tags or []):
+            if tag.name.lower() == name.lower():
+                return tag.content
         return ""
 
     robots_meta = _first_robot_content(metadata.robots, "robots")
@@ -163,6 +169,10 @@ def parsed_document_to_page_facts(
         open_graph=dict(metadata.open_graph or {}),
         twitter=dict(metadata.twitter or {}),
         hreflang=hreflang_list,
+        keywords=_first_named_content(metadata.meta_tags, "keywords"),
+        author=_first_named_content(metadata.meta_tags, "author"),
+        theme_color=_first_named_content(metadata.meta_tags, "theme-color"),
+        meta_tags=[tag.model_dump(mode="json") for tag in metadata.meta_tags],
     )
 
     page_url = doc_info.url or ""

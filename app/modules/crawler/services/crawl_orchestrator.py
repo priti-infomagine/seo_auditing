@@ -504,10 +504,14 @@ class CrawlOrchestrator:
                 "robots_meta": page_facts.metadata.robots_meta,
                 "googlebot": page_facts.metadata.googlebot,
                 "viewport": page_facts.metadata.viewport,
+                "keywords": page_facts.metadata.keywords,
+                "author": page_facts.metadata.author,
+                "theme_color": page_facts.metadata.theme_color,
                 "charset": page_facts.metadata.charset,
                 "favicon": page_facts.metadata.favicon,
                 "open_graph": page_facts.metadata.open_graph or {},
                 "twitter": page_facts.metadata.twitter or {},
+                "meta_tags": page_facts.metadata.meta_tags or [],
                 "hreflang": [
                     {"url": h.get("url", ""), "hreflang": h.get("hreflang", "")}
                     for h in (page_facts.metadata.hreflang or [])

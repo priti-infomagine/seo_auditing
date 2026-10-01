@@ -36,6 +36,7 @@ import app.modules.payment.models  # noqa: F401
 import app.modules.seprate_checks.robots_check.model  # noqa: F401
 import app.modules.seprate_checks.sitemap_check.model  # noqa: F401
 import app.modules.seprate_checks.link_analysis.model  # noqa: F401
+import app.modules.seprate_checks.meta_check.model  # noqa: F401
 
 # Audit
 import app.modules.audit.models.parsed_page_facts  # noqa: F401
