@@ -21,6 +21,8 @@ from app.modules.seprate_checks.link_analysis.graph import (
 from app.modules.seprate_checks.link_analysis.model import (
     FindingCategory,
     FindingType,
+    LinkAnalysisCheck,
+    LinkAnalysisOverallStatus,
     LinkAnalysisSeverity,
     LinkStatusClass,
 )
@@ -263,6 +265,70 @@ class TestFindDeepPages:
         assert f.category == FindingCategory.OPTIMIZATION
         assert f.extra["depth"] == 4
 
+    def test_finds_deep_page_at_depth_5(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/deep5", status_code=200, depth=5)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 1
+        f = findings[0]
+        assert f.type == FindingType.DEEP_PAGE
+        assert f.category == FindingCategory.OPTIMIZATION
+        assert f.extra["depth"] == 5
+
+    def test_none_depth_page_not_flagged(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/orphan-seed", status_code=200, depth=None)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 0
+
+    def test_non_200_none_depth_page_not_flagged(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/broken-seed", status_code=404, depth=None)
+        graph.add_page(page)
+
+        findings = analyzer._find_deep_pages(graph)
+        assert len(findings) == 0
+
+
+# ---------------------------------------------------------------------------
+# set_min_depth
+# ---------------------------------------------------------------------------
+
+
+class TestSetMinDepth:
+    def test_sets_depth_from_none(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/orphan-seed", depth=None)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/orphan-seed", 4)
+        assert graph.pages["https://example.com/orphan-seed"].depth == 4
+
+    def test_keeps_minimum_depth(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page", depth=3)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/page", 5)
+        assert graph.pages["https://example.com/page"].depth == 3
+
+    def test_never_resets_to_none(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page", depth=3)
+        graph.add_page(page)
+
+        graph.set_min_depth("https://example.com/page", None)
+        assert graph.pages["https://example.com/page"].depth == 3
+
+    def test_unknown_url_is_noop(self):
+        graph = _make_graph()
+        graph.set_min_depth("https://example.com/nope", 4)
+        assert len(graph.pages) == 0
+
 
 # ---------------------------------------------------------------------------
 # _find_dead_end_pages
@@ -481,6 +547,54 @@ class TestAnalyzeOptimization:
 
 
 class TestComputeSummary:
+    def test_page_counts_include_mailto_and_tel_without_duplicate_final_urls(self):
+        graph = _make_graph()
+        page_url = "https://example.com/contact-us"
+        page = _make_page(page_url)
+
+        internal_targets = [f"https://example.com/page-{index}" for index in range(32)]
+        for index in range(51):
+            edge = _make_edge(page_url, internal_targets[index % len(internal_targets)])
+            page.outgoing_edges.append(edge)
+            graph.add_edge(edge)
+
+        for index in range(7):
+            page.outgoing_edges.append(_make_edge(
+                page_url,
+                f"https://external.example/link-{index}",
+                is_internal=False,
+            ))
+
+        page.non_http_links.extend([
+            _make_edge(page_url, "mailto:hello@example.com"),
+            _make_edge(page_url, "tel:+1234567890"),
+        ])
+        graph.add_page(page)
+
+        checked_urls = {
+            internal_targets[0]: CheckResult(
+                status_class=LinkStatusClass.OK,
+                status_code=200,
+                final_url=internal_targets[0],
+            ),
+            internal_targets[1]: CheckResult(
+                status_class=LinkStatusClass.REDIRECT,
+                status_code=301,
+                final_url="https://example.com/page-1-destination",
+            ),
+        }
+        summary = compute_summary(graph, checked_urls, [], set(), False)
+        page_summary = summary["pages"][0]
+
+        assert page_summary["total_links"] == 60
+        assert page_summary["unique_links"] == 41
+        assert page_summary["outbound_internal_links"] == 53
+        assert page_summary["outbound_external_links"] == 7
+        assert "final_url" not in page_summary["internal_links"][0]
+        assert page_summary["internal_links"][1]["final_url"] == (
+            "https://example.com/page-1-destination"
+        )
+
     def test_summary_counts(self):
         graph = _make_graph()
         home = _make_page("https://example.com/", status_code=200)
@@ -501,7 +615,43 @@ class TestComputeSummary:
         assert summary["broken_links"] == 1
         assert summary["unique_external_targets"] == 1
         assert summary["internal_link_occurrences"] == 1
+        assert summary["external_link_occurrences"] == 1
+        assert summary["broken_external_link_occurrences"] == 1
         assert summary["crawl_truncated"] is False
+        page = summary["pages"][0]
+        assert page["outbound_internal_links"] == 1
+        assert page["outbound_external_links"] == 1
+        assert page["internal_links"][0]["target_url"] == "https://example.com/page1"
+        assert page["internal_links"][0]["status_class"] == "ok"
+        assert page["external_links"][0]["target_url"] == "https://external.com"
+        assert page["external_links"][0]["status_code"] == 404
+
+    def test_external_edges_do_not_increase_internal_inbound_count(self):
+        graph = _make_graph()
+        page = _make_page("https://example.com/page")
+        graph.add_page(page)
+        external_edge = _make_edge(
+            "https://external.com/",
+            "https://example.com/page",
+            is_internal=False,
+        )
+
+        graph.add_edge(external_edge)
+
+        assert graph.inbound_counts.get("https://example.com/page", 0) == 0
+
+    def test_database_enums_bind_lowercase_values(self):
+        from sqlalchemy.dialects.postgresql import dialect
+
+        bind_overall = LinkAnalysisCheck.__table__.c.overall_status.type.bind_processor(
+            dialect()
+        )
+        bind_severity = LinkAnalysisCheck.__table__.c.severity.type.bind_processor(
+            dialect()
+        )
+
+        assert bind_overall(LinkAnalysisOverallStatus.WARNING) == "warning"
+        assert bind_severity(LinkAnalysisSeverity.MEDIUM) == "medium"
 
 
 # ---------------------------------------------------------------------------

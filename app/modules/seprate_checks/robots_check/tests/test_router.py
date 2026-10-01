@@ -207,7 +207,7 @@ async def test_router_result_returns_cached(db_session, patch_clients):
 
 @pytest.mark.asyncio
 async def test_router_check_404_result(db_session, patch_clients):
-    """POST /check with a domain returning 404 → NOT_FOUND status."""
+    """POST /check with no robots.txt returns the requested HTTP 404 error."""
     MockHTTPClient, MockSitemapClient = patch_clients
     MockHTTPClient._mock_response = _make_response("Not found", 404)
 
@@ -215,7 +215,5 @@ async def test_router_check_404_result(db_session, patch_clients):
         async with AsyncClient(transport=transport, base_url="http://test") as ac:
             response = await ac.post("/api/v1/robots/check", json={"domain": "example.com"})
 
-    assert response.status_code == 200
-    data = response.json()
-    assert data["fetch_status"] == "not_found"
-    assert data["exists"] is False
+    assert response.status_code == 404
+    assert response.json()["detail"] == "No robots.txt found (HTTP 404)"

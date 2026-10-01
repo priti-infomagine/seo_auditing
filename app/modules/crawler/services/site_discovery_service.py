@@ -59,6 +59,7 @@ class SiteDiscoveryResult:
     robots: RobotsTxtEvidence
     sitemaps: list = field(default_factory=list)
     discovered_urls: list = field(default_factory=list)
+    sitemap_probes: list = field(default_factory=list)
 
 
 class SiteDiscoveryService:
@@ -100,6 +101,7 @@ class SiteDiscoveryService:
             max_sitemap_index_depth if max_sitemap_index_depth is not None else self.MAX_SITEMAP_INDEX_DEPTH
         )
         self._http_client: Optional[HTTPClient] = None
+        self._sitemap_probes: List[SitemapEvidence] = []
 
     @asynccontextmanager
     async def _get_client(self) -> AsyncGenerator[HTTPClient, None]:
@@ -143,6 +145,7 @@ class SiteDiscoveryService:
             robots=robots,
             sitemaps=sitemaps,
             discovered_urls=discovered_urls,
+            sitemap_probes=list(self._sitemap_probes),
         )
 
     async def _fetch_robots(self) -> RobotsTxtEvidence:
@@ -208,6 +211,7 @@ class SiteDiscoveryService:
                 sitemap_candidates.append(url)
 
         sitemaps: List[SitemapEvidence] = []
+        self._sitemap_probes = []
         seen: Set[str] = set()
 
         candidates_to_fetch = list(
@@ -231,6 +235,7 @@ class SiteDiscoveryService:
             if isinstance(result, Exception):
                 logger.debug("Candidate fetch failed for %s: %s", sitemap_url, result)
                 continue
+            self._sitemap_probes.append(result)
             if result.exists:
                 sitemaps.append(result)
                 if result.is_index:
@@ -299,6 +304,7 @@ class SiteDiscoveryService:
                     "Child sitemap fetch failed for %s: %s", child_url, child_evidence
                 )
                 continue
+            self._sitemap_probes.append(child_evidence)
             if child_evidence.exists:
                 sitemaps.append(child_evidence)
                 if child_evidence.is_index:
@@ -324,7 +330,6 @@ class SiteDiscoveryService:
                 evidence.content_length = len(response.content)
 
                 if response.status_code == 200 and response.content:
-                    evidence.exists = True
                     content = response.content
                     # Handle gzip-compressed sitemaps
                     if "gzip" in evidence.content_type or sitemap_url.endswith(".gz"):
@@ -334,7 +339,9 @@ class SiteDiscoveryService:
                             pass
                     text = content.decode("utf-8", errors="ignore")
                     evidence.raw_content = text
-                    self._parse_sitemap_xml(text, evidence, sitemap_url)
+                    evidence.exists = self._parse_sitemap_xml(
+                        text, evidence, sitemap_url
+                    )
                     logger.debug(
                         "Fetched sitemap %s: status=%d, urls=%d, child_sitemaps=%d, is_index=%s",
                         sitemap_url,
@@ -356,11 +363,20 @@ class SiteDiscoveryService:
         xml_text: str,
         evidence: SitemapEvidence,
         sitemap_url: str,
-    ) -> None:
+    ) -> bool:
         """Parse sitemap XML, populating ``urls`` (URL set) and
-        ``child_sitemaps`` (index) using namespace-agnostic wildcards."""
+        ``child_sitemaps`` (index) using namespace-agnostic wildcards.
+
+        Return whether the document uses a recognized sitemap root element.
+        The MIME type is not used because valid sitemap XML is sometimes
+        served with an incorrect ``text/html`` content type.
+        """
         try:
             root = ET.fromstring(xml_text)
+            root_tag = root.tag.rsplit("}", 1)[-1].lower()
+            if root_tag not in {"urlset", "sitemapindex"}:
+                evidence.error = f"Unexpected XML root element: {root_tag}"
+                return False
 
             for loc in root.findall(".//{*}url/{*}loc"):
                 if loc.text and loc.text.strip():
@@ -372,6 +388,8 @@ class SiteDiscoveryService:
                     resolved = urljoin(sitemap_url, loc.text.strip())
                     evidence.child_sitemaps.append(resolved)
 
-            evidence.is_index = len(evidence.child_sitemaps) > 0
+            evidence.is_index = root_tag == "sitemapindex"
+            return True
         except ET.ParseError as exc:
             evidence.error = str(exc)
+            return False

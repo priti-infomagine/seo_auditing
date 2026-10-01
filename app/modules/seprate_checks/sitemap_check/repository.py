@@ -73,6 +73,7 @@ class SitemapCheckRepository:
         recommendations: List[Dict[str, Any]],
         report_markdown: str,
         cost_seconds: float,
+        sitemap_results: Optional[List[Dict[str, Any]]] = None,
         accessibility_score: Optional[int] = None,
         best_practices_score: Optional[int] = None,
     ) -> Optional[SitemapCheck]:
@@ -85,6 +86,7 @@ class SitemapCheckRepository:
                 severity=_val(severity),
                 summary=summary,
                 sitemaps=sitemaps,
+                sitemap_results=sitemap_results or [],
                 findings=findings,
                 recommendations=recommendations,
                 report_markdown=report_markdown,

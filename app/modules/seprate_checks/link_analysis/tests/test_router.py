@@ -8,6 +8,7 @@ from httpx import ASGITransport, AsyncClient
 
 from app.modules.seprate_checks.link_analysis.model import (
     LinkAnalysisCheck,
+    LinkAnalysisPage,
     LinkAnalysisCheckStatus,
 )
 from app.modules.seprate_checks.link_analysis.schema import (
@@ -302,4 +303,63 @@ class TestGetCheck:
                 d_orphan = r_orphan.json()
                 assert len(d_orphan["pages"]) == 1
                 assert d_orphan["pages"][0]["url"] == "https://example.com/orphan-page"
+
+    @pytest.mark.asyncio
+    async def test_get_check_returns_persisted_page_link_evidence(self, db_session, mock_redis):
+        from app.main import app
+
+        check = LinkAnalysisCheck(
+            url="https://example.com",
+            domain="example.com",
+            status=LinkAnalysisCheckStatus.COMPLETED,
+            summary={"pages_crawled": 1},
+        )
+        db_session.add(check)
+        await db_session.flush()
+        db_session.add(LinkAnalysisPage(
+            check_id=check.id,
+            page_url="https://example.com/",
+            status_code=200,
+            depth=0,
+            inbound_internal_links=0,
+            outbound_internal_links=1,
+            outbound_external_links=1,
+            broken_internal_links=0,
+            broken_external_links=1,
+            is_orphan=False,
+            is_dead_end=False,
+            issues=[],
+            internal_links=[{
+                "target_url": "https://example.com/about",
+                "anchor_text": "About",
+                "rel": [],
+                "status_class": "ok",
+                "status_code": 200,
+                "check_status": "checked",
+            }],
+            external_links=[{
+                "target_url": "https://external.example/broken",
+                "anchor_text": "External",
+                "rel": [],
+                "status_class": "broken",
+                "status_code": 404,
+                "check_status": "checked",
+            }],
+        ))
+        await db_session.commit()
+
+        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+            mock_get_redis.return_value = mock_redis
+            async with AsyncClient(
+                transport=ASGITransport(app=app), base_url="http://test"
+            ) as ac:
+                response = await ac.get(f"/api/v1/link-analysis/check/{check.id}")
+
+        assert response.status_code == 200
+        page = response.json()["pages"][0]
+        assert page["outbound_internal_links"] == 1
+        assert page["outbound_external_links"] == 1
+        assert page["broken_external_links"] == 1
+        assert page["internal_links"][0]["anchor_text"] == "About"
+        assert page["external_links"][0]["status_code"] == 404
 

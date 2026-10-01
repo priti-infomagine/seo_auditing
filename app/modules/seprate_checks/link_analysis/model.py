@@ -19,10 +19,12 @@ from sqlalchemy import (
     Enum,
     Float,
     ForeignKey,
+    Integer,
     Index,
     SmallInteger,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
@@ -127,6 +129,7 @@ class LinkAnalysisCheck(TimestampMixin, Base):
             name="link_analysis_overall_status",
             create_type=False,
             validate_strings=True,
+            values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=True,
     )
@@ -136,6 +139,7 @@ class LinkAnalysisCheck(TimestampMixin, Base):
             name="link_analysis_severity",
             create_type=False,
             validate_strings=True,
+            values_callable=lambda enum_class: [member.value for member in enum_class],
         ),
         nullable=True,
     )
@@ -144,6 +148,39 @@ class LinkAnalysisCheck(TimestampMixin, Base):
     check_version: Mapped[str] = mapped_column(
         String(20), nullable=False, default="1.0.0"
     )
+
+
+class LinkAnalysisPage(TimestampMixin, Base):
+    """Per-page crawl metrics and complete outgoing-link evidence."""
+
+    __tablename__ = "link_analysis_pages"
+
+    __table_args__ = (
+        UniqueConstraint("check_id", "page_url", name="uq_link_analysis_pages_check_url"),
+        Index("ix_link_analysis_pages_check_depth", "check_id", "depth"),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    check_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("link_analysis_checks.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    page_url: Mapped[str] = mapped_column(Text, nullable=False)
+    status_code: Mapped[int | None] = mapped_column(SmallInteger, nullable=True)
+    depth: Mapped[int] = mapped_column(Integer, nullable=False, default=-1)
+    inbound_internal_links: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    outbound_internal_links: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    outbound_external_links: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    broken_internal_links: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    broken_external_links: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    is_orphan: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_dead_end: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    issues: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    internal_links: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    external_links: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
 
 
 class LinkFinding(TimestampMixin, Base):
@@ -201,5 +238,6 @@ __all__ = [
     "LinkStatusClass",
     "WhereToFix",
     "LinkAnalysisCheck",
+    "LinkAnalysisPage",
     "LinkFinding",
 ]

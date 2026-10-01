@@ -114,6 +114,22 @@ class SitemapCheckResultResponse(BaseModel):
     cost_seconds: Optional[float] = None
 
 
+class CompactSitemapFileItem(BaseModel):
+    url: str
+    status: int
+    contentType: str
+    entries: int
+
+
+class CompactSitemapData(BaseModel):
+    url: str
+    sitemaps: List[CompactSitemapFileItem] = Field(default_factory=list)
+
+
+class CompactSitemapResultResponse(BaseModel):
+    data: CompactSitemapData
+
+
 class SitemapCheckStatusResponse(BaseModel):
     """Response returned when polling /status/{check_id}."""
     check_id: UUID

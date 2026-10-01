@@ -8,15 +8,11 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.config import settings
 from app.core.database import async_session_factory
 from app.core.logger import logger
 from app.modules.crawler.services.site_discovery_service import (
     SiteDiscoveryResult,
     SiteDiscoveryService,
-)
-from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
-    PagespeedClient,
 )
 from app.shared.utils.url_utils import normalize_host
 
@@ -60,11 +56,6 @@ class SitemapCheckService:
     MAX_INDEX_DEPTH = 5
     FETCH_TIMEOUT_SECONDS = 15
     TOTAL_TIMEOUT_SECONDS = 90
-
-    # PageSpeed / Lighthouse integration
-    PAGESPEED_CONCURRENCY = 5
-    PAGESPEED_TIMEOUT_SECONDS = 40
-    MAX_PAGESPEED_URLS = 10
 
     @classmethod
     async def prepare_check(
@@ -179,11 +170,6 @@ class SitemapCheckService:
                 result, sitemap_items, domain
             )
 
-            # 6. Page-level Lighthouse scores (accessibility + best practices)
-            lighthouse_summary = await self._run_pagespeed_scores(
-                result.discovered_urls, domain
-            )
-
             # 7. Aggregate all findings and recommendations
             all_findings: List[SitemapIssue] = list(domain_issues)
             all_recommendations: List[SitemapRecommendation] = list(domain_recs)
@@ -191,23 +177,6 @@ class SitemapCheckService:
             for item in sitemap_items:
                 all_findings.extend(item.issues)
                 all_recommendations.extend(item.recommendations)
-
-            # Add Lighthouse availability finding (only when API key present but all checks failed)
-            if lighthouse_summary is not None:
-                if (
-                    not lighthouse_summary.get("api_key_missing")
-                    and lighthouse_summary["scored_pages"] == 0
-                    and len(result.discovered_urls) > 0
-                ):
-                    all_findings.append(
-                        SitemapIssue(
-                            code="lighthouse_scores_unavailable",
-                            severity="low",
-                            status="warning",
-                            message="PageSpeed Insights audit could not score any page URLs",
-                            evidence=f"Attempted {min(len(result.discovered_urls), self.MAX_PAGESPEED_URLS)} URL(s); 0 succeeded",
-                        )
-                    )
 
             # Deduplicate recommendations by code
             seen_rec_codes = set()
@@ -228,7 +197,7 @@ class SitemapCheckService:
                 url_sitemaps=url_sitemaps,
                 total_urls_declared=total_urls_declared,
                 total_issues=len(all_findings),
-                lighthouse_scored_pages=lighthouse_summary["scored_pages"] if lighthouse_summary else 0,
+                lighthouse_scored_pages=0,
             )
 
             cost_seconds = round(time.perf_counter() - start_time, 3)
@@ -240,7 +209,6 @@ class SitemapCheckService:
                 sitemaps=sitemap_items,
                 findings=all_findings,
                 recommendations=deduped_recommendations,
-                lighthouse_summary=lighthouse_summary,
             )
 
             # 9. Persist COMPLETED State
@@ -256,8 +224,20 @@ class SitemapCheckService:
                 ],
                 report_markdown=report_markdown,
                 cost_seconds=cost_seconds,
-                accessibility_score=lighthouse_summary.get("avg_accessibility") if lighthouse_summary else None,
-                best_practices_score=lighthouse_summary.get("avg_best_practices") if lighthouse_summary else None,
+                sitemap_results=[
+                    {
+                        "url": probe.url,
+                        "status_code": probe.status_code or 0,
+                        "content_type": probe.content_type or "",
+                        "entry_count": (
+                            len(probe.child_sitemaps)
+                            if probe.is_index
+                            else len(probe.urls or [])
+                        ),
+                        "is_index": probe.is_index,
+                    }
+                    for probe in result.sitemap_probes
+                ],
             )
             await db.commit()
 
@@ -429,7 +409,7 @@ class SitemapCheckService:
             is_index=item.is_index,
             status_code=item.status_code or 0,
             content_type=item.content_type or "unknown",
-            entry_count=url_count,
+            entry_count=len(item.child_sitemaps) if item.is_index else url_count,
             content_length=item.content_length or 0,
             response_time_ms=0,
             error=item.error,
@@ -471,93 +451,6 @@ class SitemapCheckService:
 
         recommendations = self._generate_recommendations_for_issues(issues)
         return issues, recommendations
-
-    async def _run_pagespeed_scores(
-        self,
-        discovered_urls: List[str],
-        domain: str,
-    ) -> Optional[Dict[str, Any]]:
-        """Run PageSpeed Insights (Lighthouse) for a sample of discovered page URLs.
-
-        Returns a dict with aggregated scores or None if no URLs to check.
-        """
-        if not discovered_urls:
-            return {
-                "scored_pages": 0,
-                "avg_accessibility": None,
-                "avg_best_practices": None,
-                "api_key_missing": False,
-            }
-
-        api_key = settings.GOOGLE_PAGESPEED_API_KEY
-        if not api_key:
-            return {
-                "scored_pages": 0,
-                "avg_accessibility": None,
-                "avg_best_practices": None,
-                "api_key_missing": True,
-            }
-
-        sample_urls = discovered_urls[: self.MAX_PAGESPEED_URLS]
-        semaphore = asyncio.Semaphore(self.PAGESPEED_CONCURRENCY)
-        client = PagespeedClient(api_key=api_key)
-        scored = 0
-        access_scores: List[int] = []
-        best_practices_scores: List[int] = []
-
-        try:
-            async def _check_one(url: str) -> None:
-                nonlocal scored
-                async with semaphore:
-                    try:
-                        raw = await asyncio.wait_for(
-                            client.fetch(
-                                url=url,
-                                strategy="mobile",
-                                category=["accessibility", "best-practices"],
-                            ),
-                            timeout=self.PAGESPEED_TIMEOUT_SECONDS,
-                        )
-                        parsed = PagespeedClient.parse_result(
-                            raw, url, "mobile"
-                        )
-                        if parsed.get("accessibility_score") is not None:
-                            access_scores.append(parsed["accessibility_score"])
-                        if parsed.get("best_practices_score") is not None:
-                            best_practices_scores.append(parsed["best_practices_score"])
-                        async with semaphore:
-                            scored += 1
-                    except Exception as exc:
-                        logger.warning(
-                            f"Pagespeed check failed for {url}: {exc}", exc_info=True
-                        )
-
-            await asyncio.gather(*[_check_one(u) for u in sample_urls])
-        finally:
-            await client.close()
-
-        avg_accessibility = (
-            round(sum(access_scores) / len(access_scores))
-            if access_scores
-            else None
-        )
-        avg_best_practices = (
-            round(sum(best_practices_scores) / len(best_practices_scores))
-            if best_practices_scores
-            else None
-        )
-
-        logger.info(
-            f"_run_pagespeed_scores: scored {scored}/{len(sample_urls)} URLs "
-            f"for {domain} — accessibility={avg_accessibility}, best_practices={avg_best_practices}"
-        )
-
-        return {
-            "scored_pages": scored,
-            "avg_accessibility": avg_accessibility,
-            "avg_best_practices": avg_best_practices,
-            "api_key_missing": False,
-        }
 
     def _generate_recommendations_for_issues(
         self, issues: List[SitemapIssue]
@@ -694,7 +587,6 @@ class SitemapCheckService:
         sitemaps: List[SitemapFileItem],
         findings: List[SitemapIssue],
         recommendations: List[SitemapRecommendation],
-        lighthouse_summary: Optional[Dict[str, Any]] = None,
     ) -> str:
         """Generate formatted markdown audit report."""
         lines = [
@@ -735,29 +627,5 @@ class SitemapCheckService:
                 lines.append(f"- **Priority:** {r.priority.capitalize()} | **Fix Location:** `{r.where_to_fix}`")
                 lines.append(f"- **Action:** {r.fix}")
                 lines.append("")
-
-        if lighthouse_summary:
-            lines.extend(["", "## Page-Level Lighthouse Scores (Sampled)"])
-            scored = lighthouse_summary.get("scored_pages", 0)
-            access = lighthouse_summary.get("avg_accessibility")
-            best = lighthouse_summary.get("avg_best_practices")
-            if scored == 0 and lighthouse_summary.get("api_key_missing"):
-                lines.append(
-                    "- *Lighthouse scores unavailable: GOOGLE_PAGESPEED_API_KEY not configured.*"
-                )
-            elif scored == 0:
-                lines.append(
-                    "- *No page URLs were available to audit for Lighthouse scores.*"
-                )
-            else:
-                lines.append(f"- **Pages Scored:** {scored}")
-                lines.append(
-                    f"- **Accessibility Score (avg):** "
-                    f"{access}/100" if access is not None else "- **Accessibility Score (avg):** N/A"
-                )
-                lines.append(
-                    f"- **Best Practices Score (avg):** "
-                    f"{best}/100" if best is not None else "- **Best Practices Score (avg):** N/A"
-                )
 
         return "\n".join(lines).rstrip()

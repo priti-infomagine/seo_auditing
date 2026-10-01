@@ -10,7 +10,7 @@ and overall verdict. Use query filters (category, type, severity) to
 narrow the findings list and pagination to browse.
 """
 import asyncio
-from typing import Optional
+from typing import Optional ,List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -207,7 +207,44 @@ async def get_check(
             if k in allowed_keys
         })
 
-        raw_pages = summary_data.get("pages", [])
+        stored_pages = await redis_repo.get_pages(check.id)
+        if stored_pages:
+            raw_pages = [
+                {
+                    "url": page.page_url,
+                    "status_code": page.status_code,
+                    "depth": page.depth,
+                    "inbound_internal_links": page.inbound_internal_links,
+                    "outbound_internal_links": page.outbound_internal_links,
+                    "outbound_external_links": page.outbound_external_links,
+                    "total_links": page.outbound_internal_links + page.outbound_external_links,
+                    "unique_links": len({
+                        link.get("target_url")
+                        for link in page.internal_links + page.external_links
+                        if link.get("target_url")
+                    }),
+                    "unique_internal_targets": len({
+                        link.get("target_url")
+                        for link in page.internal_links
+                        if link.get("target_url")
+                    }),
+                    "unique_external_targets": len({
+                        link.get("target_url")
+                        for link in page.external_links
+                        if link.get("target_url")
+                    }),
+                    "broken_internal_links": page.broken_internal_links,
+                    "broken_external_links": page.broken_external_links,
+                    "internal_links": page.internal_links,
+                    "external_links": page.external_links,
+                    "is_orphan": page.is_orphan,
+                    "is_dead_end": page.is_dead_end,
+                    "issues": page.issues,
+                }
+                for page in stored_pages
+            ]
+        else:
+            raw_pages = summary_data.get("pages", [])
         page_items: List[PageAnalysisItem] = []
         for p in raw_pages:
             p_dict = p if isinstance(p, dict) else (p.model_dump() if hasattr(p, "model_dump") else p.__dict__)
@@ -221,6 +258,28 @@ async def get_check(
                 continue
             if has_issues is False and p_dict.get("issues"):
                 continue
+            internal_links = p_dict.get("internal_links", [])
+            external_links = p_dict.get("external_links", [])
+            p_dict.setdefault(
+                "total_links",
+                p_dict.get("outbound_internal_links", 0)
+                + p_dict.get("outbound_external_links", 0),
+            )
+            p_dict.setdefault("unique_links", len({
+                link.get("target_url")
+                for link in internal_links + external_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
+            p_dict.setdefault("unique_internal_targets", len({
+                link.get("target_url")
+                for link in internal_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
+            p_dict.setdefault("unique_external_targets", len({
+                link.get("target_url")
+                for link in external_links
+                if isinstance(link, dict) and link.get("target_url")
+            }))
             page_items.append(PageAnalysisItem(**p_dict))
 
         finding_responses = []

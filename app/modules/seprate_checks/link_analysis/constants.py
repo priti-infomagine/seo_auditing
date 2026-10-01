@@ -18,7 +18,11 @@ from app.modules.seprate_checks.link_analysis.model import (
 )
 
 
-USER_AGENT = "SEOAudit-Bot/1.0"
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/120.0.0.0 Safari/537.36"
+)
 
 EVIDENCE_SOURCE_CAP: int = settings.LINK_ANALYSIS_EVIDENCE_SOURCE_CAP
 GENERIC_ANCHORS: Set[str] = {

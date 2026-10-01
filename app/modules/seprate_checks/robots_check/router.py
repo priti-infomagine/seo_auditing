@@ -180,4 +180,10 @@ async def check_robots(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while checking robots.txt",
         )
+    fetch_status = result.fetch_status.value if hasattr(result.fetch_status, "value") else result.fetch_status
+    if fetch_status == FetchStatus.NOT_FOUND.value:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No robots.txt found (HTTP 404)",
+        )
     return _to_response(result)

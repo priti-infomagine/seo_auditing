@@ -19,6 +19,7 @@ from .model import (
     LinkAnalysisCheckStatus,
     LinkAnalysisOverallStatus,
     LinkAnalysisSeverity,
+    LinkAnalysisPage,
     LinkFinding,
     FindingCategory,
     FindingType,
@@ -206,6 +207,44 @@ class LinkAnalysisRepository:
         if findings:
             self.db.add_all(findings)
             await self.db.flush()
+
+    async def replace_pages(
+        self,
+        check_id: UUID,
+        pages: List[Dict[str, Any]],
+    ) -> None:
+        await self.db.execute(
+            delete(LinkAnalysisPage).where(LinkAnalysisPage.check_id == check_id)
+        )
+        if pages:
+            self.db.add_all([
+                LinkAnalysisPage(
+                    check_id=check_id,
+                    page_url=page["url"],
+                    status_code=page.get("status_code"),
+                    depth=page.get("depth", -1),
+                    inbound_internal_links=page.get("inbound_internal_links", 0),
+                    outbound_internal_links=page.get("outbound_internal_links", 0),
+                    outbound_external_links=page.get("outbound_external_links", 0),
+                    broken_internal_links=page.get("broken_internal_links", 0),
+                    broken_external_links=page.get("broken_external_links", 0),
+                    is_orphan=page.get("is_orphan", False),
+                    is_dead_end=page.get("is_dead_end", False),
+                    issues=page.get("issues", []),
+                    internal_links=page.get("internal_links", []),
+                    external_links=page.get("external_links", []),
+                )
+                for page in pages
+            ])
+        await self.db.flush()
+
+    async def get_pages(self, check_id: UUID) -> List[LinkAnalysisPage]:
+        result = await self.db.execute(
+            select(LinkAnalysisPage)
+            .where(LinkAnalysisPage.check_id == check_id)
+            .order_by(LinkAnalysisPage.depth, LinkAnalysisPage.inbound_internal_links.desc())
+        )
+        return list(result.scalars().all())
 
     async def get_findings(
         self,
