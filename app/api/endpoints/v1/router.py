@@ -23,6 +23,7 @@ from app.modules.seprate_checks.sitemap_check.router import (
 from app.modules.seprate_checks.link_analysis.router import (
     router as link_analysis_router,
 )
+from app.modules.seprate_checks.meta_check.router import router as meta_router
 
 router = APIRouter()
 
@@ -41,5 +42,6 @@ router.include_router(lighthouse_router, prefix="/lighthouse", tags=["Lighthouse
 router.include_router(robots_router, prefix="/robots", tags=["Robots"])
 router.include_router(sitemap_router, prefix="/sitemap", tags=["Sitemap"])
 router.include_router(link_analysis_router, prefix="/link-analysis", tags=["Link Analysis"])
+router.include_router(meta_router, prefix="/meta", tags=["Meta Metadata"])
 
 __all__ = ["router"]
