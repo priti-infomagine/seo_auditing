@@ -14,6 +14,9 @@ task_routes = {
     "link_analysis.*": {
         "queue": "crawler",
     },
+    "redirect_check.*": {
+        "queue": "crawler",
+    },
     "audit.*": {
         "queue": "audit",
     },

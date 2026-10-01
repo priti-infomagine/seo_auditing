@@ -121,7 +121,7 @@ async def check_links(
 
 
 @router.get(
-    "/check/{check_id}",
+    "/status-result/{check_id}",
     response_model=LinkAnalysisCheckResponse,
     summary="Poll status and retrieve results for a link analysis check",
     description=(

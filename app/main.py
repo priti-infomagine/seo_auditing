@@ -86,6 +86,18 @@ async def lifespan(app: FastAPI):
             exc_info=True,
         )
 
+    try:
+        from app.modules.crawler.rendering.browser_pool import BrowserPool
+
+        if BrowserPool._instance is not None:
+            await BrowserPool._instance.close()
+    except Exception as exc:
+        logger.warning(
+            "BrowserPool close failed during lifespan shutdown: %s",
+            type(exc).__name__,
+            exc_info=True,
+        )
+
 
 app = FastAPI(
     title=settings.APP_NAME,

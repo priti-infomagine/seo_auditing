@@ -1,0 +1,1 @@
+"""Stateless URL and domain redirect checker."""
