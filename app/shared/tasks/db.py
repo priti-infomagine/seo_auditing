@@ -82,14 +82,14 @@ def run_async(coro):
     process and reused across tasks — it is NOT recreated or disposed per task.
 
     Falls back to ``asyncio.run()`` (with per-run disposal) when no persistent
-    loop exists (e.g. tests, standalone scripts outside Celery).
+    loop exists (e.g. standalone scripts outside Celery).  When a running loop
+    is already active (e.g. ``@pytest.mark.asyncio`` tests), ``nest_asyncio``
+    is applied so the coroutine runs on the same loop — keeping DB sessions
+    co-bound to the correct event loop.
     """
     if _worker_loop is not None:
         return _worker_loop.run_until_complete(coro)
 
-    # Fallback for non-Celery contexts (tests, standalone scripts).
-    # Still dispose per-run to avoid "Event loop is closed" errors since
-    # the singleton engine may have connections bound to a previous loop.
     async def _wrapper():
         try:
             return await coro
@@ -99,4 +99,16 @@ def run_async(coro):
             except Exception:
                 pass  # best-effort; non-fatal during shutdown
 
-    return asyncio.run(_wrapper())
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop — safe to use asyncio.run() (standalone scripts).
+        return asyncio.run(_wrapper())
+
+    # Running inside an existing event loop (e.g. pytest-asyncio tests).
+    # asyncio.run() fails because the loop is already running.  Apply
+    # nest_asyncio and use run_until_complete on the same loop so that
+    # async DB sessions stay co-bound to the correct event loop.
+    import nest_asyncio
+    nest_asyncio.apply(loop)
+    return loop.run_until_complete(_wrapper())
