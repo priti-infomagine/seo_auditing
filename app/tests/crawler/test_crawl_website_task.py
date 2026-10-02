@@ -22,20 +22,9 @@ from app.modules.crawler.repositories.crawl_job_repository import CrawlJobReposi
 from app.modules.crawler.tasks import crawl_website as crawl_website_task
 
 
-class _FakeSelf:
-    """Minimal stand-in for the bound Celery task — exposes update_state()."""
-
-    def __init__(self):
-        self.states = []
-
-    def update_state(self, state, meta=None):
-        self.states.append({"state": state, "meta": meta})
-
-
 @pytest.mark.asyncio
 async def test_crawl_website_recreates_missing_crawljob_row(db_session):
     """When the CrawlJob row is missing, the task self-heals by INSERTing one."""
-    fake_self = _FakeSelf()
     audit_id = uuid4()
     user_id = uuid4()
     url = "https://radonindia.com/"
@@ -54,9 +43,10 @@ async def test_crawl_website_recreates_missing_crawljob_row(db_session):
             orch_instance.run = AsyncMock(return_value={"pages_crawled": 0})
             with patch("app.modules.crawler.tasks.celery_app") as fake_celery:
                 fake_celery.send_task = lambda *a, **k: SimpleNamespace(id="t1")
-                result = crawl_website_task.run(
-                    fake_self, str(audit_id), url, str(user_id)
-                )
+                with patch.object(crawl_website_task, "update_state"):
+                    result = crawl_website_task.run(
+                        str(audit_id), url, str(user_id)
+                    )
 
     assert result is not None
     assert result.get("pages_crawled") == 0
@@ -106,7 +96,6 @@ async def test_crawl_website_skips_already_completed_job(db_session):
         async def __aexit__(self_inner, *exc):
             return False
 
-    fake_self = _FakeSelf()
     with patch("app.modules.crawler.tasks.async_session_factory") as factory:
         factory.side_effect = lambda: _Ctx()
         with patch("app.modules.crawler.tasks.CrawlOrchestrator") as orch_cls:
@@ -120,10 +109,10 @@ async def test_crawl_website_skips_already_completed_job(db_session):
                 fake_celery.send_task = lambda *a, **k: pytest.fail(
                     "celery_app.send_task must not be called for a completed job"
                 )
-                result = crawl_website_task.run(
-                    fake_self, str(audit_id), "https://example.com",
-                    str(uuid4()),
-                )
+                with patch.object(crawl_website_task, "update_state"):
+                    result = crawl_website_task.run(
+                        str(audit_id), "https://example.com", str(uuid4())
+                    )
 
     assert result["status"] == "completed"
     assert result["audit_id"] == str(audit_id)
@@ -151,7 +140,6 @@ async def test_crawl_website_runs_normally_when_row_exists(db_session):
     await db_session.commit()
 
     fired = []
-    fake_self = _FakeSelf()
 
     class _Ctx:
         async def __aenter__(self_inner):
@@ -173,10 +161,10 @@ async def test_crawl_website_runs_normally_when_row_exists(db_session):
                     return SimpleNamespace(id="t1")
 
                 fake_celery.send_task = _capture
-                result = crawl_website_task.run(
-                    fake_self, str(audit_id), "https://example.com",
-                    str(user_id),
-                )
+                with patch.object(crawl_website_task, "update_state"):
+                    result = crawl_website_task.run(
+                        str(audit_id), "https://example.com", str(user_id),
+                    )
 
     assert result["pages_crawled"] == 5
     assert result["auto_analyze"] is True
