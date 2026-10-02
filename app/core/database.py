@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
-from sqlalchemy import DateTime, func
+from sqlalchemy import DateTime, func, text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from app.core.config import settings
@@ -69,8 +69,7 @@ async def init_db() -> None:
     """Create all tables (useful for development / testing)."""
     try:
         async with engine.begin() as conn:
-
-            # Existing behavior
+            await conn.execute(text("SELECT pg_advisory_xact_lock(7419836246283155)"))
             await conn.run_sync(Base.metadata.create_all)
 
     except Exception as exc:

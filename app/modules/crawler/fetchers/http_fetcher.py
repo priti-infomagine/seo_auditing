@@ -13,7 +13,7 @@ import httpx
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.fetchers.base import Fetcher
 from app.modules.crawler.types import FetchResult, RedirectInfo
-from app.modules.crawler.utils.url import validate_url_ssrf
+from app.modules.crawler.utils.url import validate_url_ssrf_async
 from app.shared.utils.url_utils import normalize_url as shared_normalize_url
 
 
@@ -52,9 +52,9 @@ class HttpFetcher(Fetcher):
     ) -> FetchResult:
         req_timeout = timeout if timeout is not None else self.config.request_timeout
 
-        # SSRF Protection Check
+        # SSRF Protection Check — async DNS (non-blocking)
         try:
-            validate_url_ssrf(url, allow_private=self.config.allow_private_ips)
+            await validate_url_ssrf_async(url, allow_private=self.config.allow_private_ips)
         except Exception as exc:
             return FetchResult(
                 url=url,

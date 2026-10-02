@@ -80,6 +80,11 @@ def run_check(
         f"lighthouse.run_check: task started for check_id={check_id}, "
         f"url={url}, device={device}, max_pages={max_pages}, version={version}"
     )
+    task_id = self.request.id
+
+    def _report_progress(state, meta=None):
+        if task_id:
+            self.update_state(task_id=task_id, state=state, meta=meta)
 
     async def _run():
         service = LighthouseCheckService()
@@ -91,7 +96,7 @@ def run_check(
             category=category,
             version=version,
             pagespeed_concurrency=pagespeed_concurrency,
-            update_state=lambda state, meta=None: self.update_state(state=state, meta=meta),
+            update_state=_report_progress,
         )
         return result
 

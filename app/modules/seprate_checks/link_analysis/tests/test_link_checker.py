@@ -80,7 +80,10 @@ class TestSSRFProtection:
         checker = LinkChecker()
         from unittest.mock import AsyncMock, patch
 
-        with patch("app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf") as mock_ssrf:
+        with patch(
+            "app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf_async",
+            new=AsyncMock(),
+        ) as mock_ssrf:
             from app.modules.crawler.utils.url import SSRFError
 
             mock_ssrf.side_effect = SSRFError("Blocked")
@@ -92,10 +95,14 @@ class TestSSRFProtection:
 
     def test_localhost_blocked(self):
         checker = LinkChecker()
-        from unittest.mock import patch
+        from unittest.mock import AsyncMock, patch
 
-        with patch("app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf") as mock_ssrf:
+        with patch(
+            "app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf_async",
+            new=AsyncMock(),
+        ) as mock_ssrf:
             from app.modules.crawler.utils.url import SSRFError
+
             mock_ssrf.side_effect = SSRFError("Blocked")
             result = asyncio_run(checker.check_urls({"http://localhost:8080/"}))
 

@@ -19,7 +19,6 @@ class SubscriptionService:
         """Create a new subscription."""
         subscription = await self.repo.create(data)
         await self.db.commit()
-        await self.db.refresh(subscription)
         return SubscriptionResponse.model_validate(subscription)
 
     async def get_by_id(self, subscription_id: UUID) -> SubscriptionResponse:

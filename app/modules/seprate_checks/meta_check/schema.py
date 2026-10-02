@@ -9,8 +9,8 @@ from .validation import normalize_target_url
 
 class MetaCheckRequest(BaseModel):
     url: str = Field(..., min_length=1)
-    max_pages: int = Field(default=100, ge=1, le=5000)
-    max_depth: int = Field(default=3, ge=0, le=20)
+    max_pages: int = Field(default=30, ge=1, le=500)
+    max_depth: int = Field(default=3, ge=0, le=5)
     respect_robots: bool = True
 
     @field_validator("url")

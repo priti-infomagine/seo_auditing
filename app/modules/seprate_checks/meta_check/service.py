@@ -62,7 +62,7 @@ class MetaCheckService:
         db.add(crawl_job)
         await MetaCheckRepository(db).create(check)
         await db.commit()
-        await db.refresh(check)
+        return check
         return check
 
     async def run_check_async(

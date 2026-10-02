@@ -201,6 +201,15 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     logger.info(
         f"audit.run_analysis_pipeline: task started for audit_id={audit_id}"
     )
+    task_id = self.request.id
+
+    def _report_progress(stage: str) -> None:
+        if task_id:
+            self.update_state(
+                task_id=task_id,
+                state="PROGRESS",
+                meta={"stage": stage, "audit_id": audit_id},
+            )
 
     async def _run():
         from app.core.database import async_session_factory
@@ -210,10 +219,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
         }
 
         # Stage 0: Broken link check (runs after crawl, before parse)
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "link_check", "audit_id": audit_id},
-        )
+        _report_progress("link_check")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE link_check starting "
             f"audit_id={audit_id}"
@@ -236,10 +242,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["link_check"] = {"error": str(exc)}
 
         # Stage 1: Parse
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "parse", "audit_id": audit_id},
-        )
+        _report_progress("parse")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE parse starting "
             f"audit_id={audit_id}, force={force}"
@@ -263,10 +266,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["parse"] = {"error": str(exc)}
 
         # Stage 2: Evaluate
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "evaluate", "audit_id": audit_id},
-        )
+        _report_progress("evaluate")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
             f"audit_id={audit_id}, force={force}"
@@ -290,10 +290,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["evaluate"] = {"error": str(exc)}
 
         # Stage 3: Score
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "score", "audit_id": audit_id},
-        )
+        _report_progress("score")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE score starting "
             f"audit_id={audit_id}, force={force}"

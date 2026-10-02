@@ -3,20 +3,16 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core.config import settings
-from app.core.database import Base, get_db
+from app.core.database import get_db
 from app.main import app
+from app.tests.database import create_isolated_test_engine, dispose_isolated_test_engine
 
 
 @pytest_asyncio.fixture(scope="function")
 async def db_engine():
-    engine = create_async_engine(settings.DATABASE_URL, echo=False, pool_pre_ping=True)
-    async with engine.begin() as connection:
-        await connection.run_sync(Base.metadata.drop_all)
-        await connection.run_sync(Base.metadata.create_all)
+    engine, schema = await create_isolated_test_engine()
     yield engine
-    async with engine.begin() as connection:
-        await connection.run_sync(Base.metadata.drop_all)
-    await engine.dispose()
+    await dispose_isolated_test_engine(engine, schema)
 
 
 @pytest_asyncio.fixture

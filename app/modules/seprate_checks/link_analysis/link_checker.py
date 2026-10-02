@@ -15,7 +15,7 @@ import httpx
 
 from app.core.config import settings
 from app.core.logger import logger
-from app.modules.crawler.utils.url import validate_url_ssrf
+from app.modules.crawler.utils.url import validate_url_ssrf_async
 from app.shared.utils.url_utils import normalize_host, normalize_url
 
 from .constants import UNVERIFIED_STATUS_CODES, USER_AGENT
@@ -105,7 +105,7 @@ class LinkChecker:
         """Check a single URL: HEAD first, then streamed GET on failure."""
         # SSRF check before first request
         try:
-            validate_url_ssrf(url, allow_private=False)
+            await validate_url_ssrf_async(url, allow_private=False)
         except Exception:
             return CheckResult(
                 status_class=LinkStatusClass.UNVERIFIED,
@@ -136,7 +136,7 @@ class LinkChecker:
         for _ in range(self.max_redirects + 1):
             # SSRF check on every hop
             try:
-                validate_url_ssrf(current_url, allow_private=False)
+                await validate_url_ssrf_async(current_url, allow_private=False)
             except Exception:
                 return CheckResult(
                     status_class=LinkStatusClass.UNVERIFIED,

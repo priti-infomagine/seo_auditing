@@ -23,7 +23,7 @@ from app.modules.crawler.services.site_discovery_service import (
     SiteDiscoveryResult,
     SiteDiscoveryService,
 )
-from app.modules.crawler.utils.url import validate_url_ssrf
+from app.modules.crawler.utils.url import validate_url_ssrf_async
 from app.modules.parser.extractors.link_extractor import LinkExtractor
 from app.modules.parser.services.document_parser_service import (
     DocumentContext,
@@ -182,7 +182,7 @@ class SiteCrawler:
     async def _safe_fetch(self, url: str) -> FetchResult:
         """Fetch with SSRF protection + browser rendering for SPA shells."""
         try:
-            validate_url_ssrf(url, allow_private=False)
+            await validate_url_ssrf_async(url, allow_private=False)
         except Exception as exc:
             logger.warning(f"SiteCrawler: SSRF blocked {url}: {exc}")
             return FetchResult(

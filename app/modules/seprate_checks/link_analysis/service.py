@@ -134,7 +134,7 @@ class LinkAnalysisService:
         repo = LinkAnalysisRepository(db, redis=redis)
         saved = await repo.create(check)
         await db.commit()
-        await db.refresh(saved)
+        return saved
         await repo.set_status(
             check_id=saved.id,
             status=LinkAnalysisCheckStatus.QUEUED,
