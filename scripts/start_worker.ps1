@@ -30,9 +30,10 @@
 param(
     [string]$Queues = "crawler,audit",
     [string]$LogLevel = "info",
-    [string]$Pool = "solo",
-    [int]$Concurrency = 1
+    [string]$Pool = "gevent",
+    [int]$Concurrency = 4
 )
+
 
 $ErrorActionPreference = "Stop"
 

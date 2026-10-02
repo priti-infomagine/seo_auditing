@@ -8,15 +8,18 @@ Takes a URL as input, performs the full pipeline:
 4. Returns per-page breakdown with scores, rule results, and links analysis
 """
 import asyncio
-
+import json
+from pathlib import Path
 import uuid
-from typing import Literal
+from typing import Literal, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from redis.asyncio import Redis
 
 from app.core.database import get_db
+from app.core.redis import get_redis
 from app.core.logger import logger
 from app.core.config import settings
 from app.modules.audit.schemas.audit_schemas import (
@@ -151,6 +154,7 @@ async def analyze_website(
             crawl_status_url=f"/api/v1/crawler/status/{audit_id}",
             pipeline_status_url=f"/api/v1/audit/status/{audit_id}",
             result_url=f"/api/v1/audit/result/{audit_id}{fmt}",
+            poll_url=f"/api/v1/audit/analyze/poll/{audit_id}{fmt}",
             full_pipeline=body.full_pipeline,
         )
 
@@ -182,6 +186,7 @@ async def analyze_website(
 )
 async def get_analyze_task_status(
     task_id: str,
+    redis: Optional[Redis] = Depends(get_redis),
 ) -> dict:
     logger.info(f"GET /audit/analyze/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
@@ -193,9 +198,101 @@ async def get_analyze_task_status(
         response["meta"] = async_result.info
     elif async_result.state == "SUCCESS":
         response["result"] = async_result.result
+        # If result indicates completion and has an audit_id, attach final audit result without DB query
+        if isinstance(async_result.result, dict) and async_result.result.get("audit_id"):
+            audit_id_str = str(async_result.result["audit_id"])
+            if redis:
+                try:
+                    cached_res = await redis.get(f"audit:result:{audit_id_str}:full")
+                    if cached_res:
+                        response["audit_result"] = json.loads(cached_res)
+                except Exception:
+                    pass
+            if "audit_result" not in response:
+                for p in Path("app/output").glob(f"*_{audit_id_str}.json"):
+                    if p.is_file():
+                        try:
+                            response["audit_result"] = json.loads(p.read_text(encoding="utf-8"))
+                            break
+                        except Exception:
+                            pass
     elif async_result.state == "FAILURE":
         response["error"] = str(async_result.result)
     return response
+
+
+@router.get(
+    "/analyze/poll/{audit_id}",
+    summary="Zero-DB polling endpoint for audit results",
+    description=(
+        "Returns the pipeline progress or completed audit result directly from "
+        "cache (Redis/disk) without executing database queries."
+    ),
+)
+async def poll_audit_result(
+    audit_id: UUID,
+    format: Literal["full", "compact"] = Query("full"),
+    redis: Optional[Redis] = Depends(get_redis),
+) -> dict:
+    """Poll pipeline state and fetch completed result with zero database queries."""
+    audit_id_str = str(audit_id)
+    logger.info(f"GET /audit/analyze/poll/{audit_id_str}")
+
+    # 1. Check if the completed result is in Redis
+    if redis:
+        try:
+            cached_res = await redis.get(f"audit:result:{audit_id_str}:{format}")
+            if cached_res:
+                return {
+                    "audit_id": audit_id_str,
+                    "status": "completed",
+                    "result": json.loads(cached_res),
+                }
+        except Exception:
+            pass
+
+    # 2. Check if the completed result is on disk (for full format)
+    if format == "full":
+        for p in Path("app/output").glob(f"*_{audit_id_str}.json"):
+            if p.is_file():
+                try:
+                    data = json.loads(p.read_text(encoding="utf-8"))
+                    if redis:
+                        try:
+                            await redis.set(f"audit:result:{audit_id_str}:full", json.dumps(data), ex=86400)
+                        except Exception:
+                            pass
+                    return {
+                        "audit_id": audit_id_str,
+                        "status": "completed",
+                        "result": data,
+                    }
+                except Exception:
+                    pass
+
+    # 3. Check cached progress status in Redis
+    if redis:
+        try:
+            status_str = await redis.get(f"audit:status:{audit_id_str}")
+            if status_str:
+                status_data = json.loads(status_str)
+                return {
+                    "audit_id": audit_id_str,
+                    "status": status_data.get("score_status", "in_progress"),
+                    "stage": status_data.get("current_stage", "crawling"),
+                    "pages_parsed": status_data.get("pages_parsed", 0),
+                    "overall_score": status_data.get("overall_score"),
+                    "grade": status_data.get("grade"),
+                }
+        except Exception:
+            pass
+
+    # 4. Fallback: audit in progress
+    return {
+        "audit_id": audit_id_str,
+        "status": "queued_or_crawling",
+        "message": "Audit is being processed — please continue polling.",
+    }
 
 
 @router.get("/health", tags=["Audit"])

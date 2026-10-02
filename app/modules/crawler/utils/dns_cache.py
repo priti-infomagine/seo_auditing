@@ -45,15 +45,18 @@ _resolver: Optional[Any] = None
 
 
 def _get_resolver() -> Any:
-    """Return the singleton aiodns resolver, creating it lazily."""
+    """Return the aiodns resolver for the active event loop, creating it lazily."""
     global _resolver
-    if _resolver is None:
+    loop = asyncio.get_running_loop()
+    if _resolver is None or getattr(_resolver, "_loop", None) != loop:
         _resolver = aiodns.DNSResolver(
             timeout=2.0,
             tries=1,
             lifetime=5.0,
+            loop=loop,
         )
     return _resolver
+
 
 
 async def resolve_host(hostname: str, ttl: float = _DEFAULT_TTL) -> List[str]:

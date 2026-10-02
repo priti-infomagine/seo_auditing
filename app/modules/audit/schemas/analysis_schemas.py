@@ -3,7 +3,7 @@ Pydantic schemas for the DB-backed analysis pipeline API endpoints.
 
 All schemas use `audit_id` (== `audit_id`) as the single tracking key.
 """
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union
 from uuid import UUID
 from pydantic import BaseModel, Field
 
@@ -66,6 +66,7 @@ class PipelineStatusResponse(BaseModel):
     crawl_config_recovery_note: Optional[str] = Field(None, description="Human-readable note about config recovery if applicable")
     pages_skipped: int = Field(0, description="Number of URLs skipped during crawl (ignore patterns, runtime conditions)")
     skip_breakdown: Optional[Dict[str, int]] = Field(None, description="Skip counts by reason code")
+    result: Optional[Union[Dict[str, Any], Any]] = Field(None, description="Completed audit result payload if available")
 
 
 class StageSummary(BaseModel):

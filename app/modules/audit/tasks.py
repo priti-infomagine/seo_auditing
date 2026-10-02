@@ -12,6 +12,7 @@ All tasks are fault-tolerant: per-page/rule failures are caught and
 recorded; only system-level failures cause the task to fail.
 """
 import asyncio
+import json
 import os
 import sys
 from uuid import UUID
@@ -316,6 +317,37 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["score"] = {"error": str(exc)}
 
         results["status"] = "completed"
+
+        # Cache result and pipeline status in Redis for zero-DB polling
+        try:
+            from app.core.redis import get_redis
+            redis_client = get_redis()
+            if redis_client:
+                score_data = results.get("score")
+                if isinstance(score_data, dict) and "error" not in score_data:
+                    await redis_client.set(
+                        f"audit:result:{audit_id}:full",
+                        json.dumps(score_data, default=str),
+                        ex=86400,
+                    )
+                    status_payload = {
+                        "audit_id": str(audit_id),
+                        "parse_status": "completed",
+                        "evaluate_status": "completed",
+                        "score_status": "completed",
+                        "overall_score": score_data.get("summary", {}).get("score"),
+                        "grade": score_data.get("summary", {}).get("grade"),
+                        "pages_parsed": score_data.get("audit", {}).get("pages", {}).get("analyzed", 0),
+                        "output_file_path": score_data.get("output_file_path"),
+                    }
+                    await redis_client.set(
+                        f"audit:status:{audit_id}",
+                        json.dumps(status_payload, default=str),
+                        ex=86400,
+                    )
+        except Exception as redis_exc:
+            logger.debug(f"Failed to cache audit result in Redis: {redis_exc}")
+
         return results
 
     try:
