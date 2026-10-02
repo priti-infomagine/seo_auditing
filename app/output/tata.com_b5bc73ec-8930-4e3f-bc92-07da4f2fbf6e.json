@@ -1,0 +1,4745 @@
+{
+  "audit": {
+    "audit_id": "b5bc73ec-8930-4e3f-bc92-07da4f2fbf6e",
+    "url": "https://tata.com",
+    "domain": "tata.com",
+    "started_at": "2026-10-02T10:49:21.073732+00:00",
+    "completed_at": "2026-10-02T10:50:08.649017+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 109,
+      "crawled": 109,
+      "analyzed": 109
+    },
+    "crawl_stats": {
+      "pages_discovered": 109,
+      "pages_crawled": 109,
+      "pages_analyzed": 109,
+      "redirects": 1,
+      "broken_pages": 0,
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 109
+      },
+      "started_at": "2026-10-02T10:49:21.073732+00:00",
+      "completed_at": "2026-10-02T10:50:08.649017+00:00"
+    },
+    "indexation": {
+      "indexable": 109,
+      "noindex": 0,
+      "canonicalized": 109,
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "ttfb": {
+        "available": true,
+        "value": 682.1,
+        "unit": "milliseconds",
+        "status": "needs_improvement"
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 109,
+      "valid": 0,
+      "invalid": 109
+    },
+    "links": {
+      "internal": {
+        "total": 9728,
+        "broken": {
+          "available": true,
+          "value": 0
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": true,
+          "value": 15
+        }
+      },
+      "total_links": 9728
+    },
+    "images": {
+      "total": 5140,
+      "missing_alt": 1617,
+      "empty_alt": 0,
+      "missing_dimensions": 4922,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 0
+    },
+    "content": {
+      "thin_pages": 1,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "errors": [
+      {
+        "rule_id": "missing_www_redirect",
+        "page_id": "",
+        "url": "",
+        "error": "Both www and non-www host variants resolve"
+      }
+    ],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 2566,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 90.4,
+    "health": "excellent",
+    "issues": {
+      "critical": 0,
+      "high": 5,
+      "medium": 8,
+      "low": 11,
+      "total": 24
+    },
+    "checks": {
+      "passed": 41,
+      "failed": 24,
+      "total": 65
+    }
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 41.5,
+      "status": "poor",
+      "checks_total": 9,
+      "checks_passed": 3,
+      "checks_failed": 6
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 61.5,
+      "status": "needs_improvement",
+      "checks_total": 13,
+      "checks_passed": 8,
+      "checks_failed": 5
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 70.0,
+      "status": "needs_improvement",
+      "checks_total": 10,
+      "checks_passed": 7,
+      "checks_failed": 3
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 59.3,
+      "status": "poor",
+      "checks_total": 5,
+      "checks_passed": 2,
+      "checks_failed": 3
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 21.1,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 1,
+      "checks_failed": 5
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 83.3,
+      "status": "good",
+      "checks_total": 6,
+      "checks_passed": 5,
+      "checks_failed": 1
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 33.3,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 1,
+      "checks_failed": 2
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 2,
+      "checks_passed": 2,
+      "checks_failed": 0
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 1,
+      "checks_passed": 1,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 94.5,
+      "status": "excellent",
+      "checks_total": 9,
+      "checks_passed": 8,
+      "checks_failed": 1
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No canonical URL set"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "canonical_url": ""
+          }
+        ]
+      },
+      "recommendation": "Add canonical URL tag and ensure unique content"
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "10 images missing width/height attributes"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "missing_dimensions": 10
+          }
+        ]
+      },
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)"
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "89 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "85 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "91 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "90 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "87 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "92 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "105 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "171 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "86 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "93 links have generic/non-descriptive anchor text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "total_links": 91,
+            "generic_count": 91
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "total_links": 90,
+            "generic_count": 90
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "total_links": 87,
+            "generic_count": 87
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "total_links": 91,
+            "generic_count": 91
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "total_links": 90,
+            "generic_count": 90
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "total_links": 90,
+            "generic_count": 90
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "total_links": 90,
+            "generic_count": 90
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "total_links": 92,
+            "generic_count": 92
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "total_links": 90,
+            "generic_count": 90
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "total_links": 105,
+            "generic_count": 105
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "total_links": 92,
+            "generic_count": 92
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "total_links": 89,
+            "generic_count": 89
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "total_links": 91,
+            "generic_count": 91
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "total_links": 85,
+            "generic_count": 85
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "total_links": 89,
+            "generic_count": 89
+          }
+        ]
+      },
+      "recommendation": "Use descriptive and relevant anchor text to improve click-through rates and SEO performance."
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Missing canonical URL tag"
+        }
+      ],
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No structured data / schema markup found"
+        }
+      ],
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "high",
+      "title": "Slow server response time (TTFB)",
+      "affected_pages": 54,
+      "occurrences": [
+        {
+          "current_value": "Slow response time: 0.54s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.17s"
+        },
+        {
+          "current_value": "Slow response time: 0.61s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.66s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.16s"
+        },
+        {
+          "current_value": "Very slow response time: 1.15s"
+        },
+        {
+          "current_value": "Slow response time: 0.71s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.05s"
+        },
+        {
+          "current_value": "Slow response time: 0.70s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.37s"
+        },
+        {
+          "current_value": "Very slow response time: 1.06s"
+        },
+        {
+          "current_value": "Very slow response time: 2.83s"
+        },
+        {
+          "current_value": "Very slow response time: 1.18s"
+        },
+        {
+          "current_value": "Slow response time: 0.79s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 2.62s"
+        },
+        {
+          "current_value": "Slow response time: 0.83s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.74s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.25s"
+        },
+        {
+          "current_value": "Slow response time: 0.58s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.55s"
+        },
+        {
+          "current_value": "Very slow response time: 1.20s"
+        },
+        {
+          "current_value": "Very slow response time: 1.42s"
+        },
+        {
+          "current_value": "Very slow response time: 1.14s"
+        },
+        {
+          "current_value": "Very slow response time: 1.19s"
+        },
+        {
+          "current_value": "Slow response time: 0.86s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.72s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.53s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 2.69s"
+        },
+        {
+          "current_value": "Slow response time: 0.93s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.81s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.57s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.43s"
+        },
+        {
+          "current_value": "Very slow response time: 1.32s"
+        },
+        {
+          "current_value": "Very slow response time: 1.09s"
+        },
+        {
+          "current_value": "Very slow response time: 1.23s"
+        },
+        {
+          "current_value": "Slow response time: 0.89s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.10s"
+        },
+        {
+          "current_value": "Slow response time: 0.90s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.92s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 2.85s"
+        },
+        {
+          "current_value": "Very slow response time: 1.21s"
+        },
+        {
+          "current_value": "Slow response time: 0.63s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.08s"
+        },
+        {
+          "current_value": "Slow response time: 0.67s (should be <200ms)"
+        },
+        {
+          "current_value": "Slow response time: 0.59s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.45s"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "response_time": 0.544
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "response_time": 1.17
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "response_time": 0.606
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "response_time": 0.662
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "response_time": 1.155
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "response_time": 1.15
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "response_time": 0.711
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "response_time": 1.053
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "response_time": 0.699
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "response_time": 0.659
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "response_time": 1.374
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "response_time": 1.058
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "response_time": 0.657
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "response_time": 2.832
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "response_time": 1.18
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "response_time": 0.792
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "response_time": 2.617
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "response_time": 0.828
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "response_time": 0.736
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "response_time": 1.252
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "response_time": 0.579
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "response_time": 1.548
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "response_time": 1.197
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "response_time": 1.421
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "response_time": 1.138
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ge-tata-group-enter-strategic-partnership-leap-engine",
+            "response_time": 1.19
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/simplification-synergy-scale-how-chandra-is-planning-take-tata-forward",
+            "response_time": 0.86
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nerves-of-steel",
+            "response_time": 0.725
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-global-beverages-announces-changes-board-of-directors",
+            "response_time": 0.527
+          },
+          {
+            "page_url": "https://tata.com",
+            "response_time": 2.688
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-13-2016",
+            "response_time": 0.707
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tatas-dismiss-Mr-Cyrus-Mistrys-charges",
+            "response_time": 0.933
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-increasesstakeinairasiaindia",
+            "response_time": 0.815
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-on-a-transformational-journey",
+            "response_time": 0.571
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/digital-solutions",
+            "response_time": 1.427
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/starbucks-brewing-a-culture-of-warmth-and-belonging",
+            "response_time": 1.322
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-aerospace-inaugurates-state-of-art-apache-fuselage-facility",
+            "response_time": 1.095
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/brand-value-of-tata-surges-as-india-most-valuable-brand",
+            "response_time": 1.226
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/lockheed-martin-tata-announce-f16-partnership",
+            "response_time": 0.714
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-new-cutting-edge-aerospace-technology-to-india",
+            "response_time": 0.614
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/wildlife-conservation-into-the-wild",
+            "response_time": 0.894
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-sameer-patil-tcs",
+            "response_time": 1.099
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-appointmentsmay2017",
+            "response_time": 0.9
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/through-the-mill",
+            "response_time": 0.924
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-transforming-tata-group-intensely-focussed-on-profitability",
+            "response_time": 0.828
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-bachendri-pal-tata-steel-adventure-foundation",
+            "response_time": 2.846
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/fresh-impulse-to-learning",
+            "response_time": 1.16
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-steel-steeling-the-show",
+            "response_time": 1.212
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-group-report-sustainable-development-goals",
+            "response_time": 0.633
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-sons-on-ntt-docomo",
+            "response_time": 0.928
+          }
+        ]
+      },
+      "recommendation": "Optimize server response time to under 200ms"
+    },
+    {
+      "rule_id": "links_003",
+      "category": "links",
+      "severity": "high",
+      "title": "Broken links detected",
+      "affected_pages": 4,
+      "occurrences": [
+        {
+          "current_value": "1 broken links"
+        },
+        {
+          "current_value": "12 broken links"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "href": "https://www.moneycontrol.com/news/business/n-chandrasekarans-one-year-at-tata-sons-a-job-well-begun-2512605.html",
+            "text": "Read the full story.",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "href": "https://www.moneycontrol.com/news/business/n-chandrasekarans-one-year-at-tata-sons-a-job-well-begun-2512605.html",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.moneycontrol.com/news/business/n-chandrasekarans-one-year-at-tata-sons-a-job-well-begun-2512605.html",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/simplification-synergy-scale-how-chandra-is-planning-take-tata-forward",
+            "href": "https://www.business-standard.com/article/companies/simplification-synergy-scale-how-chandra-is-planning-to-take-tata-ahead-118041801192_1.html",
+            "text": "Read the full report",
+            "title": "Opens in new tab",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "href": "https://www.business-standard.com/article/companies/simplification-synergy-scale-how-chandra-is-planning-to-take-tata-ahead-118041801192_1.html",
+              "title": "Opens in new tab",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.business-standard.com/article/companies/simplification-synergy-scale-how-chandra-is-planning-to-take-tata-ahead-118041801192_1.html",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://tata.com",
+            "rel": [
+              "noopener"
+            ],
+            "href": "https://www.tajhotels.com",
+            "text": "Taj Hotels",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener",
+              "href": "https://www.tajhotels.com",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.tajhotels.com",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://tata.com",
+            "rel": [
+              "noopener"
+            ],
+            "href": "https://www.tajhotels.com",
+            "text": "",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener",
+              "href": "https://www.tajhotels.com",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.tajhotels.com",
+            "target_status_code": 403
+          },
+          {
+            "page_url": "https://tata.com",
+            "rel": [
+              "noopener"
+            ],
+            "href": "https://www.soulfull.co.in/",
+            "text": "Tata Soulfull",
+            "title": "",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "rel": "noopener",
+              "href": "https://www.soulfull.co.in/",
+              "target": "_blank"
+            },
+            "absolute_url": "https://www.soulfull.co.in/",
+            "target_status_code": 402
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/saving-olive-ridley-tcs",
+            "href": "https://en.wikipedia.org/wiki/Olive_ridley_sea_turtle",
+            "text": "The Olive Ridley Turtle",
+            "title": "Opens in a new tab",
+            "target": "_blank",
+            "download": "",
+            "attributes": {
+              "href": "https://en.wikipedia.org/wiki/Olive_ridley_sea_turtle",
+              "title": "Opens in a new tab",
+              "target": "_blank"
+            },
+            "absolute_url": "https://en.wikipedia.org/wiki/Olive_ridley_sea_turtle",
+            "target_status_code": 403
+          }
+        ]
+      },
+      "recommendation": "Fix 1 broken links to improve user experience and SEO"
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "Paragraph structure needs improvement",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No paragraphs found"
+        }
+      ],
+      "recommendation": "Break content into paragraphs for better readability"
+    },
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or poorly sized meta description",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Meta description: Coding is more than a career; it may just be today's essential life skill. (74 chars)"
+        },
+        {
+          "current_value": "Meta description: Venu Srinivasan is Chairman, Sundaram-Clayton and TVS Motor Company; Ajay Piramal is Chairman, Piramal Group and the Shriram Group. (131 chars)"
+        },
+        {
+          "current_value": "Meta description: Data is a strategic asset, and organisations can mine it for insights to perform better. (88 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Trusts' educational initiatives ensure quality education for all. (70 chars)"
+        },
+        {
+          "current_value": "Meta description: The two executive leadership appointments were made in April 2018. (66 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Trusts empowers small and marginal dairy farmers through the DHANII initiative. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons will consolidate its businesses across the sector under a single entity. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: Titan Company’s newest retail venture, Taneira, is retelling the story of the saree. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Mr. Chandrasekaran shall take charge from February 21, 2017. (60 chars)"
+        },
+        {
+          "current_value": "Meta description: Boeing and Tata today celebrated the foundation laying of the new facility in Hyderabad. (88 chars)"
+        },
+        {
+          "current_value": "Meta description: Chairman N. Chandrasekaran in an interview with news magazine The Week. (71 chars)"
+        },
+        {
+          "current_value": "Meta description: Landmark ‘Make in India’ move strengthens US-India defence ties. (64 chars)"
+        },
+        {
+          "current_value": "Meta description: How Titan Company supports people with disabilities (PWDs) in the employable age group. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: This is in order to simplify structures, leverage synergies and scale business rapidly. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: The Tata group has been in the defence business since the Great War. (68 chars)"
+        },
+        {
+          "current_value": "Meta description: Statement on November 10, 2016 (PDF). (37 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Trusts is helping empower undeprivileged communities through digital literacy. (83 chars)"
+        },
+        {
+          "current_value": "Meta description: Statements by Tata Steel and B Muthuraman, former vice chairman and MD, Tata Steel. (83 chars)"
+        },
+        {
+          "current_value": "Meta description: With 35% women employees, TCS demonstrates how tech companies need diversity to succeed. (88 chars)"
+        },
+        {
+          "current_value": "Meta description: He is a former global COO of Unilever and the non-executive chairman of HUL. (76 chars)"
+        },
+        {
+          "current_value": "Meta description: He has addressed many of the pain points in the $100 billion Tata Group. (72 chars)"
+        },
+        {
+          "current_value": "Meta description: Statement on October 27, 2018. (30 chars)"
+        },
+        {
+          "current_value": "Meta description: The iconic Bombay House is reopened on the 114th birth anniversary of JRD Tata. (79 chars)"
+        },
+        {
+          "current_value": "Meta description: Mr Tata was addressing CEOs and MDs of various Tata group companies. (68 chars)"
+        },
+        {
+          "current_value": "Meta description: June 26, 2018 statement by Tata Sons, on issues concerning AirAsia India (AAIL). (80 chars)"
+        },
+        {
+          "current_value": "Meta description: Reimagining the workplace in a world where tech evolves faster than culture and behaviour (89 chars)"
+        },
+        {
+          "current_value": "Meta description: The JN Tata Endowment encourages young people to pursue higher studies abroad. (78 chars)"
+        },
+        {
+          "current_value": "Meta description: The new steel giant will be named thyssenkrupp Tata Steel B.V. (62 chars)"
+        },
+        {
+          "current_value": "Meta description: Glimpses from Tetley's richly brewed heritage — all 180 years and counting. (75 chars)"
+        },
+        {
+          "current_value": "Meta description: Mr. Chandrasekaran is the Chairman-designate of Tata Sons. (58 chars)"
+        },
+        {
+          "current_value": "Meta description: JLR’s 100-percent-owned subsidiary, InMotion, is the future of smart mobility solutions. (88 chars)"
+        },
+        {
+          "current_value": "Meta description: There are currently 19 independent Tata companies in the UK, with diverse businesses. (85 chars)"
+        },
+        {
+          "current_value": "Meta description: It is India's first heritage building to be presented with the rating. (70 chars)"
+        },
+        {
+          "current_value": "Meta description: The Vistara \"Retrojet\" recreates Tata Airlines' livery from the 1940s. (70 chars)"
+        },
+        {
+          "current_value": "Meta description: Selection committee set up for new chairman. (44 chars)"
+        },
+        {
+          "current_value": "Meta description: Behind-the-scenes of how Tata companies have been building the nation for 150 years. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Banmali Agrawala, President, Infrastructure, Defence & Aerospace on the way forward. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons welcomed the order of the Delhi High Court on April 28, 2017. (71 chars)"
+        },
+        {
+          "current_value": "Meta description: N. Chandrasekaran addressed the media on January 12, 2017 at TCS House, Mumbai. (79 chars)"
+        },
+        {
+          "current_value": "Meta description: It was delivered ahead of schedule, within a year of the facility becoming operational. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons welcomes the National Company Law Tribunal (NCLT) order on April 17, 2017. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: The event will take place in collaboration with several long-time partners. (75 chars)"
+        },
+        {
+          "current_value": "Meta description: Jaguar Land Rover’s Bagnall is one of 100 outstanding British women in the industry. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: News and stories from the Tata group and companies. (51 chars)"
+        },
+        {
+          "current_value": "Meta description: A look back at the Sir Ratan Tata Institute's enduring legacy on its 90th anniversary. (86 chars)"
+        },
+        {
+          "current_value": "Meta description: Significant number of digital-led innovations; advanced R&D. (60 chars)"
+        },
+        {
+          "current_value": "Meta description: The Tata Mumbai Marathon deepens the group's connect with running communities. (78 chars)"
+        },
+        {
+          "current_value": "Meta description: Appointments include Roopa Purushothaman, Banmali Agrawala and Aarthi Subramanian. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Power announced the appointment would be effective December 16, 2016. (74 chars)"
+        },
+        {
+          "current_value": "Meta description: The order dismisses all allegations against Tata Trusts, its trustees and Tata Sons. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: The Taj Mahal Hotel—the residence of choice for maharajas, dignitaries and celebrities. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: The strategic partners will also pursue military engine and aircraft system opportunities. (90 chars)"
+        },
+        {
+          "current_value": "Meta description: How Tata Steel supported an employee's lifelong dream of transitioning into a woman. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: The inaugural board meeting follows his appointment as chairman of the group. (77 chars)"
+        },
+        {
+          "current_value": "Meta description: Asks group companies for concrete plans to drive simplification, synergy, scale. (80 chars)"
+        },
+        {
+          "current_value": "Meta description: Jamsetji, Dorabji and RD Tata defied sceptics to give India her first steel enterprise. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: N. Chandrasekaran appointed as Chairman of the board. (53 chars)"
+        },
+        {
+          "current_value": "Meta description: The official website for the Tata group, India's only value-based corporation. A visionary, a pioneer, a leader, since 1868 (123 chars)"
+        },
+        {
+          "current_value": "Meta description: Various statements by Tata Sons on the NCLT petition during December 2016. (74 chars)"
+        },
+        {
+          "current_value": "Meta description: TCA celebrated with an exhibition and a symposium on 'Collaborative Leadership'. (80 chars)"
+        },
+        {
+          "current_value": "Meta description: Through centralised kitchens, Tata Trusts provides disadvantaged children wholesome food. (89 chars)"
+        },
+        {
+          "current_value": "Meta description: Statement on November 13, 2016. (31 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons refutes the contents of Mr. Mistry’s letter to shareholders. (70 chars)"
+        },
+        {
+          "current_value": "Meta description: It recognises Tata’s contribution towards economic relations between ASEAN and India. (85 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons proposes to increase its stake to 49 percent from 41.06 percent. (74 chars)"
+        },
+        {
+          "current_value": "Meta description: Watch Chairman N Chandrasekaran in conversation with CNN at Davos. (66 chars)"
+        },
+        {
+          "current_value": "Meta description: How TCS and Tata ClassEdge are transforming education in 5 institutions in India. (81 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Starbucks' culture makes employees feel like they are part of something bigger. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Rajesh Gopinathan takes over from N. Chandrasekaran, appointed Chairman of Tata Sons. (85 chars)"
+        },
+        {
+          "current_value": "Meta description: The group has been ranked by Global Most Admired Knowledge Enterprises (MAKE). (78 chars)"
+        },
+        {
+          "current_value": "Meta description: The 14,000 sq. m. facility will be the sole global producer of AH-64 fuselages. (79 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Sons denies any conduct which could be said to be oppressive or resulting in mismanagement. (96 chars)"
+        },
+        {
+          "current_value": "Meta description: 2018 report shows Tata brand value rising 9 percent from last year to US $14.2 billion. (87 chars)"
+        },
+        {
+          "current_value": "Meta description: Jamsetji's dream of using water to generate electricity was completed by Sir Dorab Tata. (88 chars)"
+        },
+        {
+          "current_value": "Meta description: Landmark agreement supports F-16 Block 70 ‘Make in India’ offer. (64 chars)"
+        },
+        {
+          "current_value": "Meta description: Inaugurates India’s first state-of-the-art metal-to-metal bonding facility. (75 chars)"
+        },
+        {
+          "current_value": "Meta description: The agreement is an important step towards a more sustainable future. (69 chars)"
+        },
+        {
+          "current_value": "Meta description: How Tata companies are working to shelter and save at-risk species. (67 chars)"
+        },
+        {
+          "current_value": "Meta description: Meet TCSer Sameer Patil, who swam the English Channel to claim his place in history. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Saurabh Agrawal appointed Group CFO; Shuva Mandal appointed Group General Counsel. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: Jamsetji's nation-building endeavours began with his worker-friendly cotton mills. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: The Chairman is transforming the group into a business focused on profitability. (80 chars)"
+        },
+        {
+          "current_value": "Meta description: 5/20 rule must be abolished if Indian aviation is to achieve its full potential. (80 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata companies have undertaken a host of conservation projects to save our planet. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: The JV will collaborate on integrated systems development opportunities in India. (81 chars)"
+        },
+        {
+          "current_value": "Meta description: The mountaineering icon on honing leadership with adventure camps and climbing. (79 chars)"
+        },
+        {
+          "current_value": "Meta description: One of three of Jamsetji's dreams: a world-class science research institute in India. (85 chars)"
+        },
+        {
+          "current_value": "Meta description: Snapshots of Tata Steel's landmark legacy. (42 chars)"
+        },
+        {
+          "current_value": "Meta description: Praveer Sinha appointed CEO and MD, Tata Power; Tanmoy Chakraborty is Group Government Affairs Officer, Tata Sons (113 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Central Archives has been preserving Tata heritage since it was set up in 1991. (84 chars)"
+        },
+        {
+          "current_value": "Meta description: Step inside with architect Brinda Somaya. (41 chars)"
+        },
+        {
+          "current_value": "Meta description: Four Tata colleagues and marathoners share what inspires them to run. (69 chars)"
+        },
+        {
+          "current_value": "Meta description: Appointments to Tata Sons' board of directors. (46 chars)"
+        },
+        {
+          "current_value": "Meta description: The group believes in processes that are ethical and environmentally sound. (75 chars)"
+        },
+        {
+          "current_value": "Meta description: Statement from Tata Sons on EGM held on February 6, 2017. (57 chars)"
+        },
+        {
+          "current_value": "Meta description: \"Humbled and honoured to be chosen to lead a truly great institution.\" (70 chars)"
+        },
+        {
+          "current_value": "Meta description: Statements by Tata Sons from June to October 2016 on dispute with NTT Docomo. (77 chars)"
+        },
+        {
+          "current_value": "Meta description: How Tata Steel’s IJmuiden emerged a great employer and neighbour over a 100 years. (82 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Chemicals’ Okhai empowers rural women by embracing digitalisation. (71 chars)"
+        },
+        {
+          "current_value": "Meta description: Chief Minister of Maharashtra Devendra Fadnavis unveiled the official event logo. (81 chars)"
+        },
+        {
+          "current_value": "Meta description: TCS has been instrumental in protecting over 6,000 turtle hatchlings. (69 chars)"
+        },
+        {
+          "current_value": "Meta description: N. Chandrasekaran elected as Chairman of the board. (51 chars)"
+        },
+        {
+          "current_value": "Meta description: The Tata group pioneered labour welfare measures, before they were ratified by law. (83 chars)"
+        },
+        {
+          "current_value": "Meta description: India's aviation story began with JRD Tata's flight from Karachi to Mumbai in 1932. (83 chars)"
+        },
+        {
+          "current_value": "Meta description: Amit Chandra has been managing director at Bain Capital since 2008. (67 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata Aerospace & Defence ushers in a new era for the defence business in India. (79 chars)"
+        },
+        {
+          "current_value": "Meta description: Statement addresses Mr Cyrus Mistry’s comments regarding the sale of TCS to IBM. (80 chars)"
+        },
+        {
+          "current_value": "Meta description: Tata CLiQ will open to consumers on Friday, May 27, 2016. (57 chars)"
+        },
+        {
+          "current_value": "Meta description: Dr. Mammen Chandy on how TMC is transforming cancer care through digitisation. (78 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "length_status": "acceptable",
+            "character_count": 74,
+            "meta_description": "Coding is more than a career; it may just be today's essential life skill.",
+            "pixel_width_estimate": 481
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "length_status": "acceptable",
+            "character_count": 131,
+            "meta_description": "Venu Srinivasan is Chairman, Sundaram-Clayton and TVS Motor Company; Ajay Piramal is Chairman, Piramal Group and the Shriram Group.",
+            "pixel_width_estimate": 851
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "length_status": "acceptable",
+            "character_count": 88,
+            "meta_description": "Data is a strategic asset, and organisations can mine it for insights to perform better.",
+            "pixel_width_estimate": 572
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "length_status": "acceptable",
+            "character_count": 70,
+            "meta_description": "Tata Trusts' educational initiatives ensure quality education for all.",
+            "pixel_width_estimate": 455
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "length_status": "too_short",
+            "character_count": 66,
+            "meta_description": "The two executive leadership appointments were made in April 2018.",
+            "pixel_width_estimate": 429
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Tata Trusts empowers small and marginal dairy farmers through the DHANII initiative.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "length_status": "acceptable",
+            "character_count": 82,
+            "meta_description": "Tata Sons will consolidate its businesses across the sector under a single entity.",
+            "pixel_width_estimate": 533
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Titan Company’s newest retail venture, Taneira, is retelling the story of the saree.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "length_status": "too_short",
+            "character_count": 60,
+            "meta_description": "Mr. Chandrasekaran shall take charge from February 21, 2017.",
+            "pixel_width_estimate": 390
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "length_status": "acceptable",
+            "character_count": 88,
+            "meta_description": "Boeing and Tata today celebrated the foundation laying of the new facility in Hyderabad.",
+            "pixel_width_estimate": 572
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "length_status": "acceptable",
+            "character_count": 71,
+            "meta_description": "Chairman N. Chandrasekaran in an interview with news magazine The Week.",
+            "pixel_width_estimate": 461
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "length_status": "too_short",
+            "character_count": 64,
+            "meta_description": "Landmark ‘Make in India’ move strengthens US-India defence ties.",
+            "pixel_width_estimate": 416
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "length_status": "acceptable",
+            "character_count": 87,
+            "meta_description": "How Titan Company supports people with disabilities (PWDs) in the employable age group.",
+            "pixel_width_estimate": 565
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "length_status": "acceptable",
+            "character_count": 87,
+            "meta_description": "This is in order to simplify structures, leverage synergies and scale business rapidly.",
+            "pixel_width_estimate": 565
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "length_status": "too_short",
+            "character_count": 68,
+            "meta_description": "The Tata group has been in the defence business since the Great War.",
+            "pixel_width_estimate": 442
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "length_status": "too_short",
+            "character_count": 37,
+            "meta_description": "Statement on November 10, 2016 (PDF).",
+            "pixel_width_estimate": 240
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "length_status": "acceptable",
+            "character_count": 83,
+            "meta_description": "Tata Trusts is helping empower undeprivileged communities through digital literacy.",
+            "pixel_width_estimate": 539
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "length_status": "acceptable",
+            "character_count": 83,
+            "meta_description": "Statements by Tata Steel and B Muthuraman, former vice chairman and MD, Tata Steel.",
+            "pixel_width_estimate": 539
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "length_status": "acceptable",
+            "character_count": 88,
+            "meta_description": "With 35% women employees, TCS demonstrates how tech companies need diversity to succeed.",
+            "pixel_width_estimate": 572
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "length_status": "acceptable",
+            "character_count": 76,
+            "meta_description": "He is a former global COO of Unilever and the non-executive chairman of HUL.",
+            "pixel_width_estimate": 494
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "length_status": "acceptable",
+            "character_count": 72,
+            "meta_description": "He has addressed many of the pain points in the $100 billion Tata Group.",
+            "pixel_width_estimate": 468
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "length_status": "too_short",
+            "character_count": 30,
+            "meta_description": "Statement on October 27, 2018.",
+            "pixel_width_estimate": 195
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "length_status": "acceptable",
+            "character_count": 79,
+            "meta_description": "The iconic Bombay House is reopened on the 114th birth anniversary of JRD Tata.",
+            "pixel_width_estimate": 513
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "length_status": "too_short",
+            "character_count": 68,
+            "meta_description": "Mr Tata was addressing CEOs and MDs of various Tata group companies.",
+            "pixel_width_estimate": 442
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "length_status": "acceptable",
+            "character_count": 80,
+            "meta_description": "June 26, 2018 statement by Tata Sons, on issues concerning AirAsia India (AAIL).",
+            "pixel_width_estimate": 520
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "length_status": "acceptable",
+            "character_count": 89,
+            "meta_description": "Reimagining the workplace in a world where tech evolves faster than culture and behaviour",
+            "pixel_width_estimate": 578
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "length_status": "acceptable",
+            "character_count": 78,
+            "meta_description": "The JN Tata Endowment encourages young people to pursue higher studies abroad.",
+            "pixel_width_estimate": 507
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "length_status": "too_short",
+            "character_count": 62,
+            "meta_description": "The new steel giant will be named thyssenkrupp Tata Steel B.V.",
+            "pixel_width_estimate": 403
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "length_status": "acceptable",
+            "character_count": 75,
+            "meta_description": "Glimpses from Tetley's richly brewed heritage — all 180 years and counting.",
+            "pixel_width_estimate": 487
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "length_status": "too_short",
+            "character_count": 58,
+            "meta_description": "Mr. Chandrasekaran is the Chairman-designate of Tata Sons.",
+            "pixel_width_estimate": 377
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "length_status": "acceptable",
+            "character_count": 88,
+            "meta_description": "JLR’s 100-percent-owned subsidiary, InMotion, is the future of smart mobility solutions.",
+            "pixel_width_estimate": 572
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "length_status": "acceptable",
+            "character_count": 85,
+            "meta_description": "There are currently 19 independent Tata companies in the UK, with diverse businesses.",
+            "pixel_width_estimate": 552
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "length_status": "acceptable",
+            "character_count": 70,
+            "meta_description": "It is India's first heritage building to be presented with the rating.",
+            "pixel_width_estimate": 455
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "length_status": "acceptable",
+            "character_count": 70,
+            "meta_description": "The Vistara \"Retrojet\" recreates Tata Airlines' livery from the 1940s.",
+            "pixel_width_estimate": 455
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "length_status": "too_short",
+            "character_count": 44,
+            "meta_description": "Selection committee set up for new chairman.",
+            "pixel_width_estimate": 286
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Behind-the-scenes of how Tata companies have been building the nation for 150 years.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Banmali Agrawala, President, Infrastructure, Defence & Aerospace on the way forward.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "length_status": "acceptable",
+            "character_count": 71,
+            "meta_description": "Tata Sons welcomed the order of the Delhi High Court on April 28, 2017.",
+            "pixel_width_estimate": 461
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "length_status": "acceptable",
+            "character_count": 79,
+            "meta_description": "N. Chandrasekaran addressed the media on January 12, 2017 at TCS House, Mumbai.",
+            "pixel_width_estimate": 513
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "length_status": "acceptable",
+            "character_count": 87,
+            "meta_description": "It was delivered ahead of schedule, within a year of the facility becoming operational.",
+            "pixel_width_estimate": 565
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Tata Sons welcomes the National Company Law Tribunal (NCLT) order on April 17, 2017.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "length_status": "acceptable",
+            "character_count": 75,
+            "meta_description": "The event will take place in collaboration with several long-time partners.",
+            "pixel_width_estimate": 487
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "Jaguar Land Rover’s Bagnall is one of 100 outstanding British women in the industry.",
+            "pixel_width_estimate": 546
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "length_status": "too_short",
+            "character_count": 51,
+            "meta_description": "News and stories from the Tata group and companies.",
+            "pixel_width_estimate": 331
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "length_status": "acceptable",
+            "character_count": 86,
+            "meta_description": "A look back at the Sir Ratan Tata Institute's enduring legacy on its 90th anniversary.",
+            "pixel_width_estimate": 559
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "length_status": "too_short",
+            "character_count": 60,
+            "meta_description": "Significant number of digital-led innovations; advanced R&D.",
+            "pixel_width_estimate": 390
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "length_status": "acceptable",
+            "character_count": 78,
+            "meta_description": "The Tata Mumbai Marathon deepens the group's connect with running communities.",
+            "pixel_width_estimate": 507
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "length_status": "acceptable",
+            "character_count": 82,
+            "meta_description": "Appointments include Roopa Purushothaman, Banmali Agrawala and Aarthi Subramanian.",
+            "pixel_width_estimate": 533
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "length_status": "acceptable",
+            "character_count": 74,
+            "meta_description": "Tata Power announced the appointment would be effective December 16, 2016.",
+            "pixel_width_estimate": 481
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "length_status": "acceptable",
+            "character_count": 84,
+            "meta_description": "The order dismisses all allegations against Tata Trusts, its trustees and Tata Sons.",
+            "pixel_width_estimate": 546
+          }
+        ]
+      },
+      "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display"
+    },
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or multiple H1 tags",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Why We All Need To Learn To Code"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Venu Srinivasan and Ajay Piramal appointed non-executive directors of Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Making Data Perform"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Letters For Inclusion"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons appoints CHRO and Head, Global Corporate Affairs"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Cream Of The Crop"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons to form Tata Aerospace and Defence"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Weaving A New Story"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., N Chandrasekaran appointed Chairman of Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata-Boeing joint venture establishes aerospace facility in Hyderabad"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., N Chandrasekaran: I want to simplify Tata Group"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata, Lockheed Martin to build F-16 wings in India"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Blazing a Trail"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata reorganises realty and infrastructure business"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., The Defence Journey"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A Statement From Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Net Gains"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statements from Tata Steel addressing media reports regarding Corus acquisition"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Diversity Matters"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Harish Manwani appointed independent director of Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., N Chandrasekaran's one year at Tata Sons: A job well begun"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement from Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Bombay House Reopens After Restoration"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Ratan N Tata: Tata companies must focus on market position"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., What Will The Workplace Of The Future Look Like?"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Backing the Brightest"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Steel and thyssenkrupp sign JV agreements to create new steel champion"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Brewing Strong at a Hundred and Eightea"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Power appoints N Chandrasekaran as Chairman"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., The Future Of Transport"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons' statement on the UK referendum"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Bombay House to be presented with the IGBC platinum green rating"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A #Retrojet Tribute to JRD Tata"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons Board replaces Cyrus P Mistry as Chairman"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Invisible Tata"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Ready To Scale"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement from Tata Sons: NTT Docomo"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Creating shareholder value is fundamental to the Tata group"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Boeing Aerospace delivers first AH-64 Apache combat helicopter fuselage"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., NCLT upholds Tata Sons' position"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata, Enabling Youth Entrepreneurship across Europe"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Driven By Passion"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., News and Features"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Parsi Bhonu For The Soul"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata companies showcase over 3,300 implemented innovations, doubling over two years"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Going The Distance"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons Appointments: Roopa Purushothaman, Banmali Agrawala, Aarthi Subramanian"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Power appoints S Padmanabhan as additional director"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons welcomes NCLT order, dated July 9, 2018"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Diamond By The Sea"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., GE and Tata Group enter into strategic partnership to manufacture LEAP engine components in India"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Wings To Soar"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., N Chandrasekaran chairs first board meeting as Chairman of Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Simplification, synergy, scale: How Chandra is planning to take Tata ahead"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Nerves of Steel"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Global Beverages announces changes to the board of directors"
+        },
+        {
+          "current_value": "24 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Aeris: Defeat Boring, Where India Grows Next"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statements from Tata Sons on NCLT, December 2017"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Central Archives celebrates 25 glorious years of the Tata legacy"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Food For Thought"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tatas dismiss Mr Cyrus Mistry’s charges"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata group conferred with the Asean-India Achievement and Excellence Award"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons increases stake in AirAsia India"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., 'Tata on a transformational journey': Group Chairman N Chandrasekaran to CNN"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., New School Of Thought"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Brewing A Culture Of Warmth And Belonging"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., TCS appoints Rajesh Gopinathan as CEO; NG Subramaniam as COO"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata group among top 20 knowledge enterprises in the world"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Boeing Aerospace inaugurates its state-of-the-art Apache fuselage facility"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement from Tata Sons: Air Asia"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Brand value of 'Tata' surges as India's most valuable brand: Brand Finance"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., The Power of Dreams"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Lockheed Martin, Tata announce F-16 India partnership"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata, Lockheed Martin bring new cutting-edge aerospace technology to India"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Steel UK reaches agreement with the trade unions"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Into the Wild"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Channel Surfer"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Sons Appointments: Saurabh Agrawal and Shuva Mandal"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Through The Mill"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., How N Chandra is transforming Tata Group into a business focussed on profitability"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement by Tata Sons on civil aviation"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Gardens of Green"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Boeing and Tata announce aerospace joint venture in India"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Peak Form"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A Fresh Impulse To Learning"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Steeling The Show"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Group Appointments: Tata Power and Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Treasures from the Past"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., The Making Of Bombay House 2.0"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., For The Love Of Running"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Ralf Speth, N. Chandrasekaran join Tata Sons Board"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., The Tata group publishes report on its contribution towards Sustainable Development Goals"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A statement from Tata Sons: EGM"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement from N Chandrasekaran, Tata Sons Chairman-designate"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statements by Tata Sons on dispute with NTT Docomo"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A Century of Steel"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., A Brand With A Soul"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata group to be title sponsor of the Maharashtra Open"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Saving Olive Ridley"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Steel announces changes to the board of directors"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., People First"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Wings for a Nation"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Amit Chandra appointed non-executive director of Tata Sons"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata On The Frontline"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Statement issued on behalf of FC Kohli, former CEO of TCS"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Tata Unistore to launch its e-commerce platform, Tata CLiQ"
+        },
+        {
+          "current_value": "2 H1 tags: The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience., Digitising Healthcare"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Why We All Need To Learn To Code"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Venu Srinivasan and Ajay Piramal appointed non-executive directors of Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Making Data Perform"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Letters For Inclusion"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons appoints CHRO and Head, Global Corporate Affairs"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Cream Of The Crop"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons to form Tata Aerospace and Defence"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Weaving A New Story"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "N Chandrasekaran appointed Chairman of Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata-Boeing joint venture establishes aerospace facility in Hyderabad"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "N Chandrasekaran: I want to simplify Tata Group"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata, Lockheed Martin to build F-16 wings in India"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Blazing a Trail"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata reorganises realty and infrastructure business"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "The Defence Journey"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "A Statement From Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Net Gains"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Statements from Tata Steel addressing media reports regarding Corus acquisition"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Diversity Matters"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Harish Manwani appointed independent director of Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "N Chandrasekaran's one year at Tata Sons: A job well begun"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Statement from Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Bombay House Reopens After Restoration"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Ratan N Tata: Tata companies must focus on market position"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Statement from Tata Sons"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "What Will The Workplace Of The Future Look Like?"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Backing the Brightest"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Steel and thyssenkrupp sign JV agreements to create new steel champion"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Brewing Strong at a Hundred and Eightea"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Power appoints N Chandrasekaran as Chairman"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "The Future Of Transport"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons' statement on the UK referendum"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Bombay House to be presented with the IGBC platinum green rating"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "A #Retrojet Tribute to JRD Tata"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons Board replaces Cyrus P Mistry as Chairman"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Invisible Tata"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Ready To Scale"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Statement from Tata Sons: NTT Docomo"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Creating shareholder value is fundamental to the Tata group"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Boeing Aerospace delivers first AH-64 Apache combat helicopter fuselage"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "NCLT upholds Tata Sons' position"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata, Enabling Youth Entrepreneurship across Europe"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Driven By Passion"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "News and Features"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Parsi Bhonu For The Soul"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata companies showcase over 3,300 implemented innovations, doubling over two years"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Going The Distance"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons Appointments: Roopa Purushothaman, Banmali Agrawala, Aarthi Subramanian"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Power appoints S Padmanabhan as additional director"
+            ]
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "h1_tags": [
+              "The world looks best in a portrait mode. So does our website :) Please tilt and enjoy the experience.",
+              "Tata Sons welcomes NCLT order, dated July 9, 2018"
+            ]
+          }
+        ]
+      },
+      "recommendation": "Ensure each page has a single H1 tag to improve readability and SEO."
+    },
+    {
+      "rule_id": "on_page_004",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Illogical heading hierarchy",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Heading issues: H1=2, H2=1, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=0, H3=0, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=6, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=3, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=5, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=4, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=1, H3=4, H4=1, H5=4, H6=0 — 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=0, H3=0, H4=1, H5=4, H6=0 — 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=2, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=8, H3=4, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=0, H3=15, H4=0, H5=4, H6=0 — H3 used without H2, Excessive headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=24, H2=2, H3=7, H4=0, H5=4, H6=0 — Excessive headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=1, H3=4, H4=1, H5=4, H6=1 — 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=4, H3=4, H4=1, H5=4, H6=0 — 1 duplicate headings, 2 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=4, H3=5, H4=1, H5=4, H6=0 — 2 headings longer than 100 characters"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "target": "1 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "target": "2 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "target": "2 headings longer than 100 characters"
+          }
+        ]
+      },
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
+    },
+    {
+      "rule_id": "on_page_008",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing Open Graph tags",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Missing Open Graph tags: og:description, og:url"
+        },
+        {
+          "current_value": "Missing Open Graph tags: og:url"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "target": "og:url"
+          }
+        ]
+      },
+      "recommendation": "Add missing OG tags: og:description, og:url"
+    },
+    {
+      "rule_id": "technical_003",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing HTML language declaration",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "HTML language attribute not specified"
+        }
+      ],
+      "recommendation": "Add lang attribute to <html> tag (e.g., <html lang='en'>)"
+    },
+    {
+      "rule_id": "technical_004",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Character encoding not declared",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Character encoding not specified"
+        }
+      ],
+      "recommendation": "Add <meta charset='UTF-8'> in the first 1024 bytes of HTML"
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing DOCTYPE declaration",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Missing DOCTYPE declaration"
+        }
+      ],
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document"
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "Missing content freshness dates",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No content freshness dates found"
+        }
+      ],
+      "recommendation": "Consider adding article published/modified dates"
+    },
+    {
+      "rule_id": "images_001",
+      "category": "images",
+      "severity": "low",
+      "title": "Images missing alt text",
+      "affected_pages": 80,
+      "occurrences": [
+        {
+          "current_value": "14/46 images missing alt text"
+        },
+        {
+          "current_value": "14/48 images missing alt text"
+        },
+        {
+          "current_value": "22/54 images missing alt text"
+        },
+        {
+          "current_value": "26/58 images missing alt text"
+        },
+        {
+          "current_value": "18/50 images missing alt text"
+        },
+        {
+          "current_value": "50/90 images missing alt text"
+        },
+        {
+          "current_value": "34/66 images missing alt text"
+        },
+        {
+          "current_value": "49/173 images missing alt text"
+        },
+        {
+          "current_value": "14/49 images missing alt text"
+        },
+        {
+          "current_value": "38/70 images missing alt text"
+        },
+        {
+          "current_value": "30/62 images missing alt text"
+        },
+        {
+          "current_value": "46/201 images missing alt text"
+        },
+        {
+          "current_value": "14/43 images missing alt text"
+        },
+        {
+          "current_value": "14/50 images missing alt text"
+        },
+        {
+          "current_value": "51/82 images missing alt text"
+        },
+        {
+          "current_value": "14/47 images missing alt text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Close",
+            "src": "/content/dam/tata/images/common/close.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Cookie",
+            "src": "/content/dam/tata/images/common/cookies.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "whiteCookie",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/white_cookies.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Coding",
+            "src": "/content/dam/tata/images/newsroom/careers/desktop/careers_coding_banner_desktop_1920x1080.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Share",
+            "src": "/content/dam/tata/images/common/share.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Share",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/shareWhite.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Share",
+            "src": "/content/dam/tata/images/common/shareOptions/color/share.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Copy link",
+            "src": "/content/dam/tata/images/common/link.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Copy link",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/linkWhiteDarkMode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Copy link",
+            "src": "/content/dam/tata/images/common/linkColor.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Careers and People",
+            "src": "/content/dam/tata/images/CareersLandingPage/desktop/OurPeople_Cards_Desktop.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "alt": "Arrow",
+            "src": "/content/dam/tata/images/common/arrow_icon_yellow.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Close",
+            "src": "/content/dam/tata/images/common/close.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Cookie",
+            "src": "/content/dam/tata/images/common/cookies.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "whiteCookie",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/white_cookies.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Organisations must learn to distill and use data",
+            "src": "/content/dam/tata/images/newsroom/business/desktop/making-data-perform-lead-image-desktop-1920x1080.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Share",
+            "src": "/content/dam/tata/images/common/share.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Share",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/shareWhite.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Share",
+            "src": "/content/dam/tata/images/common/shareOptions/color/share.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Copy link",
+            "src": "/content/dam/tata/images/common/link.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Copy link",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/linkWhiteDarkMode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Copy link",
+            "src": "/content/dam/tata/images/common/linkColor.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Net Gains",
+            "src": "/content/dam/tata/images/newsroom/community/cards/internet_saathi_card_hz_desktop_390x362.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "alt": "Arrow",
+            "src": "/content/dam/tata/images/common/arrow_icon_yellow.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "Close",
+            "src": "/content/dam/tata/images/common/close.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "Search",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/searchicon_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "filter_img",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/filter_white.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "plus",
+            "src": "/etc.clientlibs/tata/clientlibs/assets/resources/img/common/globalSearch/close_icon_blue_dark_mode.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "alt": "Cookie",
+            "src": "/content/dam/tata/images/common/cookies.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          }
+        ]
+      },
+      "recommendation": "Ensure all images on the website have appropriate alt text for better accessibility and SEO."
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "Lazy loading not implemented",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Lazy loading not detected"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/why-we-should-code",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/making-data-perform",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/letters-for-inclusion",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-announces-appointments-april-2018",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Trusts-tata-dairy-mission",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-to-form-aerospace-and-defence",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/taneira-weaving-a-new-story",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-appointed-chairman-tata-sons",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Boeing-joint-venture-establishes-aerospace-facility-Hyderabad",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandra-i-want-to-simplify-tata-group",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-build-f16-wings-in-india",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-reorganizes-realty-and-infrastructure-business",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-journey",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/diversity-is-good-for-business-tcs",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/harish-manwani-appointed-independent-director-tata-sons",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-one-year-job-well-begun",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-reopens-after-restoration",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/backing-the-brightest-jn-tata-endowment-fund",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-steel-thyssenkrupp-sign-jv-agreement",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tetley-brewing-strong-at-a-hundred-eightea",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-n-chandrasekaran-as-chairman",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Inmotion-ventures-future-of-transport",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-Sons-statement-on-the-UK-referendum",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/air-vistara-salutes-jrd-tata-retrojet",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-replaces-cyrus-mistry-as-chairman",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-ntt-docomo",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/creating-shareholder-value-is-fundamental-to-the-tata-group",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-boeing-first-AH-64-apache-combat-fuselage",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nclt-upholds-tata-sons-position",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-enabling-youth-entrepreneurship-across-europe",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-people-danella-bagnall-jlr",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/rti-parsi-bhonu-for-the-soul",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-companies-showcase-3300-innovations-doubling-over-two-years",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Tata-marathon-going-the-distance",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-roopa-purushothaman-banmali-agrawala-aarthi-subramanian",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-power-appoints-s-padmanabhan-as-additional-director",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-sons-welcomes-nclt-order",
+            "lazy_loading": false
+          }
+        ]
+      },
+      "recommendation": "Add loading='lazy' attribute to images below the fold"
+    },
+    {
+      "rule_id": "images_005",
+      "category": "images",
+      "severity": "low",
+      "title": "Missing responsive image attributes",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No responsive images (srcset) detected"
+        }
+      ],
+      "recommendation": "Add `width` and `height` attributes to all image tags to improve SEO and user experience."
+    },
+    {
+      "rule_id": "images_006",
+      "category": "images",
+      "severity": "low",
+      "title": "Only traditional image formats detected",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "Only traditional image formats detected"
+        }
+      ],
+      "recommendation": "Consider using WebP or AVIF for better compression"
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "No external links found",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No external links found"
+        }
+      ],
+      "recommendation": "Consider linking to authoritative external sources"
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No social media links found"
+        }
+      ],
+      "recommendation": "Add links to your social media profiles"
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing Facebook domain verification",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No Facebook App ID or admins meta tag"
+        }
+      ],
+      "recommendation": "Add fb:app_id or fb:admins for Facebook Insights"
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No sitemap data available"
+        }
+      ],
+      "recommendation": "Create and submit XML sitemap to search engines"
+    },
+    {
+      "rule_id": "technical_010",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing structured data / schema markup",
+      "affected_pages": 109,
+      "occurrences": [
+        {
+          "current_value": "No structured data / schema markup found"
+        }
+      ],
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "low",
+      "title": "Missing or poor page title",
+      "affected_pages": 29,
+      "occurrences": [
+        {
+          "current_value": "Title: Venu Srinivasan, Ajay Piramal appointed non-executive directors of Tata Sons (76 chars)"
+        },
+        {
+          "current_value": "Title: Blazing A Trail | Tata Group (28 chars)"
+        },
+        {
+          "current_value": "Title: Statement From Tata Sons (24 chars)"
+        },
+        {
+          "current_value": "Title: Net Gains | Tata Group (22 chars)"
+        },
+        {
+          "current_value": "Title: Statements from Tata Steel on reports regarding Corus acquisition (65 chars)"
+        },
+        {
+          "current_value": "Title: A Statement from Tata Sons (26 chars)"
+        },
+        {
+          "current_value": "Title: Mr. Ratan N. Tata: Tata companies must focus on market position (63 chars)"
+        },
+        {
+          "current_value": "Title: What Will The Workplace Of The Future Look Like? | Tata Group (61 chars)"
+        },
+        {
+          "current_value": "Title: Bombay House to be presented with the IGBC platinum green rating (64 chars)"
+        },
+        {
+          "current_value": "Title: Invisible Tata | Tata group (27 chars)"
+        },
+        {
+          "current_value": "Title: Ready To Scale | Tata Group (27 chars)"
+        },
+        {
+          "current_value": "Title: News and Stories | Tata group (29 chars)"
+        },
+        {
+          "current_value": "Title: GE and Tata Group to manufacture LEAP engine components in India (64 chars)"
+        },
+        {
+          "current_value": "Title: N. Chandra chairs first board meeting as Chairman of Tata Sons (62 chars)"
+        },
+        {
+          "current_value": "Title: Business Standard: How Chandra is planning to take Tata ahead (61 chars)"
+        },
+        {
+          "current_value": "Title: Nerves Of Steel | Tata group (28 chars)"
+        },
+        {
+          "current_value": "Title: Tata Global Beverages announces changes to the board of directors (65 chars)"
+        },
+        {
+          "current_value": "Title: Food For Thought | Tata Group (29 chars)"
+        },
+        {
+          "current_value": "Title: Tata group receives Asean-India Achievement and Excellence Award (64 chars)"
+        },
+        {
+          "current_value": "Title: Tata Chairman N. Chandra: 'Tata on a transformational journey' (62 chars)"
+        },
+        {
+          "current_value": "Title: Tata continues to be India's most valuable brand: Brand Finance (63 chars)"
+        },
+        {
+          "current_value": "Title: Tata, Lockheed Martin bring cutting-edge aerospace tech to India (64 chars)"
+        },
+        {
+          "current_value": "Title: Into The Wild | Tata Group (26 chars)"
+        },
+        {
+          "current_value": "Title: Through The Mill | Tata group (29 chars)"
+        },
+        {
+          "current_value": "Title: Gardens Of Green | Tata Group (29 chars)"
+        },
+        {
+          "current_value": "Title: Tata releases report on contribution to Sustainable Development Goals (69 chars)"
+        },
+        {
+          "current_value": "Title: People First | Tata group (25 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://www.tata.com/newsroom/venu-srinivasan-ajay-piramal-directors-tata-sons",
+            "title": "Venu Srinivasan, Ajay Piramal appointed non-executive directors of Tata Sons",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 76,
+            "truncation_risk": false,
+            "pixel_width_estimate": 449,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/titan-diversity-blazing-a-trail",
+            "title": "Blazing A Trail | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 28,
+            "truncation_risk": false,
+            "pixel_width_estimate": 157,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-10-2016",
+            "title": "Statement From Tata Sons",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 24,
+            "truncation_risk": false,
+            "pixel_width_estimate": 151,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/Internet-Saathi-net-gains",
+            "title": "Net Gains | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 22,
+            "truncation_risk": false,
+            "pixel_width_estimate": 129,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statements-from-tata-steel-addressing-media-reports-regarding-corus-acquisition",
+            "title": "Statements from Tata Steel on reports regarding Corus acquisition",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 65,
+            "truncation_risk": false,
+            "pixel_width_estimate": 388,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-tata-sons-oct-27-2018",
+            "title": "A Statement from Tata Sons",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 26,
+            "truncation_risk": false,
+            "pixel_width_estimate": 161,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ratan-tata-companies-must-focus-on-market-position",
+            "title": "Mr. Ratan N. Tata: Tata companies must focus on market position",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 63,
+            "truncation_risk": false,
+            "pixel_width_estimate": 368,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons",
+            "title": "Statement From Tata Sons",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 24,
+            "truncation_risk": false,
+            "pixel_width_estimate": 151,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/what-will-workplace-of-the-future-look-like",
+            "title": "What Will The Workplace Of The Future Look Like? | Tata Group",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 61,
+            "truncation_risk": false,
+            "pixel_width_estimate": 362,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/bombay-house-to-bepresentedwiththeigbcplatinumgreenrating",
+            "title": "Bombay House to be presented with the IGBC platinum green rating",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 376,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/invisible-tata",
+            "title": "Invisible Tata | Tata group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 27,
+            "truncation_risk": false,
+            "pixel_width_estimate": 150,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-defence-aerospace-ready-to-scale",
+            "title": "Ready To Scale | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 27,
+            "truncation_risk": false,
+            "pixel_width_estimate": 160,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom",
+            "title": "News and Stories | Tata group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 170,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/ge-tata-group-enter-strategic-partnership-leap-engine",
+            "title": "GE and Tata Group to manufacture LEAP engine components in India",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/n-chandrasekaran-chairs-first-board-meetings-chairman-tata-sons",
+            "title": "N. Chandra chairs first board meeting as Chairman of Tata Sons",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 363,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/simplification-synergy-scale-how-chandra-is-planning-take-tata-forward",
+            "title": "Business Standard: How Chandra is planning to take Tata ahead",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 61,
+            "truncation_risk": false,
+            "pixel_width_estimate": 360,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/nerves-of-steel",
+            "title": "Nerves Of Steel | Tata group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 28,
+            "truncation_risk": false,
+            "pixel_width_estimate": 167,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-global-beverages-announces-changes-board-of-directors",
+            "title": "Tata Global Beverages announces changes to the board of directors",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 65,
+            "truncation_risk": false,
+            "pixel_width_estimate": 390,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/food-for-thought-tata-trusts-annapoorna-kitchens",
+            "title": "Food For Thought | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 176,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/statement-from-tata-sons-nov-13-2016",
+            "title": "A Statement from Tata Sons",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 26,
+            "truncation_risk": false,
+            "pixel_width_estimate": 161,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-asean-india-achievement-excellence-award",
+            "title": "Tata group receives Asean-India Achievement and Excellence Award",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 382,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-on-a-transformational-journey",
+            "title": "Tata Chairman N. Chandra: 'Tata on a transformational journey'",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 363,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/brand-value-of-tata-surges-as-india-most-valuable-brand",
+            "title": "Tata continues to be India's most valuable brand: Brand Finance",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 63,
+            "truncation_risk": false,
+            "pixel_width_estimate": 362,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-lockheed-martin-new-cutting-edge-aerospace-technology-to-india",
+            "title": "Tata, Lockheed Martin bring cutting-edge aerospace tech to India",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 378,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/wildlife-conservation-into-the-wild",
+            "title": "Into The Wild | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 26,
+            "truncation_risk": false,
+            "pixel_width_estimate": 148,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/through-the-mill",
+            "title": "Through The Mill | Tata group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 168,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/gardens-of-green",
+            "title": "Gardens Of Green | Tata Group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 178,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/tata-group-report-sustainable-development-goals",
+            "title": "Tata releases report on contribution to Sustainable Development Goals",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 69,
+            "truncation_risk": false,
+            "pixel_width_estimate": 408,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://www.tata.com/newsroom/people-first-labour-welfare",
+            "title": "People First | Tata group",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 25,
+            "truncation_risk": false,
+            "pixel_width_estimate": 144,
+            "content_consistency_score": 1.0
+          }
+        ]
+      },
+      "recommendation": "Shorten the title substantially and place the most important topic information toward the beginning."
+    },
+    {
+      "rule_id": "missing_www_redirect",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing or inconsistent www canonicalization",
+      "affected_pages": 1,
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "tata.com",
+            "www_and_nonwww": [
+              "tata.com"
+            ]
+          }
+        ]
+      },
+      "recommendation": "Choose one canonical host (www or non-www) and 301-redirect the other."
+    }
+  ]
+}

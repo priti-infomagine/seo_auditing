@@ -19,7 +19,7 @@ from app.core.logger import logger
 from . import parser as parser_module
 from .evaluator import evaluate
 from .fetcher import fetch_robots_txt, FetchResult, FetchStatus, ParsedRobots
-from .ai_insight import generate_insights
+from .ai_insight import generate_insights, recommendation_for_code
 from .repository import RobotCheckRepository
 from .model import OverallStatus, Severity, RobotCheck
 from .validation import validate_domain
@@ -114,15 +114,29 @@ class RobotsCheckService:
 
         # 5. Evaluate
         evaluation = evaluate(parsed, fetch_result, sitemap_reachability)
+        findings = evaluation.findings or []
+        fallback_recommendation = (
+            recommendation_for_code(findings[0].get("code", ""))
+            if findings
+            else None
+        )
 
         # 6. AI insights (graceful degradation)
         try:
             insights = await generate_insights(evaluation, fetch_result, parsed)
         except Exception as exc:
             logger.warning(
-                "RobotsCheckService: AI insights failed: %s", exc
+                "RobotsCheckService: AI insights failed (%s): %s",
+                type(exc).__name__,
+                exc,
             )
             insights = {}
+        if not isinstance(insights, dict):
+            insights = {}
+        if not insights.get("recommendation"):
+            insights["recommendation"] = fallback_recommendation
+        if not insights.get("why"):
+            insights["why"] = evaluation.evidence_str
 
         # 7. Store
         row = RobotCheck(
@@ -153,7 +167,6 @@ class RobotsCheckService:
             repo = RobotCheckRepository(db)
             await repo.create(row)
             await db.commit()
-            await db.refresh(row)
             return row
 
     async def get_latest(self, domain: str) -> Optional[RobotCheck]:

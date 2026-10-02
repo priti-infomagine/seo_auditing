@@ -17,10 +17,13 @@ from .service import RedirectCheckerService
 )
 def run_check(self, check_id: str, request_data: dict) -> dict:
     logger.info("redirect_check.run_check: started check_id=%s", check_id)
-    self.update_state(
-        state="PROGRESS",
-        meta={"check_id": check_id, "phase": "checking"},
-    )
+    task_id = self.request.id
+    if task_id:
+        self.update_state(
+            task_id=task_id,
+            state="PROGRESS",
+            meta={"check_id": check_id, "phase": "checking"},
+        )
 
     async def _run() -> dict:
         request = RedirectCheckRequest.model_validate(request_data)

@@ -66,13 +66,7 @@ async def _prewarm_celery_broker():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    try:
-        await init_db()
-    except Exception as exc:
-        logger.error(
-            f"init_db failed during lifespan: {exc}",
-            exc_info=True,
-        )
+    await init_db()
 
     await _prewarm_celery_broker()
 

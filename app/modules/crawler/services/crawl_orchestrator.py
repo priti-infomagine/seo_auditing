@@ -585,7 +585,6 @@ class CrawlOrchestrator:
                 getattr(self._scheduler, "pages_crawled_count", 0) + 1,
                 persistence=worker_persistence,
             )
-            await worker_db.commit()
 
 
     async def get_summary(self) -> Optional[dict]:

@@ -23,13 +23,16 @@ from .service import MetaCheckService
 )
 def run_check(self, check_id: str) -> dict:
     logger.info("meta.run_check: task started for check_id=%s", check_id)
+    task_id = self.request.id
+
+    def _report_progress(state, meta=None):
+        if task_id:
+            self.update_state(task_id=task_id, state=state, meta=meta)
 
     async def _run():
         return await MetaCheckService().run_check_async(
             UUID(check_id),
-            update_state=lambda state, meta=None: self.update_state(
-                state=state, meta=meta
-            ),
+            update_state=_report_progress,
         )
 
     return run_async(_run())

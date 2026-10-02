@@ -198,6 +198,27 @@ async def test_service_get_latest_not_found(db_session):
 
 
 @pytest.mark.asyncio
+async def test_service_persists_fallback_when_ai_insights_fail(db_session, monkeypatch):
+    """An AI failure still stores a deterministic recommendation."""
+    import app.modules.seprate_checks.robots_check.service as service_module
+    from app.modules.seprate_checks.robots_check.ai_insight import recommendation_for_code
+
+    MockHTTPClient._mock_response = _make_response(
+        "User-agent: *\nDisallow: /\n", 200
+    )
+
+    async def fail_insights(*args, **kwargs):
+        raise RuntimeError("Ollama unavailable")
+
+    monkeypatch.setattr(service_module, "generate_insights", fail_insights)
+    result = await RobotsCheckService(db_session).run_check("example.com", force=True)
+
+    assert result.findings[0]["code"] == "robots_site_block"
+    assert result.recommendation == recommendation_for_code("robots_site_block")
+    assert result.why == result.evidence
+
+
+@pytest.mark.asyncio
 async def test_service_www_normalization(db_session):
     """www.example.com → normalized to example.com."""
     body = load_fixture("clean_robots.txt")
