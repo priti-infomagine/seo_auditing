@@ -52,7 +52,7 @@ def _get_resolver() -> Any:
         _resolver = aiodns.DNSResolver(
             timeout=2.0,
             tries=1,
-            lifetime=5.0,
+            # lifetime=5.0,
             loop=loop,
         )
     return _resolver
