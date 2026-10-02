@@ -19,9 +19,10 @@ BACKEND_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$BACKEND_ROOT"
 
 QUEUES="${1:-crawler,audit}"
-POOL="${POOL:-solo}"
-CONCURRENCY="${CONCURRENCY:-1}"
+POOL="${POOL:-prefork}"
+CONCURRENCY="${CONCURRENCY:-4}"
 LOGLEVEL="${LOGLEVEL:-info}"
+
 
 echo "============================================================"
 echo " SEO Audit Tool — Celery worker"

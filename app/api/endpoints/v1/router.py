@@ -24,7 +24,6 @@ from app.modules.seprate_checks.link_analysis.router import (
     router as link_analysis_router,
 )
 from app.modules.seprate_checks.meta_check.router import router as meta_router
-from app.modules.seprate_checks.bulk_status.router import router as bulk_status_router
 
 router = APIRouter()
 
@@ -44,6 +43,5 @@ router.include_router(robots_router, prefix="/robots", tags=["Robots"])
 router.include_router(sitemap_router, prefix="/sitemap", tags=["Sitemap"])
 router.include_router(link_analysis_router, prefix="/link-analysis", tags=["Link Analysis"])
 router.include_router(meta_router, prefix="/meta", tags=["Meta Metadata"])
-router.include_router(bulk_status_router, prefix="/bulk-status", tags=["Bulk Status"])
 
 __all__ = ["router"]
