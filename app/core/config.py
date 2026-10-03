@@ -65,7 +65,7 @@ class Settings(BaseSettings):
     # ── Ollama Chat ─────────────────────────────────────────────────
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
     OLLAMA_MODEL: str = "qwen3:1.7b"
-    OLLAMA_TIMEOUT: int = 30
+    OLLAMA_TIMEOUT: int = 2
     OLLAMA_TEMPERATURE: float = 0.1
 
     # ── Broken Link Checking ────────────────────────────────────────
