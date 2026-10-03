@@ -142531,3 +142531,14 @@ Call log:
 Call log:
   - navigating to "https://www.kanhahometutions.com/home-tutions-in-kota", waiting until "domcontentloaded"
 
+2026-10-02T18:40:32 | WARNING | app | Browser fallback failed for https://infomagine.in/blog/why-server-monitoring-is-critical-for-modern-businesses-risks-benefits-and-best-practices: Page.content: Target page, context or browser has been closed
+2026-10-02T18:40:32 | WARNING | app | Browser fallback failed for https://infomagine.in/blog/top-programming-languages-in-2025-global-rankings-whats-driving-their-popularity: Page.content: Target page, context or browser has been closed
+2026-10-02T18:40:32 | WARNING | app | Browser fallback failed for https://infomagine.in/blog/npm-supply-chain-attacks-what-every-business-using-reactjs-nodejs-or-vuejs-must-know-sept-8-2025-alert: Page.content: Target page, context or browser has been closed
+2026-10-02T18:40:32 | WARNING | app | Browser fallback failed for https://infomagine.in/casestudy/invitehive: Page.content: Target page, context or browser has been closed
+2026-10-02T18:40:33 | INFO | app | Crawl completed: https://infomagine.in/ — pages_crawled=59, pages_discovered=59, pages_failed=0, duration=416383ms
+2026-10-02T18:40:33 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 2737, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-02T18:40:36 | WARNING | app | Browser fallback failed for https://kanhahometutions.com/privacy-policy: Page.content: Unable to retrieve content because the page is navigating and changing the content.
+2026-10-02T18:40:36 | INFO | app | Crawl completed: https://kanhahometutions.com — pages_crawled=109, pages_discovered=299, pages_failed=0, duration=376191ms
+2026-10-02T18:40:36 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 4619, 'non_html': 2, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-02T18:40:36 | INFO | app | crawler.crawl_website: auto_analyze fired for audit_id=a3c0b025-4df2-4193-90ad-2795fa5f9a90, force=False
+2026-10-02T18:40:36 | INFO | app | crawler.crawl_website: task succeeded for audit_id=a3c0b025-4df2-4193-90ad-2795fa5f9a90, pages_crawled=109
