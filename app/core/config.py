@@ -56,6 +56,8 @@ class Settings(BaseSettings):
     # ── External APIs ────────────────────────────────────────────────
     OPENAI_API_KEY: str = ""
     GOOGLE_PAGESPEED_API_KEY: str = ""
+    DATAFORSEO_LOGIN: str = ""
+    DATAFORSEO_PASSWORD: str = ""
 
     # ── SEO Scorer Weights ──────────────────────────────────────────
     # JSON object mapping category -> weight. Weights are normalized to sum=1.
