@@ -20,6 +20,9 @@ task_routes = {
     "audit.*": {
         "queue": "audit",
     },
+    "streaming_audit.*": {
+        "queue": "streaming_audit",
+    },
     "reports.*": {
         "queue": "email",
     },
