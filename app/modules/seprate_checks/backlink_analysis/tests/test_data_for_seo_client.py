@@ -60,6 +60,7 @@ async def test_get_backlink_summary_returns_up_to_five_urls_per_evidence_field(
     http_client = type("HttpClient", (), {})()
     referring_urls = [f"https://source{i}.example/page" for i in range(1, 8)]
     broken_urls = [f"https://broken{i}.example/page" for i in range(1, 8)]
+    target_urls = [f"https://target.example/dead{i}" for i in range(1, 8)]
     http_client.post = AsyncMock(
         side_effect=[
             summary_response(),
@@ -67,7 +68,15 @@ async def test_get_backlink_summary_returns_up_to_five_urls_per_evidence_field(
                 [{"url_from": url, "is_broken": False} for url in referring_urls]
             ),
             evidence_response(
-                [{"url_from": url, "is_broken": True} for url in broken_urls]
+                [
+                    {
+                        "url_from": bf,
+                        "url_to": tgt,
+                        "url_to_status_code": 404,
+                        "is_broken": True,
+                    }
+                    for bf, tgt in zip(broken_urls, target_urls)
+                ]
             ),
         ]
     )
@@ -89,7 +98,10 @@ async def test_get_backlink_summary_returns_up_to_five_urls_per_evidence_field(
         "cost": 0.012,
         "evidence": {
             "referringPages": referring_urls[:5],
-            "brokenBacklinks": broken_urls[:5],
+            "brokenBacklinks": [
+                {"url_from": bf, "url_to": tgt, "url_to_status_code": 404}
+                for bf, tgt in zip(broken_urls, target_urls)
+            ][:5],
         },
     }
     assert http_client.post.await_args_list[0].args == (

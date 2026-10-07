@@ -31,6 +31,9 @@ from app.modules.seprate_checks.meta_check.router import router as meta_router
 from app.modules.seprate_checks.backlink_analysis.router import (
     router as backlink_analysis_router,
 )
+from app.modules.seprate_checks.redirect_check.router import (
+    router as redirect_check_router,
+)
 
 router = APIRouter()
 
@@ -53,5 +56,6 @@ router.include_router(link_analysis_router, prefix="/link-analysis", tags=["Link
 router.include_router(meta_router, prefix="/meta", tags=["Meta Metadata"])
 router.include_router(backlink_analysis_router, prefix="/backlinks", tags=["Backlink Analysis"])
 router.include_router(bulk_status_router, prefix="/bulk-status", tags=["Bulk Status"])
+router.include_router(redirect_check_router, prefix="/redirect-check", tags=["Redirect Check"])
 
 __all__ = ["router"]

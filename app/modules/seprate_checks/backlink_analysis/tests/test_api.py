@@ -158,13 +158,19 @@ def test_to_response_converts_legacy_single_item_report():
                     "spamScore": 10,
                 },
                 "cost": 0.02,
-                "evidence": {
-                    "referringPages": [
-                        "https://source.example/old-a",
-                        "https://source.example/old-b",
-                    ],
-                    "brokenBacklinks": ["https://broken.example/old"],
-                },
+                    "evidence": {
+                        "referringPages": [
+                            "https://source.example/old-a",
+                            "https://source.example/old-b",
+                        ],
+                        "brokenBacklinks": [
+                            {
+                                "url_from": "https://source.example/old-a",
+                                "url_to": "https://broken.example/old",
+                                "url_to_status_code": 404,
+                            }
+                        ],
+                    },
             }
         ],
         cost=0.02,
@@ -185,8 +191,14 @@ def test_to_response_converts_legacy_single_item_report():
         "https://source.example/old-a",
         "https://source.example/old-b",
     ]
-    assert result.result.evidence.brokenBacklinks == [
-        "https://broken.example/old"
+    assert [
+        b.model_dump() for b in result.result.evidence.brokenBacklinks
+    ] == [
+        {
+            "url_from": "https://source.example/old-a",
+            "url_to": "https://broken.example/old",
+            "url_to_status_code": 404,
+        }
     ]
     assert result.error is None
 
@@ -213,7 +225,13 @@ def test_to_response_reports_bad_result_without_raising():
                     "referringPages": [
                         f"https://source{i}.example/page" for i in range(1, 8)
                     ],
-                    "brokenBacklinks": ["https://broken.example/page"],
+                    "brokenBacklinks": [
+                        {
+                            "url_from": "https://source.example/page",
+                            "url_to": "https://broken.example/page",
+                            "url_to_status_code": 404,
+                        }
+                    ],
                 },
             },
             cost=0.01,
@@ -233,8 +251,14 @@ def test_to_response_reports_bad_result_without_raising():
     assert results[1].result.evidence.referringPages == [
         f"https://source{i}.example/page" for i in range(1, 6)
     ]
-    assert results[1].result.evidence.brokenBacklinks == [
-        "https://broken.example/page"
+    assert [
+        b.model_dump() for b in results[1].result.evidence.brokenBacklinks
+    ] == [
+        {
+            "url_from": "https://source.example/page",
+            "url_to": "https://broken.example/page",
+            "url_to_status_code": 404,
+        }
     ]
 
 
@@ -245,7 +269,13 @@ def test_backlink_api_schemas_normalize_target_and_router_is_registered():
         backlinksSpamScore=11,
         evidence={
             "referringPages": ["https://source.example/a"],
-            "brokenBacklinks": ["https://broken.example/a"],
+            "brokenBacklinks": [
+                {
+                    "url_from": "https://source.example/a",
+                    "url_to": "https://broken.example/a",
+                    "url_to_status_code": None,
+                }
+            ],
         },
     )
 

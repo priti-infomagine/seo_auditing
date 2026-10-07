@@ -111,6 +111,33 @@ class DataForSEOClient:
                     urls.append(url)
         return urls[: DataForSEOClient.EVIDENCE_LIMIT]
 
+    @staticmethod
+    def _broken_evidence(result: Dict[str, Any]) -> list[dict[str, Any]]:
+        items = result.get("items")
+        if not isinstance(items, list):
+            raise ValueError(
+                "DataForSEO broken backlink evidence response has no items"
+            )
+        seen: set[str] = set()
+        evidence: list[dict[str, Any]] = []
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            url_to = item.get("url_to")
+            if not isinstance(url_to, str) or not url_to or url_to in seen:
+                continue
+            seen.add(url_to)
+            evidence.append(
+                {
+                    "url_from": item.get("url_from"),
+                    "url_to": url_to,
+                    "url_to_status_code": item.get("url_to_status_code"),
+                }
+            )
+            if len(evidence) == DataForSEOClient.EVIDENCE_LIMIT:
+                break
+        return evidence
+
     async def get_backlink_summary(self, domain: str) -> Dict[str, Any]:
         target = normalize_domain(domain)
         summary_body = await self._post(
@@ -141,7 +168,7 @@ class DataForSEOClient:
         referring_pages = self._evidence_urls(referring_pages_result)
         response_bodies = [summary_body, referring_pages_body]
 
-        broken_backlinks: list[str] = []
+        broken_backlinks: list[dict[str, Any]] = []
         broken_count = summary.get("broken_backlinks")
         if isinstance(broken_count, (int, float)) and broken_count > 0:
             broken_evidence_task = {
@@ -155,7 +182,7 @@ class DataForSEOClient:
             broken_result = self._first_result(
                 broken_body, "broken backlink evidence"
             )
-            broken_backlinks = self._evidence_urls(broken_result)
+            broken_backlinks = self._broken_evidence(broken_result)
             response_bodies.append(broken_body)
         return {
             "domain": summary.get("target") or target,

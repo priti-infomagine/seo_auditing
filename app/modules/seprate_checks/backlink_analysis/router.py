@@ -36,9 +36,15 @@ def _bounded_evidence(value: object) -> BacklinkEvidence:
         if isinstance(value.get("referringPages"), list)
         else [],
         brokenBacklinks=[
-            url
-            for url in value.get("brokenBacklinks", [])
-            if isinstance(url, str)
+            {
+                "url_from": item.get("url_from"),
+                "url_to": item.get("url_to"),
+                "url_to_status_code": item.get("url_to_status_code"),
+            }
+            for item in value.get("brokenBacklinks", [])
+            if isinstance(item, dict)
+            and isinstance(item.get("url_to"), str)
+            and item.get("url_to")
         ][:5]
         if isinstance(value.get("brokenBacklinks"), list)
         else [],

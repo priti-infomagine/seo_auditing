@@ -17,9 +17,17 @@ class BacklinkCheckRequest(BaseModel):
         return domain
 
 
+class BrokenBacklinkEvidence(BaseModel):
+    url_from: str | None = None
+    url_to: str
+    url_to_status_code: int | None = None
+
+
 class BacklinkEvidence(BaseModel):
     referringPages: list[str] = Field(default_factory=list, max_length=5)
-    brokenBacklinks: list[str] = Field(default_factory=list, max_length=5)
+    brokenBacklinks: list[BrokenBacklinkEvidence] = Field(
+        default_factory=list, max_length=5
+    )
 
 
 class BacklinkReport(BaseModel):
