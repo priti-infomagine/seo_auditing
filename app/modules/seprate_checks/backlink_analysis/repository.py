@@ -13,7 +13,7 @@ class BacklinkCheckRepository:
 
     async def create(self, check: BacklinkCheck) -> BacklinkCheck:
         self.db.add(check)
-        await self.db.flush()
+        await self.db.commit()
         await self.db.refresh(check)
         return check
 

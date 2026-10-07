@@ -1,202 +1,177 @@
+import asyncio
 import base64
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, Optional
 from urllib.parse import urlparse
 
 import httpx
 
 
+def normalize_domain(value: str) -> str:
+    value = (value or "").strip().lower()
+    if not value:
+        raise ValueError("domain must not be empty")
+
+    try:
+        parsed = urlparse(value if "://" in value else f"//{value}")
+        host = parsed.hostname or ""
+    except ValueError as exc:
+        raise ValueError("could not extract a domain") from exc
+
+    if host.startswith("www."):
+        host = host[4:]
+    if not host or any(character.isspace() for character in host):
+        raise ValueError("could not extract a domain")
+    return host
+
+
 class DataForSEOClient:
     BASE_URL = "https://api.dataforseo.com/v3"
-    MAX_EVIDENCE_URLS = 1000
+    RETRY_STATUS = {429, 500, 502, 503, 504}
+    MAX_ATTEMPTS = 3
+    EVIDENCE_LIMIT = 5
 
     def __init__(self, login: str, password: str):
-        credentials = f"{login}:{password}".encode()
-        encoded = base64.b64encode(credentials).decode()
-
+        token = base64.b64encode(f"{login}:{password}".encode()).decode()
         self.headers = {
-            "Authorization": f"Basic {encoded}",
+            "Authorization": f"Basic {token}",
             "Content-Type": "application/json",
         }
+        self._client: Optional[httpx.AsyncClient] = None
 
-    async def _post(self, endpoint: str, payload: List[Dict[str, Any]]) -> Dict[str, Any]:
-        async with httpx.AsyncClient(timeout=60) as client:
-            response = await client.post(
-                f"{self.BASE_URL}{endpoint}",
-                headers=self.headers,
-                json=payload,
-            )
-            response.raise_for_status()
-            return response.json()
+    def _get_client(self) -> httpx.AsyncClient:
+        if self._client is None or self._client.is_closed:
+            self._client = httpx.AsyncClient(timeout=60, headers=self.headers)
+        return self._client
+
+    async def aclose(self) -> None:
+        if self._client is not None and not self._client.is_closed:
+            await self._client.aclose()
+        self._client = None
+
+    async def _post(self, endpoint: str, payload: list[dict[str, Any]]) -> Dict[str, Any]:
+        client = self._get_client()
+        for attempt in range(1, self.MAX_ATTEMPTS + 1):
+            try:
+                response = await client.post(
+                    f"{self.BASE_URL}{endpoint}",
+                    json=payload,
+                )
+                if (
+                    response.status_code in self.RETRY_STATUS
+                    and attempt < self.MAX_ATTEMPTS
+                ):
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                response.raise_for_status()
+                body = response.json()
+                if not isinstance(body, dict):
+                    raise ValueError("DataForSEO returned an invalid response")
+                return body
+            except httpx.TransportError:
+                if attempt == self.MAX_ATTEMPTS:
+                    raise
+                await asyncio.sleep(2 ** (attempt - 1))
+        raise RuntimeError("DataForSEO request exhausted retries")
 
     @staticmethod
-    def _first_result(response: Dict[str, Any], description: str) -> Dict[str, Any]:
-        status_code = response.get("status_code")
-        if status_code is not None and status_code != 20000:
+    def _first_result(body: Dict[str, Any], description: str) -> Dict[str, Any]:
+        if body.get("status_code") != 20000:
             raise RuntimeError(
-                f"DataForSEO {description} failed: "
-                f"{response.get('status_message', status_code)}"
+                f"DataForSEO {description} failed: {body.get('status_message')}"
             )
-
-        tasks = response.get("tasks")
+        tasks = body.get("tasks")
         if not isinstance(tasks, list) or not tasks:
             raise ValueError(f"DataForSEO {description} response has no tasks")
-
         task = tasks[0]
-        task_status = task.get("status_code")
-        if task_status is not None and task_status != 20000:
+        if not isinstance(task, dict):
+            raise ValueError(f"DataForSEO {description} response has an invalid task")
+        if task.get("status_code") != 20000:
             raise RuntimeError(
-                f"DataForSEO {description} task failed: "
-                f"{task.get('status_message', task_status)}"
+                f"DataForSEO {description} task failed: {task.get('status_message')}"
             )
-
         results = task.get("result")
-        if not isinstance(results, list) or not results or not isinstance(results[0], dict):
-            raise ValueError(f"DataForSEO {description} response has no result")
+        if (
+            not isinstance(results, list)
+            or not results
+            or not isinstance(results[0], dict)
+        ):
+            raise ValueError(f"DataForSEO {description} returned no result")
         return results[0]
 
     @staticmethod
-    def _response_cost(response: Dict[str, Any], description: str) -> float:
-        cost = response.get("cost")
-        if not isinstance(cost, (int, float)):
-            raise ValueError(f"DataForSEO {description} response has no numeric cost")
-        return float(cost)
-
-    @staticmethod
-    def _unique_urls(
-        items: Sequence[Dict[str, Any]],
-        limit: int,
-        unique_by_domain: bool = False,
-        domain_field: str = "domain_from",
-    ) -> List[str]:
-        urls: List[str] = []
-        seen = set()
-
+    def _evidence_urls(result: Dict[str, Any]) -> list[str]:
+        items = result.get("items")
+        if not isinstance(items, list):
+            raise ValueError("DataForSEO backlink evidence response has no items")
+        urls = []
         for item in items:
-            url = item.get("url_from")
-            if not isinstance(url, str) or not url:
-                continue
+            if isinstance(item, dict):
+                url = item.get("url_from")
+                if isinstance(url, str) and url and url not in urls:
+                    urls.append(url)
+        return urls[: DataForSEOClient.EVIDENCE_LIMIT]
 
-            key = item.get(domain_field) if unique_by_domain else url
-            if not isinstance(key, str) or not key:
-                key = urlparse(url).hostname if unique_by_domain else url
-            if not key or key in seen:
-                continue
-
-            seen.add(key)
-            urls.append(url)
-            if len(urls) >= limit:
-                break
-
-        return urls
-
-    @classmethod
-    def _build_evidence(
-        cls,
-        items: Sequence[Dict[str, Any]],
-        limit: int,
-    ) -> Dict[str, List[str]]:
-        all_urls = cls._unique_urls(items, limit)
-        broken_items = [item for item in items if item.get("is_broken") is True]
-
-        return {
-            "rank": all_urls,
-            "backlinks": all_urls,
-            "referringDomains": cls._unique_urls(items, limit, unique_by_domain=True),
-            "referringMainDomains": cls._unique_urls(
-                items,
-                limit,
-                unique_by_domain=True,
-                domain_field="main_domain_from",
-            ),
-            "spamScore": all_urls,
-            "brokenBacklinks": cls._unique_urls(broken_items, limit),
-            "referringPages": all_urls,
-        }
-
-    async def get_backlink_summary(
-        self,
-        domain: str,
-        limit: int = 100,
-    ) -> List[Dict[str, Any]]:
-        if not 1 <= limit <= self.MAX_EVIDENCE_URLS:
-            raise ValueError(
-                f"limit must be between 1 and {self.MAX_EVIDENCE_URLS}"
-            )
-
-        summary_response = await self._post(
+    async def get_backlink_summary(self, domain: str) -> Dict[str, Any]:
+        target = normalize_domain(domain)
+        summary_body = await self._post(
             "/backlinks/summary/live",
             [
                 {
-                    "target": domain,
+                    "target": target,
                     "include_subdomains": True,
                     "exclude_internal_backlinks": True,
                     "backlinks_status_type": "live",
                 }
             ],
         )
-        backlinks_response = await self._post(
-            "/backlinks/backlinks/live",
-            [{"target": domain, "limit": limit, "mode": "as_is"}],
-        )
+        summary = self._first_result(summary_body, "backlink summary")
 
-        summary = self._first_result(summary_response, "backlink summary")
-        backlink_result = self._first_result(backlinks_response, "backlink evidence")
-        if "items" not in backlink_result:
-            raise ValueError("DataForSEO backlink evidence response has no items")
-        items = backlink_result["items"]
-        if not isinstance(items, list) or any(not isinstance(item, dict) for item in items):
-            raise ValueError("DataForSEO backlink evidence has an invalid items list")
-
-        metric_fields = {
-            "rank": ("rank",),
-            "backlinks": ("backlinks",),
-            "referringDomains": ("referring_domains",),
-            "referringMainDomains": ("referring_main_domains",),
-            "spamScore": (
-                "target_spam_score",
-                "spam_score",
-                "backlinks_spam_score",
-            ),
-            "brokenBacklinks": ("broken_backlinks",),
-            "referringPages": ("referring_pages",),
+        base_evidence_task = {
+            "target": target,
+            "limit": self.EVIDENCE_LIMIT,
+            "mode": "as_is",
         }
-        data: Dict[str, Any] = {"target": summary.get("target", domain)}
-        for output_name, provider_names in metric_fields.items():
-            sources = [summary]
-            if output_name == "spamScore" and isinstance(summary.get("info"), dict):
-                sources.insert(0, summary["info"])
-            for provider_name in provider_names:
-                value_found = False
-                for source in sources:
-                    if provider_name in source:
-                        data[output_name] = source[provider_name]
-                        value_found = True
-                        break
-                if value_found:
-                    break
-            else:
-                raise ValueError(
-                    f"DataForSEO backlink summary is missing {provider_names[0]}"
-                )
-
-        total_cost = self._response_cost(
-            summary_response, "backlink summary"
-        ) + self._response_cost(backlinks_response, "backlink evidence")
-
-        return [
-            {
-                "data": data,
-                "cost": round(total_cost, 6),
-                "evidence": self._build_evidence(items, limit),
-            }
-        ]
-
-    async def get_backlinks(
-        self,
-        domain: str,
-        limit: int = 100,
-    ) -> Dict[str, Any]:
-        return await self._post(
+        referring_pages_body = await self._post(
             "/backlinks/backlinks/live",
-            [{"target": domain, "limit": limit, "mode": "as_is"}],
+            [base_evidence_task],
         )
+        referring_pages_result = self._first_result(
+            referring_pages_body, "referring page evidence"
+        )
+        referring_pages = self._evidence_urls(referring_pages_result)
+        response_bodies = [summary_body, referring_pages_body]
+
+        broken_backlinks: list[str] = []
+        broken_count = summary.get("broken_backlinks")
+        if isinstance(broken_count, (int, float)) and broken_count > 0:
+            broken_evidence_task = {
+                **base_evidence_task,
+                "filters": ["is_broken", "=", True],
+            }
+            broken_body = await self._post(
+                "/backlinks/backlinks/live",
+                [broken_evidence_task],
+            )
+            broken_result = self._first_result(
+                broken_body, "broken backlink evidence"
+            )
+            broken_backlinks = self._evidence_urls(broken_result)
+            response_bodies.append(broken_body)
+        return {
+            "domain": summary.get("target") or target,
+            "domainRank": summary.get("rank"),
+            "backlinks": summary.get("backlinks"),
+            "referringDomains": summary.get("referring_domains"),
+            "referringMainDomains": summary.get("referring_main_domains"),
+            "referringPages": summary.get("referring_pages"),
+            "brokenBacklinks": summary.get("broken_backlinks"),
+            "backlinksSpamScore": summary.get("backlinks_spam_score"),
+            "cost": round(
+                sum(float(body.get("cost") or 0) for body in response_bodies),
+                6,
+            ),
+            "evidence": {
+                "referringPages": referring_pages,
+                "brokenBacklinks": broken_backlinks,
+            },
+        }

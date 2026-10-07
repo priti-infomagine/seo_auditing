@@ -29,6 +29,6 @@ class BacklinkCheck(TimestampMixin, Base):
         String(20), nullable=False, default=BacklinkCheckStatus.PROCESSING.value
     )
     evidence_limit: Mapped[int] = mapped_column(Integer, nullable=False, default=100)
-    result: Mapped[list[dict] | None] = mapped_column(JSONB, nullable=True)
+    result: Mapped[dict | list[dict] | None] = mapped_column(JSONB, nullable=True)
     cost: Mapped[float | None] = mapped_column(Float, nullable=True)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)

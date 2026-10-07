@@ -356,11 +356,14 @@ GET  /api/v1/backlinks/checks?target=example.com&limit=20&offset=0
 GET  /api/v1/backlinks/checks/{check_id}
 ```
 
-The POST request accepts `{"target": "example.com", "evidence_limit": 100}`.
-It returns the report array containing the backlink metrics, provider cost,
-and per-metric source URL evidence. The `Location` response header identifies
-the persisted check at `/api/v1/backlinks/checks/{check_id}`. Failed provider
-requests are recorded with a `failed` status and return an HTTP error.
+The POST request accepts `{"target": "example.com"}`. It returns a flat
+report containing backlink metrics, up to five referring-page URLs and up to
+five broken-backlink URLs as evidence. Collecting this evidence requires
+additional DataForSEO backlinks requests, and their costs are included in the
+report total. The `Location` response header identifies the persisted check at
+`/api/v1/backlinks/checks/{check_id}`. Failed provider requests are recorded
+with a `failed` status and return an HTTP error. The checks endpoints return
+the saved evidence with each report.
 
 ## Tests
 

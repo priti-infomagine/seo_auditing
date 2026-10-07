@@ -73,6 +73,19 @@ async def lifespan(app: FastAPI):
     yield
 
     try:
+        from app.modules.seprate_checks.backlink_analysis.service import (
+            close_dataforseo_client,
+        )
+
+        await close_dataforseo_client()
+    except Exception as exc:
+        logger.error(
+            "DataForSEO client close failed during lifespan shutdown: %s",
+            type(exc).__name__,
+            exc_info=True,
+        )
+
+    try:
         await close_db()
     except Exception as exc:
         logger.error(

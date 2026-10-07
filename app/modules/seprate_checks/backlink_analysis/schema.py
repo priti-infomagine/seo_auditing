@@ -9,7 +9,6 @@ from app.modules.seprate_checks.meta_check.validation import normalize_target_ur
 
 class BacklinkCheckRequest(BaseModel):
     target: str = Field(..., min_length=1, description="Domain or website URL")
-    evidence_limit: int = Field(default=100, ge=1, le=1000)
 
     @field_validator("target")
     @classmethod
@@ -18,38 +17,29 @@ class BacklinkCheckRequest(BaseModel):
         return domain
 
 
-class BacklinkMetrics(BaseModel):
-    target: str
-    rank: int
-    backlinks: int
-    referringDomains: int
-    referringMainDomains: int
-    spamScore: int
-    brokenBacklinks: int
-    referringPages: int
-
-
 class BacklinkEvidence(BaseModel):
-    rank: list[str] = Field(default_factory=list)
-    backlinks: list[str] = Field(default_factory=list)
-    referringDomains: list[str] = Field(default_factory=list)
-    referringMainDomains: list[str] = Field(default_factory=list)
-    spamScore: list[str] = Field(default_factory=list)
-    brokenBacklinks: list[str] = Field(default_factory=list)
-    referringPages: list[str] = Field(default_factory=list)
+    referringPages: list[str] = Field(default_factory=list, max_length=5)
+    brokenBacklinks: list[str] = Field(default_factory=list, max_length=5)
 
 
-class BacklinkReportItem(BaseModel):
-    data: BacklinkMetrics
-    cost: float
-    evidence: BacklinkEvidence
+class BacklinkReport(BaseModel):
+    domain: str
+    domainRank: int | None = None
+    backlinks: int | None = None
+    referringDomains: int | None = None
+    referringMainDomains: int | None = None
+    referringPages: int | None = None
+    brokenBacklinks: int | None = None
+    backlinksSpamScore: int | None = None
+    cost: float | None = None
+    evidence: BacklinkEvidence = Field(default_factory=BacklinkEvidence)
 
 
 class BacklinkCheckResponse(BaseModel):
     check_id: UUID
     target: str
     status: BacklinkCheckStatus
-    result: list[BacklinkReportItem] = Field(default_factory=list)
+    result: BacklinkReport | None = None
     cost: Optional[float] = None
     error: Optional[str] = None
     created_at: Optional[str] = None
