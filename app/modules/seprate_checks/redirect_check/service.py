@@ -99,6 +99,8 @@ class RedirectCheckService:
         """
         canonical_url, normalized_domain = self._normalize_domain(domain)
 
+        logger.info("RedirectCheckService: starting URL discovery for %s", canonical_url)
+
         discovery = SiteDiscoveryService(
             canonical_url,
             timeout=int(settings.LINK_ANALYSIS_PAGE_TIMEOUT),
@@ -134,6 +136,13 @@ class RedirectCheckService:
                 except Exception:
                     pass
 
+        logger.info(
+            "RedirectCheckService: discovery complete — sitemaps=%d, robots_exists=%s, sitemap_urls=%d",
+            len(site_result.sitemaps),
+            site_result.robots.exists,
+            len(sitemap_urls),
+        )
+
         crawler = SiteCrawler(
             canonical_url=canonical_url,
             domain=normalized_domain,
@@ -167,6 +176,12 @@ class RedirectCheckService:
                     pass
 
         all_urls = all_urls[:max_urls]
+
+        logger.info(
+            "RedirectCheckService: discovered %d total URLs (sitemap=%d, crawl=%d)",
+            len(all_urls), len(sitemap_urls), len(all_urls) - len(sitemap_urls),
+        )
+        print(f"[redirect-check] Discovered {len(all_urls)} URLs for {domain}", flush=True)
 
         robot_parser: Protego | None = None
         if site_result.robots.exists and site_result.robots.content:
@@ -281,6 +296,7 @@ class RedirectCheckService:
         domain: str,
         db: AsyncSession | None = None,
         update_state: Callable[[str, dict | None], None] | None = None,
+        max_urls: int = 500,
     ) -> dict[str, Any]:
         """Execute the full domain redirect check workflow.
 
@@ -292,7 +308,7 @@ class RedirectCheckService:
             update_state("PROGRESS", {"phase": "discovery", "message": f"Discovering URLs for {domain}..."})
 
         urls, site_result, robot_parser, crawl_result = await self.discover_urls(
-            domain, settings.STREAMING_AUDIT_MAX_PAGES
+            domain, max_urls
         )
 
         if db is not None:
@@ -336,6 +352,8 @@ class RedirectCheckService:
             status=StreamingAuditStatus.PROCESSING,
         )
         await adapter.clear_event_store(audit_id)
+
+        logger.info("RedirectCheckService: starting URL checks for audit_id=%s, urls=%d", audit_id, len(urls))
 
         if update_state:
             update_state("PROGRESS", {
@@ -456,6 +474,11 @@ class RedirectCheckService:
 
         outcome = RedirectCheckAnalyzer.analyze(results, domain)
         cost_seconds = round(time.perf_counter() - start_time, 3)
+
+        logger.info(
+            "RedirectCheckService: analysis complete audit_id=%s total=%d findings=%d status=%s",
+            audit_id, len(results), len(outcome.findings), outcome.overall_status,
+        )
 
         await svc.update_run(
             audit_id,

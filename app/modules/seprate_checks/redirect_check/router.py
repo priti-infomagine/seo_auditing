@@ -93,8 +93,8 @@ async def check_redirects(
 
         task = await asyncio.to_thread(
             celery_app.send_task,
-            "redirect_check.run_domain_check",
-            args=[audit_id, body.domain, body.max_urls],
+            "redirect_check.domain_check",
+            args=[audit_id, body.domain, body.max_urls, body.max_depth, body.max_hops],
             queue="crawler",
         )
 
@@ -104,6 +104,8 @@ async def check_redirects(
             domain=body.domain,
             status="queued",
             max_urls=body.max_urls,
+            max_depth=body.max_depth,
+            max_hops=body.max_hops,
             created_at=None,
             status_url=f"/api/v1/redirect-check/status/{audit_id}",
             stream_url=f"/api/v1/redirect-check/stream/{audit_id}",

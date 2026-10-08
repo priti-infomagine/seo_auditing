@@ -16,6 +16,8 @@ class RedirectCheckRequest(BaseModel):
         description="Website origin to discover and check (e.g. https://example.com)",
     )
     max_urls: int = Field(default=500, ge=1, le=500, description="Maximum URLs to check")
+    max_depth: int = Field(default=5, ge=0, le=8, description="Maximum crawl depth for URL discovery")
+    max_hops: int = Field(default=10, ge=0, le=20, description="Maximum redirect hops to follow per URL")
 
     @field_validator("domain")
     @classmethod
@@ -36,6 +38,8 @@ class RedirectCheckQueuedResponse(BaseModel):
     domain: str
     status: str = "queued"
     max_urls: int
+    max_depth: int = 5
+    max_hops: int = 10
     created_at: str | None = None
     status_url: str
     stream_url: str
@@ -67,7 +71,7 @@ class RedirectHop(BaseModel):
     location: str | None = None
     resolved: str | None = None
     latency_ms: int | None = Field(default=None, alias="latencyMs")
-    headers: list[dict[str, str]] = Field(default_factory=list)
+    headers: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class RedirectUrlResult(BaseModel):

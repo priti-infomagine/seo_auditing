@@ -7,6 +7,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from app.core.logger import logger
+
 from .constants import RECOMMENDATION_CATALOG
 from .schema import (
     RedirectFinding,
@@ -100,6 +102,11 @@ class RedirectCheckAnalyzer:
 
         outcome._deduplicate_recommendations()
         outcome._compute_overall_status()
+
+        logger.info(
+            "RedirectCheckAnalyzer: analyzed %d results, findings=%d, status=%s",
+            len(results), len(outcome.findings), outcome.overall_status,
+        )
         return outcome
 
     @classmethod

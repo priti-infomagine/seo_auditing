@@ -86,7 +86,7 @@ async def test_post_check_returns_202_with_audit_id(mock_celery, monkeypatch):
     assert payload["domain"] == "https://example.com"
     assert payload["max_urls"] == 100
     assert payload["status"] == "queued"
-    assert "redirect_check.run_domain_check" in str(mock_celery.called_with)
+    assert "redirect_check.domain_check" in str(mock_celery.called_with)
     assert "/api/v1/redirect-check/status/" in payload["status_url"]
     assert "/api/v1/redirect-check/stream/" in payload["stream_url"]
 

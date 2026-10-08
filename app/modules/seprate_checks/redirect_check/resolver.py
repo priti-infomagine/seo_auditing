@@ -12,6 +12,7 @@ from typing import Any
 
 from protego import Protego
 
+from app.core.logger import logger
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryResult
 from app.shared.utils.url_utils import is_same_site, normalize_host, normalize_url
 
@@ -151,6 +152,11 @@ class RedirectResolver:
         final_status = raw.get("finalStatus") or raw.get("final_status")
         error = raw.get("error")
 
+        logger.debug(
+            "RedirectResolver: resolving url=%s redirect_count=%s final_url=%s final_status=%s error=%s",
+            url, redirect_count, final_url, final_status, error,
+        )
+
         is_internal, is_external = cls._classify_redirect(final_url, context.domain)
 
         seo_data = context.get_seo_data(url)
@@ -162,7 +168,9 @@ class RedirectResolver:
 
         is_broken = bool(error)
         if final_status is not None:
-            is_broken = is_broken or final_status >= 400 or final_status == 0
+            is_broken = is_broken or final_status >= 400
+            if final_status == 0 and error:
+                is_broken = True
 
         return RedirectUrlResult(
             url=url,
