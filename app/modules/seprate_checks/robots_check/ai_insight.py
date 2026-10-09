@@ -117,7 +117,10 @@ async def _ollama_recommendation(
                     return text
         except Exception as exc:
             logger.warning(
-                "ai_insight: Ollama failed for %r: %s", title, exc
+                "ai_insight: Ollama failed for %r (%s): %s",
+                title,
+                type(exc).__name__,
+                exc,
             )
         return default_rec or None
 

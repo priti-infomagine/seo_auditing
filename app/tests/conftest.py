@@ -19,31 +19,16 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.core.config import settings
-from app.core.database import Base, get_db
+from app.core.database import get_db
 from app.main import app
+from app.tests.database import create_isolated_test_engine, dispose_isolated_test_engine
 
 
 @pytest_asyncio.fixture(scope="function")
 async def db_engine():
-    from app.core.database import engine as app_engine
-    try:
-        await app_engine.dispose()
-    except Exception:
-        pass
-
-    engine = create_async_engine(
-        settings.DATABASE_URL,
-        echo=False,
-        pool_pre_ping=True,
-    )
-
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-
+    engine, schema = await create_isolated_test_engine()
     yield engine
-
-    await engine.dispose()
+    await dispose_isolated_test_engine(engine, schema)
 
 
 @pytest_asyncio.fixture

@@ -4,12 +4,16 @@ GET /audit/history — Fetch analysis history.
 GET /audit/status/{audit_id} — Fetch pipeline stage status.
 GET /audit/pipeline/{audit_id} — Fetch full pipeline summary.
 """
+import json
+from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Literal, Optional, Union
 from uuid import UUID
+from redis.asyncio import Redis
 
 from app.core.database import get_db
+from app.core.redis import get_redis
 from app.core.logger import logger
 from app.modules.audit.services.audit_read_model_service import AuditReadModelService
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
@@ -57,9 +61,36 @@ async def get_analysis_result(
         ),
     ),
     db: AsyncSession = Depends(get_db),
+    redis: Optional[Redis] = Depends(get_redis),
 ) -> _AuditResultResponse:
     """Fetch the existing analysis result for an audit."""
     logger.info(f"GET /audit/result/{audit_id} - format={format}")
+
+    # 1. Fast path: Check Redis cache
+    if redis:
+        try:
+            cached_data = await redis.get(f"audit:result:{audit_id}:{format}")
+            if cached_data:
+                logger.info(f"Cache hit: returning audit result from Redis for audit_id={audit_id}")
+                return json.loads(cached_data)
+        except Exception as redis_exc:
+            logger.debug(f"Redis cache check failed: {redis_exc}")
+
+    # 2. Fast path: Check pre-generated output file on disk for full format
+    if format == "full":
+        for p in Path("app/output").glob(f"*_{audit_id}.json"):
+            if p.is_file():
+                try:
+                    data = json.loads(p.read_text(encoding="utf-8"))
+                    if redis:
+                        try:
+                            await redis.set(f"audit:result:{audit_id}:full", json.dumps(data), ex=86400)
+                        except Exception:
+                            pass
+                    logger.info(f"Cache hit: returning audit result from disk for audit_id={audit_id}")
+                    return data
+                except Exception:
+                    pass
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -81,10 +112,21 @@ async def get_analysis_result(
             )
 
         if format == "compact":
-            return await AuditReadModelService(db).build_overview(audit_id)
+            overview = await AuditReadModelService(db).build_overview(audit_id)
+            if redis:
+                try:
+                    await redis.set(f"audit:result:{audit_id}:compact", overview.model_dump_json(), ex=86400)
+                except Exception:
+                    pass
+            return overview
 
         builder = AuditResponseBuilder(db)
         unified = await builder.build(audit_id)
+        if redis:
+            try:
+                await redis.set(f"audit:result:{audit_id}:full", json.dumps(unified, default=str), ex=86400)
+            except Exception:
+                pass
         return unified
 
     except HTTPException:
@@ -101,7 +143,7 @@ async def get_analysis_result(
 
 
 @router.get(
-    "/result/{audit_id}",
+    "/result/project/{audit_id}",
     summary="Fetch full analysis result by audit_id (public alias)",
     description="Public endpoint that takes an audit_id and returns the audit response.",
 )
@@ -112,9 +154,14 @@ async def get_analysis_result_by_project(
         description="Response shape. 'full' (default) or 'compact'.",
     ),
     db: AsyncSession = Depends(get_db),
+    redis: Optional[Redis] = Depends(get_redis),
 ):
     """Fetch the audit response by audit_id (no auth required)."""
-    return await get_analysis_result(audit_id=audit_id, format=format, db=db)
+    if format == "compact":
+        return await AuditReadModelService(db).build_overview(audit_id)
+    # 202 fallthrough handled by get_analysis_result
+    return await get_analysis_result(audit_id=audit_id, format=format, db=db, redis=redis)
+
 
 
 @router.get(
@@ -200,10 +247,55 @@ def _run_to_summary(run):
 )
 async def get_pipeline_status(
     audit_id: UUID,
+    include_result: bool = Query(
+        False,
+        description="If True and pipeline is completed, includes the full or compact audit result without querying the database.",
+    ),
+    format: Literal["full", "compact"] = Query(
+        "full",
+        description="Format of the included result if include_result=True (default: full).",
+    ),
     db: AsyncSession = Depends(get_db),
+    redis: Optional[Redis] = Depends(get_redis),
 ) -> PipelineStatusResponse:
     """Fetch the current status of all pipeline stages for an audit."""
     logger.info(f"GET /audit/status/{audit_id}")
+
+    # Fast path 1: Check Redis cache for instant status without querying DB
+    if redis:
+        try:
+            cached_status_str = await redis.get(f"audit:status:{audit_id}")
+            if cached_status_str:
+                cached_status = json.loads(cached_status_str)
+                result_payload = None
+                if include_result and cached_status.get("score_status") == "completed":
+                    cached_result = await redis.get(f"audit:result:{audit_id}:{format}")
+                    if cached_result:
+                        result_payload = json.loads(cached_result)
+                    elif format == "full":
+                        for p in Path("app/output").glob(f"*_{audit_id}.json"):
+                            if p.is_file():
+                                result_payload = json.loads(p.read_text(encoding="utf-8"))
+                                break
+
+                return PipelineStatusResponse(
+                    audit_id=str(audit_id),
+                    parse_status=cached_status.get("parse_status", "pending"),
+                    evaluate_status=cached_status.get("evaluate_status", "pending"),
+                    score_status=cached_status.get("score_status", "pending"),
+                    pages_parsed=cached_status.get("pages_parsed", 0),
+                    rules_evaluated=cached_status.get("rules_evaluated", 0),
+                    overall_score=cached_status.get("overall_score"),
+                    grade=cached_status.get("grade"),
+                    output_file_path=cached_status.get("output_file_path"),
+                    crawl_config_recovered=False,
+                    crawl_config_recovery_note=None,
+                    pages_skipped=cached_status.get("pages_skipped", 0),
+                    skip_breakdown=cached_status.get("skip_breakdown"),
+                    result=result_payload,
+                )
+        except Exception as redis_exc:
+            logger.debug(f"Redis pipeline status check failed: {redis_exc}")
 
     try:
         job_repo = CrawlJobRepository(db)
@@ -230,13 +322,28 @@ async def get_pipeline_status(
         overall_score = None
         grade = None
         output_file_path = None
+        result_payload = None
+
         if run:
             score_status = run.analysis_status or "missing"
             overall_score = float(run.overall_score) if run.overall_score else None
-            print(f"-------------{audit_id} run.overall_score: {run.overall_score}, overall_score: {overall_score}")
-            print(f"-------------{audit_id} run.score  {run.category_scores}")
             grade = run.grade
             output_file_path = run.output_file_path
+
+            # If client requested result and pipeline is completed, load from disk/redis without re-querying
+            if include_result and score_status == "completed":
+                if output_file_path and Path(output_file_path).is_file() and format == "full":
+                    try:
+                        result_payload = json.loads(Path(output_file_path).read_text(encoding="utf-8"))
+                    except Exception:
+                        pass
+                if result_payload is None and redis:
+                    try:
+                        cached_res = await redis.get(f"audit:result:{audit_id}:{format}")
+                        if cached_res:
+                            result_payload = json.loads(cached_res)
+                    except Exception:
+                        pass
 
         # Fetch skip data
         ignore_repo = UrlIgnorePatternRepository(db)
@@ -263,6 +370,7 @@ async def get_pipeline_status(
             ),
             pages_skipped=pages_skipped,
             skip_breakdown=skip_breakdown,
+            result=result_payload,
         )
 
     except HTTPException:

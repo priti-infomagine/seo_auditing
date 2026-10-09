@@ -240,6 +240,8 @@ class PagespeedClient:
             "device": device,
             "performance_score": _score("performance"),
             "seo_score": _score("seo"),
+            "accessibility_score": _score("accessibility"),
+            "best_practices_score": _score("best-practices"),
             "fcp_ms": _to_ms(fcp_display),
             "lcp_ms": _to_ms(lcp_display),
             "tbt_ms": _to_ms(tbt_display),

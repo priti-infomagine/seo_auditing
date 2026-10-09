@@ -91,7 +91,7 @@ async def test_check_returns_202_with_ids(mock_celery):
             "/api/v1/lighthouse/check",
             json={
                 "url": "https://example.com/",
-                "device": "mobile",
+                "device": ["mobile"],
                 "category": ["performance", "seo"],
                 "max_pages": 5,
             },
@@ -105,7 +105,7 @@ async def test_check_returns_202_with_ids(mock_celery):
     uuid.UUID(check_id)  # valid UUID
     assert data["task_id"].startswith("fake-task-")
     assert data["domain"] == "example.com"
-    assert data["device"] == "mobile"
+    assert data["devices"] == ["mobile"]
     assert data["categories"] == ["performance", "seo"]
     assert data["status_url"] == f"/api/v1/lighthouse/status/{check_id}"
     assert data["result_url"] == f"/api/v1/lighthouse/results/{check_id}"
@@ -117,7 +117,7 @@ async def test_check_returns_202_with_ids(mock_celery):
         assert job.status == "queued"
         assert job.crawl_config["phase"] == "queued"
         assert job.crawl_config["task_id"] == data["task_id"]
-        assert job.crawl_config["device"] == "mobile"
+        assert job.crawl_config["devices"] == ["mobile"]
         assert job.crawl_config["categories"] == ["performance", "seo"]
 
     # Task enqueued on the lighthouse queue with correct args
@@ -127,10 +127,11 @@ async def test_check_returns_202_with_ids(mock_celery):
     assert sent["queue"] == "crawler"
     assert sent["args"][0] == check_id
     assert sent["args"][1] == "https://example.com/"
-    assert sent["args"][2] == "mobile"
+    assert sent["args"][2] == ["mobile"]
     assert sent["args"][3] == 5
     assert sent["kwargs"]["category"] == ["performance", "seo"]
     assert sent["kwargs"]["pagespeed_concurrency"] == 5
+    assert sent["kwargs"]["version"] is None
 
 
 @pytest.mark.asyncio
@@ -139,11 +140,11 @@ async def test_check_default_category(mock_celery):
     async with await _client() as client:
         resp = await client.post(
             "/api/v1/lighthouse/check",
-            json={"url": "https://example.com/", "device": "desktop"},
+            json={"url": "https://example.com/", "device": ["desktop"]},
         )
     assert resp.status_code == 202
     data = resp.json()
-    assert data["device"] == "desktop"
+    assert data["devices"] == ["desktop"]
     assert data["categories"] == [
         "performance",
         "seo",
@@ -159,7 +160,7 @@ async def test_status_queued(mock_celery):
     async with await _client() as client:
         resp = await client.post(
             "/api/v1/lighthouse/check",
-            json={"url": "https://example.com/", "device": "mobile"},
+            json={"url": "https://example.com/", "device": ["mobile"]},
         )
         check_id = resp.json()["check_id"]
         s = await client.get(f"/api/v1/lighthouse/status/{check_id}")
@@ -195,7 +196,7 @@ async def test_task_status(mock_celery):
     async with await _client() as client:
         resp = await client.post(
             "/api/v1/lighthouse/check",
-            json={"url": "https://example.com/", "device": "mobile"},
+            json={"url": "https://example.com/", "device": ["mobile"]},
         )
         task_id = resp.json()["task_id"]
         t = await client.get(f"/api/v1/lighthouse/task/{task_id}")
@@ -216,7 +217,7 @@ async def test_results_empty_when_queued(mock_celery):
     async with await _client() as client:
         resp = await client.post(
             "/api/v1/lighthouse/check",
-            json={"url": "https://example.com/", "device": "mobile"},
+            json={"url": "https://example.com/", "device": ["mobile"]},
         )
         check_id = resp.json()["check_id"]
         r = await client.get(f"/api/v1/lighthouse/results/{check_id}")
@@ -239,7 +240,7 @@ async def test_invalid_url_returns_422(mock_celery):
     async with await _client() as client:
         resp = await client.post(
             "/api/v1/lighthouse/check",
-            json={"url": "not-a-url", "device": "mobile"},
+            json={"url": "not-a-url", "device": ["mobile"]},
         )
     assert resp.status_code == 422
 
@@ -251,7 +252,7 @@ async def test_invalid_category_returns_422(mock_celery):
             "/api/v1/lighthouse/check",
             json={
                 "url": "https://example.com/",
-                "device": "mobile",
+                "device": ["mobile"],
                 "category": ["performance", "bogus"],
             },
         )
@@ -279,7 +280,7 @@ async def test_run_check_async_end_to_end(_ensure_schema):
             crawl_config={
                 "phase": "queued",
                 "task_id": None,
-                "device": "mobile",
+                "devices": ["mobile"],
                 "categories": ["performance", "seo"],
             },
         )
@@ -317,7 +318,7 @@ async def test_run_check_async_end_to_end(_ensure_schema):
         parse_calls.append(url)
         return {
             "url": url,
-            "device": device,
+            "devices": device,
             "performance_score": 85,
             "seo_score": 90,
             "fcp_ms": 2000,
@@ -338,7 +339,7 @@ async def test_run_check_async_end_to_end(_ensure_schema):
     result = await service.run_check_async(
         check_id=check_uuid,
         url="https://example.com/",
-        device="mobile",
+        device=["mobile"],
         max_pages=10,
         category=["performance", "seo"],
         pagespeed_concurrency=2,
@@ -347,6 +348,7 @@ async def test_run_check_async_end_to_end(_ensure_schema):
 
     # Result summary
     assert result["status"] == "completed"
+    assert result["device"] == ["mobile"]
     assert result["pagespeed_total"] == 3
     assert result["pagespeed_succeeded"] == 3
     assert result["pagespeed_failed"] == 0
@@ -394,7 +396,7 @@ async def test_run_check_async_pagespeed_failure(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="queued", max_pages=10, max_depth=3,
-            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+            crawl_config={"phase": "queued", "task_id": None, "devices": ["mobile"],
                           "categories": ["performance"]},
         )
         await CrawlJobRepository(db).create(job)
@@ -414,7 +416,7 @@ async def test_run_check_async_pagespeed_failure(_ensure_schema):
     service.pagespeed_client.fetch = failing_fetch
 
     PagespeedClient.parse_result = staticmethod(
-        lambda raw, url, device: {"url": url, "device": device}
+        lambda raw, url, device: {"url": url, "devices": device}
     )
 
     progress: list = []
@@ -423,7 +425,7 @@ async def test_run_check_async_pagespeed_failure(_ensure_schema):
 
     result = await service.run_check_async(
         check_id=check_uuid, url="https://example.com/",
-        device="mobile", max_pages=10, pagespeed_concurrency=2,
+        device=["mobile"], max_pages=10, pagespeed_concurrency=2,
         update_state=upd,
     )
 
@@ -459,7 +461,7 @@ async def test_status_lifecycle_phases(_ensure_schema):
             crawl_config={
                 "phase": "queued",
                 "task_id": "t-1",
-                "device": "mobile",
+                "devices": ["mobile"],
                 "categories": ["performance", "seo"],
             },
         )
@@ -487,7 +489,7 @@ async def test_status_lifecycle_phases(_ensure_schema):
             j.crawl_config = {
                 "phase": "crawl",
                 "task_id": "t-1",
-                "device": "mobile",
+                "devices": ["mobile"],
                 "categories": ["performance", "seo"],
             }
             await CrawlJobRepository(db).update(j)
@@ -509,7 +511,7 @@ async def test_status_lifecycle_phases(_ensure_schema):
                 "phase": "pagespeed",
                 "pagespeed_total": 5,
                 "task_id": "t-1",
-                "device": "mobile",
+                "devices": ["mobile"],
                 "categories": ["performance", "seo"],
             }
             await CrawlJobRepository(db).update(j)
@@ -556,7 +558,7 @@ async def test_status_lifecycle_phases(_ensure_schema):
                 "pagespeed_succeeded": 4,
                 "pagespeed_failed": 1,
                 "task_id": "t-1",
-                "device": "mobile",
+                "devices": ["mobile"],
                 "categories": ["performance", "seo"],
             }
             await CrawlJobRepository(db).update(j)
@@ -592,7 +594,7 @@ async def test_max_pages_cap_truncates_crawl_overshoot(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="queued", max_pages=4, max_depth=3,
-            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+            crawl_config={"phase": "queued", "task_id": None, "devices": ["mobile"],
                           "categories": ["performance"]},
         )
         await CrawlJobRepository(db).create(job)
@@ -635,7 +637,7 @@ async def test_max_pages_cap_truncates_crawl_overshoot(_ensure_schema):
     with patch.object(CrawlOrchestrator, "run", new_callable=_AsyncMock) as mock_run:
         service.pagespeed_client.fetch = _AsyncMock(return_value={"lighthouseResult": {"categories": {}, "audits": {}}})
         PagespeedClient.parse_result = staticmethod(
-            lambda raw, url, device: {"url": url, "device": device, "performance_score": 85, "seo_score": 90}
+            lambda raw, url, device: {"url": url, "devices": device, "performance_score": 85, "seo_score": 90}
         )
 
         # Patch CrawlPageRepository.get_by_audit_id to return the fake pages
@@ -647,7 +649,7 @@ async def test_max_pages_cap_truncates_crawl_overshoot(_ensure_schema):
         ):
             result = await service.run_check_async(
                 check_id=check_uuid, url="https://example.com/",
-                device="mobile", max_pages=4, pagespeed_concurrency=5,
+                device=["mobile"], max_pages=4, pagespeed_concurrency=5,
             )
 
     assert result["pagespeed_total"] == 4   # capped at 4, not 5
@@ -670,7 +672,7 @@ async def test_no_truncation_when_under_max_pages(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="queued", max_pages=10, max_depth=3,
-            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+            crawl_config={"phase": "queued", "task_id": None, "devices": ["mobile"],
                           "categories": ["performance"]},
         )
         await CrawlJobRepository(db).create(job)
@@ -685,12 +687,12 @@ async def test_no_truncation_when_under_max_pages(_ensure_schema):
     service._crawl_and_collect = fake_crawl
     service.pagespeed_client.fetch = AsyncMock(return_value={"lighthouseResult": {"categories": {}, "audits": {}}})
     PagespeedClient.parse_result = staticmethod(
-        lambda raw, url, device: {"url": url, "device": device}
+        lambda raw, url, device: {"url": url, "devices": device}
     )
 
     result = await service.run_check_async(
         check_id=check_uuid, url="https://example.com/",
-        device="mobile", max_pages=10, pagespeed_concurrency=2,
+        device=["mobile"], max_pages=10, pagespeed_concurrency=2,
     )
 
     assert result["pagespeed_total"] == 2  # not truncated
@@ -710,7 +712,7 @@ async def test_error_body_captured_from_http_status_error(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="queued", max_pages=10, max_depth=3,
-            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+            crawl_config={"phase": "queued", "task_id": None, "devices": ["mobile"],
                           "categories": ["performance"]},
         )
         await CrawlJobRepository(db).create(job)
@@ -749,7 +751,7 @@ async def test_error_body_captured_from_http_status_error(_ensure_schema):
 
     result = await service.run_check_async(
         check_id=check_uuid, url="https://example.com/",
-        device="mobile", max_pages=10, pagespeed_concurrency=2,
+        device=["mobile"], max_pages=10, pagespeed_concurrency=2,
     )
 
     assert result["pagespeed_succeeded"] == 0
@@ -775,7 +777,7 @@ async def test_empty_exception_reason_falls_back_to_class_name(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="queued", max_pages=10, max_depth=3,
-            crawl_config={"phase": "queued", "task_id": None, "device": "mobile",
+            crawl_config={"phase": "queued", "task_id": None, "devices": ["mobile"],
                           "categories": ["performance"]},
         )
         await CrawlJobRepository(db).create(job)
@@ -800,7 +802,7 @@ async def test_empty_exception_reason_falls_back_to_class_name(_ensure_schema):
 
     result = await service.run_check_async(
         check_id=check_uuid, url="https://example.com/",
-        device="mobile", max_pages=10, pagespeed_concurrency=2,
+        device=["mobile"], max_pages=10, pagespeed_concurrency=2,
     )
 
     assert result["pagespeed_failed"] == 1
@@ -848,7 +850,7 @@ async def test_stale_completed_at_cleared_when_reopening(_ensure_schema):
             id=check_uuid, user_id=uuid.uuid4(),
             url="https://example.com/", domain="example.com",
             status="completed", max_pages=10, max_depth=3,
-            crawl_config={"phase": "completed", "task_id": "t-1", "device": "mobile"},
+            crawl_config={"phase": "completed", "task_id": "t-1", "device": ["mobile"]},
             completed_at=utc_now(),
         )
         await CrawlJobRepository(db).create(job)
@@ -861,3 +863,63 @@ async def test_stale_completed_at_cleared_when_reopening(_ensure_schema):
         job = await CrawlJobRepository(db).get_by_id(check_uuid)
         assert job.status == "crawling"
         assert job.completed_at is None  # cleared!
+
+# -- Version parameter tests --
+
+
+@pytest.mark.asyncio
+async def test_check_with_single_version(mock_celery):
+    """A single version string is normalized into a list and passed through."""
+    async with await _client() as client:
+        resp = await client.post(
+            "/api/v1/lighthouse/check",
+            json={
+                "url": "https://example.com/",
+                "device": ["mobile"],
+                "version": "7",
+            },
+        )
+
+    assert resp.status_code == 202, resp.text
+    data = resp.json()
+    assert data["version"] == ["7"]
+
+    sent = captured[0]
+    assert sent["kwargs"]["version"] == ["7"]
+
+
+@pytest.mark.asyncio
+async def test_check_with_version_list(mock_celery):
+    """A list of version strings is passed through as-is."""
+    async with await _client() as client:
+        resp = await client.post(
+            "/api/v1/lighthouse/check",
+            json={
+                "url": "https://example.com/",
+                "device": ["mobile", "desktop"],
+                "version": ["6", "7"],
+            },
+        )
+
+    assert resp.status_code == 202, resp.text
+    data = resp.json()
+    assert data["version"] == ["6", "7"]
+
+    sent = captured[0]
+    assert sent["kwargs"]["version"] == ["6", "7"]
+
+
+@pytest.mark.asyncio
+async def test_check_with_invalid_version_returns_422(mock_celery):
+    """An invalid version string triggers a 422 response."""
+    async with await _client() as client:
+        resp = await client.post(
+            "/api/v1/lighthouse/check",
+            json={
+                "url": "https://example.com/",
+                "device": ["mobile"],
+                "version": "99",
+            },
+        )
+
+    assert resp.status_code == 422

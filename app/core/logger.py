@@ -12,6 +12,12 @@ def setup_logger() -> logging.Logger:
     logger = logging.getLogger("app")
     logger.setLevel(logging.INFO)
 
+    # Keep third-party database and event-loop diagnostics out of normal logs.
+    # Enable them explicitly when investigating infrastructure issues.
+    logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
+    logging.getLogger("sqlalchemy.pool").setLevel(logging.WARNING)
+    logging.getLogger("asyncio").setLevel(logging.WARNING)
+
     # Prevent duplicate handlers if setup_logger() is called multiple times
     if logger.handlers:
         return logger

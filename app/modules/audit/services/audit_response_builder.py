@@ -676,7 +676,11 @@ class AuditResponseBuilder:
 
     # ---------------------------------------------------------- indexation
     async def _build_indexation(
-        self, crawl_pages: List, parsed_facts: List, seo_map: Dict | None = None
+        self,
+        crawl_pages: List,
+        parsed_facts: List,
+        seo_map: Dict | None = None,
+        robots_check=None,
     ) -> Dict[str, Any]:
         noindex_pages: set = set()
         canonical_pages: set = set()
@@ -695,7 +699,7 @@ class AuditResponseBuilder:
             "indexable": indexable,
             "noindex": len(noindex_pages),
             "canonicalized": len(canonical_pages),
-            "blocked_by_robots": _unavailable("robots_txt_rules_not_analyzed"),
+            "blocked_by_robots": _robots_blocked_info(robots_check),
             "not_indexable": len(noindex_pages),
         }
     async def _build_performance(self, parsed_facts: List) -> Dict[str, Any]:
@@ -955,6 +959,34 @@ def _coerce_uuid(value) -> UUID:
 def _unavailable(reason: str) -> Dict[str, Any]:
     """Spec §17/#21: never report 0 for not-measured metrics."""
     return {"available": False, "value": None, "reason": reason}
+
+
+def _robots_blocked_info(robots_check) -> Dict[str, Any]:
+    """Convert the persisted robots check into a stable metric shape.
+
+    The robots check measures site-level directives, not a per-page blocked
+    count. A value of 1 therefore means the wildcard rules block the whole
+    site; 0 means the checked robots file does not block the whole site.
+    """
+    if robots_check is None:
+        return _unavailable("robots_check_not_run")
+
+    fetch_status = getattr(robots_check.fetch_status, "value", robots_check.fetch_status)
+    if fetch_status != "success":
+        return _unavailable(
+            f"robots_txt_fetch_{fetch_status or 'unknown'}"
+        )
+
+    blocked = bool(getattr(robots_check, "blocks_entire_site", False))
+    return {
+        "available": True,
+        "value": 1 if blocked else 0,
+        "reason": (
+            "Wildcard robots.txt rules block the entire site"
+            if blocked
+            else "No site-wide wildcard block detected in robots.txt"
+        ),
+    }
 
 
 def _classify_images(evidence: Dict[str, Any]) -> List[Dict[str, Any]]:

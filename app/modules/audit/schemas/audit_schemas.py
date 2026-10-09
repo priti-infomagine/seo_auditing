@@ -7,6 +7,7 @@ AuditAnalyzeResponse / SeoAnalysisResponse names are kept as aliases for import
 backward-compatibility.
 """
 
+from typing import Optional
 from app.core.config import settings
 from pydantic import BaseModel, Field, field_validator
 
@@ -177,6 +178,7 @@ class AuditAnalyzeQueuedResponse(BaseModel):
     crawl_status_url: str = Field(..., description="URL to fetch crawl job status")
     pipeline_status_url: str = Field(..., description="URL to fetch pipeline stage status")
     result_url: str = Field(..., description="URL to fetch the final analysis result")
+    poll_url: Optional[str] = Field(None, description="URL to poll directly for cached progress and completed results without DB queries")
     full_pipeline: bool = Field(..., description="Whether the full pipeline was requested")
 
 

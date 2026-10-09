@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
@@ -31,9 +30,9 @@ class TimestampMixin:
 # ── Async Engine ─────────────────────────────────────────────────────
 engine = create_async_engine(
     settings.DATABASE_URL,
-    echo=settings.DEBUG,
+    echo=settings.DATABASE_ECHO,
     pool_pre_ping=True,
-    pool_size=10,
+    pool_size=5,
     max_overflow=20,
 )
 
@@ -70,8 +69,7 @@ async def init_db() -> None:
     """Create all tables (useful for development / testing)."""
     try:
         async with engine.begin() as conn:
-
-            # Existing behavior
+            await conn.execute(text("SELECT pg_advisory_xact_lock(7419836246283155)"))
             await conn.run_sync(Base.metadata.create_all)
 
     except Exception as exc:

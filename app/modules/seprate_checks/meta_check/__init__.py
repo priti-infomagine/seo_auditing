@@ -1,0 +1,1 @@
+"""Standalone multi-page meta title and description checker."""

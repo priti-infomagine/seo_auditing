@@ -42,6 +42,25 @@ def validate_domain(domain: str) -> str:
     host = normalize_host(cleaned)
     if not host:
         raise RobotsCheckValidationError(f"Invalid domain: {domain!r}")
+
+    # Reject single-label hosts that are not valid domains, or that look like
+    # URL scheme names (e.g. "https", "htts", "ftp").  A well-formed
+    # registrable domain always has at least two labels separated by a dot.
+    if "." not in host and host != "localhost":
+        raise RobotsCheckValidationError(
+            f"Invalid domain: {domain!r} — "
+            "expected a fully-qualified domain name (e.g. example.com)"
+        )
+
+    _SCHEME_NAMES = frozenset(
+        {"http", "https", "ftp", "ftps", "htts", "sftp", "ws", "wss"}
+    )
+    if host in _SCHEME_NAMES:
+        raise RobotsCheckValidationError(
+            f"Invalid domain: {domain!r} — "
+            "looks like a URL scheme, not a domain name"
+        )
+
     return host
 
 
