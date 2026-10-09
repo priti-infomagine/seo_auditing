@@ -52,6 +52,7 @@ def run_check(
             domain=domain,
             max_urls=max_urls,
             update_state=_report_progress,
+            max_hops=max_hops,
         )
         return result
 

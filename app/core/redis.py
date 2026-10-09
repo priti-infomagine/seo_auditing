@@ -1,6 +1,7 @@
 """Redis dependency for FastAPI routes."""
 from __future__ import annotations
 
+import os
 from typing import Optional
 
 from redis.asyncio import Redis
@@ -21,7 +22,11 @@ def get_redis() -> Optional[Redis]:
         return _redis_client
     try:
         _redis_client = Redis.from_url(
-            settings.REDIS_URL, decode_responses=True, socket_timeout=2
+            settings.REDIS_URL,
+            decode_responses=True,
+            socket_timeout=5,
+            socket_connect_timeout=5,
+            health_check_interval=30,
         )
         return _redis_client
     except Exception:

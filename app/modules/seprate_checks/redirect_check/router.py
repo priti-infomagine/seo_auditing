@@ -27,9 +27,12 @@ from app.modules.seprate_checks.redirect_check.schema import (
     RedirectCheckResultResponse,
     RedirectCheckStatusResponse,
     RedirectFinding,
-    RedirectHop,
     RedirectSummary,
     RedirectUrlResult,
+)
+from app.modules.seprate_checks.redirect_check.redirect_report import (
+    analyze_result,
+    public_result,
 )
 from app.modules.seprate_checks.redirect_check.service import RedirectCheckService
 from app.modules.seprate_checks.redirect_check.sse import sse_event_stream
@@ -195,6 +198,18 @@ async def stream_redirect_check(
     )
 
 
+def _stored_to_result(r: dict[str, Any]) -> RedirectUrlResult:
+    """Build the API result from a stored dict.
+
+    Audits stored before the slim schema (no ``state`` key) are re-analyzed from their
+    hops, so old records also get the correct redirect count / final URL."""
+    if "state" not in r:
+        legacy = analyze_result({"url": r.get("url", ""), "hops": r.get("hops") or [],
+                                 "error": r.get("error")})
+        r = {**r, **public_result(legacy)}
+    return RedirectUrlResult.model_validate(r)
+
+
 @router.get(
     "/result/{check_id}",
     response_model=RedirectCheckResultResponse,
@@ -215,39 +230,7 @@ async def get_redirect_check_result(
     summary_data = run.final_summary or {}
 
     results_raw = summary_data.get("redirect_results", [])
-    results: list[RedirectUrlResult] = [
-        RedirectUrlResult(
-            url=r.get("url", ""),
-            hops=[
-                RedirectHop(
-                    url=h.get("url", ""),
-                    status=h.get("status"),
-                    status_text=h.get("statusText"),
-                    location=h.get("location"),
-                    resolved=h.get("resolved"),
-                    latency_ms=h.get("latencyMs"),
-                    headers=h.get("headers", []),
-                )
-                for h in (r.get("hops") or [])
-            ],
-            redirects=r.get("redirects", 0),
-            final_url=r.get("final_url"),
-            final_status=r.get("final_status"),
-            error=r.get("error"),
-            redirect_count=r.get("redirect_count", 0) or len(r.get("hops", [])),
-            chain=r.get("chain", []),
-            is_redirect=r.get("is_redirect", False),
-            is_internal_redirect=r.get("is_internal_redirect", False),
-            is_external_redirect=r.get("is_external_redirect", False),
-            is_broken=r.get("is_broken", False),
-            canonical=r.get("canonical"),
-            meta_refresh=r.get("meta_refresh"),
-            robots_allowed=r.get("robots_allowed", True),
-            in_sitemap=r.get("in_sitemap", False),
-            source_pages=r.get("source_pages", []),
-        )
-        for r in results_raw
-    ]
+    results: list[RedirectUrlResult] = [_stored_to_result(r) for r in results_raw]
 
     findings = [
         RedirectFinding(
@@ -259,6 +242,7 @@ async def get_redirect_check_result(
             target_url=f.get("target_url", ""),
             redirect_count=f.get("redirect_count", 0),
             final_status=f.get("final_status"),
+            recommendation=f.get("recommendation"),
         )
         for f in summary_data.get("findings", [])
     ]
@@ -271,10 +255,12 @@ async def get_redirect_check_result(
             code=r.get("code", ""),
             priority=r.get("priority", "low"),
             title=r.get("title", ""),
-            message=r.get("message", ""),
+            message=r.get("message"),
             fix=r.get("fix", ""),
-            where_to_fix=r.get("where_to_fix", "source_pages"),
+            where_to_fix=r.get("where_to_fix", "server_config"),
             evidence=r.get("evidence"),
+            affected_count=r.get("affected_count", 0),
+            examples=r.get("examples", []),
         )
         for r in recommendations_data
     ]

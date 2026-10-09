@@ -30,7 +30,13 @@ return 0
 """
 
     def __init__(self, redis_client: Redis | None = None):
-        self.redis = redis_client or Redis.from_url(settings.REDIS_URL, decode_responses=True)
+        self.redis = redis_client or Redis.from_url(
+            settings.REDIS_URL,
+            decode_responses=True,
+            socket_timeout=5,
+            socket_connect_timeout=5,
+            health_check_interval=30,
+        )
 
     def ns(self, audit_id: str) -> str:
         return f"streaming_audit:{audit_id}"

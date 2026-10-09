@@ -191,53 +191,43 @@ async def test_result_endpoint_returns_results_when_completed():
         domain="example.com",
         status="completed",
         final_summary={
-            "total_checked": 2,
+            "total_checked": 3,
             "redirect_results": [
                 {
                     "url": "https://example.com/old",
+                    "state": "redirected",
                     "redirect_count": 1,
+                    "redirect_type": "internal",
                     "final_url": "https://example.com/new",
                     "final_status": 200,
-                    "is_redirect": True,
-                    "is_internal_redirect": True,
-                    "is_external_redirect": False,
-                    "error": None,
                     "hops": [
-                        {
-                            "url": "https://example.com/old",
-                            "status": 301,
-                            "statusText": "Moved Permanently",
-                            "location": "/new",
-                            "resolved": "https://example.com/new",
-                            "latencyMs": 50,
-                            "headers": [{"name": "content-type", "value": "text/html"}],
-                        },
-                        {
-                            "url": "https://example.com/new",
-                            "status": 200,
-                            "statusText": "OK",
-                            "location": None,
-                            "resolved": None,
-                            "latencyMs": 30,
-                            "headers": [],
-                        },
-                    ],
-                    "chain": [
-                        {"url": "https://example.com/old", "status": 301, "location": "/new", "resolved": "https://example.com/new", "latency_ms": 50},
-                        {"url": "https://example.com/new", "status": 200, "location": None, "resolved": None, "latency_ms": 30},
+                        {"url": "https://example.com/old", "status": 301, "kind": "http",
+                         "location": "https://example.com/new", "latency_ms": 50},
+                        {"url": "https://example.com/new", "status": 200, "kind": None,
+                         "location": None, "latency_ms": 30},
                     ],
                 },
                 {
+                    # normal page: ONE hop (the final 200) and ZERO redirects
                     "url": "https://example.com/page",
+                    "state": "ok",
                     "redirect_count": 0,
+                    "redirect_type": "none",
                     "final_url": "https://example.com/page",
                     "final_status": 200,
-                    "is_redirect": False,
-                    "is_internal_redirect": False,
-                    "is_external_redirect": False,
-                    "error": None,
-                    "hops": [],
-                    "chain": [],
+                    "hops": [{"url": "https://example.com/page", "status": 200,
+                              "latency_ms": 12}],
+                },
+                {
+                    # record stored before the slim schema (camelCase, no "state")
+                    "url": "https://example.com/legacy",
+                    "redirects": 1,
+                    "redirect_count": 1,
+                    "finalUrl": "https://example.com/legacy",
+                    "finalStatus": 200,
+                    "hops": [{"url": "https://example.com/legacy", "status": 200,
+                              "latencyMs": 9, "headers": []}],
+                    "chain": [{"url": "https://example.com/legacy", "status": 200}],
                 },
             ],
             "summary": {
@@ -248,9 +238,9 @@ async def test_result_endpoint_returns_results_when_completed():
                 "internal_redirects": 1,
                 "external_redirects": 0,
                 "loops": 0,
-                "meta_refresh": 0,
+                "client_redirects": 0,
                 "insecure": 0,
-                "by_status_class": {"ok": 2, "redirect": 0, "broken": 0, "unverified": 0},
+                "by_status_class": {"ok": 2, "redirect": 1, "broken": 0, "unreachable": 0},
             },
             "findings": [
                 {
@@ -287,18 +277,30 @@ async def test_result_endpoint_returns_results_when_completed():
 
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_checked"] == 2
+    assert payload["total_checked"] == 3
     assert payload["overall_status"] == "warning"
-    assert len(payload["results"]) == 2
-    assert payload["results"][0]["redirect_count"] == 1
-    assert payload["results"][0]["is_redirect"] is True
-    assert len(payload["results"][0]["hops"]) == 2
-    assert payload["results"][0]["hops"][0]["url"] == "https://example.com/old"
-    assert payload["results"][0]["hops"][0]["status"] == 301
-    assert payload["results"][0]["hops"][0]["location"] == "/new"
-    assert payload["results"][0]["hops"][0]["resolved"] == "https://example.com/new"
-    assert len(payload["results"][0]["hops"][0]["headers"]) == 1
-    assert len(payload["results"][0]["chain"]) == 2
-    assert payload["results"][0]["chain"][0]["url"] == "https://example.com/old"
-    assert payload["results"][1]["hops"] == []
-    assert payload["results"][1]["chain"] == []
+    old, page, legacy = payload["results"]
+
+    assert old["state"] == "redirected" and old["redirect_count"] == 1
+    assert old["redirect_type"] == "internal"
+    assert old["final_url"] == "https://example.com/new" and old["final_status"] == 200
+    assert [h["status"] for h in old["hops"]] == [301, 200]
+    assert old["hops"][0]["kind"] == "http"
+    assert old["hops"][0]["location"] == "https://example.com/new"
+
+    # regression: a 200 page with one hop is NOT a redirect
+    assert page["state"] == "ok" and page["redirect_count"] == 0
+    assert page["final_url"] == "https://example.com/page" and page["final_status"] == 200
+    assert len(page["hops"]) == 1
+
+    # regression: legacy record is re-analyzed (count 0, final url/status recovered)
+    assert legacy["state"] == "ok" and legacy["redirect_count"] == 0
+    assert legacy["final_url"] == "https://example.com/legacy" and legacy["final_status"] == 200
+
+    # no duplicate / extra fields leak into the response
+    for r in payload["results"]:
+        for removed in ("redirects", "chain", "is_redirect", "is_internal_redirect",
+                        "is_external_redirect", "is_broken", "meta_refresh"):
+            assert removed not in r
+        for h in r["hops"]:
+            assert "headers" not in h and "statusText" not in h and "resolved" not in h

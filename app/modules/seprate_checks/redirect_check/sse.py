@@ -12,6 +12,7 @@ from collections.abc import AsyncIterator
 from typing import Any
 
 from redis.asyncio import Redis
+from redis.exceptions import ResponseError
 
 from app.core.logger import logger
 from app.modules.streaming_audit.config import STREAMING_AUDIT_REDIS_NAMESPACE
@@ -27,9 +28,16 @@ async def _stored_events(
     audit_id: str,
     last_id: int = 0,
 ) -> list[dict[str, Any]]:
-    """Retrieve stored events from the redirect check event list (catch-up)."""
+    """Retrieve stored events from the redirect check event list (catch-up).
+
+    Returns an empty list if Redis is unreachable or the key does not exist.
+    """
     key = f"{STREAMING_AUDIT_REDIS_NAMESPACE}:{audit_id}:events_list"
-    raw = await redis.lrange(key, last_id, -1)
+    try:
+        raw = await asyncio.wait_for(redis.lrange(key, last_id, -1), timeout=5.0)
+    except (asyncio.TimeoutError, OSError, ResponseError) as exc:
+        logger.debug("_stored_events: read error for audit_id=%s: %s", audit_id, exc)
+        return []
     events: list[dict[str, Any]] = []
     for item in raw:
         try:
@@ -54,6 +62,10 @@ async def sse_event_stream(
     4. If pub/sub yields no events, poll the StreamingAuditRun DB row +
        stored events as a fallback (chunked polling).
     5. On completion or error, emit a final ``close`` event.
+
+    All Redis operations are guarded with timeouts so a transient
+    connectivity issue degrades to the polling fallback rather than
+    killing the stream.
     """
     pubsub = redis.pubsub()
     channel = f"{STREAMING_AUDIT_REDIS_NAMESPACE}:{audit_id}:events"
@@ -68,26 +80,32 @@ async def sse_event_stream(
             processed_count += 1
             yield _format_sse_event(event)
 
-        await pubsub.subscribe(channel)
+        try:
+            await asyncio.wait_for(pubsub.subscribe(channel), timeout=5.0)
+        except (asyncio.TimeoutError, OSError, ResponseError) as exc:
+            logger.warning("sse_event_stream: subscribe failed for audit_id=%s: %s", audit_id, exc)
 
         while True:
+            # Use get_message with timeout for blocking wait (proper redis.asyncio API)
             try:
-                message = await asyncio.wait_for(pubsub.get_message(), timeout=1.0)
-                if message and message.get("type") == "message":
-                    try:
-                        event = json.loads(message["data"])
-                        processed_count += 1
-                        yield _format_sse_event(event)
+                message = await pubsub.get_message(timeout=1.0)
+            except (asyncio.TimeoutError, OSError, ResponseError) as exc:
+                logger.debug("sse_event_stream: get_message error for audit_id=%s: %s", audit_id, exc)
+                message = None
 
-                        if event.get("event") == "completed":
-                            yield _format_sse_event({"event": "close", "data": {"status": "completed"}})
-                            return
-                        elif event.get("event") == "discovery_complete":
-                            event.get("data", {}).get("total_urls", 0)
-                    except (json.JSONDecodeError, TypeError):
-                        continue
-            except asyncio.TimeoutError:
-                pass
+            if message and message.get("type") == "message":
+                try:
+                    event = json.loads(message["data"])
+                    processed_count += 1
+                    yield _format_sse_event(event)
+
+                    if event.get("event") == "completed":
+                        yield _format_sse_event({"event": "close", "data": {"status": "completed"}})
+                        return
+                    elif event.get("event") == "discovery_complete":
+                        event.get("data", {}).get("total_urls", 0)
+                except (json.JSONDecodeError, TypeError):
+                    continue
 
             fallback_events = await _stored_events(redis, audit_id, last_id=processed_count)
             if fallback_events:

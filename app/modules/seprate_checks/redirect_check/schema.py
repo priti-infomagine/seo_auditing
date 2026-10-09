@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class RedirectCheckRequest(BaseModel):
@@ -15,7 +15,7 @@ class RedirectCheckRequest(BaseModel):
         min_length=1,
         description="Website origin to discover and check (e.g. https://example.com)",
     )
-    max_urls: int = Field(default=500, ge=1, le=500, description="Maximum URLs to check")
+    max_urls: int = Field(default=50, ge=1, le=50, description="Maximum URLs to check")
     max_depth: int = Field(default=5, ge=0, le=8, description="Maximum crawl depth for URL discovery")
     max_hops: int = Field(default=10, ge=0, le=20, description="Maximum redirect hops to follow per URL")
 
@@ -61,38 +61,32 @@ class RedirectCheckStatusResponse(BaseModel):
 
 
 class RedirectHop(BaseModel):
-    """A single HTTP redirect hop."""
-
-    model_config = ConfigDict(populate_by_name=True)
+    """One request in the chain. ``location`` is the absolute URL the hop leads to."""
 
     url: str
     status: int | None = None
-    status_text: str | None = Field(default=None, alias="statusText")
     location: str | None = None
-    resolved: str | None = None
-    latency_ms: int | None = Field(default=None, alias="latencyMs")
-    headers: list[dict[str, Any]] = Field(default_factory=list)
+    kind: Literal["http", "client"] | None = Field(
+        default=None,
+        description="http = 3xx + Location header; client = meta refresh / JS navigation seen by the browser",
+    )
+    latency_ms: int | None = None
 
 
 class RedirectUrlResult(BaseModel):
-    """Redirect chain result for a single URL."""
-
-    model_config = ConfigDict(populate_by_name=True)
+    """Redirect check result for a single URL (no duplicated or derived-only fields)."""
 
     url: str
-    hops: list[RedirectHop] = Field(default_factory=list)
-    redirects: int = 0
-    final_url: str | None = Field(default=None, alias="finalUrl")
-    final_status: int | None = Field(default=None, alias="finalStatus")
+    state: Literal["ok", "redirected", "broken", "unreachable", "loop", "too_many_redirects"] = "ok"
+    redirect_count: int = Field(default=0, description="3xx hops + confirmed client-side redirects; the final 200 is not counted")
+    redirect_type: Literal["none", "internal", "external"] = "none"
+    final_url: str | None = None
+    final_status: int | None = None
     error: str | None = None
-    redirect_count: int = 0
-    chain: list[dict[str, Any]] = Field(default_factory=list)
-    is_redirect: bool = False
-    is_internal_redirect: bool = False
-    is_external_redirect: bool = False
-    is_broken: bool = False
+    error_type: str | None = None
+    client_redirect: Literal["suspected", "confirmed"] | None = None
+    hops: list[RedirectHop] = Field(default_factory=list)
     canonical: str | None = None
-    meta_refresh: str | None = None
     robots_allowed: bool = True
     in_sitemap: bool = False
     source_pages: list[str] = Field(default_factory=list)
@@ -108,7 +102,7 @@ class RedirectSummary(BaseModel):
     internal_redirects: int = 0
     external_redirects: int = 0
     loops: int = 0
-    meta_refresh: int = 0
+    client_redirects: int = 0
     insecure: int = 0
     by_status_class: dict[str, int] = Field(default_factory=dict)
 
@@ -131,10 +125,12 @@ class RedirectRecommendation(BaseModel):
     code: str
     priority: Literal["critical", "high", "medium", "low", "info"]
     title: str
-    message: str
+    message: str | None = None
     fix: str
-    where_to_fix: Literal["source_pages", "server_config", "sitemap", "content", "cms"]
+    where_to_fix: str = "server_config"
     evidence: str | None = None
+    affected_count: int = 0
+    examples: list[str] = Field(default_factory=list)
 
 
 class RedirectCheckResultResponse(BaseModel):

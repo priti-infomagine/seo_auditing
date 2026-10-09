@@ -1,12 +1,14 @@
 """Redirect check service — domain-level redirect chain analysis with streaming.
 
 Orchestrates: sitemap/robots discovery → URL collection → per-URL redirect
-check (via bulk_status.RedirectCheckerService) → enrichment (via RedirectResolver)
-→ SSE event streaming → analysis/evaluation → persistence.
+check (via fetch_chain + browser fallback for meta-refresh) → enrichment
+(via ResolveContext) → SSE event streaming → analysis/evaluation → persistence.
 """
 from __future__ import annotations
 
 import asyncio
+import httpx
+import inspect
 import time
 import uuid
 from collections.abc import Callable
@@ -27,11 +29,20 @@ from app.modules.crawler.services.site_discovery_service import (
     SiteDiscoveryResult,
     SiteDiscoveryService,
 )
+from app.modules.crawler.utils.url import validate_url_ssrf
 from app.modules.seprate_checks.bulk_status.schema import (
     RedirectCheckRequest as BulkRedirectCheckRequest,
 )
 from app.modules.seprate_checks.bulk_status.service import RedirectCheckerService
 from app.modules.seprate_checks.link_analysis.crawler import SiteCrawler
+from app.modules.seprate_checks.redirect_check.redirect_report import (
+    BlockedURL,
+    analyze_result,
+    build_report,
+    fetch_chain,
+    probe_soft_404,
+    public_result,
+)
 from app.modules.streaming_audit.config import STREAMING_AUDIT_MAX_CONCURRENCY
 from app.modules.streaming_audit.models.streaming_audit_run import StreamingAuditStatus
 from app.modules.streaming_audit.services.streaming_audit_service import (
@@ -40,10 +51,21 @@ from app.modules.streaming_audit.services.streaming_audit_service import (
 )
 from app.shared.utils.url_utils import normalize_host
 
-from .analyzer import RedirectCheckAnalyzer
-from .resolver import RedirectResolver, ResolveContext
+from .constants import USER_AGENT
+from .resolver import ResolveContext
 from .schema import RedirectUrlResult
 from .streaming_adapter import StreamingRedirectAdapter
+
+
+# Chromium is expensive: never launch more than a couple at once, never wait forever.
+BROWSER_FALLBACK_CONCURRENCY = 2
+BROWSER_FALLBACK_TIMEOUT_SECONDS = 60
+
+
+def _base_url(domain: str) -> str:
+    """https://example.com/ from either 'example.com' or 'https://example.com'."""
+    base = domain if domain.startswith(("http://", "https://")) else f"https://{domain}"
+    return base.rstrip("/") + "/"
 
 
 class RedirectCheckService:
@@ -297,6 +319,7 @@ class RedirectCheckService:
         db: AsyncSession | None = None,
         update_state: Callable[[str, dict | None], None] | None = None,
         max_urls: int = 500,
+        max_hops: int | None = None,
     ) -> dict[str, Any]:
         """Execute the full domain redirect check workflow.
 
@@ -314,20 +337,61 @@ class RedirectCheckService:
         if db is not None:
             return await self._execute(
                 audit_id, domain, db, urls, site_result, robot_parser,
-                crawl_result, update_state, start_time,
+                crawl_result, update_state, start_time, max_hops,
             )
 
         async with async_session_factory() as session:
             try:
                 result = await self._execute(
                     audit_id, domain, session, urls, site_result, robot_parser,
-                    crawl_result, update_state, start_time,
+                    crawl_result, update_state, start_time, max_hops,
                 )
                 await session.commit()
                 return result
             except Exception:
                 await session.rollback()
                 raise
+
+    @staticmethod
+    def _analyzed_to_result(url: str, analyzed: dict, context: ResolveContext) -> RedirectUrlResult:
+        """Slim API result (``public_result``) + SEO context from ``ResolveContext``."""
+        seo_data = context.get_seo_data(url) if context else None
+        return RedirectUrlResult.model_validate({
+            **public_result(analyzed),
+            "canonical": seo_data.get("canonical") if seo_data else None,
+            "robots_allowed": context.robots_allows(url) if context else True,
+            "in_sitemap": context.is_in_sitemap(url) if context else False,
+            "source_pages": context.get_source_pages(url) if context else [],
+        })
+
+    @staticmethod
+    def _browser_result_to_raw(url: str, result: Any) -> dict:
+        """Convert a bulk_status ``RedirectResult`` (Chromium navigation chain) to a raw dict
+        for :func:`analyze_result`.
+
+        Hops are plain navigations; ``analyze_result`` marks a hop as a client-side redirect
+        when the next hop is on a different URL. If the browser reports a final URL that never
+        appears as a hop (JS redirect not recorded as a hop), it is appended as the last hop.
+        """
+        dump = result.model_dump(by_alias=True, exclude_none=True)
+        hops = [{
+            "url": h.get("url", ""),
+            "status": h.get("status"),
+            "location": h.get("resolved") or h.get("location"),
+            "latency_ms": h.get("latencyMs", 0),
+        } for h in dump.get("hops", [])]
+
+        final_url = dump.get("finalUrl")
+        if hops and final_url and final_url not in {h["url"] for h in hops}:
+            hops.append({"url": final_url, "status": dump.get("finalStatus"),
+                         "location": None, "latency_ms": 0})
+        return {
+            "url": url,
+            "hops": hops,
+            "error": result.error,
+            "error_type": "browser_error" if result.error else None,
+            "browser_checked": True,
+        }
 
     async def _execute(
         self,
@@ -340,12 +404,20 @@ class RedirectCheckService:
         crawl_result: Any,
         update_state: Callable[[str, dict | None], None] | None,
         start_time: float,
+        max_hops: int | None = None,
     ) -> dict[str, Any]:
-        """Execute the check on an active DB session."""
+        """Execute the check on an active DB session.
+
+        Uses ``fetch_chain`` with a shared ``httpx.AsyncClient`` as the
+        primary HTTP fetcher.  When ``fetch_chain`` detects a client-side
+        meta-refresh/JS redirect, ``RedirectCheckerService.check`` provides a
+        browser fallback.  Post-loop analysis uses ``build_report`` (which
+        internally calls ``analyze_result`` + ``build_findings``) plus a
+        ``probe_soft_404`` check.
+        """
         svc = StreamingAuditService(db)
         adapter = StreamingRedirectAdapter()
-        checker = RedirectCheckerService()
-        resolver = RedirectResolver()
+        browser_checker = RedirectCheckerService()
 
         await svc.update_run(
             audit_id,
@@ -378,7 +450,23 @@ class RedirectCheckService:
         source_map = self._build_source_map(crawl_result)
         context = self._build_context(domain, site_result, robot_parser, seo_map, source_map)
 
+        if max_hops is None:
+            max_hops = settings.LINK_ANALYSIS_MAX_REDIRECT_HOPS
+        browser_sem = asyncio.Semaphore(BROWSER_FALLBACK_CONCURRENCY)
+        timeout = httpx.Timeout(settings.LINK_CHECK_TIMEOUT)
+        limits = httpx.Limits(
+            max_connections=STREAMING_AUDIT_MAX_CONCURRENCY,
+            max_keepalive_connections=STREAMING_AUDIT_MAX_CONCURRENCY,
+        )
+        client = httpx.AsyncClient(
+            follow_redirects=False,
+            timeout=timeout,
+            headers={"User-Agent": USER_AGENT},
+            limits=limits,
+        )
+
         results: list[RedirectUrlResult] = []
+        raw_results: list[dict] = []
         processed = 0
         failed_count = 0
         semaphore = asyncio.Semaphore(STREAMING_AUDIT_MAX_CONCURRENCY)
@@ -389,43 +477,46 @@ class RedirectCheckService:
             async with semaphore:
                 acquired = await adapter.reserve_slot(audit_id, limit=STREAMING_AUDIT_MAX_CONCURRENCY)
                 try:
-                    req = BulkRedirectCheckRequest(mode="urls", urls=[url], max_urls=1)
-                    response = await checker.check(req)
+                    async def _validate_hop(hop_url: str) -> None:
+                        # runs before EVERY request, including redirect targets
+                        try:
+                            await asyncio.to_thread(validate_url_ssrf, hop_url, False)
+                        except Exception as exc:
+                            raise BlockedURL(str(exc)) from exc
 
-                    if response.data.results:
-                        raw_result = response.data.results[0]
-                        resolved = resolver.resolve(url, raw_result, context)
-                    else:
-                        resolved = RedirectUrlResult(
-                            url=url,
-                            error="No result returned",
-                            in_sitemap=context.is_in_sitemap(url),
-                            robots_allowed=context.robots_allows(url),
-                            source_pages=context.get_source_pages(url),
-                        )
+                    raw = await fetch_chain(client, url, max_hops=max_hops, validator=_validate_hop)
 
-                    await svc.upsert_page_result(
-                        audit_id=audit_id,
-                        normalized_url=resolved.url,
-                        canonical_url=resolved.canonical,
-                        processing_status="completed" if not resolved.error else "failed",
-                        http_status=resolved.final_status,
-                        page_score=None,
-                        processing_latency_ms=0,
-                        parsed_payload=None,
-                        page_findings={
-                            "redirect_count": resolved.redirect_count,
-                            "final_url": resolved.final_url,
-                            "final_status": resolved.final_status,
-                            "error": resolved.error,
-                            "is_redirect": resolved.is_redirect,
-                            "is_internal_redirect": resolved.is_internal_redirect,
-                            "is_external_redirect": resolved.is_external_redirect,
-                            "redirects": len(resolved.hops),
-                        },
-                        discovered_urls=[],
-                        error_info=resolved.error,
-                    )
+                    # Chromium only when the page itself signals a meta-refresh / JS-stub redirect
+                    signal_hop = next((h for h in raw.get("hops", []) if h.get("client_signal")), None)
+                    if signal_hop and not raw.get("error"):
+                        raw["client_signal"] = signal_hop["client_signal"]
+                        raw["client_target"] = signal_hop.get("client_target")
+                        logger.info("RedirectCheckService: browser fallback (%s): %s",
+                                    signal_hop["client_signal"], url)
+                        try:
+                            req = BulkRedirectCheckRequest(mode="urls", urls=[url], max_urls=1)
+                            async with browser_sem:
+                                response = await asyncio.wait_for(
+                                    browser_checker.check(req),
+                                    timeout=BROWSER_FALLBACK_TIMEOUT_SECONDS,
+                                )
+                            if response.data.results:
+                                browser_raw = self._browser_result_to_raw(url, response.data.results[0])
+                                if browser_raw["error"]:
+                                    # browser failed: keep the HTTP result (stays "suspected")
+                                    logger.warning("RedirectCheckService: browser error for %s: %s",
+                                                   url, browser_raw["error"])
+                                else:
+                                    browser_raw["client_signal"] = raw["client_signal"]
+                                    browser_raw["client_target"] = raw["client_target"]
+                                    raw = browser_raw
+                        except Exception as exc:
+                            logger.warning("RedirectCheckService: browser fallback failed for %s: %s", url, exc)
+
+                    raw["source_pages"] = context.get_source_pages(url)
+
+                    analyzed = analyze_result(raw)
+                    resolved = self._analyzed_to_result(url, analyzed, context)
 
                     processed += 1
 
@@ -434,15 +525,13 @@ class RedirectCheckService:
                         "url_checked",
                         {
                             "url": resolved.url,
+                            "state": resolved.state,
                             "redirect_count": resolved.redirect_count,
+                            "redirect_type": resolved.redirect_type,
                             "final_url": resolved.final_url,
                             "final_status": resolved.final_status,
                             "error": resolved.error,
-                            "hops": [
-                                h.model_dump(by_alias=True, exclude_none=True)
-                                for h in resolved.hops
-                            ],
-                            "chain": resolved.chain,
+                            "hops": [h.model_dump(exclude_none=True) for h in resolved.hops],
                             "processed": processed,
                             "total": len(urls),
                         },
@@ -459,90 +548,147 @@ class RedirectCheckService:
                     if resolved.error:
                         failed_count += 1
                     results.append(resolved)
+                    raw_results.append(raw)
                     return resolved
 
                 except Exception as exc:
                     logger.warning("RedirectCheckService: error checking %s: %s", url, exc)
                     failed_count += 1
                     processed += 1
+                    try:  # keep the URL in the report instead of dropping it
+                        failed_raw = {"url": url, "hops": [], "error": str(exc) or type(exc).__name__,
+                                      "error_type": "check_failed",
+                                      "source_pages": context.get_source_pages(url)}
+                        results.append(self._analyzed_to_result(url, analyze_result(failed_raw), context))
+                        raw_results.append(failed_raw)
+                    except Exception:
+                        pass
+                    if update_state:
+                        update_state("PROGRESS", {
+                            "phase": "checking",
+                            "message": f"Error checking {url}: {exc}",
+                            "processed": processed,
+                            "total": len(urls),
+                        })
                     return None
                 finally:
                     if acquired:
                         await adapter.release_slot(audit_id)
 
-        tasks = [asyncio.create_task(_check_single(url)) for url in urls]
-        completed = await asyncio.gather(*tasks, return_exceptions=True)
+        try:
+            tasks = [asyncio.create_task(_check_single(url)) for url in urls]
+            completed = await asyncio.gather(*tasks, return_exceptions=True)
 
-        for item in completed:
-            if isinstance(item, Exception):
-                logger.warning("RedirectCheckService: task error: %s", item)
+            for item in completed:
+                if isinstance(item, Exception):
+                    logger.warning("RedirectCheckService: task error: %s", item)
 
-        outcome = RedirectCheckAnalyzer.analyze(results, domain)
-        cost_seconds = round(time.perf_counter() - start_time, 3)
+            # ---- Persist all page results sequentially on the single session ----
+            # _check_single no longer touches the DB (concurrent coroutines would
+            # conflict on the same AsyncSession).  We persist here, one by one.
+            persistence_failed_count = 0
+            failed_urls: list[str] = []
+            for resolved in results:
+                try:
+                    await svc.upsert_page_result(
+                        audit_id=audit_id,
+                        normalized_url=resolved.url,
+                        canonical_url=resolved.canonical,
+                        processing_status="completed" if not resolved.error else "failed",
+                        http_status=resolved.final_status,
+                        page_score=None,
+                        processing_latency_ms=0,
+                        parsed_payload=None,
+                        page_findings={
+                            "state": resolved.state,
+                            "redirect_count": resolved.redirect_count,
+                            "redirect_type": resolved.redirect_type,
+                            "final_url": resolved.final_url,
+                            "final_status": resolved.final_status,
+                            "error": resolved.error,
+                        },
+                        discovered_urls=[],
+                        error_info=resolved.error,
+                    )
+                except Exception as exc:
+                    logger.error(
+                        "RedirectCheckService: persistence failed for %s: %s",
+                        resolved.url, exc,
+                    )
+                    persistence_failed_count += 1
+                    if len(failed_urls) < 20:
+                        failed_urls.append(resolved.url)
 
-        logger.info(
-            "RedirectCheckService: analysis complete audit_id=%s total=%d findings=%d status=%s",
-            audit_id, len(results), len(outcome.findings), outcome.overall_status,
-        )
+            extra_findings: list[dict] = []
+            try:
+                extra_findings = await probe_soft_404(client, _base_url(domain))
+            except Exception as exc:
+                logger.warning("RedirectCheckService: soft-404 probe failed: %s", exc)
 
-        await svc.update_run(
-            audit_id,
-            status=StreamingAuditStatus.COMPLETED,
-            completed_count=len(results) - failed_count,
-            failed_count=failed_count,
-            final_summary={
-                "total_checked": len(results),
-            "redirect_results": [
+            report = build_report(domain, raw_results, extra_findings)
+            cost_seconds = round(time.perf_counter() - start_time, 3)
+
+            logger.info(
+                "RedirectCheckService: analysis complete audit_id=%s total=%d findings=%d status=%s",
+                audit_id, len(results), len(report["findings"]), report["overall_status"],
+            )
+
+            await svc.update_run(
+                audit_id,
+                status=StreamingAuditStatus.PARTIAL if persistence_failed_count > 0
+                else StreamingAuditStatus.COMPLETED,
+                completed_count=len(results) - failed_count,
+                failed_count=failed_count,
+                final_summary={
+                    "total_checked": len(results),
+                    "redirect_results": [
+                        r.model_dump(exclude_none=True) for r in results
+                    ],
+                    "summary": report["summary"],
+                    "findings": report["findings"],
+                    "recommendations": report["recommendations"],
+                    "overall_status": report["overall_status"],
+                    "severity": report["severity"],
+                    "cost_seconds": cost_seconds,
+                    "persistence_failed_count": persistence_failed_count,
+                    "persistence_failed_urls": failed_urls,
+                },
+            )
+
+            await adapter.publish_event(
+                audit_id,
+                "completed",
                 {
-                    "url": r.url,
-                    "redirects": r.redirects,
-                    "redirect_count": r.redirect_count,
-                    "final_url": r.final_url,
-                    "final_status": r.final_status,
-                    "error": r.error,
-                    "is_redirect": r.is_redirect,
-                    "is_internal_redirect": r.is_internal_redirect,
-                    "is_external_redirect": r.is_external_redirect,
-                    "is_broken": r.is_broken,
-                    "canonical": r.canonical,
-                    "meta_refresh": r.meta_refresh,
-                    "robots_allowed": r.robots_allowed,
-                    "in_sitemap": r.in_sitemap,
-                    "source_pages": r.source_pages,
-                    "hops": [h.model_dump(by_alias=True, exclude_none=True) for h in r.hops],
-                    "chain": r.chain,
-                }
-                for r in results
-            ],
-                "summary": outcome.summary.model_dump(),
-                "findings": [f.model_dump() for f in outcome.findings],
-                "recommendations": [r.model_dump() for r in outcome.recommendations],
-                "overall_status": outcome.overall_status,
-                "severity": outcome.severity,
-                "cost_seconds": cost_seconds,
-            },
-        )
+                    "total_checked": len(results),
+                    "summary": report["summary"],
+                    "overall_status": report["overall_status"],
+                    "severity": report["severity"],
+                    "cost_seconds": cost_seconds,
+                    "findings_count": len(report["findings"]),
+                },
+            )
 
-        await adapter.publish_event(
-            audit_id,
-            "completed",
-            {
+            return {
+                "status": "completed",
+                "audit_id": audit_id,
+                "domain": domain,
                 "total_checked": len(results),
-                "summary": outcome.summary.model_dump(),
-                "overall_status": outcome.overall_status,
-                "severity": outcome.severity,
+                "total_findings": len(report["findings"]),
                 "cost_seconds": cost_seconds,
-                "findings_count": len(outcome.findings),
-            },
-        )
-
-        await adapter.close()
-
-        return {
-            "status": "completed",
-            "audit_id": audit_id,
-            "domain": domain,
-            "total_checked": len(results),
-            "total_findings": len(outcome.findings),
-            "cost_seconds": cost_seconds,
-        }
+            }
+        finally:
+            await client.aclose()
+            try:
+                await adapter.close()
+            except Exception:
+                pass
+            for closer in ("aclose", "close"):          # release Chromium if the checker holds it
+                fn = getattr(browser_checker, closer, None)
+                if callable(fn):
+                    try:
+                        res = fn()
+                        if inspect.isawaitable(res):
+                            await res
+                    except Exception as exc:
+                        logger.warning("RedirectCheckService: browser checker close failed: %s", exc)
+                    break
