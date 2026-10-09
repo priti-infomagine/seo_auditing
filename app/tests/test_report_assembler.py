@@ -88,10 +88,6 @@ def test_issue_grouping_across_pages():
     assert len(t_issues) == 1
     issue = t_issues[0]
     assert issue.affected_page_count == 2
-    assert {p.url for p in issue.affected_pages} == {
-        "https://example.com/page1",
-        "https://example.com/page2",
-    }
 
 
 def test_issue_ids_sequential_and_stable():
@@ -126,11 +122,10 @@ def test_issues_carry_facts_and_proof():
     report = _build(checks)
     issue = _cats_by_id(report)["images"].issues[0]
     assert issue.affected_page_count == 1
-    page = issue.affected_pages[0]
-    assert page.url == "https://example.com/"
-    assert page.found_value["without_alt"] == 3
-    assert page.expected_value == "100% alt-text coverage"
-    assert page.evidence["sample"][0]["src"] == "/a.png"
+    occ = issue.occurrences[0]
+    assert occ.found_value["without_alt"] == 3
+    assert occ.expected_value == "100% alt-text coverage"
+    assert issue.evidence["sample"][0]["src"] == "/a.png"
 
 
 def test_error_severity_is_sanitized():

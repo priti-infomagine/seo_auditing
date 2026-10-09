@@ -12,6 +12,7 @@ All tasks are fault-tolerant: per-page/rule failures are caught and
 recorded; only system-level failures cause the task to fail.
 """
 import asyncio
+import json
 import os
 import sys
 from uuid import UUID
@@ -200,6 +201,15 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     logger.info(
         f"audit.run_analysis_pipeline: task started for audit_id={audit_id}"
     )
+    task_id = self.request.id
+
+    def _report_progress(stage: str) -> None:
+        if task_id:
+            self.update_state(
+                task_id=task_id,
+                state="PROGRESS",
+                meta={"stage": stage, "audit_id": audit_id},
+            )
 
     async def _run():
         from app.core.database import async_session_factory
@@ -209,10 +219,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
         }
 
         # Stage 0: Broken link check (runs after crawl, before parse)
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "link_check", "audit_id": audit_id},
-        )
+        _report_progress("link_check")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE link_check starting "
             f"audit_id={audit_id}"
@@ -235,10 +242,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["link_check"] = {"error": str(exc)}
 
         # Stage 1: Parse
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "parse", "audit_id": audit_id},
-        )
+        _report_progress("parse")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE parse starting "
             f"audit_id={audit_id}, force={force}"
@@ -262,10 +266,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["parse"] = {"error": str(exc)}
 
         # Stage 2: Evaluate
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "evaluate", "audit_id": audit_id},
-        )
+        _report_progress("evaluate")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
             f"audit_id={audit_id}, force={force}"
@@ -289,10 +290,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["evaluate"] = {"error": str(exc)}
 
         # Stage 3: Score
-        self.update_state(
-            state="PROGRESS",
-            meta={"stage": "score", "audit_id": audit_id},
-        )
+        _report_progress("score")
         logger.info(
             f"audit.run_analysis_pipeline: STAGE score starting "
             f"audit_id={audit_id}, force={force}"
@@ -316,6 +314,37 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["score"] = {"error": str(exc)}
 
         results["status"] = "completed"
+
+        # Cache result and pipeline status in Redis for zero-DB polling
+        try:
+            from app.core.redis import get_redis
+            redis_client = get_redis()
+            if redis_client:
+                score_data = results.get("score")
+                if isinstance(score_data, dict) and "error" not in score_data:
+                    await redis_client.set(
+                        f"audit:result:{audit_id}:full",
+                        json.dumps(score_data, default=str),
+                        ex=86400,
+                    )
+                    status_payload = {
+                        "audit_id": str(audit_id),
+                        "parse_status": "completed",
+                        "evaluate_status": "completed",
+                        "score_status": "completed",
+                        "overall_score": score_data.get("summary", {}).get("score"),
+                        "grade": score_data.get("summary", {}).get("grade"),
+                        "pages_parsed": score_data.get("audit", {}).get("pages", {}).get("analyzed", 0),
+                        "output_file_path": score_data.get("output_file_path"),
+                    }
+                    await redis_client.set(
+                        f"audit:status:{audit_id}",
+                        json.dumps(status_payload, default=str),
+                        ex=86400,
+                    )
+        except Exception as redis_exc:
+            logger.debug(f"Failed to cache audit result in Redis: {redis_exc}")
+
         return results
 
     try:

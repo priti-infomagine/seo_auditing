@@ -17,13 +17,17 @@ page_network_data, crawl_pages); this builder only *reads* it — it never scrap
 Metrics that the pipeline does not measure are reported with
 {available: false, value: null, reason: ...} rather than misleading zeros.
 """
-from __future__ import annotations
-
+import asyncio
+import json
 import logging
 from collections import defaultdict
 from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 from uuid import UUID
+
+import httpx
+
+from app.core.config import settings
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -40,6 +44,9 @@ from app.modules.audit.repositories.rule_evaluation_repository import (
 from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepository
 from app.modules.crawler.repositories.page_seo_data_repository import (
     PageSEODataRepository,
+)
+from app.modules.seprate_checks.robots_check.repository import (
+    RobotCheckRepository,
 )
 from app.modules.rule_engine.models.rule_evidence_map import (
     CATEGORY_DISPLAY,
@@ -75,6 +82,7 @@ class AuditResponseBuilder:
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.seo_repo = PageSEODataRepository(db)
+        self.robots_repo = RobotCheckRepository(db)
         self.calculator = ScoreCalculator()
         self.converter = RuleResultToSEOIssueConverter()
         from app.modules.scorer.services.scorer_service import ScorerService
@@ -101,6 +109,8 @@ class AuditResponseBuilder:
 
         crawl_job = await self.crawl_job_repo.get_by_id(audit_id)
         domain = crawl_job.domain if crawl_job else ""
+
+        robots_check = await self.robots_repo.get_latest_by_domain(domain) if domain else None
         audit_id = _coerce_uuid(audit_id)
 
         # --- Crawl pages (URL map, status, depth, counts) ---
@@ -324,17 +334,20 @@ class AuditResponseBuilder:
         categories = self._build_categories(
             all_seo_issues, main_rules_per_cat, rule_cache, total_pages_analyzed
         )
-        issues = self._build_issues(all_seo_issues)
+        issues = await self._build_issues(all_seo_issues)
         crawl = await self._build_crawl_section(
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
+            robots_check,
         )
         # Batch-fetch SEO data for all crawl pages once (O(1)) instead of
         # per-page get_by_page_id inside _build_indexation (N+1 fix).
         seo_map = await self.seo_repo.get_by_page_ids(
             [p.id for p in crawl_pages]
         )
-        indexation = await self._build_indexation(crawl_pages, canonical_parsed_facts, seo_map)
+        indexation = await self._build_indexation(
+            crawl_pages, canonical_parsed_facts, seo_map, robots_check
+        )
         performance = await self._build_performance(canonical_parsed_facts)
         structured_data = self._build_structured_data(canonical_parsed_facts)
         links = await self._build_links(canonical_parsed_facts, audit_id)
@@ -353,12 +366,33 @@ class AuditResponseBuilder:
             links, images, content, external_deps, errors, metadata,
         )
 
-        return {
+        raw_response = {
             "audit": audit,
             "summary": summary,
             "categories": categories,
             "issues": issues,
         }
+        return self._strip_empty(raw_response) or {}
+
+    def _strip_empty(self, data: Any) -> Any:
+        """Recursively remove empty data: None, empty lists, and unavailable structs."""
+        if isinstance(data, dict):
+            # Prune `_unavailable` metrics completely
+            if data.get("available") is False and data.get("value") is None:
+                return None
+            
+            cleaned = {}
+            for k, v in data.items():
+                val = self._strip_empty(v)
+                if val is not None and val != []:
+                    cleaned[k] = val
+            return cleaned if cleaned else None
+        elif isinstance(data, list):
+            cleaned_list = [self._strip_empty(item) for item in data]
+            cleaned_list = [item for item in cleaned_list if item is not None and item != []]
+            return cleaned_list if cleaned_list else None
+        else:
+            return data
 
     # ------------------------------------------------------------------ summary
     def _build_summary(
@@ -387,13 +421,6 @@ class AuditResponseBuilder:
         for i in failed:
             tier_counts[i.severity.value] += 1
 
-        recommended_score = self._calculate_recommended_score(
-            tier_counts["critical"],
-            tier_counts["high"],
-            tier_counts["medium"],
-            tier_counts["low"],
-        )
-
         return {
             "score": overall_score,
             "health": get_status(overall_score),
@@ -409,24 +436,7 @@ class AuditResponseBuilder:
                 "failed": len(failed),
                 "total": len(passed) + len(failed),
             },
-            "recommended_score": recommended_score,
-            "recommended_health": get_status(recommended_score),
         }
-
-    def _calculate_recommended_score(
-        self,
-        critical: int,
-        high: int,
-        medium: int,
-        low: int,
-    ) -> float:
-        weights = {"critical": 5, "high": 4, "medium": 3, "low": 2}
-        weighted_sum = critical * weights["critical"] + high * weights["high"] + medium * weights["medium"] + low * weights["low"]
-        total_issues = critical + high + medium + low
-        if total_issues == 0:
-            return 100.0
-        penalty = (weighted_sum / total_issues) * 10
-        return round(max(0.0, 100.0 - penalty), 1)
 
     # ------------------------------------------------------------------ categories
     def _build_categories(
@@ -470,8 +480,98 @@ class AuditResponseBuilder:
             out.append(entry)
         return out
 
+    def _make_hashable(self, val: Any) -> str:
+        try:
+            return json.dumps(val, sort_keys=True)
+        except Exception:
+            return str(val)
+
+    async def _generate_ollama_recommendation(
+        self,
+        title: str,
+        what: Optional[str] = None,
+        why: Optional[str] = None,
+        default_rec: Optional[str] = None,
+        client: Optional[httpx.AsyncClient] = None,
+        semaphore: Optional[asyncio.Semaphore] = None,
+    ) -> Optional[str]:
+        prompt = (
+            f"You are an expert technical SEO auditor. Write a single clear, actionable, professional recommendation "
+            f"(1-2 sentences max) to fix the following issue.\n"
+            f"Issue Title: {title}\n"
+        )
+        if what:
+            prompt += f"Problem (What): {what}\n"
+        if why:
+            prompt += f"Impact (Why): {why}\n"
+        prompt += "Do not include conversational intros or extra text. Provide ONLY the recommendation statement."
+
+        async def _call():
+            try:
+                url = f"{settings.OLLAMA_BASE_URL.rstrip('/')}/api/generate"
+                payload = {
+                    "model": settings.OLLAMA_MODEL,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.2,
+                        "num_predict": 100,
+                    },
+                }
+                if client:
+                    resp = await client.post(url, json=payload, timeout=min(10.0, float(settings.OLLAMA_TIMEOUT)))
+                else:
+                    async with httpx.AsyncClient() as c:
+                        resp = await c.post(url, json=payload, timeout=min(10.0, float(settings.OLLAMA_TIMEOUT)))
+
+                if resp.status_code == 200:
+                    data = resp.json()
+                    text = data.get("response", "").strip()
+                    if text:
+                        return text
+            except Exception as e:
+                logger.warning("Ollama recommendation generation skipped/failed for %r: %s", title, e)
+            return default_rec or None
+
+        if semaphore:
+            async with semaphore:
+                return await _call()
+        return await _call()
+
+    def _extract_locations(self, group: List[SEOIssue]) -> List[Dict[str, Any]]:
+        locations = []
+        for issue in group:
+            if not issue.evidence or not isinstance(issue.evidence, dict):
+                continue
+            
+            sample_items = None
+            for key in ("sample", "samples", "items", "issues", "urls", "broken_samples", "missing"):
+                val = issue.evidence.get(key)
+                if isinstance(val, list) and val:
+                    sample_items = val
+                    break
+
+            if sample_items:
+                for item in sample_items:
+                    loc = {"page_url": issue.page_url}
+                    if isinstance(item, dict):
+                        loc.update(item)
+                    else:
+                        loc["target"] = str(item)
+                    locations.append(loc)
+            else:
+                filtered = {
+                    k: v for k, v in issue.evidence.items()
+                    if k not in ("total_count", "without_alt", "coverage", "total_broken", "mixed_content_count", "word_count", "h1_count", "score_impact")
+                }
+                if filtered:
+                    loc = {"page_url": issue.page_url}
+                    loc.update(filtered)
+                    locations.append(loc)
+        return locations
+
     # ------------------------------------------------------------------ issues
-    def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
+    async def _build_issues(self, all_seo_issues: List[SEOIssue]) -> List[Dict[str, Any]]:
         by_rule: Dict[str, List[SEOIssue]] = defaultdict(list)
         for i in all_seo_issues:
             if i.status == "failed":
@@ -481,30 +581,66 @@ class AuditResponseBuilder:
         for rule_id, group in by_rule.items():
             first = group[0]
             seen_urls: set = set()
-            pages: List[Dict[str, Any]] = []
+            occurrence_map = {}
             for issue in group:
                 if issue.page_url in seen_urls:
                     continue
                 seen_urls.add(issue.page_url)
-                pages.append({
-                    "page_url": issue.page_url,
-                    "current_value": issue.current_value,
-                    "evidence": issue.evidence,
-                    "classified_images": _classify_images(issue.evidence),
-                })
-            out.append({
+                
+                key = self._make_hashable(issue.current_value)
+                if key not in occurrence_map:
+                    occurrence_map[key] = {
+                        "current_value": issue.current_value
+                    }
+
+            occurrences = list(occurrence_map.values())
+            locations = self._extract_locations(group)
+
+            issue_obj = {
                 "rule_id": rule_id,
                 "category": first.category,
                 "severity": first.severity.value,
                 "title": RULE_TITLES.get(rule_id, rule_id),
-                "why": RULE_WHY.get(rule_id),
-                "what": RULE_WHAT.get(rule_id),
-                "recommendation": first.recommendation,
-                "llm_tips": first.recommended,
                 "affected_pages": len(seen_urls),
-                "pages": pages,
-            })
-        out.sort(key=lambda x: _tier_priority(SeverityTier(x["severity"])))
+                "occurrences": occurrences,
+            }
+            if locations:
+                issue_obj["evidence"] = {"locations": locations[:50]}  # cap to top 50 sample locations per issue
+            elif first.evidence:
+                issue_obj["evidence"] = first.evidence
+
+            if RULE_WHY.get(rule_id):
+                issue_obj["why"] = RULE_WHY.get(rule_id)
+            if RULE_WHAT.get(rule_id):
+                issue_obj["what"] = RULE_WHAT.get(rule_id)
+            if first.recommendation:
+                issue_obj["recommendation"] = first.recommendation
+
+            out.append(issue_obj)
+
+        # Concurrently request LLM recommendations from Ollama for unique issues
+        sem = asyncio.Semaphore(3)
+        try:
+            async with httpx.AsyncClient() as client:
+                tasks = [
+                    self._generate_ollama_recommendation(
+                        title=item["title"],
+                        what=item.get("what"),
+                        why=item.get("why"),
+                        default_rec=item.get("recommendation"),
+                        client=client,
+                        semaphore=sem,
+                    )
+                    for item in out
+                ]
+                recs = await asyncio.gather(*tasks, return_exceptions=True)
+                for item, rec in zip(out, recs):
+                    if isinstance(rec, str) and rec:
+                        item["recommendation"] = rec
+        except Exception as err:
+            logger.warning("Failed to generate LLM recommendations via Ollama: %s", err)
+
+        out.sort(key=lambda x: _tier_priority(SeverityTier(x.get("severity", "info"))))
         return out
 
 
@@ -520,6 +656,7 @@ class AuditResponseBuilder:
         redirect_count: int,
         broken_pages: int,
         crawl_errors: int,
+        robots_check=None,
     ) -> Dict[str, Any]:
         started_at = to_iso(crawl_job.created_at) if crawl_job else None
         completed_at = to_iso(crawl_job.completed_at) if crawl_job else None
@@ -527,7 +664,7 @@ class AuditResponseBuilder:
             "pages_discovered": pages_discovered,
             "pages_crawled": pages_crawled,
             "pages_analyzed": pages_analyzed,
-            "blocked_by_robots": _unavailable("robots_txt_rules_not_analyzed"),
+            "blocked_by_robots": _robots_blocked_info(robots_check),
             "redirects": redirect_count,
             "broken_pages": broken_pages,
             "orphan_pages": _unavailable("link_graph_analysis_not_implemented"),
@@ -539,7 +676,11 @@ class AuditResponseBuilder:
 
     # ---------------------------------------------------------- indexation
     async def _build_indexation(
-        self, crawl_pages: List, parsed_facts: List, seo_map: Dict | None = None
+        self,
+        crawl_pages: List,
+        parsed_facts: List,
+        seo_map: Dict | None = None,
+        robots_check=None,
     ) -> Dict[str, Any]:
         noindex_pages: set = set()
         canonical_pages: set = set()
@@ -558,7 +699,7 @@ class AuditResponseBuilder:
             "indexable": indexable,
             "noindex": len(noindex_pages),
             "canonicalized": len(canonical_pages),
-            "blocked_by_robots": _unavailable("robots_txt_rules_not_analyzed"),
+            "blocked_by_robots": _robots_blocked_info(robots_check),
             "not_indexable": len(noindex_pages),
         }
     async def _build_performance(self, parsed_facts: List) -> Dict[str, Any]:
@@ -818,6 +959,34 @@ def _coerce_uuid(value) -> UUID:
 def _unavailable(reason: str) -> Dict[str, Any]:
     """Spec §17/#21: never report 0 for not-measured metrics."""
     return {"available": False, "value": None, "reason": reason}
+
+
+def _robots_blocked_info(robots_check) -> Dict[str, Any]:
+    """Convert the persisted robots check into a stable metric shape.
+
+    The robots check measures site-level directives, not a per-page blocked
+    count. A value of 1 therefore means the wildcard rules block the whole
+    site; 0 means the checked robots file does not block the whole site.
+    """
+    if robots_check is None:
+        return _unavailable("robots_check_not_run")
+
+    fetch_status = getattr(robots_check.fetch_status, "value", robots_check.fetch_status)
+    if fetch_status != "success":
+        return _unavailable(
+            f"robots_txt_fetch_{fetch_status or 'unknown'}"
+        )
+
+    blocked = bool(getattr(robots_check, "blocks_entire_site", False))
+    return {
+        "available": True,
+        "value": 1 if blocked else 0,
+        "reason": (
+            "Wildcard robots.txt rules block the entire site"
+            if blocked
+            else "No site-wide wildcard block detected in robots.txt"
+        ),
+    }
 
 
 def _classify_images(evidence: Dict[str, Any]) -> List[Dict[str, Any]]:

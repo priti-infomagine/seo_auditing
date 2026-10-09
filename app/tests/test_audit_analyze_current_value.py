@@ -54,22 +54,21 @@ async def test_audit_analyze_issues_have_current_value_and_recommended(
         assert result_resp.status_code == 200, result_resp.text
         data = result_resp.json()
 
-    # Top-level issues[] must include llm_tips and pages with current_value
+    # Top-level issues[] must include occurrences with current_value
     issues = data.get("issues", [])
     assert isinstance(issues, list)
     assert len(issues) > 0, "Expected at least one issue"
     for issue in issues:
-        assert "llm_tips" in issue, f"Missing llm_tips in issue: {issue}"
-        assert isinstance(issue["llm_tips"], list)
-        for page in issue.get("pages", []):
-            assert "current_value" in page, f"Missing current_value in page: {page}"
+        assert "recommendation" in issue, f"Missing recommendation in issue: {issue}"
+        for occ in issue.get("occurrences", []):
+            assert "current_value" in occ, f"Missing current_value in occurrence: {occ}"
 
-    # Verify current_value is a non-empty string for at least one failed issue page
+    # Verify current_value is a non-empty string for at least one failed issue occurrence
     assert any(
-        isinstance(p.get("current_value"), str) and p["current_value"]
+        isinstance(occ.get("current_value"), str) and occ["current_value"]
         for i in issues
-        for p in i.get("pages", [])
-    ), "Expected at least one issue page to have a non-empty current_value"
+        for occ in i.get("occurrences", [])
+    ), "Expected at least one issue occurrence to have a non-empty current_value"
 
 
 if __name__ == "__main__":

@@ -26,3 +26,7 @@ class MetadataFacts:
     open_graph: dict = field(default_factory=dict)
     twitter: dict = field(default_factory=dict)
     hreflang: list = field(default_factory=list)
+    keywords: str = ""
+    author: str = ""
+    theme_color: str = ""
+    meta_tags: list[dict] = field(default_factory=list)

@@ -138,14 +138,129 @@ class UrlIgnoreService:
 
         url = getattr(crawl_page, "normalized_url", "") or getattr(crawl_page, "url", "")
         if url:
-            if len(url) > self.MAX_URL_LENGTH:
-                return True, "url_too_long"
             parsed = urlparse(url)
             params = parse_qs(parsed.query)
             if len(params) > self.MAX_QUERY_PARAMS:
                 return True, "too_many_params"
 
         return False, None
+
+    @staticmethod
+    def extract_template_signature(path: str) -> str:
+        """
+        Extract a normalized template signature from path (e.g. /products/123 -> /products/*).
+        """
+        if not path or path == "/":
+            return "/"
+        parts = [p for p in path.strip("/").split("/") if p]
+        signature_parts = []
+        for p in parts:
+            if p.isdigit() or len(p) > 24 or re.match(r"^[0-9a-fA-F-]+$", p):
+                signature_parts.append("*")
+            else:
+                signature_parts.append(p)
+        return "/" + "/".join(signature_parts)
+
+    def should_check_performance(
+        self,
+        crawl_page,
+        template_cluster_counts: Optional[Dict[str, int]] = None,
+        max_sample_per_template: int = 5,
+    ) -> Tuple[bool, Optional[str]]:
+        """
+        Determine if a page should be audited for Performance / Lighthouse.
+        Returns (should_check, reason_if_skipped).
+        """
+        is_skipped, reason = self.check_runtime_conditions(crawl_page)
+        if is_skipped:
+            return False, reason
+
+        url = getattr(crawl_page, "normalized_url", "") or getattr(crawl_page, "url", "")
+        is_ignored, reason, _ = self.check_url(url, scope="performance")
+        if is_ignored:
+            return False, reason
+
+        if template_cluster_counts is not None:
+            path = getattr(crawl_page, "path", "") or urlparse(url).path
+            sig = self.extract_template_signature(path)
+            count = template_cluster_counts.get(sig, 0)
+            if count >= max_sample_per_template:
+                return False, "same_template_sample_capped"
+            template_cluster_counts[sig] = count + 1
+
+        return True, None
+
+    def should_check_accessibility(
+        self,
+        crawl_page,
+        template_seen: Optional[Set[str]] = None,
+    ) -> Tuple[bool, Optional[str]]:
+        """
+        Determine if a page should be audited for Accessibility.
+        Returns (should_check, reason_if_skipped).
+        """
+        is_skipped, reason = self.check_runtime_conditions(crawl_page)
+        if is_skipped:
+            return False, reason
+
+        url = getattr(crawl_page, "normalized_url", "") or getattr(crawl_page, "url", "")
+        is_ignored, reason, _ = self.check_url(url, scope="accessibility")
+        if is_ignored:
+            return False, reason
+
+        if template_seen is not None:
+            path = getattr(crawl_page, "path", "") or urlparse(url).path
+            sig = self.extract_template_signature(path)
+            if sig in template_seen:
+                return False, "same_template_duplicate"
+            template_seen.add(sig)
+
+        return True, None
+
+    def should_check_best_practices(self, crawl_page) -> Tuple[bool, Optional[str]]:
+        """
+        Determine if a page should be audited for Best Practices.
+        Returns (should_check, reason_if_skipped).
+        """
+        is_skipped, reason = self.check_runtime_conditions(crawl_page)
+        if is_skipped:
+            return False, reason
+
+        url = getattr(crawl_page, "normalized_url", "") or getattr(crawl_page, "url", "")
+        is_ignored, reason, _ = self.check_url(url, scope="bestpractices")
+        if is_ignored:
+            return False, reason
+
+        return True, None
+
+    def should_check_seo(
+        self,
+        crawl_page,
+        robots_meta: Optional[str] = None,
+        canonical_url: Optional[str] = None,
+    ) -> Tuple[bool, Optional[str], bool]:
+        """
+        Determine if a page should be audited for SEO.
+        Returns (should_check, reason_if_skipped, is_intentionally_hidden).
+        """
+        is_skipped, reason = self.check_runtime_conditions(crawl_page)
+        if is_skipped:
+            return False, reason, False
+
+        url = getattr(crawl_page, "normalized_url", "") or getattr(crawl_page, "url", "")
+        is_ignored, reason, _ = self.check_url(url, scope="seo")
+        if is_ignored:
+            return True, reason, True
+
+        if robots_meta and "noindex" in str(robots_meta).lower():
+            return True, "noindex_by_design", True
+
+        if canonical_url and url:
+            if canonical_url.strip() and urlparse(canonical_url).path != urlparse(url).path:
+                return True, "non_canonical_variant", True
+
+        return True, None, False
+
 
     def _matches(
         self,

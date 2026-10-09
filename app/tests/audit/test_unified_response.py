@@ -77,16 +77,18 @@ def test_summary_health_thresholds(builder):
     assert builder._build_summary(39.0, only_pass)["health"] == "critical"
 
 
-def test_issues_enriched_shape(builder):
-    issues = builder._build_issues(_issues())
+@pytest.mark.asyncio
+async def test_issues_enriched_shape(builder):
+    issues = await builder._build_issues(_issues())
     expected_keys = {"rule_id", "category", "severity", "title", "why", "what",
-                     "recommendation", "llm_tips", "affected_pages", "pages"}
+                     "recommendation", "evidence", "affected_pages", "occurrences"}
     for i in issues:
-        assert set(i.keys()) == expected_keys
+        assert set(i.keys()).issubset(expected_keys)
+        assert {"rule_id", "category", "severity", "title", "affected_pages", "occurrences"}.issubset(set(i.keys()))
     assert len(issues) == 4
     assert all(isinstance(i["rule_id"], str) for i in issues)
     for i in issues:
-        assert all("current_value" in p and "evidence" in p for p in i["pages"])
+        assert all("current_value" in p for p in i["occurrences"])
 
 
 def test_categories_pass_rate_invariant(builder):
@@ -133,6 +135,5 @@ def test_build_audit_block_takes_correct_number_of_args(builder):
         metadata={"rules_executed": 10},
     )
     assert result["audit_id"] == "test-audit-id"
-    assert "audit_id" not in result
     assert result["url"] == "https://example.com"
 

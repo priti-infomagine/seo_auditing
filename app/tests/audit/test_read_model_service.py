@@ -191,7 +191,7 @@ def _stub_service_with_overview_inputs(groups, failed_results, *, run=None, job=
     service = AuditReadModelService.__new__(AuditReadModelService)
     if run is None:
         run = SimpleNamespace(
-            audit_id="proj-1", audit_id="crawl-1", domain="example.com",
+            audit_id="crawl-1", domain="example.com",
             overall_score=72.0, grade="B", total_pages_scored=10,
             total_rules_evaluated=60, total_passed=45, total_failed=15,
             critical_issues=2, warnings=10,
@@ -261,7 +261,7 @@ def test_build_overview_zero_issues_returns_empty():
         {},
         [],
         run=SimpleNamespace(
-            audit_id="proj-1", audit_id="crawl-1", domain="example.com",
+            audit_id="crawl-1", domain="example.com",
             overall_score=100.0, grade="A+", total_pages_scored=10,
             total_rules_evaluated=60, total_passed=60, total_failed=0,
             critical_issues=0, warnings=0,

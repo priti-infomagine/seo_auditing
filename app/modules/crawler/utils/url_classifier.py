@@ -23,27 +23,37 @@ class UrlClassification:
 
 # Paths that should never be crawled as HTML pages
 _IGNORED_PATHS = {
-    "/wp-admin", "/admin", "/login", "/logout",
-    "/register", "/signup", "/account", "/profile",
-    "/cart", "/checkout", "/payment",
+    "/wp-admin", "/admin", "/administrator", "/login", "/signin", "/logout",
+    "/register", "/signup", "/account", "/my-account", "/dashboard", "/profile",
+    "/orders", "/cart", "/basket", "/checkout", "/wishlist", "/payment",
+    "/billing", "/forgot-password", "/reset-password", "/delete", "/remove",
+    "/add-to-cart", "/add-to-wishlist", "/vote", "/confirm", "/verify",
+    "/activate", "/cpanel", "/phpmyadmin", "/graphql", "/xmlrpc.php",
+    "/.env",
 }
 
 # Path prefixes that should never be crawled as HTML pages
 _IGNORED_PATH_PREFIXES = (
-    "/wp-admin/", "/admin/", "/cart/", "/checkout/", "/payment/", "/account/", "/profile/",
+    "/wp-admin/", "/admin/", "/cart/", "/checkout/", "/payment/",
+    "/account/", "/profile/", "/auth/", "/orders/", "/billing/",
+    "/dashboard/", "/portal/", "/cpanel/", "/cdn-cgi/", "/.well-known/",
+    "/.git/", "/cgi-bin/",
 )
 
 # Tracking parameters to strip before dedup
 _TRACKING_PARAMS = {
     "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-    "gclid", "fbclid", "msclkid", "ref", "source",
+    "gclid", "fbclid", "msclkid", "ref", "source", "sessionid", "sid",
+    "token", "replytocom",
 }
 
 # File extensions that indicate non-HTML resources
 _RESOURCE_EXTENSIONS = {
     ".css", ".js", ".png", ".jpg", ".jpeg", ".svg", ".webp",
-    ".gif", ".ico", ".pdf", ".woff", ".woff2", ".ttf", ".eot",
-    ".mp4", ".mp3", ".avi", ".mov", ".zip", ".tar", ".gz",
+    ".gif", ".ico", ".pdf", ".doc", ".docx", ".xls", ".xlsx",
+    ".ppt", ".pptx", ".csv", ".txt", ".woff", ".woff2", ".ttf",
+    ".eot", ".mp4", ".mp3", ".avi", ".mov", ".wav", ".zip",
+    ".tar", ".gz", ".rar", ".webmanifest",
 }
 
 # API / non-HTML path patterns
@@ -56,8 +66,9 @@ _API_EXTENSIONS = {".json", ".xml"}
 
 # Faceted URL indicators
 _FACETED_PARAM_PREFIXES = (
-    "sort", "filter", "page", "q", "search",
+    "sort", "filter", "page", "q", "search", "p", "price_min", "price_max", "color", "size", "view", "display", "order",
 )
+
 
 
 def _get_domain(url: str) -> str:
@@ -70,6 +81,14 @@ def _get_domain(url: str) -> str:
     if "/" not in path and "." in path:
         return path.lower()
     return ""
+
+
+import re
+
+# Repeating directory loop detector: e.g. /a/b/a/b/a/b
+_REPEATING_PATH_PATTERN = re.compile(r'(/[^/]+)(/\1){2,}', re.IGNORECASE)
+# Calendar / infinite archive loop detector: e.g. /events/2031/05
+_CALENDAR_PATTERN = re.compile(r'/(?:events|calendar|archive)/\d{4}/\d{2}', re.IGNORECASE)
 
 
 def classify_url(url: str, base_domain: str = "") -> tuple[str, str]:
@@ -103,7 +122,7 @@ def classify_url(url: str, base_domain: str = "") -> tuple[str, str]:
         return UrlClassification.INVALID, f"unsupported_scheme:{parsed.scheme}"
 
     # Special protocols
-    if parsed.scheme.lower() in ("mailto", "tel", "javascript", "data", "blob", "file"):
+    if parsed.scheme.lower() in ("mailto", "tel", "javascript", "data", "blob", "file", "sms", "whatsapp"):
         return UrlClassification.INVALID, f"unsupported_scheme:{parsed.scheme}"
 
     # External domain check - compare hosts via same-site normalization so
@@ -116,6 +135,33 @@ def classify_url(url: str, base_domain: str = "") -> tuple[str, str]:
 
     path = parsed.path.lower()
 
+    # Crawl traps: Repeating directory loops (e.g. /a/b/a/b/a/b)
+    if _REPEATING_PATH_PATTERN.search(path):
+        return UrlClassification.IGNORED, "repeating_path_loop"
+
+    # Crawl traps: Infinite calendar/archive links
+    if _CALENDAR_PATTERN.search(path):
+        return UrlClassification.IGNORED, "calendar_archive_loop"
+
+    # Special files (must check before generic extension checks)
+    if path == "/robots.txt" or path.endswith("/robots.txt"):
+        return UrlClassification.ROBOTS, "robots_txt"
+
+    if path in ("/sitemap.xml", "/sitemap_index.xml") or path.endswith("/sitemap.xml") or path.endswith("/sitemap_index.xml"):
+        return UrlClassification.SITEMAP, "sitemap"
+
+    # API paths and extensions (check before ignored paths)
+    for prefix in _API_PATH_PREFIXES:
+        if path.startswith(prefix):
+            return UrlClassification.API, f"api_path:{prefix}"
+
+    if path == "/graphql" or path.startswith("/graphql/"):
+        return UrlClassification.API, "api_path:/graphql"
+
+    for ext in _API_EXTENSIONS:
+        if path.endswith(ext):
+            return UrlClassification.API, f"api_extension:{ext}"
+
     # Exact ignored paths
     if path in _IGNORED_PATHS:
         return UrlClassification.IGNORED, f"ignored_path:{path}"
@@ -125,30 +171,17 @@ def classify_url(url: str, base_domain: str = "") -> tuple[str, str]:
         if path.startswith(prefix):
             return UrlClassification.IGNORED, f"ignored_path_prefix:{prefix}"
 
-    # Special files (must check before generic extension checks)
-    if path == "/robots.txt" or path.endswith("/robots.txt"):
-        return UrlClassification.ROBOTS, "robots_txt"
-
-    if path in ("/sitemap.xml", "/sitemap_index.xml") or path.endswith("/sitemap.xml") or path.endswith("/sitemap_index.xml"):
-        return UrlClassification.SITEMAP, "sitemap"
-
     # Resource extensions
     for ext in _RESOURCE_EXTENSIONS:
         if path.endswith(ext):
             return UrlClassification.RESOURCE, f"resource_extension:{ext}"
 
-    # API paths and extensions
-    for prefix in _API_PATH_PREFIXES:
-        if path.startswith(prefix):
-            return UrlClassification.API, f"api_path:{prefix}"
 
-    for ext in _API_EXTENSIONS:
-        if path.endswith(ext):
-            return UrlClassification.API, f"api_extension:{ext}"
-
-    # Faceted URLs (heuristic: multiple filter/sort params)
+    # Query parameter safety checks
     if parsed.query:
         query_params = _extract_query_param_names(parsed.query)
+        if len(query_params) > 5:
+            return UrlClassification.IGNORED, "too_many_params"
         faceted_count = sum(1 for p in query_params if p.lower() in _FACETED_PARAM_PREFIXES)
         if faceted_count >= 2:
             return UrlClassification.IGNORED, "faceted_url"
@@ -161,6 +194,14 @@ def _extract_query_param_names(query: str) -> list[str]:
     if not query:
         return []
     return [part.split("=")[0] for part in query.split("&") if "=" in part]
+
+
+def _is_tracking_param(name: str) -> bool:
+    """Check if query parameter is a tracking/session identifier."""
+    name_lower = name.lower()
+    if name_lower.startswith("utm_"):
+        return True
+    return name_lower in _TRACKING_PARAMS
 
 
 def strip_tracking_params(url: str) -> str:
@@ -179,10 +220,11 @@ def strip_tracking_params(url: str) -> str:
 
     params = [
         part for part in parsed.query.split("&")
-        if part.split("=")[0].lower() not in _TRACKING_PARAMS
+        if not _is_tracking_param(part.split("=")[0])
     ]
     new_query = "&".join(params)
 
     return parsed._replace(query=new_query).geturl()
+
 
 

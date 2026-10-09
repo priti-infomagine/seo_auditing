@@ -18,13 +18,15 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+class ReportBaseModel(BaseModel):
+    model_config = ConfigDict(exclude_none=True)
 
 
-class AffectedPage(BaseModel):
-    """A page affected by an issue, carrying the concrete FACT found and PROOF collected."""
+class IssueOccurrence(ReportBaseModel):
+    """Groups identical found values across multiple affected pages."""
 
-    url: str = Field(..., description="Page URL where the check was run / issue observed.")
     found_value: Optional[Any] = Field(
         None,
         description="Concrete value the crawler observed for this check (the 'fact').",
@@ -33,19 +35,19 @@ class AffectedPage(BaseModel):
         None,
         description="The standard/requirement that was expected (the 'what should have been').",
     )
-    evidence: Optional[Dict[str, Any]] = Field(
-        None,
-        description="Structured proof collected by the rule (image srcs, link hrefs, counts, etc.).",
-    )
 
 
-class Issue(BaseModel):
+class Issue(ReportBaseModel):
     """One failed check, grouped by check_id, spanning every affected page."""
 
     issue_id: str = Field(..., description="Report-wide sequential id, e.g. 'iss_0001'.")
     check_id: str = Field(..., description="Rule/check identifier (e.g. 'images_001').")
     severity: str = Field(..., description="critical | warning | info (sanitized; never 'error').")
     title: str = Field(..., description="Human-readable rule name (from the check).")
+    evidence: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Structured proof collected by the rule (image srcs, link hrefs, counts, etc.).",
+    )
     description: str = Field(
         ...,
         description="General scorer message describing the failure (raw exceptions are never exposed).",
@@ -54,13 +56,13 @@ class Issue(BaseModel):
     priority: str = Field(..., description="high | medium | low — triage priority for the issue.")
     estimated_impact: str = Field(..., description="high | medium | low — score-impact tier.")
     affected_page_count: int = Field(..., description="Distinct pages affected by this check.")
-    affected_pages: List[AffectedPage] = Field(
+    occurrences: List[IssueOccurrence] = Field(
         default_factory=list,
-        description="Per-page facts + proof. Multiple entries when a check fails on several pages.",
+        description="Grouped identical occurrences of the issue, reducing redundant evidence.",
     )
 
 
-class CategoryScore(BaseModel):
+class CategoryScore(ReportBaseModel):
     """Precomputed category score (reshaped, not recomputed by the report layer)."""
 
     value: float
@@ -68,7 +70,7 @@ class CategoryScore(BaseModel):
     max_possible: float = Field(default=100, description="Maximum possible category score.")
 
 
-class IssueCount(BaseModel):
+class IssueCount(ReportBaseModel):
     """Count of failed checks by severity within a category."""
 
     critical: int = 0
@@ -76,7 +78,7 @@ class IssueCount(BaseModel):
     info: int = 0
 
 
-class Category(BaseModel):
+class Category(ReportBaseModel):
     """One SEO category bucket in the report, ordered by config (see CATEGORY_ORDER)."""
 
     id: str
@@ -97,7 +99,7 @@ class Category(BaseModel):
     issues: List[Issue] = Field(default_factory=list)
 
 
-class OverallScore(BaseModel):
+class OverallScore(ReportBaseModel):
     """Top-level report summary. `value`/`grade` are passed through from the scorer (no re-scoring)."""
 
     value: float
@@ -111,7 +113,7 @@ class OverallScore(BaseModel):
     passed: int
 
 
-class AuditReportResponse(BaseModel):
+class AuditReportResponse(ReportBaseModel):
     """Standard, category-first SEO audit report.
 
     Shape (mirroring a readable SEO auditor): overall summary → ordered categories →

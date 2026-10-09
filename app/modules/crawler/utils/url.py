@@ -7,6 +7,7 @@ from typing import List, Optional, Set
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from app.modules.crawler.exceptions import InvalidURLError, SSRFError
+from app.modules.crawler.utils.dns_cache import resolve_host
 
 DEFAULT_TRACKING_PARAMS: Set[str] = {
     "utm_source",
@@ -84,6 +85,50 @@ def validate_url_ssrf(url: str, allow_private: bool = False) -> None:
     except socket.gaierror:
         # DNS resolution error handled during fetch stage
         pass
+
+
+def _check_ip_literal(hostname: str, url: str) -> None:
+    """Check if a hostname is a direct IP literal or localhost — no DNS needed."""
+    if is_ip_private(hostname):
+        raise SSRFError(f"SSRF Protection: Direct IP {hostname} is forbidden", url=url)
+
+    if hostname.lower() in ("localhost", "localhost.localdomain", "127.0.0.1"):
+        raise SSRFError(f"SSRF Protection: Hostname {hostname} is forbidden", url=url)
+
+
+async def validate_url_ssrf_async(
+    url: str,
+    allow_private: bool = False,
+) -> None:
+    """
+    Async version of validate_url_ssrf.
+
+    Uses ``aiodns`` for non-blocking DNS resolution backed by an in-memory
+    TTL cache.  This prevents the event loop from being blocked by
+    ``socket.getaddrinfo`` during crawling.
+
+    Falls back to ``asyncio.get_running_loop().run_in_executor`` wrapping
+    ``socket.getaddrinfo`` if ``aiodns`` is not installed.
+    """
+    if allow_private:
+        return
+
+    parsed = urlparse(url)
+    hostname = parsed.hostname
+    if not hostname:
+        raise InvalidURLError(f"URL hostname is missing: {url}", url=url)
+
+    # Check IP literal / localhost — no DNS needed
+    _check_ip_literal(hostname, url)
+
+    # Non-blocking DNS resolution with TTL cache
+    ip_list = await resolve_host(hostname)
+    for ip_str in ip_list:
+        if is_ip_private(ip_str):
+            raise SSRFError(
+                f"SSRF Protection: Hostname {hostname} resolved to forbidden IP {ip_str}",
+                url=url,
+            )
 
 
 def normalize_url_canonical(

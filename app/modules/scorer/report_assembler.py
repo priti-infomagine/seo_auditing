@@ -26,17 +26,18 @@ Public entry point:
 from __future__ import annotations
 
 import itertools
+import json
 from typing import Dict, List, Optional, Tuple
 
 from app.core.datetime_utils import utc_now
 from app.schemas.report_schemas import (
-    AffectedPage,
     AuditReportResponse,
     Category,
     CategoryScore,
     CheckResult,
     Issue,
     IssueCount,
+    IssueOccurrence,
     OverallScore,
 )
 from app.modules.scorer.services.score_calculator import (
@@ -130,6 +131,14 @@ def _sanitize_description(severity: str, title: str, description: Optional[str])
     return description or ""
 
 
+def _make_hashable(val) -> str:
+    """Helper to consistently serialize dicts/lists for grouping."""
+    try:
+        return json.dumps(val, sort_keys=True)
+    except Exception:
+        return str(val)
+
+
 def _build_issues(
     failed_checks: List[CheckResult], counter: "itertools.count"
 ) -> List[Issue]:
@@ -144,27 +153,38 @@ def _build_issues(
         issue_severity, priority, estimated_impact = _tier_for_severity(
             head.severity, head.score_impact
         )
-        affected_pages = [
-            AffectedPage(
-                url=c.page_url,
-                found_value=c.found_value,
-                expected_value=c.expected_value,
-                evidence=c.evidence,
+        
+
+            
+        occurrences = []
+        seen_keys = set()
+        for c in group:
+            key = (
+                _make_hashable(c.found_value),
+                _make_hashable(c.expected_value),
             )
-            for c in group
-        ]
+            if key not in seen_keys:
+                seen_keys.add(key)
+                occurrences.append(
+                    IssueOccurrence(
+                        found_value=c.found_value,
+                        expected_value=c.expected_value
+                    )
+                )
+
         issues.append(
             Issue(
                 issue_id="",
                 check_id=check_id,
                 severity=issue_severity,
                 title=head.title,
+                evidence=head.evidence,
                 description=_sanitize_description(head.severity, head.title, head.description),
                 recommendation=head.recommendation,
                 priority=priority,
                 estimated_impact=estimated_impact,
                 affected_page_count=len(group),
-                affected_pages=affected_pages,
+                occurrences=occurrences,
             )
         )
 

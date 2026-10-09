@@ -55,6 +55,15 @@ class CrawlPersistenceService:
     def __init__(self, db, crawl_job_id: UUID, flush_every: int = 20):
         self.db = db
         self.crawl_job_id = crawl_job_id
+        # The _write_lock serializes DB writes within a single
+        # CrawlPersistenceService instance.  In the per-worker-session
+        # architecture each _crawl_page call creates its own instance
+        # backed by its own AsyncSession, so this lock no longer guards
+        # against concurrent *cross-worker* session sharing — that is
+        # eliminated by session ownership.  The lock is retained as a
+        # safety net for intra-call ordering (e.g. buffer_* ->
+        # _flush_*_locked call chains) and for the orchestrator's
+        # sequential operations.
         self._write_lock = asyncio.Lock()
         self._flush_every = flush_every
         self._buf_network: list[PageNetworkData] = []
@@ -95,6 +104,7 @@ class CrawlPersistenceService:
         self,
         current_page: int,
         total_pages: Optional[int] = None,
+        pages_discovered: Optional[int] = None,
     ) -> None:
         """Update crawl job progress fields and report to subscribers."""
         try:
@@ -104,11 +114,16 @@ class CrawlPersistenceService:
             if total_pages is not None:
                 job.total_pages = total_pages
             job.current_page = current_page
+            job.pages_crawled = current_page
+            if pages_discovered is not None:
+                job.pages_discovered = pages_discovered
             if total_pages and total_pages > 0:
                 job.progress_percent = min(100, int((current_page / total_pages) * 100))
             else:
                 job.progress_percent = None
             await self.job_repo.update(job)
+            if self.db:
+                await self.db.commit()
         except Exception as exc:
             logger.error(f"CrawlPersistenceService.update_progress: error: {exc}", exc_info=True)
 

@@ -24,7 +24,6 @@ class RuleLevelIssue(BaseModel):
     why: Optional[str] = None
     what: Optional[str] = None
     recommendation: Optional[str] = None
-    llm_tips: List[str] = Field(default_factory=list)
     affected_pages: int = 0
     pages: List[PageIssueEvidence] = Field(default_factory=list)
 

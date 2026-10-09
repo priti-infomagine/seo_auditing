@@ -66,23 +66,42 @@ async def _prewarm_celery_broker():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
-    try:
-        await init_db()
-    except Exception as exc:
-        logger.error(
-            f"init_db failed during lifespan: {exc}",
-            exc_info=True,
-        )
+    await init_db()
 
     await _prewarm_celery_broker()
 
     yield
 
     try:
+        from app.modules.seprate_checks.backlink_analysis.service import (
+            close_dataforseo_client,
+        )
+
+        await close_dataforseo_client()
+    except Exception as exc:
+        logger.error(
+            "DataForSEO client close failed during lifespan shutdown: %s",
+            type(exc).__name__,
+            exc_info=True,
+        )
+
+    try:
         await close_db()
     except Exception as exc:
         logger.error(
             f"close_db failed during lifespan shutdown: {exc}",
+            exc_info=True,
+        )
+
+    try:
+        from app.modules.crawler.rendering.browser_pool import BrowserPool
+
+        if BrowserPool._instance is not None:
+            await BrowserPool._instance.close()
+    except Exception as exc:
+        logger.warning(
+            "BrowserPool close failed during lifespan shutdown: %s",
+            type(exc).__name__,
             exc_info=True,
         )
 

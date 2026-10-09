@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     # ── App ──────────────────────────────────────────────────────────
     APP_NAME: str = "Automated SEO & Website Audit Tool"
     DEBUG: bool = False
+    DATABASE_ECHO: bool = False
     SECRET_KEY: str = "change-me-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
@@ -55,6 +56,8 @@ class Settings(BaseSettings):
     # ── External APIs ────────────────────────────────────────────────
     OPENAI_API_KEY: str = ""
     GOOGLE_PAGESPEED_API_KEY: str = ""
+    DATAFORSEO_LOGIN: str = ""
+    DATAFORSEO_PASSWORD: str = ""
 
     # ── SEO Scorer Weights ──────────────────────────────────────────
     # JSON object mapping category -> weight. Weights are normalized to sum=1.
@@ -64,13 +67,29 @@ class Settings(BaseSettings):
     # ── Ollama Chat ─────────────────────────────────────────────────
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
     OLLAMA_MODEL: str = "qwen3:1.7b"
-    OLLAMA_TIMEOUT: int = 60
+    OLLAMA_TIMEOUT: int = 2
     OLLAMA_TEMPERATURE: float = 0.1
 
     # ── Broken Link Checking ────────────────────────────────────────
     LINK_CHECK_TIMEOUT: float = 10.0
-    LINK_CHECK_MAX_CONCURRENCY: int = 10
+    LINK_CHECK_MAX_CONCURRENCY: int = 5
     LINK_CHECK_EXTERNAL_ENABLED: bool = True
+
+    # ── Link Analysis ───────────────────────────────────────────────
+    LINK_ANALYSIS_MAX_PAGES: int = 2000
+    LINK_ANALYSIS_MAX_DEPTH: int = 5
+    LINK_ANALYSIS_CRAWL_CONCURRENCY: int = 10
+    LINK_ANALYSIS_PAGE_TIMEOUT: float = 20.0
+    LINK_ANALYSIS_MAX_REDIRECT_HOPS: int = 5
+    LINK_ANALYSIS_MAX_EXTERNAL_CHECKS: int = 100
+    LINK_ANALYSIS_MAX_SITEMAP_ONLY_CHECKS: int = 500
+    LINK_ANALYSIS_PER_HOST_CONCURRENCY: int = 3
+    LINK_ANALYSIS_EVIDENCE_SOURCE_CAP: int = 20
+    LINK_ANALYSIS_DEEP_PAGE_THRESHOLD: int = 3
+    LINK_ANALYSIS_MAX_OUTLINKS: int = 150
+    LINK_ANALYSIS_PROGRESS_EVERY: int = 25
+    LINK_ANALYSIS_TIME_LIMIT: int = 1800
+    LINK_ANALYSIS_SOFT_TIME_LIMIT: int = 1700
 
     # ── Chat Auth ───────────────────────────────────────────────────
     CHAT_AUTH_ENABLED: bool = False

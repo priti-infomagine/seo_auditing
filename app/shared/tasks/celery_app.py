@@ -14,7 +14,14 @@ celery_app = Celery(
         "app.modules.crawler.tasks",
         "app.modules.audit.tasks",
         "app.modules.reports.tasks",
+        "app.modules.streaming_audit.tasks",
         "app.modules.seprate_checks.google_lighthouse_check.tasks",
+        "app.modules.seprate_checks.bulk_status.tasks",
+        "app.modules.seprate_checks.sitemap_check.tasks",
+        "app.modules.seprate_checks.link_analysis.tasks",
+        "app.modules.seprate_checks.meta_check.tasks",
+        "app.modules.seprate_checks.redirect_urls.tasks",
+        "app.modules.seprate_checks.redirect_check.tasks",
     ],
 )
 

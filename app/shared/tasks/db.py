@@ -1,5 +1,6 @@
 import asyncio
 import os
+import threading
 from typing import AsyncGenerator, Optional
 
 from celery.signals import worker_process_init, worker_process_shutdown
@@ -9,13 +10,13 @@ from app.core.database import async_session_factory, engine
 from app.core.logger import logger
 
 
-# Per-worker-process persistent event loop.
+# Per-worker-process persistent event loop and background thread.
 # Created in worker_process_init (after fork), used by run_async() for every
-# task, and disposed in worker_process_shutdown.  This keeps the SQLAlchemy
+# task, and disposed in worker_process_shutdown. This keeps the SQLAlchemy
 # async engine's connection pool bound to a single loop for the entire
-# process lifetime, eliminating the "Event loop is closed" errors that
-# previously required disposing the pool after every task.
+# process lifetime while allowing concurrent thread-safe task submission.
 _worker_loop: Optional[asyncio.AbstractEventLoop] = None
+_worker_thread: Optional[threading.Thread] = None
 
 
 async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
@@ -30,66 +31,96 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
         await session.close()
 
 
+def _run_event_loop(loop: asyncio.AbstractEventLoop) -> None:
+    asyncio.set_event_loop(loop)
+    try:
+        loop.run_forever()
+    finally:
+        loop.close()
+
+
 @worker_process_init.connect
 def _init_worker_loop(sender, **kwargs):
-    """Create a persistent event loop for this worker process.
+    """Create a persistent background event loop for this worker process.
 
     Fires once per worker process after fork/spawn, before any tasks run.
-    The loop is reused by every run_async() call in this process so the
-    engine's connection pool stays on one loop — no per-task disposal needed.
+    The loop runs continuously in a daemon thread so run_async() can schedule
+    coroutines via run_coroutine_threadsafe without locking the worker thread.
     """
-    global _worker_loop
-    if _worker_loop is not None:
+    global _worker_loop, _worker_thread
+    if _worker_loop is not None and _worker_loop.is_running():
         return  # already initialized
+
     try:
         _worker_loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(_worker_loop)
-        # Best-effort: clear any connections inherited from the parent process.
-        # Normally a no-op since the engine is lazy (no connections until first use).
-        _worker_loop.run_until_complete(engine.dispose())
-        logger.info("Worker process initialized with persistent event loop (pid=%d)", os.getpid())
+        _worker_thread = threading.Thread(
+            target=_run_event_loop, args=(_worker_loop,), daemon=True
+        )
+        _worker_thread.start()
+
+        # Best-effort: clear any connections inherited from parent process.
+        future = asyncio.run_coroutine_threadsafe(engine.dispose(), _worker_loop)
+        future.result(timeout=10)
+
+        logger.info(
+            "Worker process initialized with persistent background event loop (pid=%d)",
+            os.getpid(),
+        )
     except Exception as exc:
         logger.error("Failed to initialize worker event loop: %s", exc, exc_info=True)
 
 
 @worker_process_shutdown.connect
 def _shutdown_worker_loop(sender, **kwargs):
-    """Dispose the engine and close the loop once, right before process exit."""
-    global _worker_loop
-    if _worker_loop is None:
+    """Dispose the engine and stop the background loop on process exit."""
+    global _worker_loop, _worker_thread
+    if _worker_loop is None or not _worker_loop.is_running():
         return
     try:
-        _worker_loop.run_until_complete(engine.dispose())
+        future = asyncio.run_coroutine_threadsafe(engine.dispose(), _worker_loop)
+        future.result(timeout=5)
     except Exception:
         pass  # best-effort during shutdown
     finally:
         try:
-            _worker_loop.close()
+            _worker_loop.call_soon_threadsafe(_worker_loop.stop)
         except Exception:
             pass
         _worker_loop = None
+        _worker_thread = None
 
 
 def run_async(coro):
-    """Run *coro* on the worker process's persistent event loop.
+    """Run *coro* on the worker process's persistent background event loop.
 
-    Lifecycle (Celery prefork worker):
-      1. ``worker_process_init`` creates a dedicated event loop.
-      2. ``run_async`` schedules coroutines on that same loop for every task.
-      3. ``worker_process_shutdown`` disposes the engine on that same loop.
+    Lifecycle (Celery worker):
+      1. ``worker_process_init`` creates a dedicated background event loop thread.
+      2. ``run_async`` schedules coroutines on that loop via ``run_coroutine_threadsafe``.
+      3. Multiple worker threads/tasks can submit coroutines to the loop concurrently.
+      4. ``worker_process_shutdown`` disposes the engine and stops the loop.
 
-    The entire SQLAlchemy engine connection pool is created once per worker
-    process and reused across tasks — it is NOT recreated or disposed per task.
-
-    Falls back to ``asyncio.run()`` (with per-run disposal) when no persistent
-    loop exists (e.g. tests, standalone scripts outside Celery).
+    Falls back to ``asyncio.run()`` when no persistent worker loop exists
+    (e.g. standalone scripts).  When inside an existing active event loop (e.g.
+    ``@pytest.mark.asyncio`` tests), uses ``nest_asyncio`` to run on the same loop.
     """
-    if _worker_loop is not None:
-        return _worker_loop.run_until_complete(coro)
+    # 1. Check if we are running inside an active event loop in the current thread (e.g. pytest)
+    try:
+        running_loop = asyncio.get_running_loop()
+        if running_loop.is_running():
+            import nest_asyncio
 
-    # Fallback for non-Celery contexts (tests, standalone scripts).
-    # Still dispose per-run to avoid "Event loop is closed" errors since
-    # the singleton engine may have connections bound to a previous loop.
+            nest_asyncio.apply(running_loop)
+            return running_loop.run_until_complete(coro)
+    except RuntimeError:
+        pass
+
+    # 2. Celery worker path: submit to background worker event loop
+    global _worker_loop
+    if _worker_loop is not None and _worker_loop.is_running():
+        future = asyncio.run_coroutine_threadsafe(coro, _worker_loop)
+        return future.result()
+
+    # 3. Fallback for standalone scripts outside Celery
     async def _wrapper():
         try:
             return await coro
@@ -97,6 +128,7 @@ def run_async(coro):
             try:
                 await engine.dispose()
             except Exception:
-                pass  # best-effort; non-fatal during shutdown
+                pass
 
     return asyncio.run(_wrapper())
+

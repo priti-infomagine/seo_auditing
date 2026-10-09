@@ -19,7 +19,7 @@ class CrawlRequest(BaseModel):
     
     max_depth: int = Field(5, description="Maximum crawl depth")
     max_pages: int = Field(default_factory=lambda: settings.CRAWL_MAX_PAGES, description="Maximum pages to crawl")
-    concurrency: int = Field(10, description="Concurrent requests")
+    concurrency: int = Field(5, description="Concurrent requests")
     auto_analyze: bool = Field(
         False,
         description="If true, automatically run parse → evaluate → score pipeline after crawl completes"

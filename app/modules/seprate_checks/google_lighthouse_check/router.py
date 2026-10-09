@@ -10,7 +10,7 @@ Design notes
 ------------
 * The check is asynchronous: the POST creates a tracking ``CrawlJob`` (whose
   ``id`` is the ``check_id``, mirroring the audit module where
-  ``CrawlJob.id == audit_id``) and enqueued a Celery task on the ``lighthouse``
+  ``CrawlJob.id == audit_id``) and enqueued a Celery task on the ``crawler``
   queue, then returns 202 immediately.
 * Progress is DB-persisted (``CrawlJob.crawl_config['phase']`` + count of
   ``lighthouse_page_results``) so /status works even if the worker dies.
@@ -51,7 +51,7 @@ router = APIRouter()
     summary="Queue a Google Lighthouse/Pagespeed check",
     description=(
         "Creates a tracking CrawlJob (`check_id == CrawlJob.id`) and enqueues a "
-        "Celery task on the `lighthouse` queue. The task crawls the seed URL, "
+        "Celery task on the `crawler` queue. The task crawls the seed URL, "
         "discovers internal pages, then runs the PageSpeed Insights (Lighthouse) "
         "API concurrently per page. Returns immediately with `check_id`, "
         "`task_id`, and `domain`. Poll `GET /lighthouse/status/{check_id}` for "
@@ -65,13 +65,13 @@ async def run_lighthouse_check(
     """
     1. Validate input (device/category/max_pages/url).
     2. Create a tracking CrawlJob (`check_id = job.id`, status="queued").
-    3. Enqueue `lighthouse.run_check` on the `lighthouse` queue.
+    3. Enqueue `lighthouse.run_check` on the `crawler` queue.
     4. Persist the Celery `task_id` back onto the job for correlation.
     5. Return 202 with check_id, task_id, domain, and poll/result URLs.
     """
     logger.info(
-        f"POST /lighthouse/check — url={body.url}, device={body.device}, "
-        f"max_pages={body.max_pages}, category={body.effective_category}"
+        f"POST /lighthouse/check — url={body.url}, devices={body.effective_devices}, "
+        f"max_pages={body.max_pages}, category={body.effective_category}, version={body.version}"
     )
 
     service = LighthouseCheckService()
@@ -84,18 +84,19 @@ async def run_lighthouse_check(
             device=body.device,
             max_pages=body.max_pages,
             category=body.effective_category,
+            version=body.version,
             pagespeed_concurrency=service.PAGESPEED_CONCURRENCY,
         )
     except HTTPException:
         raise
     except ValueError as e:
-        loggger.warning(f"Lighthouse check rejected — validation error: {e}")
+        logger.warning(f"Lighthouse check rejected — validation error: {e}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
         )
     except Exception as e:
-        loggger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
+        logger.error(f"Unexpected error preparing lighthouse check: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An unexpected error occurred while preparing the lighthouse check",
@@ -113,17 +114,18 @@ async def run_lighthouse_check(
             args=[
                 check_id,
                 setup["url"],
-                setup["device"],
+                setup["devices"],
                 setup["max_pages"],
             ],
             kwargs={
                 "category": setup["categories"],
+                "version": setup["version"],
                 "pagespeed_concurrency": setup["pagespeed_concurrency"],
             },
-            queue="lighthouse",
+            queue="crawler",
         )
     except Exception as e:
-        loggger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
+        logger.error(f"Failed to enqueue lighthouse check task: {e}", exc_info=True)
         await service.mark_check_failed(UUID(check_id), f"enqueue_failed: {e}"[:1024])
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -146,8 +148,9 @@ async def run_lighthouse_check(
         task_id=async_result.id,
         url=setup["url"],
         domain=setup["domain"],
-        device=setup["device"],
+        devices=setup["devices"],
         categories=setup["categories"],
+        version=setup["version"],
         status_url=f"/api/v1/lighthouse/status/{check_id}",
         result_url=f"/api/v1/lighthouse/results/{check_id}",
     )
@@ -169,7 +172,7 @@ async def get_lighthouse_status(
     db: AsyncSession = Depends(get_db),
 ):
     """Get the status + progress of a lighthouse check by check_id."""
-    loggger.info(f"GET /lighthouse/status/{check_id}")
+    logger.info(f"GET /lighthouse/status/{check_id}")
 
     try:
         check_uuid = UUID(check_id)
@@ -232,10 +235,11 @@ async def get_lighthouse_status(
             status=job.status,
             phase=phase,
             domain=job.domain,
-            device=(job.crawl_config or {}).get("device", "mobile"),
+            devices=(job.crawl_config or {}).get("devices", ["mobile", "desktop"]),
             categories=(job.crawl_config or {}).get(
                 "categories", ["performance", "seo", "best-practices", "accessibility"],
             ),
+            version=(job.crawl_config or {}).get("version"),
             pages_discovered=job.pages_discovered or 0,
             pages_crawled=job.pages_crawled or 0,
             pagespeed_total=pagespeed_total,
@@ -278,7 +282,7 @@ async def get_lighthouse_status(
 )
 async def get_lighthouse_task_status(task_id: str) -> dict:
     """Poll the Celery task state for a lighthouse check."""
-    loggger.info(f"GET /lighthouse/task/{task_id}")
+    logger.info(f"GET /lighthouse/task/{task_id}")
     async_result = celery_app.AsyncResult(task_id)
     response: dict = {"task_id": task_id, "state": async_result.state}
     if async_result.state == "PROGRESS":
@@ -333,17 +337,20 @@ async def get_lighthouse_results(
                 reason=r.reason,
                 performance_score=r.performance_score,
                 seo_score=r.seo_score,
+                accessibility_score=r.accessibility_score,
+                best_practices_score=r.best_practices_score,
                 fcp_ms=r.fcp_ms,
                 lcp_ms=r.lcp_ms,
                 tbt_ms=r.tbt_ms,
                 cls=r.cls,
+                recommendations=r.recommendations or [],
             )
             for r in rows
         ]
     except HTTPException:
         raise
     except Exception as e:
-        loggger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
+        logger.error(f"Lighthouse results fetch failed: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e),

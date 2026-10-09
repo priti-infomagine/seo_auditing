@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 
 from uuid import UUID, uuid4
@@ -37,6 +38,7 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
         f"crawler.crawl_website: task started for audit_id={audit_id}, url={url}, "
         f"user_id={user_id}"
     )
+    task_id = self.request.id
 
     async def _run():
         crawl_uuid = UUID(audit_id)
@@ -96,17 +98,40 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                 return {"status": job.status, "audit_id": audit_id}
 
             def _progress_callback(current_page: int, total_pages: int | None):
+                if not task_id:
+                    return
                 total = total_pages or 0
                 percent = min(100, int((current_page / total) * 100)) if total else 0
-                self.update_state(
-                    state="PROGRESS",
-                    meta={
-                        "current": current_page,
-                        "total": total,
-                        "percent": percent,
-                        "audit_id": audit_id,
-                    },
-                )
+                meta = {
+                    "current": current_page,
+                    "total": total,
+                    "percent": percent,
+                    "audit_id": audit_id,
+                }
+                # Throttle: only write to the Redis result backend every 10
+                # pages (or on completion at 100%).  update_state() is a
+                # synchronous Redis HSET — calling it on every page would
+                # block the event loop ~100 times per crawl.
+                if 0 < current_page % 10 != 0 and percent < 100:
+                    return
+                # Offload the synchronous Redis write to a thread so the
+                # event loop stays responsive.  fire-and-forget: we don't
+                # need to wait for the result backend to confirm.
+                try:
+                    loop = asyncio.get_running_loop()
+                    asyncio.create_task(
+                        asyncio.to_thread(
+                            self.update_state,
+                            task_id=task_id,
+                            state="PROGRESS",
+                            meta=meta,
+                        )
+                    )
+                except RuntimeError:
+                    # No running loop (e.g. tests) — fall back to sync call
+                    self.update_state(
+                        task_id=task_id, state="PROGRESS", meta=meta
+                    )
 
             try:
                 cfg = job.crawl_config or {}
@@ -133,8 +158,11 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                         f"audit_id={audit_id}, force={force}"
                     )
 
-                    # Fire the analysis pipeline asynchronously
-                    celery_app.send_task(
+                    # Fire the analysis pipeline asynchronously.
+                    # send_task is a synchronous Redis operation — offload to
+                    # a thread so it doesn't block the worker's event loop.
+                    await asyncio.to_thread(
+                        celery_app.send_task,
                         "audit.run_analysis_pipeline",
                         args=[str(crawl_uuid)],
                         kwargs={"force": force},
@@ -142,15 +170,17 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                     )
                     result["auto_analyze"] = True
 
-                self.update_state(
-                    state="SUCCESS",
-                    meta={
-                        "current": job.total_pages or 0,
-                        "total": job.total_pages or 0,
-                        "percent": 100,
-                        "audit_id": audit_id,
-                    },
-                )
+                if task_id:
+                    self.update_state(
+                        task_id=task_id,
+                        state="SUCCESS",
+                        meta={
+                            "current": job.total_pages or 0,
+                            "total": job.total_pages or 0,
+                            "percent": 100,
+                            "audit_id": audit_id,
+                        },
+                    )
                 logger.info(
                     f"crawler.crawl_website: task succeeded for audit_id={audit_id}, "
                     f"pages_crawled={result.get('pages_crawled')}"

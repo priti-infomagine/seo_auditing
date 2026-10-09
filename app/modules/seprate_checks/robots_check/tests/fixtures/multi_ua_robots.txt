@@ -1,0 +1,13 @@
+User-agent: googlebot
+Disallow: /private/
+Allow: /public/
+Crawl-delay: 10
+
+User-agent: bingbot
+Disallow: /images/
+
+User-agent: *
+Disallow: /private2/
+Allow: /public2/
+Sitemap: https://example.com/sitemap.xml
+Sitemap: https://example.com/sitemap2.xml
