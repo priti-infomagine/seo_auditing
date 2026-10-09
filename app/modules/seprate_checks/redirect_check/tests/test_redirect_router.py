@@ -202,6 +202,30 @@ async def test_result_endpoint_returns_results_when_completed():
                     "is_internal_redirect": True,
                     "is_external_redirect": False,
                     "error": None,
+                    "hops": [
+                        {
+                            "url": "https://example.com/old",
+                            "status": 301,
+                            "statusText": "Moved Permanently",
+                            "location": "/new",
+                            "resolved": "https://example.com/new",
+                            "latencyMs": 50,
+                            "headers": [{"name": "content-type", "value": "text/html"}],
+                        },
+                        {
+                            "url": "https://example.com/new",
+                            "status": 200,
+                            "statusText": "OK",
+                            "location": None,
+                            "resolved": None,
+                            "latencyMs": 30,
+                            "headers": [],
+                        },
+                    ],
+                    "chain": [
+                        {"url": "https://example.com/old", "status": 301, "location": "/new", "resolved": "https://example.com/new", "latency_ms": 50},
+                        {"url": "https://example.com/new", "status": 200, "location": None, "resolved": None, "latency_ms": 30},
+                    ],
                 },
                 {
                     "url": "https://example.com/page",
@@ -212,6 +236,8 @@ async def test_result_endpoint_returns_results_when_completed():
                     "is_internal_redirect": False,
                     "is_external_redirect": False,
                     "error": None,
+                    "hops": [],
+                    "chain": [],
                 },
             ],
             "summary": {
@@ -266,3 +292,13 @@ async def test_result_endpoint_returns_results_when_completed():
     assert len(payload["results"]) == 2
     assert payload["results"][0]["redirect_count"] == 1
     assert payload["results"][0]["is_redirect"] is True
+    assert len(payload["results"][0]["hops"]) == 2
+    assert payload["results"][0]["hops"][0]["url"] == "https://example.com/old"
+    assert payload["results"][0]["hops"][0]["status"] == 301
+    assert payload["results"][0]["hops"][0]["location"] == "/new"
+    assert payload["results"][0]["hops"][0]["resolved"] == "https://example.com/new"
+    assert len(payload["results"][0]["hops"][0]["headers"]) == 1
+    assert len(payload["results"][0]["chain"]) == 2
+    assert payload["results"][0]["chain"][0]["url"] == "https://example.com/old"
+    assert payload["results"][1]["hops"] == []
+    assert payload["results"][1]["chain"] == []

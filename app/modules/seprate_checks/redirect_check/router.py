@@ -27,6 +27,7 @@ from app.modules.seprate_checks.redirect_check.schema import (
     RedirectCheckResultResponse,
     RedirectCheckStatusResponse,
     RedirectFinding,
+    RedirectHop,
     RedirectSummary,
     RedirectUrlResult,
 )
@@ -217,15 +218,33 @@ async def get_redirect_check_result(
     results: list[RedirectUrlResult] = [
         RedirectUrlResult(
             url=r.get("url", ""),
-            redirect_count=r.get("redirect_count", 0) or len(r.get("hops", [])),
+            hops=[
+                RedirectHop(
+                    url=h.get("url", ""),
+                    status=h.get("status"),
+                    status_text=h.get("statusText"),
+                    location=h.get("location"),
+                    resolved=h.get("resolved"),
+                    latency_ms=h.get("latencyMs"),
+                    headers=h.get("headers", []),
+                )
+                for h in (r.get("hops") or [])
+            ],
+            redirects=r.get("redirects", 0),
             final_url=r.get("final_url"),
             final_status=r.get("final_status"),
             error=r.get("error"),
+            redirect_count=r.get("redirect_count", 0) or len(r.get("hops", [])),
+            chain=r.get("chain", []),
             is_redirect=r.get("is_redirect", False),
             is_internal_redirect=r.get("is_internal_redirect", False),
             is_external_redirect=r.get("is_external_redirect", False),
-            hops=[],
-            chain=[],
+            is_broken=r.get("is_broken", False),
+            canonical=r.get("canonical"),
+            meta_refresh=r.get("meta_refresh"),
+            robots_allowed=r.get("robots_allowed", True),
+            in_sitemap=r.get("in_sitemap", False),
+            source_pages=r.get("source_pages", []),
         )
         for r in results_raw
     ]

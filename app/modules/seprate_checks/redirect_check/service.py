@@ -438,6 +438,11 @@ class RedirectCheckService:
                             "final_url": resolved.final_url,
                             "final_status": resolved.final_status,
                             "error": resolved.error,
+                            "hops": [
+                                h.model_dump(by_alias=True, exclude_none=True)
+                                for h in resolved.hops
+                            ],
+                            "chain": resolved.chain,
                             "processed": processed,
                             "total": len(urls),
                         },
@@ -487,19 +492,28 @@ class RedirectCheckService:
             failed_count=failed_count,
             final_summary={
                 "total_checked": len(results),
-                "redirect_results": [
-                    {
-                        "url": r.url,
-                        "redirect_count": r.redirect_count,
-                        "final_url": r.final_url,
-                        "final_status": r.final_status,
-                        "error": r.error,
-                        "is_redirect": r.is_redirect,
-                        "is_internal_redirect": r.is_internal_redirect,
-                        "is_external_redirect": r.is_external_redirect,
-                    }
-                    for r in results
-                ],
+            "redirect_results": [
+                {
+                    "url": r.url,
+                    "redirects": r.redirects,
+                    "redirect_count": r.redirect_count,
+                    "final_url": r.final_url,
+                    "final_status": r.final_status,
+                    "error": r.error,
+                    "is_redirect": r.is_redirect,
+                    "is_internal_redirect": r.is_internal_redirect,
+                    "is_external_redirect": r.is_external_redirect,
+                    "is_broken": r.is_broken,
+                    "canonical": r.canonical,
+                    "meta_refresh": r.meta_refresh,
+                    "robots_allowed": r.robots_allowed,
+                    "in_sitemap": r.in_sitemap,
+                    "source_pages": r.source_pages,
+                    "hops": [h.model_dump(by_alias=True, exclude_none=True) for h in r.hops],
+                    "chain": r.chain,
+                }
+                for r in results
+            ],
                 "summary": outcome.summary.model_dump(),
                 "findings": [f.model_dump() for f in outcome.findings],
                 "recommendations": [r.model_dump() for r in outcome.recommendations],

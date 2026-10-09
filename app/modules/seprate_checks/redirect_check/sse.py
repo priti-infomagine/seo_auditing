@@ -14,6 +14,7 @@ from typing import Any
 from redis.asyncio import Redis
 
 from app.core.logger import logger
+from app.modules.streaming_audit.config import STREAMING_AUDIT_REDIS_NAMESPACE
 
 
 def _format_sse_event(event: dict[str, Any]) -> str:
@@ -27,7 +28,7 @@ async def _stored_events(
     last_id: int = 0,
 ) -> list[dict[str, Any]]:
     """Retrieve stored events from the redirect check event list (catch-up)."""
-    key = f"redirect_check:{audit_id}:events_list"
+    key = f"{STREAMING_AUDIT_REDIS_NAMESPACE}:{audit_id}:events_list"
     raw = await redis.lrange(key, last_id, -1)
     events: list[dict[str, Any]] = []
     for item in raw:
@@ -55,7 +56,7 @@ async def sse_event_stream(
     5. On completion or error, emit a final ``close`` event.
     """
     pubsub = redis.pubsub()
-    channel = f"redirect_check:{audit_id}:events"
+    channel = f"{STREAMING_AUDIT_REDIS_NAMESPACE}:{audit_id}:events"
     processed_count = 0
     fallback_failures = 0
 
