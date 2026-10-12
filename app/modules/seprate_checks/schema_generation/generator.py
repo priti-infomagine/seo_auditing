@@ -1,16 +1,28 @@
 from typing import Any, List, Optional, Union
 
 from .schema import (
+    AnswerInput,
     ArticleInput,
-    ContactPointInput,
+    EventInput,
+    FAQPageInput,
+    HowToInput,
+    HowToStepInput,
+    JobPostingInput,
     LocalBusinessInput,
+    MonetaryAmountInput,
     OfferInput,
     OpeningHoursSpecificationInput,
     OrganizationInput,
     OrganizationRefInput,
     PersonInput,
+    PlaceInput,
     PostalAddressInput,
     ProductInput,
+    QuantitativeValueInput,
+    QuestionInput,
+    SearchActionInput,
+    VirtualLocationInput,
+    WebsiteInput,
     AggregateRatingInput,
     ReviewInput,
 )
@@ -26,6 +38,11 @@ class SchemaGenerator:
             SchemaType.LOCAL_BUSINESS: self.build_local_business,
             SchemaType.ARTICLE: self.build_article,
             SchemaType.PRODUCT: self.build_product,
+            SchemaType.WEBSITE: self.build_website,
+            SchemaType.EVENT: self.build_event,
+            SchemaType.JOB_POSTING: self.build_job_posting,
+            SchemaType.FAQ_PAGE: self.build_faq_page,
+            SchemaType.HOW_TO: self.build_how_to,
         }
 
     def build(
@@ -38,6 +55,11 @@ class SchemaGenerator:
             LocalBusinessInput,
             ArticleInput,
             ProductInput,
+            WebsiteInput,
+            EventInput,
+            JobPostingInput,
+            FAQPageInput,
+            HowToInput,
         ],
     ) -> tuple[dict[str, Any], List[str]]:
         """Build JSON-LD for the given schema type and input data.
@@ -255,6 +277,229 @@ class SchemaGenerator:
 
         return json_ld, warnings
 
+    def build_website(
+        self, data: WebsiteInput
+    ) -> tuple[dict[str, Any], List[str]]:
+        warnings = []
+        json_ld = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": data.name,
+            "url": str(data.url),
+        }
+
+        if data.alternateName:
+            json_ld["alternateName"] = (
+                [str(name) for name in data.alternateName]
+                if isinstance(data.alternateName, list)
+                else data.alternateName
+            )
+
+        if data.potentialAction:
+            json_ld["potentialAction"] = self._build_search_action(
+                data.potentialAction
+            )
+        else:
+            warnings.append(
+                "Missing recommended field: potentialAction (SearchAction for sitelinks searchbox)"
+            )
+
+        return json_ld, warnings
+
+    def build_event(
+        self, data: EventInput
+    ) -> tuple[dict[str, Any], List[str]]:
+        warnings = []
+        json_ld = {
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": data.name,
+            "startDate": data.startDate,
+            "location": self._build_event_location(data.location),
+        }
+
+        if data.endDate:
+            json_ld["endDate"] = data.endDate
+        else:
+            warnings.append("Missing recommended field: endDate")
+
+        if data.description:
+            json_ld["description"] = data.description
+
+        if data.image:
+            json_ld["image"] = (
+                [str(img) for img in data.image]
+                if isinstance(data.image, list)
+                else str(data.image)
+            )
+        else:
+            warnings.append("Missing recommended field: image")
+
+        if data.offers:
+            offers = data.offers if isinstance(data.offers, list) else [data.offers]
+            json_ld["offers"] = [self._build_offer(offer) for offer in offers]
+
+        if data.organizer:
+            json_ld["organizer"] = self._build_event_actor(data.organizer)
+
+        if data.performer:
+            performers = (
+                data.performer
+                if isinstance(data.performer, list)
+                else [data.performer]
+            )
+            json_ld["performer"] = [
+                self._build_event_actor(performer) for performer in performers
+            ]
+
+        if data.eventStatus:
+            json_ld["eventStatus"] = self._schema_org_url(data.eventStatus)
+
+        if data.eventAttendanceMode:
+            json_ld["eventAttendanceMode"] = self._schema_org_url(
+                data.eventAttendanceMode
+            )
+
+        if data.previousStartDate:
+            json_ld["previousStartDate"] = data.previousStartDate
+
+        return json_ld, warnings
+
+    def build_job_posting(
+        self, data: JobPostingInput
+    ) -> tuple[dict[str, Any], List[str]]:
+        warnings = []
+        json_ld = {
+            "@context": "https://schema.org",
+            "@type": "JobPosting",
+            "title": data.title,
+            "description": data.description,
+            "datePosted": data.datePosted,
+            "hiringOrganization": self._build_organization_ref(
+                data.hiringOrganization
+            ),
+        }
+
+        if data.jobLocation:
+            json_ld["jobLocation"] = self._build_place(data.jobLocation)
+        elif data.jobLocationType:
+            json_ld["jobLocationType"] = data.jobLocationType
+            if data.applicantLocationRequirements:
+                json_ld["applicantLocationRequirements"] = (
+                    data.applicantLocationRequirements
+                )
+        else:
+            warnings.append(
+                "Missing required field: jobLocation (or jobLocationType for remote jobs)"
+            )
+
+        if data.validThrough:
+            json_ld["validThrough"] = data.validThrough
+
+        if data.employmentType:
+            json_ld["employmentType"] = (
+                [str(t) for t in data.employmentType]
+                if isinstance(data.employmentType, list)
+                else data.employmentType
+            )
+
+        if data.baseSalary:
+            json_ld["baseSalary"] = self._build_monetary_amount(data.baseSalary)
+
+        if data.jobBenefits:
+            json_ld["jobBenefits"] = data.jobBenefits
+
+        if data.educationRequirements:
+            json_ld["educationRequirements"] = data.educationRequirements
+
+        if data.experienceRequirements:
+            json_ld["experienceRequirements"] = data.experienceRequirements
+
+        if data.qualifications:
+            json_ld["qualifications"] = data.qualifications
+
+        if data.responsibilities:
+            json_ld["responsibilities"] = data.responsibilities
+
+        if data.skills:
+            json_ld["skills"] = data.skills
+
+        if data.workHours:
+            json_ld["workHours"] = data.workHours
+
+        if data.directApply is not None:
+            json_ld["directApply"] = data.directApply
+
+        if data.identifier:
+            json_ld["identifier"] = data.identifier
+
+        return json_ld, warnings
+
+    def build_faq_page(
+        self, data: FAQPageInput
+    ) -> tuple[dict[str, Any], List[str]]:
+        warnings = []
+        json_ld = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                self._build_question(question) for question in data.mainEntity
+            ],
+        }
+
+        if not data.mainEntity:
+            warnings.append("FAQPage should contain at least one Question")
+
+        return json_ld, warnings
+
+    def build_how_to(
+        self, data: HowToInput
+    ) -> tuple[dict[str, Any], List[str]]:
+        warnings = []
+        json_ld = {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": data.name,
+            "step": [self._build_how_to_step(step) for step in data.step],
+        }
+
+        if not data.step:
+            warnings.append("HowTo should contain at least one HowToStep")
+
+        if data.description:
+            json_ld["description"] = data.description
+
+        if data.image:
+            json_ld["image"] = (
+                [str(img) for img in data.image]
+                if isinstance(data.image, list)
+                else str(data.image)
+            )
+
+        if data.totalTime:
+            json_ld["totalTime"] = data.totalTime
+
+        if data.estimatedCost:
+            json_ld["estimatedCost"] = self._build_monetary_amount(
+                data.estimatedCost
+            )
+
+        if data.supply:
+            json_ld["supply"] = [
+                {"@type": "HowToSupply", "name": supply.name}
+                for supply in data.supply
+            ]
+
+        if data.tool:
+            json_ld["tool"] = [
+                {"@type": "HowToTool", "name": tool.name} for tool in data.tool
+            ]
+
+        if data.video:
+            json_ld["video"] = data.video
+
+        return json_ld, warnings
+
     def _build_address(self, address: PostalAddressInput) -> dict[str, Any]:
         return {
             "@type": "PostalAddress",
@@ -349,3 +594,112 @@ class SchemaGenerator:
             if review.publisher
             else None,
         }
+
+    def _build_search_action(
+        self, action: SearchActionInput
+    ) -> dict[str, Any]:
+        target = action.target
+        if isinstance(target, str):
+            target_obj: dict[str, Any] = {
+                "@type": "EntryPoint",
+                "urlTemplate": target,
+            }
+        else:
+            target_obj = dict(target)
+            target_obj.setdefault("@type", "EntryPoint")
+        return {
+            "@type": "SearchAction",
+            "target": target_obj,
+            "query-input": action.queryInput,
+        }
+
+    def _build_event_location(
+        self, location: Union[PlaceInput, VirtualLocationInput]
+    ) -> dict[str, Any]:
+        if isinstance(location, VirtualLocationInput):
+            return self._build_virtual_location(location)
+        return self._build_place(location)
+
+    def _build_event_actor(
+        self, actor: Union[PersonInput, OrganizationRefInput]
+    ) -> dict[str, Any]:
+        if isinstance(actor, PersonInput):
+            return self._build_person(actor)
+        return self._build_organization_ref(actor)
+
+    def _build_place(self, place: PlaceInput) -> dict[str, Any]:
+        return {
+            "@type": "Place",
+            "name": place.name,
+            "address": self._build_address(place.address),
+        }
+
+    def _build_virtual_location(
+        self, location: VirtualLocationInput
+    ) -> dict[str, Any]:
+        return {
+            "@type": "VirtualLocation",
+            "url": str(location.url),
+        }
+
+    def _build_monetary_amount(
+        self, amount: MonetaryAmountInput
+    ) -> dict[str, Any]:
+        result = {
+            "@type": "MonetaryAmount",
+            "currency": amount.currency,
+        }
+        if isinstance(amount.value, QuantitativeValueInput):
+            result["value"] = self._build_quantitative_value(amount.value)
+        else:
+            result["value"] = amount.value
+        return result
+
+    def _build_quantitative_value(
+        self, value: QuantitativeValueInput
+    ) -> dict[str, Any]:
+        result = {
+            "@type": "QuantitativeValue",
+            "value": value.value,
+        }
+        if value.unitText:
+            result["unitText"] = value.unitText
+        return result
+
+    def _build_question(self, question: QuestionInput) -> dict[str, Any]:
+        return {
+            "@type": "Question",
+            "name": question.name,
+            "acceptedAnswer": self._build_answer(question.acceptedAnswer),
+        }
+
+    def _build_answer(self, answer: AnswerInput) -> dict[str, Any]:
+        return {
+            "@type": "Answer",
+            "text": answer.text,
+        }
+
+    def _build_how_to_step(self, step: HowToStepInput) -> dict[str, Any]:
+        result = {
+            "@type": "HowToStep",
+            "text": step.text,
+        }
+        if step.name:
+            result["name"] = step.name
+        if step.image:
+            result["image"] = (
+                [str(img) for img in step.image]
+                if isinstance(step.image, list)
+                else str(step.image)
+            )
+        if step.url:
+            result["url"] = str(step.url)
+        return result
+
+    @staticmethod
+    def _schema_org_url(value: str) -> str:
+        if value.startswith("https://schema.org/"):
+            return value
+        if value.startswith("schema.org/"):
+            return f"https://{value}"
+        return f"https://schema.org/{value}"

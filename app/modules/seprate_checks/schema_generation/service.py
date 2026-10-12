@@ -13,10 +13,14 @@ from .exceptions import (
     SchemaGenerationError,
 )
 from .generator import SchemaGenerator
-from .model import ArticleSubType, GenerationStatus, LocalBusinessSubType, SchemaAudit, SchemaGeneration, SchemaType
+from .model import GenerationStatus, SchemaAudit, SchemaGeneration, SchemaType
 from .repository import SchemaAuditRepository, SchemaGenerationRepository
 from .schema import (
     ArticleInput,
+    EventInput,
+    FAQPageInput,
+    HowToInput,
+    JobPostingInput,
     LocalBusinessInput,
     OrganizationInput,
     ProductInput,
@@ -24,6 +28,7 @@ from .schema import (
     SchemaAuditResponse,
     SchemaGenerateRequest,
     SchemaGenerateResponse,
+    WebsiteInput,
 )
 
 
@@ -132,6 +137,41 @@ class SchemaGenerationService:
                     "Input data must be ProductInput for Product schema"
                 )
             return self.generator.build_product(input_data)
+
+        elif request.schema_type == SchemaType.WEBSITE:
+            if not isinstance(input_data, WebsiteInput):
+                raise SchemaGenerationError(
+                    "Input data must be WebsiteInput for WebSite schema"
+                )
+            return self.generator.build_website(input_data)
+
+        elif request.schema_type == SchemaType.EVENT:
+            if not isinstance(input_data, EventInput):
+                raise SchemaGenerationError(
+                    "Input data must be EventInput for Event schema"
+                )
+            return self.generator.build_event(input_data)
+
+        elif request.schema_type == SchemaType.JOB_POSTING:
+            if not isinstance(input_data, JobPostingInput):
+                raise SchemaGenerationError(
+                    "Input data must be JobPostingInput for JobPosting schema"
+                )
+            return self.generator.build_job_posting(input_data)
+
+        elif request.schema_type == SchemaType.FAQ_PAGE:
+            if not isinstance(input_data, FAQPageInput):
+                raise SchemaGenerationError(
+                    "Input data must be FAQPageInput for FAQPage schema"
+                )
+            return self.generator.build_faq_page(input_data)
+
+        elif request.schema_type == SchemaType.HOW_TO:
+            if not isinstance(input_data, HowToInput):
+                raise SchemaGenerationError(
+                    "Input data must be HowToInput for HowTo schema"
+                )
+            return self.generator.build_how_to(input_data)
 
         else:
             raise InvalidSchemaTypeError(

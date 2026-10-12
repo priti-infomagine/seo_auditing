@@ -13,6 +13,11 @@ class SchemaType(str, enum.Enum):
     LOCAL_BUSINESS = "local_business"
     ARTICLE = "article"
     PRODUCT = "product"
+    WEBSITE = "website"
+    EVENT = "event"
+    JOB_POSTING = "job_posting"
+    FAQ_PAGE = "faq_page"
+    HOW_TO = "how_to"
 
 
 class ArticleSubType(str, enum.Enum):
@@ -62,6 +67,30 @@ class LocalBusinessSubType(str, enum.Enum):
     SPORTS_ACTIVITY_LOCATION = "sports_activity_location"
     TRAVEL_AGENCY = "travel_agency"
     VETERINARY_CARE = "veterinary_care"
+
+
+class EmploymentType(str, enum.Enum):
+    FULL_TIME = "FULL_TIME"
+    PART_TIME = "PART_TIME"
+    CONTRACTOR = "CONTRACTOR"
+    TEMPORARY = "TEMPORARY"
+    INTERN = "INTERN"
+    VOLUNTEER = "VOLUNTEER"
+    PER_DIEM = "PER_DIEM"
+    OTHER = "OTHER"
+
+
+class EventStatus(str, enum.Enum):
+    EVENT_SCHEDULED = "EventScheduled"
+    EVENT_CANCELLED = "EventCancelled"
+    EVENT_RESCHEDULED = "EventRescheduled"
+    EVENT_POSTPONED = "EventPostponed"
+
+
+class EventAttendanceMode(str, enum.Enum):
+    OFFLINE = "OfflineEventAttendanceMode"
+    ONLINE = "OnlineEventAttendanceMode"
+    MIXED = "MixedEventAttendanceMode"
 
 
 class GenerationStatus(str, enum.Enum):

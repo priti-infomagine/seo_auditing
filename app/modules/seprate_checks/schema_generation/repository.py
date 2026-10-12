@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .model import SchemaAudit, SchemaGeneration, GenerationStatus
+from .model import SchemaAudit, SchemaGeneration
 
 
 class SchemaGenerationRepository:
