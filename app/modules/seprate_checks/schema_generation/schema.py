@@ -1,9 +1,9 @@
-from typing import Any, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, HttpUrl, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, HttpUrl, field_validator, model_serializer
 
-from .model import ArticleSubType, SchemaType
+from .model import ArticleSubType, LocalBusinessSubType, SchemaType
 
 
 class PostalAddressInput(BaseModel):
@@ -23,6 +23,14 @@ class GeoCoordinatesInput(BaseModel):
     longitude: float = Field(alias="longitude")
 
 
+class OpeningHoursSpecificationInput(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    dayOfWeek: List[str] = Field(alias="dayOfWeek")
+    opens: str = Field(alias="opens")
+    closes: str = Field(alias="closes")
+
+
 class PersonInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
@@ -32,6 +40,25 @@ class PersonInput(BaseModel):
     sameAs: Optional[List[HttpUrl]] = Field(default=None, alias="sameAs")
 
 
+class OrganizationRefInput(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    name: str
+    url: Optional[HttpUrl] = None
+    logo: Optional[HttpUrl] = None
+
+
+class ContactPointInput(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    telephone: str
+    contactType: str = Field(default="customer service", alias="contactType")
+    email: Optional[EmailStr] = None
+    areaServed: Optional[str] = Field(default=None, alias="areaServed")
+    availableLanguage: Optional[List[str]] = Field(default=None, alias="availableLanguage")
+    contactOption: Optional[str] = Field(default=None, alias="contactOption")
+
+
 class OrganizationInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
@@ -39,16 +66,18 @@ class OrganizationInput(BaseModel):
     url: HttpUrl
     logo: HttpUrl
     sameAs: Optional[List[HttpUrl]] = Field(default=None, alias="sameAs")
-    email: Optional[EmailStr] = None
-    telephone: Optional[str] = None
     address: Optional[PostalAddressInput] = None
+    contactPoint: Optional[ContactPointInput] = Field(default=None, alias="contactPoint")
+    description: Optional[str] = None
 
 
 class LocalBusinessInput(OrganizationInput):
     address: PostalAddressInput
-    openingHours: Optional[List[str]] = Field(default=None, alias="openingHours")
-    priceRange: Optional[str] = Field(default=None, alias="priceRange")
+    image: Optional[List[HttpUrl]] = None
     geo: Optional[GeoCoordinatesInput] = None
+    openingHoursSpecification: Optional[List[OpeningHoursSpecificationInput]] = Field(default=None, alias="openingHoursSpecification")
+    priceRange: Optional[str] = None
+    servesCuisine: Optional[str] = None
     additionalType: Optional[str] = Field(default=None, alias="additionalType")
 
 
@@ -60,7 +89,9 @@ class ArticleInput(BaseModel):
     datePublished: str = Field(alias="datePublished")
     dateModified: Optional[str] = Field(default=None, alias="dateModified")
     author: Union[PersonInput, List[PersonInput], str] = Field(alias="author")
-    publisher: OrganizationInput = Field(alias="publisher")
+    publisher: OrganizationRefInput = Field(alias="publisher")
+    description: Optional[str] = None
+    mainEntityOfPage: Optional[Dict[str, Any]] = Field(default=None, alias="mainEntityOfPage")
     articleSection: Optional[str] = Field(default=None, alias="articleSection")
     articleBody: Optional[str] = Field(default=None, alias="articleBody")
     keywords: Optional[str] = None
@@ -73,7 +104,10 @@ class OfferInput(BaseModel):
     price: str = Field(alias="price")
     priceCurrency: str = Field(alias="priceCurrency")
     availability: Optional[str] = Field(default=None, alias="availability")
-    seller: Optional[OrganizationInput] = None
+    url: Optional[HttpUrl] = None
+    priceValidUntil: Optional[str] = Field(default=None, alias="priceValidUntil")
+    itemCondition: Optional[str] = Field(default=None, alias="itemCondition")
+    seller: Optional[OrganizationRefInput] = None
     validFrom: Optional[str] = Field(default=None, alias="validFrom")
     validThrough: Optional[str] = Field(default=None, alias="validThrough")
 
@@ -94,7 +128,7 @@ class ReviewInput(BaseModel):
     reviewRating: AggregateRatingInput = Field(alias="reviewRating")
     reviewBody: Optional[str] = Field(default=None, alias="reviewBody")
     datePublished: str = Field(alias="datePublished")
-    publisher: Optional[OrganizationInput] = None
+    publisher: Optional[OrganizationRefInput] = None
 
 
 class ProductInput(BaseModel):
@@ -105,17 +139,17 @@ class ProductInput(BaseModel):
     description: Optional[str] = None
     sku: Optional[str] = None
     mpn: Optional[str] = None
-    brand: Optional[OrganizationInput] = Field(default=None, alias="brand")
-    offers: Union[OfferInput, List[OfferInput]] = Field(alias="offers")
+    gtin: Optional[str] = None
+    brand: Optional[OrganizationRefInput] = Field(default=None, alias="brand")
+    offers: Optional[Union[OfferInput, List[OfferInput]]] = Field(default=None, alias="offers")
     aggregateRating: Optional[AggregateRatingInput] = Field(default=None, alias="aggregateRating")
     review: Optional[List[ReviewInput]] = Field(default=None, alias="review")
-    gtin: Optional[str] = None
-    mpn: Optional[str] = None
 
 
 class SchemaGenerateRequest(BaseModel):
     schema_type: SchemaType
     article_subtype: Optional[ArticleSubType] = None
+    local_business_subtype: Optional[LocalBusinessSubType] = None
     input_data: Union[
         OrganizationInput,
         LocalBusinessInput,
@@ -140,11 +174,23 @@ class SchemaAuditRequest(BaseModel):
 
 class SchemaGenerateResponse(BaseModel):
     schema_type: SchemaType
-    article_subtype: Optional[ArticleSubType] = None
     generated_jsonld: dict[str, Any]
     warnings: List[str] = Field(default_factory=list)
     generation_id: UUID
     cost_seconds: Optional[float] = None
+    article_subtype: Optional[ArticleSubType] = None
+    local_business_subtype: Optional[LocalBusinessSubType] = None
+
+    @model_serializer(mode='wrap')
+    def serialize_model(self, handler):
+        data = handler(self)
+        # Remove article_subtype if not article schema
+        if data.get("schema_type") != "article":
+            data.pop("article_subtype", None)
+        # Remove local_business_subtype if not local_business schema
+        if data.get("schema_type") != "local_business":
+            data.pop("local_business_subtype", None)
+        return data
 
 
 class SchemaAuditResponse(BaseModel):

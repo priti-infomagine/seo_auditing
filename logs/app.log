@@ -1,0 +1,244 @@
+2026-10-12T10:16:56 | ERROR | app | Schema generation failed: 'LocalBusinessInput' object has no attribute 'email'
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 109, in _build_jsonld
+    return self.generator.build_local_business(input_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 105, in build_local_business
+    if data.email:
+       ^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'LocalBusinessInput' object has no attribute 'email'
+2026-10-12T10:16:57 | ERROR | app | generate_schema: generation failed: 'LocalBusinessInput' object has no attribute 'email'
+2026-10-12T11:28:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:28:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:29:21 | ERROR | app | Schema generation failed: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "local_business_subtype" of relation "schema_generations" does not exist
+[SQL: INSERT INTO schema_generations (id, schema_type, article_subtype, local_business_subtype, input_data, generated_jsonld, warnings, status, error, cost_seconds, check_version) VALUES ($1::UUID, $2::schematype, $3::articlesubtype, $4::localbusinesssubtype, $5::JSONB, $6::JSONB, $7::JSONB, $8::generationstatus, $9::VARCHAR, $10::FLOAT, $11::VARCHAR) RETURNING schema_generations.created_at, schema_generations.updated_at]
+[parameters: (UUID('09657ac8-540e-44e5-b156-98bab09920ad'), 'ORGANIZATION', None, None, '{"name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https://www.kanhahometutions.com/static/media/LogoHeader.5eb7d516 ... (371 characters truncated) ... ype": "customer service", "email": null, "areaServed": "IN", "availableLanguage": ["Hindi", "en"], "contactOption": "TollFree"}, "description": null}', '{"@context": "https://schema.org", "@type": "Organization", "name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https: ... (402 characters truncated) ... ephone": "+91 9166100755", "contactType": "customer service", "contactOption": "TollFree", "areaServed": "IN", "availableLanguage": ["Hindi", "en"]}}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "local_business_subtype" of relation "schema_generations" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "local_business_subtype" of relation "schema_generations" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 63, in generate_schema
+    await self.generation_repo.create(record)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "local_business_subtype" of relation "schema_generations" does not exist
+[SQL: INSERT INTO schema_generations (id, schema_type, article_subtype, local_business_subtype, input_data, generated_jsonld, warnings, status, error, cost_seconds, check_version) VALUES ($1::UUID, $2::schematype, $3::articlesubtype, $4::localbusinesssubtype, $5::JSONB, $6::JSONB, $7::JSONB, $8::generationstatus, $9::VARCHAR, $10::FLOAT, $11::VARCHAR) RETURNING schema_generations.created_at, schema_generations.updated_at]
+[parameters: (UUID('09657ac8-540e-44e5-b156-98bab09920ad'), 'ORGANIZATION', None, None, '{"name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https://www.kanhahometutions.com/static/media/LogoHeader.5eb7d516 ... (371 characters truncated) ... ype": "customer service", "email": null, "areaServed": "IN", "availableLanguage": ["Hindi", "en"], "contactOption": "TollFree"}, "description": null}', '{"@context": "https://schema.org", "@type": "Organization", "name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https: ... (402 characters truncated) ... ephone": "+91 9166100755", "contactType": "customer service", "contactOption": "TollFree", "areaServed": "IN", "availableLanguage": ["Hindi", "en"]}}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-10-12T11:29:21 | ERROR | app | generate_schema: unexpected error: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "local_business_subtype" of relation "schema_generations" does not exist
+[SQL: INSERT INTO schema_generations (id, schema_type, article_subtype, local_business_subtype, input_data, generated_jsonld, warnings, status, error, cost_seconds, check_version) VALUES ($1::UUID, $2::schematype, $3::articlesubtype, $4::localbusinesssubtype, $5::JSONB, $6::JSONB, $7::JSONB, $8::generationstatus, $9::VARCHAR, $10::FLOAT, $11::VARCHAR) RETURNING schema_generations.created_at, schema_generations.updated_at]
+[parameters: (UUID('09657ac8-540e-44e5-b156-98bab09920ad'), 'ORGANIZATION', None, None, '{"name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https://www.kanhahometutions.com/static/media/LogoHeader.5eb7d516 ... (371 characters truncated) ... ype": "customer service", "email": null, "areaServed": "IN", "availableLanguage": ["Hindi", "en"], "contactOption": "TollFree"}, "description": null}', '{"@context": "https://schema.org", "@type": "Organization", "name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https: ... (402 characters truncated) ... ephone": "+91 9166100755", "contactType": "customer service", "contactOption": "TollFree", "areaServed": "IN", "availableLanguage": ["Hindi", "en"]}}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\router.py", line 39, in generate_schema
+    return await service.generate_schema(body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 95, in generate_schema
+    await self.generation_repo.create(record)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4445, in _flush
+    flush_context.transaction = transaction = self._autobegin_t()._begin()
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _begin
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "local_business_subtype" of relation "schema_generations" does not exist
+[SQL: INSERT INTO schema_generations (id, schema_type, article_subtype, local_business_subtype, input_data, generated_jsonld, warnings, status, error, cost_seconds, check_version) VALUES ($1::UUID, $2::schematype, $3::articlesubtype, $4::localbusinesssubtype, $5::JSONB, $6::JSONB, $7::JSONB, $8::generationstatus, $9::VARCHAR, $10::FLOAT, $11::VARCHAR) RETURNING schema_generations.created_at, schema_generations.updated_at]
+[parameters: (UUID('09657ac8-540e-44e5-b156-98bab09920ad'), 'ORGANIZATION', None, None, '{"name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https://www.kanhahometutions.com/static/media/LogoHeader.5eb7d516 ... (371 characters truncated) ... ype": "customer service", "email": null, "areaServed": "IN", "availableLanguage": ["Hindi", "en"], "contactOption": "TollFree"}, "description": null}', '{"@context": "https://schema.org", "@type": "Organization", "name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https: ... (402 characters truncated) ... ephone": "+91 9166100755", "contactType": "customer service", "contactOption": "TollFree", "areaServed": "IN", "availableLanguage": ["Hindi", "en"]}}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
+(Background on this error at: https://sqlalche.me/e/20/f405) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+2026-10-12T11:29:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:30:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:30:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:32:37 | ERROR | app | Schema generation failed: 'OfferInput' object has no attribute 'validFrom'
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 130, in _build_jsonld
+    return self.generator.build_product(input_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 240, in build_product
+    json_ld["offers"] = [self._build_offer(offer) for offer in offers]
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 240, in <listcomp>
+    json_ld["offers"] = [self._build_offer(offer) for offer in offers]
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 321, in _build_offer
+    if offer.validFrom:
+       ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'OfferInput' object has no attribute 'validFrom'
+2026-10-12T11:32:38 | ERROR | app | generate_schema: generation failed: 'OfferInput' object has no attribute 'validFrom'
+2026-10-12T11:33:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:35:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T11:41:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:11:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:11:56 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 113, in _build_jsonld
+    raise SchemaGenerationError(
+app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:11:56 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:12:19 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:12:30 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:12:48 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 113, in _build_jsonld
+    raise SchemaGenerationError(
+app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:12:48 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:13:15 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:13:28 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+    raise SchemaGenerationError(
+app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:13:29 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:13:56 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:15:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:15:19 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+    raise SchemaGenerationError(
+app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:15:19 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:15:41 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+    json_ld, warnings = self._build_jsonld(request)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+    raise SchemaGenerationError(
+app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:15:41 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
+2026-10-12T12:25:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:26:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:26:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:29:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-12T12:30:09 | INFO | app | Celery broker connection pre-warmed successfully

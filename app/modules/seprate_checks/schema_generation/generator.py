@@ -2,16 +2,19 @@ from typing import Any, List, Optional, Union
 
 from .schema import (
     ArticleInput,
+    ContactPointInput,
     LocalBusinessInput,
     OfferInput,
+    OpeningHoursSpecificationInput,
     OrganizationInput,
+    OrganizationRefInput,
     PersonInput,
     PostalAddressInput,
     ProductInput,
     AggregateRatingInput,
     ReviewInput,
 )
-from .model import ArticleSubType, SchemaType
+from .model import ArticleSubType, LocalBusinessSubType, SchemaType
 
 
 class SchemaGenerator:
@@ -29,6 +32,7 @@ class SchemaGenerator:
         self,
         schema_type: SchemaType,
         article_subtype: Optional[ArticleSubType],
+        local_business_subtype: Optional[LocalBusinessSubType],
         input_data: Union[
             OrganizationInput,
             LocalBusinessInput,
@@ -47,6 +51,8 @@ class SchemaGenerator:
 
         if schema_type == SchemaType.ARTICLE:
             return builder(input_data, article_subtype)
+        if schema_type == SchemaType.LOCAL_BUSINESS:
+            return builder(input_data, local_business_subtype)
         return builder(input_data)
 
     def build_organization(
@@ -66,30 +72,32 @@ class SchemaGenerator:
         else:
             warnings.append("Missing recommended field: sameAs (social media links)")
 
-        if data.email:
-            json_ld["email"] = data.email
+        if data.contactPoint:
+            json_ld["contactPoint"] = {
+                "@type": "ContactPoint",
+                "telephone": data.contactPoint.telephone,
+                "contactType": data.contactPoint.contactType,
+            }
+            if data.contactPoint.contactOption:
+                json_ld["contactPoint"]["contactOption"] = data.contactPoint.contactOption
+            if data.contactPoint.areaServed:
+                json_ld["contactPoint"]["areaServed"] = data.contactPoint.areaServed
+            if data.contactPoint.availableLanguage:
+                json_ld["contactPoint"]["availableLanguage"] = data.contactPoint.availableLanguage
         else:
-            warnings.append("Missing recommended field: email")
-
-        if data.telephone:
-            json_ld["telephone"] = data.telephone
-        else:
-            warnings.append("Missing recommended field: telephone")
-
-        if data.address:
-            json_ld["address"] = self._build_address(data.address)
-        else:
-            warnings.append("Missing recommended field: address")
+            warnings.append("Missing recommended field: contactPoint")
 
         return json_ld, warnings
 
     def build_local_business(
-        self, data: LocalBusinessInput
+        self, data: LocalBusinessInput, local_business_subtype: Optional[LocalBusinessSubType]
     ) -> tuple[dict[str, Any], List[str]]:
         warnings = []
+        schema_type = local_business_subtype.value if local_business_subtype else "LocalBusiness"
+        
         json_ld = {
             "@context": "https://schema.org",
-            "@type": "LocalBusiness",
+            "@type": schema_type,
             "name": data.name,
             "url": str(data.url),
             "logo": str(data.logo),
@@ -101,23 +109,35 @@ class SchemaGenerator:
         else:
             warnings.append("Missing recommended field: sameAs (social media links)")
 
-        if data.email:
-            json_ld["email"] = data.email
+        if data.contactPoint:
+            json_ld["contactPoint"] = {
+                "@type": "ContactPoint",
+                "telephone": data.contactPoint.telephone,
+                "contactType": data.contactPoint.contactType,
+            }
+            if data.contactPoint.contactOption:
+                json_ld["contactPoint"]["contactOption"] = data.contactPoint.contactOption
+            if data.contactPoint.areaServed:
+                json_ld["contactPoint"]["areaServed"] = data.contactPoint.areaServed
+            if data.contactPoint.availableLanguage:
+                json_ld["contactPoint"]["availableLanguage"] = data.contactPoint.availableLanguage
+            if data.contactPoint.email:
+                json_ld["contactPoint"]["email"] = data.contactPoint.email
         else:
-            warnings.append("Missing recommended field: email")
+            warnings.append("Missing recommended field: contactPoint")
 
-        if data.telephone:
-            json_ld["telephone"] = data.telephone
+        if data.openingHoursSpecification:
+            json_ld["openingHoursSpecification"] = [
+                self._build_opening_hours_spec(spec) for spec in data.openingHoursSpecification
+            ]
         else:
-            warnings.append("Missing recommended field: telephone")
-
-        if data.openingHours:
-            json_ld["openingHours"] = data.openingHours
-        else:
-            warnings.append("Missing recommended field: openingHours")
+            warnings.append("Missing recommended field: openingHoursSpecification")
 
         if data.priceRange:
             json_ld["priceRange"] = data.priceRange
+
+        if data.servesCuisine:
+            json_ld["servesCuisine"] = data.servesCuisine
 
         if data.geo:
             json_ld["geo"] = {
@@ -126,8 +146,11 @@ class SchemaGenerator:
                 "longitude": data.geo.longitude,
             }
 
-        if data.additionalType:
-            json_ld["additionalType"] = data.additionalType
+        if data.image:
+            json_ld["image"] = [str(img) for img in data.image]
+
+        if data.description:
+            json_ld["description"] = data.description
 
         return json_ld, warnings
 
@@ -172,6 +195,14 @@ class SchemaGenerator:
         if data.wordCount:
             json_ld["wordCount"] = data.wordCount
 
+        if data.description:
+            json_ld["description"] = data.description
+
+        if data.mainEntityOfPage:
+            json_ld["mainEntityOfPage"] = data.mainEntityOfPage
+        else:
+            warnings.append("Missing recommended field: mainEntityOfPage")
+
         return json_ld, warnings
 
     def build_product(
@@ -207,8 +238,6 @@ class SchemaGenerator:
         if data.offers:
             offers = data.offers if isinstance(data.offers, list) else [data.offers]
             json_ld["offers"] = [self._build_offer(offer) for offer in offers]
-        else:
-            warnings.append("Missing required field: offers")
 
         if data.aggregateRating:
             json_ld["aggregateRating"] = self._build_aggregate_rating(
@@ -216,6 +245,10 @@ class SchemaGenerator:
             )
         else:
             warnings.append("Missing recommended field: aggregateRating")
+
+        # Google requires either offers or aggregateRating for Product rich results
+        if not data.offers and not data.aggregateRating:
+            warnings.append("Missing recommended field: offers or aggregateRating (at least one is required for Product rich results)")
 
         if data.review:
             json_ld["review"] = [self._build_review(review) for review in data.review]
@@ -230,6 +263,14 @@ class SchemaGenerator:
             "addressRegion": address.addressRegion,
             "postalCode": address.postalCode,
             "addressCountry": address.addressCountry,
+        }
+
+    def _build_opening_hours_spec(self, spec: OpeningHoursSpecificationInput) -> dict[str, Any]:
+        return {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": spec.dayOfWeek,
+            "opens": spec.opens,
+            "closes": spec.closes,
         }
 
     def _build_author(
@@ -251,7 +292,7 @@ class SchemaGenerator:
             result["sameAs"] = [str(url) for url in person.sameAs]
         return result
 
-    def _build_publisher(self, publisher: OrganizationInput) -> dict[str, Any]:
+    def _build_publisher(self, publisher: OrganizationRefInput) -> dict[str, Any]:
         return {
             "@type": "Organization",
             "name": publisher.name,
@@ -261,7 +302,7 @@ class SchemaGenerator:
             },
         }
 
-    def _build_organization_ref(self, org: OrganizationInput) -> dict[str, Any]:
+    def _build_organization_ref(self, org: OrganizationRefInput) -> dict[str, Any]:
         result = {"@type": "Organization", "name": org.name}
         if org.url:
             result["url"] = str(org.url)

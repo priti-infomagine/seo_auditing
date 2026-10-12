@@ -13,7 +13,7 @@ from .exceptions import (
     SchemaGenerationError,
 )
 from .generator import SchemaGenerator
-from .model import ArticleSubType, GenerationStatus, SchemaAudit, SchemaGeneration, SchemaType
+from .model import ArticleSubType, GenerationStatus, LocalBusinessSubType, SchemaAudit, SchemaGeneration, SchemaType
 from .repository import SchemaAuditRepository, SchemaGenerationRepository
 from .schema import (
     ArticleInput,
@@ -51,6 +51,9 @@ class SchemaGenerationService:
                 article_subtype=request.article_subtype.value
                 if request.article_subtype
                 else None,
+                local_business_subtype=request.local_business_subtype.value
+                if request.local_business_subtype
+                else None,
                 input_data=request.input_data.model_dump(mode="json"),
                 generated_jsonld=json_ld,
                 warnings=warnings,
@@ -60,14 +63,19 @@ class SchemaGenerationService:
             await self.generation_repo.create(record)
             await self.db.commit()
 
-            return SchemaGenerateResponse(
-                schema_type=request.schema_type,
-                article_subtype=request.article_subtype,
-                generated_jsonld=json_ld,
-                warnings=warnings,
-                generation_id=record.id,
-                cost_seconds=record.cost_seconds,
-            )
+            response_data = {
+                "schema_type": request.schema_type,
+                "generated_jsonld": json_ld,
+                "warnings": warnings,
+                "generation_id": record.id,
+                "cost_seconds": record.cost_seconds,
+            }
+            if request.schema_type == SchemaType.ARTICLE and request.article_subtype:
+                response_data["article_subtype"] = request.article_subtype
+            if request.schema_type == SchemaType.LOCAL_BUSINESS and request.local_business_subtype:
+                response_data["local_business_subtype"] = request.local_business_subtype
+            
+            return SchemaGenerateResponse(**response_data)
 
         except InvalidSchemaTypeError:
             raise
@@ -79,6 +87,9 @@ class SchemaGenerationService:
                 else "unknown",
                 article_subtype=request.article_subtype.value
                 if request.article_subtype
+                else None,
+                local_business_subtype=request.local_business_subtype.value
+                if request.local_business_subtype
                 else None,
                 input_data=request.input_data.model_dump(mode="json"),
                 status=GenerationStatus.FAILED.value,
@@ -106,7 +117,7 @@ class SchemaGenerationService:
                 raise SchemaGenerationError(
                     "Input data must be LocalBusinessInput for LocalBusiness schema"
                 )
-            return self.generator.build_local_business(input_data)
+            return self.generator.build_local_business(input_data, request.local_business_subtype)
 
         elif request.schema_type == SchemaType.ARTICLE:
             if not isinstance(input_data, ArticleInput):
