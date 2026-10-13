@@ -688,3 +688,264 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 [parameters: (UUID('eab70658-a159-4fcc-9747-baed3930e891'), 'FAQ_PAGE', None, None, '{"mainEntity": [{"name": "How to find an apprenticeship?", "acceptedAnswer": {"text": "Search for apprenticeships on official job portals..."}}, {"name": "What are the eligibility criteria?", "acceptedAnswer": {"text": "You must be 18+ and have a valid ID..."}}]}', '{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How to find an apprenticeship?", "acceptedAnswer ... (99 characters truncated) ...  "Question", "name": "What are the eligibility criteria?", "acceptedAnswer": {"@type": "Answer", "text": "You must be 18+ and have a valid ID..."}}]}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
 2026-10-12T16:46:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T11:00:19 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T11:02:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:37:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:37:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:47:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:47:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:47:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:48:58 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:49:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:49:42 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:49:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:50:11 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:51:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:52:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:52:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:53:09 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:55:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:58:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:59:46 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T12:59:56 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T15:12:30 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+    check, created = await service.prepare_check(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+    location = await SerpLocationRepository(self.db).get(location_code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 992, in _raise_for_prerequisite_state
+    raise sa_exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+2026-10-13T15:13:12 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=a122097e-d2eb-405c-9a66-81d13f6ea912
+2026-10-13T15:13:23 | WARNING | app | run_serp_check: check f49ff6e0-039c-4e57-8d0e-b89a1efe046d not found
+2026-10-13T15:13:35 | ERROR | app | serp_rank_check: parse failed id=a6268a90-fa93-44b2-9265-f7137b1a6404: provider response has no result
+2026-10-13T15:13:41 | ERROR | app | build_preview: preview failed id=dbd4ad37-a984-4927-b9f9-601def47a104: screenshot boom
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 411, in build_preview_async
+    urls = await save_preview_artifacts(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
+    raise state["raise"]
+RuntimeError: screenshot boom
+2026-10-13T15:14:24 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-13T15:14:24 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 110, in run_async
+    import nest_asyncio
+ModuleNotFoundError: No module named 'nest_asyncio'
+2026-10-13T15:14:27 | INFO | app | serp_rank_check.refresh_reference_data: started
+2026-10-13T15:14:27 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 110, in run_async
+    import nest_asyncio
+ModuleNotFoundError: No module named 'nest_asyncio'
+2026-10-13T15:17:22 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+    check, created = await service.prepare_check(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+    location = await SerpLocationRepository(self.db).get(location_code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 992, in _raise_for_prerequisite_state
+    raise sa_exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+2026-10-13T15:18:00 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=d2177090-6194-4c4a-b01a-3d0d50c1b609
+2026-10-13T15:18:11 | WARNING | app | run_serp_check: check e0bd5898-1d15-4199-a6c5-5df3600e5e0d not found
+2026-10-13T15:18:24 | ERROR | app | serp_rank_check: parse failed id=28881b19-e06b-4bd4-8251-ad9ac142c5ca: provider response has no result
+2026-10-13T15:18:33 | ERROR | app | build_preview: preview failed id=2f31010d-208d-47a6-8df7-29b5b21ee3c3: screenshot boom
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 411, in build_preview_async
+    urls = await save_preview_artifacts(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
+    raise state["raise"]
+RuntimeError: screenshot boom
+2026-10-13T15:19:13 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-13T15:19:13 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
+    return running_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\nest_asyncio.py", line 98, in run_until_complete
+    return f.result()
+           ^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py", line 203, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 131, in _run
+    return await SerpRankCheckService().sweep_stuck_async()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TestMaintenanceTasks.test_sweep_task_invokes_service.<locals>.fake_sweep() takes 0 positional arguments but 1 was given
+2026-10-13T15:19:15 | INFO | app | serp_rank_check.refresh_reference_data: started
+2026-10-13T15:19:15 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
+    return running_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\nest_asyncio.py", line 98, in run_until_complete
+    return f.result()
+           ^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py", line 203, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 162, in _run
+    return await SerpRankCheckService().refresh_reference_data_async()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_refresh() takes 0 positional arguments but 1 was given
+2026-10-13T15:21:20 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=4b387188-54bd-4954-ab9b-ac8b4904768f
+2026-10-13T15:28:27 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+    check, created = await service.prepare_check(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+    location = await SerpLocationRepository(self.db).get(location_code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 190, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 992, in _raise_for_prerequisite_state
+    raise sa_exc.InvalidRequestError(
+sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
+2026-10-13T16:28:31 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:44:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:44:31 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:46:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:50:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:50:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T16:55:34 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=38931a68eed6e4db8fc9785573b27aa32231c96c4fccf5c0480362edef95737e -> existing id=573e722c-f253-44bd-adc5-7bf7a356a207
+2026-10-13T16:56:15 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=97f08a74-c5b8-468a-bb45-905454556675
+2026-10-13T16:56:26 | WARNING | app | run_serp_check: check ce49f41d-0655-47ba-8c9f-af6ebc7e1834 not found
+2026-10-13T16:56:40 | ERROR | app | serp_rank_check: parse failed id=ef1fcb34-5e24-4828-8274-6483421bea8d: provider response has no result
+2026-10-13T16:56:45 | ERROR | app | build_preview: preview failed id=5fd50433-ceb0-46de-866f-355ab9c05ab6: screenshot boom
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 435, in build_preview_async
+    urls = await save_preview_artifacts(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 282, in fake_save
+    raise state["raise"]
+RuntimeError: screenshot boom
+2026-10-13T16:57:30 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-13T16:57:30 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 140, in sweep_stuck_checks
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
+    return running_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\nest_asyncio.py", line 98, in run_until_complete
+    return f.result()
+           ^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py", line 203, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 137, in _run
+    return await SerpRankCheckService().sweep_stuck_async()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TestMaintenanceTasks.test_sweep_task_invokes_service.<locals>.fake_sweep() takes 0 positional arguments but 1 was given
+2026-10-13T16:57:32 | INFO | app | serp_rank_check.refresh_reference_data: started
+2026-10-13T16:57:32 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 171, in refresh_reference_data
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
+    return running_loop.run_until_complete(coro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\nest_asyncio.py", line 98, in run_until_complete
+    return f.result()
+           ^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py", line 203, in result
+    raise self._exception.with_traceback(self._exception_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 168, in _run
+    return await SerpRankCheckService().refresh_reference_data_async()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_refresh() takes 0 positional arguments but 1 was given
+2026-10-13T17:01:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T17:15:21 | INFO | app | Celery broker connection pre-warmed successfully
