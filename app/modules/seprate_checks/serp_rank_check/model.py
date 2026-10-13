@@ -5,8 +5,12 @@ Three tables:
 - ``serp_locations`` — reference table of DataForSEO Google locations.
 - ``serp_languages`` — reference table of DataForSEO Google languages.
 - ``rank_checks`` — one row per rank-check job. Postgres is the only
-  source of truth: a partial unique index on ``(user_id, fingerprint)``
-  for in-flight rows provides duplicate protection without Redis.
+  source of truth: a partial unique index on
+  ``(COALESCE(user_id, anon), fingerprint)`` for in-flight rows
+  provides duplicate protection without Redis.  ``user_id`` is
+  nullable so that anonymous (public) API callers can still create
+  checks; the COALESCE collapses all anonymous rows to a single
+  constant UUID so the fingerprint alone de-duplicates them.
 """
 import enum
 import uuid
@@ -28,6 +32,13 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base, TimestampMixin
+
+# Placeholder UUID used in the COALESCE-based unique index so that
+# anonymous (user_id IS NULL) checks are still de-duplicated by
+# fingerprint just like authenticated ones.
+ANONYMOUS_USER_ID: uuid.UUID = uuid.UUID(
+    "00000000-0000-0000-0000-000000000000"
+)
 
 
 class RankCheckStatus(str, enum.Enum):
@@ -76,12 +87,13 @@ class RankCheck(TimestampMixin, Base):
     __table_args__ = (
         Index(
             "uq_rank_checks_inflight",
-            "user_id",
+            text(f"COALESCE(user_id, '{ANONYMOUS_USER_ID}'::uuid)"),
             "fingerprint",
             unique=True,
             postgresql_where=text("status IN ('queued','running')"),
         ),
         Index("ix_rank_checks_user_created", "user_id", "created_at"),
+        Index("ix_rank_checks_created_at", "created_at"),
         CheckConstraint(
             "device IN ('desktop','mobile')",
             name="ck_rank_checks_device",
@@ -97,9 +109,9 @@ class RankCheck(TimestampMixin, Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    user_id: Mapped[uuid.UUID] = mapped_column(
+    user_id: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True),
-        nullable=False,
+        nullable=True,
         index=True,
     )
     keyword: Mapped[str] = mapped_column(Text, nullable=False)

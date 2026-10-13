@@ -23,8 +23,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.logger import logger
-from app.modules.auth.models.users import User
-from app.core.security import get_current_user
 from app.shared.tasks.celery_app import celery_app
 
 from .model import RankCheck
@@ -107,7 +105,6 @@ async def list_locations(
     limit: int = 50,
     offset: int = 0,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> SerpLocationListResponse:
     limit = max(1, min(limit, 200))
     offset = max(0, offset)
@@ -139,7 +136,6 @@ async def list_languages(
     limit: int = 200,
     offset: int = 0,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> SerpLanguageListResponse:
     limit = max(1, min(limit, 500))
     offset = max(0, offset)
@@ -169,12 +165,10 @@ async def create_rank_check(
     body: RankCheckRequest,
     response: Response,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> RankCheckCreateResponse:
     try:
         service = SerpRankCheckService(db)
         check, created = await service.prepare_check(
-            user_id=user.id,
             keyword=body.keyword,
             domain=body.domain,
             location_code=body.location_code,
@@ -223,12 +217,9 @@ async def create_rank_check(
 async def get_rank_check(
     check_id: str,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> RankCheckStatusResponse:
     check_uuid = _parse_check_id(check_id)
-    check = await RankCheckRepository(db).get_by_user(
-        check_uuid, user.id
-    )
+    check = await RankCheckRepository(db).get(check_uuid)
     if check is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -240,18 +231,17 @@ async def get_rank_check(
 @router.get(
     "/rank-checks",
     response_model=RankCheckListResponse,
-    summary="List rank check history for the current user",
+    summary="List all rank checks",
 )
 async def list_rank_checks(
     limit: int = 20,
     offset: int = 0,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> RankCheckListResponse:
     limit = max(1, min(limit, 200))
     offset = max(0, offset)
-    checks, total = await RankCheckRepository(db).list_for_user(
-        user.id, limit, offset
+    checks, total = await RankCheckRepository(db).list_all(
+        limit, offset
     )
     return RankCheckListResponse(
         items=[_to_status_response(check) for check in checks],
@@ -266,13 +256,10 @@ async def get_preview_artifact(
     check_id: str,
     filename: str,
     db: AsyncSession = Depends(get_db),
-    user: User = Depends(get_current_user),
 ) -> FileResponse:
     """Serve a stored preview artifact (HTML or screenshot)."""
     check_uuid = _parse_check_id(check_id)
-    check = await RankCheckRepository(db).get_by_user(
-        check_uuid, user.id
-    )
+    check = await RankCheckRepository(db).get(check_uuid)
     if check is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

@@ -949,3 +949,30 @@ Traceback (most recent call last):
 TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_refresh() takes 0 positional arguments but 1 was given
 2026-10-13T17:01:16 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-13T17:15:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T18:17:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T18:17:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T18:21:44 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=38931a68eed6e4db8fc9785573b27aa32231c96c4fccf5c0480362edef95737e -> existing id=6bf4b0ae-9a89-43e4-8c69-6c70c3ae93be
+2026-10-13T18:22:31 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=8777ea70-8944-4f97-9fbf-fd99d1689f56
+2026-10-13T18:22:44 | WARNING | app | run_serp_check: check 40fbf905-fdfc-4901-a832-f92aef1d4288 not found
+2026-10-13T18:22:57 | ERROR | app | serp_rank_check: parse failed id=38265205-fbee-4fa4-9be9-075fb677b8ec: provider response has no result
+2026-10-13T18:24:25 | INFO | app | serp_rank_check.run_serp_check: started id=3d714b7a-79ed-49ad-a12c-f7dee5314298
+2026-10-13T18:24:25 | INFO | app | serp_rank_check.run_serp_check: COMPLETED id=3d714b7a-79ed-49ad-a12c-f7dee5314298 status=done
+2026-10-13T18:24:27 | INFO | app | serp_rank_check.run_serp_check: started id=721d8529-01be-41ba-a299-c8e7276777ac
+2026-10-13T18:24:29 | INFO | app | serp_rank_check.run_serp_check: started id=09bffcfc-1702-4b69-a494-c22f8b5f477f
+2026-10-13T18:24:33 | INFO | app | serp_rank_check.run_serp_check: started id=00df132e-a132-4eeb-a831-a2588d46b4c9
+2026-10-13T18:25:49 | INFO | app | serp_rank_check.build_preview: started id=1a85a343-492c-49a9-a4d9-976266a6a816
+2026-10-13T18:25:49 | INFO | app | serp_rank_check.build_preview: COMPLETED id=1a85a343-492c-49a9-a4d9-976266a6a816 preview_status=done
+2026-10-13T18:25:52 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-13T18:25:52 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-13T18:25:54 | INFO | app | serp_rank_check.refresh_reference_data: started
+2026-10-13T18:25:54 | INFO | app | serp_rank_check.refresh_reference_data: COMPLETED locations=0 languages=0
+2026-10-13T18:27:30 | ERROR | app | build_preview: preview failed id=835d3361-13bb-490a-8aad-24971f199b96: screenshot boom
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 435, in build_preview_async
+    urls = await save_preview_artifacts(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 276, in fake_save
+    raise state["raise"]
+RuntimeError: screenshot boom
+2026-10-13T18:29:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-13T18:37:16 | INFO | app | Celery broker connection pre-warmed successfully

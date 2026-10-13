@@ -95,6 +95,21 @@ class RankCheckRepository:
         result = await self.db.execute(stmt)
         return list(result.scalars().all()), total
 
+    async def list_all(
+        self, limit: int, offset: int
+    ) -> tuple[list[RankCheck], int]:
+        """List all rank checks (public endpoint — no user scoping)."""
+        count_stmt = select(func.count()).select_from(RankCheck)
+        total = int((await self.db.execute(count_stmt)).scalar_one())
+        stmt = (
+            select(RankCheck)
+            .order_by(RankCheck.created_at.desc())
+            .limit(limit)
+            .offset(offset)
+        )
+        result = await self.db.execute(stmt)
+        return list(result.scalars().all()), total
+
     async def mark_failed_if_pending(
         self, check_id: UUID, error_code: str
     ) -> bool:

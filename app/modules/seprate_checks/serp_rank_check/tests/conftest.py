@@ -16,7 +16,6 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.core.database import get_db
-from app.core.security import get_current_user
 from app.main import app
 from app.shared.tasks.celery_app import celery_app
 from app.tests.database import (
@@ -51,10 +50,6 @@ async def db_session(db_engine) -> AsyncSession:
 
 @pytest.fixture(autouse=True)
 def override_dependencies(db_engine, db_session):
-    fake_user = SimpleNamespace(id=FAKE_USER_ID)
-    # Yield a fresh session per request (as production
-    # does) so concurrent requests never share one
-    # SQLAlchemy session.
     factory = async_sessionmaker(
         db_engine, class_=AsyncSession, expire_on_commit=False
     )
@@ -64,7 +59,6 @@ def override_dependencies(db_engine, db_session):
             yield session
 
     app.dependency_overrides[get_db] = _get_db
-    app.dependency_overrides[get_current_user] = lambda: fake_user
     yield
     app.dependency_overrides.clear()
 

@@ -210,7 +210,7 @@ class SerpRankCheckService:
     async def prepare_check(
         self,
         *,
-        user_id: UUID,
+        user_id: UUID | None = None,
         keyword: str,
         domain: str,
         location_code: int,

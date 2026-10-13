@@ -238,7 +238,7 @@ async def test_get_unknown_id_returns_404(seed_reference):
 
 
 @pytest.mark.asyncio
-async def test_get_other_users_check_returns_404(
+async def test_get_any_check_returns_status(
     seed_reference, db_session
 ):
     repo = RankCheckRepository(db_session)
@@ -262,7 +262,10 @@ async def test_get_other_users_check_returns_404(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
         response = await client.get(f"{API}/rank-checks/{check.id}")
-    assert response.status_code == 404
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["id"] == str(check.id)
+    assert payload["keyword"] == "seo tools"
 
 
 @pytest.mark.asyncio
