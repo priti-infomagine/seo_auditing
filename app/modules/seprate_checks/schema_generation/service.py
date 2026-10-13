@@ -1,3 +1,4 @@
+import json
 import time
 from typing import Any
 
@@ -51,6 +52,16 @@ class SchemaGenerationService:
 
             json_ld, warnings = self._build_jsonld(request)
 
+            # Generate script_format: JSON-LD wrapped in HTML <script> tag
+            json_ld_str = json.dumps(json_ld, indent=2, ensure_ascii=False)
+            # Harden against </script> injection (standard JSON-LD practice)
+            json_ld_str = json_ld_str.replace("</", "<\\/")
+            script_format = (
+                f'<script type="application/ld+json">\n'
+                f'{json_ld_str}\n'
+                f'</script>'
+            )
+
             record = SchemaGeneration(
                 schema_type=request.schema_type.value,
                 article_subtype=request.article_subtype.value
@@ -71,6 +82,7 @@ class SchemaGenerationService:
             response_data = {
                 "schema_type": request.schema_type,
                 "generated_jsonld": json_ld,
+                "script_format": script_format,
                 "warnings": warnings,
                 "generation_id": record.id,
                 "cost_seconds": record.cost_seconds,

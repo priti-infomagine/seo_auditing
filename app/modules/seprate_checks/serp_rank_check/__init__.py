@@ -1,0 +1,1 @@
+"""SERP rank check module."""
