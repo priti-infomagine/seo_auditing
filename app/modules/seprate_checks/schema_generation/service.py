@@ -13,10 +13,14 @@ from .exceptions import (
     SchemaGenerationError,
 )
 from .generator import SchemaGenerator
-from .model import ArticleSubType, GenerationStatus, SchemaAudit, SchemaGeneration, SchemaType
+from .model import GenerationStatus, SchemaAudit, SchemaGeneration, SchemaType
 from .repository import SchemaAuditRepository, SchemaGenerationRepository
 from .schema import (
     ArticleInput,
+    EventInput,
+    FAQPageInput,
+    HowToInput,
+    JobPostingInput,
     LocalBusinessInput,
     OrganizationInput,
     ProductInput,
@@ -24,6 +28,7 @@ from .schema import (
     SchemaAuditResponse,
     SchemaGenerateRequest,
     SchemaGenerateResponse,
+    WebsiteInput,
 )
 
 
@@ -51,6 +56,9 @@ class SchemaGenerationService:
                 article_subtype=request.article_subtype.value
                 if request.article_subtype
                 else None,
+                local_business_subtype=request.local_business_subtype.value
+                if request.local_business_subtype
+                else None,
                 input_data=request.input_data.model_dump(mode="json"),
                 generated_jsonld=json_ld,
                 warnings=warnings,
@@ -60,14 +68,19 @@ class SchemaGenerationService:
             await self.generation_repo.create(record)
             await self.db.commit()
 
-            return SchemaGenerateResponse(
-                schema_type=request.schema_type,
-                article_subtype=request.article_subtype,
-                generated_jsonld=json_ld,
-                warnings=warnings,
-                generation_id=record.id,
-                cost_seconds=record.cost_seconds,
-            )
+            response_data = {
+                "schema_type": request.schema_type,
+                "generated_jsonld": json_ld,
+                "warnings": warnings,
+                "generation_id": record.id,
+                "cost_seconds": record.cost_seconds,
+            }
+            if request.schema_type == SchemaType.ARTICLE and request.article_subtype:
+                response_data["article_subtype"] = request.article_subtype
+            if request.schema_type == SchemaType.LOCAL_BUSINESS and request.local_business_subtype:
+                response_data["local_business_subtype"] = request.local_business_subtype
+            
+            return SchemaGenerateResponse(**response_data)
 
         except InvalidSchemaTypeError:
             raise
@@ -79,6 +92,9 @@ class SchemaGenerationService:
                 else "unknown",
                 article_subtype=request.article_subtype.value
                 if request.article_subtype
+                else None,
+                local_business_subtype=request.local_business_subtype.value
+                if request.local_business_subtype
                 else None,
                 input_data=request.input_data.model_dump(mode="json"),
                 status=GenerationStatus.FAILED.value,
@@ -106,7 +122,7 @@ class SchemaGenerationService:
                 raise SchemaGenerationError(
                     "Input data must be LocalBusinessInput for LocalBusiness schema"
                 )
-            return self.generator.build_local_business(input_data)
+            return self.generator.build_local_business(input_data, request.local_business_subtype)
 
         elif request.schema_type == SchemaType.ARTICLE:
             if not isinstance(input_data, ArticleInput):
@@ -121,6 +137,41 @@ class SchemaGenerationService:
                     "Input data must be ProductInput for Product schema"
                 )
             return self.generator.build_product(input_data)
+
+        elif request.schema_type == SchemaType.WEBSITE:
+            if not isinstance(input_data, WebsiteInput):
+                raise SchemaGenerationError(
+                    "Input data must be WebsiteInput for WebSite schema"
+                )
+            return self.generator.build_website(input_data)
+
+        elif request.schema_type == SchemaType.EVENT:
+            if not isinstance(input_data, EventInput):
+                raise SchemaGenerationError(
+                    "Input data must be EventInput for Event schema"
+                )
+            return self.generator.build_event(input_data)
+
+        elif request.schema_type == SchemaType.JOB_POSTING:
+            if not isinstance(input_data, JobPostingInput):
+                raise SchemaGenerationError(
+                    "Input data must be JobPostingInput for JobPosting schema"
+                )
+            return self.generator.build_job_posting(input_data)
+
+        elif request.schema_type == SchemaType.FAQ_PAGE:
+            if not isinstance(input_data, FAQPageInput):
+                raise SchemaGenerationError(
+                    "Input data must be FAQPageInput for FAQPage schema"
+                )
+            return self.generator.build_faq_page(input_data)
+
+        elif request.schema_type == SchemaType.HOW_TO:
+            if not isinstance(input_data, HowToInput):
+                raise SchemaGenerationError(
+                    "Input data must be HowToInput for HowTo schema"
+                )
+            return self.generator.build_how_to(input_data)
 
         else:
             raise InvalidSchemaTypeError(

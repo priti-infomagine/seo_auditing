@@ -1,6 +1,7 @@
 from .model import (
     ArticleSubType,
     GenerationStatus,
+    LocalBusinessSubType,
     SchemaAudit,
     SchemaGeneration,
     SchemaType,
@@ -11,6 +12,7 @@ __all__ = [
     "router",
     "SchemaType",
     "ArticleSubType",
+    "LocalBusinessSubType",
     "GenerationStatus",
     "SchemaGeneration",
     "SchemaAudit",
