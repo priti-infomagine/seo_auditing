@@ -22,6 +22,7 @@ celery_app = Celery(
         "app.modules.seprate_checks.meta_check.tasks",
         "app.modules.seprate_checks.redirect_urls.tasks",
         "app.modules.seprate_checks.redirect_check.tasks",
+        "app.modules.seprate_checks.serp_rank_check.tasks",
     ],
 )
 
@@ -64,5 +65,13 @@ celery_app.conf.beat_schedule = {
     "cleanup-expired-refresh-tokens-every-day": {
         "task": "auth.cleanup_expired_refresh_tokens",
         "schedule": 86400.0,
+    },
+    "serp-sweep-stuck-checks": {
+        "task": "serp_rank_check.sweep_stuck_checks",
+        "schedule": 300.0,
+    },
+    "serp-refresh-reference-data": {
+        "task": "serp_rank_check.refresh_reference_data",
+        "schedule": 604800.0,
     },
 }

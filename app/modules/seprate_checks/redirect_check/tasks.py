@@ -79,3 +79,4 @@ def run_check(
         )
         print(f"[redirect-check] FAILED for {audit_id}", flush=True)
         raise
+        

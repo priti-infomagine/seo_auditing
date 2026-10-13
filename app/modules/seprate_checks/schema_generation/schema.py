@@ -359,6 +359,10 @@ class SchemaAuditRequest(BaseModel):
 class SchemaGenerateResponse(BaseModel):
     schema_type: SchemaType
     generated_jsonld: dict[str, Any]
+    script_format: str = Field(
+        ...,
+        description="JSON-LD wrapped in HTML <script> tag, ready to paste into a web page",
+    )
     warnings: List[str] = Field(default_factory=list)
     generation_id: UUID
     cost_seconds: Optional[float] = None

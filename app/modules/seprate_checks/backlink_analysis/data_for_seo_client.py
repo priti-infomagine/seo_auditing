@@ -30,17 +30,25 @@ class DataForSEOClient:
     MAX_ATTEMPTS = 3
     EVIDENCE_LIMIT = 5
 
-    def __init__(self, login: str, password: str):
+    def __init__(
+        self,
+        login: str,
+        password: str,
+        timeout: float = 60.0,
+        max_attempts: int = MAX_ATTEMPTS,
+    ):
         token = base64.b64encode(f"{login}:{password}".encode()).decode()
         self.headers = {
             "Authorization": f"Basic {token}",
             "Content-Type": "application/json",
         }
+        self.timeout = timeout
+        self.max_attempts = max_attempts
         self._client: Optional[httpx.AsyncClient] = None
 
     def _get_client(self) -> httpx.AsyncClient:
         if self._client is None or self._client.is_closed:
-            self._client = httpx.AsyncClient(timeout=60, headers=self.headers)
+            self._client = httpx.AsyncClient(timeout=self.timeout, headers=self.headers)
         return self._client
 
     async def aclose(self) -> None:
@@ -50,7 +58,7 @@ class DataForSEOClient:
 
     async def _post(self, endpoint: str, payload: list[dict[str, Any]]) -> Dict[str, Any]:
         client = self._get_client()
-        for attempt in range(1, self.MAX_ATTEMPTS + 1):
+        for attempt in range(1, self.max_attempts + 1):
             try:
                 response = await client.post(
                     f"{self.BASE_URL}{endpoint}",
@@ -58,7 +66,7 @@ class DataForSEOClient:
                 )
                 if (
                     response.status_code in self.RETRY_STATUS
-                    and attempt < self.MAX_ATTEMPTS
+                    and attempt < self.max_attempts
                 ):
                     await asyncio.sleep(2 ** (attempt - 1))
                     continue
@@ -68,7 +76,29 @@ class DataForSEOClient:
                     raise ValueError("DataForSEO returned an invalid response")
                 return body
             except httpx.TransportError:
-                if attempt == self.MAX_ATTEMPTS:
+                if attempt == self.max_attempts:
+                    raise
+                await asyncio.sleep(2 ** (attempt - 1))
+        raise RuntimeError("DataForSEO request exhausted retries")
+
+    async def _get(self, endpoint: str) -> Dict[str, Any]:
+        client = self._get_client()
+        for attempt in range(1, self.max_attempts + 1):
+            try:
+                response = await client.get(f"{self.BASE_URL}{endpoint}")
+                if (
+                    response.status_code in self.RETRY_STATUS
+                    and attempt < self.max_attempts
+                ):
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                response.raise_for_status()
+                body = response.json()
+                if not isinstance(body, dict):
+                    raise ValueError("DataForSEO returned an invalid response")
+                return body
+            except httpx.TransportError:
+                if attempt == self.max_attempts:
                     raise
                 await asyncio.sleep(2 ** (attempt - 1))
         raise RuntimeError("DataForSEO request exhausted retries")
@@ -202,3 +232,37 @@ class DataForSEOClient:
                 "brokenBacklinks": broken_backlinks,
             },
         }
+
+    async def serp_google_organic_live(
+        self,
+        keyword: str,
+        location_code: int,
+        language_code: str,
+        device: str,
+        depth: int,
+    ) -> Dict[str, Any]:
+        """Call the Google Organic Live Advanced endpoint.
+
+        Returns the raw response body (the caller extracts
+        ``tasks[0].result[0]`` and the ``cost``).
+        """
+        return await self._post(
+            "/serp/google/organic/live/advanced",
+            [
+                {
+                    "keyword": keyword,
+                    "location_code": location_code,
+                    "language_code": language_code,
+                    "device": device,
+                    "depth": depth,
+                }
+            ],
+        )
+
+    async def serp_google_locations(self) -> Dict[str, Any]:
+        """Return the raw response body for the Google locations list."""
+        return await self._get("/serp/google/locations")
+
+    async def serp_google_languages(self) -> Dict[str, Any]:
+        """Return the raw response body for the Google languages list."""
+        return await self._get("/serp/google/languages")
