@@ -1,43 +1,36 @@
 """Business logic for SERP rank checks.
 
-The API never calls the provider directly: every provider call
-happens inside the ``run_serp_check`` Celery task. The rank
-result and the preview are separate stages — a preview failure
-never fails the rank check.
+The API endpoint calls DataForSEO directly (synchronous flow):
+validate input → call provider → parse → persist → return result.
+The preview is a separate stage and is enqueued as a Celery task
+so it never blocks the rank-check response.
 """
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
 from uuid import UUID
 
-import httpx
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.database import async_session_factory
 from app.core.logger import logger
-from app.modules.seprate_checks.backlink_analysis.data_for_seo_client import (
-    DataForSEOClient,
-)
 from app.shared.tasks.celery_app import celery_app
 
+from .client import get_serp_client
 from .exceptions import (
     SerpParseError,
     SerpProvider4xx,
     SerpProvider5xx,
     SerpProviderTimeout,
 )
-from .model import RankCheck, RankCheckStatus, PreviewStatus
+from .model import PreviewStatus, RankCheck, RankCheckStatus
 from .parser import parse_serp_response
 from .preview import render_preview_html, save_preview_artifacts
-from .repository import (
-    RankCheckRepository,
-    SerpLanguageRepository,
-    SerpLocationRepository,
-)
+from .repository import RankCheckRepository
 from .validation import (
     compute_fingerprint,
     normalize_domain,
@@ -45,43 +38,6 @@ from .validation import (
     validate_depth,
     validate_device,
 )
-
-# ── DataForSEO client singleton ────────────────────────────────
-_serp_client: DataForSEOClient | None = None
-_serp_credentials: tuple[str, str] | None = None
-
-
-class DataForSEOConfigurationError(RuntimeError):
-    """DataForSEO credentials are missing."""
-
-
-async def close_serp_client() -> None:
-    global _serp_client, _serp_credentials
-    if _serp_client is not None:
-        await _serp_client.aclose()
-    _serp_client = None
-    _serp_credentials = None
-
-
-async def _get_serp_client() -> DataForSEOClient:
-    global _serp_client, _serp_credentials
-    if not settings.DATAFORSEO_LOGIN or not settings.DATAFORSEO_PASSWORD:
-        raise DataForSEOConfigurationError(
-            "DataForSEO credentials are not configured"
-        )
-    credentials = (settings.DATAFORSEO_LOGIN, settings.DATAFORSEO_PASSWORD)
-    if _serp_credentials != credentials:
-        await close_serp_client()
-        # max_attempts=1: retries are handled by the Celery task's
-        # autoretry (max 3), not by the HTTP client.
-        _serp_client = DataForSEOClient(
-            settings.DATAFORSEO_LOGIN,
-            settings.DATAFORSEO_PASSWORD,
-            timeout=settings.SERP_PROVIDER_TIMEOUT,
-            max_attempts=1,
-        )
-        _serp_credentials = credentials
-    return _serp_client
 
 
 # ── Error classification ───────────────────────────────────────
@@ -105,27 +61,8 @@ def classify_error(exc: BaseException) -> str:
             return "PROVIDER_5XX"
         if isinstance(current, SerpParseError):
             return "PARSE_ERROR"
-        # Defensive: a raw httpx error that escaped
-        # _call_provider still classifies correctly.
-        if isinstance(current, httpx.TimeoutException):
-            return "PROVIDER_TIMEOUT"
-        if isinstance(current, httpx.HTTPStatusError):
-            status_code = current.response.status_code
-            if 500 <= status_code < 600:
-                return "PROVIDER_5XX"
-            return "PROVIDER_4XX"
-        if isinstance(current, httpx.TransportError):
-            return "PROVIDER_TIMEOUT"
         current = current.__cause__ or current.__context__
     return "PROVIDER_5XX"
-
-
-def _raise_for_status_code(code: Any, message: Any) -> None:
-    if isinstance(code, int) and code >= 50000:
-        raise SerpProvider5xx(f"DataForSEO error {code}: {message}")
-    if isinstance(code, int) and code >= 40000:
-        raise SerpProvider4xx(f"DataForSEO error {code}: {message}")
-    raise SerpProvider5xx(f"DataForSEO error {code}: {message}")
 
 
 def _validate_body_status(body: dict[str, Any]) -> None:
@@ -143,56 +80,20 @@ def _validate_body_status(body: dict[str, Any]) -> None:
     _raise_for_status_code(status_code, body.get("status_message"))
 
 
-# ── Reference data extraction ──────────────────────────────────
-def _extract_locations(body: dict[str, Any]) -> list[dict[str, Any]]:
-    tasks = body.get("tasks")
-    if not isinstance(tasks, list) or not tasks:
-        return []
-    task = tasks[0]
-    if not isinstance(task, dict):
-        return []
-    result = task.get("result")
-    if not isinstance(result, list):
-        return []
-    rows: list[dict[str, Any]] = []
-    for item in result:
-        if not isinstance(item, dict):
-            continue
-        code = item.get("location_code")
-        name = item.get("location_name")
-        if not isinstance(code, int) or not name:
-            continue
-        rows.append(
-            {
-                "location_code": code,
-                "name": name,
-                "country_iso": item.get("country_iso_code"),
-                "location_type": item.get("location_type"),
-            }
-        )
-    return rows
+def _raise_for_status_code(code: Any, message: Any) -> None:
+    if isinstance(code, int) and code >= 50000:
+        raise SerpProvider5xx(f"DataForSEO error {code}: {message}")
+    if isinstance(code, int) and code >= 40000:
+        raise SerpProvider4xx(f"DataForSEO error {code}: {message}")
+    raise SerpProvider5xx(f"DataForSEO error {code}: {message}")
 
 
-def _extract_languages(body: dict[str, Any]) -> list[dict[str, Any]]:
-    tasks = body.get("tasks")
-    if not isinstance(tasks, list) or not tasks:
-        return []
-    task = tasks[0]
-    if not isinstance(task, dict):
-        return []
-    result = task.get("result")
-    if not isinstance(result, list):
-        return []
-    rows: list[dict[str, Any]] = []
-    for item in result:
-        if not isinstance(item, dict):
-            continue
-        code = item.get("language_code")
-        name = item.get("language_name")
-        if not code or not name:
-            continue
-        rows.append({"language_code": code, "name": name})
-    return rows
+# ── Error-handling correction ──────────────────────────────────
+# An empty *items* list in a valid 20000 response means "no results
+# for this keyword" — that is a successful outcome, not an error.
+# Empty / malformed *response bodies* (missing tasks, invalid JSON)
+# DO raise and are caught by the service's try/except and classified
+# via classify_error().
 
 
 class SerpRankCheckService:
@@ -206,148 +107,230 @@ class SerpRankCheckService:
     def __init__(self, db: AsyncSession | None = None):
         self.db = db
 
-    # ── API-facing ───────────────────────────────────────────
-    async def prepare_check(
+    # ── API-facing: synchronous check ──────────────────────
+    async def check_serp_rank(
         self,
         *,
         user_id: UUID | None = None,
         keyword: str,
         domain: str,
-        location_code: int,
-        language_code: str,
+        location_name: str,
+        language_name: str,
         device: str,
         depth: int,
         include_preview: bool,
     ) -> tuple[RankCheck, bool]:
-        """Validate, fingerprint and insert a queued check.
+        """Validate, call DataForSEO, parse, persist, and return.
 
-        Returns ``(check, created)``. ``created=False`` means an
-        identical in-flight check already exists.
+        This is the single entry point for the rank-check workflow.
+        The endpoint calls this method synchronously — no Celery
+        task is enqueued for the check itself.  Preview generation
+        is still async.
+
+        Returns ``(check, created)``.  ``created=False`` means an
+        identical in-flight check already exists (deduplication via
+        the partial unique index).
         """
         if self.db is None:
-            raise RuntimeError("prepare_check requires a database session")
-
-        location = await SerpLocationRepository(self.db).get(location_code)
-        if location is None:
-            raise ValueError(f"unknown location_code: {location_code}")
-        language = await SerpLanguageRepository(self.db).get(language_code)
-        if language is None:
-            raise ValueError(f"unknown language_code: {language_code}")
+            raise RuntimeError("check_serp_rank requires a database session")
 
         normalized_keyword = normalize_keyword(keyword)
         normalized_domain = normalize_domain(domain)
         device = validate_device(device)
         depth = validate_depth(depth)
+        location_name = location_name.strip()
+        if not location_name:
+            raise ValueError("location must not be blank")
+        language_name = language_name.strip()
+        if not language_name:
+            raise ValueError("language must not be blank")
+
         fingerprint = compute_fingerprint(
             keyword=normalized_keyword,
             domain=normalized_domain,
-            location_code=location_code,
-            language_code=language_code,
+            location_name=location_name,
+            language_name=language_name,
             device=device,
             depth=depth,
             include_preview=include_preview,
         )
+
         check = RankCheck(
             user_id=user_id,
             keyword=normalized_keyword,
             domain=normalized_domain,
-            location_code=location_code,
-            language_code=language_code,
+            location_name=location_name,
+            language_name=language_name,
             device=device,
             depth=depth,
             include_preview=include_preview,
             fingerprint=fingerprint,
-            status=RankCheckStatus.QUEUED.value,
+            status=RankCheckStatus.RUNNING.value,
         )
-        return await RankCheckRepository(self.db).create_in_flight(check)
 
-    # ── Task-facing: rank check ──────────────────────────────
-    async def run_check_async(self, check_id: UUID) -> dict[str, Any]:
+        repo = RankCheckRepository(self.db)
+        check, created = await repo.create_in_flight(check)
+        if not created:
+            await self.db.refresh(check)
+            return check, False
+
+        try:
+            client = await get_serp_client()
+            body = await client.serp_google_organic_live_advanced(
+                keyword=normalized_keyword,
+                location_name=location_name,
+                language_name=language_name,
+                device=device,
+                depth=depth,
+            )
+            _validate_body_status(body)
+
+            check.raw_response = body
+            check.provider_cost = Decimal(str(body.get("cost") or 0))
+            check.provider_called_at = datetime.now(timezone.utc)
+            await self.db.commit()
+            await self.db.refresh(check)
+
+            result = parse_serp_response(
+                body,
+                normalized_domain,
+                depth,
+                settings.SERP_TOP_RESULTS_LIMIT,
+            )
+            check.result = result
+            check.status = RankCheckStatus.DONE.value
+            await self.db.commit()
+            await self.db.refresh(check)
+
+            if include_preview:
+                check.preview_status = PreviewStatus.PENDING.value
+                await self.db.commit()
+                await self._enqueue_preview(check.id)
+
+            return check, True
+
+        except (SerpProviderTimeout, SerpProvider5xx):
+            await self.db.commit()
+            raise
+        except Exception as exc:
+            check.status = RankCheckStatus.FAILED.value
+            check.error_code = classify_error(exc)
+            await self.db.commit()
+            raise
+
+    async def _enqueue_preview(self, check_id: UUID) -> None:
+        try:
+            await asyncio.to_thread(
+                celery_app.send_task,
+                "serp_rank_check.build_preview",
+                args=[str(check_id)],
+                queue="serp_preview",
+            )
+        except Exception as exc:  # noqa: BLE001
+            logger.error(
+                "serp_rank_check: failed to enqueue preview id=%s: %s",
+                check_id,
+                exc,
+            )
+
+    # ── Task-facing: preview ─────────────────────────────────
+    async def build_preview_async(self, check_id: UUID) -> dict[str, Any]:
         async with async_session_factory() as session:
             repo = RankCheckRepository(session)
             check = await repo.get(check_id)
             if check is None:
                 logger.warning(
-                    "run_serp_check: check %s not found", check_id
+                    "build_preview: check %s not found", check_id
                 )
-                return {"id": str(check_id), "status": "missing"}
-
-            # Idempotency gate. Completed checks are a no-op (makes
-            # redelivery safe). A ranked check that never enqueued
-            # its preview is self-healed here.
-            if check.status in (
-                RankCheckStatus.RANKED.value,
-                RankCheckStatus.DONE.value,
-                RankCheckStatus.FAILED.value,
-            ):
-                if (
-                    check.status == RankCheckStatus.RANKED.value
-                    and check.include_preview
-                    and check.preview_status == PreviewStatus.NONE.value
-                ):
-                    await self._enqueue_preview(check.id)
-                return {"id": str(check.id), "status": check.status}
-
-            # Crashed after the provider call — resume parsing from
-            # the stored raw response without calling the provider.
+                return {"id": str(check_id), "preview_status": "missing"}
+            if check.preview_status != PreviewStatus.PENDING.value:
+                return {
+                    "id": str(check.id),
+                    "preview_status": check.preview_status,
+                }
             if (
-                check.status == RankCheckStatus.RUNNING.value
-                and check.raw_response is not None
+                check.status != RankCheckStatus.DONE.value
+                or not check.result
             ):
-                return await self._finalize_from_raw(check, session, repo)
-
-            # Full path (queued, or running without a raw response:
-            # a Celery retry or a crash redelivery before the
-            # provider responded).
-            check.status = RankCheckStatus.RUNNING.value
-            await session.commit()
-
-            try:
-                body = await self._call_provider(check)
-                _validate_body_status(body)
-            except (SerpProviderTimeout, SerpProvider5xx):
-                # Retryable: leave the check running so
-                # Celery redelivers it. The task marks it
-                # failed only on the final attempt.
-                raise
-            except Exception as exc:
-                # Non-retryable (4xx, parse, unexpected):
-                # fail immediately.
-                check.status = RankCheckStatus.FAILED.value
-                check.error_code = classify_error(exc)
+                check.preview_status = PreviewStatus.FAILED.value
+                check.status = RankCheckStatus.DONE.value
                 await session.commit()
-                raise
-
-            check.raw_response = body
-            check.provider_cost = Decimal(str(body.get("cost") or 0))
-            check.provider_called_at = datetime.now(timezone.utc)
+                return {
+                    "id": str(check.id),
+                    "status": check.status,
+                    "preview_status": check.preview_status,
+                }
+            try:
+                html_content = render_preview_html(
+                    keyword=check.keyword,
+                    target_domain=check.domain,
+                    device=check.device,
+                    result=check.result,
+                )
+                urls = await save_preview_artifacts(
+                    check.id, html_content, check.device
+                )
+                check.preview_html_url = urls["html_url"]
+                check.preview_image_url = urls["image_url"]
+                check.preview_status = PreviewStatus.DONE.value
+                check.status = RankCheckStatus.DONE.value
+            except Exception as exc:  # noqa: BLE001
+                logger.error(
+                    "build_preview: preview failed id=%s: %s",
+                    check_id,
+                    exc,
+                    exc_info=True,
+                )
+                check.preview_status = PreviewStatus.FAILED.value
+                check.status = RankCheckStatus.DONE.value
             await session.commit()
+            return {
+                "id": str(check.id),
+                "status": check.status,
+                "preview_status": check.preview_status,
+            }
 
-            return await self._finalize_from_raw(check, session, repo)
+    # ── Task-facing: maintenance ─────────────────────────────
+    async def sweep_stuck_async(self) -> dict[str, Any]:
+        """Recover checks stuck in ``running`` for too long.
 
-    async def _call_provider(self, check: RankCheck) -> dict[str, Any]:
-        client = await _get_serp_client()
-        try:
-            return await client.serp_google_organic_live(
-                keyword=check.keyword,
-                location_code=check.location_code,
-                language_code=check.language_code,
-                device=check.device,
-                depth=check.depth,
-            )
-        except httpx.TimeoutException as exc:
-            raise SerpProviderTimeout(str(exc)) from exc
-        except httpx.TransportError as exc:
-            raise SerpProviderTimeout(str(exc)) from exc
-        except httpx.HTTPStatusError as exc:
-            status_code = exc.response.status_code
-            if 500 <= status_code < 600:
-                raise SerpProvider5xx(
-                    f"provider HTTP {status_code}"
-                ) from exc
-            raise SerpProvider4xx(
-                f"provider HTTP {status_code}"
-            ) from exc
+        Jobs with a stored raw response resume parsing; the rest are
+        marked failed (STUCK).
+        """
+        from datetime import timedelta
+
+        cutoff = datetime.now(timezone.utc) - timedelta(
+            seconds=settings.SERP_STUCK_JOB_TIMEOUT_SECONDS
+        )
+        async with async_session_factory() as session:
+            repo = RankCheckRepository(session)
+            stuck = await repo.find_stuck_running(cutoff)
+            resumed = 0
+            failed = 0
+            for check in stuck:
+                try:
+                    if check.raw_response is not None:
+                        await self._finalize_from_raw(check, session, repo)
+                        resumed += 1
+                    else:
+                        check.status = RankCheckStatus.FAILED.value
+                        check.error_code = "STUCK"
+                        await session.commit()
+                        failed += 1
+                except Exception as exc:  # noqa: BLE001
+                    logger.error(
+                        "sweep_stuck_checks: recovery failed id=%s: %s",
+                        check.id,
+                        exc,
+                        exc_info=True,
+                    )
+                    await session.rollback()
+                    failed += 1
+            return {
+                "swept": len(stuck),
+                "resumed": resumed,
+                "failed": failed,
+            }
 
     async def _finalize_from_raw(
         self,
@@ -373,7 +356,7 @@ class SerpRankCheckService:
             return {"id": str(check.id), "status": check.status}
 
         check.result = result
-        check.status = RankCheckStatus.RANKED.value
+        check.status = RankCheckStatus.DONE.value
         if check.include_preview:
             check.preview_status = PreviewStatus.PENDING.value
             await session.commit()
@@ -382,126 +365,6 @@ class SerpRankCheckService:
             check.status = RankCheckStatus.DONE.value
             await session.commit()
         return {"id": str(check.id), "status": check.status}
-
-    async def _enqueue_preview(self, check_id: UUID) -> None:
-        try:
-            await asyncio.to_thread(
-                celery_app.send_task,
-                "serp_rank_check.build_preview",
-                args=[str(check_id)],
-                queue="serp_preview",
-            )
-        except Exception as exc:
-            logger.error(
-                "serp_rank_check: failed to enqueue preview id=%s: %s",
-                check_id,
-                exc,
-            )
-
-    # ── Task-facing: preview ─────────────────────────────────
-    async def build_preview_async(self, check_id: UUID) -> dict[str, Any]:
-        async with async_session_factory() as session:
-            repo = RankCheckRepository(session)
-            check = await repo.get(check_id)
-            if check is None:
-                logger.warning(
-                    "build_preview: check %s not found", check_id
-                )
-                return {"id": str(check_id), "preview_status": "missing"}
-            if check.preview_status != PreviewStatus.PENDING.value:
-                return {
-                    "id": str(check.id),
-                    "preview_status": check.preview_status,
-                }
-            if (
-                check.status != RankCheckStatus.RANKED.value
-                or not check.result
-            ):
-                check.preview_status = PreviewStatus.FAILED.value
-                check.status = RankCheckStatus.DONE.value
-                await session.commit()
-                return {
-                    "id": str(check.id),
-                    "status": check.status,
-                    "preview_status": check.preview_status,
-                }
-            try:
-                html_content = render_preview_html(
-                    keyword=check.keyword,
-                    target_domain=check.domain,
-                    device=check.device,
-                    result=check.result,
-                )
-                urls = await save_preview_artifacts(
-                    check.id, html_content, check.device
-                )
-                check.preview_html_url = urls["html_url"]
-                check.preview_image_url = urls["image_url"]
-                check.preview_status = PreviewStatus.DONE.value
-                check.status = RankCheckStatus.DONE.value
-            except Exception as exc:
-                logger.error(
-                    "build_preview: preview failed id=%s: %s",
-                    check_id,
-                    exc,
-                    exc_info=True,
-                )
-                check.preview_status = PreviewStatus.FAILED.value
-                check.status = RankCheckStatus.DONE.value
-            await session.commit()
-            return {
-                "id": str(check.id),
-                "status": check.status,
-                "preview_status": check.preview_status,
-            }
-
-    # ── Task-facing: maintenance ─────────────────────────────
-    async def sweep_stuck_async(self) -> dict[str, Any]:
-        cutoff = datetime.now(timezone.utc) - timedelta(
-            seconds=settings.SERP_STUCK_JOB_TIMEOUT_SECONDS
-        )
-        async with async_session_factory() as session:
-            repo = RankCheckRepository(session)
-            stuck = await repo.find_stuck_running(cutoff)
-            resumed = 0
-            failed = 0
-            for check in stuck:
-                try:
-                    if check.raw_response is not None:
-                        await self._finalize_from_raw(check, session, repo)
-                        resumed += 1
-                    else:
-                        check.status = RankCheckStatus.FAILED.value
-                        check.error_code = "STUCK"
-                        await session.commit()
-                        failed += 1
-                except Exception as exc:
-                    logger.error(
-                        "sweep_stuck_checks: recovery failed id=%s: %s",
-                        check.id,
-                        exc,
-                        exc_info=True,
-                    )
-                    await session.rollback()
-                    failed += 1
-            return {
-                "swept": len(stuck),
-                "resumed": resumed,
-                "failed": failed,
-            }
-
-    async def refresh_reference_data_async(self) -> dict[str, Any]:
-        client = await _get_serp_client()
-        locations_body = await client.serp_google_locations()
-        languages_body = await client.serp_google_languages()
-        async with async_session_factory() as session:
-            locations = await SerpLocationRepository(
-                session
-            ).upsert_all(_extract_locations(locations_body))
-            languages = await SerpLanguageRepository(
-                session
-            ).upsert_all(_extract_languages(languages_body))
-        return {"locations": locations, "languages": languages}
 
     async def mark_failed_if_pending_async(
         self, check_id: UUID, error_code: str

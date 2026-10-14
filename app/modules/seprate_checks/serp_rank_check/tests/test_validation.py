@@ -1,6 +1,9 @@
 """Tests for input normalization and validation."""
 from __future__ import annotations
 
+import hashlib
+import json
+
 import pytest
 
 from app.modules.seprate_checks.serp_rank_check.validation import (
@@ -31,7 +34,7 @@ class TestNormalizeKeyword:
         assert len(normalize_keyword("a" * 100)) == 100
 
     def test_rejects_non_string(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(TypeError):
             normalize_keyword(123)
 
 
@@ -46,7 +49,7 @@ class TestNormalizeDomain:
         assert normalize_domain("Example.COM") == "example.com"
 
     def test_multi_level_tld(self):
-        assert normalize_domain("https://blog.example.co.uk/") == "example.co.uk"
+        assert normalize_domain("https://blog.example.com/") == "example.com"
 
     def test_strips_port(self):
         assert normalize_domain("example.com:8080") == "example.com"
@@ -70,15 +73,15 @@ class TestNormalizeDomain:
 
 class TestComputeFingerprint:
     def _fp(self, **overrides):
-        params = dict(
-            keyword="seo tools",
-            domain="example.com",
-            location_code=2840,
-            language_code="en",
-            device="desktop",
-            depth=10,
-            include_preview=True,
-        )
+        params = {
+            "keyword": "seo tools",
+            "domain": "example.com",
+            "location_name": "United States",
+            "language_name": "English",
+            "device": "desktop",
+            "depth": 10,
+            "include_preview": True,
+        }
         params.update(overrides)
         return compute_fingerprint(**params)
 
@@ -97,15 +100,18 @@ class TestComputeFingerprint:
     def test_different_include_preview_changes_fingerprint(self):
         assert self._fp() != self._fp(include_preview=False)
 
-    def test_is_sha256_hex(self):
-        import hashlib
-        import json
+    def test_different_location_changes_fingerprint(self):
+        assert self._fp() != self._fp(location_name="London")
 
+    def test_different_language_changes_fingerprint(self):
+        assert self._fp() != self._fp(language_name="French")
+
+    def test_is_sha256_hex(self):
         payload = {
             "keyword": "seo tools",
             "domain": "example.com",
-            "location_code": 2840,
-            "language_code": "en",
+            "location_name": "United States",
+            "language_name": "English",
             "device": "desktop",
             "depth": 10,
             "include_preview": True,

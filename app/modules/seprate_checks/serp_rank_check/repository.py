@@ -4,6 +4,10 @@ All persistence goes through Postgres — there is no Redis
 cache or lock. The partial unique index
 ``uq_rank_checks_inflight`` provides in-flight duplicate
 protection.
+
+The ``serp_locations`` and ``serp_languages`` tables are retained
+but are no longer queried at runtime — location and language are
+stored as names (strings) that the DataForSEO API accepts directly.
 """
 from __future__ import annotations
 
@@ -11,13 +15,12 @@ from datetime import datetime
 from uuid import UUID
 
 from sqlalchemy import func, select, update
-from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.logger import logger
 
-from .model import RankCheck, RankCheckStatus, SerpLanguage, SerpLocation
+from .model import RankCheck, RankCheckStatus
 
 IN_FLIGHT_STATUSES = (RankCheckStatus.QUEUED.value, RankCheckStatus.RUNNING.value)
 
@@ -42,7 +45,9 @@ class RankCheckRepository:
             await self.db.rollback()
             result = await self.db.execute(
                 select(RankCheck).where(
-                    RankCheck.user_id == check.user_id,
+                    RankCheck.user_id.is_not_distinct_from(
+                        check.user_id
+                    ),
                     RankCheck.fingerprint == check.fingerprint,
                     RankCheck.status.in_(IN_FLIGHT_STATUSES),
                 )
@@ -64,36 +69,6 @@ class RankCheckRepository:
             select(RankCheck).where(RankCheck.id == check_id)
         )
         return result.scalar_one_or_none()
-
-    async def get_by_user(
-        self, check_id: UUID, user_id: UUID
-    ) -> RankCheck | None:
-        result = await self.db.execute(
-            select(RankCheck).where(
-                RankCheck.id == check_id,
-                RankCheck.user_id == user_id,
-            )
-        )
-        return result.scalar_one_or_none()
-
-    async def list_for_user(
-        self, user_id: UUID, limit: int, offset: int
-    ) -> tuple[list[RankCheck], int]:
-        count_stmt = (
-            select(func.count())
-            .select_from(RankCheck)
-            .where(RankCheck.user_id == user_id)
-        )
-        total = int((await self.db.execute(count_stmt)).scalar_one())
-        stmt = (
-            select(RankCheck)
-            .where(RankCheck.user_id == user_id)
-            .order_by(RankCheck.created_at.desc())
-            .limit(limit)
-            .offset(offset)
-        )
-        result = await self.db.execute(stmt)
-        return list(result.scalars().all()), total
 
     async def list_all(
         self, limit: int, offset: int
@@ -137,91 +112,3 @@ class RankCheckRepository:
         )
         result = await self.db.execute(stmt)
         return list(result.scalars().all())
-
-
-class SerpLocationRepository:
-    def __init__(self, db: AsyncSession):
-        self.db = db
-
-    async def list(
-        self, q: str | None, limit: int, offset: int
-    ) -> list[SerpLocation]:
-        stmt = select(SerpLocation).order_by(SerpLocation.name)
-        if q:
-            stmt = stmt.where(SerpLocation.name.ilike(f"%{q}%"))
-        stmt = stmt.limit(limit).offset(offset)
-        result = await self.db.execute(stmt)
-        return list(result.scalars().all())
-
-    async def count(self, q: str | None) -> int:
-        stmt = select(func.count()).select_from(SerpLocation)
-        if q:
-            stmt = stmt.where(SerpLocation.name.ilike(f"%{q}%"))
-        result = await self.db.execute(stmt)
-        return int(result.scalar_one())
-
-    async def get(self, location_code: int) -> SerpLocation | None:
-        result = await self.db.execute(
-            select(SerpLocation).where(
-                SerpLocation.location_code == location_code
-            )
-        )
-        return result.scalar_one_or_none()
-
-    async def upsert_all(self, rows: list[dict]) -> int:
-        if not rows:
-            return 0
-        stmt = pg_insert(SerpLocation).values(rows)
-        stmt = stmt.on_conflict_do_update(
-            index_elements=["location_code"],
-            set_={
-                "name": stmt.excluded.name,
-                "country_iso": stmt.excluded.country_iso,
-                "location_type": stmt.excluded.location_type,
-            },
-        )
-        await self.db.execute(stmt)
-        await self.db.commit()
-        return len(rows)
-
-
-class SerpLanguageRepository:
-    def __init__(self, db: AsyncSession):
-        self.db = db
-
-    async def list(
-        self, limit: int, offset: int
-    ) -> list[SerpLanguage]:
-        stmt = (
-            select(SerpLanguage)
-            .order_by(SerpLanguage.name)
-            .limit(limit)
-            .offset(offset)
-        )
-        result = await self.db.execute(stmt)
-        return list(result.scalars().all())
-
-    async def count(self) -> int:
-        stmt = select(func.count()).select_from(SerpLanguage)
-        result = await self.db.execute(stmt)
-        return int(result.scalar_one())
-
-    async def get(self, language_code: str) -> SerpLanguage | None:
-        result = await self.db.execute(
-            select(SerpLanguage).where(
-                SerpLanguage.language_code == language_code
-            )
-        )
-        return result.scalar_one_or_none()
-
-    async def upsert_all(self, rows: list[dict]) -> int:
-        if not rows:
-            return 0
-        stmt = pg_insert(SerpLanguage).values(rows)
-        stmt = stmt.on_conflict_do_update(
-            index_elements=["language_code"],
-            set_={"name": stmt.excluded.name},
-        )
-        await self.db.execute(stmt)
-        await self.db.commit()
-        return len(rows)

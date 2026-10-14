@@ -70,8 +70,4 @@ celery_app.conf.beat_schedule = {
         "task": "serp_rank_check.sweep_stuck_checks",
         "schedule": 300.0,
     },
-    "serp-refresh-reference-data": {
-        "task": "serp_rank_check.refresh_reference_data",
-        "schedule": 604800.0,
-    },
 }

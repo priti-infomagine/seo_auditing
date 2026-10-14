@@ -1,13 +1,14 @@
 """Shared fixtures for the SERP rank check tests.
 
 Uses the project's isolated-Postgres-schema test helper so
-the partial unique index and FK constraints are exercised
-against a real database. The DataForSEO provider is mocked
-at the service boundary (``_get_serp_client``) and Celery's
-``send_task`` is captured so no broker is required.
+the partial unique index and constraints are exercised against
+a real database. The DataForSEO provider is mocked at the service
+boundary (``get_serp_client``) and Celery's ``send_task`` is
+captured so no broker is required.
 """
 from __future__ import annotations
 
+import asyncio
 import uuid
 from types import SimpleNamespace
 
@@ -17,15 +18,15 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.core.database import get_db
 from app.main import app
+from app.modules.seprate_checks.serp_rank_check.exceptions import (
+    SerpProvider4xx,
+    SerpProvider5xx,
+    SerpProviderTimeout,
+)
 from app.shared.tasks.celery_app import celery_app
 from app.tests.database import (
     create_isolated_test_engine,
     dispose_isolated_test_engine,
-)
-
-from app.modules.seprate_checks.serp_rank_check.model import (
-    SerpLanguage,
-    SerpLocation,
 )
 
 FAKE_USER_ID = uuid.UUID("00000000-0000-0000-0000-000000000001")
@@ -61,31 +62,6 @@ def override_dependencies(db_engine, db_session):
     app.dependency_overrides[get_db] = _get_db
     yield
     app.dependency_overrides.clear()
-
-
-@pytest_asyncio.fixture
-async def seed_reference(db_session):
-    """Seed the serp_locations / serp_languages reference tables."""
-    db_session.add_all(
-        [
-            SerpLocation(
-                location_code=2840,
-                name="United States",
-                country_iso="US",
-                location_type="Country",
-            ),
-            SerpLocation(
-                location_code=2841,
-                name="Canada",
-                country_iso="CA",
-                location_type="Country",
-            ),
-            SerpLanguage(language_code="en", name="English"),
-            SerpLanguage(language_code="fr", name="French"),
-        ]
-    )
-    await db_session.commit()
-    return db_session
 
 
 @pytest.fixture
@@ -140,8 +116,8 @@ def make_serp_body(items, cost=0.0005):
                 "result": [
                     {
                         "keyword": "test keyword",
-                        "location_code": 2840,
-                        "language_code": "en",
+                        "location_name": "United States",
+                        "language_name": "English",
                         "device": "desktop",
                         "depth": 10,
                         "items_count": len(items),
@@ -154,82 +130,54 @@ def make_serp_body(items, cost=0.0005):
 
 
 class FakeSerpClient:
-    """In-memory stand-in for DataForSEOClient."""
+    """In-memory stand-in for SERPDataForSEOClient."""
 
-    def __init__(self, body=None, cost=0.0005, exc=None):
+    def __init__(self, body=None, cost=0.0005, exc=None, delay=0):
         self.calls: list[dict] = []
         self._body = body
         self._cost = cost
         self._exc = exc
+        self._delay = delay
 
-    def set_response(self, body=None, cost=0.0005, exc=None):
+    def set_response(self, body=None, cost=0.0005, exc=None, delay=0):
         self._body = body
         self._cost = cost
         self._exc = exc
+        self._delay = delay
 
-    async def serp_google_organic_live(
-        self, keyword, location_code, language_code, device, depth
+    async def serp_google_organic_live_advanced(
+        self, *, keyword, location_name, language_name, device, depth
     ):
         self.calls.append(
             {
                 "keyword": keyword,
-                "location_code": location_code,
-                "language_code": language_code,
+                "location_name": location_name,
+                "language_name": language_name,
                 "device": device,
                 "depth": depth,
             }
         )
+        if self._delay:
+            await asyncio.sleep(self._delay)
         if self._exc is not None:
+            # Convert raw httpx errors to typed provider exceptions
+            # so the service's try/except can classify them.
+            import httpx as _httpx
+
+            if isinstance(self._exc, _httpx.TimeoutException):
+                raise SerpProviderTimeout(str(self._exc)) from self._exc
+            if isinstance(self._exc, _httpx.HTTPStatusError):
+                code = self._exc.response.status_code if self._exc.response else 0
+                if 500 <= code < 600:
+                    raise SerpProvider5xx(str(self._exc)) from self._exc
+                raise SerpProvider4xx(str(self._exc)) from self._exc
             raise self._exc
         if self._body is not None:
             return self._body
         return make_serp_body([], cost=self._cost)
 
-    async def serp_google_locations(self):
-        return make_locations_body()
-
-    async def serp_google_languages(self):
-        return make_languages_body()
-
-
-def make_locations_body():
-    return {
-        "status_code": 20000,
-        "tasks": [
-            {
-                "status_code": 20000,
-                "result": [
-                    {
-                        "location_code": 2840,
-                        "location_name": "United States",
-                        "country_iso_code": "US",
-                        "location_type": "Country",
-                    },
-                    {
-                        "location_code": 2841,
-                        "location_name": "Canada",
-                        "country_iso_code": "CA",
-                        "location_type": "Country",
-                    },
-                ],
-            }
-        ],
-    }
-
-
-def make_languages_body():
-    return {
-        "status_code": 20000,
-        "tasks": [
-            {
-                "status_code": 20000,
-                "result": [
-                    {"language_code": "en", "language_name": "English"},
-                    {"language_code": "fr", "language_name": "French"},
-                ],
-            }
-        ],
-    }
+    async def aclose(self) -> None:
+        pass
 
 
 @pytest_asyncio.fixture
@@ -241,7 +189,7 @@ async def fake_serp_client(monkeypatch):
         return client
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.serp_rank_check.service._get_serp_client",
+        "app.modules.seprate_checks.serp_rank_check.service.get_serp_client",
         _get,
     )
     return client

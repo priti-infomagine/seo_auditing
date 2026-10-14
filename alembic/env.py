@@ -46,6 +46,9 @@ import app.modules.audit.models.seo_analysis_runs  # noqa: F401
 # Lighthouse
 import app.modules.seprate_checks.google_lighthouse_check.model  # noqa: F401
 
+# SERP
+import app.modules.seprate_checks.serp_rank_check.model  # noqa: F401
+
 # Config
 import app.modules.config.models  # noqa: F401
 

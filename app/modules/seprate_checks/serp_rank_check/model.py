@@ -1,9 +1,15 @@
 """SERP rank check DB models.
 
-Three tables:
+Two tables that are intentionally kept (but no longer referenced
+by FK from ``rank_checks``):
 
-- ``serp_locations`` — reference table of DataForSEO Google locations.
-- ``serp_languages`` — reference table of DataForSEO Google languages.
+- ``serp_locations`` — reference table of DataForSEO Google locations
+  (retained for backward compatibility / inspection).
+- ``serp_languages`` — reference table of DataForSEO Google languages
+  (retained for backward compatibility / inspection).
+
+Primary table:
+
 - ``rank_checks`` — one row per rank-check job. Postgres is the only
   source of truth: a partial unique index on
   ``(COALESCE(user_id, anon), fingerprint)`` for in-flight rows
@@ -11,6 +17,10 @@ Three tables:
   nullable so that anonymous (public) API callers can still create
   checks; the COALESCE collapses all anonymous rows to a single
   constant UUID so the fingerprint alone de-duplicates them.
+
+Location and language are now stored as **names** (strings) rather
+than integer codes — DataForSEO accepts ``location_name`` and
+``language_name`` directly, so no reference-table lookup is needed.
 """
 import enum
 import uuid
@@ -21,7 +31,6 @@ from sqlalchemy import (
     Boolean,
     CheckConstraint,
     DateTime,
-    ForeignKey,
     Index,
     Integer,
     Numeric,
@@ -99,7 +108,7 @@ class RankCheck(TimestampMixin, Base):
             name="ck_rank_checks_device",
         ),
         CheckConstraint(
-            "depth IN (10,20,50,100)",
+            "depth >= 10 AND depth <= 200",
             name="ck_rank_checks_depth",
         ),
     )
@@ -116,16 +125,8 @@ class RankCheck(TimestampMixin, Base):
     )
     keyword: Mapped[str] = mapped_column(Text, nullable=False)
     domain: Mapped[str] = mapped_column(Text, nullable=False)
-    location_code: Mapped[int] = mapped_column(
-        Integer,
-        ForeignKey("serp_locations.location_code"),
-        nullable=False,
-    )
-    language_code: Mapped[str] = mapped_column(
-        Text,
-        ForeignKey("serp_languages.language_code"),
-        nullable=False,
-    )
+    location_name: Mapped[str] = mapped_column(Text, nullable=False)
+    language_name: Mapped[str] = mapped_column(Text, nullable=False)
     device: Mapped[str] = mapped_column(Text, nullable=False)
     depth: Mapped[int] = mapped_column(Integer, nullable=False)
     include_preview: Mapped[bool] = mapped_column(

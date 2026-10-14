@@ -1,18 +1,28 @@
 """Pydantic schemas for the SERP rank check API."""
-from typing import Optional
+from __future__ import annotations
+
+from typing import Literal
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class RankCheckRequest(BaseModel):
-    keyword: str
-    domain: str
-    location_code: int
-    language_code: str
-    device: str
-    depth: int
+    keyword: str = Field(min_length=1, max_length=700)
+    domain: str = Field(min_length=1, max_length=253)
+    location: str = Field(min_length=1, max_length=200)
+    language: str = Field(min_length=1, max_length=100)
+    device: Literal["desktop", "mobile"] = "desktop"
+    depth: int = Field(default=10, ge=10, le=200)
     include_preview: bool = True
+
+    @field_validator("keyword", "domain", "location", "language")
+    @classmethod
+    def strip_input(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("Value cannot be blank")
+        return value
 
 
 class RankCheckCreateResponse(BaseModel):
@@ -21,14 +31,14 @@ class RankCheckCreateResponse(BaseModel):
 
 
 class SerpMatch(BaseModel):
-    position: Optional[int] = None
-    absolute_position: Optional[int] = None
+    position: int | None = None
+    absolute_position: int | None = None
     url: str = ""
     title: str = ""
 
 
 class SerpTopResult(BaseModel):
-    position: Optional[int] = None
+    position: int | None = None
     domain: str = ""
     url: str = ""
     title: str = ""
@@ -37,8 +47,8 @@ class SerpTopResult(BaseModel):
 
 class RankCheckResult(BaseModel):
     found: bool
-    best_position: Optional[int] = None
-    best_absolute_position: Optional[int] = None
+    best_position: int | None = None
+    best_absolute_position: int | None = None
     matches: list[SerpMatch] = Field(default_factory=list)
     serp_features: list[str] = Field(default_factory=list)
     top_results: list[SerpTopResult] = Field(default_factory=list)
@@ -49,20 +59,20 @@ class RankCheckStatusResponse(BaseModel):
     id: UUID
     keyword: str
     domain: str
-    location_code: int
-    language_code: str
+    location: str
+    language: str
     device: str
     depth: int
     include_preview: bool
     status: str
-    result: Optional[RankCheckResult] = None
+    result: RankCheckResult | None = None
     preview_status: str
-    preview_html_url: Optional[str] = None
-    preview_image_url: Optional[str] = None
-    error_code: Optional[str] = None
-    provider_cost: Optional[float] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
+    preview_html_url: str | None = None
+    preview_image_url: str | None = None
+    error_code: str | None = None
+    provider_cost: float | None = None
+    created_at: str | None = None
+    updated_at: str | None = None
 
 
 class RankCheckListResponse(BaseModel):
@@ -72,27 +82,20 @@ class RankCheckListResponse(BaseModel):
     offset: int
 
 
-class SerpLocationResponse(BaseModel):
-    location_code: int
-    name: str
-    country_iso: Optional[str] = None
-    location_type: Optional[str] = None
+class SERPResponseSchema(BaseModel):
+    """Unified response model for the synchronous SERP rank-check endpoint."""
+
+    audit_id: str
+    keyword: str
+    domain: str
+    location: str
+    language: str
+    device: str
+    position: int | None
+    ranking_url: str | None
+    status: str
+    checked_at: str
 
 
-class SerpLocationListResponse(BaseModel):
-    items: list[SerpLocationResponse]
-    total: int
-    limit: int
-    offset: int
-
-
-class SerpLanguageResponse(BaseModel):
-    language_code: str
-    name: str
-
-
-class SerpLanguageListResponse(BaseModel):
-    items: list[SerpLanguageResponse]
-    total: int
-    limit: int
-    offset: int
+# Backward-compatible alias
+SERPRequestSchema = RankCheckRequest

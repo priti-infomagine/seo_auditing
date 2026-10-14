@@ -236,7 +236,7 @@ class DataForSEOClient:
     async def serp_google_organic_live(
         self,
         keyword: str,
-        location_code: int,
+        location: str,
         language_code: str,
         device: str,
         depth: int,
@@ -251,7 +251,7 @@ class DataForSEOClient:
             [
                 {
                     "keyword": keyword,
-                    "location_code": location_code,
+                    "location": location,
                     "language_code": language_code,
                     "device": device,
                     "depth": depth,

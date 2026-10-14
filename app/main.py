@@ -86,6 +86,19 @@ async def lifespan(app: FastAPI):
         )
 
     try:
+        from app.modules.seprate_checks.serp_rank_check.client import (
+            close_serp_client,
+        )
+
+        await close_serp_client()
+    except Exception as exc:
+        logger.error(
+            "SERP client close failed during lifespan shutdown: %s",
+            type(exc).__name__,
+            exc_info=True,
+        )
+
+    try:
         await close_db()
     except Exception as exc:
         logger.error(

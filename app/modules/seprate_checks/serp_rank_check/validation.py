@@ -18,7 +18,7 @@ DEPTHS = (10, 20, 50, 100)
 def normalize_keyword(raw: Any) -> str:
     """Trim and collapse internal whitespace; enforce 1-100 chars."""
     if not isinstance(raw, str):
-        raise ValueError("keyword must be a string")
+        raise TypeError("keyword must be a string")
     normalized = _WHITESPACE_RE.sub(" ", raw.strip())
     if not normalized:
         raise ValueError("keyword must not be empty")
@@ -36,7 +36,7 @@ def normalize_domain(raw: Any) -> str:
     rejected.
     """
     if not isinstance(raw, str):
-        raise ValueError("domain must be a string")
+        raise TypeError("domain must be a string")
     cleaned = raw.strip()
     if not cleaned:
         raise ValueError("domain must not be empty")
@@ -49,8 +49,7 @@ def normalize_domain(raw: Any) -> str:
         # bare host or host/path — drop the path portion
         host = host.split("/", 1)[0]
     host = host.strip().lower()
-    if host.startswith("www."):
-        host = host[4:]
+    host = host.removeprefix("www.")
     # strip a port if present (ignore IPv6 bracket hosts)
     if ":" in host and not host.startswith("["):
         host = host.rsplit(":", 1)[0]
@@ -68,18 +67,27 @@ def compute_fingerprint(
     *,
     keyword: str,
     domain: str,
-    location_code: int,
-    language_code: str,
+    location_name: str,
+    language_name: str,
     device: str,
     depth: int,
     include_preview: bool,
 ) -> str:
-    """sha256 over the canonical JSON of the normalized inputs."""
+    """sha256 over the canonical JSON of the normalized inputs.
+
+    Uses ``location_name`` and ``language_name`` (strings accepted
+    directly by the DataForSEO API) instead of integer codes.
+
+    The fingerprint identifies a *search configuration*, not an
+    individual check — repeated checks with the same configuration
+    get different rows but share a fingerprint, which is used for
+    in-flight deduplication.
+    """
     payload = {
         "keyword": keyword,
         "domain": domain,
-        "location_code": location_code,
-        "language_code": language_code,
+        "location_name": location_name,
+        "language_name": language_name,
         "device": device,
         "depth": depth,
         "include_preview": include_preview,
@@ -95,8 +103,8 @@ def validate_device(raw: Any) -> str:
 
 
 def validate_depth(raw: Any) -> int:
-    if isinstance(raw, bool) or not isinstance(raw, int):
-        raise ValueError("depth must be one of 10, 20, 50, 100")
+    if not isinstance(raw, int):
+        raise TypeError("depth must be one of 10, 20, 50, 100")
     if raw not in DEPTHS:
         raise ValueError("depth must be one of 10, 20, 50, 100")
     return raw
