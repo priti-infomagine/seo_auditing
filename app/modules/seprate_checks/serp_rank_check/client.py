@@ -155,15 +155,33 @@ class SERPDataForSEOClient:
                 if attempt < self._max_attempts:
                     await asyncio.sleep(2 ** (attempt - 1))
                     continue
-                raise SerpProviderTimeout(str(exc)) from exc
+                raise SerpProviderTimeout(
+                    f"DataForSEO timeout: {exc}"
+                ) from exc
             except httpx.TransportError as exc:
                 last_exc = exc
                 if attempt < self._max_attempts:
                     await asyncio.sleep(2 ** (attempt - 1))
                     continue
-                raise SerpProviderTimeout(str(exc)) from exc
+                raise SerpProviderTimeout(
+                    f"DataForSEO connection error: {exc}"
+                ) from exc
             except httpx.HTTPStatusError as exc:
-                status_code = exc.response.status_code if exc.response else 0
+                status_code = (
+                    exc.response.status_code if exc.response else 0
+                )
+                # Include the response body in the error message
+                # so callers can see DataForSEO's status_message.
+                detail = ""
+                if exc.response is not None:
+                    try:
+                        err_body = exc.response.json()
+                        if isinstance(err_body, dict):
+                            msg = err_body.get("status_message", "")
+                            if msg:
+                                detail = f": {msg}"
+                    except Exception:  # noqa: BLE001
+                        detail = ""
                 if (
                     status_code in RETRYABLE_STATUS
                     and attempt < self._max_attempts
@@ -172,10 +190,10 @@ class SERPDataForSEOClient:
                     continue
                 if 500 <= status_code < 600:
                     raise SerpProvider5xx(
-                        f"provider HTTP {status_code}"
+                        f"DataForSEO HTTP {status_code}{detail}"
                     ) from exc
                 raise SerpProvider4xx(
-                    f"provider HTTP {status_code}"
+                    f"DataForSEO HTTP {status_code}{detail}"
                 ) from exc
         if last_exc is not None:
             raise SerpProviderTimeout(str(last_exc)) from last_exc
@@ -209,7 +227,7 @@ async def get_serp_client() -> SERPDataForSEOClient:
             settings.DATAFORSEO_LOGIN,
             settings.DATAFORSEO_PASSWORD,
             timeout=settings.SERP_PROVIDER_TIMEOUT,
-            max_attempts=1,
+            max_attempts=3,
         )
         _credentials = credentials
     return _client

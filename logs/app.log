@@ -2847,3 +2847,35 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 (Background on this error at: https://sqlalche.me/e/20/f405)
 2026-10-14T15:31:04 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-14T15:31:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T15:51:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T15:54:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T15:56:30 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T15:57:30 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=3499f2eb-e87d-4834-b7ef-42b4328cdb41
+2026-10-14T15:58:30 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=7e816dc5-6e3c-447e-9fbf-947213734e33
+2026-10-14T16:03:06 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=68e5fe50-939b-439d-9dba-a90967c6f062
+2026-10-14T16:06:38 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=6e11c43d-a289-41aa-87d5-d70481443793
+2026-10-14T16:09:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T16:09:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T16:11:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T16:11:56 | INFO | app | serp_rank_check.build_preview: started id=5f9cb388-2327-438a-91b4-bb768bda3641
+2026-10-14T16:11:56 | INFO | app | serp_rank_check.build_preview: COMPLETED id=5f9cb388-2327-438a-91b4-bb768bda3641 preview_status=done
+2026-10-14T16:11:57 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-14T16:11:57 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-14T16:12:59 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=6c5d3ccd-fe20-4524-8b4a-7a8b2f1dcfe3
+2026-10-14T16:13:48 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T16:34:29 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=41867dbc-90ba-4e3f-932e-c0ee701140f4
+2026-10-14T16:38:56 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=cf52eba1-8dc3-4e19-9ec7-0aa8a873483f
+2026-10-14T16:39:59 | INFO | app | serp_rank_check.build_preview: started id=d94214fe-8ef2-4441-be21-ffd66565b484
+2026-10-14T16:39:59 | INFO | app | serp_rank_check.build_preview: COMPLETED id=d94214fe-8ef2-4441-be21-ffd66565b484 preview_status=done
+2026-10-14T16:40:00 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-14T16:40:00 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-14T17:01:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:14:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:23:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:24:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:25:01 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:26:30 | INFO | app | Worker process initialized with persistent background event loop (pid=22536)
+2026-10-14T17:26:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:38:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-14T17:47:40 | INFO | app | Worker process initialized with persistent background event loop (pid=15812)
+2026-10-14T17:47:51 | INFO | app | Celery broker connection pre-warmed successfully

@@ -34,7 +34,7 @@ class TestNormalizeKeyword:
         assert len(normalize_keyword("a" * 100)) == 100
 
     def test_rejects_non_string(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             normalize_keyword(123)
 
 

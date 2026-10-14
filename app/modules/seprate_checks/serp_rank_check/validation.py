@@ -18,7 +18,7 @@ DEPTHS = (10, 20, 50, 100)
 def normalize_keyword(raw: Any) -> str:
     """Trim and collapse internal whitespace; enforce 1-100 chars."""
     if not isinstance(raw, str):
-        raise TypeError("keyword must be a string")
+        raise ValueError("keyword must be a string")
     normalized = _WHITESPACE_RE.sub(" ", raw.strip())
     if not normalized:
         raise ValueError("keyword must not be empty")
@@ -36,7 +36,7 @@ def normalize_domain(raw: Any) -> str:
     rejected.
     """
     if not isinstance(raw, str):
-        raise TypeError("domain must be a string")
+        raise ValueError("domain must be a string")
     cleaned = raw.strip()
     if not cleaned:
         raise ValueError("domain must not be empty")
@@ -104,7 +104,7 @@ def validate_device(raw: Any) -> str:
 
 def validate_depth(raw: Any) -> int:
     if not isinstance(raw, int):
-        raise TypeError("depth must be one of 10, 20, 50, 100")
+        raise ValueError("depth must be one of 10, 20, 50, 100")
     if raw not in DEPTHS:
         raise ValueError("depth must be one of 10, 20, 50, 100")
     return raw
