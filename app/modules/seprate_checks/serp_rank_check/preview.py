@@ -42,7 +42,12 @@ def render_preview_html(
     """Render the preview HTML for a rank result."""
     best_position = result.get("best_position")
     found = bool(result.get("found"))
-    top_results = result.get("top_results") or []
+    top_results = [
+        item
+        for item in (result.get("top_results") or [])
+        if isinstance(item, dict)
+        and item.get("domain") == target_domain
+    ]
 
     position_text = (
         f"#{best_position}" if best_position is not None else "Not in top results"
