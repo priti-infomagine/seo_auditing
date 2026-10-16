@@ -2879,3 +2879,680 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 2026-10-14T17:38:34 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-14T17:47:40 | INFO | app | Worker process initialized with persistent background event loop (pid=15812)
 2026-10-14T17:47:51 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T09:50:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:19:23 | INFO | app | Worker process initialized with persistent background event loop (pid=19040)
+2026-10-15T10:33:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:34:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:34:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:35:00 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:37:01 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=46698b31-caef-4526-822d-b1a0cd65481b
+2026-10-15T10:38:55 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:42:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=abf992ae-77e3-4398-b363-f82141112a39
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=0555be8e-d6dc-4c60-b3e3-40afdce6a858
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=b4858fd0-b7b3-4e01-a937-ba5e48342141
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=546a64ca-69f4-4c03-9022-943f017a3721
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=db6b9101-51a4-4421-a66f-ed1923292ec7
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=a30d0a69-1b7c-4870-9053-0557421d81d8
+2026-10-15T10:44:24 | INFO | app | serp_rank_check.build_preview: started id=5e6309f8-e942-4eab-9b2a-88db2173eaeb
+2026-10-15T10:44:25 | INFO | app | serp_rank_check.build_preview: started id=d004d873-9905-45b4-9dcd-b4fb7f55cd05
+2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=0555be8e-d6dc-4c60-b3e3-40afdce6a858
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
+    return asyncio.run(_wrapper())
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
+    return await coro
+           ^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+    return await SerpRankCheckService().build_preview_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+    check = await repo.get(check_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 178, in _do_get
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\event\attr.py", line 500, in _exec_w_sync_on_first_run
+    with self._get_exec_once_mutex():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 224, in __enter__
+    return await_fallback(self.mutex.acquire())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 164, in await_fallback
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\locks.py", line 106, in acquire
+    fut = self._get_loop().create_future()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\mixins.py", line 20, in _get_loop
+    raise RuntimeError(f'{self!r} is bound to a different event loop')
+RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
+2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=546a64ca-69f4-4c03-9022-943f017a3721
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
+    return asyncio.run(_wrapper())
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
+    return await coro
+           ^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+    return await SerpRankCheckService().build_preview_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+    check = await repo.get(check_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 178, in _do_get
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\event\attr.py", line 500, in _exec_w_sync_on_first_run
+    with self._get_exec_once_mutex():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 224, in __enter__
+    return await_fallback(self.mutex.acquire())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 164, in await_fallback
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\locks.py", line 106, in acquire
+    fut = self._get_loop().create_future()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\mixins.py", line 20, in _get_loop
+    raise RuntimeError(f'{self!r} is bound to a different event loop')
+RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
+2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=db6b9101-51a4-4421-a66f-ed1923292ec7
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
+    return asyncio.run(_wrapper())
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
+    return await coro
+           ^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+    return await SerpRankCheckService().build_preview_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+    check = await repo.get(check_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 178, in _do_get
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\event\attr.py", line 500, in _exec_w_sync_on_first_run
+    with self._get_exec_once_mutex():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 224, in __enter__
+    return await_fallback(self.mutex.acquire())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 164, in await_fallback
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\locks.py", line 106, in acquire
+    fut = self._get_loop().create_future()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\mixins.py", line 20, in _get_loop
+    raise RuntimeError(f'{self!r} is bound to a different event loop')
+RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
+2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=a30d0a69-1b7c-4870-9053-0557421d81d8
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
+    return asyncio.run(_wrapper())
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
+    return await coro
+           ^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+    return await SerpRankCheckService().build_preview_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+    check = await repo.get(check_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 178, in _do_get
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 914, in __connect
+    )._exec_w_sync_on_first_run(self.dbapi_connection, self)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\event\attr.py", line 500, in _exec_w_sync_on_first_run
+    with self._get_exec_once_mutex():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 224, in __enter__
+    return await_fallback(self.mutex.acquire())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 164, in await_fallback
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\locks.py", line 106, in acquire
+    fut = self._get_loop().create_future()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\mixins.py", line 20, in _get_loop
+    raise RuntimeError(f'{self!r} is bound to a different event loop')
+RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
+2026-10-15T10:44:25 | WARNING | app | build_preview: check 5e6309f8-e942-4eab-9b2a-88db2173eaeb not found
+2026-10-15T10:44:25 | INFO | app | serp_rank_check.build_preview: COMPLETED id=abf992ae-77e3-4398-b363-f82141112a39 preview_status=failed
+2026-10-15T10:44:25 | WARNING | app | build_preview: check d004d873-9905-45b4-9dcd-b4fb7f55cd05 not found
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: COMPLETED id=5e6309f8-e942-4eab-9b2a-88db2173eaeb preview_status=missing
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: COMPLETED id=d004d873-9905-45b4-9dcd-b4fb7f55cd05 preview_status=missing
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=927ed948-9a9b-425f-a886-445283900a9f
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=4cd553c1-1f17-4bcf-af97-2dd5902b91e7
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=a86025a7-7cf9-496f-93c3-257ec8efa169
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=9e84287e-a044-4bc1-9ea6-758ae885b22a
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=44af2d7b-2b93-48f7-8a5b-66d1b8fdf6e6
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=9d84bb79-128a-453c-9cf5-9cd73271b9f2
+2026-10-15T10:44:26 | INFO | app | serp_rank_check.build_preview: started id=3d586298-3443-4ada-81c8-5e0292ef6817
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 44af2d7b-2b93-48f7-8a5b-66d1b8fdf6e6 not found
+2026-10-15T10:44:27 | WARNING | app | build_preview: check a86025a7-7cf9-496f-93c3-257ec8efa169 not found
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 4cd553c1-1f17-4bcf-af97-2dd5902b91e7 not found
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 927ed948-9a9b-425f-a886-445283900a9f not found
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 9e84287e-a044-4bc1-9ea6-758ae885b22a not found
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a86025a7-7cf9-496f-93c3-257ec8efa169 preview_status=missing
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=44af2d7b-2b93-48f7-8a5b-66d1b8fdf6e6 preview_status=missing
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=4cd553c1-1f17-4bcf-af97-2dd5902b91e7 preview_status=missing
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=927ed948-9a9b-425f-a886-445283900a9f preview_status=missing
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 9d84bb79-128a-453c-9cf5-9cd73271b9f2 not found
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9e84287e-a044-4bc1-9ea6-758ae885b22a preview_status=missing
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9d84bb79-128a-453c-9cf5-9cd73271b9f2 preview_status=missing
+2026-10-15T10:44:27 | WARNING | app | build_preview: check 3d586298-3443-4ada-81c8-5e0292ef6817 not found
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: COMPLETED id=3d586298-3443-4ada-81c8-5e0292ef6817 preview_status=missing
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=a9d6f5f6-c5ee-447b-ba21-eadca270d3b2
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=b239faa6-2757-4b86-93cd-679f0a5c069c
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=ed1f5251-df2e-4633-bc56-3602acd9dc1e
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=9a08c68d-d175-4194-8a5a-54232069bb9a
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=a325db3a-f42e-4259-80f9-83cad81e1ae5
+2026-10-15T10:44:27 | INFO | app | serp_rank_check.build_preview: started id=bd6f75c5-cc7a-48f9-a205-83c6a07660d1
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: started id=a7e761c9-9499-47b0-bcb2-52afa1764f7d
+2026-10-15T10:44:28 | WARNING | app | build_preview: check a9d6f5f6-c5ee-447b-ba21-eadca270d3b2 not found
+2026-10-15T10:44:28 | WARNING | app | build_preview: check b239faa6-2757-4b86-93cd-679f0a5c069c not found
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a9d6f5f6-c5ee-447b-ba21-eadca270d3b2 preview_status=missing
+2026-10-15T10:44:28 | WARNING | app | build_preview: check a325db3a-f42e-4259-80f9-83cad81e1ae5 not found
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=b239faa6-2757-4b86-93cd-679f0a5c069c preview_status=missing
+2026-10-15T10:44:28 | WARNING | app | build_preview: check ed1f5251-df2e-4633-bc56-3602acd9dc1e not found
+2026-10-15T10:44:28 | WARNING | app | build_preview: check 9a08c68d-d175-4194-8a5a-54232069bb9a not found
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a325db3a-f42e-4259-80f9-83cad81e1ae5 preview_status=missing
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=ed1f5251-df2e-4633-bc56-3602acd9dc1e preview_status=missing
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9a08c68d-d175-4194-8a5a-54232069bb9a preview_status=missing
+2026-10-15T10:44:28 | WARNING | app | build_preview: check bd6f75c5-cc7a-48f9-a205-83c6a07660d1 not found
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=bd6f75c5-cc7a-48f9-a205-83c6a07660d1 preview_status=missing
+2026-10-15T10:44:28 | WARNING | app | build_preview: check a7e761c9-9499-47b0-bcb2-52afa1764f7d not found
+2026-10-15T10:44:28 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a7e761c9-9499-47b0-bcb2-52afa1764f7d preview_status=missing
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=b8334fbd-20fc-46d0-bd31-f47b9e086ed1
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=ea054218-928a-4f14-aac4-f5c0f54e4414
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=f5dfa0d2-112e-4008-9f1a-3a6a06f62338
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=c2a596a3-6025-43f5-a87b-d0fc937dfa6d
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=9f4ee1b9-b9aa-499c-b2e6-7e0b428eed2a
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=79e3f8d7-5144-48a2-80a2-72ac115a854e
+2026-10-15T10:44:29 | INFO | app | serp_rank_check.build_preview: started id=033ca29f-4ea0-4bd7-8d45-ac2a40bf67df
+2026-10-15T10:44:30 | WARNING | app | build_preview: check b8334fbd-20fc-46d0-bd31-f47b9e086ed1 not found
+2026-10-15T10:44:30 | WARNING | app | build_preview: check 9f4ee1b9-b9aa-499c-b2e6-7e0b428eed2a not found
+2026-10-15T10:44:30 | WARNING | app | build_preview: check 033ca29f-4ea0-4bd7-8d45-ac2a40bf67df not found
+2026-10-15T10:44:30 | WARNING | app | build_preview: check 79e3f8d7-5144-48a2-80a2-72ac115a854e not found
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=b8334fbd-20fc-46d0-bd31-f47b9e086ed1 preview_status=missing
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9f4ee1b9-b9aa-499c-b2e6-7e0b428eed2a preview_status=missing
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=033ca29f-4ea0-4bd7-8d45-ac2a40bf67df preview_status=missing
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=79e3f8d7-5144-48a2-80a2-72ac115a854e preview_status=missing
+2026-10-15T10:44:31 | WARNING | app | build_preview: check ea054218-928a-4f14-aac4-f5c0f54e4414 not found
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=ea054218-928a-4f14-aac4-f5c0f54e4414 preview_status=missing
+2026-10-15T10:44:31 | WARNING | app | build_preview: check c2a596a3-6025-43f5-a87b-d0fc937dfa6d not found
+2026-10-15T10:44:31 | WARNING | app | build_preview: check f5dfa0d2-112e-4008-9f1a-3a6a06f62338 not found
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=c2a596a3-6025-43f5-a87b-d0fc937dfa6d preview_status=missing
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: COMPLETED id=f5dfa0d2-112e-4008-9f1a-3a6a06f62338 preview_status=missing
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=20aa7964-6e41-4697-96cb-f5a4badca121
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=27e52829-624d-43ba-9ca5-4d4df5bd7a42
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=de8a2b49-27e7-4781-81a4-00bf1bcb774c
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=9e951dee-ee10-497c-9c8e-0ddcc8e90a3c
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=6f1a44d8-146a-466e-af00-2f3314025db7
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=efde39a9-4bbd-4414-a195-4d282d7efe47
+2026-10-15T10:44:31 | INFO | app | serp_rank_check.build_preview: started id=145788b0-544b-4e99-a8b2-d5ae257083db
+2026-10-15T10:44:32 | WARNING | app | build_preview: check 20aa7964-6e41-4697-96cb-f5a4badca121 not found
+2026-10-15T10:44:32 | WARNING | app | build_preview: check efde39a9-4bbd-4414-a195-4d282d7efe47 not found
+2026-10-15T10:44:32 | WARNING | app | build_preview: check 6f1a44d8-146a-466e-af00-2f3314025db7 not found
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=20aa7964-6e41-4697-96cb-f5a4badca121 preview_status=missing
+2026-10-15T10:44:32 | WARNING | app | build_preview: check de8a2b49-27e7-4781-81a4-00bf1bcb774c not found
+2026-10-15T10:44:32 | WARNING | app | build_preview: check 27e52829-624d-43ba-9ca5-4d4df5bd7a42 not found
+2026-10-15T10:44:32 | WARNING | app | build_preview: check 9e951dee-ee10-497c-9c8e-0ddcc8e90a3c not found
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=efde39a9-4bbd-4414-a195-4d282d7efe47 preview_status=missing
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=27e52829-624d-43ba-9ca5-4d4df5bd7a42 preview_status=missing
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=6f1a44d8-146a-466e-af00-2f3314025db7 preview_status=missing
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=de8a2b49-27e7-4781-81a4-00bf1bcb774c preview_status=missing
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9e951dee-ee10-497c-9c8e-0ddcc8e90a3c preview_status=missing
+2026-10-15T10:44:32 | WARNING | app | build_preview: check 145788b0-544b-4e99-a8b2-d5ae257083db not found
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: COMPLETED id=145788b0-544b-4e99-a8b2-d5ae257083db preview_status=missing
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: started id=85fb0a01-d6a2-4419-859c-5a0802971c78
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: started id=bf6b0f4e-945d-4add-826b-32d1c93a576e
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: started id=bde2dd1c-f23b-469e-b7c6-ee0875b908dc
+2026-10-15T10:44:32 | INFO | app | serp_rank_check.build_preview: started id=42cb7a56-063e-4d78-a64a-01f1d6aae933
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=678e74d7-d25a-480a-a5b0-0e45bb3aef67
+2026-10-15T10:44:33 | WARNING | app | build_preview: check 85fb0a01-d6a2-4419-859c-5a0802971c78 not found
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=f12b6a7c-69ac-4c6a-a6d3-d3a838563e95
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=a8342ef1-881c-4662-b7f2-44f66b8f7deb
+2026-10-15T10:44:33 | WARNING | app | build_preview: check bf6b0f4e-945d-4add-826b-32d1c93a576e not found
+2026-10-15T10:44:33 | WARNING | app | build_preview: check bde2dd1c-f23b-469e-b7c6-ee0875b908dc not found
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=85fb0a01-d6a2-4419-859c-5a0802971c78 preview_status=missing
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=bf6b0f4e-945d-4add-826b-32d1c93a576e preview_status=missing
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=bde2dd1c-f23b-469e-b7c6-ee0875b908dc preview_status=missing
+2026-10-15T10:44:33 | WARNING | app | build_preview: check 42cb7a56-063e-4d78-a64a-01f1d6aae933 not found
+2026-10-15T10:44:33 | WARNING | app | build_preview: check 678e74d7-d25a-480a-a5b0-0e45bb3aef67 not found
+2026-10-15T10:44:33 | WARNING | app | build_preview: check f12b6a7c-69ac-4c6a-a6d3-d3a838563e95 not found
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=678e74d7-d25a-480a-a5b0-0e45bb3aef67 preview_status=missing
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=42cb7a56-063e-4d78-a64a-01f1d6aae933 preview_status=missing
+2026-10-15T10:44:33 | WARNING | app | build_preview: check a8342ef1-881c-4662-b7f2-44f66b8f7deb not found
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=18c7d087-7f47-4fda-af32-07604be2e173
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=f12b6a7c-69ac-4c6a-a6d3-d3a838563e95 preview_status=missing
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=22bd5882-d52b-41c0-b2f8-839e4e06d5a9
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a8342ef1-881c-4662-b7f2-44f66b8f7deb preview_status=missing
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=aab39fb1-781f-454c-905a-5368456b9d99
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=635f9f18-7d8a-40e9-947a-fb2fea766e73
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=7e988750-fbee-4e12-9de4-140d56a65805
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=5a9c1869-900e-4864-ae1d-8be2d61ab311
+2026-10-15T10:44:33 | INFO | app | serp_rank_check.build_preview: started id=e4544356-2e0b-4506-b747-89f29a9ec9e4
+2026-10-15T10:44:34 | WARNING | app | build_preview: check 18c7d087-7f47-4fda-af32-07604be2e173 not found
+2026-10-15T10:44:34 | WARNING | app | build_preview: check aab39fb1-781f-454c-905a-5368456b9d99 not found
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=18c7d087-7f47-4fda-af32-07604be2e173 preview_status=missing
+2026-10-15T10:44:34 | WARNING | app | build_preview: check 7e988750-fbee-4e12-9de4-140d56a65805 not found
+2026-10-15T10:44:34 | WARNING | app | build_preview: check 635f9f18-7d8a-40e9-947a-fb2fea766e73 not found
+2026-10-15T10:44:34 | WARNING | app | build_preview: check 22bd5882-d52b-41c0-b2f8-839e4e06d5a9 not found
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=aab39fb1-781f-454c-905a-5368456b9d99 preview_status=missing
+2026-10-15T10:44:34 | WARNING | app | build_preview: check e4544356-2e0b-4506-b747-89f29a9ec9e4 not found
+2026-10-15T10:44:34 | WARNING | app | build_preview: check 5a9c1869-900e-4864-ae1d-8be2d61ab311 not found
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=635f9f18-7d8a-40e9-947a-fb2fea766e73 preview_status=missing
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=7e988750-fbee-4e12-9de4-140d56a65805 preview_status=missing
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=5a9c1869-900e-4864-ae1d-8be2d61ab311 preview_status=missing
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=22bd5882-d52b-41c0-b2f8-839e4e06d5a9 preview_status=missing
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: COMPLETED id=e4544356-2e0b-4506-b747-89f29a9ec9e4 preview_status=missing
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: started id=99caf10a-ec32-4006-9585-65ded92137f6
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: started id=512586a8-6d24-44f2-8464-4f81ba5a792e
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: started id=92a8033b-7e1c-4132-b743-999a4b9b2516
+2026-10-15T10:44:34 | INFO | app | serp_rank_check.build_preview: started id=825c2ae7-d4d3-493c-a7d7-ca8ddbb7b233
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: started id=b8ddc3b6-d522-424d-821f-14c21b220234
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: started id=9f6a5635-018d-42d2-8fb9-e6df7aab00a9
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: started id=dd1a9cf1-1f26-46f0-b6e1-28bd79b5c041
+2026-10-15T10:44:35 | WARNING | app | build_preview: check 512586a8-6d24-44f2-8464-4f81ba5a792e not found
+2026-10-15T10:44:35 | WARNING | app | build_preview: check b8ddc3b6-d522-424d-821f-14c21b220234 not found
+2026-10-15T10:44:35 | WARNING | app | build_preview: check 99caf10a-ec32-4006-9585-65ded92137f6 not found
+2026-10-15T10:44:35 | WARNING | app | build_preview: check 825c2ae7-d4d3-493c-a7d7-ca8ddbb7b233 not found
+2026-10-15T10:44:35 | WARNING | app | build_preview: check 92a8033b-7e1c-4132-b743-999a4b9b2516 not found
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=512586a8-6d24-44f2-8464-4f81ba5a792e preview_status=missing
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=99caf10a-ec32-4006-9585-65ded92137f6 preview_status=missing
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=825c2ae7-d4d3-493c-a7d7-ca8ddbb7b233 preview_status=missing
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=92a8033b-7e1c-4132-b743-999a4b9b2516 preview_status=missing
+2026-10-15T10:44:35 | WARNING | app | build_preview: check 9f6a5635-018d-42d2-8fb9-e6df7aab00a9 not found
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9f6a5635-018d-42d2-8fb9-e6df7aab00a9 preview_status=missing
+2026-10-15T10:44:35 | WARNING | app | build_preview: check dd1a9cf1-1f26-46f0-b6e1-28bd79b5c041 not found
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=dd1a9cf1-1f26-46f0-b6e1-28bd79b5c041 preview_status=missing
+2026-10-15T10:44:35 | INFO | app | serp_rank_check.build_preview: COMPLETED id=b8ddc3b6-d522-424d-821f-14c21b220234 preview_status=missing
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=0abc20a8-772b-42c4-83c6-815fda9033a0
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=3b4b2a11-9389-4664-89ad-46023640d60d
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=136a8c80-c9a9-49ab-b0a1-04687185d6cf
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=594045ec-5bda-4f3b-8dc3-2876e4eec4f5
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=3cb64bb0-8db9-41ce-9b42-21bb52cf92a0
+2026-10-15T10:44:36 | INFO | app | serp_rank_check.build_preview: started id=8fd7b294-d936-4109-ab26-606b4d47eeda
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=9781699f-fed3-423e-b574-cb42e593ffde
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 0abc20a8-772b-42c4-83c6-815fda9033a0 not found
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 8fd7b294-d936-4109-ab26-606b4d47eeda not found
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 136a8c80-c9a9-49ab-b0a1-04687185d6cf not found
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 3b4b2a11-9389-4664-89ad-46023640d60d not found
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 3cb64bb0-8db9-41ce-9b42-21bb52cf92a0 not found
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=0abc20a8-772b-42c4-83c6-815fda9033a0 preview_status=missing
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 594045ec-5bda-4f3b-8dc3-2876e4eec4f5 not found
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=3cb64bb0-8db9-41ce-9b42-21bb52cf92a0 preview_status=missing
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=3b4b2a11-9389-4664-89ad-46023640d60d preview_status=missing
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=136a8c80-c9a9-49ab-b0a1-04687185d6cf preview_status=missing
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=594045ec-5bda-4f3b-8dc3-2876e4eec4f5 preview_status=missing
+2026-10-15T10:44:37 | WARNING | app | build_preview: check 9781699f-fed3-423e-b574-cb42e593ffde not found
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9781699f-fed3-423e-b574-cb42e593ffde preview_status=missing
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: COMPLETED id=8fd7b294-d936-4109-ab26-606b4d47eeda preview_status=missing
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=8f5bddd3-3b1d-4154-a579-2db858fe4ef7
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=8dc70b78-b07b-444c-a0f5-c796090701d8
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=ab3a2bdd-b61f-4687-9f28-ff082e7338f3
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=d30b358f-b4ed-4631-9f97-8572d8e6344b
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=2d390bec-f119-438f-8c0c-3fb4d9c556a4
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=c9063aab-2857-4588-a850-7387b6d1aaba
+2026-10-15T10:44:37 | INFO | app | serp_rank_check.build_preview: started id=9a296f69-a448-4bd9-a2cc-3ee542de1862
+2026-10-15T10:44:38 | WARNING | app | build_preview: check 8f5bddd3-3b1d-4154-a579-2db858fe4ef7 not found
+2026-10-15T10:44:38 | WARNING | app | build_preview: check ab3a2bdd-b61f-4687-9f28-ff082e7338f3 not found
+2026-10-15T10:44:38 | WARNING | app | build_preview: check d30b358f-b4ed-4631-9f97-8572d8e6344b not found
+2026-10-15T10:44:38 | WARNING | app | build_preview: check 2d390bec-f119-438f-8c0c-3fb4d9c556a4 not found
+2026-10-15T10:44:38 | WARNING | app | build_preview: check 8dc70b78-b07b-444c-a0f5-c796090701d8 not found
+2026-10-15T10:44:38 | WARNING | app | build_preview: check c9063aab-2857-4588-a850-7387b6d1aaba not found
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=ab3a2bdd-b61f-4687-9f28-ff082e7338f3 preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=8f5bddd3-3b1d-4154-a579-2db858fe4ef7 preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=d30b358f-b4ed-4631-9f97-8572d8e6344b preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=8dc70b78-b07b-444c-a0f5-c796090701d8 preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=2d390bec-f119-438f-8c0c-3fb4d9c556a4 preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=c9063aab-2857-4588-a850-7387b6d1aaba preview_status=missing
+2026-10-15T10:44:38 | WARNING | app | build_preview: check 9a296f69-a448-4bd9-a2cc-3ee542de1862 not found
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: COMPLETED id=9a296f69-a448-4bd9-a2cc-3ee542de1862 preview_status=missing
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=a8558da8-9fcc-4dce-871d-3f418699ba34
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=20c2aab2-3ffd-4349-8b26-822fbb67cfcb
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=88341205-f6de-41c8-8eae-76c0078d1ec8
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=1d4c6d57-4a11-4ca2-a6ce-023e3a20f9c0
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=bdf439d2-3382-4489-9c58-4b9532f4aadf
+2026-10-15T10:44:38 | INFO | app | serp_rank_check.build_preview: started id=1a15fe81-f59a-49b5-b5be-0577153bf931
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=60d4000c-fe92-43aa-92c3-2046d03091f1
+2026-10-15T10:44:39 | WARNING | app | build_preview: check a8558da8-9fcc-4dce-871d-3f418699ba34 not found
+2026-10-15T10:44:39 | WARNING | app | build_preview: check bdf439d2-3382-4489-9c58-4b9532f4aadf not found
+2026-10-15T10:44:39 | WARNING | app | build_preview: check 20c2aab2-3ffd-4349-8b26-822fbb67cfcb not found
+2026-10-15T10:44:39 | WARNING | app | build_preview: check 1d4c6d57-4a11-4ca2-a6ce-023e3a20f9c0 not found
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=bdf439d2-3382-4489-9c58-4b9532f4aadf preview_status=missing
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=a8558da8-9fcc-4dce-871d-3f418699ba34 preview_status=missing
+2026-10-15T10:44:39 | WARNING | app | build_preview: check 88341205-f6de-41c8-8eae-76c0078d1ec8 not found
+2026-10-15T10:44:39 | WARNING | app | build_preview: check 1a15fe81-f59a-49b5-b5be-0577153bf931 not found
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=20c2aab2-3ffd-4349-8b26-822fbb67cfcb preview_status=missing
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=88341205-f6de-41c8-8eae-76c0078d1ec8 preview_status=missing
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=1d4c6d57-4a11-4ca2-a6ce-023e3a20f9c0 preview_status=missing
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=1a15fe81-f59a-49b5-b5be-0577153bf931 preview_status=missing
+2026-10-15T10:44:39 | WARNING | app | build_preview: check 60d4000c-fe92-43aa-92c3-2046d03091f1 not found
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: COMPLETED id=60d4000c-fe92-43aa-92c3-2046d03091f1 preview_status=missing
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=ee4843b9-dc01-4c3c-8f30-dd738336faa7
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=4c06fb6d-9b64-4172-98fe-32427b4979b6
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=585a73b9-98f7-4399-97d1-b9ddcbd0478f
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=8a183f20-0aa1-4ad1-9e03-0a435a116b96
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=3453dff3-195f-4892-9b1b-de2664c2c29b
+2026-10-15T10:44:39 | INFO | app | serp_rank_check.build_preview: started id=75c8d302-d54e-4a76-af2d-868962bdd1fc
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=8d6d052f-f104-4d3c-b3bd-025514ce2100
+2026-10-15T10:44:40 | WARNING | app | build_preview: check 4c06fb6d-9b64-4172-98fe-32427b4979b6 not found
+2026-10-15T10:44:40 | WARNING | app | build_preview: check ee4843b9-dc01-4c3c-8f30-dd738336faa7 not found
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=3453dff3-195f-4892-9b1b-de2664c2c29b preview_status=done
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=585a73b9-98f7-4399-97d1-b9ddcbd0478f preview_status=done
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=4c06fb6d-9b64-4172-98fe-32427b4979b6 preview_status=missing
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=ee4843b9-dc01-4c3c-8f30-dd738336faa7 preview_status=missing
+2026-10-15T10:44:40 | WARNING | app | build_preview: check 75c8d302-d54e-4a76-af2d-868962bdd1fc not found
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=75c8d302-d54e-4a76-af2d-868962bdd1fc preview_status=missing
+2026-10-15T10:44:40 | WARNING | app | build_preview: check 8d6d052f-f104-4d3c-b3bd-025514ce2100 not found
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: COMPLETED id=8d6d052f-f104-4d3c-b3bd-025514ce2100 preview_status=missing
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=cbc49481-6bc7-4482-9cfe-97ae8375d0dd
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=1d0cf507-80fa-459e-9c3f-f0d20789f6d2
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=79eb243a-16ce-4280-8ee7-8c5da621829e
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=2dcd2053-19a4-444f-ac21-2dcc3df6b4d4
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=4d0d912d-a0b2-4bf8-8f94-543db856c3f9
+2026-10-15T10:44:40 | INFO | app | serp_rank_check.build_preview: started id=6751285d-2f7a-4c26-b1b2-b3179ccfe430
+2026-10-15T10:44:41 | WARNING | app | build_preview: check cbc49481-6bc7-4482-9cfe-97ae8375d0dd not found
+2026-10-15T10:44:41 | WARNING | app | build_preview: check 1d0cf507-80fa-459e-9c3f-f0d20789f6d2 not found
+2026-10-15T10:44:41 | WARNING | app | build_preview: check 2dcd2053-19a4-444f-ac21-2dcc3df6b4d4 not found
+2026-10-15T10:44:41 | WARNING | app | build_preview: check 79eb243a-16ce-4280-8ee7-8c5da621829e not found
+2026-10-15T10:44:41 | WARNING | app | build_preview: check 4d0d912d-a0b2-4bf8-8f94-543db856c3f9 not found
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: COMPLETED id=cbc49481-6bc7-4482-9cfe-97ae8375d0dd preview_status=missing
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: COMPLETED id=2dcd2053-19a4-444f-ac21-2dcc3df6b4d4 preview_status=missing
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: COMPLETED id=79eb243a-16ce-4280-8ee7-8c5da621829e preview_status=missing
+2026-10-15T10:44:41 | WARNING | app | build_preview: check 6751285d-2f7a-4c26-b1b2-b3179ccfe430 not found
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: COMPLETED id=4d0d912d-a0b2-4bf8-8f94-543db856c3f9 preview_status=missing
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: COMPLETED id=1d0cf507-80fa-459e-9c3f-f0d20789f6d2 preview_status=missing
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: started id=b56a71f0-891f-4eeb-ac9c-786161bbdca9
+2026-10-15T10:44:41 | INFO | app | serp_rank_check.build_preview: started id=4a381781-b72e-4cb8-996f-55715283386f
+2026-10-15T10:44:42 | WARNING | app | serp preview: screenshot failed: <asyncio.locks.Lock object at 0x000001F964EFF610 [locked, waiters:1]> is bound to a different event loop
+2026-10-15T10:44:42 | INFO | app | serp_rank_check.build_preview: COMPLETED id=4a381781-b72e-4cb8-996f-55715283386f preview_status=done
+2026-10-15T10:44:47 | INFO | app | serp_rank_check.build_preview: COMPLETED id=8a183f20-0aa1-4ad1-9e03-0a435a116b96 preview_status=done
+2026-10-15T10:51:49 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=c3b32014-14e3-441e-a82b-9076cfc3033d
+2026-10-16T11:52:36 | INFO | app | Celery broker connection pre-warmed successfully

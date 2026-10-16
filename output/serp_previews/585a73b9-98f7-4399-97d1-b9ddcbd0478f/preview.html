@@ -17,16 +17,16 @@
             border-radius: 12px; font-size: 13px; font-weight: 700; }
   .badge.found { background: #e6f4ea; color: #137333; }
   .badge.missed { background: #fce8e6; color: #c5221f; }
+  .features { color: #5f6368; font-size: 13px; margin-top: 8px; }
   ol.results { list-style: none; margin: 0; padding: 0; }
   li.result { display: flex; gap: 12px; padding: 10px 8px;
-               border-radius: 6px; }
+               border-radius: 6px; background: #f8f9fa; }
   li.result.target { background: #fff8e1; outline: 2px solid #f9ab00; }
-  .position { min-width: 34px; font-weight: 700; color: #5f6368;
+  .position { min-width: 40px; font-weight: 700; color: #5f6368;
                text-align: right; }
   .title { color: #1a0dab; font-size: 16px; text-decoration: none; }
   .domain { color: #006621; font-size: 13px; }
-  .snippet { color: #4d5156; font-size: 14px; line-height: 1.4; }
-  li.empty { color: #5f6368; padding: 12px 8px; }
+  li.empty { color: #5f6368; padding: 12px 8px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -37,71 +37,12 @@
       Target domain: <strong>infomagine.in</strong>
       &middot; device: desktop
     </div>
-    <span class="badge missed">Not in top results</span>
+    <span class="badge missed">Not in top results (incomplete results)</span>
+    <div class="features">
+      SERP features: ai_overview, images, people_also_ask, people_also_search, related_searches, video
+    </div>
   </div>
-  <ol class="results">
-            <li class="result">
-              <div class="position">1</div>
-              <div class="body">
-                <a class="title" href="https://www.w3schools.com/whatis/">Web Development</a>
-                <div class="domain">w3schools.com</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">2</div>
-              <div class="body">
-                <a class="title" href="https://en.wikipedia.org/wiki/Web_development">Web development</a>
-                <div class="domain">wikipedia.org</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">3</div>
-              <div class="body">
-                <a class="title" href="https://www.geeksforgeeks.org/web-tech/web-technology/">Web Development Technologies</a>
-                <div class="domain">geeksforgeeks.org</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">4</div>
-              <div class="body">
-                <a class="title" href="https://www.udemy.com/topic/web-development/?srsltid=AU7gw4V2HCRE0xLVVyyvzg7P-h_D6skdh9fO9BGpX9fQ1ivENUjOpxlJ">Top Web Development Courses Online</a>
-                <div class="domain">udemy.com</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">5</div>
-              <div class="body">
-                <a class="title" href="https://www.codecademy.com/catalog/subject/web-development">Web Development Courses</a>
-                <div class="domain">codecademy.com</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">6</div>
-              <div class="body">
-                <a class="title" href="https://web.dev/learn">Learn web development</a>
-                <div class="domain">web.dev</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
-
-            <li class="result">
-              <div class="position">7</div>
-              <div class="body">
-                <a class="title" href="https://developer.mozilla.org/en-US/docs/Learn_web_development">Learn web development | MDN</a>
-                <div class="domain">mozilla.org</div>
-                <div class="snippet"></div>
-              </div>
-            </li>
+  <ol class="results"><li class='empty'>Your domain was not found in the Google search results.</li>
   </ol>
 </div>
 </body>

@@ -302,9 +302,16 @@ async def test_build_preview_success(
         preview_status=PreviewStatus.PENDING.value,
         result={
             "found": True,
-            "best_position": 1,
-            "best_absolute_position": 1,
-            "matches": [],
+            "best_position": 7,
+            "best_absolute_position": 9,
+            "matches": [
+                {
+                    "position": 7,
+                    "absolute_position": 9,
+                    "url": "https://example.com/page",
+                    "title": "Example Page",
+                },
+            ],
             "serp_features": [],
             "top_results": [],
             "partial": False,

@@ -1,10 +1,10 @@
 """SERP preview rendering and artifact storage.
 
 The preview is a separate stage from the rank check: it reads the
-stored result (no provider call), renders an HTML page from
-``top_results`` with the target domain highlighted, optionally
-captures a screenshot with Playwright (rendering our own HTML,
-never google.com), and stores both artifacts on the local
+stored result (no provider call), renders an HTML page focused on
+the **target domain's** ranking positions (from ``matches``),
+optionally captures a screenshot with Playwright (rendering our own
+HTML, never google.com), and stores both artifacts on the local
 filesystem behind a swappable storage interface.
 """
 from __future__ import annotations
@@ -39,41 +39,54 @@ def render_preview_html(
     device: str,
     result: dict[str, Any],
 ) -> str:
-    """Render the preview HTML for a rank result."""
+    """Render the preview HTML for a rank result.
+
+    Shows the **target domain's** ranking positions from ``matches``,
+    not generic competitor results from ``top_results``.
+    """
     best_position = result.get("best_position")
     found = bool(result.get("found"))
-    top_results = result.get("top_results") or []
+    matches: list[dict[str, Any]] = result.get("matches") or []
+    features: list[str] = result.get("serp_features") or []
+    partial = bool(result.get("partial"))
 
-    position_text = (
-        f"#{best_position}" if best_position is not None else "Not in top results"
-    )
     layout_width = "375px" if device == "mobile" else "860px"
 
-    rows: list[str] = []
-    for item in top_results:
-        is_target = (
-            isinstance(item.get("domain"), str)
-            and item["domain"]
-            and item["domain"] == target_domain
+    # ── Build the domain matches section ─────────────────────
+    if found and matches:
+        match_rows: list[str] = []
+        for match in matches:
+            position = _esc(match.get("position"))
+            url = _esc(match.get("url"))
+            title = _esc(match.get("title"))
+            match_rows.append(
+                f"""
+                <li class="result target">
+                  <div class="position">#{position}</div>
+                  <div class="body">
+                    <a class="title" href="{url}">{title}</a>
+                    <div class="domain">{_esc(target_domain)}</div>
+                  </div>
+                </li>"""
+            )
+        results_html = "\n".join(match_rows)
+        badge_class = "found"
+        badge_text = (
+            f"#{best_position} — Ranked!" if best_position is not None
+            else "Ranked!"
         )
-        target_class = " target" if is_target else ""
-        title = _esc(item.get("title"))
-        url = _esc(item.get("url"))
-        domain = _esc(item.get("domain"))
-        snippet = _esc(item.get("snippet"))
-        position = _esc(item.get("position"))
-        rows.append(
-            f"""
-            <li class="result{target_class}">
-              <div class="position">{position}</div>
-              <div class="body">
-                <a class="title" href="{url}">{title}</a>
-                <div class="domain">{domain}</div>
-                <div class="snippet">{snippet}</div>
-              </div>
-            </li>"""
+    else:
+        results_html = (
+            "<li class='empty'>"
+            "Your domain was not found in the Google search results."
+            "</li>"
         )
-    results_html = "\n".join(rows) or "<li class='empty'>No results</li>"
+        badge_class = "missed"
+        badge_text = (
+            "Not in top results" + (" (incomplete results)" if partial else "")
+        )
+
+    features_html = ", ".join(_esc(f) for f in features) if features else "None"
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -94,16 +107,16 @@ def render_preview_html(
             border-radius: 12px; font-size: 13px; font-weight: 700; }}
   .badge.found {{ background: #e6f4ea; color: #137333; }}
   .badge.missed {{ background: #fce8e6; color: #c5221f; }}
+  .features {{ color: #5f6368; font-size: 13px; margin-top: 8px; }}
   ol.results {{ list-style: none; margin: 0; padding: 0; }}
   li.result {{ display: flex; gap: 12px; padding: 10px 8px;
-               border-radius: 6px; }}
+               border-radius: 6px; background: #f8f9fa; }}
   li.result.target {{ background: #fff8e1; outline: 2px solid #f9ab00; }}
-  .position {{ min-width: 34px; font-weight: 700; color: #5f6368;
+  .position {{ min-width: 40px; font-weight: 700; color: #5f6368;
                text-align: right; }}
   .title {{ color: #1a0dab; font-size: 16px; text-decoration: none; }}
   .domain {{ color: #006621; font-size: 13px; }}
-  .snippet {{ color: #4d5156; font-size: 14px; line-height: 1.4; }}
-  li.empty {{ color: #5f6368; padding: 12px 8px; }}
+  li.empty {{ color: #5f6368; padding: 12px 8px; font-style: italic; }}
 </style>
 </head>
 <body>
@@ -114,7 +127,10 @@ def render_preview_html(
       Target domain: <strong>{_esc(target_domain)}</strong>
       &middot; device: {_esc(device)}
     </div>
-    <span class="badge {'found' if found else 'missed'}">{position_text}</span>
+    <span class="badge {badge_class}">{badge_text}</span>
+    <div class="features">
+      SERP features: {features_html}
+    </div>
   </div>
   <ol class="results">{results_html}
   </ol>
