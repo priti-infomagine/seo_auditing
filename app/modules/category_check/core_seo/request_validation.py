@@ -1,6 +1,8 @@
 # schemas/request.py
-import ipaddress, re
+import ipaddress
+import re
 from urllib.parse import urlsplit, urlunsplit
+
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from pydantic_core import PydanticCustomError
 
@@ -9,7 +11,7 @@ MAX_URL_LENGTH = 2048
 DEFAULT_PORTS = {"http": 80, "https": 443}
 BLOCKED_SUFFIXES = (".local", ".localhost", ".internal", ".lan", ".home", ".corp")
 TLD_RE = re.compile(r"^(?:[a-z]{2,63}|xn--[a-z0-9-]{2,59})$")
-SCHEME_LIKE = re.compile(r"^[a-z][a-z0-9+.\-]*:(?!\d)", re.I)   # javascript:, mailto:, but not site.com:8080
+SCHEME_LIKE = re.compile(r"^[a-z][a-z0-9+.\-]*:(?!\d)", re.IGNORECASE)   # javascript:, mailto:, but not site.com:8080
 
 def _err(code: str, msg: str) -> PydanticCustomError:
     return PydanticCustomError(code, msg)

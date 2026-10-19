@@ -40,6 +40,9 @@ from app.modules.seprate_checks.schema_generation.router import (
 from app.modules.seprate_checks.serp_rank_check.router import (
     router as serp_rank_check_router,
 )
+from app.modules.category_check.core_seo.router import (
+    router as core_seo_router,
+)
 
 router = APIRouter()
 
@@ -65,5 +68,6 @@ router.include_router(bulk_status_router, prefix="/bulk-status", tags=["Bulk Sta
 router.include_router(redirect_check_router, prefix="/redirect-check", tags=["Redirect Check"])
 router.include_router(schema_generation_router, prefix="/schema", tags=["Schema Generation"])
 router.include_router(serp_rank_check_router, prefix="/serp", tags=["SERP Rank Check"])
+router.include_router(core_seo_router, prefix="/category-check", tags=["Core SEO"])
 
 __all__ = ["router"]

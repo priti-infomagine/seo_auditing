@@ -29,7 +29,12 @@ task_routes = {
     "streaming_audit.*": {
         "queue": "streaming_audit",
     },
+    "core_seo.*": {
+        "queue": "crawler",
+    },
     "reports.*": {
         "queue": "email",
     },
 }
+
+

@@ -23,6 +23,7 @@ celery_app = Celery(
         "app.modules.seprate_checks.redirect_urls.tasks",
         "app.modules.seprate_checks.redirect_check.tasks",
         "app.modules.seprate_checks.serp_rank_check.tasks",
+        "app.modules.category_check.core_seo.tasks",
     ],
 )
 
