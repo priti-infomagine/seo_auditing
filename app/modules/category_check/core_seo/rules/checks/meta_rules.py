@@ -25,7 +25,7 @@ class MetaDescriptionPresentRule(BaseRule):
         if not desc:
             return [self._result(
                 passed=False,
-                message="Missing meta description tag",
+                message="Page is missing a <meta name='description'> tag",
                 severity=Severity.WARNING.value,
                 score_impact=-10,
                 recommendation="Add a <meta name='description'> tag to the page.",
@@ -69,7 +69,7 @@ class MetaDescriptionLengthRule(BaseRule):
         if desc_length < self.RECOMMENDED_MIN:
             return [self._result(
                 passed=False,
-                message=f"Meta description is too short ({desc_length} characters, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
+                message=f"Meta description length is {desc_length} characters (too short, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
                 severity=Severity.WARNING.value,
                 score_impact=-5,
                 recommendation=f"Make the description at least {self.RECOMMENDED_MIN} characters.",
@@ -79,7 +79,7 @@ class MetaDescriptionLengthRule(BaseRule):
         if desc_length > self.RECOMMENDED_MAX:
             return [self._result(
                 passed=False,
-                message=f"Meta description is long ({desc_length} characters, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
+                message=f"Meta description length is {desc_length} characters (too long, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
                 severity=Severity.WARNING.value,
                 score_impact=-3,
                 recommendation="Shorten the description to avoid SERP truncation.",
@@ -88,7 +88,7 @@ class MetaDescriptionLengthRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message=f"Meta description length is good ({desc_length} characters)",
+            message=f"Meta description length is {desc_length} characters (good)",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"length": desc_length},

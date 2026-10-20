@@ -33,7 +33,7 @@ class H1TagPresentRule(BaseRule):
         if h1_count == 0:
             return [self._result(
                 passed=False,
-                message="Missing H1 tag",
+                message="Page is missing an <h1> tag",
                 severity=Severity.WARNING.value,
                 score_impact=-6,
                 recommendation="Add a single <h1> tag that describes the page's main topic.",
@@ -41,7 +41,7 @@ class H1TagPresentRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message=f"H1 found: \"{h1_text[:80]}\"",
+            message=f"H1 tag found: \"{h1_text[:80]}\"",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"h1_count": h1_count, "h1_text": h1_text[:200]},
@@ -65,7 +65,7 @@ class SingleH1TagRule(BaseRule):
         if h1_count == 0:
             return [self._result(
                 passed=False,
-                message="No H1 tags found",
+                message="Page does not have an <h1> tag",
                 severity=Severity.WARNING.value,
                 score_impact=-6,
                 recommendation="Add exactly one <h1> tag.",
@@ -74,7 +74,7 @@ class SingleH1TagRule(BaseRule):
         if h1_count > 1:
             return [self._result(
                 passed=False,
-                message=f"Multiple H1 tags found ({h1_count})",
+                message=f"Multiple <h1> tags found ({h1_count}) — pages should have exactly one H1 for clear heading hierarchy",
                 severity=Severity.WARNING.value,
                 score_impact=-4,
                 recommendation="Use only one <h1> tag per page; use <h2>, <h3>, etc. for subheadings.",
@@ -83,7 +83,7 @@ class SingleH1TagRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message="Page has exactly one H1 tag",
+            message="Page has exactly one <h1> tag (good)",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"h1_count": h1_count},

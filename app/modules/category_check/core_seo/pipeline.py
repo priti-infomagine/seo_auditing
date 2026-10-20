@@ -31,6 +31,7 @@ from .page_discoverer import PageDiscoverer
 from .page_parser import PageParser
 from .rules.registry import RuleRegistry, default_registry
 from .scorer import Scorer
+from .storage import WriteBehindStore
 
 from app.core.logger import logger
 
@@ -67,6 +68,7 @@ class CoreSEOCrawlerService:
         self._normalizer = AuditNormalizer()
 
         self._audit_states: dict[str, dict[str, Any]] = {}
+        self._write_behind: WriteBehindStore = WriteBehindStore()
 
     async def start_audit(
         self,
@@ -100,6 +102,7 @@ class CoreSEOCrawlerService:
         }
         self.event_bus.reset_counters(audit_id)
         self.event_bus.set_audit_state(audit_id, status="running", total_pages=max_pages, crawled_pages=0, start_url=start_url)
+        self._write_behind.mark_dirty(audit_id)
 
         await self._emit_event(CoreSEOEventType.CRAWL_STARTED, audit_id, {
             "start_url": start_url,
@@ -218,6 +221,8 @@ class CoreSEOCrawlerService:
             {"url": url, "score": page_score.score},
         )
 
+        self._write_behind.write_result(audit_id, page_score, crawl_result)
+
         return page_score, crawl_result
 
     async def discover_pages_async(
@@ -248,6 +253,7 @@ class CoreSEOCrawlerService:
         }
         self.event_bus.reset_counters(audit_id)
         self.event_bus.set_audit_state(audit_id, status="running", total_pages=max_pages, crawled_pages=0, start_url=start_url)
+        self._write_behind.mark_dirty(audit_id)
 
         await self._emit_event(CoreSEOEventType.CRAWL_STARTED, audit_id, {
             "start_url": start_url,
@@ -404,6 +410,9 @@ class CoreSEOCrawlerService:
             self.event_bus.set_audit_state(audit_id, report=report_json)
         except (TypeError, ValueError):
             pass
+
+        self._write_behind.mark_dirty(audit_id)
+        self._write_behind.flush()
 
         state = self._audit_states.get(audit_id, {})
         state["status"] = "completed"

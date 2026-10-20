@@ -31,7 +31,7 @@ class CanonicalURLPresentRule(BaseRule):
         if not canonical:
             return [self._result(
                 passed=False,
-                message="Missing canonical URL tag",
+                message="Page is missing a <link rel='canonical'> tag",
                 severity=Severity.WARNING.value,
                 score_impact=-5,
                 recommendation="Add <link rel='canonical' href='...'> to specify the preferred URL.",
@@ -62,7 +62,7 @@ class CanonicalURLValidRule(BaseRule):
         if not canonical:
             return [self._result(
                 passed=False,
-                message="No canonical URL specified",
+                message="No canonical tag found",
                 severity=Severity.INFO.value,
                 score_impact=-2,
                 recommendation="Add a canonical URL tag first.",
@@ -124,14 +124,14 @@ class CanonicalLoopDetectionRule(BaseRule):
         if canonical_norm == page_norm:
             return [self._result(
                 passed=True,
-                message="Canonical points to the correct page URL (no loop detected)",
+                message="Canonical URL points to the correct page (no loop detected)",
                 severity=Severity.PASSED.value,
                 score_impact=0,
             )]
 
         return [self._result(
             passed=False,
-            message=f"Canonical points to different URL: {canonical} (potential loop risk)",
+            message=f"Canonical URL ({canonical}) points to a different location than the page URL (potential loop risk)",
             severity=Severity.WARNING.value,
             score_impact=-3,
             recommendation="Ensure canonical points to the page's own URL.",
@@ -156,7 +156,7 @@ class CanonicalNotPointingToHomepageRule(BaseRule):
         if not canonical:
             return [self._result(
                 passed=True,
-                message="No canonical specified",
+                message="No canonical tag found (nothing to check)",
                 severity=Severity.INFO.value,
                 score_impact=0,
             )]
@@ -177,7 +177,7 @@ class CanonicalNotPointingToHomepageRule(BaseRule):
         if is_homepage and is_current_page_homepage:
             return [self._result(
                 passed=True,
-                message="This is the homepage (canonical correctly points to homepage)",
+                message="This is the homepage — canonical correctly points to the homepage",
                 severity=Severity.PASSED.value,
                 score_impact=0,
             )]
@@ -185,7 +185,7 @@ class CanonicalNotPointingToHomepageRule(BaseRule):
         if is_homepage and not is_current_page_homepage:
             return [self._result(
                 passed=False,
-                message="Canonical points to the homepage from a non-homepage page",
+                message=f"Canonical URL points to the homepage ({canonical}) from a non-homepage page — this dilutes page-level SEO value",
                 severity=Severity.WARNING.value,
                 score_impact=-5,
                 recommendation="Canonical should point to the page's own URL, not the homepage.",
@@ -197,6 +197,7 @@ class CanonicalNotPointingToHomepageRule(BaseRule):
             message=f"Canonical does not point to homepage (path: {canonical_path or '/'})",
             severity=Severity.PASSED.value,
             score_impact=0,
+            data={"canonical_path": canonical_path},
         )]
 
 
@@ -242,7 +243,7 @@ class CanonicalProtocolMatchRule(BaseRule):
         if canonical_proto == page_proto:
             return [self._result(
                 passed=True,
-                message=f"Canonical protocol matches page protocol ({canonical_proto})",
+                message=f"Canonical protocol ({canonical_proto}) matches page protocol",
                 severity=Severity.PASSED.value,
                 score_impact=0,
                 data={"canonical_protocol": canonical_proto, "page_protocol": page_proto},
@@ -301,7 +302,7 @@ class CanonicalAndNoindexConflictRule(BaseRule):
         if same_url:
             return [self._result(
                 passed=False,
-                message="Page has both a canonical (to itself) and noindex directive (conflicting signals)",
+                message="Page has both a canonical (to itself) and noindex directive — conflicting signals sent to search engines",
                 severity=Severity.WARNING.value,
                 score_impact=-8,
                 recommendation="Remove noindex if the page should be indexed, or remove canonical if it should not.",
@@ -310,9 +311,10 @@ class CanonicalAndNoindexConflictRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message=f"noindex present with external canonical (no conflict: {canonical})",
+            message=f"noindex is present with an external canonical URL ({canonical}) — no conflict",
             severity=Severity.INFO.value,
             score_impact=0,
+            data={"canonical": canonical, "robots_meta": robots_meta},
         )]
 
 
@@ -341,7 +343,7 @@ class CanonicalHeaderValidationRule(BaseRule):
         if source_count == 0:
             return [self._result(
                 passed=True,
-                message="Canonical specified via single source",
+                message="Canonical URL found via single source",
                 severity=Severity.PASSED.value,
                 score_impact=0,
             )]
@@ -349,7 +351,7 @@ class CanonicalHeaderValidationRule(BaseRule):
         if source_count == 1:
             return [self._result(
                 passed=True,
-                message="Canonical specified via single source",
+                message=f"Canonical URL found via single source ({source_count} source)",
                 severity=Severity.PASSED.value,
                 score_impact=0,
                 data={"source_count": source_count},
@@ -357,7 +359,7 @@ class CanonicalHeaderValidationRule(BaseRule):
 
         return [self._result(
             passed=False,
-            message=f"Multiple canonical sources found ({source_count})",
+            message=f"Multiple canonical sources found ({source_count} sources) — canonical defined both in <link> tag and HTTP header",
             severity=Severity.WARNING.value,
             score_impact=-3,
             recommendation="Specify canonical via only one source to avoid ambiguity.",
@@ -381,7 +383,7 @@ class ConflictingCanonicalURLsRule(BaseRule):
         if source_count == 0:
             return [self._result(
                 passed=True,
-                message="No canonical sources found",
+                message="No canonical sources found (page does not use canonicalization)",
                 severity=Severity.INFO.value,
                 score_impact=0,
             )]
@@ -389,7 +391,7 @@ class ConflictingCanonicalURLsRule(BaseRule):
         if source_count == 1:
             return [self._result(
                 passed=True,
-                message="At most one canonical source found",
+                message=f"At most one canonical source found ({source_count} source)",
                 severity=Severity.PASSED.value,
                 score_impact=0,
                 data={"source_count": source_count},
@@ -397,7 +399,7 @@ class ConflictingCanonicalURLsRule(BaseRule):
 
         return [self._result(
             passed=False,
-            message=f"Conflicting canonical URLs: {source_count} sources found on the same page",
+            message=f"Conflicting canonical URLs: {source_count} sources found on the same page — search engines cannot determine the preferred URL",
             severity=Severity.WARNING.value,
             score_impact=-5,
             recommendation="Keep only one canonical URL source per page.",

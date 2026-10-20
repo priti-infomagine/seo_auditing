@@ -228,6 +228,15 @@ if CELERY_AVAILABLE:
 
         # Finalize the audit
         _run_async(service.finalize_from_results(audit_id, page_results))
+
+        # Write-behind: flush audit state to DB after completion
+        try:
+            from .storage import WriteBehindStore
+            store = WriteBehindStore()
+            store.flush()
+        except Exception as exc:
+            logger.warning("finalize_audit_task: DB flush failed: %s", exc)
+
         return audit_id
 
 

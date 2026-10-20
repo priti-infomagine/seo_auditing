@@ -57,19 +57,19 @@ async def test_run_check_persists_provider_result(monkeypatch):
     }
     client = SimpleNamespace(get_backlink_summary=AsyncMock(return_value=result))
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_client",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_client",
         None,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_credentials",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_credentials",
         None,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service.settings.DATAFORSEO_LOGIN",
+        "app.modules.separate_checks.backlink_analysis.service.settings.DATAFORSEO_LOGIN",
         "login",
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service.settings.DATAFORSEO_PASSWORD",
+        "app.modules.separate_checks.backlink_analysis.service.settings.DATAFORSEO_PASSWORD",
         "password",
     )
     def fake_client_factory(login, password):
@@ -78,7 +78,7 @@ async def test_run_check_persists_provider_result(monkeypatch):
         return client
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service.DataForSEOClient",
+        "app.modules.separate_checks.backlink_analysis.service.DataForSEOClient",
         fake_client_factory,
     )
     db = FakeSession()
@@ -98,19 +98,19 @@ async def test_run_check_persists_failed_status_and_surfaces_missing_credentials
     monkeypatch,
 ):
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_client",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_client",
         None,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_credentials",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_credentials",
         None,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service.settings.DATAFORSEO_LOGIN",
+        "app.modules.separate_checks.backlink_analysis.service.settings.DATAFORSEO_LOGIN",
         "",
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service.settings.DATAFORSEO_PASSWORD",
+        "app.modules.separate_checks.backlink_analysis.service.settings.DATAFORSEO_PASSWORD",
         "",
     )
     db = FakeSession()
@@ -128,11 +128,11 @@ async def test_run_check_persists_failed_status_and_surfaces_missing_credentials
 async def test_close_dataforseo_client_closes_and_resets_shared_client(monkeypatch):
     client = SimpleNamespace(aclose=AsyncMock())
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_client",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_client",
         client,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.service._dataforseo_credentials",
+        "app.modules.separate_checks.backlink_analysis.service._dataforseo_credentials",
         ("login", "password"),
     )
 

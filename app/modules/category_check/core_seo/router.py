@@ -26,7 +26,6 @@ from .tasks import run_audit as run_audit_task
 
 router = APIRouter(
     prefix="/core-seo",
-    tags=["core_seo"],
 )
 
 _service: CoreSEOCrawlerService | None = None

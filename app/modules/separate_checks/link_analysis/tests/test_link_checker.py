@@ -81,7 +81,7 @@ class TestSSRFProtection:
         from unittest.mock import AsyncMock, patch
 
         with patch(
-            "app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf_async",
+            "app.modules.separate_checks.link_analysis.link_checker.validate_url_ssrf_async",
             new=AsyncMock(),
         ) as mock_ssrf:
             from app.modules.crawler.utils.url import SSRFError
@@ -98,7 +98,7 @@ class TestSSRFProtection:
         from unittest.mock import AsyncMock, patch
 
         with patch(
-            "app.modules.seprate_checks.link_analysis.link_checker.validate_url_ssrf_async",
+            "app.modules.separate_checks.link_analysis.link_checker.validate_url_ssrf_async",
             new=AsyncMock(),
         ) as mock_ssrf:
             from app.modules.crawler.utils.url import SSRFError

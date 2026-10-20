@@ -189,7 +189,7 @@ async def fake_serp_client(monkeypatch):
         return client
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.serp_rank_check.service.get_serp_client",
+        "app.modules.separate_checks.serp_rank_check.service.get_serp_client",
         _get,
     )
     return client
@@ -202,7 +202,7 @@ async def service_session_factory(db_engine, monkeypatch):
         db_engine, class_=AsyncSession, expire_on_commit=False
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.serp_rank_check.service.async_session_factory",
+        "app.modules.separate_checks.serp_rank_check.service.async_session_factory",
         factory,
     )
     return factory
@@ -225,7 +225,7 @@ def preview_artifacts(monkeypatch):
         return state["urls"]
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.serp_rank_check.service.save_preview_artifacts",
+        "app.modules.separate_checks.serp_rank_check.service.save_preview_artifacts",
         fake_save,
     )
     return state

@@ -46,7 +46,7 @@ class TestPostCheck:
         app_mock = None
         from app.main import app
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -72,7 +72,7 @@ class TestPostCheck:
     async def test_check_with_custom_max_pages(self, db_session, mock_redis):
         from app.main import app
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -92,7 +92,7 @@ class TestPostCheck:
     async def test_check_invalid_url(self, db_session, mock_redis):
         from app.main import app
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -120,7 +120,7 @@ class TestGetCheck:
         await db_session.commit()
         await db_session.refresh(check)
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -136,7 +136,7 @@ class TestGetCheck:
     async def test_get_check_not_found(self, db_session, mock_redis):
         from app.main import app
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -149,7 +149,7 @@ class TestGetCheck:
     async def test_get_check_invalid_id(self, db_session, mock_redis):
         from app.main import app
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -173,7 +173,7 @@ class TestGetCheck:
         await db_session.commit()
         await db_session.refresh(check)
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -253,7 +253,7 @@ class TestGetCheck:
         db_session.add_all([f1, f2])
         await db_session.commit()
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"
@@ -348,7 +348,7 @@ class TestGetCheck:
         ))
         await db_session.commit()
 
-        with patch("app.modules.seprate_checks.link_analysis.router.get_redis") as mock_get_redis:
+        with patch("app.modules.separate_checks.link_analysis.router.get_redis") as mock_get_redis:
             mock_get_redis.return_value = mock_redis
             async with AsyncClient(
                 transport=ASGITransport(app=app), base_url="http://test"

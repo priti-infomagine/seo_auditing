@@ -7,7 +7,7 @@ Tasks:
 
 The worker entry point is ``lighthouse.run_check``, enqueued on the
 ``lighthouse`` queue by POST /lighthouse/check (see
-``app.modules.seprate_checks.google_lighthouse_check.router``).
+``app.modules.separate_checks.google_lighthouse_check.router``).
 
 Design:
   - ``bind=True`` gives us ``self.update_state`` for live progress reporting

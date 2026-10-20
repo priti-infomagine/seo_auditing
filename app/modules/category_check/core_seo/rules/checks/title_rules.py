@@ -25,7 +25,7 @@ class TitleTagPresentRule(BaseRule):
         if not title:
             return [self._result(
                 passed=False,
-                message="Missing <title> tag",
+                message="Page is missing a <title> tag",
                 severity=Severity.WARNING.value,
                 score_impact=-8,
                 recommendation="Add a unique, descriptive <title> tag to the page.",
@@ -60,7 +60,7 @@ class TitleTagLengthRule(BaseRule):
         if not title:
             return [self._result(
                 passed=False,
-                message="Missing title tag",
+                message="Page is missing a <title> tag, cannot evaluate length",
                 severity=Severity.INFO.value,
                 score_impact=-5,
                 recommendation="Add a <title> tag first.",
@@ -69,7 +69,7 @@ class TitleTagLengthRule(BaseRule):
         if title_length < self.RECOMMENDED_MIN:
             return [self._result(
                 passed=False,
-                message=f"Title is too short ({title_length} characters, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
+                message=f"Title length is {title_length} characters (too short, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
                 severity=Severity.WARNING.value,
                 score_impact=-4,
                 recommendation=f"Make the title at least {self.RECOMMENDED_MIN} characters.",
@@ -79,7 +79,7 @@ class TitleTagLengthRule(BaseRule):
         if title_length > self.RECOMMENDED_MAX:
             return [self._result(
                 passed=False,
-                message=f"Title is too long ({title_length} characters, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
+                message=f"Title length is {title_length} characters (too long, recommended: {self.RECOMMENDED_MIN}-{self.RECOMMENDED_MAX})",
                 severity=Severity.WARNING.value,
                 score_impact=-3,
                 recommendation="Shorten the title to 30-60 characters to avoid SERP truncation.",
@@ -88,7 +88,7 @@ class TitleTagLengthRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message=f"Title length is optimal ({title_length} characters)",
+            message=f"Title length is {title_length} characters (good)",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"length": title_length},

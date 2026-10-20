@@ -66,6 +66,7 @@ from .schema import (
     RequestSchema,
 )
 from .scorer import ScoreCalculator, Scorer
+from .storage import WriteBehindStore
 from .tasks import crawl_page_inline, crawl_page_task, run_audit, run_audit_inline
 from .url_normalizer import URLNormalizer
 
@@ -131,6 +132,8 @@ __all__ = [
     "run_audit",
     "crawl_page_inline",
     "run_audit_inline",
+    # Storage / DB
+    "WriteBehindStore",
     # Router
     "core_seo_router",
     # Registration

@@ -106,19 +106,19 @@ def _patch_dependencies(service, test_urls, mock_adapter_cls, MockBrowser):
     patches = [
         patch.object(service, "_build_seo_map", new_callable=AsyncMock, return_value={}),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.fetch_chain",
+            "app.modules.separate_checks.redirect_check.service.fetch_chain",
             side_effect=_make_fetch_chain_side_effect(test_urls),
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.probe_soft_404",
+            "app.modules.separate_checks.redirect_check.service.probe_soft_404",
             new_callable=AsyncMock,
             return_value=[],
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.RedirectCheckerService"
+            "app.modules.separate_checks.redirect_check.service.RedirectCheckerService"
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.StreamingRedirectAdapter"
+            "app.modules.separate_checks.redirect_check.service.StreamingRedirectAdapter"
         ),
     ]
 
@@ -169,19 +169,19 @@ async def test_concurrent_url_checks_no_db_conflicts():
     with (
         patch.object(service, "_build_seo_map", new_callable=AsyncMock, return_value={}),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.fetch_chain",
+            "app.modules.separate_checks.redirect_check.service.fetch_chain",
             side_effect=_make_fetch_chain_side_effect(test_urls),
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.probe_soft_404",
+            "app.modules.separate_checks.redirect_check.service.probe_soft_404",
             new_callable=AsyncMock,
             return_value=[],
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.RedirectCheckerService"
+            "app.modules.separate_checks.redirect_check.service.RedirectCheckerService"
         ) as MockBrowser,
         patch(
-            "app.modules.seprate_checks.redirect_check.service.StreamingRedirectAdapter"
+            "app.modules.separate_checks.redirect_check.service.StreamingRedirectAdapter"
         ) as MockAdapter,
         patch.object(StreamingAuditService, "upsert_page_result", spy_upsert),
         patch.object(StreamingAuditService, "update_run", spy_update_run),
@@ -258,19 +258,19 @@ async def test_persistence_failure_sets_partial_status_and_continues():
     with (
         patch.object(service, "_build_seo_map", new_callable=AsyncMock, return_value={}),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.fetch_chain",
+            "app.modules.separate_checks.redirect_check.service.fetch_chain",
             side_effect=_make_fetch_chain_side_effect(test_urls),
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.probe_soft_404",
+            "app.modules.separate_checks.redirect_check.service.probe_soft_404",
             new_callable=AsyncMock,
             return_value=[],
         ),
         patch(
-            "app.modules.seprate_checks.redirect_check.service.RedirectCheckerService"
+            "app.modules.separate_checks.redirect_check.service.RedirectCheckerService"
         ) as MockBrowser,
         patch(
-            "app.modules.seprate_checks.redirect_check.service.StreamingRedirectAdapter"
+            "app.modules.separate_checks.redirect_check.service.StreamingRedirectAdapter"
         ) as MockAdapter,
         patch.object(StreamingAuditService, "upsert_page_result", upsert_that_fails_on_third),
         patch.object(StreamingAuditService, "update_run", spy_update_run),

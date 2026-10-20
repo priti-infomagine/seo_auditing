@@ -112,7 +112,7 @@ async def test_sitemap_check_async_success(monkeypatch, db_session):
     await db_session.commit()
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.sitemap_check.service.SiteDiscoveryService",
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
         FakeDiscovery,
     )
 
@@ -175,7 +175,7 @@ async def test_sitemap_check_async_reports_missing_sitemap(monkeypatch, db_sessi
             return result
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.sitemap_check.service.SiteDiscoveryService",
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
         FakeDiscoveryNoSitemaps,
     )
 
@@ -210,7 +210,7 @@ async def test_sitemap_check_async_does_not_call_pagespeed(
     await db_session.commit()
 
     monkeypatch.setattr(
-        "app.modules.seprate_checks.sitemap_check.service.SiteDiscoveryService",
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
         FakeDiscovery,
     )
     def fail_if_constructed(*args, **kwargs):

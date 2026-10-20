@@ -31,7 +31,7 @@ def mock_celery(monkeypatch):
 
     fake_celery = SimpleNamespace(send_task=fake_send_task)
     monkeypatch.setattr(
-        "app.modules.seprate_checks.redirect_check.router.celery_app", fake_celery
+        "app.modules.separate_checks.redirect_check.router.celery_app", fake_celery
     )
     return fake_send_task
 

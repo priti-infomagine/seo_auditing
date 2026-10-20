@@ -221,7 +221,7 @@ async def test_get_backlink_summary_retries_provider_statuses_with_one_and_two_s
     sleeps = AsyncMock()
     monkeypatch.setattr(client, "_get_client", lambda: http_client)
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.data_for_seo_client.asyncio.sleep",
+        "app.modules.separate_checks.backlink_analysis.data_for_seo_client.asyncio.sleep",
         sleeps,
     )
 
@@ -247,7 +247,7 @@ async def test_get_backlink_summary_retries_transport_errors(monkeypatch):
     sleeps = AsyncMock()
     monkeypatch.setattr(client, "_get_client", lambda: http_client)
     monkeypatch.setattr(
-        "app.modules.seprate_checks.backlink_analysis.data_for_seo_client.asyncio.sleep",
+        "app.modules.separate_checks.backlink_analysis.data_for_seo_client.asyncio.sleep",
         sleeps,
     )
 

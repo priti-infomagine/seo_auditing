@@ -54,11 +54,11 @@ def test_celery_task_accepts_all_queued_arguments():
     assert run_redirect_url_audit.__bound__ is True
     assert run_redirect_url_audit.name == "redirect_check.run_domain_check"
     assert (
-        "app.modules.seprate_checks.redirect_urls.tasks"
+        "app.modules.separate_checks.redirect_urls.tasks"
         in router_module.celery_app.conf.include
     )
     assert (
-        "app.modules.seprate_checks.redirect_check.tasks"
+        "app.modules.separate_checks.redirect_check.tasks"
         in router_module.celery_app.conf.include
     )
 

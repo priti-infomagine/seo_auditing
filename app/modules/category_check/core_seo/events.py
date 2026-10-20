@@ -18,11 +18,15 @@ from app.core.logger import logger
 
 from .models import CoreSEOEventType, PipelineEvent
 
+# Redis TTL: maximum 1 hour for all audit-related keys.
+REDIS_TTL_SECONDS = 3600
+
 _DEFAULT_COUNTERS: dict[str, dict[str, int]] = defaultdict(lambda: {
     "pages_discovered": 0,
     "pages_crawled": 0,
     "pages_parsed": 0,
     "pages_scored": 0,
+    "pages_failed": 0,
     "rules_passed": 0,
     "rules_failed": 0,
     "rules_total": 0,
@@ -75,7 +79,11 @@ def _redis_hgetall_sync(audit_id: str, suffix: str) -> dict[str, str]:
 
 
 def _redis_hset_sync(audit_id: str, suffix: str, mapping: dict[str, Any]) -> None:
-    """Set multiple fields in a Redis hash synchronously (best-effort)."""
+    """Set multiple fields in a Redis hash synchronously with TTL (best-effort).
+
+    TTL is REDIS_TTL_SECONDS (3600 = 1 hour max) to ensure stale
+    audit state auto-expires from Redis.
+    """
     client = _get_sync_redis()
     if client is None:
         return
@@ -88,7 +96,9 @@ def _redis_hset_sync(audit_id: str, suffix: str, mapping: dict[str, Any]) -> Non
                 flattened[f] = str(v)
             else:
                 flattened[f] = json.dumps(v, default=str)
-        client.hset(_redis_key(audit_id, suffix), mapping=flattened)
+        key = _redis_key(audit_id, suffix)
+        client.hset(key, mapping=flattened)
+        client.expire(key, REDIS_TTL_SECONDS)
     except Exception as exc:
         logger.debug("EventBus Redis hset failed: %s", exc)
 
@@ -142,6 +152,7 @@ class EventBus:
             "pages_crawled": 0,
             "pages_parsed": 0,
             "pages_scored": 0,
+            "pages_failed": 0,
             "rules_passed": 0,
             "rules_failed": 0,
             "rules_total": 0,
@@ -155,6 +166,7 @@ class EventBus:
             "pages_parsed": 0,
             "pages_crawled": 0,
             "pages_scored": 0,
+            "pages_failed": 0,
             "rules_passed": 0,
             "rules_failed": 0,
             "rules_total": 0,
@@ -246,12 +258,16 @@ class EventBus:
         key_map = {
             CoreSEOEventType.PAGE_DISCOVERED.value: "pages_discovered",
             CoreSEOEventType.PAGE_CRAWLED.value: "pages_crawled",
+            CoreSEOEventType.PAGE_CRAWL_FAILED.value: "pages_crawled",
             CoreSEOEventType.PAGE_PARSED.value: "pages_parsed",
             CoreSEOEventType.PAGE_SCORED.value: "pages_scored",
         }
         key = key_map.get(event.event_type)
         if key:
             self._increment(audit_id, key)
+
+        if event.event_type == CoreSEOEventType.PAGE_CRAWL_FAILED.value:
+            self._increment(audit_id, "pages_failed")
 
         if data and "rules_passed" in data:
             self._increment(audit_id, "rules_passed", data["rules_passed"])
@@ -331,12 +347,15 @@ class EventBus:
             key_map = {
                 CoreSEOEventType.PAGE_DISCOVERED.value: "pages_discovered",
                 CoreSEOEventType.PAGE_CRAWLED.value: "pages_crawled",
+                CoreSEOEventType.PAGE_CRAWL_FAILED.value: "pages_crawled",
                 CoreSEOEventType.PAGE_PARSED.value: "pages_parsed",
                 CoreSEOEventType.PAGE_SCORED.value: "pages_scored",
             }
             key = key_map.get(event.event_type)
             if key:
                 cls._increment(audit_id, key)
+            if event.event_type == CoreSEOEventType.PAGE_CRAWL_FAILED.value:
+                cls._increment(audit_id, "pages_failed")
 
     # ── Internal dispatch / Redis ───────────────────────────────────
 
@@ -376,6 +395,7 @@ class EventBus:
             )
             stream_key = f"core_seo:events:{event.audit_id}"
             client.xadd(stream_key, {"event": payload}, maxlen=1000)
+            client.expire(stream_key, REDIS_TTL_SECONDS)
         except Exception as exc:
             logger.debug("EventBus Redis emit failed: %s", exc)
 
@@ -392,4 +412,4 @@ class EventBus:
         }
 
 
-__all__ = ["CoreSEOEventType", "EventBus", "_utcnow_str"]
+__all__ = ["REDIS_TTL_SECONDS", "CoreSEOEventType", "EventBus", "_utcnow_str"]

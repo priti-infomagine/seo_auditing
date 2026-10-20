@@ -87,12 +87,24 @@ class TestCrawlPageTask:
 
     def test_crawl_page_inline_has_rule_results(self, sample_html):
         """The serialized result includes all 18 rules."""
-        result = crawl_page_inline(
-            "https://example.com",
-            audit_id="test-rules-123",
-            index=0, total=1,
-        )
-        assert len(result["rule_results"]) == 18
+        import app.modules.category_check.core_seo.tasks as tasks_mod
+        original_service = tasks_mod.CoreSEOCrawlerService
+
+        class MockService(original_service):
+            def __init__(self, **kwargs):
+                super().__init__(**kwargs)
+                self.crawler = MockCrawler(sample_html)
+
+        tasks_mod.CoreSEOCrawlerService = MockService
+        try:
+            result = crawl_page_inline(
+                "https://example.com",
+                audit_id="test-rules-123",
+                index=0, total=1,
+            )
+            assert len(result["rule_results"]) == 18
+        finally:
+            tasks_mod.CoreSEOCrawlerService = original_service
 
     def test_crawl_page_inline_error_handling(self):
         """When crawl fails, crawl_page returns error result or raises."""

@@ -26,7 +26,7 @@ class ViewportMetaTagRule(BaseRule):
         if not viewport:
             return [self._result(
                 passed=False,
-                message="Missing viewport meta tag",
+                message="Page is missing a viewport meta tag — may not render properly on mobile devices",
                 severity=Severity.WARNING.value,
                 score_impact=-5,
                 recommendation="Add <meta name='viewport' content='width=device-width, initial-scale=1.0'>",
@@ -34,7 +34,7 @@ class ViewportMetaTagRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message="Viewport meta tag found",
+            message=f"Viewport meta tag found: \"{viewport}\"",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"viewport": viewport},
@@ -65,7 +65,7 @@ class FaviconPresentRule(BaseRule):
 
         return [self._result(
             passed=True,
-            message="Favicon found",
+            message=f"Favicon(s) found: {len(favicon_urls)} detected — {favicon_urls[0][:80]}",
             severity=Severity.PASSED.value,
             score_impact=0,
             data={"favicon_urls": favicon_urls[:5]},
@@ -90,7 +90,7 @@ class RobotsMetaDirectivesRule(BaseRule):
         if not robots_meta:
             return [self._result(
                 passed=True,
-                message="No restrictive robots directives found",
+                message="No robots meta directives found (page is indexable by default)",
                 severity=Severity.PASSED.value,
                 score_impact=0,
             )]
@@ -103,7 +103,7 @@ class RobotsMetaDirectivesRule(BaseRule):
         if not found_directives:
             return [self._result(
                 passed=True,
-                message=f"Robots meta present but no restrictive directives: {robots_meta}",
+                message=f"Robots meta present ({robots_meta}) but no restrictive directives found",
                 severity=Severity.PASSED.value,
                 score_impact=0,
                 data={"robots_meta": robots_meta},
@@ -112,7 +112,7 @@ class RobotsMetaDirectivesRule(BaseRule):
         if "noindex" in found_directives:
             return [self._result(
                 passed=False,
-                message=f"Restrictive robots directives found: {', '.join(found_directives)}",
+                message=f"Restrictive robots directives found ({', '.join(found_directives)}) — page will not be indexed by search engines",
                 severity=Severity.WARNING.value,
                 score_impact=-10,
                 recommendation="Remove noindex/nofollow directives if the page should be indexed.",
@@ -121,7 +121,7 @@ class RobotsMetaDirectivesRule(BaseRule):
 
         return [self._result(
             passed=False,
-            message=f"Restrictive robots directives found: {', '.join(found_directives)}",
+            message=f"Restrictive robots directives found ({', '.join(found_directives)}) — may affect crawling or indexing",
             severity=Severity.INFO.value,
             score_impact=-2,
             recommendation="Review robots directives for unintended restrictions.",
@@ -153,7 +153,7 @@ class NoSnippetBlockingRule(BaseRule):
         if blocks_snippet:
             return [self._result(
                 passed=False,
-                message="Page has snippet-blocking directive (nosnippet or max-snippet:0)",
+                message="Page has snippet-blocking directive (nosnippet or max-snippet:0) — search results will not show a description",
                 severity=Severity.WARNING.value,
                 score_impact=-5,
                 recommendation="Remove nosnippet/max-snippet:0 to allow search snippets.",

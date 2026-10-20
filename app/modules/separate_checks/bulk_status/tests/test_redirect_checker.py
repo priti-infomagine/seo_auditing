@@ -24,7 +24,7 @@ from app.modules.separate_checks.bulk_status.router import router
 @pytest.fixture(autouse=True)
 def skip_dns_ssrf_lookup(monkeypatch):
     monkeypatch.setattr(
-        "app.modules.seprate_checks.bulk_status.service.validate_url_ssrf",
+        "app.modules.separate_checks.bulk_status.service.validate_url_ssrf",
         lambda url, allow_private=False: None,
     )
 
@@ -309,7 +309,7 @@ async def test_redirect_without_location_is_reported():
 @pytest.mark.asyncio
 async def test_redirect_limit_is_enforced(monkeypatch):
     monkeypatch.setattr(
-        "app.modules.seprate_checks.bulk_status.service.settings.LINK_ANALYSIS_MAX_REDIRECT_HOPS",
+        "app.modules.separate_checks.bulk_status.service.settings.LINK_ANALYSIS_MAX_REDIRECT_HOPS",
         1,
     )
 
@@ -359,7 +359,7 @@ async def test_post_queues_check_and_returns_check_and_task_ids(monkeypatch):
         send_task=fake_send_task,
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.bulk_status.router.celery_app", fake_celery
+        "app.modules.separate_checks.bulk_status.router.celery_app", fake_celery
     )
 
     async with AsyncClient(
@@ -408,7 +408,7 @@ async def test_poll_returns_task_status_and_result_in_sample_format(monkeypatch)
         AsyncResult=lambda task_id: SimpleNamespace(state="SUCCESS", result=final_result)
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.bulk_status.router.celery_app", fake_celery
+        "app.modules.separate_checks.bulk_status.router.celery_app", fake_celery
     )
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
@@ -432,7 +432,7 @@ async def test_poll_reports_running_state(monkeypatch):
         AsyncResult=lambda task_id: SimpleNamespace(state="STARTED", result=None)
     )
     monkeypatch.setattr(
-        "app.modules.seprate_checks.bulk_status.router.celery_app", fake_celery
+        "app.modules.separate_checks.bulk_status.router.celery_app", fake_celery
     )
 
     async with AsyncClient(

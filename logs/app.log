@@ -1,12 +1,12 @@
 2026-10-12T10:16:56 | ERROR | app | Schema generation failed: 'LocalBusinessInput' object has no attribute 'email'
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 109, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 109, in _build_jsonld
     return self.generator.build_local_business(input_data)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 105, in build_local_business
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\generator.py", line 105, in build_local_business
     if data.email:
        ^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
@@ -64,9 +64,9 @@ sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 63, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 63, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -133,12 +133,12 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 [parameters: (UUID('09657ac8-540e-44e5-b156-98bab09920ad'), 'ORGANIZATION', None, None, '{"name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https://www.kanhahometutions.com/static/media/LogoHeader.5eb7d516 ... (371 characters truncated) ... ype": "customer service", "email": null, "areaServed": "IN", "availableLanguage": ["Hindi", "en"], "contactOption": "TollFree"}, "description": null}', '{"@context": "https://schema.org", "@type": "Organization", "name": "Kanha Home Tutions", "url": "https://www.kanhahometutions.com/", "logo": "https: ... (402 characters truncated) ... ephone": "+91 9166100755", "contactType": "customer service", "contactOption": "TollFree", "areaServed": "IN", "availableLanguage": ["Hindi", "en"]}}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/f405) (Background on this error at: https://sqlalche.me/e/20/7s2a)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\router.py", line 39, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\router.py", line 39, in generate_schema
     return await service.generate_schema(body)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 95, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 95, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -164,19 +164,19 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-10-12T11:30:40 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T11:32:37 | ERROR | app | Schema generation failed: 'OfferInput' object has no attribute 'validFrom'
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 130, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 130, in _build_jsonld
     return self.generator.build_product(input_data)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 240, in build_product
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\generator.py", line 240, in build_product
     json_ld["offers"] = [self._build_offer(offer) for offer in offers]
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 240, in <listcomp>
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\generator.py", line 240, in <listcomp>
     json_ld["offers"] = [self._build_offer(offer) for offer in offers]
                          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\generator.py", line 321, in _build_offer
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\generator.py", line 321, in _build_offer
     if offer.validFrom:
        ^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 1042, in __getattr__
@@ -189,53 +189,53 @@ AttributeError: 'OfferInput' object has no attribute 'validFrom'
 2026-10-12T12:11:49 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:11:56 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 113, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 113, in _build_jsonld
     raise SchemaGenerationError(
-app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+app.modules.separate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:11:56 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:12:19 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:12:30 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:12:48 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 113, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 113, in _build_jsonld
     raise SchemaGenerationError(
-app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+app.modules.separate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:12:48 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:13:15 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:13:28 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 117, in _build_jsonld
     raise SchemaGenerationError(
-app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+app.modules.separate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:13:29 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:13:56 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:15:06 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:15:19 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 117, in _build_jsonld
     raise SchemaGenerationError(
-app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+app.modules.separate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:15:19 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:15:41 | ERROR | app | Schema generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 47, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 47, in generate_schema
     json_ld, warnings = self._build_jsonld(request)
                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 117, in _build_jsonld
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 117, in _build_jsonld
     raise SchemaGenerationError(
-app.modules.seprate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
+app.modules.separate_checks.schema_generation.exceptions.SchemaGenerationError: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:15:41 | ERROR | app | generate_schema: generation failed: Input data must be LocalBusinessInput for LocalBusiness schema
 2026-10-12T12:25:25 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-12T12:26:08 | INFO | app | Celery broker connection pre-warmed successfully
@@ -247,7 +247,7 @@ generation_id
   UUID input should be a string, bytes or UUID object [type=uuid_type, input_value=None, input_type=NoneType]
     For further information visit https://errors.pydantic.dev/2.13/v/uuid_type
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 83, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 83, in generate_schema
     return SchemaGenerateResponse(**response_data)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\pydantic\main.py", line 263, in __init__
@@ -309,9 +309,9 @@ sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'a
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 68, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 68, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -378,12 +378,12 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 [parameters: (UUID('b5f232cd-810e-4ad3-ad7c-f723aa8645d8'), 'HOW_TO', None, None, '{"name": "How to tie a tie", "step": [{"text": "Button your shirt, then drape the tie around your neck.", "name": "Drape the tie", "image": "https:// ... (334 characters truncated) ... totalTime": "PT5M", "estimatedCost": {"currency": "USD", "value": "0"}, "supply": [{"name": "Necktie"}], "tool": [{"name": "Mirror"}], "video": null}', '{"@context": "https://schema.org", "@type": "HowTo", "name": "How to tie a tie", "step": [{"@type": "HowToStep", "text": "Button your shirt, then dra ... (488 characters truncated) ... ount", "currency": "USD", "value": "0"}, "supply": [{"@type": "HowToSupply", "name": "Necktie"}], "tool": [{"@type": "HowToTool", "name": "Mirror"}]}', '[]', 'COMPLETED', None, 0.01, '1.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\router.py", line 39, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\router.py", line 39, in generate_schema
     return await service.generate_schema(body)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 104, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 104, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -451,9 +451,9 @@ sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'a
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 68, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 68, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -520,12 +520,12 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 [parameters: (UUID('314c2e26-861e-49a2-9b84-e087e19f4b96'), 'HOW_TO', None, None, '{"name": "How to tie a tie", "step": [{"text": "Button your shirt, then drape the tie around your neck.", "name": "Drape the tie", "image": "https:// ... (334 characters truncated) ... totalTime": "PT5M", "estimatedCost": {"currency": "USD", "value": "0"}, "supply": [{"name": "Necktie"}], "tool": [{"name": "Mirror"}], "video": null}', '{"@context": "https://schema.org", "@type": "HowTo", "name": "How to tie a tie", "step": [{"@type": "HowToStep", "text": "Button your shirt, then dra ... (488 characters truncated) ... ount", "currency": "USD", "value": "0"}, "supply": [{"@type": "HowToSupply", "name": "Necktie"}], "tool": [{"@type": "HowToTool", "name": "Mirror"}]}', '[]', 'COMPLETED', None, 0.002, '1.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\router.py", line 39, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\router.py", line 39, in generate_schema
     return await service.generate_schema(body)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 104, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 104, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -592,9 +592,9 @@ sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'a
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 68, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 68, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -661,12 +661,12 @@ sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class
 [parameters: (UUID('eab70658-a159-4fcc-9747-baed3930e891'), 'FAQ_PAGE', None, None, '{"mainEntity": [{"name": "How to find an apprenticeship?", "acceptedAnswer": {"text": "Search for apprenticeships on official job portals..."}}, {"name": "What are the eligibility criteria?", "acceptedAnswer": {"text": "You must be 18+ and have a valid ID..."}}]}', '{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How to find an apprenticeship?", "acceptedAnswer ... (99 characters truncated) ...  "Question", "name": "What are the eligibility criteria?", "acceptedAnswer": {"@type": "Answer", "text": "You must be 18+ and have a valid ID..."}}]}', '[]', 'COMPLETED', None, 0.001, '1.0.0')]
 (Background on this error at: https://sqlalche.me/e/20/dbapi) (Background on this error at: https://sqlalche.me/e/20/7s2a)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\router.py", line 39, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\router.py", line 39, in generate_schema
     return await service.generate_schema(body)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\service.py", line 104, in generate_schema
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\service.py", line 104, in generate_schema
     await self.generation_repo.create(record)
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\schema_generation\repository.py", line 16, in create
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\schema_generation\repository.py", line 16, in create
     await self.db.flush()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
     await greenlet_spawn(self.sync_session.flush, objects=objects)
@@ -710,13 +710,13 @@ sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled 
 2026-10-13T12:59:56 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-13T15:12:30 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 176, in create_rank_check
     check, created = await service.prepare_check(
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 219, in prepare_check
     location = await SerpLocationRepository(self.db).get(location_code)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 149, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -745,16 +745,16 @@ sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connectio
 2026-10-13T15:13:35 | ERROR | app | serp_rank_check: parse failed id=a6268a90-fa93-44b2-9265-f7137b1a6404: provider response has no result
 2026-10-13T15:13:41 | ERROR | app | build_preview: preview failed id=dbd4ad37-a984-4927-b9f9-601def47a104: screenshot boom
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 411, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 411, in build_preview_async
     urls = await save_preview_artifacts(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
     raise state["raise"]
 RuntimeError: screenshot boom
 2026-10-13T15:14:24 | INFO | app | serp_rank_check.sweep_stuck_checks: started
 2026-10-13T15:14:24 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 110, in run_async
@@ -763,7 +763,7 @@ ModuleNotFoundError: No module named 'nest_asyncio'
 2026-10-13T15:14:27 | INFO | app | serp_rank_check.refresh_reference_data: started
 2026-10-13T15:14:27 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 110, in run_async
@@ -771,13 +771,13 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'nest_asyncio'
 2026-10-13T15:17:22 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 176, in create_rank_check
     check, created = await service.prepare_check(
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 219, in prepare_check
     location = await SerpLocationRepository(self.db).get(location_code)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 149, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -806,16 +806,16 @@ sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connectio
 2026-10-13T15:18:24 | ERROR | app | serp_rank_check: parse failed id=28881b19-e06b-4bd4-8251-ad9ac142c5ca: provider response has no result
 2026-10-13T15:18:33 | ERROR | app | build_preview: preview failed id=2f31010d-208d-47a6-8df7-29b5b21ee3c3: screenshot boom
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 411, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 411, in build_preview_async
     urls = await save_preview_artifacts(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 271, in fake_save
     raise state["raise"]
 RuntimeError: screenshot boom
 2026-10-13T15:19:13 | INFO | app | serp_rank_check.sweep_stuck_checks: started
 2026-10-13T15:19:13 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 134, in sweep_stuck_checks
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
@@ -829,14 +829,14 @@ Traceback (most recent call last):
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
     result = coro.send(None)
              ^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 131, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 131, in _run
     return await SerpRankCheckService().sweep_stuck_async()
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: TestMaintenanceTasks.test_sweep_task_invokes_service.<locals>.fake_sweep() takes 0 positional arguments but 1 was given
 2026-10-13T15:19:15 | INFO | app | serp_rank_check.refresh_reference_data: started
 2026-10-13T15:19:15 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 165, in refresh_reference_data
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
@@ -850,20 +850,20 @@ Traceback (most recent call last):
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
     result = coro.send(None)
              ^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 162, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 162, in _run
     return await SerpRankCheckService().refresh_reference_data_async()
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_refresh() takes 0 positional arguments but 1 was given
 2026-10-13T15:21:20 | INFO | app | serp_rank_check: duplicate in-flight request user_id=00000000-0000-0000-0000-000000000001 fingerprint=a2af43c783831f3784db34389422e960080d5ff3f28126365664fb87d6a12033 -> existing id=4b387188-54bd-4954-ab9b-ac8b4904768f
 2026-10-13T15:28:27 | ERROR | app | create_rank_check: failed to queue check: This session is provisioning a new connection; concurrent operations are not permitted (Background on this error at: https://sqlalche.me/e/20/isce)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 176, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 176, in create_rank_check
     check, created = await service.prepare_check(
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 219, in prepare_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 219, in prepare_check
     location = await SerpLocationRepository(self.db).get(location_code)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 149, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 149, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -899,16 +899,16 @@ sqlalchemy.exc.InvalidRequestError: This session is provisioning a new connectio
 2026-10-13T16:56:40 | ERROR | app | serp_rank_check: parse failed id=ef1fcb34-5e24-4828-8274-6483421bea8d: provider response has no result
 2026-10-13T16:56:45 | ERROR | app | build_preview: preview failed id=5fd50433-ceb0-46de-866f-355ab9c05ab6: screenshot boom
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 435, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 435, in build_preview_async
     urls = await save_preview_artifacts(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 282, in fake_save
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 282, in fake_save
     raise state["raise"]
 RuntimeError: screenshot boom
 2026-10-13T16:57:30 | INFO | app | serp_rank_check.sweep_stuck_checks: started
 2026-10-13T16:57:30 | ERROR | app | serp_rank_check.sweep_stuck_checks: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 140, in sweep_stuck_checks
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 140, in sweep_stuck_checks
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
@@ -922,14 +922,14 @@ Traceback (most recent call last):
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
     result = coro.send(None)
              ^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 137, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 137, in _run
     return await SerpRankCheckService().sweep_stuck_async()
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: TestMaintenanceTasks.test_sweep_task_invokes_service.<locals>.fake_sweep() takes 0 positional arguments but 1 was given
 2026-10-13T16:57:32 | INFO | app | serp_rank_check.refresh_reference_data: started
 2026-10-13T16:57:32 | ERROR | app | serp_rank_check.refresh_reference_data: FAILED
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 171, in refresh_reference_data
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 171, in refresh_reference_data
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 113, in run_async
@@ -943,7 +943,7 @@ Traceback (most recent call last):
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
     result = coro.send(None)
              ^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 168, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 168, in _run
     return await SerpRankCheckService().refresh_reference_data_async()
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_refresh() takes 0 positional arguments but 1 was given
@@ -968,10 +968,10 @@ TypeError: TestMaintenanceTasks.test_refresh_task_invokes_service.<locals>.fake_
 2026-10-13T18:25:54 | INFO | app | serp_rank_check.refresh_reference_data: COMPLETED locations=0 languages=0
 2026-10-13T18:27:30 | ERROR | app | build_preview: preview failed id=835d3361-13bb-490a-8aad-24971f199b96: screenshot boom
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 435, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 435, in build_preview_async
     urls = await save_preview_artifacts(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 276, in fake_save
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 276, in fake_save
     raise state["raise"]
 RuntimeError: screenshot boom
 2026-10-13T18:29:18 | INFO | app | Celery broker connection pre-warmed successfully
@@ -1050,10 +1050,10 @@ RuntimeError: screenshot boom
 2026-10-14T14:51:35 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-14T14:53:36 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1127,10 +1127,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:40 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1204,10 +1204,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:42 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1281,10 +1281,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:42 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1359,10 +1359,10 @@ sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call a
 2026-10-14T14:53:44 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=a9b67d7e-a577-4a8b-a645-a60aee84fc8b
 2026-10-14T14:53:45 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1436,10 +1436,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:46 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1513,10 +1513,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:48 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1590,10 +1590,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:53:50 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1667,10 +1667,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:54:07 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1744,32 +1744,32 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T14:54:13 | ERROR | app | create_rank_check: failed: read timed out
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 108, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 108, in create_rank_check
     check, _ = await service.check_serp_rank(
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 178, in check_serp_rank
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 178, in check_serp_rank
     body = await client.serp_google_organic_live_advanced(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 158, in serp_google_organic_live_advanced
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 158, in serp_google_organic_live_advanced
     raise self._exc
 httpx.ReadTimeout: read timed out
 2026-10-14T14:54:15 | ERROR | app | create_rank_check: failed: HTTP 400
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 108, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 108, in create_rank_check
     check, _ = await service.check_serp_rank(
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 178, in check_serp_rank
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 178, in check_serp_rank
     body = await client.serp_google_organic_live_advanced(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tests\conftest.py", line 158, in serp_google_organic_live_advanced
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tests\conftest.py", line 158, in serp_google_organic_live_advanced
     raise self._exc
 httpx.HTTPStatusError: HTTP 400
 2026-10-14T14:54:17 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1853,10 +1853,10 @@ sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call a
 2026-10-14T15:05:10 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-14T15:06:32 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -1930,10 +1930,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:06:37 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2007,10 +2007,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:06:37 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2085,10 +2085,10 @@ sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call a
 2026-10-14T15:06:39 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=bfa92d0f092d31af1bea80e4933fa163e2e51712d2f38db70aa1d34a3f4c54a5 -> existing id=8b882ee9-c62f-40e6-9d80-9b3ab9c53938
 2026-10-14T15:06:39 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2162,10 +2162,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:06:40 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2239,10 +2239,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:06:42 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2316,10 +2316,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:06:44 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2393,10 +2393,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:07:00 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2470,10 +2470,10 @@ Traceback (most recent call last):
 sqlalchemy.exc.MissingGreenlet: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 2026-10-14T15:07:09 | ERROR | app | create_rank_check: failed: greenlet_spawn has not been called; can't call await_only() here. Was IO attempted in an unexpected place? (Background on this error at: https://sqlalche.me/e/20/xd2s)
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 118, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 118, in create_rank_check
     return _to_status_response(check)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 75, in _to_status_response
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 75, in _to_status_response
     if check.updated_at
        ^^^^^^^^^^^^^^^^
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\attributes.py", line 569, in __get__
@@ -2626,13 +2626,13 @@ DETAIL:  Key (COALESCE(user_id, '00000000-0000-0000-0000-000000000000'::uuid), f
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 107, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 107, in create_rank_check
     check, _ = await service.check_serp_rank(
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 172, in check_serp_rank
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 172, in check_serp_rank
     check, created = await repo.create_in_flight(check)
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 41, in create_in_flight
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 41, in create_in_flight
     await self.db.commit()
   File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 999, in commit
     await greenlet_spawn(self.sync_session.commit)
@@ -2763,13 +2763,13 @@ sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\router.py", line 107, in create_rank_check
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 107, in create_rank_check
     check, _ = await service.check_serp_rank(
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 172, in check_serp_rank
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 172, in check_serp_rank
     check, created = await repo.create_in_flight(check)
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 41, in create_in_flight
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 41, in create_in_flight
     await self.db.commit()
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 999, in commit
     await greenlet_spawn(self.sync_session.commit)
@@ -2898,7 +2898,7 @@ sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.Program
 2026-10-15T10:44:25 | INFO | app | serp_rank_check.build_preview: started id=d004d873-9905-45b4-9dcd-b4fb7f55cd05
 2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=0555be8e-d6dc-4c60-b3e3-40afdce6a858
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 50, in build_preview
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
@@ -2916,13 +2916,13 @@ Traceback (most recent call last):
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
     return await coro
            ^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 45, in _run
     return await SerpRankCheckService().build_preview_async(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 240, in build_preview_async
     check = await repo.get(check_id)
             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 68, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -2999,7 +2999,7 @@ Traceback (most recent call last):
 RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
 2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=546a64ca-69f4-4c03-9022-943f017a3721
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 50, in build_preview
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
@@ -3017,13 +3017,13 @@ Traceback (most recent call last):
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
     return await coro
            ^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 45, in _run
     return await SerpRankCheckService().build_preview_async(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 240, in build_preview_async
     check = await repo.get(check_id)
             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 68, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -3100,7 +3100,7 @@ Traceback (most recent call last):
 RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
 2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=db6b9101-51a4-4421-a66f-ed1923292ec7
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 50, in build_preview
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
@@ -3118,13 +3118,13 @@ Traceback (most recent call last):
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
     return await coro
            ^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 45, in _run
     return await SerpRankCheckService().build_preview_async(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 240, in build_preview_async
     check = await repo.get(check_id)
             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 68, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -3201,7 +3201,7 @@ Traceback (most recent call last):
 RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:1]> is bound to a different event loop
 2026-10-15T10:44:25 | ERROR | app | serp_rank_check.build_preview: FAILED id=a30d0a69-1b7c-4870-9053-0557421d81d8
 Traceback (most recent call last):
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 50, in build_preview
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 50, in build_preview
     result = run_async(_run())
              ^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 133, in run_async
@@ -3219,13 +3219,13 @@ Traceback (most recent call last):
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 126, in _wrapper
     return await coro
            ^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\tasks.py", line 45, in _run
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\tasks.py", line 45, in _run
     return await SerpRankCheckService().build_preview_async(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\service.py", line 240, in build_preview_async
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 240, in build_preview_async
     check = await repo.get(check_id)
             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\seprate_checks\serp_rank_check\repository.py", line 68, in get
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 68, in get
     result = await self.db.execute(
              ^^^^^^^^^^^^^^^^^^^^^^
   File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
@@ -3754,3 +3754,141 @@ RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:
 2026-10-19T17:07:29 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-19T17:09:06 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-19T17:09:23 | ERROR | app | Browser context/page creation failed: AttributeError("Browser.new_context: 'NoneType' object has no attribute 'send'")
+2026-10-20T09:59:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T11:10:48 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:00:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:00:28 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:00:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:00:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:01:22 | ERROR | app | Browser context/page creation failed: AttributeError("Browser.new_context: 'NoneType' object has no attribute 'send'")
+2026-10-20T12:18:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:19:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:19:41 | ERROR | app | Browser context/page creation failed: AttributeError("Browser.new_context: 'NoneType' object has no attribute 'send'")
+2026-10-20T12:20:14 | ERROR | app | Browser context/page creation failed: AttributeError("Browser.new_context: 'NoneType' object has no attribute 'send'")
+2026-10-20T12:21:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:21:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:42:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:43:13 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:43:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:43:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T12:43:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T13:44:31 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T13:48:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T13:50:52 | INFO | app | Audit ff2b3c28-655f-426d-ab3d-57a8991d1078 dispatched to Celery
+2026-10-20T13:52:46 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T13:52:50 | INFO | app | Worker process initialized with persistent background event loop (pid=10904)
+2026-10-20T14:11:36 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:11:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:12:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:12:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:12:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:12:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:12:58 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:13:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:13:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:13:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:13:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:14:01 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:14:11 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:14:25 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:14:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:14:54 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:15:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:15:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T14:15:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:03:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:03:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:04:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:04:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:04:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:04:58 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:05:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:09:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:09:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:09:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:10:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:13:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:13:14 | INFO | app | WriteBehindStore: flushed audit 49f765de-ba5e-4715-a74c-0bc40d1d5fa7 to DB (status=completed, score=5.38)
+2026-10-20T15:13:14 | INFO | app | WriteBehindStore: flushed audit e15dd594-a4ae-4b3b-8956-59bcc21376ca to DB (status=completed, score=5.38)
+2026-10-20T15:13:14 | INFO | app | WriteBehindStore: flushed audit 64552607-40f4-4398-b784-e7b783134d53 to DB (status=completed, score=4.61)
+2026-10-20T15:13:14 | INFO | app | WriteBehindStore: flushed audit 47296a4a-a47e-4360-ae16-af20ecb4d755 to DB (status=completed, score=5.38)
+2026-10-20T15:13:14 | INFO | app | WriteBehindStore: flushed audit 3819ee47-50f6-4c85-aac7-536e79119f2b to DB (status=completed, score=5.32)
+2026-10-20T15:13:15 | INFO | app | WriteBehindStore: flushed audit 9435c238-93b1-4897-8486-2afdf589fbf2 to DB (status=completed, score=5.32)
+2026-10-20T15:13:15 | INFO | app | WriteBehindStore: flushed audit 95ba522f-29d1-4f88-b033-5e9091a52fbb to DB (status=completed, score=5.32)
+2026-10-20T15:13:15 | INFO | app | WriteBehindStore: flushed audit 58f4708e-f81b-4506-9336-050efa82b8cb to DB (status=completed, score=5.32)
+2026-10-20T15:13:15 | INFO | app | WriteBehindStore: flushed audit 3cbd8389-f02b-4f49-9d85-8863bb4d680a to DB (status=completed, score=5.32)
+2026-10-20T15:13:21 | INFO | app | WriteBehindStore: flushed audit b5e8367f-e97f-422a-a2cb-d583a94f6d48 to DB (status=completed, score=5.32)
+2026-10-20T15:13:21 | INFO | app | WriteBehindStore: flushed audit ed0e4673-7940-4971-b094-004781fb6f29 to DB (status=completed, score=5.32)
+2026-10-20T15:14:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:14:21 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:14:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:14:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:14:54 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:15:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:15:27 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:16:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:16:15 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:16:37 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:16:41 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:16:41 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-10-20T15:16:41 | INFO | app | WriteBehindStore: background flush stopped
+2026-10-20T15:17:04 | INFO | app | WriteBehindStore: flushed audit d973f177-8e67-45c0-bc72-b2b7971a3c31 to DB (status=completed, score=5.38)
+2026-10-20T15:17:04 | INFO | app | WriteBehindStore: flushed audit c4a14468-522e-4485-8159-fe17d435d1a9 to DB (status=completed, score=5.38)
+2026-10-20T15:17:04 | INFO | app | WriteBehindStore: flushed audit a2a452ed-86b6-4968-ac05-2f8847033795 to DB (status=completed, score=4.61)
+2026-10-20T15:17:04 | INFO | app | WriteBehindStore: flushed audit 94e92e63-85f2-4f46-8609-ccd806b30611 to DB (status=completed, score=5.38)
+2026-10-20T15:17:05 | INFO | app | WriteBehindStore: flushed audit 42218053-2211-43ae-9e8d-c978865b06bb to DB (status=completed, score=5.32)
+2026-10-20T15:17:05 | INFO | app | WriteBehindStore: flushed audit 9e4e4afd-5aee-41e0-b33b-6c76d6d5eff3 to DB (status=completed, score=5.32)
+2026-10-20T15:17:05 | INFO | app | WriteBehindStore: flushed audit 0f986355-003a-467d-ba21-25b042c8daa4 to DB (status=completed, score=5.32)
+2026-10-20T15:17:05 | INFO | app | WriteBehindStore: flushed audit 4ce76f86-611a-4421-8420-40368034abe5 to DB (status=completed, score=5.32)
+2026-10-20T15:17:05 | INFO | app | WriteBehindStore: flushed audit 11ca6770-c679-4805-8b43-1cfb89102f54 to DB (status=completed, score=5.32)
+2026-10-20T15:17:08 | INFO | app | WriteBehindStore: flushed audit fa4e1bb8-d295-425b-8f5b-b5334220cce7 to DB (status=completed, score=5.32)
+2026-10-20T15:17:08 | INFO | app | WriteBehindStore: flushed audit fe982ca5-ca79-4ef5-8113-bcc16b8d695b to DB (status=completed, score=5.32)
+2026-10-20T15:17:11 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:17:11 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-10-20T15:17:11 | INFO | app | WriteBehindStore: background flush stopped
+2026-10-20T15:18:00 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:14 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:22 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:43 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:18:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:19:07 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:19:24 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:19:46 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:19:57 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:19:57 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-10-20T15:19:57 | INFO | app | WriteBehindStore: background flush stopped
+2026-10-20T15:20:18 | INFO | app | WriteBehindStore: flushed audit 7c1b9e98-6672-4857-8666-269a24d5a139 to DB (status=completed, score=5.38)
+2026-10-20T15:20:18 | INFO | app | WriteBehindStore: flushed audit cfdedd6d-efb8-4af7-806e-f913f17bb5fa to DB (status=completed, score=5.38)
+2026-10-20T15:20:18 | INFO | app | WriteBehindStore: flushed audit 115a6640-4cd2-42ca-adf0-2ece84c357d0 to DB (status=completed, score=4.61)
+2026-10-20T15:20:18 | INFO | app | WriteBehindStore: flushed audit f5ec5380-d9c9-4f22-b8db-8760c9717234 to DB (status=completed, score=5.38)
+2026-10-20T15:20:19 | INFO | app | WriteBehindStore: flushed audit a783ef55-d926-4920-b6c8-34c8d6dde167 to DB (status=completed, score=5.32)
+2026-10-20T15:20:19 | INFO | app | WriteBehindStore: flushed audit 93c396e2-bced-47aa-8c9b-f72f2d603c7f to DB (status=completed, score=5.32)
+2026-10-20T15:20:19 | INFO | app | WriteBehindStore: flushed audit e5102d16-6070-4d00-a700-cf87f0163881 to DB (status=completed, score=5.32)
+2026-10-20T15:20:19 | INFO | app | WriteBehindStore: flushed audit ff81a7f9-6653-4805-8408-787c697a8a38 to DB (status=completed, score=5.32)
+2026-10-20T15:20:20 | INFO | app | WriteBehindStore: flushed audit 53b602ca-4ae1-4221-b105-39dc3291b6d3 to DB (status=completed, score=5.32)
+2026-10-20T15:20:23 | INFO | app | WriteBehindStore: flushed audit bb7c7ed5-3818-45ea-8ef0-a98715a424f1 to DB (status=completed, score=5.32)
+2026-10-20T15:20:23 | INFO | app | WriteBehindStore: flushed audit 9519517e-6082-4047-aaa6-139687a7da12 to DB (status=completed, score=5.32)
+2026-10-20T15:20:26 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:20:27 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-10-20T15:20:27 | INFO | app | WriteBehindStore: background flush stopped
+2026-10-20T15:21:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:21:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:21:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:21:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:21:56 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-20T15:22:01 | INFO | app | WriteBehindStore: flushed audit f3d98705-9d55-422f-86e7-9d519225774b to DB (status=completed, score=5.38)
+2026-10-20T15:22:01 | INFO | app | WriteBehindStore: flushed audit cc17bcbe-590f-4a70-baa8-cf037e79846f to DB (status=completed, score=5.38)
+2026-10-20T15:22:01 | INFO | app | WriteBehindStore: flushed audit b89b0ac7-54ed-4803-8ac0-8d12e96c6d83 to DB (status=completed, score=4.61)
+2026-10-20T15:22:01 | INFO | app | WriteBehindStore: flushed audit 1e14d2f9-ffcc-4716-b041-918faa7c015e to DB (status=completed, score=5.38)
+2026-10-20T15:22:01 | INFO | app | WriteBehindStore: flushed audit fa9c1a04-9720-4e9b-9938-fd084b2ed8b2 to DB (status=completed, score=5.32)
+2026-10-20T15:22:02 | INFO | app | WriteBehindStore: flushed audit 3aca5a52-a36e-4e22-a63e-a28b30a6e605 to DB (status=completed, score=5.32)
+2026-10-20T15:22:02 | INFO | app | WriteBehindStore: flushed audit f914ce4d-e1e5-4027-8fb4-c8e3660109bd to DB (status=completed, score=5.32)
+2026-10-20T15:22:02 | INFO | app | WriteBehindStore: flushed audit 028248fe-1161-4423-9a40-1d24d048139b to DB (status=completed, score=5.32)
+2026-10-20T15:22:02 | INFO | app | WriteBehindStore: flushed audit 4c7105a9-ef86-405f-9859-f397672a0758 to DB (status=completed, score=5.32)
+2026-10-20T15:22:05 | INFO | app | WriteBehindStore: flushed audit be6e0bca-f8ee-4b1c-a608-7a6c788b780a to DB (status=completed, score=5.32)
+2026-10-20T15:22:05 | INFO | app | WriteBehindStore: flushed audit 4e61eed0-90c8-4f5c-9ee8-67eaab8ebd98 to DB (status=completed, score=5.32)
+2026-10-20T15:22:08 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-10-20T15:22:08 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-10-20T15:22:08 | INFO | app | WriteBehindStore: background flush stopped
