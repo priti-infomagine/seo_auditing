@@ -73,7 +73,7 @@ async def lifespan(app: FastAPI):
     yield
 
     try:
-        from app.modules.seprate_checks.backlink_analysis.service import (
+        from app.modules.separate_checks.backlink_analysis.service import (
             close_dataforseo_client,
         )
 
@@ -86,7 +86,7 @@ async def lifespan(app: FastAPI):
         )
 
     try:
-        from app.modules.seprate_checks.serp_rank_check.client import (
+        from app.modules.separate_checks.serp_rank_check.client import (
             close_serp_client,
         )
 

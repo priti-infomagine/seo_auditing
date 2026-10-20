@@ -12,32 +12,32 @@ from app.modules.chat.router import router as chat_router
 from app.modules.audit.api import audit_detail_router
 from app.modules.reports.router import router as reports_router
 from app.modules.payment.router import router as payment_router
-from app.modules.seprate_checks.google_lighthouse_check.router import (
+from app.modules.separate_checks.google_lighthouse_check.router import (
     router as lighthouse_router,
 )
-from app.modules.seprate_checks.robots_check.router import (
+from app.modules.separate_checks.robots_check.router import (
     router as robots_router,
 )
-from app.modules.seprate_checks.sitemap_check.router import (
+from app.modules.separate_checks.sitemap_check.router import (
     router as sitemap_router,
 )
-from app.modules.seprate_checks.link_analysis.router import (
+from app.modules.separate_checks.link_analysis.router import (
     router as link_analysis_router,
 )
-from app.modules.seprate_checks.bulk_status.router import (
+from app.modules.separate_checks.bulk_status.router import (
     router as bulk_status_router,
 )
-from app.modules.seprate_checks.meta_check.router import router as meta_router
-from app.modules.seprate_checks.backlink_analysis.router import (
+from app.modules.separate_checks.meta_check.router import router as meta_router
+from app.modules.separate_checks.backlink_analysis.router import (
     router as backlink_analysis_router,
 )
-from app.modules.seprate_checks.redirect_check.router import (
+from app.modules.separate_checks.redirect_check.router import (
     router as redirect_check_router,
 )
-from app.modules.seprate_checks.schema_generation.router import (
+from app.modules.separate_checks.schema_generation.router import (
     router as schema_generation_router,
 )
-from app.modules.seprate_checks.serp_rank_check.router import (
+from app.modules.separate_checks.serp_rank_check.router import (
     router as serp_rank_check_router,
 )
 from app.modules.category_check.core_seo.router import (

@@ -24,17 +24,17 @@ from app.core.database import async_session_factory
 from app.shared.tasks.celery_app import celery_app
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
-from app.modules.seprate_checks.google_lighthouse_check.model import (
+from app.modules.separate_checks.google_lighthouse_check.model import (
     Device,
     PageStatus,
 )
-from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
+from app.modules.separate_checks.google_lighthouse_check.pagespeed_client import (
     PagespeedClient,
 )
-from app.modules.seprate_checks.google_lighthouse_check.repository import (
+from app.modules.separate_checks.google_lighthouse_check.repository import (
     LighthousePageResultRepository,
 )
-from app.modules.seprate_checks.google_lighthouse_check.services import (
+from app.modules.separate_checks.google_lighthouse_check.services import (
     LighthouseCheckService,
 )
 
@@ -819,7 +819,7 @@ async def test_empty_exception_reason_falls_back_to_class_name(_ensure_schema):
 async def test_pooled_client_reused_across_fetches():
     """PagespeedClient should create a single httpx.AsyncClient instance
     and reuse it across multiple fetch() calls."""
-    from app.modules.seprate_checks.google_lighthouse_check.pagespeed_client import (
+    from app.modules.separate_checks.google_lighthouse_check.pagespeed_client import (
         PagespeedClient,
     )
 
