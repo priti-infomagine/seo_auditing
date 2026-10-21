@@ -78,7 +78,7 @@ on the `crawler` queue, and expose separate status and result endpoints.
 |   |   |-- reports/               # PDF generation, storage, email delivery
 |   |   |-- rule_engine/           # SEO rules and issue evaluation
 |   |   |-- scorer/                # SEO score and report assembly
-|   |   `-- seprate_checks/        # Lighthouse, sitemap, link, metadata, and backlink checks
+|   |   `-- separate_checks/        # Lighthouse, sitemap, link, metadata, and backlink checks
 |   |-- shared/
 |   |   |-- tasks/                 # Celery app, queues, worker DB helpers
 |   |   |-- services/              # Shared services such as email
@@ -106,7 +106,7 @@ on the `crawler` queue, and expose separate status and result endpoints.
 `-- *.py                           # Diagnostic, migration, and CLI utilities
 ```
 
-The directory name `seprate_checks` is misspelled in the current codebase and
+The directory name `separate_checks` is misspelled in the current codebase and
 is part of the import path; do not rename it without updating imports.
 
 ## Requirements

@@ -45,7 +45,7 @@ from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepo
 from app.modules.crawler.repositories.page_seo_data_repository import (
     PageSEODataRepository,
 )
-from app.modules.seprate_checks.robots_check.repository import (
+from app.modules.separate_checks.robots_check.repository import (
     RobotCheckRepository,
 )
 from app.modules.rule_engine.models.rule_evidence_map import (

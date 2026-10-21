@@ -33,18 +33,21 @@ import app.modules.reports.models  # noqa: F401
 import app.modules.payment.models  # noqa: F401
 
 # Robots
-import app.modules.seprate_checks.robots_check.model  # noqa: F401
-import app.modules.seprate_checks.sitemap_check.model  # noqa: F401
-import app.modules.seprate_checks.link_analysis.model  # noqa: F401
-import app.modules.seprate_checks.meta_check.model  # noqa: F401
-import app.modules.seprate_checks.backlink_analysis.model  # noqa: F401
+import app.modules.separate_checks.robots_check.model  # noqa: F401
+import app.modules.separate_checks.sitemap_check.model  # noqa: F401
+import app.modules.separate_checks.link_analysis.model  # noqa: F401
+import app.modules.separate_checks.meta_check.model  # noqa: F401
+import app.modules.separate_checks.backlink_analysis.model  # noqa: F401
 
 # Audit
 import app.modules.audit.models.parsed_page_facts  # noqa: F401
 import app.modules.audit.models.rule_evaluation_results  # noqa: F401
 import app.modules.audit.models.seo_analysis_runs  # noqa: F401
 # Lighthouse
-import app.modules.seprate_checks.google_lighthouse_check.model  # noqa: F401
+import app.modules.separate_checks.google_lighthouse_check.model  # noqa: F401
+
+# SERP
+import app.modules.separate_checks.serp_rank_check.model  # noqa: F401
 
 # Config
 import app.modules.config.models  # noqa: F401

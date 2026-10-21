@@ -59,6 +59,14 @@ class Settings(BaseSettings):
     DATAFORSEO_LOGIN: str = ""
     DATAFORSEO_PASSWORD: str = ""
 
+    # ── SERP Rank Check ─────────────────────────────────────
+    SERP_PROVIDER_TIMEOUT: float = 30.0
+    SERP_TASK_SOFT_TIME_LIMIT: int = 45
+    SERP_TASK_TIME_LIMIT: int = 60
+    SERP_PREVIEW_DIR: str = "output/serp_previews"
+    SERP_STUCK_JOB_TIMEOUT_SECONDS: int = 90
+    SERP_TOP_RESULTS_LIMIT: int = 10
+
     # ── SEO Scorer Weights ──────────────────────────────────────────
     # JSON object mapping category -> weight. Weights are normalized to sum=1.
     # Example: '{"on_page": 0.25, "technical": 0.15, "content": 0.20, "links": 0.10, "images": 0.05, "schema": 0.05, "social": 0.05, "security": 0.10, "accessibility": 0.05, "performance": 0.05}'

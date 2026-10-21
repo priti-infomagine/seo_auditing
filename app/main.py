@@ -73,7 +73,7 @@ async def lifespan(app: FastAPI):
     yield
 
     try:
-        from app.modules.seprate_checks.backlink_analysis.service import (
+        from app.modules.separate_checks.backlink_analysis.service import (
             close_dataforseo_client,
         )
 
@@ -81,6 +81,19 @@ async def lifespan(app: FastAPI):
     except Exception as exc:
         logger.error(
             "DataForSEO client close failed during lifespan shutdown: %s",
+            type(exc).__name__,
+            exc_info=True,
+        )
+
+    try:
+        from app.modules.separate_checks.serp_rank_check.client import (
+            close_serp_client,
+        )
+
+        await close_serp_client()
+    except Exception as exc:
+        logger.error(
+            "SERP client close failed during lifespan shutdown: %s",
             type(exc).__name__,
             exc_info=True,
         )

@@ -3892,4 +3892,3 @@ RuntimeError: <asyncio.locks.Lock object at 0x000001F964FD8BD0 [locked, waiters:
 2026-10-20T15:22:08 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
 2026-10-20T15:22:08 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
 2026-10-20T15:22:08 | INFO | app | WriteBehindStore: background flush stopped
-2026-10-20T18:39:32 | INFO | app | Celery broker connection pre-warmed successfully
