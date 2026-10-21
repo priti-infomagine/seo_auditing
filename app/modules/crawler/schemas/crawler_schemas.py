@@ -97,3 +97,5 @@ class CrawlError(BaseModel):
     success: bool = False
     error: str = Field(..., description="Error type")
     detail: str = Field(..., description="Error details")
+    
+    

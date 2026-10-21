@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SERP preview — web development</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; margin: 0;
+         background: #fff; color: #202124; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 16px; }
+  .header { border-bottom: 1px solid #e0e0e0; padding-bottom: 12px;
+             margin-bottom: 16px; }
+  .keyword { font-size: 20px; font-weight: 700; }
+  .meta { color: #5f6368; font-size: 13px; margin-top: 4px; }
+  .badge { display: inline-block; margin-top: 8px; padding: 4px 10px;
+            border-radius: 12px; font-size: 13px; font-weight: 700; }
+  .badge.found { background: #e6f4ea; color: #137333; }
+  .badge.missed { background: #fce8e6; color: #c5221f; }
+  .features { color: #5f6368; font-size: 13px; margin-top: 8px; }
+  ol.results { list-style: none; margin: 0; padding: 0; }
+  li.result { display: flex; gap: 12px; padding: 10px 8px;
+               border-radius: 6px; background: #f8f9fa; }
+  li.result.target { background: #fff8e1; outline: 2px solid #f9ab00; }
+  .position { min-width: 40px; font-weight: 700; color: #5f6368;
+               text-align: right; }
+  .title { color: #1a0dab; font-size: 16px; text-decoration: none; }
+  .domain { color: #006621; font-size: 13px; }
+  li.empty { color: #5f6368; padding: 12px 8px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="keyword">web development</div>
+    <div class="meta">
+      Target domain: <strong>infomagine.in</strong>
+      &middot; device: desktop
+    </div>
+    <span class="badge missed">Not in top results (incomplete results)</span>
+    <div class="features">
+      SERP features: ai_overview, images, people_also_ask, people_also_search, related_searches, video
+    </div>
+  </div>
+  <ol class="results"><li class='empty'>Your domain was not found in the Google search results.</li>
+  </ol>
+</div>
+</body>
+</html>
