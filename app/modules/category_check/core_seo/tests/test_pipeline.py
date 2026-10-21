@@ -11,6 +11,7 @@ from app.modules.category_check.core_seo.models import (
     CrawlResult,
     PageScore,
 )
+from app.modules.category_check.core_seo.events import EventBus
 from app.modules.category_check.core_seo.pipeline import CoreSEOCrawlerService
 
 
@@ -67,11 +68,11 @@ class TestCoreSEOCrawlerService:
             max_pages=1,
             max_depth=1,
         )
-        events = mock_service.event_bus.get_events_for_audit(audit_id)
+        events = EventBus.get_events_for_audit(audit_id)
         assert len(events) > 0
         event_types = [e.event_type for e in events]
         assert CoreSEOEventType.PAGE_DISCOVERED.value in event_types
-        assert CoreSEOEventType.CRAWL_STARTED.value in event_types
+        assert CoreSEOEventType.AUDIT_STARTED.value in event_types
 
     @pytest.mark.asyncio
     async def test_process_page_returns_score_and_result(self, mock_service, sample_html):
@@ -101,7 +102,8 @@ class TestCoreSEOCrawlerService:
         status = mock_service.get_audit_status(audit_id)
         assert status["status"] == "completed"
         assert status["total_pages"] == 1
-        assert "overall_score" in status
+        assert "pages_done" in status
+        assert "pass_percentage" in status
 
     @pytest.mark.asyncio
     async def test_crawl_failure_emits_event(self, mock_service):
@@ -109,17 +111,18 @@ class TestCoreSEOCrawlerService:
         mock_service.crawler.crawl = AsyncMock(side_effect=Exception("Network error"))
         mock_service.page_discoverer = MockPageDiscoverer()
 
-        with pytest.raises(Exception, match="Network error"):
-            await mock_service.process_page(
-                "https://example.com",
-                audit_id="error-audit",
-                index=0,
-                total=1,
-            )
+        page_score, crawl_result = await mock_service.process_page(
+            "https://example.com",
+            audit_id="error-audit",
+            index=0,
+            total=1,
+        )
+        assert page_score.passed == 0
+        assert crawl_result.success is False
 
-        events = mock_service.event_bus.get_events_for_audit("error-audit")
+        events = EventBus.get_events_for_audit("error-audit")
         event_types = [e.event_type for e in events]
-        assert CoreSEOEventType.PAGE_CRAWL_FAILED.value in event_types
+        assert CoreSEOEventType.PAGE_FAILED.value in event_types
 
     @pytest.mark.asyncio
     async def test_get_report_returns_none_for_unknown(self, mock_service):
@@ -135,17 +138,15 @@ class TestCoreSEOCrawlerService:
         )
         report = mock_service.get_report(audit_id)
         assert report is not None
-        assert report.audit_id == audit_id
         assert report.status == "completed"
+        assert report.summary["pages_total"] == 1
+        assert "pass_percentage" in report.summary
 
 
 class TestEventBus:
     def test_event_bus_publishes_and_retrieves(self):
         from app.modules.category_check.core_seo.events import EventBus, PipelineEvent
-        from app.modules.category_check.core_seo.models import CoreSEOEventType
 
-        EventBus._counters.clear()
-        EventBus._events.clear()
         EventBus._subscribers.clear()
 
         bus = EventBus()
@@ -156,8 +157,10 @@ class TestEventBus:
         )))
 
         events = EventBus.get_events_for_audit("test-123")
-        assert len(events) == 1
+        assert len(events) >= 1
         assert events[0].audit_id == "test-123"
+
+        EventBus.clear_audit_state("test-123")
 
     def test_event_bus_counters(self):
         from app.modules.category_check.core_seo.events import EventBus
@@ -166,9 +169,10 @@ class TestEventBus:
         counters = EventBus.get_counters("test-counter-123")
         assert counters["pages_discovered"] == 0
 
+        EventBus.clear_audit_state("test-counter-123")
+
     def test_event_bus_subscribe(self):
         from app.modules.category_check.core_seo.events import EventBus
-        from app.modules.category_check.core_seo.models import CoreSEOEventType
 
         EventBus._subscribers.clear()
         bus = EventBus()
@@ -182,3 +186,5 @@ class TestEventBus:
                  data={"url": "https://example.com"})
 
         assert len(received) == 1
+
+        EventBus.clear_audit_state("test-sub-123")

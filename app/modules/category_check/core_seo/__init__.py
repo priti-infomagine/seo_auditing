@@ -6,17 +6,7 @@ Public API:
     crawl_page_task        — Celery task for single-page crawl
     run_audit              — Celery task for full audit
     AuditConfig            — pydantic request schema
-    router                 — FastAPI router with /crawl, /status, /report, /rules
-
-Example usage:
-
-    # Inline (no Celery):
-    service = CoreSEOCrawlerService()
-    audit_id = await service.start_audit("https://example.com")
-
-    # Via Celery:
-    from app.modules.category_check.core_seo.tasks import run_audit
-    run_audit.delay(start_url="https://example.com", audit_id=audit_id)
+    router                 — FastAPI router with /crawl, /status, /report, /rules, /ws
 """
 from __future__ import annotations
 
@@ -64,8 +54,10 @@ from .schema import (
     CrawlStartedResponse,
     CrawlStatusResponse,
     RequestSchema,
+    PageScoreSchema,
+    RuleResultSchema,
 )
-from .scorer import ScoreCalculator, Scorer
+from .summary import AuditSummary, PageSummary, summarize_audit, summarize_page
 from .storage import WriteBehindStore
 from .tasks import crawl_page_inline, crawl_page_task, run_audit, run_audit_inline
 from .url_normalizer import URLNormalizer
@@ -88,12 +80,15 @@ __all__ = [
     "Crawler",
     "PageDiscoverer",
     "PageParser",
-    "Scorer",
-    "ScoreCalculator",
     "URLNormalizer",
     "AuditNormalizer",
     "PageNormalizer",
     "normalize_report",
+    # Summary
+    "AuditSummary",
+    "PageSummary",
+    "summarize_audit",
+    "summarize_page",
     # Rules
     "BaseRule",
     "RuleRegistry",
@@ -121,6 +116,8 @@ __all__ = [
     "CrawlStartedResponse",
     "CrawlStatusResponse",
     "AuditReportResponse",
+    "RuleResultSchema",
+    "PageScoreSchema",
     "RequestSchema",
     # Errors
     "CoreSEOError",

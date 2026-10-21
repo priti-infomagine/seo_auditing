@@ -12,7 +12,7 @@ import json
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import Column, DateTime, Enum, Integer, String, Text, func
+from sqlalchemy import Column, DateTime, Enum, Float, Integer, String, Text, func
 
 from app.core.database import Base
 
@@ -40,8 +40,9 @@ class AuditCheck(Base):
         total_pages: Number of pages discovered.
         crawled_pages: Number of pages successfully crawled.
         pages_failed: Number of pages that failed during crawling.
-        overall_score: Aggregate SEO score across all pages.
-        grade: Letter grade (A+ ... F).
+        rules_passed: Total rules that passed across all pages.
+        rules_failed: Total rules that failed across all pages.
+        pass_percentage: Percentage of rules that passed (0–100).
         started_at: When the audit began.
         completed_at: When the audit finished (nullable until complete).
         report_json: Serialized audit report (stored as JSON text).
@@ -62,8 +63,9 @@ class AuditCheck(Base):
     total_pages: int = Column(Integer, default=0, nullable=False)
     crawled_pages: int = Column(Integer, default=0, nullable=False)
     pages_failed: int = Column(Integer, default=0, nullable=False)
-    overall_score: float = Column(Integer, default=0, nullable=False)
-    grade: str = Column(String(4), default="F", nullable=False)
+    rules_passed: int = Column(Integer, default=0, nullable=False)
+    rules_failed: int = Column(Integer, default=0, nullable=False)
+    pass_percentage: float = Column(Float, default=0.0, nullable=False)
     started_at: datetime = Column(DateTime(timezone=True), default=func.now(), nullable=False)
     completed_at: datetime | None = Column(DateTime(timezone=True), nullable=True)
     report_json: str | None = Column(Text, nullable=True)
@@ -72,7 +74,7 @@ class AuditCheck(Base):
     def __repr__(self) -> str:
         return (
             f"<AuditCheck audit_id={self.audit_id!r} status={self.status!r} "
-            f"score={self.overall_score} grade={self.grade!r}>"
+            f"rules_passed={self.rules_passed} rules_failed={self.rules_failed}>"
         )
 
     def set_report(self, report: dict[str, Any]) -> None:
@@ -90,8 +92,9 @@ class AuditCheck(Base):
 
     def mark_completed(
         self,
-        overall_score: float,
-        grade: str,
+        rules_passed: int = 0,
+        rules_failed: int = 0,
+        pass_percentage: float = 0.0,
         crawled_pages: int = 0,
         total_pages: int = 0,
         pages_failed: int = 0,
@@ -99,8 +102,9 @@ class AuditCheck(Base):
     ) -> None:
         """Mark the audit as completed with final metrics."""
         self.status = AuditStatus.COMPLETED
-        self.overall_score = overall_score
-        self.grade = grade
+        self.rules_passed = rules_passed
+        self.rules_failed = rules_failed
+        self.pass_percentage = pass_percentage
         self.crawled_pages = crawled_pages
         self.total_pages = total_pages
         self.pages_failed = pages_failed
@@ -120,11 +124,12 @@ class AuditCheck(Base):
             "audit_id": self.audit_id,
             "start_url": self.start_url,
             "status": self.status.value if self.status else None,
-            "total_pages": self.total_pages,
-            "crawled_pages": self.crawled_pages,
-            "pages_failed": self.pages_failed,
-            "overall_score": self.overall_score,
-            "grade": self.grade,
+            "total_pages": self.total_pages or 0,
+            "crawled_pages": self.crawled_pages or 0,
+            "pages_failed": self.pages_failed or 0,
+            "rules_passed": self.rules_passed or 0,
+            "rules_failed": self.rules_failed or 0,
+            "pass_percentage": self.pass_percentage or 0.0,
             "started_at": self.started_at.isoformat() if self.started_at else None,
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "error_message": self.error_message,

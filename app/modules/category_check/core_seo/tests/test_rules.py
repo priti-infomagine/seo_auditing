@@ -75,6 +75,10 @@ class TestMetaDescriptionRules:
         })
         assert any(not r.passed for r in results)
 
+    def test_meta_description_length_rule_id(self):
+        rule = MetaDescriptionLengthRule()
+        assert rule.rule_id == "meta_description_length"
+
 
 class TestHeadingRules:
     def test_h1_present(self, rule_data):
@@ -96,7 +100,7 @@ class TestHeadingRules:
         rule = SingleH1TagRule()
         results = rule.evaluate({"heading_counts": {"h1": 3}, "headings": {"h1": ["A", "B", "C"]}})
         assert results[0].passed is False
-        assert results[0].score_impact == -4
+        assert results[0].severity == "warning"
 
     def test_single_h1_fail_none(self):
         rule = SingleH1TagRule()
@@ -165,7 +169,7 @@ class TestCanonicalRules:
             "robots_meta": "noindex, follow",
         })
         assert results[0].passed is False
-        assert results[0].score_impact == -8
+        assert results[0].severity == "warning"
 
     def test_noindex_no_conflict_different_url(self):
         rule = CanonicalAndNoindexConflictRule()
@@ -174,7 +178,6 @@ class TestCanonicalRules:
             "url": "https://example.com/page",
             "robots_meta": "noindex",
         })
-        # When canonical points to a different URL, no conflict (passed=True)
         assert results[0].passed is True
 
     def test_canonical_header_single_source_pass(self, rule_data):
@@ -194,7 +197,7 @@ class TestCanonicalRules:
             "url": "https://example.com/page",
         })
         assert results[0].passed is False
-        assert results[0].score_impact == -5
+        assert results[0].severity == "warning"
 
     def test_canonical_loop_detect(self):
         rule = CanonicalLoopDetectionRule()
@@ -235,7 +238,7 @@ class TestTechnicalRules:
         rule = RobotsMetaDirectivesRule()
         results = rule.evaluate({"robots_meta": "noindex, follow"})
         assert results[0].passed is False
-        assert results[0].score_impact == -10
+        assert results[0].severity == "warning"
 
 
 class TestContentRules:
@@ -249,6 +252,30 @@ class TestContentRules:
         results = rule.evaluate({"robots_meta": "noindex, nosnippet"})
         assert results[0].passed is False
 
+    def test_no_snippet_blocking_does_not_flag_nosniff(self):
+        """Verify 'nosniff' (HTTP header) is not confused with 'nosnippet'."""
+        rule = NoSnippetBlockingRule()
+        results = rule.evaluate({"robots_meta": "nosniff"})
+        assert results[0].passed is True
+
+    def test_no_snippet_blocking_max_snippet_zero(self):
+        rule = NoSnippetBlockingRule()
+        results = rule.evaluate({"robots_meta": "index, max-snippet:0"})
+        assert results[0].passed is False
+
+
+class TestRuleIds:
+    """Verify all rules use slug-format rule IDs."""
+
+    def test_all_rule_ids_are_slugs(self):
+        from app.modules.category_check.core_seo.rules.registry import ALL_RULES
+
+        for rule_cls in ALL_RULES:
+            rule = rule_cls()
+            assert rule.rule_id.replace("_", "").isalnum()
+            assert "-" not in rule.rule_id
+            assert rule.rule_id != ""
+
 
 class TestRuleRegistry:
     def test_default_registry_loads_18(self):
@@ -261,6 +288,11 @@ class TestRuleRegistry:
         assert len(results) == 18
         assert all(isinstance(r, type(results[0])) for r in results)
 
+    def test_registry_get_rules_returns_all(self):
+        registry = default_registry()
+        rules = registry.get_rules()
+        assert len(rules) == 18
+
     def test_registry_register_custom(self):
         registry = RuleRegistry()
         registry.register(TitleTagPresentRule)
@@ -272,10 +304,6 @@ class TestRuleRegistry:
         class BrokenRule(BaseRule):
             rule_id = "test_broken"
             name = "Broken"
-            category = "on_page"
-            description = "Test"
-            weight = 1.0
-            tags: list[str] = []
 
             def evaluate(self, data: dict) -> list:
                 raise RuntimeError("boom")
@@ -284,3 +312,6 @@ class TestRuleRegistry:
         registry.register(TitleTagPresentRule)
         results = registry.run_all({"title": "Test", "url": "https://x.com"})
         assert len(results) == 2
+        # The broken rule's result should be a RuleResult (not a class), not a crash
+        assert hasattr(results[0], "passed")
+        assert results[0].rule_id == "test_broken"

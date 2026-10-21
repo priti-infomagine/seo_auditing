@@ -12,6 +12,8 @@ from app.modules.category_check.core_seo.tasks import (
     run_audit_inline,
     CELERY_AVAILABLE,
 )
+from app.modules.category_check.core_seo.events import EventBus
+from app.modules.category_check.core_seo.models import CoreSEOEventType
 
 
 class MockCrawler:
@@ -80,7 +82,7 @@ class TestCrawlPageTask:
         assert result["url"] == "https://example.com"
         assert result["status_code"] == 200
         assert result["success"] is True
-        assert "score" in result
+        assert "pass_percentage" in result
         assert "rule_results" in result
         assert "passed" in result
         assert "failed" in result
@@ -107,7 +109,7 @@ class TestCrawlPageTask:
             tasks_mod.CoreSEOCrawlerService = original_service
 
     def test_crawl_page_inline_error_handling(self):
-        """When crawl fails, crawl_page returns error result or raises."""
+        """When crawl fails, crawl_page returns error result."""
         import app.modules.category_check.core_seo.tasks as tasks_mod
         original_service = tasks_mod.CoreSEOCrawlerService
 
@@ -122,11 +124,12 @@ class TestCrawlPageTask:
 
         tasks_mod.CoreSEOCrawlerService = FailingService
         try:
-            with pytest.raises((Exception, ConnectionError)):
-                crawl_page_inline(
-                    "https://example.com",
-                    audit_id="test-fail-123",
-                )
+            result = crawl_page_inline(
+                "https://example.com",
+                audit_id="test-fail-123",
+            )
+            assert result["success"] is False
+            assert "error" in result
         finally:
             tasks_mod.CoreSEOCrawlerService = original_service
 
@@ -181,16 +184,15 @@ class TestRunAudit:
         try:
             audit_id = run_audit_inline("https://example.com", max_pages=1, max_depth=1)
 
-            # Events are stored in class-level dict
-            from app.modules.category_check.core_seo.events import EventBus
+            # Events are stored in Redis stream
             events = EventBus.get_events_for_audit(audit_id)
             event_types = {e.event_type for e in events}
-            assert "crawl_started" in event_types
-            assert "page_discovered" in event_types
-            assert "page_crawled" in event_types
-            assert "rules_evaluated" in event_types
-            assert "score_calculated" in event_types
-            assert "audit_completed" in event_types
+            assert CoreSEOEventType.AUDIT_STARTED.value in event_types
+            assert CoreSEOEventType.PAGE_DISCOVERED.value in event_types
+            assert CoreSEOEventType.RULE_CHECKED.value in event_types
+            assert CoreSEOEventType.AUDIT_COMPLETED.value in event_types
+
+            EventBus.clear_audit_state(audit_id)
         finally:
             tasks_mod.CoreSEOCrawlerService = original_service
 

@@ -21,8 +21,6 @@ class AuditConfig(BaseModel):
 
     url: str = Field(..., description="The start URL to audit", min_length=1)
     max_pages: int = Field(default=10, ge=1, le=100, description="Maximum pages to crawl")
-    max_depth: int = Field(default=3, ge=1, le=10, description="Maximum link traversal depth")
-    audit_id: str | None = Field(default=None, description="Optional pre-assigned audit ID")
 
 
 class CrawlStartedResponse(BaseModel):
@@ -44,9 +42,11 @@ class CrawlStatusResponse(BaseModel):
     status: str
     start_url: str | None = None
     total_pages: int = 0
-    crawled_pages: int = 0
-    overall_score: float | None = None
-    grade: str | None = None
+    pages_done: int = 0
+    pages_failed: int = 0
+    rules_passed: int = 0
+    rules_failed: int = 0
+    pass_percentage: float = 0.0
     events: list[dict[str, Any]] = Field(
         default_factory=list,
         description="Recent events emitted during the audit pipeline",
@@ -59,14 +59,12 @@ class RuleResultSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     rule_id: str
-    rule_name: str
-    category: str
+    name: str
     passed: bool
     severity: str
     message: str
     recommendation: str | None = None
-    score_impact: float = 0.0
-    data: dict[str, Any] = Field(default_factory=dict)
+    details: dict[str, Any] = Field(default_factory=dict)
 
 
 class PageScoreSchema(BaseModel):
@@ -75,27 +73,12 @@ class PageScoreSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     url: str
-    score: float
-    overall_score: float
-    grade: str
-    on_page_score: float
-    technical_score: float
-    total_rules: int
-    passed: int
-    failed: int
-    rules: list[RuleResultSchema] = Field(default_factory=list)
-
-
-class CategoryScoreSchema(BaseModel):
-    """Schema for a category score."""
-
-    model_config = ConfigDict(from_attributes=True)
-
-    category: str
-    score: float
-    weight: float
-    rules_checked: int
-    passed_rules: int
+    status: str = "completed"
+    passed: int = 0
+    failed: int = 0
+    total: int = 0
+    pass_percentage: float = 0.0
+    results: list[RuleResultSchema] = Field(default_factory=list)
 
 
 class AuditReportResponse(BaseModel):
@@ -106,11 +89,13 @@ class AuditReportResponse(BaseModel):
     audit_id: str
     status: str
     start_url: str | None = None
-    overall_score: float
-    grade: str
     total_pages: int
     crawled_pages: int
-    categories: list[CategoryScoreSchema] = Field(default_factory=list)
+    pages_done: int
+    pages_failed: int
+    rules_passed: int
+    rules_failed: int
+    pass_percentage: float
     pages: list[PageScoreSchema] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
 
@@ -128,7 +113,6 @@ class RequestSchema(BaseModel):
 __all__ = [
     "AuditConfig",
     "AuditReportResponse",
-    "CategoryScoreSchema",
     "CrawlStartedResponse",
     "CrawlStatusResponse",
     "PageScoreSchema",

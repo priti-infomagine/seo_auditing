@@ -1,8 +1,8 @@
 """
 RuleRegistry — collects and runs all BaseRule subclasses.
 
-Auto-discovers rule subclasses via registry. The registry maintains
-instances and provides fault-tolerant batch execution.
+Rules are registered explicitly via :meth:`register` or pre-loaded via
+:meth:`default_registry`. The registry provides fault-tolerant batch execution.
 """
 from __future__ import annotations
 
@@ -10,13 +10,56 @@ import inspect
 from typing import Any
 
 from .base import BaseRule
+from .checks import (
+    CanonicalAndNoindexConflictRule,
+    CanonicalHeaderValidationRule,
+    CanonicalLoopDetectionRule,
+    CanonicalNotPointingToHomepageRule,
+    CanonicalProtocolMatchRule,
+    CanonicalURLPresentRule,
+    CanonicalURLValidRule,
+    ConflictingCanonicalURLsRule,
+    FaviconPresentRule,
+    H1TagPresentRule,
+    MetaDescriptionLengthRule,
+    MetaDescriptionPresentRule,
+    NoSnippetBlockingRule,
+    RobotsMetaDirectivesRule,
+    SingleH1TagRule,
+    TitleTagLengthRule,
+    TitleTagPresentRule,
+    ViewportMetaTagRule,
+)
+from ..models import RuleResult, Severity
+
+
+ALL_RULES: list[type[BaseRule]] = [
+    TitleTagPresentRule,
+    TitleTagLengthRule,
+    MetaDescriptionPresentRule,
+    MetaDescriptionLengthRule,
+    H1TagPresentRule,
+    SingleH1TagRule,
+    CanonicalURLPresentRule,
+    CanonicalURLValidRule,
+    CanonicalLoopDetectionRule,
+    CanonicalHeaderValidationRule,
+    ConflictingCanonicalURLsRule,
+    CanonicalNotPointingToHomepageRule,
+    CanonicalProtocolMatchRule,
+    CanonicalAndNoindexConflictRule,
+    ViewportMetaTagRule,
+    FaviconPresentRule,
+    RobotsMetaDirectivesRule,
+    NoSnippetBlockingRule,
+]
 
 
 class RuleRegistry:
     """Registry that collects rule classes and instantiates/runs them.
 
-    Rules are registered explicitly via :meth:`register` or auto-discovered
-    via :meth:`discover` (subclass scan of a target module).
+    Rules are registered explicitly via :meth:`register` or
+    :meth:`register_instance`.
     """
 
     def __init__(self) -> None:
@@ -40,33 +83,9 @@ class RuleRegistry:
         self._rules.append(instance)
         self._rule_classes[instance.rule_id] = instance.__class__
 
-    def discover(self, module: Any) -> None:
-        """Auto-discover all BaseRule subclasses in *module* and its submodules."""
-        import importlib
-        import pkgutil
-
-        for _name, obj in inspect.getmembers(module, inspect.isclass):
-            if issubclass(obj, BaseRule) and obj is not BaseRule:
-                if obj.__module__.startswith(module.__name__):
-                    self.register(obj)
-
-        for _finder, modname, ispkg in pkgutil.iter_modules(getattr(module, "__path__", [])):
-            if modname.startswith("_"):
-                continue
-            try:
-                submodule = importlib.import_module(f"{module.__name__}.{modname}")
-                for _subname, obj in inspect.getmembers(submodule, inspect.isclass):
-                    if issubclass(obj, BaseRule) and obj is not BaseRule:
-                        if obj.__module__.startswith(submodule.__name__):
-                            self.register(obj)
-            except Exception:
-                continue
-
-    def get_rules(self, category: str | None = None) -> list[BaseRule]:
-        """Return all registered rules, optionally filtered by category."""
-        if category is None:
-            return list(self._rules)
-        return [r for r in self._rules if r.category == category]
+    def get_rules(self) -> list[BaseRule]:
+        """Return all registered rules."""
+        return list(self._rules)
 
     def run_all(self, data: dict[str, Any]) -> list[Any]:
         """Run every registered rule, fault-tolerant per-rule.
@@ -85,9 +104,7 @@ class RuleRegistry:
                 else:
                     results.append(rule_results)
             except Exception:
-                results.append(
-                    type(results[0]) if results else _fallback_result(rule)
-                )
+                results.append(_fallback_result(rule))
         return results
 
     @property
@@ -103,29 +120,23 @@ class RuleRegistry:
 
 def _fallback_result(rule: BaseRule) -> Any:
     """Create an error RuleResult when a rule raises an exception."""
-    from ..models import RuleResult, Severity
-
     return RuleResult(
         rule_id=rule.rule_id,
         name=rule.name,
-        category=rule.category,
         severity=Severity.ERROR.value,
         passed=False,
         message=f"Rule evaluation failed: {rule.name}",
         recommendation="Check rule implementation for data mismatch",
-        data={"error": True},
-        tags=list(rule.tags),
-        score_impact=0.0,
+        details={"error": True},
     )
 
 
 def default_registry() -> RuleRegistry:
-    """Build a RuleRegistry pre-loaded with all built-in checks."""
-    from . import checks as checks_module
-
+    """Build a RuleRegistry pre-loaded with all 18 built-in checks."""
     registry = RuleRegistry()
-    registry.discover(checks_module)
+    for rule_class in ALL_RULES:
+        registry.register(rule_class)
     return registry
 
 
-__all__ = ["RuleRegistry", "default_registry"]
+__all__ = ["ALL_RULES", "RuleRegistry", "default_registry"]

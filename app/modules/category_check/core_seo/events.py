@@ -1,38 +1,40 @@
 """
-EventBus — in-memory + Redis-backed event/publish system for pipeline events.
+EventBus — Redis-backed event/publish system for pipeline events.
 
-Counters and audit state are persisted to Redis so that both Celery worker
-processes and the web API process can observe real-time progress for a given
-audit_id.  In-memory counters remain the primary source within a single
-process; Redis is used as the cross-process bridge.
+Redis is the single source of truth for counters, audit state, and event
+streams. No in-memory counters or event storage — all writes and reads
+go through Redis so both Celery worker processes and the web API process
+observe the same state.
+
+Keys:
+    core_seo:events:{audit_id}         — Redis Stream (XADD, maxlen=5000, TTL=3600)
+    core_seo:audit:{audit_id}:counters  — Hash of counter → int (TTL=3600)
+    core_seo:audit:{audit_id}:state    — Hash of audit state fields (TTL=3600)
+    core_seo:audit:{audit_id}:pages   — Hash of url → JSON page state (TTL=3600)
 """
 from __future__ import annotations
 
 import json
-from collections import defaultdict
 from collections.abc import Callable
 from typing import Any
 
-from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 
 from .models import CoreSEOEventType, PipelineEvent
 
-# Redis TTL: maximum 1 hour for all audit-related keys.
 REDIS_TTL_SECONDS = 3600
+_REDIS_PREFIX = "core_seo:audit"
 
-_DEFAULT_COUNTERS: dict[str, dict[str, int]] = defaultdict(lambda: {
+# Default counters initialized when reset_counters is called.
+_DEFAULT_COUNTERS = {
     "pages_discovered": 0,
     "pages_crawled": 0,
     "pages_parsed": 0,
-    "pages_scored": 0,
     "pages_failed": 0,
     "rules_passed": 0,
     "rules_failed": 0,
     "rules_total": 0,
-})
-
-_REDIS_PREFIX = "core_seo:audit"
+}
 
 # Lazily-initialised *synchronous* Redis client usable from Celery tasks and
 # sync FastAPI paths alike.
@@ -67,7 +69,7 @@ def _redis_key(audit_id: str, suffix: str = "") -> str:
 
 
 def _redis_hgetall_sync(audit_id: str, suffix: str) -> dict[str, str]:
-    """Read a Redis hash synchronously. Returns empty dict on failure."""
+    """Read all fields from a Redis hash synchronously. Returns empty dict on failure."""
     client = _get_sync_redis()
     if client is None:
         return {}
@@ -78,11 +80,23 @@ def _redis_hgetall_sync(audit_id: str, suffix: str) -> dict[str, str]:
         return {}
 
 
+def _redis_hget_sync(audit_id: str, suffix: str, field: str) -> str | None:
+    """Read a single field from a Redis hash synchronously."""
+    client = _get_sync_redis()
+    if client is None:
+        return None
+    try:
+        return client.hget(_redis_key(audit_id, suffix), field)
+    except Exception as exc:
+        logger.debug("EventBus Redis hget failed: %s", exc)
+        return None
+
+
 def _redis_hset_sync(audit_id: str, suffix: str, mapping: dict[str, Any]) -> None:
     """Set multiple fields in a Redis hash synchronously with TTL (best-effort).
 
-    TTL is REDIS_TTL_SECONDS (3600 = 1 hour max) to ensure stale
-    audit state auto-expires from Redis.
+    TTL is REDIS_TTL_SECONDS (3600 = 1 hour max) to ensure stale audit state
+    auto-expires from Redis.
     """
     client = _get_sync_redis()
     if client is None:
@@ -90,7 +104,7 @@ def _redis_hset_sync(audit_id: str, suffix: str, mapping: dict[str, Any]) -> Non
     try:
         flattened: dict[str, str] = {}
         for f, v in mapping.items():
-            if isinstance(v, (bool,)):
+            if isinstance(v, bool):
                 flattened[f] = str(v)
             elif isinstance(v, (str, int, float)):
                 flattened[f] = str(v)
@@ -103,98 +117,85 @@ def _redis_hset_sync(audit_id: str, suffix: str, mapping: dict[str, Any]) -> Non
         logger.debug("EventBus Redis hset failed: %s", exc)
 
 
+def _redis_hincrby_sync(audit_id: str, suffix: str, field: str, amount: int = 1) -> int:
+    """Atomically increment a hash field in Redis (HINCRBY) with TTL refresh."""
+    client = _get_sync_redis()
+    if client is None:
+        return 0
+    try:
+        key = _redis_key(audit_id, suffix)
+        val = client.hincrby(key, field, amount)
+        client.expire(key, REDIS_TTL_SECONDS)
+        return val
+    except Exception as exc:
+        logger.debug("EventBus Redis hincrby failed: %s", exc)
+        return 0
+
+
+def _redis_delete_sync(audit_id: str, *suffixes: str) -> None:
+    """Delete one or more Redis hash keys for an audit_id."""
+    client = _get_sync_redis()
+    if client is None:
+        return
+    try:
+        keys = [f"{_REDIS_PREFIX}:{audit_id}"]
+        for s in suffixes:
+            keys.append(f"{_REDIS_PREFIX}:{audit_id}:{s}")
+        client.delete(*keys)
+    except Exception as exc:
+        logger.debug("EventBus Redis delete failed: %s", exc)
+
+
 class EventBus:
-    """Async-safe in-memory event bus with per-audit_id counters.
+    """Redis-backed event bus for pipeline events.
 
-    Counters are stored at the class level so they are shared across
-    all EventBus instances within the same process (important for
-    Celery workers that instantiate a fresh EventBus per task).
-
-    For cross-process visibility (web API + Celery workers in separate
-    processes), counters and audit state are also mirrored to Redis.
+    Redis is the single source of truth for counters, audit state, and the
+    event stream. No in-memory counters or events are stored, ensuring
+    cross-process visibility between Celery workers and the web API.
     """
 
-    _counters: dict[str, dict[str, int]] = _DEFAULT_COUNTERS
-    _subscribers: dict[str, list[Callable]] = defaultdict(list)
-    _events: dict[str, list[PipelineEvent]] = defaultdict(list)
-    _audit_state: dict[str, dict[str, Any]] = {}
+    _subscribers: dict[str, list[Callable]] = {}
+
+    # Event type → counter key (auto-incremented on emit)
+    _COUNTER_KEY_MAP: dict[str, str] = {
+        CoreSEOEventType.PAGE_DISCOVERED.value: "pages_discovered",
+        CoreSEOEventType.PARSED.value: "pages_parsed",
+        CoreSEOEventType.PAGE_COMPLETED.value: "pages_crawled",
+    }
 
     def __init__(self, redis_client: Any | None = None):
-        self._redis = redis_client  # kept for backwards-compat; sync Redis used internally
+        self._redis = redis_client  # kept for backwards-compat
 
     # ── Counter management ──────────────────────────────────────────
 
     @classmethod
-    def _ensure_counters(cls, audit_id: str) -> None:
-        if audit_id not in cls._counters:
-            cls._counters[audit_id] = {
-                "pages_discovered": 0,
-                "pages_crawled": 0,
-                "pages_parsed": 0,
-                "pages_scored": 0,
-                "rules_passed": 0,
-                "rules_failed": 0,
-                "rules_total": 0,
-            }
+    def reset_counters(cls, audit_id: str) -> None:
+        """Initialize all counters to zero for an audit_id in Redis."""
+        _redis_hset_sync(audit_id, "counters", {k: v for k, v in _DEFAULT_COUNTERS.items()})
 
     @classmethod
     def get_counters(cls, audit_id: str) -> dict[str, int]:
-        """Get counters from in-memory first, fall back to Redis."""
-        counters = cls._counters.get(audit_id)
-        if counters is not None:
-            return dict(counters)
-        # Fall back to Redis (cross-process)
+        """Read counters from the Redis hash directly."""
         raw = _redis_hgetall_sync(audit_id, "counters")
         if raw:
             return {k: int(v) if v else 0 for k, v in raw.items()}
-        return {
-            "pages_discovered": 0,
-            "pages_crawled": 0,
-            "pages_parsed": 0,
-            "pages_scored": 0,
-            "pages_failed": 0,
-            "rules_passed": 0,
-            "rules_failed": 0,
-            "rules_total": 0,
-        }
+        return dict(_DEFAULT_COUNTERS)
 
     @classmethod
-    def reset_counters(cls, audit_id: str) -> None:
-        cls._ensure_counters(audit_id)
-        cls._counters[audit_id] = {
-            "pages_discovered": 0,
-            "pages_parsed": 0,
-            "pages_crawled": 0,
-            "pages_scored": 0,
-            "pages_failed": 0,
-            "rules_passed": 0,
-            "rules_failed": 0,
-            "rules_total": 0,
-        }
-        _redis_hset_sync(audit_id, "counters", cls._counters[audit_id])
+    def increment(cls, audit_id: str, key: str, amount: int = 1) -> int:
+        """Atomically increment a counter in Redis via HINCRBY."""
+        return _redis_hincrby_sync(audit_id, "counters", key, amount)
 
-    @classmethod
-    def _increment(cls, audit_id: str, key: str, amount: int = 1) -> None:
-        cls._ensure_counters(audit_id)
-        cls._counters[audit_id][key] = cls._counters[audit_id].get(key, 0) + amount
-        # Persist the updated counter value to Redis (cross-process visibility)
-        _redis_hset_sync(audit_id, "counters", {key: cls._counters[audit_id][key]})
+    # ── Audit state management ────────────────────────────────────────
 
     @classmethod
     def set_audit_state(cls, audit_id: str, **fields: Any) -> None:
-        """Update the audit state dict and mirror it to Redis."""
-        if audit_id not in cls._audit_state:
-            cls._audit_state[audit_id] = {}
-        cls._audit_state[audit_id].update(fields)
+        """Write audit state fields to the Redis state hash with TTL."""
         _redis_hset_sync(audit_id, "state", fields)
 
     @classmethod
     def get_audit_state(cls, audit_id: str) -> dict[str, Any]:
-        """Return audit state from in-memory first, fall back to Redis."""
-        state = cls._audit_state.get(audit_id)
-        if state is not None:
-            return dict(state)
-        # Fall back to Redis
+        """Read audit state from the Redis state hash."""
         raw = _redis_hgetall_sync(audit_id, "state")
         if raw:
             state: dict[str, Any] = {}
@@ -207,38 +208,68 @@ class EventBus:
         return {}
 
     @classmethod
+    def get_state(cls, audit_id: str) -> dict[str, Any]:
+        """Alias for get_audit_state."""
+        return cls.get_audit_state(audit_id)
+
+    @classmethod
     def clear_audit_state(cls, audit_id: str) -> None:
-        """Remove all in-memory and Redis state for an audit_id."""
-        cls._counters.pop(audit_id, None)
-        cls._events.pop(audit_id, None)
-        cls._audit_state.pop(audit_id, None)
+        """Remove all Redis state for an audit_id (counters, state, pages, events)."""
+        _redis_delete_sync(audit_id, "counters", "state", "pages")
         client = _get_sync_redis()
         if client is not None:
             try:
-                client.delete(_redis_key(audit_id, "counters"))
-                client.delete(_redis_key(audit_id, "state"))
                 client.delete(f"core_seo:events:{audit_id}")
             except Exception as exc:
-                logger.debug("EventBus Redis clear failed: %s", exc)
+                logger.debug("EventBus Redis stream delete failed: %s", exc)
 
-    # ── Subscriber management ──────────────────────────────────────
+    # ── Page state management ────────────────────────────────────────
+
+    @classmethod
+    def set_page_state(cls, audit_id: str, url: str, state: dict[str, Any]) -> None:
+        """Store a page's state in the Redis pages hash (url → JSON)."""
+        _redis_hset_sync(audit_id, "pages", {url: json.dumps(state, default=str)})
+
+    @classmethod
+    def get_page_state(cls, audit_id: str, url: str) -> dict[str, Any]:
+        """Read a single page's state from the Redis pages hash."""
+        raw = _redis_hget_sync(audit_id, "pages", url)
+        if raw:
+            try:
+                return json.loads(raw)
+            except (json.JSONDecodeError, TypeError):
+                return {}
+        return {}
+
+    @classmethod
+    def get_all_page_states(cls, audit_id: str) -> dict[str, dict[str, Any]]:
+        """Read all page states from the Redis pages hash."""
+        raw = _redis_hgetall_sync(audit_id, "pages")
+        states: dict[str, dict[str, Any]] = {}
+        for url, json_str in raw.items():
+            try:
+                states[url] = json.loads(json_str) if json_str else {}
+            except (json.JSONDecodeError, TypeError):
+                states[url] = {}
+        return states
+
+    # ── Subscriber management (in-process only) ──────────────────────
 
     def subscribe(self, audit_id: str, callback: Callable[[PipelineEvent], None]) -> None:
-        """Register a callback for all events of a given audit_id."""
-        if audit_id not in self._subscribers:
-            self._subscribers[audit_id] = []
-        self._subscribers[audit_id].append(callback)
+        """Register a callback for all events of a given audit_id (in-process only)."""
+        self._subscribers.setdefault(audit_id, []).append(callback)
 
     def subscribe_all(self, callback: Callable[[PipelineEvent], None]) -> None:
-        """Register a callback for events of any audit_id."""
-        self._subscribers["__all__"].append(callback)
+        """Register a callback for events of any audit_id (in-process only)."""
+        self._subscribers.setdefault("__all__", []).append(callback)
 
     def unsubscribe(self, audit_id: str, callback: Callable[[PipelineEvent], None]) -> None:
+        """Remove a previously-registered callback."""
         subs = self._subscribers.get(audit_id, [])
         if callback in subs:
             subs.remove(callback)
 
-    # ── Event emission ─────────────────────────────────────────────
+    # ── Event emission ───────────────────────────────────────────────
 
     def emit(
         self,
@@ -247,43 +278,44 @@ class EventBus:
         url: str = "",
         data: dict[str, Any] | None = None,
     ) -> PipelineEvent:
-        """Emit an event: call subscribers + update counters + store."""
+        """Emit an event: write to Redis stream and increment counters.
+
+        Counters are incremented via HINCRBY for cross-process atomicity.
+        """
+        event_data = data or {}
+        if not url and event_data.get("url"):
+            url = event_data["url"]
+
         event = PipelineEvent(
             event_type=event_type.value if isinstance(event_type, CoreSEOEventType) else str(event_type),
             audit_id=audit_id,
             url=url,
-            data=data or {},
+            data=event_data,
         )
 
-        key_map = {
-            CoreSEOEventType.PAGE_DISCOVERED.value: "pages_discovered",
-            CoreSEOEventType.PAGE_CRAWLED.value: "pages_crawled",
-            CoreSEOEventType.PAGE_CRAWL_FAILED.value: "pages_crawled",
-            CoreSEOEventType.PAGE_PARSED.value: "pages_parsed",
-            CoreSEOEventType.PAGE_SCORED.value: "pages_scored",
-        }
-        key = key_map.get(event.event_type)
-        if key:
-            self._increment(audit_id, key)
+        et = event.event_type
 
-        if event.event_type == CoreSEOEventType.PAGE_CRAWL_FAILED.value:
-            self._increment(audit_id, "pages_failed")
+        # Auto-increment counters based on event type
+        counter_key = self._COUNTER_KEY_MAP.get(et)
+        if counter_key:
+            self.increment(audit_id, counter_key)
 
-        if data and "rules_passed" in data:
-            self._increment(audit_id, "rules_passed", data["rules_passed"])
-        if data and "rules_failed" in data:
-            self._increment(audit_id, "rules_failed", data["rules_failed"])
-        if data and "rules_total" in data:
-            self._increment(audit_id, "rules_total", data["rules_total"])
+        # PAGE_FAILED increments ONLY pages_failed (not pages_crawled)
+        if et == CoreSEOEventType.PAGE_FAILED.value:
+            self.increment(audit_id, "pages_failed")
 
-        # Mirror event to Redis stream for cross-process consumption
+        # RULE_CHECKED: increment rules_passed or rules_failed based on result
+        if et == CoreSEOEventType.RULE_CHECKED.value:
+            if event_data.get("passed"):
+                self.increment(audit_id, "rules_passed")
+            else:
+                self.increment(audit_id, "rules_failed")
+            self.increment(audit_id, "rules_total")
+
+        # Mirror event to Redis stream
         self._emit_to_redis(event)
 
-        cls = EventBus
-        if audit_id not in cls._events:
-            cls._events[audit_id] = []
-        cls._events[audit_id].append(event)
-
+        # Dispatch to in-process subscribers
         self._dispatch(event)
 
         return event
@@ -297,75 +329,60 @@ class EventBus:
             data=event.payload or event.data,
         )
 
+    # ── Event retrieval ───────────────────────────────────────────────
+
     @classmethod
     def get_events_for_audit(cls, audit_id: str) -> list[PipelineEvent]:
-        """Retrieve all events for a given audit_id (in-memory + Redis stream)."""
-        events = list(cls._events.get(audit_id, []))
-        # If we have no in-memory events, try to read from Redis stream
-        if not events:
-            client = _get_sync_redis()
-            if client is not None:
-                try:
-                    stream_key = f"core_seo:events:{audit_id}"
-                    # Read all events from the stream
-                    entries = client.xrange(stream_key, count=1000)
-                    for _id, fields in entries:
-                        raw = fields.get("event", "")
-                        if raw:
-                            try:
-                                evt_data = json.loads(raw)
-                                event = PipelineEvent(
-                                    event_type=evt_data.get("event_type", ""),
-                                    audit_id=evt_data.get("audit_id", audit_id),
-                                    url=evt_data.get("url", ""),
-                                    timestamp=evt_data.get("timestamp", ""),
-                                    data=evt_data.get("data", {}),
-                                )
-                                events.append(event)
-                            except (json.JSONDecodeError, TypeError):
-                                pass
-                except Exception as exc:
-                    logger.debug("EventBus Redis xrange failed: %s", exc)
+        """Retrieve all events for a given audit_id from the Redis stream."""
+        events: list[PipelineEvent] = []
+        client = _get_sync_redis()
+        if client is None:
+            return events
+        try:
+            stream_key = f"core_seo:events:{audit_id}"
+            entries = client.xrange(stream_key, count=5000)
+            for _id, fields in entries:
+                raw = fields.get("event", "")
+                if raw:
+                    try:
+                        evt_data = json.loads(raw)
+                        events.append(PipelineEvent(
+                            event_type=evt_data.get("event_type", ""),
+                            audit_id=evt_data.get("audit_id", audit_id),
+                            url=evt_data.get("url", ""),
+                            timestamp=evt_data.get("timestamp", ""),
+                            data=evt_data.get("data", {}),
+                        ))
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+        except Exception as exc:
+            logger.debug("EventBus Redis xrange failed: %s", exc)
         return events
 
     @classmethod
-    def add_events_for_audit(cls, audit_id: str, events: list[dict[str, Any]]) -> None:
-        """Add events from serialized form (e.g., from Celery task results).
+    def get_report_events(cls, audit_id: str) -> list[PipelineEvent]:
+        """Return the event log for an audit (alias for get_events_for_audit)."""
+        return cls.get_events_for_audit(audit_id)
 
-        Used when events are collected from parallel Celery workers and
-        need to be merged into the central event store.
-        """
-        for evt_dict in events:
-            event = PipelineEvent(
-                event_type=evt_dict.get("event_type", ""),
-                audit_id=audit_id,
-                url=evt_dict.get("url", ""),
-                timestamp=evt_dict.get("timestamp", ""),
-                data=evt_dict.get("payload", evt_dict.get("data", {})),
-            )
-            cls._events[audit_id].append(event)
-            key_map = {
-                CoreSEOEventType.PAGE_DISCOVERED.value: "pages_discovered",
-                CoreSEOEventType.PAGE_CRAWLED.value: "pages_crawled",
-                CoreSEOEventType.PAGE_CRAWL_FAILED.value: "pages_crawled",
-                CoreSEOEventType.PAGE_PARSED.value: "pages_parsed",
-                CoreSEOEventType.PAGE_SCORED.value: "pages_scored",
-            }
-            key = key_map.get(event.event_type)
-            if key:
-                cls._increment(audit_id, key)
-            if event.event_type == CoreSEOEventType.PAGE_CRAWL_FAILED.value:
-                cls._increment(audit_id, "pages_failed")
+    @classmethod
+    def get_status(cls, audit_id: str, **extra: Any) -> dict[str, Any]:
+        """Return a status dict for an audit_id from Redis counters + state."""
+        counters = cls.get_counters(audit_id)
+        state = cls.get_audit_state(audit_id)
+        return {
+            "audit_id": audit_id,
+            **counters,
+            **state,
+            **extra,
+        }
 
-    # ── Internal dispatch / Redis ───────────────────────────────────
+    # ── Internal dispatch / Redis ─────────────────────────────────────
 
     def _dispatch(self, event: PipelineEvent) -> None:
+        """Dispatch event to registered in-process subscribers."""
         callbacks: list[Callable] = []
-        all_callbacks = self._subscribers.get("__all__", [])
-        callbacks.extend(all_callbacks)
-        specific = self._subscribers.get(event.audit_id, [])
-        callbacks.extend(specific)
-
+        callbacks.extend(self._subscribers.get("__all__", []))
+        callbacks.extend(self._subscribers.get(event.audit_id, []))
         for cb in callbacks:
             try:
                 result = cb(event)
@@ -379,6 +396,7 @@ class EventBus:
                 logger.warning("EventBus subscriber error: %s", exc)
 
     def _emit_to_redis(self, event: PipelineEvent) -> None:
+        """Write an event to the Redis stream with maxlen and TTL."""
         client = _get_sync_redis()
         if client is None:
             return
@@ -394,22 +412,15 @@ class EventBus:
                 default=str,
             )
             stream_key = f"core_seo:events:{event.audit_id}"
-            client.xadd(stream_key, {"event": payload}, maxlen=1000)
+            client.xadd(stream_key, {"event": payload}, maxlen=5000)
             client.expire(stream_key, REDIS_TTL_SECONDS)
         except Exception as exc:
             logger.debug("EventBus Redis emit failed: %s", exc)
 
-    @classmethod
-    def get_status(cls, audit_id: str, **extra: Any) -> dict[str, Any]:
-        """Return a status dict for an audit_id from counters + Redis state."""
-        counters = cls.get_counters(audit_id)
-        state = cls.get_audit_state(audit_id)
-        return {
-            "audit_id": audit_id,
-            **counters,
-            **state,
-            **extra,
-        }
 
-
-__all__ = ["REDIS_TTL_SECONDS", "CoreSEOEventType", "EventBus", "_utcnow_str"]
+__all__ = [
+    "REDIS_TTL_SECONDS",
+    "CoreSEOEventType",
+    "EventBus",
+    "PipelineEvent",
+]

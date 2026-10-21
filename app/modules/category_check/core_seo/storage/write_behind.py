@@ -7,15 +7,9 @@ Architecture:
     policy: changes are buffered in Redis first, then flushed to the
     database in a background loop or on explicit flush.
 
-    This ensures:
-      - Real-time audit progress is visible across processes (Redis)
-      - DB writes are batched and non-blocking (write-behind)
-      - Stale audit data auto-expires from Redis after TTL seconds
-
 Redis TTL:
     All audit-related keys in Redis have a TTL of REDIS_AUDIT_TTL_SECONDS
-    (default: 3600 seconds = 1 hour). This ensures stale audit state
-    and events don't accumulate indefinitely.
+    (default: 3600 seconds = 1 hour).
 """
 from __future__ import annotations
 
@@ -27,28 +21,19 @@ from app.core.datetime_utils import utc_now
 from app.core.logger import logger
 
 from ..db_models.audit_db import AuditCheck, AuditStatus
-from ..events import EventBus
+from ..events import EventBus, _redis_key, REDIS_TTL_SECONDS
 from ..models import PageScore
 
-# Redis TTL: maximum 1 hour for all audit-related Redis keys.
-REDIS_AUDIT_TTL_SECONDS: int = 3600
+REDIS_AUDIT_TTL_SECONDS: int = REDIS_TTL_SECONDS
 
 
 class WriteBehindStore:
     """Buffers audit state in Redis and flushes to DB asynchronously.
 
     Write-behind policy:
-        - write_state() / write_result() update Redis immediately for
-          cross-process real-time visibility (used by web API).
-        - A background flush loop periodically syncs dirty audit IDs
-          from Redis to the database.
-        - flush() can also be called explicitly (e.g., after audit
-          completion in the Celery chord callback).
-
-    Thread-safety:
-        The flush loop runs in a daemon thread to avoid blocking the
-        main event loop. DB sessions are created per-flush to avoid
-        connection sharing issues across threads/processes.
+        - write_state() / write_result() sync state to Redis immediately for
+          cross-process real-time visibility.
+        - flush() syncs dirty audit IDs from Redis to the database.
     """
 
     def __init__(
@@ -63,7 +48,7 @@ class WriteBehindStore:
         self._flush_thread: threading.Thread | None = None
         self._stop_event = threading.Event()
 
-    # ── Redis write (immediate, with TTL) ─────────────────────────────────
+    # ── Redis write (immediate, with TTL) ─────────────────────────────
 
     @classmethod
     def write_state(
@@ -71,11 +56,7 @@ class WriteBehindStore:
         audit_id: str,
         state: dict[str, Any],
     ) -> None:
-        """Write audit state to Redis (immediate) with TTL.
-
-        This is the hot path — called during crawling to provide
-        real-time progress visibility across processes.
-        """
+        """Write audit state to Redis (immediate) with TTL."""
         EventBus.set_audit_state(audit_id, **state)
 
     @classmethod
@@ -85,35 +66,37 @@ class WriteBehindStore:
         page_score: PageScore,
         crawl_result: Any,
     ) -> None:
-        """Buffer a completed page result in Redis.
+        """Buffer a completed page result in Redis pages hash.
 
-        The page result is stored as a Redis list entry under
-        core_seo:audit:{audit_id}:pages with the configured TTL.
-        The DB flush happens asynchronously via the background loop.
+        The page result is stored as a JSON string under
+        core_seo:audit:{audit_id}:pages with the URL as the hash field key.
         """
-        client = _get_sync_redis()
-        if client is None:
-            return
-
         page_data = {
             "url": page_score.url,
-            "score": page_score.score,
-            "overall_score": page_score.overall_score,
-            "grade": page_score.grade,
             "passed": page_score.passed,
             "failed": page_score.failed,
-            "total_rules": page_score.total_rules,
-            "crawl_success": crawl_result.success,
-            "status_code": crawl_result.status_code,
-            "response_time_ms": crawl_result.response_time_ms,
+            "total": page_score.total,
+            "pass_percentage": page_score.pass_percentage,
+            "crawl_success": crawl_result.success if crawl_result else False,
+            "status_code": crawl_result.status_code if crawl_result else 0,
+            "response_time_ms": crawl_result.response_time_ms if crawl_result else 0,
             "timestamp": utc_now().isoformat(),
+            "rule_results": [
+                {
+                    "rule_id": r.rule_id,
+                    "name": r.name,
+                    "passed": r.passed,
+                    "severity": r.severity,
+                    "message": r.message,
+                    "recommendation": r.recommendation,
+                    "details": r.details or {},
+                }
+                for r in page_score.rule_results
+            ],
         }
 
         try:
-            from ..events import _redis_key
-            key = _redis_key(audit_id, "pages")
-            client.lpush(key, json.dumps(page_data, default=str))
-            client.expire(key, REDIS_AUDIT_TTL_SECONDS)
+            EventBus.set_page_state(audit_id, page_score.url, page_data)
         except Exception as exc:
             logger.debug("WriteBehindStore write_result failed: %s", exc)
 
@@ -122,22 +105,47 @@ class WriteBehindStore:
         """Return the current Redis TTL for audit keys."""
         return REDIS_AUDIT_TTL_SECONDS
 
-    # ── DB operations (write-behind, deferred) ────────────────────────────
+    # ── DB operations (write-behind, deferred) ──────────────────────────
 
-    def _get_db_session(self) -> Any:
-        """Create a new SQLAlchemy async session.
+    def flush_audit_to_db(self, audit_id: str) -> bool:
+        """Flush a single audit's Redis state to the database synchronously.
 
-        Uses a fresh session per flush to avoid thread-safety issues
-        with SQLAlchemy's async engine across worker processes.
+        Returns True on success.
         """
         try:
-            from app.core.database import async_session_factory
             from app.shared.tasks.db import run_async
+        except ImportError:
+            logger.warning("WriteBehindStore: DB flush skipped (no run_async)")
+            return False
 
-            return async_session_factory(), run_async
+        async def _do_flush():
+            from app.core.database import async_session_factory
+
+            async with async_session_factory() as session:
+                try:
+                    record = await self._upsert_audit_record(session, audit_id)
+                    if record is None:
+                        logger.info("WriteBehindStore: no state found for audit %s in Redis", audit_id)
+                        return False
+                    await session.commit()
+                    logger.info(
+                        "WriteBehindStore: flushed audit %s to DB (status=%s, passed=%s, failed=%s)",
+                        audit_id,
+                        record.status.value,
+                        record.rules_passed,
+                        record.rules_failed,
+                    )
+                    return True
+                except Exception as exc:
+                    await session.rollback()
+                    logger.error("WriteBehindStore: DB flush failed for %s: %s", audit_id, exc)
+                    return False
+
+        try:
+            return run_async(_do_flush())
         except Exception as exc:
-            logger.error("WriteBehindStore: cannot init DB session: %s", exc)
-            return None, None
+            logger.error("WriteBehindStore: flush error for %s: %s", audit_id, exc)
+            return False
 
     async def _upsert_audit_record(
         self,
@@ -173,16 +181,18 @@ class WriteBehindStore:
         result.total_pages = counters.get("pages_discovered", state.get("total_pages", 0))
         result.crawled_pages = counters.get("pages_crawled", state.get("crawled_pages", 0))
         result.pages_failed = counters.get("pages_failed", 0)
-
-        if state.get("overall_score") is not None:
-            result.overall_score = float(state["overall_score"])
-        if state.get("grade"):
-            result.grade = state["grade"]
+        result.rules_passed = counters.get("rules_passed", 0)
+        result.rules_failed = counters.get("rules_failed", 0)
+        total_rules = counters.get("rules_total", 0)
+        result.pass_percentage = round(
+            result.rules_passed / total_rules * 100, 1
+        ) if total_rules else 0.0
 
         if state.get("status") == "completed" and report_dict:
             result.mark_completed(
-                overall_score=float(state.get("overall_score", 0.0)),
-                grade=state.get("grade", "F"),
+                rules_passed=result.rules_passed,
+                rules_failed=result.rules_failed,
+                pass_percentage=result.pass_percentage,
                 crawled_pages=result.crawled_pages,
                 total_pages=result.total_pages,
                 pages_failed=result.pages_failed,
@@ -191,45 +201,6 @@ class WriteBehindStore:
 
         return result
 
-    def flush_audit_to_db(self, audit_id: str) -> bool:
-        """Flush a single audit's Redis state to the database synchronously.
-
-        Uses the shared Celery worker event loop if available, otherwise
-        falls back to a fresh asyncio.run(). Returns True on success.
-        """
-        _, run_async = self._get_db_session()
-        if run_async is None:
-            logger.warning("WriteBehindStore: DB flush skipped (no DB session)")
-            return False
-
-        async def _do_flush():
-            from app.core.database import async_session_factory
-
-            async with async_session_factory() as session:
-                try:
-                    record = await self._upsert_audit_record(session, audit_id)
-                    if record is None:
-                        logger.info("WriteBehindStore: no state found for audit %s in Redis", audit_id)
-                        return False
-                    await session.commit()
-                    logger.info(
-                        "WriteBehindStore: flushed audit %s to DB (status=%s, score=%s)",
-                        audit_id,
-                        record.status.value,
-                        record.overall_score,
-                    )
-                    return True
-                except Exception as exc:
-                    await session.rollback()
-                    logger.error("WriteBehindStore: DB flush failed for %s: %s", audit_id, exc)
-                    return False
-
-        try:
-            return run_async(_do_flush())
-        except Exception as exc:
-            logger.error("WriteBehindStore: flush error for %s: %s", audit_id, exc)
-            return False
-
     def mark_dirty(self, audit_id: str) -> None:
         """Mark an audit_id as needing a DB flush."""
         with self._dirty_lock:
@@ -237,11 +208,6 @@ class WriteBehindStore:
 
     def flush(self) -> int:
         """Flush all dirty audits to the database synchronously.
-
-        Called by:
-            - Background flush loop (periodically)
-            - Explicit call after audit completion
-            - Shutdown hook (best-effort final flush)
 
         Returns the number of audits successfully flushed.
         """
@@ -255,7 +221,7 @@ class WriteBehindStore:
                 flushed += 1
         return flushed
 
-    # ── Background flush loop ─────────────────────────────────────────────
+    # ── Background flush loop ─────────────────────────────────────────
 
     def start_background_flush(self) -> None:
         """Start a daemon thread that periodically flushes dirty audits to DB."""
@@ -289,11 +255,10 @@ class WriteBehindStore:
         self._stop_event.set()
         if self._flush_thread is not None:
             self._flush_thread.join(timeout=10)
-        # Final best-effort flush
         self.flush()
         logger.info("WriteBehindStore: background flush stopped")
 
-    # ── Context manager support ───────────────────────────────────────────
+    # ── Context manager support ───────────────────────────────────────
 
     def __enter__(self) -> WriteBehindStore:
         self.start_background_flush()
@@ -308,7 +273,7 @@ class WriteBehindStore:
         self.stop()
 
 
-# ── Module-level shared instance ────────────────────────────────────
+# ── Module-level shared instance ────────────────────────────────────────
 
 _default_store: WriteBehindStore | None = None
 _store_lock = threading.Lock()
@@ -322,25 +287,6 @@ def get_write_behind_store() -> WriteBehindStore:
             if _default_store is None:
                 _default_store = WriteBehindStore()
     return _default_store
-
-
-# ── Redis helpers ───────────────────────────────────────────────────
-
-def _get_sync_redis() -> Any:
-    """Return a synchronous Redis client or None if unavailable."""
-    try:
-        from redis import Redis as SyncRedis
-
-        from app.core.config import settings
-
-        return SyncRedis.from_url(
-            settings.REDIS_URL,
-            decode_responses=True,
-            socket_timeout=3,
-            socket_connect_timeout=3,
-        )
-    except Exception:
-        return None
 
 
 __all__ = [

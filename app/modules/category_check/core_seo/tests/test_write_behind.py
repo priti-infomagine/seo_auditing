@@ -31,6 +31,9 @@ class TestAuditCheckModel:
         assert d["audit_id"] == "test-123"
         assert d["start_url"] == "https://example.com"
         assert d["status"] == "pending"
+        assert d["rules_passed"] == 0
+        assert d["rules_failed"] == 0
+        assert d["pass_percentage"] == 0.0
 
     def test_mark_completed(self):
         record = AuditCheck(
@@ -38,18 +41,20 @@ class TestAuditCheckModel:
             start_url="https://example.com",
             status=AuditStatus.RUNNING,
         )
-        report = {"score": 95.5, "grade": "A"}
+        report = {"summary": {"pages_total": 10}}
         record.mark_completed(
-            overall_score=95.5,
-            grade="A",
+            rules_passed=15,
+            rules_failed=3,
+            pass_percentage=83.3,
             crawled_pages=10,
             total_pages=10,
             pages_failed=0,
             report=report,
         )
         assert record.status == AuditStatus.COMPLETED
-        assert record.overall_score == 95.5
-        assert record.grade == "A"
+        assert record.rules_passed == 15
+        assert record.rules_failed == 3
+        assert record.pass_percentage == 83.3
         assert record.crawled_pages == 10
         assert record.total_pages == 10
 
@@ -64,7 +69,7 @@ class TestAuditCheckModel:
 
     def test_set_and_get_report(self):
         record = AuditCheck(audit_id="test-report", start_url="https://example.com")
-        report_data = {"audit_id": "test-report", "overall_score": 88.0, "grade": "B"}
+        report_data = {"audit_id": "test-report", "summary": {"rules_passed": 15}}
         record.set_report(report_data)
         retrieved = record.get_report()
         assert retrieved == report_data
@@ -94,6 +99,7 @@ class TestWriteBehindStore:
         state = EventBus.get_audit_state("wb-test-1")
         assert state.get("status") == "running"
         assert state.get("total_pages") == 5
+        EventBus.clear_audit_state("wb-test-1")
 
     def test_write_result_to_redis(self):
         from app.modules.category_check.core_seo.events import _redis_key
@@ -103,8 +109,16 @@ class TestWriteBehindStore:
         )
 
         store = WriteBehindStore()
-        page_score = PageScore(url="https://example.com/test", score=85.5)
-        crawl_result = CrawlResult(url="https://example.com/test", success=True, status_code=200)
+        page_score = PageScore(
+            url="https://example.com/test",
+            passed=10,
+            failed=5,
+            total=15,
+            pass_percentage=66.7,
+        )
+        crawl_result = CrawlResult(
+            url="https://example.com/test", success=True, status_code=200
+        )
 
         store.write_result("wb-test-2", page_score, crawl_result)
 
@@ -116,6 +130,8 @@ class TestWriteBehindStore:
         ttl = client.ttl(key)
         assert ttl > 0  # key exists
         assert ttl <= REDIS_AUDIT_TTL_SECONDS
+
+        EventBus.clear_audit_state("wb-test-2")
 
     def test_clear_audit_state(self):
         from app.modules.category_check.core_seo.events import _redis_hset_sync
@@ -137,7 +153,6 @@ class TestWriteBehindStore:
         assert store._flush_thread.is_alive()
 
         store.stop()
-        assert not store._stop_event.is_set() or True  # event is set
         assert store._flush_thread is not None
 
     def test_get_write_behind_store_singleton(self):

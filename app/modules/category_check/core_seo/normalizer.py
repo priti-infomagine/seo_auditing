@@ -11,13 +11,11 @@ from typing import Any
 
 from .models import (
     AuditReport,
-    CategoryScore,
     NormalizedResult,
     PageScore,
     PipelineEvent,
     RuleResult,
 )
-from .scorer import Scorer
 
 
 class PageNormalizer:
@@ -27,31 +25,28 @@ class PageNormalizer:
         """Convert a single RuleResult into a flat dict."""
         return {
             "rule_id": result.rule_id,
-            "rule_name": result.name,
-            "category": result.category,
+            "name": result.name,
             "passed": result.passed,
             "severity": result.severity,
             "message": result.message,
             "recommendation": result.recommendation,
-            "score_impact": result.score_impact,
-            "data": result.data or {},
+            "details": result.details or {},
         }
 
     def normalize_page(self, page: PageScore) -> dict[str, Any]:
         """Convert a PageScore into a normalized dict."""
         rule_results = [
-            self.normalize_rule_result(r)
-            for r in page.rule_results.values()
+            self.normalize_rule_result(r) for r in page.rule_results
         ]
 
         return {
             "url": page.url,
-            "score": page.score,
-            "on_page_score": page.on_page_score,
-            "technical_score": page.technical_score,
-            "rules": rule_results,
-            "passed_rules": sum(1 for r in rule_results if r["passed"]),
-            "failed_rules": sum(1 for r in rule_results if not r["passed"]),
+            "status": "completed",
+            "passed": page.passed,
+            "failed": page.failed,
+            "total": page.total,
+            "pass_percentage": page.pass_percentage,
+            "results": rule_results,
         }
 
 
@@ -61,19 +56,10 @@ class AuditNormalizer:
     def __init__(self, page_normalizer: PageNormalizer | None = None):
         self.page_normalizer = page_normalizer or PageNormalizer()
 
-    def normalize_category(self, cat: CategoryScore) -> dict[str, Any]:
-        return {
-            "category": cat.category,
-            "score": cat.score,
-            "weight": cat.weight,
-            "rule_count": cat.rule_count,
-            "passed_rules": cat.passed_rules,
-        }
-
     def normalize_event(self, event: PipelineEvent) -> dict[str, Any]:
+        """Convert a PipelineEvent into a flat dict."""
         return {
-            "id": event.timestamp,
-            "event_type": event.event_type.value if hasattr(event.event_type, "value") else event.event_type,
+            "event_type": event.event_type,
             "audit_id": event.audit_id,
             "url": event.url,
             "timestamp": event.timestamp,
@@ -83,42 +69,31 @@ class AuditNormalizer:
     def normalize(
         self,
         report: AuditReport,
-        scorer: Scorer | None = None,
     ) -> NormalizedResult:
         """Convert an AuditReport dataclass into a NormalizedResult dict structure.
 
-        Args:
-            report: The AuditReport dataclass with raw page scores.
-            scorer: Optional scorer to produce audit-level summary. If None,
-                    a default Scorer is constructed.
-
-        Returns:
-            NormalizedResult with the JSON-serializable structure.
+        If ``report.summary`` is populated (set by ``finalize_audit``),
+        it is used directly. Otherwise it is computed from per-page results.
         """
-        if scorer is None:
-            scorer = Scorer()
-
         pages = [self.page_normalizer.normalize_page(p) for p in report.pages]
-        categories = [
-            self.normalize_category(c) for c in report.categories
-        ]
 
-        if report.pages:
-            overall_score = round(
-                sum(p.score for p in report.pages if p.score is not None) / len(report.pages),
-                2,
-            )
+        if report.summary:
+            summary = dict(report.summary)
         else:
-            overall_score = report.overall_score
+            rules_passed = sum(p.passed for p in report.pages)
+            rules_failed = sum(p.failed for p in report.pages)
+            total_rules = rules_passed + rules_failed
+            pass_pct = round(rules_passed / total_rules * 100, 1) if total_rules else 0.0
+            summary = {
+                "pages_total": report.total_pages,
+                "pages_done": report.crawled_pages,
+                "pages_failed": report.pages_failed,
+                "rules_passed": rules_passed,
+                "rules_failed": rules_failed,
+                "pass_percentage": pass_pct,
+            }
 
         events = [self.normalize_event(e) for e in report.events]
-
-        summary: dict[str, Any] = {
-            "overall_score": overall_score,
-            "grade": scorer.calculator.determine_grade(overall_score) if pages else report.grade,
-            "page_count": len(pages),
-            "categories": categories,
-        }
 
         return NormalizedResult(
             audit_id=report.audit_id,
@@ -126,6 +101,7 @@ class AuditNormalizer:
             summary=summary,
             pages=pages,
             events=events,
+            pass_percentage=summary.get("pass_percentage", 0.0),
         )
 
     def normalize_from_state(
@@ -135,7 +111,11 @@ class AuditNormalizer:
         grade: str,
         events: list[PipelineEvent],
     ) -> NormalizedResult:
-        """Build a NormalizedResult from in-memory audit state (for get_report)."""
+        """Build a NormalizedResult from audit state.
+
+        Kept for backward compatibility — overall_score/grade are retained
+        as informational fields.
+        """
         event_list = [self.normalize_event(e) for e in events]
         summary = {
             "overall_score": overall_score,
@@ -148,16 +128,14 @@ class AuditNormalizer:
             summary=summary,
             pages=[],
             events=event_list,
+            pass_percentage=overall_score,
         )
 
 
-def normalize_report(
-    report: AuditReport,
-    scorer: Scorer | None = None,
-) -> dict[str, Any]:
+def normalize_report(report: AuditReport) -> dict[str, Any]:
     """Convenience: normalize AuditReport → plain dict (fully JSON-serializable)."""
     normalizer = AuditNormalizer()
-    result = normalizer.normalize(report, scorer)
+    result = normalizer.normalize(report)
     return {
         "audit_id": result.audit_id,
         "status": result.status,
@@ -165,6 +143,4 @@ def normalize_report(
         "pages": result.pages,
         "events": result.events,
     }
-
-
 __all__ = ["AuditNormalizer", "PageNormalizer", "normalize_report"]

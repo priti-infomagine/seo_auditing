@@ -123,65 +123,23 @@ class RuleResult:
 
     rule_id: str
     name: str
-    category: str
-    severity: str = Severity.WARNING.value
     passed: bool = False
+    severity: str = Severity.WARNING.value
     message: str = ""
     recommendation: str | None = None
-    data: dict[str, Any] | None = None
-    tags: list[str] = field(default_factory=list)
-    score_impact: float = 0.0
-
-
-@dataclass(slots=True)
-class CategoryScore:
-    """Score for a single SEO category."""
-
-    category: str = "on_page"
-    score: float = 100.0
-    max_score: float = 100.0
-    weight: float = 0.0
-    rules_checked: int = 0
-    rules_passed: int = 0
-    rules_failed: int = 0
-    rule_count: int = 0
-    passed_rules: int = 0
+    details: dict[str, Any] | None = None
 
 
 @dataclass(slots=True)
 class PageScore:
-    """Overall score for a single page."""
+    """Per-page score summary (no overall/grade/category scores)."""
 
     url: str = ""
-    score: float = 0.0
-    overall_score: float = 0.0
-    grade: str = "F"
-    category_scores: dict[str, CategoryScore] = field(default_factory=dict)
-    total_rules: int = 0
     passed: int = 0
     failed: int = 0
-    on_page_score: float = 100.0
-    technical_score: float = 100.0
-    rule_results: dict[str, RuleResult] = field(default_factory=dict)
-
-
-@dataclass(slots=True)
-class NormalizedResult:
-    """Normalized per-page result ready for JSON serialization."""
-
-    audit_id: str = ""
-    status: str = ""
-    summary: dict[str, Any] = field(default_factory=dict)
-    pages: list[dict[str, Any]] = field(default_factory=list)
-    events: list[dict[str, Any]] = field(default_factory=list)
-    page_url: str = ""
-    normalized_url: str = ""
-    score: float = 0.0
-    grade: str = "F"
-    issues: list[dict[str, Any]] = field(default_factory=list)
-    timestamp: str = ""
-    rule_results: list[dict[str, Any]] = field(default_factory=list)
-    category_scores: dict[str, dict[str, Any]] = field(default_factory=dict)
+    total: int = 0
+    pass_percentage: float = 0.0
+    rule_results: list[RuleResult] = field(default_factory=list)
 
 
 @dataclass(slots=True)
@@ -194,14 +152,29 @@ class PageResult:
     response_time_ms: int = 0
     success: bool = False
     error: str | None = None
-    score: float = 0.0
-    grade: str = "F"
-    page_score: PageScore | None = None
-    normalized: NormalizedResult | None = None
+    passed: int = 0
+    failed: int = 0
+    total_rules: int = 0
+    pass_percentage: float = 0.0
+    rule_results: list[dict[str, Any]] = field(default_factory=list)
     crawled_at: str = field(default_factory=lambda: utc_now().isoformat())
-    rule_count: int = 0
-    rules_passed: int = 0
-    rules_failed: int = 0
+
+
+@dataclass(slots=True)
+class NormalizedResult:
+    """Normalized per-audit result ready for JSON serialization."""
+
+    audit_id: str = ""
+    status: str = ""
+    summary: dict[str, Any] = field(default_factory=dict)
+    pages: list[dict[str, Any]] = field(default_factory=list)
+    events: list[dict[str, Any]] = field(default_factory=list)
+    page_url: str = ""
+    normalized_url: str = ""
+    pass_percentage: float = 0.0
+    issues: list[dict[str, Any]] = field(default_factory=list)
+    timestamp: str = ""
+    rule_results: list[dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass(slots=True)
@@ -215,11 +188,9 @@ class AuditReport:
     total_pages: int = 0
     crawled_pages: int = 0
     pages_crawled: int = 0
+    pages_done: int = 0
     pages_failed: int = 0
     pages_skipped: int = 0
-    categories: Any = field(default_factory=dict)
-    overall_score: float = 0.0
-    grade: str = "F"
     started_at: str = field(default_factory=lambda: utc_now().isoformat())
     completed_at: str | None = None
     total_time_seconds: float = 0.0
@@ -227,6 +198,7 @@ class AuditReport:
     pages: list[PageScore] = field(default_factory=list)
     events: list[PipelineEvent] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+    summary: dict[str, Any] = field(default_factory=dict)
 
 
 class CoreSEOEventType(str, Enum):
@@ -235,16 +207,16 @@ class CoreSEOEventType(str, Enum):
     AUDIT_STARTED = "audit_started"
     CRAWL_STARTED = "crawl_started"
     PAGE_DISCOVERED = "page_discovered"
-    PAGE_CRAWLED = "page_crawled"
-    PAGE_PARSED = "page_parsed"
-    RULE_EVALUATED = "rule_evaluated"
-    RULES_EVALUATED = "rules_evaluated"
-    PAGE_SCORED = "page_scored"
-    PAGE_NORMALIZED = "page_normalized"
-    SCORE_CALCULATED = "score_calculated"
+    PAGE_QUEUED = "page_queued"
+    PAGE_STARTED = "page_started"
+    FETCH_STARTED = "fetch_started"
+    RENDERED = "rendered"
+    PARSED = "parsed"
+    RULE_CHECKED = "rule_checked"
+    PAGE_COMPLETED = "page_completed"
+    PAGE_FAILED = "page_failed"
     AUDIT_COMPLETED = "audit_completed"
     AUDIT_FAILED = "audit_failed"
-    PAGE_CRAWL_FAILED = "page_crawl_failed"
 
 
 @dataclass(slots=True)
@@ -267,7 +239,6 @@ class PipelineEvent:
 
 __all__ = [
     "AuditReport",
-    "CategoryScore",
     "CoreSEOEventType",
     "CrawlResult",
     "DiscoveredURL",

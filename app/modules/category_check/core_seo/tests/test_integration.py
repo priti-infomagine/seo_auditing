@@ -8,8 +8,9 @@ from app.modules.category_check.core_seo.models import (
     CrawlResult,
     AuditReport,
     CoreSEOEventType,
+    NormalizedResult,
 )
-from app.modules.category_check.core_seo.scorer import Scorer
+from app.modules.category_check.core_seo.summary import summarize_page, summarize_audit
 
 
 SAMPLE_HTML_FULL = """
@@ -27,7 +28,7 @@ SAMPLE_HTML_FULL = """
 <body>
     <h1>Main Heading for the Page</h1>
     <h2>Section One</h2>
-    <p>This is a paragraph with sufficient content to pass content-based SEO rules. We need to ensure the word count exceeds the minimum threshold for proper SEO evaluation.</p>
+    <p>This is a paragraph with sufficient content to pass content-based SEO rules. We need words.</p>
     <p>Another paragraph of content for the test page. This ensures we have enough text to pass content-based SEO rules.</p>
     <p>Additional paragraph to provide more content. The SEO rules need sufficient content to evaluate properly.</p>
     <p>More text here to ensure adequate word count for SEO evaluation. Content quality matters for search engine optimization.</p>
@@ -125,14 +126,13 @@ class TestFullAudit:
 
         status = service_with_html.get_audit_status(audit_id)
         assert status["status"] == "completed"
-        assert status["crawled_pages"] >= 1
+        assert status["pages_done"] >= 1
 
         report = service_with_html.get_report(audit_id)
         assert report is not None
         assert report.status == "completed"
-        assert report.summary["page_count"] >= 1
-        assert "overall_score" in report.summary
-        assert "grade" in report.summary
+        assert report.summary["pages_total"] >= 1
+        assert "pass_percentage" in report.summary
 
     @pytest.mark.asyncio
     async def test_audit_events_emitted(self, service_with_html):
@@ -141,13 +141,16 @@ class TestFullAudit:
             max_pages=1, max_depth=1,
         )
 
-        events = service_with_html.event_bus.get_events_for_audit(audit_id)
+        from app.modules.category_check.core_seo.events import EventBus
+        events = EventBus.get_events_for_audit(audit_id)
         event_types = {e.event_type for e in events}
 
         assert CoreSEOEventType.PAGE_DISCOVERED.value in event_types
-        assert CoreSEOEventType.PAGE_CRAWLED.value in event_types
-        assert CoreSEOEventType.RULES_EVALUATED.value in event_types
-        assert CoreSEOEventType.SCORE_CALCULATED.value in event_types
+        assert CoreSEOEventType.PAGE_STARTED.value in event_types
+        assert CoreSEOEventType.FETCH_STARTED.value in event_types
+        assert CoreSEOEventType.PARSED.value in event_types
+        assert CoreSEOEventType.RULE_CHECKED.value in event_types
+        assert CoreSEOEventType.PAGE_COMPLETED.value in event_types
         assert CoreSEOEventType.AUDIT_COMPLETED.value in event_types
 
     @pytest.mark.asyncio
@@ -162,7 +165,7 @@ class TestFullAudit:
 
         all_results = []
         for page in report.pages:
-            all_results.extend(page.get("rules", []))
+            all_results.extend(page.get("results", []))
 
         failed_count = sum(1 for r in all_results if not r["passed"])
         assert failed_count > 0
@@ -175,9 +178,8 @@ class TestFullAudit:
         )
 
         report = service_with_html.get_report(audit_id)
-        assert report.summary["overall_score"] > 0
-        grade = report.summary["grade"]
-        assert grade in ("A", "B", "C", "D", "F")
+        assert report.summary["pass_percentage"] >= 0
+        assert report.summary["pass_percentage"] <= 100
 
     @pytest.mark.asyncio
     async def test_multiple_pages(self):
@@ -209,28 +211,26 @@ class TestFullAudit:
         audit_id = await service.start_audit("https://example.com", max_pages=5, max_depth=2)
         status = service.get_audit_status(audit_id)
         assert status["status"] == "completed"
-        assert status["crawled_pages"] == 3
+        assert status["pages_done"] == 3
 
 
-class TestScorerIntegration:
-    def test_scorer_with_real_rules(self):
-        """Test scorer integration with all 18 real rules."""
+class TestSummaryIntegration:
+    def test_summary_with_real_rules(self):
+        """Test summary with all 18 real rules."""
         from app.modules.category_check.core_seo.rules.registry import default_registry
         from app.modules.category_check.core_seo.page_parser import PageParser
 
         parser = PageParser()
         registry = default_registry()
-        scorer = Scorer()
 
         parsed = parser.parse(SAMPLE_HTML_FULL, "https://example.com/sample-page")
         rule_data = parser.build_rule_data(parsed)
         results = registry.run_all(rule_data)
 
-        page_score = scorer.score_page("https://example.com/sample-page", results)
-        assert page_score.total_rules == 18
-        assert page_score.passed + page_score.failed == 18
-        assert page_score.score >= 0
-        assert page_score.score <= 100
+        page_summary = summarize_page(results)
+        assert page_summary.total == 18
+        assert page_summary.passed + page_summary.failed == 18
+        assert 0 <= page_summary.pass_percentage <= 100
 
     def test_audit_normalization(self):
         """Test that a full audit report normalizes correctly."""
@@ -241,13 +241,20 @@ class TestScorerIntegration:
             status="completed",
             total_pages=1,
             crawled_pages=1,
-            overall_score=85.0,
-            grade="B",
-            pages=[],
+            pages_done=1,
+            pages_failed=0,
+            summary={
+                "pages_total": 1,
+                "pages_done": 1,
+                "pages_failed": 0,
+                "rules_passed": 17,
+                "rules_failed": 1,
+                "pass_percentage": 94.4,
+            },
         )
 
         normalizer = AuditNormalizer()
         result = normalizer.normalize(report)
         assert result.audit_id == "test-123"
         assert result.status == "completed"
-        assert result.summary["overall_score"] == 85.0
+        assert result.summary["pass_percentage"] == 94.4

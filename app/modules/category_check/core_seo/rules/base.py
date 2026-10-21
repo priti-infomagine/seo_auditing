@@ -16,16 +16,13 @@ from ..models import RuleResult, Severity
 class BaseRule(ABC):
     """Abstract base class for SEO rules.
 
-    Subclasses define class-level metadata (rule_id, name, category, etc.)
+    Subclasses define class-level metadata (rule_id, name, severity)
     and implement :meth:`evaluate`.
     """
 
     rule_id: str = ""
     name: str = ""
-    category: str = ""
-    description: str = ""
-    weight: float = 1.0
-    tags: list[str] = []
+    severity: str = Severity.WARNING.value
 
     def __init__(self) -> None:
         if not self.rule_id:
@@ -50,22 +47,18 @@ class BaseRule(ABC):
         passed: bool,
         message: str,
         severity: str = Severity.WARNING.value,
-        score_impact: float = 0.0,
         recommendation: str | None = None,
-        data: dict[str, Any] | None = None,
+        details: dict[str, Any] | None = None,
     ) -> RuleResult:
         """Helper to create a RuleResult with this rule's metadata."""
         return RuleResult(
             rule_id=self.rule_id,
             name=self.name,
-            category=self.category,
             severity=severity,
             passed=passed,
             message=message,
             recommendation=recommendation,
-            data=data,
-            tags=list(self.tags),
-            score_impact=score_impact,
+            details=details,
         )
 
 
