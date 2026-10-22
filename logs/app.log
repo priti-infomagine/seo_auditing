@@ -5211,3 +5211,10 @@ WHERE core_seo_audit_checks.audit_id = $1::VARCHAR]
 2026-10-21T15:30:31 | ERROR | app | WriteBehindStore: DB flush failed for 4845beed-d40d-46c3-be26-8470872e2886: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
 2026-10-21T15:30:32 | INFO | app | WriteBehindStore: flushed audit 995a6df6-4fdd-4a18-acd0-51615a303308 to DB (status=completed, passed=16, failed=2)
 2026-10-21T17:19:06 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-22T15:42:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-22T15:42:52 | INFO | app | Worker process initialized with persistent background event loop (pid=22788)
+2026-10-22T15:43:26 | INFO | app | Core SEO audit dispatched to Celery: audit_id=cd92c7ed-a2d8-43dd-94cc-f671af174102
+2026-10-22T15:43:54 | INFO | app | WriteBehindStore: flushed audit cd92c7ed-a2d8-43dd-94cc-f671af174102 to DB (status=completed, passed=158, failed=22)
+2026-10-22T17:53:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-22T17:54:00 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-22T18:00:32 | INFO | app | Celery broker connection pre-warmed successfully

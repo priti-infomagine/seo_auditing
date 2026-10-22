@@ -51,9 +51,9 @@ class Settings(BaseSettings):
     TZ: str = "UTC"
 
     # ── CORS ─────────────────────────────────────────────────────────
-    CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173"]
+    CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:5173","http://192.168.0.24:3000"]
 
-    # ── External APIs ────────────────────────────────────────────────
+    # ── External APIs ───────b─────────────────────────────────────────
     OPENAI_API_KEY: str = ""
     GOOGLE_PAGESPEED_API_KEY: str = ""
     DATAFORSEO_LOGIN: str = ""
