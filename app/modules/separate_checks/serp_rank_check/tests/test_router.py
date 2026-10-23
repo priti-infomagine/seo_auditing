@@ -35,7 +35,6 @@ def _valid_payload(**overrides):
         "language": "English",
         "device": "desktop",
         "depth": 10,
-        "include_preview": True,
     }
     payload.update(overrides)
     return payload
@@ -43,7 +42,7 @@ def _valid_payload(**overrides):
 
 @pytest.mark.asyncio
 async def test_create_returns_200_with_result(
-    db_session, fake_serp_client, sent_tasks
+    db_session, fake_serp_client
 ):
     items = [
         organic_item(1, "https://other.com/"),
@@ -71,36 +70,6 @@ async def test_create_returns_200_with_result(
     assert payload["result"]["matches"][0]["url"] == (
         "https://example.com/page"
     )
-    # Preview task was enqueued
-    assert any(
-        t["name"] == "serp_rank_check.build_preview"
-        for t in sent_tasks
-    )
-
-
-@pytest.mark.asyncio
-async def test_create_no_preview_does_not_enqueue_preview(
-    db_session, fake_serp_client, sent_tasks
-):
-    fake_serp_client.set_response(
-        make_serp_body([organic_item(1, "https://example.com/")])
-    )
-
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
-        response = await client.post(
-            f"{API}/rank-checks",
-            json=_valid_payload(include_preview=False),
-        )
-    assert response.status_code == 200
-    payload = response.json()
-    assert payload["status"] == "done"
-    # No preview task enqueued
-    assert not any(
-        t["name"] == "serp_rank_check.build_preview"
-        for t in sent_tasks
-    )
 
 
 @pytest.mark.asyncio
@@ -126,7 +95,7 @@ async def test_create_different_location_creates_new_check(
 
 @pytest.mark.asyncio
 async def test_identical_concurrent_returns_same_id(
-    db_session, fake_serp_client, sent_tasks
+    db_session, fake_serp_client
 ):
     """Duplicate in-flight requests are deduplicated via the unique index."""
     items = [organic_item(1, "https://example.com/")]
@@ -331,7 +300,6 @@ async def test_list_paginates_history(db_session):
                 language_name="English",
                 device="desktop",
                 depth=10,
-                include_preview=True,
                 fingerprint=f"fp-{i}",
                 status=RankCheckStatus.DONE.value,
                 result={"found": True, "best_position": i + 1},
@@ -396,24 +364,3 @@ async def test_provider_4xx_returns_502(
             f"{API}/rank-checks", json=_valid_payload()
         )
     assert response.status_code == 502
-
-
-@pytest.mark.asyncio
-async def test_preview_artifact_missing_returns_404(
-    db_session, fake_serp_client
-):
-    fake_serp_client.set_response(
-        make_serp_body([organic_item(1, "https://example.com/")])
-    )
-
-    async with AsyncClient(
-        transport=ASGITransport(app=app), base_url="http://test"
-    ) as client:
-        created = await client.post(
-            f"{API}/rank-checks", json=_valid_payload()
-        )
-        check_id = created.json()["id"]
-        response = await client.get(
-            f"{API}/previews/{check_id}/preview.html"
-        )
-    assert response.status_code == 404

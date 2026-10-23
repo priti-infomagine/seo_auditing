@@ -2,12 +2,9 @@
 
 The API endpoint calls DataForSEO directly (synchronous flow):
 validate input → call provider → parse → persist → return result.
-The preview is a separate stage and is enqueued as a Celery task
-so it never blocks the rank-check response.
 """
 from __future__ import annotations
 
-import asyncio
 from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
@@ -18,7 +15,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.database import async_session_factory
 from app.core.logger import logger
-from app.shared.tasks.celery_app import celery_app
 
 from .client import get_serp_client
 from .exceptions import (
@@ -27,9 +23,8 @@ from .exceptions import (
     SerpProvider5xx,
     SerpProviderTimeout,
 )
-from .model import PreviewStatus, RankCheck, RankCheckStatus
+from .model import RankCheck, RankCheckStatus
 from .parser import parse_serp_response
-from .preview import render_preview_html, save_preview_artifacts
 from .repository import RankCheckRepository
 from .validation import (
     compute_fingerprint,
@@ -118,14 +113,12 @@ class SerpRankCheckService:
         language_name: str,
         device: str,
         depth: int,
-        include_preview: bool,
     ) -> tuple[RankCheck, bool]:
         """Validate, call DataForSEO, parse, persist, and return.
 
         This is the single entry point for the rank-check workflow.
         The endpoint calls this method synchronously — no Celery
-        task is enqueued for the check itself.  Preview generation
-        is still async.
+        task is enqueued for the check itself.
 
         Returns ``(check, created)``.  ``created=False`` means an
         identical in-flight check already exists (deduplication via
@@ -152,7 +145,6 @@ class SerpRankCheckService:
             language_name=language_name,
             device=device,
             depth=depth,
-            include_preview=include_preview,
         )
 
         check = RankCheck(
@@ -163,7 +155,6 @@ class SerpRankCheckService:
             language_name=language_name,
             device=device,
             depth=depth,
-            include_preview=include_preview,
             fingerprint=fingerprint,
             status=RankCheckStatus.RUNNING.value,
         )
@@ -202,11 +193,6 @@ class SerpRankCheckService:
             await self.db.commit()
             await self.db.refresh(check)
 
-            if include_preview:
-                check.preview_status = PreviewStatus.PENDING.value
-                await self.db.commit()
-                await self._enqueue_preview(check.id)
-
             return check, True
 
         except (SerpProviderTimeout, SerpProvider5xx):
@@ -218,79 +204,7 @@ class SerpRankCheckService:
             await self.db.commit()
             raise
 
-    async def _enqueue_preview(self, check_id: UUID) -> None:
-        try:
-            await asyncio.to_thread(
-                celery_app.send_task,
-                "serp_rank_check.build_preview",
-                args=[str(check_id)],
-                queue="serp_preview",
-            )
-        except Exception as exc:  # noqa: BLE001
-            logger.error(
-                "serp_rank_check: failed to enqueue preview id=%s: %s",
-                check_id,
-                exc,
-            )
-
-    # ── Task-facing: preview ─────────────────────────────────
-    async def build_preview_async(self, check_id: UUID) -> dict[str, Any]:
-        async with async_session_factory() as session:
-            repo = RankCheckRepository(session)
-            check = await repo.get(check_id)
-            if check is None:
-                logger.warning(
-                    "build_preview: check %s not found", check_id
-                )
-                return {"id": str(check_id), "preview_status": "missing"}
-            if check.preview_status != PreviewStatus.PENDING.value:
-                return {
-                    "id": str(check.id),
-                    "preview_status": check.preview_status,
-                }
-            if (
-                check.status != RankCheckStatus.DONE.value
-                or not check.result
-            ):
-                check.preview_status = PreviewStatus.FAILED.value
-                check.status = RankCheckStatus.DONE.value
-                await session.commit()
-                return {
-                    "id": str(check.id),
-                    "status": check.status,
-                    "preview_status": check.preview_status,
-                }
-            try:
-                html_content = render_preview_html(
-                    keyword=check.keyword,
-                    target_domain=check.domain,
-                    device=check.device,
-                    result=check.result,
-                )
-                urls = await save_preview_artifacts(
-                    check.id, html_content, check.device
-                )
-                check.preview_html_url = urls["html_url"]
-                check.preview_image_url = urls["image_url"]
-                check.preview_status = PreviewStatus.DONE.value
-                check.status = RankCheckStatus.DONE.value
-            except Exception as exc:  # noqa: BLE001
-                logger.error(
-                    "build_preview: preview failed id=%s: %s",
-                    check_id,
-                    exc,
-                    exc_info=True,
-                )
-                check.preview_status = PreviewStatus.FAILED.value
-                check.status = RankCheckStatus.DONE.value
-            await session.commit()
-            return {
-                "id": str(check.id),
-                "status": check.status,
-                "preview_status": check.preview_status,
-            }
-
-    # ── Task-facing: maintenance ─────────────────────────────
+    # ── Task-facing: maintenance ────────────────────────────
     async def sweep_stuck_async(self) -> dict[str, Any]:
         """Recover checks stuck in ``running`` for too long.
 
@@ -357,13 +271,7 @@ class SerpRankCheckService:
 
         check.result = result
         check.status = RankCheckStatus.DONE.value
-        if check.include_preview:
-            check.preview_status = PreviewStatus.PENDING.value
-            await session.commit()
-            await self._enqueue_preview(check.id)
-        else:
-            check.status = RankCheckStatus.DONE.value
-            await session.commit()
+        await session.commit()
         return {"id": str(check.id), "status": check.status}
 
     async def mark_failed_if_pending_async(

@@ -32,6 +32,10 @@ from unittest.mock import AsyncMock, MagicMock
 
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
 from app.modules.crawler.types import DiscoveredURL
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 
 # ---------------------------------------------------------------------------
 # Fakes
@@ -805,8 +809,83 @@ async def test_live_crawl_vivo_com(db_session):
         assert refreshed.status == "completed"
         assert refreshed.pages_crawled >= 1
     else:
-        # For a live, externally-controlled site the crawl may legitimately fail
-        # (bot protection, geo-redirects, timeouts). Assert we still finalised.
+    # For a live, externally-controlled site the crawl may legitimately fail
+    # (bot protection, geo-redirects, timeouts). Assert we still finalised.
         assert refreshed.status == "failed"
         assert refreshed.error is not None
+
+
+class TestSitemapRequiredGate:
+    """The sitemap-required gate lives in CrawlOrchestrator.run, enabled by
+    ``require_sitemap=True`` (passed by the ``crawler.crawl_website`` task)."""
+
+    @staticmethod
+    def _patch_run_env(monkeypatch, sitemaps):
+        mock_scheduler_cls = MagicMock()
+        mock_scheduler = MagicMock()
+        mock_scheduler_cls.return_value = mock_scheduler
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.CrawlScheduler",
+            mock_scheduler_cls,
+        )
+
+        mock_site_result = MagicMock()
+        mock_site_result.robots.content = "User-agent: *\nAllow: /\n"
+        mock_site_result.discovered_urls = []
+        mock_site_result.sitemaps = sitemaps
+        mock_discovery_instance = MagicMock()
+        mock_discovery_instance.discover = AsyncMock(return_value=mock_site_result)
+        monkeypatch.setattr(
+            "app.modules.crawler.services.crawl_orchestrator.SiteDiscoveryService",
+            lambda *a, **kw: mock_discovery_instance,
+        )
+        return mock_scheduler
+
+    async def test_run_requires_sitemap_raises_when_none(self, monkeypatch):
+        job = FakeJob()
+        orch = make_orchestrator(job)
+        scheduler = self._patch_run_env(monkeypatch, sitemaps=[])
+
+        with pytest.raises(NoSitemapAvailableError) as exc_info:
+            await orch.run(
+                start_url="https://vivo.com/",
+                respect_robots=True,
+                require_sitemap=True,
+            )
+
+        assert exc_info.value.message == NO_SITEMAP_MESSAGE
+        assert exc_info.value.status_code == 404
+        assert not scheduler.submit_seed.called
+        assert job.status == "crawling"  # gate fires before crawl starts
+
+    async def test_run_requires_sitemap_proceeds_when_present(self, monkeypatch):
+        job = FakeJob()
+        orch = make_orchestrator(job)
+        sitemap_item = MagicMock()
+        sitemap_item.url = "https://vivo.com/sitemap.xml"
+        sitemap_item.status_code = 200
+        sitemap_item.urls = ["https://vivo.com/page1", "https://vivo.com/page2"]
+        scheduler = self._patch_run_env(monkeypatch, sitemaps=[sitemap_item])
+
+        result = await orch.run(
+            start_url="https://vivo.com/",
+            respect_robots=True,
+            require_sitemap=True,
+        )
+
+        assert isinstance(result, dict)
+        assert scheduler.submit_seed.called
+
+    async def test_run_default_allow_empty_sitemap(self, monkeypatch):
+        """Without require_sitemap, an empty sitemap must NOT raise (legacy behavior)."""
+        job = FakeJob()
+        orch = make_orchestrator(job)
+        scheduler = self._patch_run_env(monkeypatch, sitemaps=[])
+
+        result = await orch.run(
+            start_url="https://vivo.com/",
+            respect_robots=True,
+        )
+        assert isinstance(result, dict)
+        assert scheduler.submit_seed.called
 

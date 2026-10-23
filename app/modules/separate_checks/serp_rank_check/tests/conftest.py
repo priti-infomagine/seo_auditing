@@ -3,14 +3,12 @@
 Uses the project's isolated-Postgres-schema test helper so
 the partial unique index and constraints are exercised against
 a real database. The DataForSEO provider is mocked at the service
-boundary (``get_serp_client``) and Celery's ``send_task`` is
-captured so no broker is required.
+boundary (``get_serp_client``).
 """
 from __future__ import annotations
 
 import asyncio
 import uuid
-from types import SimpleNamespace
 
 import pytest
 import pytest_asyncio
@@ -23,7 +21,6 @@ from app.modules.separate_checks.serp_rank_check.exceptions import (
     SerpProvider5xx,
     SerpProviderTimeout,
 )
-from app.shared.tasks.celery_app import celery_app
 from app.tests.database import (
     create_isolated_test_engine,
     dispose_isolated_test_engine,
@@ -62,19 +59,6 @@ def override_dependencies(db_engine, db_session):
     app.dependency_overrides[get_db] = _get_db
     yield
     app.dependency_overrides.clear()
-
-
-@pytest.fixture
-def sent_tasks(monkeypatch):
-    """Capture Celery send_task calls instead of hitting a broker."""
-    sent: list[dict] = []
-
-    def fake_send_task(name, args=None, queue=None, **kwargs):
-        sent.append({"name": name, "args": args, "queue": queue})
-        return SimpleNamespace(id=f"task-{uuid.uuid4()}")
-
-    monkeypatch.setattr(celery_app, "send_task", fake_send_task)
-    return sent
 
 
 # ── Fake DataForSEO provider ─────────────────────────────
@@ -206,26 +190,3 @@ async def service_session_factory(db_engine, monkeypatch):
         factory,
     )
     return factory
-
-
-@pytest.fixture
-def preview_artifacts(monkeypatch):
-    """Mock the preview artifact writer used by build_preview."""
-    state = {
-        "urls": {
-            "html_url": "/api/v1/serp/previews/x/preview.html",
-            "image_url": "/api/v1/serp/previews/x/screenshot.png",
-        },
-        "raise": None,
-    }
-
-    async def fake_save(check_id, html_content, device):
-        if state["raise"] is not None:
-            raise state["raise"]
-        return state["urls"]
-
-    monkeypatch.setattr(
-        "app.modules.separate_checks.serp_rank_check.service.save_preview_artifacts",
-        fake_save,
-    )
-    return state

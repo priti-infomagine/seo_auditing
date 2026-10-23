@@ -80,7 +80,6 @@ class TestComputeFingerprint:
             "language_name": "English",
             "device": "desktop",
             "depth": 10,
-            "include_preview": True,
         }
         params.update(overrides)
         return compute_fingerprint(**params)
@@ -97,9 +96,6 @@ class TestComputeFingerprint:
     def test_different_depth_changes_fingerprint(self):
         assert self._fp() != self._fp(depth=20)
 
-    def test_different_include_preview_changes_fingerprint(self):
-        assert self._fp() != self._fp(include_preview=False)
-
     def test_different_location_changes_fingerprint(self):
         assert self._fp() != self._fp(location_name="London")
 
@@ -114,7 +110,6 @@ class TestComputeFingerprint:
             "language_name": "English",
             "device": "desktop",
             "depth": 10,
-            "include_preview": True,
         }
         expected = hashlib.sha256(
             json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()

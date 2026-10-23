@@ -147,6 +147,7 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                     respect_robots=cfg.get("respect_robots", True),
                     user_agent=cfg.get("user_agent"),
                     progress_callback=_progress_callback,
+                    require_sitemap=True,
                 )
 
                 # Fire auto-analyze pipeline if requested

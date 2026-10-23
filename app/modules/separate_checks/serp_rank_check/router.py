@@ -2,8 +2,6 @@
 
 The API endpoint calls DataForSEO directly (synchronous flow):
 validate → call provider → parse → persist → return.
-
-Preview generation is still asynchronous via Celery.
 """
 from __future__ import annotations
 
@@ -15,7 +13,6 @@ from fastapi import (
     HTTPException,
     status,
 )
-from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -27,7 +24,6 @@ from .exceptions import (
     SerpProviderTimeout,
 )
 from .model import RankCheck
-from .preview import PreviewStorage
 from .repository import RankCheckRepository
 from .schema import (
     RankCheckListResponse,
@@ -52,12 +48,8 @@ def _to_status_response(check: RankCheck) -> RankCheckStatusResponse:
         language=(check.language_name or ""),
         device=check.device,
         depth=check.depth,
-        include_preview=check.include_preview,
         status=check.status,
         result=result,
-        preview_status=check.preview_status,
-        preview_html_url=check.preview_html_url,
-        preview_image_url=check.preview_image_url,
         error_code=check.error_code,
         provider_cost=(
             float(check.provider_cost)
@@ -99,8 +91,6 @@ async def create_rank_check(
     """Validate input, call DataForSEO, calculate ranking, persist, and return.
 
     The endpoint blocks until the DataForSEO provider responds.
-    If ``include_preview`` is true, a preview task is enqueued
-    asynchronously after the ranking is stored.
     """
     try:
         service = SerpRankCheckService(db)
@@ -112,7 +102,6 @@ async def create_rank_check(
             language_name=body.language,
             device=body.device,
             depth=body.depth,
-            include_preview=body.include_preview,
         )
         await db.refresh(check)
         return _to_status_response(check)
@@ -186,30 +175,3 @@ async def list_rank_checks(
         limit=limit,
         offset=offset,
     )
-
-
-@router.get("/previews/{check_id}/{filename}")
-async def get_preview_artifact(
-    check_id: str,
-    filename: str,
-    db: AsyncSession = Depends(get_db),  # noqa: B008
-) -> FileResponse:
-    """Serve a stored preview artifact (HTML or screenshot)."""
-    check_uuid = _parse_check_id(check_id)
-    check = await RankCheckRepository(db).get(check_uuid)
-    if check is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Preview not found",
-        )
-    storage = PreviewStorage()
-    path = storage.resolve(check_uuid, filename)
-    if path is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Preview artifact not found",
-        )
-    media_type = (
-        "text/html" if filename == "preview.html" else "image/png"
-    )
-    return FileResponse(path, media_type=media_type)

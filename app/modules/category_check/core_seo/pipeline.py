@@ -32,6 +32,10 @@ from .page_parser import PageParser
 from .rules.registry import RuleRegistry, default_registry
 from .storage import WriteBehindStore
 from .summary import summarize_page
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 
 from app.core.logger import logger
 
@@ -101,11 +105,29 @@ class CoreSEOCrawlerService:
             "max_depth": max_depth,
         })
 
-        discovered_urls = await self.page_discoverer.discover_pages(
-            start_url=start_url,
-            max_pages=max_pages,
-            max_depth=max_depth,
-        )
+        try:
+            discovered_urls = await self.page_discoverer.discover_pages(
+                start_url=start_url,
+                max_pages=max_pages,
+                max_depth=max_depth,
+            )
+        except NoSitemapAvailableError:
+            # No sitemap on the live site: abort the audit cleanly instead of
+            # falling back to seed-only BFS. Surface via audit_failed event +
+            # state so WebSocket / status polling report the reason.
+            await self._emit_event(
+                CoreSEOEventType.AUDIT_FAILED,
+                audit_id,
+                {"error": NO_SITEMAP_MESSAGE, "start_url": start_url},
+            )
+            EventBus.set_audit_state(
+                audit_id,
+                status="failed",
+                start_url=start_url,
+                error=NO_SITEMAP_MESSAGE,
+            )
+            self._write_behind.mark_dirty(audit_id)
+            return audit_id
 
         for du in discovered_urls:
             await self._emit_event(CoreSEOEventType.PAGE_DISCOVERED, audit_id, {

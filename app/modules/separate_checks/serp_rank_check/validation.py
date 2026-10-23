@@ -71,7 +71,6 @@ def compute_fingerprint(
     language_name: str,
     device: str,
     depth: int,
-    include_preview: bool,
 ) -> str:
     """sha256 over the canonical JSON of the normalized inputs.
 
@@ -90,7 +89,6 @@ def compute_fingerprint(
         "language_name": language_name,
         "device": device,
         "depth": depth,
-        "include_preview": include_preview,
     }
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()

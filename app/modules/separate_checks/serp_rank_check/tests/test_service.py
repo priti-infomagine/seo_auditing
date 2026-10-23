@@ -13,7 +13,6 @@ from app.modules.separate_checks.serp_rank_check.exceptions import (
     SerpProviderTimeout,
 )
 from app.modules.separate_checks.serp_rank_check.model import (
-    PreviewStatus,
     RankCheck,
     RankCheckStatus,
 )
@@ -55,7 +54,6 @@ async def _do_check(
         "language_name": "English",
         "device": "desktop",
         "depth": 10,
-        "include_preview": False,
     }
     params.update(overrides)
     service = SerpRankCheckService(db_session)
@@ -91,7 +89,7 @@ async def test_check_creates_done_row(
     assert check.result["found"] is True
     assert check.result["best_position"] == 2
     assert check.fingerprint
-    assert check.preview_status == PreviewStatus.NONE.value
+    assert check.result["found"] is True
 
 
 @pytest.mark.asyncio
@@ -138,39 +136,6 @@ async def test_check_not_found_is_success(
     assert check.result["found"] is False
     assert check.result["best_position"] is None
     assert check.result["serp_features"] == ["people_also_ask"]
-
-
-@pytest.mark.asyncio
-async def test_check_with_preview_enqueues_preview(
-    db_session, fake_serp_client, sent_tasks
-):
-    fake_serp_client.set_response(
-        make_serp_body([organic_item(1, "https://example.com/")])
-    )
-    check, _ = await _do_check(db_session, include_preview=True)
-    assert check.status == RankCheckStatus.DONE.value
-    assert check.preview_status == PreviewStatus.PENDING.value
-    assert any(
-        t["name"] == "serp_rank_check.build_preview"
-        and t["queue"] == "serp_preview"
-        for t in sent_tasks
-    )
-
-
-@pytest.mark.asyncio
-async def test_check_no_preview(
-    db_session, fake_serp_client, sent_tasks
-):
-    fake_serp_client.set_response(
-        make_serp_body([organic_item(1, "https://example.com/")])
-    )
-    check, _ = await _do_check(db_session, include_preview=False)
-    assert check.status == RankCheckStatus.DONE.value
-    assert check.preview_status == PreviewStatus.NONE.value
-    assert not any(
-        t["name"] == "serp_rank_check.build_preview"
-        for t in sent_tasks
-    )
 
 
 @pytest.mark.asyncio
@@ -281,86 +246,6 @@ async def test_repeated_checks_create_new_rows(
     assert reloaded1.id != reloaded2.id
 
 
-# ── build_preview_async ────────────────────────────────
-@pytest.mark.asyncio
-async def test_build_preview_success(
-    service_session_factory,
-    preview_artifacts,
-    db_session,
-):
-    check = RankCheck(
-        user_id=FAKE_USER_ID,
-        keyword="seo tools",
-        domain="example.com",
-        location_name="United States",
-        language_name="English",
-        device="desktop",
-        depth=10,
-        include_preview=True,
-        fingerprint="fp",
-        status=RankCheckStatus.DONE.value,
-        preview_status=PreviewStatus.PENDING.value,
-        result={
-            "found": True,
-            "best_position": 7,
-            "best_absolute_position": 9,
-            "matches": [
-                {
-                    "position": 7,
-                    "absolute_position": 9,
-                    "url": "https://example.com/page",
-                    "title": "Example Page",
-                },
-            ],
-            "serp_features": [],
-            "top_results": [],
-            "partial": False,
-        },
-    )
-    db_session.add(check)
-    await db_session.commit()
-
-    service = SerpRankCheckService()
-    result = await service.build_preview_async(check.id)
-
-    assert result["status"] == "done"
-    assert result["preview_status"] == "done"
-    stored = await _reload(service_session_factory, check.id)
-    assert stored.preview_status == PreviewStatus.DONE.value
-    assert stored.status == RankCheckStatus.DONE.value
-    assert stored.preview_html_url == preview_artifacts["urls"][
-        "html_url"
-    ]
-
-
-@pytest.mark.asyncio
-async def test_build_preview_idempotent(
-    service_session_factory,
-    preview_artifacts,
-    db_session,
-):
-    check = RankCheck(
-        user_id=FAKE_USER_ID,
-        keyword="seo tools",
-        domain="example.com",
-        location_name="United States",
-        language_name="English",
-        device="desktop",
-        depth=10,
-        include_preview=True,
-        fingerprint="fp",
-        status=RankCheckStatus.DONE.value,
-        preview_status=PreviewStatus.DONE.value,
-        result={"found": True, "best_position": 5},
-    )
-    db_session.add(check)
-    await db_session.commit()
-
-    service = SerpRankCheckService()
-    result = await service.build_preview_async(check.id)
-    assert result["preview_status"] == "done"
-
-
 # ── sweep_stuck_async ──────────────────────────────────
 @pytest.mark.asyncio
 async def test_sweep_marks_stuck_without_raw_response(
@@ -374,7 +259,6 @@ async def test_sweep_marks_stuck_without_raw_response(
         language_name="English",
         device="desktop",
         depth=10,
-        include_preview=False,
         fingerprint="fp-stuck",
         status=RankCheckStatus.RUNNING.value,
         updated_at=datetime.now(timezone.utc) - timedelta(seconds=120),
@@ -409,7 +293,6 @@ async def test_sweep_resumes_stuck_with_raw_response(
         language_name="English",
         device="desktop",
         depth=10,
-        include_preview=False,
         fingerprint="fp-stuck-raw",
         status=RankCheckStatus.RUNNING.value,
         raw_response=body,
@@ -440,7 +323,6 @@ async def test_sweep_ignores_recent_running(
         language_name="English",
         device="desktop",
         depth=10,
-        include_preview=False,
         fingerprint="fp-recent",
         status=RankCheckStatus.RUNNING.value,
     )

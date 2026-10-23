@@ -17,9 +17,6 @@ task_routes = {
     "redirect_check.*": {
         "queue": "crawler",
     },
-    "serp_rank_check.build_preview": {
-        "queue": "serp_preview",
-    },
     "serp_rank_check.sweep_stuck_checks": {
         "queue": "serp_maintenance",
     },

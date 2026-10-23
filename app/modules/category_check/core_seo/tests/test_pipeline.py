@@ -13,6 +13,10 @@ from app.modules.category_check.core_seo.models import (
 )
 from app.modules.category_check.core_seo.events import EventBus
 from app.modules.category_check.core_seo.pipeline import CoreSEOCrawlerService
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 
 
 class MockCrawler:
@@ -123,6 +127,35 @@ class TestCoreSEOCrawlerService:
         events = EventBus.get_events_for_audit("error-audit")
         event_types = [e.event_type for e in events]
         assert CoreSEOEventType.PAGE_FAILED.value in event_types
+
+    @pytest.mark.asyncio
+    async def test_start_audit_no_sitemap_aborts_and_emits_failed(self, sample_html):
+        """When the discoverer finds no sitemap, the audit aborts with an
+        AUDIT_FAILED event + failed state instead of falling back to BFS."""
+
+        class _NoSitemapDiscoverer:
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3):
+                raise NoSitemapAvailableError()
+
+        service = CoreSEOCrawlerService()
+        service.crawler = MockCrawler(sample_html)
+        service.page_discoverer = _NoSitemapDiscoverer()
+
+        audit_id = await service.start_audit(
+            "https://example.com", max_pages=1, max_depth=1,
+        )
+
+        assert isinstance(audit_id, str)
+        events = EventBus.get_events_for_audit(audit_id)
+        event_types = {e.event_type for e in events}
+        assert CoreSEOEventType.AUDIT_FAILED.value in event_types
+        assert CoreSEOEventType.PAGE_DISCOVERED.value not in event_types
+
+        state = EventBus.get_audit_state(audit_id)
+        assert state.get("status") == "failed"
+        assert state.get("error") == NO_SITEMAP_MESSAGE
+
+        EventBus.clear_audit_state(audit_id)
 
     @pytest.mark.asyncio
     async def test_get_report_returns_none_for_unknown(self, mock_service):

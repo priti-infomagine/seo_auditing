@@ -28,7 +28,6 @@ from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
-    Boolean,
     CheckConstraint,
     DateTime,
     Index,
@@ -54,13 +53,6 @@ class RankCheckStatus(str, enum.Enum):
     QUEUED = "queued"
     RUNNING = "running"
     RANKED = "ranked"
-    DONE = "done"
-    FAILED = "failed"
-
-
-class PreviewStatus(str, enum.Enum):
-    NONE = "none"
-    PENDING = "pending"
     DONE = "done"
     FAILED = "failed"
 
@@ -129,11 +121,6 @@ class RankCheck(TimestampMixin, Base):
     language_name: Mapped[str] = mapped_column(Text, nullable=False)
     device: Mapped[str] = mapped_column(Text, nullable=False)
     depth: Mapped[int] = mapped_column(Integer, nullable=False)
-    include_preview: Mapped[bool] = mapped_column(
-        Boolean,
-        nullable=False,
-        default=True,
-    )
     fingerprint: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[str] = mapped_column(
         Text,
@@ -151,13 +138,6 @@ class RankCheck(TimestampMixin, Base):
     raw_response: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     result: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     error_code: Mapped[str | None] = mapped_column(Text, nullable=True)
-    preview_status: Mapped[str] = mapped_column(
-        Text,
-        nullable=False,
-        default=PreviewStatus.NONE.value,
-    )
-    preview_html_url: Mapped[str | None] = mapped_column(Text, nullable=True)
-    preview_image_url: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     def __repr__(self) -> str:
         return (

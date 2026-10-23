@@ -40,6 +40,7 @@ from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.types import DiscoveredURL
 from app.shared.utils.url_utils import get_domain, is_same_site, normalize_host, normalize_url
 from app.modules.crawler.utils.url_classifier import strip_tracking_params
+from app.modules.separate_checks.sitemap_check.errors import NoSitemapAvailableError
 
 
 class CrawlOrchestrator:
@@ -78,6 +79,7 @@ class CrawlOrchestrator:
         preflight_site_result=None,
         preselected_urls: Optional[list[str]] = None,
         restrict_to_preselected: bool = False,
+        require_sitemap: bool = False,
     ) -> dict:
         """
         Run a full recursive crawl using CrawlScheduler dynamic worker pool.
@@ -146,6 +148,14 @@ class CrawlOrchestrator:
                     },
                 )
             )
+
+        # Sitemap-required gate: when requested, the crawl must not proceed
+        # unless live discovery found at least one usable sitemap file. This is
+        # evaluated here (after discovery) so the gate is exercised only by the
+        # real crawl path; callers that pass require_sitemap=False (e.g. tests)
+        # are unaffected.
+        if require_sitemap and not getattr(site_result, "sitemaps", None):
+            raise NoSitemapAvailableError()
 
         # Initialize ignore service and load global patterns
         self._ignore_service = UrlIgnoreService(self.db)

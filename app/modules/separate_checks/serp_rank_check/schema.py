@@ -14,7 +14,6 @@ class RankCheckRequest(BaseModel):
     language: str = Field(min_length=1, max_length=100)
     device: Literal["desktop", "mobile"] = "desktop"
     depth: int = Field(default=10, ge=10, le=200)
-    include_preview: bool = True
 
     @field_validator("keyword", "domain", "location", "language")
     @classmethod
@@ -63,12 +62,8 @@ class RankCheckStatusResponse(BaseModel):
     language: str
     device: str
     depth: int
-    include_preview: bool
     status: str
     result: RankCheckResult | None = None
-    preview_status: str
-    preview_html_url: str | None = None
-    preview_image_url: str | None = None
     error_code: str | None = None
     provider_cost: float | None = None
     created_at: str | None = None

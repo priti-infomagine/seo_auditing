@@ -14,6 +14,7 @@ from urllib.parse import urljoin, urlsplit
 from .constants import DEFAULT_TIMEOUT
 from .models import DiscoveredURL
 from .url_normalizer import URLNormalizer
+from app.modules.separate_checks.sitemap_check.errors import NoSitemapAvailableError
 
 try:
     import aiohttp
@@ -77,6 +78,13 @@ class PageDiscoverer:
             )
 
         sitemap_urls = await self._discover_sitemap_urls(normalized, domain, max_pages)
+
+        # Sitemap-required gate: the Core SEO audit must not proceed unless live
+        # discovery found at least one sitemap. Replacing the previous
+        # seed-only BFS fallback with a hard abort when no sitemap is present.
+        if not sitemap_urls:
+            raise NoSitemapAvailableError()
+
         for url in sitemap_urls:
             if len(discovered) >= max_pages:
                 break
