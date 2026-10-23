@@ -36,6 +36,11 @@ router = APIRouter(prefix="/core-seo")
 
 _service: CoreSEOCrawlerService | None = None
 
+# How long (seconds) the WebSocket handler will poll for audit state before
+# giving up on a nonexistent audit_id.  Overridable via the
+# CORE_SEO_WS_WAIT_TIMEOUT env var for testing.
+_WS_WAIT_TIMEOUT = int(__import__("os").environ.get("CORE_SEO_WS_WAIT_TIMEOUT", "30"))
+
 
 def get_service() -> CoreSEOCrawlerService:
     global _service
@@ -174,9 +179,71 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
 
     last_id = query_params.get("last_id", "0")
 
+    # Establish Redis client once — reused for all stream reads below.
+    import redis
+
     try:
-        # Send existing events from stream for catch-up (always, even if completed)
-        events = EventBus.get_events_for_audit(audit_id)
+        from app.core.config import settings
+        client = redis.Redis.from_url(settings.REDIS_URL, decode_responses=True)
+        # Verify connectivity
+        client.ping()
+    except Exception:
+        await websocket.close(code=1011, reason="Redis unavailable")
+        return
+
+    stream_key = f"core_seo:events:{audit_id}"
+
+    async def _send_event(evt: dict) -> None:
+        """Send a single event dict as a JSON frame."""
+        await websocket.send_text(
+            json.dumps({
+                "type": "event",
+                "event_type": evt.get("event_type", ""),
+                "audit_id": evt.get("audit_id", audit_id),
+                "url": evt.get("url", ""),
+                "timestamp": evt.get("timestamp", ""),
+                "payload": evt.get("data", {}),
+            })
+        )
+
+    async def _send_final(audit_id: str) -> bool:
+        """Send the final snapshot if a report is available. Returns True if sent."""
+        report = get_service().get_report(audit_id)
+        if report is not None:
+            await websocket.send_text(
+                json.dumps({
+                    "type": "final",
+                    "audit_id": audit_id,
+                    "summary": report.summary,
+                    "pages": report.pages,
+                })
+            )
+            return True
+        return False
+
+    try:
+        # --- Phase 1: Wait for the audit to appear in Redis ----------------
+        # FIX (race condition): Previously, if no state and no events existed,
+        # the handler closed immediately with code 1000. This caused the frontend
+        # WebSocket to open and close with zero data whenever the Celery worker
+        # hadn't started the audit yet. Now we poll for up to 30 seconds.
+        state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
+        if not state:
+            for _ in range(_WS_WAIT_TIMEOUT):
+                await asyncio.sleep(1)
+                state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
+                if state:
+                    break
+            if not state:
+                await websocket.close(
+                    code=status.WS_1000_NORMAL_CLOSURE,
+                    reason="Audit not found or no data available",
+                )
+                return
+
+        # --- Phase 2: Send catch-up events (existing events in the stream) ---
+        # FIX (blocking): Wrap sync EventBus.get_events_for_audit in to_thread
+        events = await asyncio.to_thread(EventBus.get_events_for_audit, audit_id)
         for event in events:
             await websocket.send_text(
                 json.dumps({
@@ -189,47 +256,29 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 })
             )
 
-        # Check if audit is completed
-        state = EventBus.get_audit_state(audit_id)
+        # FIX (duplicate events): After the catch-up loop, advance last_id to
+        # the newest stream entry so the xread loop only receives *new* events.
+        # Without this, xread(last_id=0) re-emits all events already sent above.
+        if events:
+            last_entries = await asyncio.to_thread(client.xrevrange, stream_key, count=1)
+            if last_entries:
+                last_id = last_entries[0][0]
+
+        # --- Phase 3: If already completed, send the final snapshot ----------
+        state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
         if state.get("status") == "completed":
-            report = get_service().get_report(audit_id)
-            if report is not None:
-                await websocket.send_text(
-                    json.dumps({
-                        "type": "final",
-                        "audit_id": audit_id,
-                        "summary": report.summary,
-                        "pages": report.pages,
-                    })
-                )
+            if await _send_final(audit_id):
                 await websocket.close()
                 return
 
-        # If no audit state exists and no events were sent, the audit_id
-        # is unknown — close the connection instead of blocking forever.
-        if not state and not events:
-            await websocket.close(
-                code=status.WS_1000_NORMAL_CLOSURE,
-                reason="Audit not found or no data available",
-            )
-            return
-
-        # Stream new events via Redis XREAD
-        import redis
-
-        try:
-            from app.core.config import settings
-            client = redis.Redis.from_url(settings.REDIS_URL, decode_responses=True)
-        except Exception:
-            await websocket.close(code=1011, reason="Redis unavailable")
-            return
-
-        stream_key = f"core_seo:events:{audit_id}"
-
-        # If no events exist yet and audit not completed, block-read
+        # --- Phase 4: Live-stream new events via Redis XREAD -----------------
+        # FIX (blocking): xread(block=5000) is synchronous and would freeze the
+        # entire asyncio event loop for up to 5 s per iteration. Wrapping in
+        # asyncio.to_thread keeps the loop responsive for other connections.
         while True:
             try:
-                resp = client.xread(
+                resp = await asyncio.to_thread(
+                    client.xread,
                     {stream_key: last_id},
                     count=10,
                     block=5000,
@@ -242,32 +291,14 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                         if raw:
                             try:
                                 evt = json.loads(raw)
-                                await websocket.send_text(
-                                    json.dumps({
-                                        "type": "event",
-                                        "event_type": evt.get("event_type", ""),
-                                        "audit_id": evt.get("audit_id", audit_id),
-                                        "url": evt.get("url", ""),
-                                        "timestamp": evt.get("timestamp", ""),
-                                        "payload": evt.get("data", {}),
-                                    })
-                                )
+                                await _send_event(evt)
                             except (json.JSONDecodeError, TypeError):
                                 pass
 
                 # Check if audit completed
-                state = EventBus.get_audit_state(audit_id)
+                state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
                 if state.get("status") == "completed":
-                    report = get_service().get_report(audit_id)
-                    if report is not None:
-                        await websocket.send_text(
-                            json.dumps({
-                                "type": "final",
-                                "audit_id": audit_id,
-                                "summary": report.summary,
-                                "pages": report.pages,
-                            })
-                        )
+                    if await _send_final(audit_id):
                         await websocket.close()
                         return
             except json.JSONDecodeError:

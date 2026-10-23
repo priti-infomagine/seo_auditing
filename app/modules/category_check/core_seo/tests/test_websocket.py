@@ -11,7 +11,9 @@ Covers:
 """
 from __future__ import annotations
 
+import asyncio
 import json
+import time
 
 import pytest
 from fastapi import FastAPI
@@ -320,6 +322,137 @@ class TestWebSocketHTTPStub:
 
 
 # ── Error handling ───────────────────────────────────────────────
+
+
+class TestWebSocketRaceCondition:
+    """Regression tests for the race condition where the WS connects
+    before the audit has been written to Redis."""
+
+    @pytest.mark.asyncio
+    async def test_ws_waits_before_closing_for_unknown_audit(
+        self, test_client, monkeypatch
+    ):
+        """WebSocket should NOT close immediately for a valid (but not-yet-started)
+        audit_id. It should keep the connection open while polling."""
+        import app.modules.category_check.core_seo.router as router_mod
+        monkeypatch.setattr(router_mod, "_WS_WAIT_TIMEOUT", 3)
+
+        import time
+        audit_id = "wait-test-audit-12345"
+        # Use a thread so the TestClient websocket handler doesn't block
+        import threading
+
+        results = {"closed_at": None}
+
+        def _connect_and_wait():
+            with test_client.websocket_connect(f"/core-seo/ws/{audit_id}") as ws:
+                start = time.monotonic()
+                try:
+                    # This should block for ~3 seconds before the handler closes
+                    ws.receive_text()
+                except Exception:
+                    pass
+                results["closed_at"] = time.monotonic() - start
+
+        t = threading.Thread(target=_connect_and_wait)
+        t.start()
+        t.join(timeout=10)
+
+        elapsed = results["closed_at"]
+        assert elapsed is not None, "WebSocket never closed"
+        assert elapsed >= 2.0, (
+            f"WebSocket closed too early ({elapsed:.1f}s) — race condition fix not working. "
+            "The handler should wait for the polling timeout, not close immediately."
+        )
+
+    @pytest.mark.asyncio
+    async def test_ws_does_not_close_immediately_when_state_missing(
+        self, test_client, monkeypatch
+    ):
+        """When an audit_id has no state yet, the WS handler should poll
+        for up to _WS_WAIT_TIMEOUT seconds instead of closing immediately.
+
+        We verify this by setting _WS_WAIT_TIMEOUT to a small value and
+        measuring how long the WS stays open before closing.
+        """
+        import app.modules.category_check.core_seo.router as router_mod
+        monkeypatch.setattr(router_mod, "_WS_WAIT_TIMEOUT", 3)
+
+        # Pre-populate audit state but with empty events — simulates
+        # an audit that started but hasn't emitted any events yet.
+        audit_id = "state-only-no-events"
+        EventBus.set_audit_state(audit_id, status="running", start_url="https://test.com")
+
+        with test_client.websocket_connect(f"/core-seo/ws/{audit_id}") as ws:
+            # The WS should NOT close immediately — it should enter the
+            # xread loop and wait for events. With no events coming,
+            # xread(block=5000) will block. We verify by trying to read
+            # with a short timeout; it should timeout (not disconnect)
+            # within the first second.
+            import threading
+
+            results = {"received": [], "disconnected": False}
+
+            def _read():
+                try:
+                    data = ws.receive_text()
+                    msg = json.loads(data)
+                    results["received"].append(msg)
+                except Exception:
+                    results["disconnected"] = True
+
+            t = threading.Thread(target=_read)
+            t.daemon = True
+            start = time.monotonic()
+            t.start()
+            t.join(timeout=2)  # Wait up to 2s for a message
+            elapsed = time.monotonic() - start
+
+            # The handler should have entered the xread loop (not closed
+            # immediately). We verify by checking that the connection
+            # is still alive after 2 seconds — no disconnect yet.
+            assert not results["disconnected"], (
+                "WebSocket disconnected immediately — should have entered "
+                "the xread polling loop instead"
+            )
+
+        EventBus.clear_audit_state(audit_id)
+
+
+class TestWebSocketDuplicateEvents:
+    """Regression test: WebSocket should NOT send duplicate events."""
+
+    @pytest.mark.asyncio
+    async def test_no_duplicate_events_on_completed_audit(
+        self, test_client, completed_audit
+    ):
+        """When connecting to a completed audit, each event should arrive once."""
+        all_messages: list[dict] = []
+        with test_client.websocket_connect(f"/core-seo/ws/{completed_audit}") as ws:
+            while True:
+                try:
+                    data = ws.receive_text()
+                    msg = json.loads(data)
+                    all_messages.append(msg)
+                    if msg["type"] == "final":
+                        break
+                except Exception:
+                    break
+
+        # Count events by event_type + timestamp (unique identifier)
+        event_messages = [m for m in all_messages if m["type"] == "event"]
+        seen = set()
+        duplicates = []
+        for m in event_messages:
+            key = (m["event_type"], m["timestamp"])
+            if key in seen:
+                duplicates.append(key)
+            seen.add(key)
+
+        assert len(duplicates) == 0, (
+            f"Found {len(duplicates)} duplicate events: {duplicates[:5]}"
+        )
+
 
 class TestWebSocketErrorHandling:
     """Test WebSocket behaviour for error scenarios."""

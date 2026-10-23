@@ -5218,3 +5218,471 @@ WHERE core_seo_audit_checks.audit_id = $1::VARCHAR]
 2026-10-22T17:53:52 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-22T17:54:00 | INFO | app | Celery broker connection pre-warmed successfully
 2026-10-22T18:00:32 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T10:33:03 | INFO | app | Worker process initialized with persistent background event loop (pid=21000)
+2026-10-23T10:33:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T10:34:13 | INFO | app | Worker process initialized with persistent background event loop (pid=2740)
+2026-10-23T10:39:00 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T10:39:05 | INFO | app | Core SEO audit dispatched to Celery: audit_id=5c1b6e89-6c89-487a-a59c-2c2b000ee9d5
+2026-10-23T10:39:36 | INFO | app | WriteBehindStore: flushed audit 5c1b6e89-6c89-487a-a59c-2c2b000ee9d5 to DB (status=completed, passed=158, failed=22)
+2026-10-23T10:39:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T10:52:28 | INFO | app | WriteBehindStore: flushed audit d09af62a-9fe9-44bf-b68c-771a80d694c4 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:52:29 | INFO | app | WriteBehindStore: flushed audit 84fea922-c0ea-45c9-83be-93c26b079d05 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:52:59 | INFO | app | WriteBehindStore: flushed audit 901e5531-2d9a-450d-aff4-6070f61a3fed to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:53:00 | INFO | app | WriteBehindStore: flushed audit e6ce2dd3-d898-4827-beb3-da7f70f28465 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:53:00 | INFO | app | WriteBehindStore: flushed audit 77899594-0973-4799-ba48-cf8509ca942b to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:53:01 | INFO | app | WriteBehindStore: flushed audit 0d100f8d-9781-4ad8-943b-7f97cfc40614 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:53:01 | ERROR | app | WriteBehindStore: DB flush failed for ab859663-b9e8-4fa4-b47b-5b9dcde7962a: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T10:53:02 | INFO | app | WriteBehindStore: flushed audit dba948b8-f9ec-4d5b-9563-03b95f252fe2 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:55:48 | INFO | app | WriteBehindStore: flushed audit 735bf193-655c-40e2-9e5f-018aae565ea3 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:55:48 | INFO | app | WriteBehindStore: flushed audit 1c0a384a-8397-4b89-8dda-b58522a263bb to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:56:19 | INFO | app | WriteBehindStore: flushed audit 3ee88856-dfbe-4263-886f-a3f021b222f3 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:56:19 | INFO | app | WriteBehindStore: flushed audit 6536b30e-7242-4c07-83fa-e78a4813406d to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:56:20 | INFO | app | WriteBehindStore: flushed audit 9a135319-e043-4bbd-964f-b72a50fdb58f to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:56:20 | INFO | app | WriteBehindStore: flushed audit 59762cd5-3f55-4df3-b99e-375b69db5d65 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:56:20 | ERROR | app | WriteBehindStore: DB flush failed for 1c0db56b-8757-46a1-82be-074a861a4acd: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T10:56:21 | INFO | app | WriteBehindStore: flushed audit fc68f21a-e90a-4fc2-b05b-44b5405adb2f to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:57:57 | INFO | app | WriteBehindStore: flushed audit d784553c-9d2e-4a00-b659-975c2c766d7c to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:14 | INFO | app | WriteBehindStore: flushed audit 2436ea0b-17a3-4cd1-a0e2-faa778e344d4 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:14 | INFO | app | WriteBehindStore: flushed audit 3cd467f0-0e4f-4d90-9ac7-a887f332be38 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:45 | INFO | app | WriteBehindStore: flushed audit 22c20b94-98d4-4567-ba32-a2c84b7d622f to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:46 | INFO | app | WriteBehindStore: flushed audit d05b0ea0-1a97-4843-8579-17ff78285ecf to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:46 | INFO | app | WriteBehindStore: flushed audit 2c766173-80d6-40d4-9c43-8a817f58cb02 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:46 | INFO | app | WriteBehindStore: flushed audit c27a1343-d0ee-4259-8363-5ad6ab85c549 to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:58:47 | ERROR | app | WriteBehindStore: DB flush failed for c17fba0d-29b3-4ed5-aec1-495c0dd79b79: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T10:58:48 | INFO | app | WriteBehindStore: flushed audit b2fd99b3-7e35-4485-a514-34d6f776b5ef to DB (status=completed, passed=16, failed=2)
+2026-10-23T10:59:41 | INFO | app | WriteBehindStore: flushed audit 43a30cc0-3d0d-4fa0-8316-f2c3d5c8fc12 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:00:47 | INFO | app | WriteBehindStore: flushed audit 807dfe14-64ea-403e-b705-a23b245a668a to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:04 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T11:01:06 | INFO | app | WriteBehindStore: flushed audit 8cbc5fef-093b-475a-af16-30dc51abc657 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:07 | INFO | app | WriteBehindStore: flushed audit fa806cc5-25c0-41a5-a531-20f7e5c41119 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:37 | INFO | app | WriteBehindStore: flushed audit d2c13e53-b03c-4339-a55d-6877e0994022 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:38 | INFO | app | WriteBehindStore: flushed audit 8eead042-da47-428e-8215-1dcf1edfbf38 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:38 | INFO | app | WriteBehindStore: flushed audit 208a47ea-06c6-4b50-8661-6305b078b6ee to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:38 | INFO | app | WriteBehindStore: flushed audit 7aa7f6e7-0715-426e-bba2-33ad5f02e59f to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:39 | ERROR | app | WriteBehindStore: DB flush failed for a04e5fcc-8c3c-471c-b7e9-26e51e943592: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T11:01:39 | INFO | app | WriteBehindStore: flushed audit 8168f41c-5aff-4989-bbbd-3e0b9a66cba9 to DB (status=completed, passed=16, failed=2)
+2026-10-23T11:01:47 | INFO | app | WriteBehindStore: flushed audit e9a80c15-3186-4896-86fd-e2e1ea90cd1c to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:15:47 | INFO | app | meta.run_check: task started for check_id=648953c7-fc3e-4739-adfe-497675e11402
+2026-10-23T12:15:47 | INFO | app | meta.run_check: task started for check_id=648953c7-fc3e-4739-adfe-497675e11402
+2026-10-23T12:15:50 | INFO | app | Site discovery complete for https://seomator.com/: robots=True, sitemaps=2, page_urls=464
+2026-10-23T12:15:50 | INFO | app | Robots policy attached to scheduler for seomator.com (sitemaps: 2)
+2026-10-23T12:15:50 | INFO | app | Crawl started: https://seomator.com/ (max_pages=100, max_depth=3)
+2026-10-23T12:15:50 | INFO | app | Submitted 310 sitemap URLs to crawl queue (total selected: 464)
+2026-10-23T12:16:34 | INFO | app | Crawl completed: https://seomator.com/ — pages_crawled=119, pages_discovered=312, pages_failed=0, duration=45736ms
+2026-10-23T12:16:34 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 11228, 'non_html': 0, 'resource': 2, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-23T12:20:02 | INFO | app | Core SEO audit dispatched to Celery: audit_id=6e9f88c3-1f93-460d-b118-c2a994ba05fc
+2026-10-23T12:20:23 | ERROR | app | WriteBehindStore: DB flush failed for 6e9f88c3-1f93-460d-b118-c2a994ba05fc: Task <Task pending name='Task-526' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T12:43:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T12:44:11 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-23T12:48:16 | INFO | app | WriteBehindStore: flushed audit d02aad28-5d9d-4a6e-b6eb-e2086a7cc6dc to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:16 | INFO | app | WriteBehindStore: flushed audit 931dc2f6-ca6a-459a-b63e-210762fb47a1 to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:47 | INFO | app | WriteBehindStore: flushed audit c65de9f3-09dd-4f3e-9b9b-9597927cf067 to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:47 | INFO | app | WriteBehindStore: flushed audit 6b8c12f2-9799-462c-9b5a-e9c308309b46 to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:47 | INFO | app | WriteBehindStore: flushed audit 50c4d645-14d8-42a4-a2f7-8754a42b1038 to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:47 | INFO | app | WriteBehindStore: flushed audit 56e6e4c9-7fb8-4ee3-877a-f716a22a2435 to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:48 | ERROR | app | WriteBehindStore: DB flush failed for 140cf861-8a66-4d87-9fc1-fc3b68edfeb9: Task <Task pending name='Task-74' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-23T12:48:48 | INFO | app | WriteBehindStore: flushed audit dde3e735-9113-4347-a8f2-9ee96109781c to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:48:56 | INFO | app | WriteBehindStore: flushed audit e516c77f-52d7-4ca7-9746-4d25daf8f29d to DB (status=completed, passed=16, failed=2)
+2026-10-23T12:58:24 | INFO | app | POST /audit/analyze - Queuing audit for URL: https://moneymatters.co.in/, 
+2026-10-23T12:58:24 | INFO | app | CrawlJob created: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, domain=moneymatters.co.in
+2026-10-23T12:58:24 | INFO | app | Audit enqueued: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, task_id=b5307e15-a20a-4677-825f-725eb74d69d8, queued on 'crawler'
+2026-10-23T12:58:24 | INFO | app | crawler.crawl_website: task started for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, url=https://moneymatters.co.in/, user_id=454aecd9-6f9f-4ebf-a649-9fc1480d03cd
+2026-10-23T12:58:28 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-23T12:58:28 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-10-23T12:58:28 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=100, max_depth=5)
+2026-10-23T12:58:28 | INFO | app | Submitted 3 sitemap URLs to crawl queue (total selected: 4)
+2026-10-23T12:58:29 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:35 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:36 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=5, pages_discovered=5, pages_failed=0, duration=10412ms
+2026-10-23T12:58:36 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 93, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-23T12:58:36 | INFO | app | crawler.crawl_website: auto_analyze fired for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:36 | INFO | app | crawler.crawl_website: task succeeded for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, pages_crawled=5
+2026-10-23T12:58:36 | INFO | app | audit.run_analysis_pipeline: task started for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:36 | INFO | app | audit.run_analysis_pipeline: STAGE link_check starting audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:36 | INFO | app | BrokenLinkChecker.check_links: starting audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:40 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:42 | INFO | app | BrokenLinkChecker.check_links: done audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23 stats={'broken_internal': 0, 'broken_external': 3, 'total_checked': 144, 'errors': []}
+2026-10-23T12:58:42 | INFO | app | audit.run_analysis_pipeline: STAGE link_check finished audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:42 | INFO | app | audit.run_analysis_pipeline: STAGE parse starting audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:42 | INFO | app | DBParserService.parse_crawl: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:42 | INFO | app | DBParserService.parse_crawl: parsed=5, failed=0, skipped=0 for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:42 | INFO | app | audit.run_analysis_pipeline: STAGE parse finished audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:42 | INFO | app | audit.run_analysis_pipeline: STAGE evaluate starting audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:42 | INFO | app | Loaded 64 scoring rules
+2026-10-23T12:58:42 | INFO | app | RuleEvaluatorService.evaluate_crawl: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_008 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_009 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_007 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=31
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=6b4e4054-a97f-4cfa-b80d-eed30459c7fd duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=47
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_008 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_009 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_007 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=62
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=77
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=4b0e8be8-c18e-40aa-928b-867fcd327aac duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_008 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_009 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_007 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=92
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=65c2aa61-6ac1-4660-85fd-cc51cf87084a duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=109
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_008 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_009 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_007 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=125
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=140
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=ec17ef58-37b0-4fc5-a470-19f5ec852a1e duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=156
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_008 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=on_page_009 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_007 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=172
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=187
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=202
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=202
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=202
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=901ebe6a-4f7d-4dd4-bb62-df51a3733846 duration_ms=202
+2026-10-23T12:58:43 | INFO | app | RuleEvaluatorService.evaluate_crawl: pages_evaluated=5, rules_run=320, total_results=320, pages_skipped=0, errors=0 for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:43 | INFO | app | audit.run_analysis_pipeline: STAGE evaluate finished audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:43 | INFO | app | audit.run_analysis_pipeline: STAGE score starting audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:43 | INFO | app | AnalysisScorerService.score_project: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23, force=False
+2026-10-23T12:58:43 | INFO | app | Loaded 64 scoring rules
+2026-10-23T12:58:43 | INFO | app.modules.audit.services.audit_response_builder | AuditResponseBuilder.build: audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'a11y_008' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:43 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'technical_003' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-10-23T12:58:45 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:51 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:58:54 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing content freshness dates': 
+2026-10-23T12:58:54 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Duplicate content detected': 
+2026-10-23T12:58:54 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Paragraph structure needs improvement': 
+2026-10-23T12:58:57 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:03 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:04 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Images missing width/height dimensions': 
+2026-10-23T12:59:04 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing responsive image attributes': 
+2026-10-23T12:59:05 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Lazy loading not implemented': 
+2026-10-23T12:59:09 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:15 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': 
+2026-10-23T12:59:15 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'No external links found': 
+2026-10-23T12:59:18 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:24 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:25 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or multiple H1 tags': 
+2026-10-23T12:59:25 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Illogical heading hierarchy': 
+2026-10-23T12:59:29 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:35 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:36 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing browser caching headers': 
+2026-10-23T12:59:40 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:46 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing XSS protection headers': 
+2026-10-23T12:59:47 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:49 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing social media links': 
+2026-10-23T12:59:53 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T12:59:56 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing HTML language declaration': 
+2026-10-23T12:59:59 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:00 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing DOCTYPE declaration': 
+2026-10-23T13:00:03 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or incomplete security headers': 
+2026-10-23T13:00:05 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:07 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing XML sitemap': 
+2026-10-23T13:00:10 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing structured data / schema markup': 
+2026-10-23T13:00:13 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:17 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poor page title': 
+2026-10-23T13:00:17 | INFO | app | AnalysisScorerService.score_project: score=89.0, grade=B+, pages=5, audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:17 | INFO | app | audit.run_analysis_pipeline: STAGE score finished audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:17 | INFO | app | audit.run_analysis_pipeline: task finished for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:18 | INFO | app | GET /audit/status/0f674da7-8041-4dec-a4cf-8e386be1ec23
+2026-10-23T13:00:18 | INFO | app | GET /audit/result/0f674da7-8041-4dec-a4cf-8e386be1ec23 - format=full
+2026-10-23T13:00:18 | INFO | app | Cache hit: returning audit result from Redis for audit_id=0f674da7-8041-4dec-a4cf-8e386be1ec23

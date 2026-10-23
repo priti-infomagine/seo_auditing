@@ -95,11 +95,13 @@ class SchemaGenerator:
             warnings.append("Missing recommended field: sameAs (social media links)")
 
         if data.contactPoint:
-            json_ld["contactPoint"] = {
+            contact_point = {
                 "@type": "ContactPoint",
-                "telephone": data.contactPoint.telephone,
                 "contactType": data.contactPoint.contactType,
             }
+            if data.contactPoint.telephone:
+                contact_point["telephone"] = data.contactPoint.telephone
+            json_ld["contactPoint"] = contact_point
             if data.contactPoint.contactOption:
                 json_ld["contactPoint"]["contactOption"] = data.contactPoint.contactOption
             if data.contactPoint.areaServed:
@@ -132,11 +134,13 @@ class SchemaGenerator:
             warnings.append("Missing recommended field: sameAs (social media links)")
 
         if data.contactPoint:
-            json_ld["contactPoint"] = {
+            contact_point = {
                 "@type": "ContactPoint",
-                "telephone": data.contactPoint.telephone,
                 "contactType": data.contactPoint.contactType,
             }
+            if data.contactPoint.telephone:
+                contact_point["telephone"] = data.contactPoint.telephone
+            json_ld["contactPoint"] = contact_point
             if data.contactPoint.contactOption:
                 json_ld["contactPoint"]["contactOption"] = data.contactPoint.contactOption
             if data.contactPoint.areaServed:

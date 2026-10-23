@@ -51,7 +51,7 @@ class OrganizationRefInput(BaseModel):
 class ContactPointInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    telephone: str
+    telephone: Optional[str] = Field(default=None, alias="telephone")
     contactType: str = Field(default="customer service", alias="contactType")
     email: Optional[EmailStr] = None
     areaServed: Optional[str] = Field(default=None, alias="areaServed")
