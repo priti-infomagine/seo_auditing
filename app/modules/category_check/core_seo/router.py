@@ -14,7 +14,7 @@ import json
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, WebSocket, WebSocketException, status
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, WebSocketException, status
 from fastapi.responses import JSONResponse
 
 from app.core.logger import logger
@@ -193,33 +193,56 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
 
     stream_key = f"core_seo:events:{audit_id}"
 
-    async def _send_event(evt: dict) -> None:
-        """Send a single event dict as a JSON frame."""
-        await websocket.send_text(
-            json.dumps({
-                "type": "event",
-                "event_type": evt.get("event_type", ""),
-                "audit_id": evt.get("audit_id", audit_id),
-                "url": evt.get("url", ""),
-                "timestamp": evt.get("timestamp", ""),
-                "payload": evt.get("data", {}),
-            })
-        )
-
-    async def _send_final(audit_id: str) -> bool:
-        """Send the final snapshot if a report is available. Returns True if sent."""
-        report = get_service().get_report(audit_id)
-        if report is not None:
+    async def _send_event(evt: dict) -> bool:
+        """Send a single event dict as a JSON frame. Returns False if the client
+        has disconnected so callers can break out of the event loop."""
+        try:
             await websocket.send_text(
                 json.dumps({
-                    "type": "final",
-                    "audit_id": audit_id,
-                    "summary": report.summary,
-                    "pages": report.pages,
+                    "type": "event",
+                    "event_type": evt.get("event_type", ""),
+                    "audit_id": evt.get("audit_id", audit_id),
+                    "url": evt.get("url", ""),
+                    "timestamp": evt.get("timestamp", ""),
+                    "payload": evt.get("data", {}),
                 })
             )
             return True
-        return False
+        except (WebSocketDisconnect, RuntimeError):
+            return False
+
+    async def _send_final(audit_id: str):
+        """Send the final snapshot if a report is available.
+
+        Returns:
+            True  — snapshot sent successfully.
+            None  — report not ready yet (audit_completed but report not
+                    in Redis).  Caller should keep waiting.
+            False — client disconnected mid-send.
+        """
+        report = get_service().get_report(audit_id)
+        if report is not None:
+            try:
+                await websocket.send_text(
+                    json.dumps({
+                        "type": "final",
+                        "audit_id": audit_id,
+                        "summary": report.summary,
+                        "pages": report.pages,
+                    })
+                )
+                return True
+            except (WebSocketDisconnect, RuntimeError):
+                return False
+        return None
+
+    async def _safe_close(**kwargs) -> None:
+        """Close the WebSocket, ignoring errors if the connection is already
+        closing/closed (common when the client disconnects mid-stream)."""
+        try:
+            await websocket.close(**kwargs)
+        except (WebSocketDisconnect, RuntimeError):
+            pass
 
     try:
         # --- Phase 1: Wait for the audit to appear in Redis ----------------
@@ -235,7 +258,7 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 if state:
                     break
             if not state:
-                await websocket.close(
+                await _safe_close(
                     code=status.WS_1000_NORMAL_CLOSURE,
                     reason="Audit not found or no data available",
                 )
@@ -245,16 +268,16 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
         # FIX (blocking): Wrap sync EventBus.get_events_for_audit in to_thread
         events = await asyncio.to_thread(EventBus.get_events_for_audit, audit_id)
         for event in events:
-            await websocket.send_text(
-                json.dumps({
-                    "type": "event",
-                    "event_type": event.event_type,
-                    "audit_id": event.audit_id,
-                    "url": event.url,
-                    "timestamp": event.timestamp,
-                    "payload": event.payload or event.data,
-                })
-            )
+            sent = await _send_event({
+                "event_type": event.event_type,
+                "audit_id": event.audit_id,
+                "url": event.url,
+                "timestamp": event.timestamp,
+                "data": event.payload or event.data,
+            })
+            if not sent:
+                # Client disconnected during catch-up
+                return
 
         # FIX (duplicate events): After the catch-up loop, advance last_id to
         # the newest stream entry so the xread loop only receives *new* events.
@@ -267,8 +290,12 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
         # --- Phase 3: If already completed, send the final snapshot ----------
         state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
         if state.get("status") == "completed":
-            if await _send_final(audit_id):
-                await websocket.close()
+            result = await _send_final(audit_id)
+            if result is True:
+                await _safe_close()
+                return
+            if result is False:
+                # Client disconnected
                 return
 
         # --- Phase 4: Live-stream new events via Redis XREAD -----------------
@@ -291,22 +318,34 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                         if raw:
                             try:
                                 evt = json.loads(raw)
-                                await _send_event(evt)
+                                if not await _send_event({
+                                    "event_type": evt.get("event_type", ""),
+                                    "audit_id": evt.get("audit_id", audit_id),
+                                    "url": evt.get("url", ""),
+                                    "timestamp": evt.get("timestamp", ""),
+                                    "data": evt.get("data", {}),
+                                }):
+                                    return
                             except (json.JSONDecodeError, TypeError):
                                 pass
 
                 # Check if audit completed
                 state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
                 if state.get("status") == "completed":
-                    if await _send_final(audit_id):
-                        await websocket.close()
+                    result = await _send_final(audit_id)
+                    if result is True:
+                        await _safe_close()
+                        return
+                    if result is False:
+                        # Client disconnected
                         return
             except json.JSONDecodeError:
                 continue
     except WebSocketException as exc:
-        await websocket.close(code=status.WS_1011_INTERNAL_ERROR, reason=exc.detail)
+        await _safe_close(code=status.WS_1011_INTERNAL_ERROR, reason=exc.detail)
     except Exception as exc:
-        await websocket.close(code=status.WS_1011_INTERNAL_ERROR, reason=str(exc))
+        logger.warning("WebSocket handler error for %s: %s", audit_id, exc, exc_info=True)
+        await _safe_close(code=status.WS_1011_INTERNAL_ERROR, reason=str(exc))
 
 
 __all__ = ["router"]
