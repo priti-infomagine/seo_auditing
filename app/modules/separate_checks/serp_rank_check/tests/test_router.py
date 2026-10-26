@@ -21,6 +21,8 @@ from .conftest import (
     FAKE_USER_ID,
     feature_item,
     make_serp_body,
+    make_serp_body_no_match,
+    make_serp_body_with_target_at,
     organic_item,
 )
 
@@ -35,6 +37,7 @@ def _valid_payload(**overrides):
         "language": "English",
         "device": "desktop",
         "depth": 10,
+        "deep_tracking": False,
     }
     payload.update(overrides)
     return payload
@@ -362,5 +365,211 @@ async def test_provider_4xx_returns_502(
     ) as client:
         response = await client.post(
             f"{API}/rank-checks", json=_valid_payload()
+        )
+    assert response.status_code == 502
+
+
+# ── Deep tracking ────────────────────────────────────────
+@pytest.mark.asyncio
+async def test_deep_tracking_finds_position_53(
+    db_session, fake_serp_client
+):
+    body = make_serp_body_with_target_at(53, "https://example.com/deep", total=100)
+    fake_serp_client.set_response(body)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload(deep_tracking=True)
+        )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "done"
+    assert payload["deep_tracking"] is True
+    assert payload["depth"] == 100
+    result = payload["result"]
+    assert result["found"] is True
+    assert result["status"] == "found"
+    assert result["best_position"] == 53
+    assert result["best_absolute_position"] == 53
+    assert result["matches"][0]["domain"] == "example.com"
+    assert (
+        result["matches"][0]["url"]
+        == "https://example.com/deep"
+    )
+    call = fake_serp_client.calls[0]
+    assert call["find_targets_in"] == ["organic"]
+    assert call["stop_crawl_on_match"] == [
+        {"match_value": "example.com", "match_type": "with_subdomains"}
+    ]
+    assert call["target_search_mode"] == "any"
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_not_found_within_limit(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(make_serp_body_no_match(total=100))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload(deep_tracking=True)
+        )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["status"] == "done"
+    result = payload["result"]
+    assert result["found"] is False
+    assert result["status"] == "not_found_within_limit"
+    assert result["best_position"] is None
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_without_domain_returns_422(
+    db_session, fake_serp_client
+):
+    payload = _valid_payload(deep_tracking=True)
+    payload.pop("domain")
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(f"{API}/rank-checks", json=payload)
+    assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_overrides_user_depth(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(1, total=100)
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks",
+            json=_valid_payload(deep_tracking=True, depth=10),
+        )
+    assert response.status_code == 200
+    assert response.json()["depth"] == 100
+    assert fake_serp_client.calls[0]["depth"] == 100
+
+
+# ── Standard position 3 ────────────────────────────────────
+@pytest.mark.asyncio
+async def test_standard_finds_position_3(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(3, total=10)
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload()
+        )
+    assert response.status_code == 200
+    result = response.json()["result"]
+    assert result["found"] is True
+    assert result["status"] == "found"
+    assert result["best_position"] == 3
+    assert result["best_absolute_position"] == 3
+
+
+@pytest.mark.asyncio
+async def test_standard_not_found_says_not_found_in_top_10(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(make_serp_body_no_match(total=10))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload()
+        )
+    assert response.status_code == 200
+    result = response.json()["result"]
+    assert result["found"] is False
+    assert result["status"] == "not_found_in_top_10"
+
+
+# ── No domain (top results only) ─────────────────────────
+@pytest.mark.asyncio
+async def test_no_domain_returns_top_results_no_target(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(1, total=10)
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks",
+            json=_valid_payload(domain=None, deep_tracking=False),
+        )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["domain"] is None
+    assert payload["deep_tracking"] is False
+    result = payload["result"]
+    assert result["found"] is False
+    assert result["status"] == "no_target"
+    assert len(result["top_results"]) == 10
+    assert result["top_results"][0]["domain"] == "example.com"
+    call = fake_serp_client.calls[0]
+    assert call["find_targets_in"] is None
+    assert call["stop_crawl_on_match"] is None
+
+
+# ── Provider failures with deep tracking ─────────────────
+@pytest.mark.asyncio
+async def test_deep_tracking_provider_timeout_returns_504(
+    db_session, fake_serp_client
+):
+    import httpx
+
+    fake_serp_client.set_response(exc=httpx.ReadTimeout("read timed out"))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload(deep_tracking=True)
+        )
+    assert response.status_code == 504
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_provider_5xx_returns_502(
+    db_session, fake_serp_client
+):
+    import httpx
+
+    request = httpx.Request(
+        "POST",
+        "https://api.dataforseo.com/v3/serp/google/organic/"
+        "live/advanced",
+    )
+    response = httpx.Response(503, request=request)
+    error = httpx.HTTPStatusError(
+        "HTTP 503", request=request, response=response
+    )
+    fake_serp_client.set_response(exc=error)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload(deep_tracking=True)
         )
     assert response.status_code == 502

@@ -1,27 +1,42 @@
 """Pydantic schemas for the SERP rank check API."""
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Optional
 from uuid import UUID
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class RankCheckRequest(BaseModel):
     keyword: str = Field(min_length=1, max_length=700)
-    domain: str = Field(min_length=1, max_length=253)
+    domain: Optional[str] = Field(default=None, max_length=253)
     location: str = Field(min_length=1, max_length=200)
     language: str = Field(min_length=1, max_length=100)
     device: Literal["desktop", "mobile"] = "desktop"
-    depth: int = Field(default=10, ge=10, le=200)
+    depth: int = Field(default=10, ge=10, le=100)
+    deep_tracking: bool = False
 
-    @field_validator("keyword", "domain", "location", "language")
+    @field_validator("keyword", "location", "language")
     @classmethod
     def strip_input(cls, value: str) -> str:
         value = value.strip()
         if not value:
             raise ValueError("Value cannot be blank")
         return value
+
+    @field_validator("domain")
+    @classmethod
+    def normalize_domain_input(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        value = value.strip()
+        return value or None
+
+    @model_validator(mode="after")
+    def validate_deep_tracking(self) -> "RankCheckRequest":
+        if self.deep_tracking and not self.domain:
+            raise ValueError("deep_tracking requires a domain")
+        return self
 
 
 class RankCheckCreateResponse(BaseModel):
@@ -33,6 +48,7 @@ class SerpMatch(BaseModel):
     position: int | None = None
     absolute_position: int | None = None
     url: str = ""
+    domain: str = ""
     title: str = ""
 
 
@@ -46,6 +62,7 @@ class SerpTopResult(BaseModel):
 
 class RankCheckResult(BaseModel):
     found: bool
+    status: str = "pending"
     best_position: int | None = None
     best_absolute_position: int | None = None
     matches: list[SerpMatch] = Field(default_factory=list)
@@ -57,11 +74,12 @@ class RankCheckResult(BaseModel):
 class RankCheckStatusResponse(BaseModel):
     id: UUID
     keyword: str
-    domain: str
+    domain: str | None = None
     location: str
     language: str
     device: str
     depth: int
+    deep_tracking: bool = False
     status: str
     result: RankCheckResult | None = None
     error_code: str | None = None
@@ -82,10 +100,11 @@ class SERPResponseSchema(BaseModel):
 
     audit_id: str
     keyword: str
-    domain: str
+    domain: str | None = None
     location: str
     language: str
     device: str
+    deep_tracking: bool = False
     position: int | None
     ranking_url: str | None
     status: str

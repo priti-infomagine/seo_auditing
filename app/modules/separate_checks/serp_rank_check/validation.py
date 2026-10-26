@@ -66,11 +66,12 @@ def normalize_domain(raw: Any) -> str:
 def compute_fingerprint(
     *,
     keyword: str,
-    domain: str,
+    domain: str | None,
     location_name: str,
     language_name: str,
     device: str,
     depth: int,
+    deep_tracking: bool = False,
 ) -> str:
     """sha256 over the canonical JSON of the normalized inputs.
 
@@ -81,6 +82,10 @@ def compute_fingerprint(
     individual check — repeated checks with the same configuration
     get different rows but share a fingerprint, which is used for
     in-flight deduplication.
+
+    ``deep_tracking`` is included because it changes the API call
+    parameters (depth, stop_crawl_on_match, find_targets_in), even
+    when depth happens to overlap.
     """
     payload = {
         "keyword": keyword,
@@ -89,6 +94,7 @@ def compute_fingerprint(
         "language_name": language_name,
         "device": device,
         "depth": depth,
+        "deep_tracking": deep_tracking,
     }
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()

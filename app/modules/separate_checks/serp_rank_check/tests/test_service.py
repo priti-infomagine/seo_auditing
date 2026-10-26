@@ -28,6 +28,8 @@ from .conftest import (
     FAKE_USER_ID,
     feature_item,
     make_serp_body,
+    make_serp_body_no_match,
+    make_serp_body_with_target_at,
     organic_item,
 )
 
@@ -54,6 +56,7 @@ async def _do_check(
         "language_name": "English",
         "device": "desktop",
         "depth": 10,
+        "deep_tracking": False,
     }
     params.update(overrides)
     service = SerpRankCheckService(db_session)
@@ -241,9 +244,150 @@ async def test_repeated_checks_create_new_rows(
 
     reloaded1 = await _reload(service_session_factory, check1.id)
     reloaded2 = await _reload(service_session_factory, check2.id)
-    assert reloaded1 is not None
     assert reloaded2 is not None
     assert reloaded1.id != reloaded2.id
+
+
+# ── deep tracking ──────────────────────────────────────────
+@pytest.mark.asyncio
+async def test_deep_tracking_forces_depth_100(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(1, total=100)
+    )
+    await _do_check(db_session, deep_tracking=True)
+    assert len(fake_serp_client.calls) == 1
+    call = fake_serp_client.calls[0]
+    assert call["depth"] == 100
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_sends_crawl_params(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(1, total=100)
+    )
+    check, _ = await _do_check(db_session, deep_tracking=True)
+    call = fake_serp_client.calls[0]
+    assert call["find_targets_in"] == ["organic"]
+    assert call["stop_crawl_on_match"] == [
+        {"match_value": "example.com", "match_type": "with_subdomains"}
+    ]
+    assert call["target_search_mode"] == "any"
+    assert check.deep_tracking is True
+    assert check.depth == 100
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_finds_position_53(
+    db_session, fake_serp_client
+):
+    body = make_serp_body_with_target_at(53, "https://example.com/deep", total=100)
+    fake_serp_client.set_response(body)
+    check, _ = await _do_check(db_session, deep_tracking=True)
+    result = check.result
+    assert result["found"] is True
+    assert result["status"] == "found"
+    assert result["best_position"] == 53
+    assert result["best_absolute_position"] == 53
+    assert result["matches"][0]["domain"] == "example.com"
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_not_found_within_limit(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_no_match(total=100)
+    )
+    check, _ = await _do_check(db_session, deep_tracking=True)
+    result = check.result
+    assert result["found"] is False
+    assert result["status"] == "not_found_within_limit"
+    assert result["best_position"] is None
+    assert result["best_absolute_position"] is None
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_without_domain_raises(
+    db_session, fake_serp_client
+):
+    with pytest.raises(ValueError, match="deep_tracking requires a domain"):
+        await _do_check(db_session, domain=None, deep_tracking=True)
+
+
+@pytest.mark.asyncio
+async def test_deep_tracking_overrides_user_depth(
+    db_session, fake_serp_client
+):
+    """Even if a user supplies depth=10 with deep_tracking=True,
+    the service forces depth=100."""
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(1, total=100)
+    )
+    await _do_check(db_session, deep_tracking=True, depth=10)
+    call = fake_serp_client.calls[0]
+    assert call["depth"] == 100
+
+
+# ── no domain (top results only) ─────────────────────────
+@pytest.mark.asyncio
+async def test_no_domain_returns_no_target_status(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body([organic_item(1, "https://example.com/")])
+    )
+    check, _ = await _do_check(db_session, domain=None)
+    assert check.domain is None
+    assert check.deep_tracking is False
+    result = check.result
+    assert result["found"] is False
+    assert result["status"] == "no_target"
+    assert result["top_results"]
+    assert result["top_results"][0]["domain"] == "example.com"
+
+
+@pytest.mark.asyncio
+async def test_no_domain_calls_provider_without_crawl_params(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(make_serp_body([]))
+    await _do_check(db_session, domain=None)
+    call = fake_serp_client.calls[0]
+    assert call["find_targets_in"] is None
+    assert call["stop_crawl_on_match"] is None
+
+
+# ── standard mode still works ────────────────────────────
+@pytest.mark.asyncio
+async def test_standard_mode_not_found_says_not_found_in_top_10(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_no_match(total=10)
+    )
+    check, _ = await _do_check(db_session)
+    result = check.result
+    assert result["found"] is False
+    assert result["status"] == "not_found_in_top_10"
+
+
+@pytest.mark.asyncio
+async def test_standard_finds_position_3(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(
+        make_serp_body_with_target_at(3, total=10)
+    )
+    check, _ = await _do_check(db_session)
+    result = check.result
+    assert result["found"] is True
+    assert result["status"] == "found"
+    assert result["best_position"] == 3
+    assert result["best_absolute_position"] == 3
 
 
 # ── sweep_stuck_async ──────────────────────────────────

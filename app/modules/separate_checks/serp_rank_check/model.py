@@ -28,6 +28,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     DateTime,
     Index,
@@ -99,8 +100,8 @@ class RankCheck(TimestampMixin, Base):
             "device IN ('desktop','mobile')",
             name="ck_rank_checks_device",
         ),
-        CheckConstraint(
-            "depth >= 10 AND depth <= 200",
+         CheckConstraint(
+            "depth >= 10 AND depth <= 100",
             name="ck_rank_checks_depth",
         ),
     )
@@ -116,11 +117,17 @@ class RankCheck(TimestampMixin, Base):
         index=True,
     )
     keyword: Mapped[str] = mapped_column(Text, nullable=False)
-    domain: Mapped[str] = mapped_column(Text, nullable=False)
+    domain: Mapped[str | None] = mapped_column(Text, nullable=True)
     location_name: Mapped[str] = mapped_column(Text, nullable=False)
     language_name: Mapped[str] = mapped_column(Text, nullable=False)
     device: Mapped[str] = mapped_column(Text, nullable=False)
     depth: Mapped[int] = mapped_column(Integer, nullable=False)
+    deep_tracking: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        server_default=text("false"),
+        default=False,
+    )
     fingerprint: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[str] = mapped_column(
         Text,

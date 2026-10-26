@@ -70,6 +70,7 @@ def organic_item(position, url, title="Result Title", snippet="Result snippet"):
         "domain": url,
         "url": url,
         "title": title,
+        "description": snippet,
         "snippet": snippet,
     }
 
@@ -113,6 +114,35 @@ def make_serp_body(items, cost=0.0005):
     }
 
 
+def make_serp_body_with_target_at(
+    target_position: int,
+    target_url: str = "https://example.com/",
+    total: int = 10,
+    cost: float = 0.0005,
+):
+    """Build a SERP body with *total* organic items.
+
+    The item at *target_position* uses *target_url*; all others get
+    a generic ``other-{i}.com`` URL.  Positions are 1-indexed.
+    """
+    items = []
+    for pos in range(1, total + 1):
+        if pos == target_position:
+            url = target_url
+        else:
+            url = f"https://other-{pos}.com/"
+        items.append(organic_item(pos, url))
+    return make_serp_body(items, cost=cost)
+
+
+def make_serp_body_no_match(
+    total: int = 10, cost: float = 0.0005
+):
+    """Build a SERP body with *total* organic items, none matching."""
+    items = [organic_item(i, f"https://other-{i}.com/") for i in range(1, total + 1)]
+    return make_serp_body(items, cost=cost)
+
+
 class FakeSerpClient:
     """In-memory stand-in for SERPDataForSEOClient."""
 
@@ -130,7 +160,16 @@ class FakeSerpClient:
         self._delay = delay
 
     async def serp_google_organic_live_advanced(
-        self, *, keyword, location_name, language_name, device, depth
+        self,
+        *,
+        keyword,
+        location_name,
+        language_name,
+        device,
+        depth,
+        find_targets_in=None,
+        stop_crawl_on_match=None,
+        target_search_mode=None,
     ):
         self.calls.append(
             {
@@ -139,6 +178,9 @@ class FakeSerpClient:
                 "language_name": language_name,
                 "device": device,
                 "depth": depth,
+                "find_targets_in": find_targets_in,
+                "stop_crawl_on_match": stop_crawl_on_match,
+                "target_search_mode": target_search_mode,
             }
         )
         if self._delay:

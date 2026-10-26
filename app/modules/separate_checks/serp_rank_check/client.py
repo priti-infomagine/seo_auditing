@@ -90,6 +90,9 @@ class SERPDataForSEOClient:
         language_name: str,
         device: str,
         depth: int,
+        find_targets_in: list[str] | None = None,
+        stop_crawl_on_match: list[dict[str, str]] | None = None,
+        target_search_mode: str | None = None,
     ) -> dict[str, Any]:
         """Call the Google Organic Live Advanced endpoint.
 
@@ -97,19 +100,31 @@ class SERPDataForSEOClient:
         ``tasks``, ``cost`` etc.).  The caller is responsible for
         validating the body's ``status_code`` and extracting results.
 
+        When ``stop_crawl_on_match`` is provided, DataForSEO stops
+        crawling once a matching URL is found, returning results up
+        to and including that match.  ``find_targets_in`` restricts
+        which SERP element types are checked for the match (e.g.
+        ``["organic"]``).  These parameters are optional and only sent
+        when provided.
+
         Raises ``SerpProviderTimeout`` on transport / timeout errors
         and ``SerpProvider4xx`` / ``SerpProvider5xx`` on HTTP status
         errors.
         """
-        payload = [
-            {
-                "keyword": keyword,
-                "location_name": location_name,
-                "language_name": language_name,
-                "device": device,
-                "depth": depth,
-            }
-        ]
+        task: dict[str, Any] = {
+            "keyword": keyword,
+            "location_name": location_name,
+            "language_name": language_name,
+            "device": device,
+            "depth": depth,
+        }
+        if find_targets_in is not None:
+            task["find_targets_in"] = find_targets_in
+        if stop_crawl_on_match is not None:
+            task["stop_crawl_on_match"] = stop_crawl_on_match
+        if target_search_mode is not None:
+            task["target_search_mode"] = target_search_mode
+        payload = [task]
         return await self._post_with_retries(
             "/serp/google/organic/live/advanced", payload
         )

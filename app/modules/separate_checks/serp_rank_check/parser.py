@@ -6,10 +6,11 @@ The stored ``result`` JSON shape:
 
     {
       "found": true,
+      "status": "found",
       "best_position": 7,
       "best_absolute_position": 9,
       "matches": [{"position": 7, "absolute_position": 9,
-                   "url": "", "title": ""}],
+                   "url": "", "domain": "", "title": ""}],
       "serp_features": ["people_also_ask"],
       "top_results": [{"position": 1, "domain": "", "url": "",
                        "title": "", "snippet": ""}],
@@ -17,7 +18,17 @@ The stored ``result`` JSON shape:
     }
 
 ``found: false`` with ``best_position: null`` is a successful result,
-not an error.
+not an error.  The ``status`` field distinguishes *why* a domain was
+not found:
+* ``found``                   — domain matched at least one organic result
+* ``not_found_in_top_10``     — standard search (depth ≤ 10), no match
+* ``not_found_within_limit``  — deep tracking (depth 100), no match
+* ``no_target``               — no domain was supplied, only top results returned
+
+``rank_absolute`` (the absolute organic position from DataForSEO's
+response) is used for ``best_absolute_position`` and each match's
+``absolute_position``.  ``rank_group`` (the position within a result
+page) is used for ``position``.
 """
 from __future__ import annotations
 
@@ -29,13 +40,47 @@ from .exceptions import SerpParseError
 
 
 def _registered_domain(url: Any) -> str:
-    """Registrable domain (eTLD+1) of a URL, or "" when unparseable."""
+    """Registrable domain (eTLD+1) of a URL string, or "" when unparseable."""
     if not isinstance(url, str) or not url:
         return ""
     try:
         return tldextract.extract(url).registered_domain.lower()
     except Exception:
         return ""
+
+
+def _item_domain(item: dict[str, Any]) -> str:
+    """Extract the registrable domain from a DataForSEO organic result item.
+
+    DataForSEO returns a ``domain`` field on each organic item (e.g.
+    ``"www.example.com"``).  We prefer that field — it is more
+    reliable than re-parsing the URL — but fall back to extracting the
+    registrable domain from ``url`` via *tldextract* when the field is
+    absent or empty.
+    """
+    api_domain = item.get("domain")
+    if isinstance(api_domain, str) and api_domain.strip():
+        extracted = _registered_domain(api_domain)
+        if extracted:
+            return extracted
+    url = item.get("url")
+    return _registered_domain(url) if isinstance(url, str) else ""
+
+
+def _item_description(item: dict[str, Any]) -> str:
+    """Extract the result snippet/description from a DataForSEO organic item.
+
+    DataForSEO's organic items use ``description`` for the result
+    snippet text.  Older response snapshots or test fixtures may use
+    ``snippet`` — we check both keys for compatibility.
+    """
+    desc = item.get("description")
+    if isinstance(desc, str) and desc:
+        return desc
+    snip = item.get("snippet")
+    if isinstance(snip, str) and snip:
+        return snip
+    return ""
 
 
 def _extract_items(body: Any) -> list[dict[str, Any]]:
@@ -63,16 +108,25 @@ def _extract_items(body: Any) -> list[dict[str, Any]]:
 
 def parse_serp_response(
     body: dict[str, Any],
-    target_domain: str,
+    target_domain: str | None,
     depth: int,
     top_results_limit: int,
+    deep_tracking: bool = False,
 ) -> dict[str, Any]:
-    """Build the rank result from a raw provider response body."""
+    """Build the rank result from a raw provider response body.
+
+    When *target_domain* is ``None`` (no domain supplied), the parser
+    returns only ``top_results`` with ``found=False`` and
+    ``status="no_target"`` — no domain matching is attempted.
+    """
     items = _extract_items(body)
 
-    target = _registered_domain(target_domain)
-    if not target:
-        raise SerpParseError("invalid target domain")
+    if target_domain is not None:
+        target = _registered_domain(target_domain)
+        if not target:
+            raise SerpParseError("invalid target domain")
+    else:
+        target = None
 
     organic = [
         item
@@ -90,19 +144,31 @@ def parse_serp_response(
     )
 
     matches: list[dict[str, Any]] = []
-    for item in organic:
-        url = item.get("url")
-        if not isinstance(url, str) or not url:
-            continue
-        if _registered_domain(url) == target:
-            matches.append(
-                {
-                    "position": item.get("rank_group"),
-                    "absolute_position": item.get("rank_absolute"),
-                    "url": url,
-                    "title": item.get("title") or "",
-                }
-            )
+    if target is not None:
+        for item in organic:
+            url = item.get("url")
+            if not isinstance(url, str) or not url:
+                continue
+            item_domain = _item_domain(item)
+            if item_domain == target:
+                matches.append(
+                    {
+                        "position": item.get("rank_group"),
+                        "absolute_position": item.get("rank_absolute"),
+                        "url": url,
+                        "domain": item_domain,
+                        "title": item.get("title") or "",
+                    }
+                )
+
+    if target is None:
+        status = "no_target"
+    elif matches:
+        status = "found"
+    elif deep_tracking:
+        status = "not_found_within_limit"
+    else:
+        status = "not_found_in_top_10"
 
     features = sorted(
         {
@@ -120,16 +186,17 @@ def parse_serp_response(
         top_results.append(
             {
                 "position": item.get("rank_group"),
-                "domain": _registered_domain(url),
+                "domain": _item_domain(item),
                 "url": url,
                 "title": item.get("title") or "",
-                "snippet": item.get("snippet") or "",
+                "snippet": _item_description(item),
             }
         )
 
     best = matches[0] if matches else None
     return {
         "found": bool(matches),
+        "status": status,
         "best_position": best["position"] if best else None,
         "best_absolute_position": best["absolute_position"] if best else None,
         "matches": matches,

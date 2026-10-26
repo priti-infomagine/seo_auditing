@@ -80,6 +80,7 @@ class TestComputeFingerprint:
             "language_name": "English",
             "device": "desktop",
             "depth": 10,
+            "deep_tracking": False,
         }
         params.update(overrides)
         return compute_fingerprint(**params)
@@ -102,6 +103,15 @@ class TestComputeFingerprint:
     def test_different_language_changes_fingerprint(self):
         assert self._fp() != self._fp(language_name="French")
 
+    def test_different_deep_tracking_changes_fingerprint(self):
+        assert self._fp() != self._fp(deep_tracking=True)
+
+    def test_different_domain_changes_fingerprint(self):
+        assert self._fp() != self._fp(domain="other.com")
+
+    def test_none_domain_is_deterministic(self):
+        assert self._fp(domain=None) == self._fp(domain=None)
+
     def test_is_sha256_hex(self):
         payload = {
             "keyword": "seo tools",
@@ -110,6 +120,7 @@ class TestComputeFingerprint:
             "language_name": "English",
             "device": "desktop",
             "depth": 10,
+            "deep_tracking": False,
         }
         expected = hashlib.sha256(
             json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()

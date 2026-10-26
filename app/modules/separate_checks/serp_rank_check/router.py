@@ -48,6 +48,7 @@ def _to_status_response(check: RankCheck) -> RankCheckStatusResponse:
         language=(check.language_name or ""),
         device=check.device,
         depth=check.depth,
+        deep_tracking=check.deep_tracking,
         status=check.status,
         result=result,
         error_code=check.error_code,
@@ -102,6 +103,7 @@ async def create_rank_check(
             language_name=body.language,
             device=body.device,
             depth=body.depth,
+            deep_tracking=body.deep_tracking,
         )
         await db.refresh(check)
         return _to_status_response(check)

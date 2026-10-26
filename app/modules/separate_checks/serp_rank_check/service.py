@@ -108,17 +108,23 @@ class SerpRankCheckService:
         *,
         user_id: UUID | None = None,
         keyword: str,
-        domain: str,
+        domain: str | None,
         location_name: str,
         language_name: str,
         device: str,
         depth: int,
+        deep_tracking: bool = False,
     ) -> tuple[RankCheck, bool]:
         """Validate, call DataForSEO, parse, persist, and return.
 
         This is the single entry point for the rank-check workflow.
         The endpoint calls this method synchronously — no Celery
         task is enqueued for the check itself.
+
+        When ``deep_tracking`` is ``True``, the search is performed
+        to a maximum depth of 100 with ``stop_crawl_on_match`` and
+        ``find_targets_in`` sent to DataForSEO so the provider stops
+        as soon as the target domain is matched.
 
         Returns ``(check, created)``.  ``created=False`` means an
         identical in-flight check already exists (deduplication via
@@ -128,8 +134,14 @@ class SerpRankCheckService:
             raise RuntimeError("check_serp_rank requires a database session")
 
         normalized_keyword = normalize_keyword(keyword)
-        normalized_domain = normalize_domain(domain)
+        normalized_domain = normalize_domain(domain) if domain else None
         device = validate_device(device)
+
+        if deep_tracking and normalized_domain is None:
+            raise ValueError("deep_tracking requires a domain")
+        if deep_tracking:
+            depth = 100
+
         depth = validate_depth(depth)
         location_name = location_name.strip()
         if not location_name:
@@ -145,6 +157,7 @@ class SerpRankCheckService:
             language_name=language_name,
             device=device,
             depth=depth,
+            deep_tracking=deep_tracking,
         )
 
         check = RankCheck(
@@ -155,6 +168,7 @@ class SerpRankCheckService:
             language_name=language_name,
             device=device,
             depth=depth,
+            deep_tracking=deep_tracking,
             fingerprint=fingerprint,
             status=RankCheckStatus.RUNNING.value,
         )
@@ -167,12 +181,25 @@ class SerpRankCheckService:
 
         try:
             client = await get_serp_client()
+
+            client_kwargs: dict[str, Any] = {}
+            if deep_tracking and normalized_domain:
+                client_kwargs["find_targets_in"] = ["organic"]
+                client_kwargs["stop_crawl_on_match"] = [
+                    {
+                        "match_value": normalized_domain,
+                        "match_type": "with_subdomains",
+                    }
+                ]
+                client_kwargs["target_search_mode"] = "any"
+
             body = await client.serp_google_organic_live_advanced(
                 keyword=normalized_keyword,
                 location_name=location_name,
                 language_name=language_name,
                 device=device,
                 depth=depth,
+                **client_kwargs,
             )
             _validate_body_status(body)
 
@@ -187,6 +214,7 @@ class SerpRankCheckService:
                 normalized_domain,
                 depth,
                 settings.SERP_TOP_RESULTS_LIMIT,
+                deep_tracking=deep_tracking,
             )
             check.result = result
             check.status = RankCheckStatus.DONE.value
@@ -254,11 +282,13 @@ class SerpRankCheckService:
     ) -> dict[str, Any]:
         """Parse the stored raw response and persist the result."""
         try:
+            deep_tracking = getattr(check, "deep_tracking", False)
             result = parse_serp_response(
                 check.raw_response,
                 check.domain,
                 check.depth,
                 settings.SERP_TOP_RESULTS_LIMIT,
+                deep_tracking=deep_tracking,
             )
         except SerpParseError as exc:
             logger.error(

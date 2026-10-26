@@ -13572,3 +13572,464 @@ RuntimeError: Task <Task pending name='Task-338' coro=<run_check.<locals>._run()
 2026-10-24T13:58:02 | INFO | app | link_analysis.run_check: task finished for check_id=208ea4fd-d2fb-4e42-bf7f-3b4c3829968f, status=completed
 2026-10-24T14:08:59 | INFO | app | Core SEO audit dispatched to Celery: audit_id=1232b861-4aed-473a-8122-2f64a0060caa
 2026-10-24T14:09:21 | ERROR | app | WriteBehindStore: DB flush failed for 1232b861-4aed-473a-8122-2f64a0060caa: Task <Task pending name='Task-468' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T09:43:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T09:43:16 | INFO | app | Worker process initialized with persistent background event loop (pid=22664)
+2026-10-26T09:43:35 | INFO | app | Worker process initialized with persistent background event loop (pid=23172)
+2026-10-26T09:43:59 | INFO | app | Worker process initialized with persistent background event loop (pid=10404)
+2026-10-26T09:59:28 | INFO | app | Worker process initialized with persistent background event loop (pid=7520)
+2026-10-26T10:33:27 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:33:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:33:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:34:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:34:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:34:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:34:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:34:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:35:36 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:36:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:37:38 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:38:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:38:52 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:39:05 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:39:34 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:40:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:40:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:41:10 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:41:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:41:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:42:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:42:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:42:40 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:42:49 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:43:29 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:43:41 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:43:53 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:44:23 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:44:35 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:45:50 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:46:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T10:53:22 | ERROR | app | check_meta: failed to queue check: Task <Task pending name='Task-62' coro=<test_meta_check_queues_task() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\meta_check\tests\test_router.py:24> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181, <1 more>, WorkerThread.stop()]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\meta_check\router.py", line 78, in check_meta
+    check = await MetaCheckService.prepare_check(body, db)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\meta_check\service.py", line 63, in prepare_check
+    await MetaCheckRepository(db).create(check)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\meta_check\repository.py", line 20, in create
+    await self.db.flush()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 786, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 61, in save_obj
+    for (
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 224, in _organize_states_for_save
+    for state, dict_, mapper, connection in _connections_for_states(
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1760, in _connections_for_states
+    connection = uowtransaction.transaction.connection(base_mapper)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in connection
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1041, in connection
+    return self._connection_for_bind(bind, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1177, in _connection_for_bind
+    conn = self._parent._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+RuntimeError: Task <Task pending name='Task-62' coro=<test_meta_check_queues_task() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\meta_check\tests\test_router.py:24> cb=[_run_until_complete_cb() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py:181, <1 more>, WorkerThread.stop()]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T10:55:21 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=5dd80a9e-2828-4d7b-a919-f7b8aed96427
+2026-10-26T10:56:47 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-26T10:56:47 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-26T10:58:56 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=1653943b-9476-4ac0-adfc-7f86a9ba995e
+2026-10-26T11:00:45 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T11:01:24 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=44d9fcf7-d056-4730-96c0-e579c2162206
+2026-10-26T11:03:00 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=366e1c25-bc1c-40b5-bde3-522044c0f827
+2026-10-26T11:04:30 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-26T11:04:30 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-26T13:00:32 | ERROR | app | create_rank_check: failed: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "deep_tracking" of relation "rank_checks" does not exist
+[SQL: INSERT INTO rank_checks (id, user_id, keyword, domain, location_name, language_name, device, depth, deep_tracking, fingerprint, status, provider_called_at, provider_cost, error_code) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::INTEGER, $9::BOOLEAN, $10::VARCHAR, $11::VARCHAR, $12::TIMESTAMP WITH TIME ZONE, $13::NUMERIC(10, 5), $14::VARCHAR) RETURNING rank_checks.created_at, rank_checks.updated_at]
+[parameters: (UUID('0b89f625-591f-4acf-ab22-91bb1a0a7596'), None, 'web development', 'infomagine.in', 'India', 'English', 'desktop', 100, True, '183fc0ea4aec34148fb126c15c22408cf746d38136109ab661878cb1a9047a97', 'running', None, None, None)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column "deep_tracking" of relation "rank_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column "deep_tracking" of relation "rank_checks" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\router.py", line 98, in create_rank_check
+    check, _ = await service.check_serp_rank(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\service.py", line 177, in check_serp_rank
+    check, created = await repo.create_in_flight(check)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\serp_rank_check\repository.py", line 41, in create_in_flight
+    await self.db.commit()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 999, in commit
+    await greenlet_spawn(self.sync_session.commit)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column "deep_tracking" of relation "rank_checks" does not exist
+[SQL: INSERT INTO rank_checks (id, user_id, keyword, domain, location_name, language_name, device, depth, deep_tracking, fingerprint, status, provider_called_at, provider_cost, error_code) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::INTEGER, $9::BOOLEAN, $10::VARCHAR, $11::VARCHAR, $12::TIMESTAMP WITH TIME ZONE, $13::NUMERIC(10, 5), $14::VARCHAR) RETURNING rank_checks.created_at, rank_checks.updated_at]
+[parameters: (UUID('0b89f625-591f-4acf-ab22-91bb1a0a7596'), None, 'web development', 'infomagine.in', 'India', 'English', 'desktop', 100, True, '183fc0ea4aec34148fb126c15c22408cf746d38136109ab661878cb1a9047a97', 'running', None, None, None)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-10-26T13:47:33 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T13:47:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T13:48:20 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T13:48:44 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T13:49:08 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T13:50:30 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=395ba273-c593-4e03-9525-41d6ae5e4386
+2026-10-26T13:52:11 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-26T13:52:11 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-26T13:54:21 | INFO | app | Core SEO audit dispatched to Celery: audit_id=ee816df2-f3f6-4892-b242-095dfe6aa491
+2026-10-26T13:54:45 | INFO | app | meta.run_check: task started for check_id=6f544d2e-2846-41c2-8d15-b79d12bef6a2
+2026-10-26T13:55:01 | INFO | app | Site discovery complete for https://monkeytype.com/: robots=True, sitemaps=1, page_urls=9
+2026-10-26T13:55:01 | INFO | app | Robots policy attached to scheduler for monkeytype.com (sitemaps: 1)
+2026-10-26T13:55:01 | INFO | app | Crawl started: https://monkeytype.com/ (max_pages=100, max_depth=3)
+2026-10-26T13:55:01 | INFO | app | Submitted 5 sitemap URLs to crawl queue (total selected: 9)
+2026-10-26T13:55:04 | INFO | app | Crawl completed: https://monkeytype.com/ — pages_crawled=6, pages_discovered=6, pages_failed=0, duration=15283ms
+2026-10-26T13:55:04 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 19, 'non_html': 9, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-26T13:55:05 | INFO | app | WriteBehindStore: flushed audit ee816df2-f3f6-4892-b242-095dfe6aa491 to DB (status=completed, passed=158, failed=22)
+2026-10-26T14:23:01 | INFO | app | Core SEO audit dispatched to Celery: audit_id=23664dc3-2463-413d-9e8b-627be9b12d75
+2026-10-26T14:23:20 | ERROR | app | WriteBehindStore: DB flush failed for 23664dc3-2463-413d-9e8b-627be9b12d75: Task <Task pending name='Task-1' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T14:46:31 | INFO | app | Core SEO audit dispatched to Celery: audit_id=48ea4341-f484-4993-b70a-f818467d231a
+2026-10-26T14:46:59 | INFO | app | WriteBehindStore: flushed audit 48ea4341-f484-4993-b70a-f818467d231a to DB (status=completed, passed=122, failed=58)
+2026-10-26T14:53:43 | INFO | app | Core SEO audit dispatched to Celery: audit_id=fc4c8451-934f-48f5-935d-3709ee558656
+2026-10-26T14:53:59 | ERROR | app | WriteBehindStore: DB flush failed for fc4c8451-934f-48f5-935d-3709ee558656: Task <Task pending name='Task-27' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T16:12:55 | INFO | app | Core SEO audit dispatched to Celery: audit_id=50ce2714-966a-4868-abbb-7c9ea450575c
+2026-10-26T16:13:19 | ERROR | app | WriteBehindStore: DB flush failed for 50ce2714-966a-4868-abbb-7c9ea450575c: Task <Task pending name='Task-53' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T16:28:59 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:29:12 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:29:21 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:29:30 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:29:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:30:03 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:30:16 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:30:47 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:31:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:31:15 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T16:37:34 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=a40b4a45-f7ff-4ca7-ac9e-45de23cb237f
+2026-10-26T16:40:01 | INFO | app | serp_rank_check: duplicate in-flight request user_id=None fingerprint=108f066408597fe34dcf6d9748864dd79c823ed0256f8f2406b901f94fb7e3e6 -> existing id=62d45a5c-97e7-435f-9325-3992960ce53e
+2026-10-26T16:41:44 | INFO | app | serp_rank_check.sweep_stuck_checks: started
+2026-10-26T16:41:44 | INFO | app | serp_rank_check.sweep_stuck_checks: COMPLETED swept=0 resumed=0 failed=0
+2026-10-26T16:51:57 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T17:02:39 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T17:05:02 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T17:07:46 | INFO | app | Core SEO audit dispatched to Celery: audit_id=89b080ec-0239-484d-bc9d-31ebaaab9f9c
+2026-10-26T17:08:08 | INFO | app | WriteBehindStore: flushed audit 89b080ec-0239-484d-bc9d-31ebaaab9f9c to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:16:26 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-26T17:19:42 | INFO | app | Core SEO audit dispatched to Celery: audit_id=e2b78408-33b6-4791-84b4-f170753e302e
+2026-10-26T17:20:01 | INFO | app | WriteBehindStore: flushed audit e2b78408-33b6-4791-84b4-f170753e302e to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:22:01 | INFO | app | Core SEO audit dispatched to Celery: audit_id=f737be3a-c2e4-4428-b1e0-38dad08a5d24
+2026-10-26T17:22:17 | ERROR | app | WriteBehindStore: DB flush failed for f737be3a-c2e4-4428-b1e0-38dad08a5d24: Task <Task pending name='Task-79' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T17:22:29 | INFO | app | Core SEO audit dispatched to Celery: audit_id=2d946c36-5338-4ec5-b87c-4fcf27e5ba96
+2026-10-26T17:22:44 | INFO | app | WriteBehindStore: flushed audit 2d946c36-5338-4ec5-b87c-4fcf27e5ba96 to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:22:50 | INFO | app | Core SEO audit dispatched to Celery: audit_id=5da4e7ad-2693-4a98-a70a-8fd3b99828e5
+2026-10-26T17:23:05 | INFO | app | WriteBehindStore: flushed audit 5da4e7ad-2693-4a98-a70a-8fd3b99828e5 to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:27:08 | INFO | app | Core SEO audit dispatched to Celery: audit_id=d309ff04-3d3c-4b1d-9c32-6b4f0dfe38fa
+2026-10-26T17:27:24 | ERROR | app | WriteBehindStore: DB flush failed for d309ff04-3d3c-4b1d-9c32-6b4f0dfe38fa: Task <Task pending name='Task-105' coro=<WriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\core_seo\storage\write_behind.py:126>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T17:27:34 | INFO | app | Core SEO audit dispatched to Celery: audit_id=d6949b56-af55-4e85-8e90-e7c093333e6c
+2026-10-26T17:27:49 | INFO | app | WriteBehindStore: flushed audit d6949b56-af55-4e85-8e90-e7c093333e6c to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:27:50 | INFO | app | Core SEO audit dispatched to Celery: audit_id=195e502b-781c-467b-942a-922b1c1f13da
+2026-10-26T17:28:04 | INFO | app | WriteBehindStore: flushed audit 195e502b-781c-467b-942a-922b1c1f13da to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:28:34 | INFO | app | Core SEO audit dispatched to Celery: audit_id=7b752764-31e4-4ef8-8833-a1aa9559599b
+2026-10-26T17:28:48 | INFO | app | WriteBehindStore: flushed audit 7b752764-31e4-4ef8-8833-a1aa9559599b to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:28:55 | INFO | app | Core SEO audit dispatched to Celery: audit_id=a9417fd1-cba0-4b1e-8a56-91859bfe7696
+2026-10-26T17:29:05 | INFO | app | Core SEO audit dispatched to Celery: audit_id=f9f91989-c720-4040-8c54-161b3cadfbc9
+2026-10-26T17:29:12 | INFO | app | WriteBehindStore: flushed audit a9417fd1-cba0-4b1e-8a56-91859bfe7696 to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:29:21 | INFO | app | WriteBehindStore: flushed audit f9f91989-c720-4040-8c54-161b3cadfbc9 to DB (status=completed, passed=122, failed=58)
+2026-10-26T17:43:38 | INFO | app | Core SEO audit dispatched to Celery: audit_id=493e8eab-44cf-4886-a390-3baa55435d2d
+2026-10-26T17:43:58 | INFO | app | WriteBehindStore: flushed audit 493e8eab-44cf-4886-a390-3baa55435d2d to DB (status=completed, passed=122, failed=58)
+2026-10-26T18:00:52 | INFO | app | Core SEO audit dispatched to Celery: audit_id=216603da-487a-4589-8010-a1d9c118e57a
+2026-10-26T18:01:12 | INFO | app | WriteBehindStore: flushed audit 216603da-487a-4589-8010-a1d9c118e57a to DB (status=completed, passed=122, failed=58)
+2026-10-26T18:19:03 | INFO | app | link_analysis.run_check: task started for check_id=042cfaff-421a-4d1b-9135-00f9f887c5d0, url=https://moneymatters.co.in/, max_pages=1
+2026-10-26T18:19:04 | ERROR | app | link_analysis.run_check: task failed for check_id=042cfaff-421a-4d1b-9135-00f9f887c5d0: Task <Task pending name='Task-220' coro=<run_check.<locals>._run() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\tasks.py:50> cb=[_chain_future.<locals>._call_set_state() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py:394]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\tasks.py", line 59, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 121, in run_async
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py", line 277, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\tasks.py", line 50, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\service.py", line 205, in run_check_async
+    result = await self._execute(check_id, domain, session, max_pages, update_state, start_time)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\service.py", line 231, in _execute
+    check = await repo.get(check_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\repository.py", line 93, in get
+    result = await self.db.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\venv\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py", line 287, in __await__
+    yield self  # This tells Task to wait for completion.
+    ^^^^^^^^^^
+RuntimeError: Task <Task pending name='Task-220' coro=<run_check.<locals>._run() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\link_analysis\tasks.py:50> cb=[_chain_future.<locals>._call_set_state() at C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\futures.py:394]> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-10-26T18:19:24 | INFO | app | link_analysis.run_check: task started for check_id=3b0448b8-1cfa-4cec-9fe6-1dcf1a73a890, url=https://moneymatters.co.in/, max_pages=1
+2026-10-26T18:19:26 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-26T18:19:38 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=3b0448b8-1cfa-4cec-9fe6-1dcf1a73a890, pages=1, findings=8, overall=warning, cost=14.054s
+2026-10-26T18:19:38 | INFO | app | link_analysis.run_check: task finished for check_id=3b0448b8-1cfa-4cec-9fe6-1dcf1a73a890, status=completed
+2026-10-26T18:20:01 | INFO | app | link_analysis.run_check: task started for check_id=f208eacc-8413-4971-bdcf-64253e66bd66, url=https://monematters.co.in/, max_pages=1
+2026-10-26T18:20:02 | INFO | app | Site discovery complete for https://monematters.co.in/: robots=False, sitemaps=0, page_urls=0
+2026-10-26T18:20:06 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=f208eacc-8413-4971-bdcf-64253e66bd66, pages=1, findings=0, overall=pass, cost=4.452s
+2026-10-26T18:20:06 | INFO | app | link_analysis.run_check: task finished for check_id=f208eacc-8413-4971-bdcf-64253e66bd66, status=completed
+2026-10-26T18:20:27 | INFO | app | link_analysis.run_check: task started for check_id=f778dd18-a756-40ff-9a00-99157e5d78bb, url=https://moneymatters.co.in/, max_pages=1
+2026-10-26T18:20:29 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-26T18:20:35 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=f778dd18-a756-40ff-9a00-99157e5d78bb, pages=1, findings=8, overall=warning, cost=7.382s
+2026-10-26T18:20:35 | INFO | app | link_analysis.run_check: task finished for check_id=f778dd18-a756-40ff-9a00-99157e5d78bb, status=completed
+2026-10-26T18:20:59 | INFO | app | link_analysis.run_check: task started for check_id=0b08fc4d-2f1d-4d6e-8237-4caf8ff4c2d0, url=https://monematters.co.in/, max_pages=1
+2026-10-26T18:20:59 | INFO | app | Site discovery complete for https://monematters.co.in/: robots=False, sitemaps=0, page_urls=0
+2026-10-26T18:21:03 | INFO | app | LinkAnalysisService.run_check_async: completed check_id=0b08fc4d-2f1d-4d6e-8237-4caf8ff4c2d0, pages=1, findings=0, overall=pass, cost=4.243s
+2026-10-26T18:21:03 | INFO | app | link_analysis.run_check: task finished for check_id=0b08fc4d-2f1d-4d6e-8237-4caf8ff4c2d0, status=completed
