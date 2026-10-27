@@ -125,8 +125,8 @@ class RankCheck(TimestampMixin, Base):
     deep_tracking: Mapped[bool] = mapped_column(
         Boolean,
         nullable=False,
-        server_default=text("false"),
-        default=False,
+        server_default=text("true"),
+        default=True,
     )
     fingerprint: Mapped[str] = mapped_column(Text, nullable=False)
     status: Mapped[str] = mapped_column(

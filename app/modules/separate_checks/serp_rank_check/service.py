@@ -121,10 +121,13 @@ class SerpRankCheckService:
         The endpoint calls this method synchronously — no Celery
         task is enqueued for the check itself.
 
-        When ``deep_tracking`` is ``True``, the search is performed
-        to a maximum depth of 100 with ``stop_crawl_on_match`` and
-        ``find_targets_in`` sent to DataForSEO so the provider stops
-        as soon as the target domain is matched.
+        When ``deep_tracking`` is ``True`` (set when a domain is
+        provided), the search is performed to a maximum API depth
+        of 100 with ``stop_crawl_on_match`` and ``find_targets_in``
+        sent to DataForSEO so the provider stops as soon as the
+        target domain is matched.  The user's ``depth`` is preserved
+        in the stored row for display; only the API call uses a
+        deeper ``api_depth``.
 
         Returns ``(check, created)``.  ``created=False`` means an
         identical in-flight check already exists (deduplication via
@@ -139,10 +142,9 @@ class SerpRankCheckService:
 
         if deep_tracking and normalized_domain is None:
             raise ValueError("deep_tracking requires a domain")
-        if deep_tracking:
-            depth = 100
 
         depth = validate_depth(depth)
+        api_depth = 100 if deep_tracking else depth
         location_name = location_name.strip()
         if not location_name:
             raise ValueError("location must not be blank")
@@ -198,7 +200,7 @@ class SerpRankCheckService:
                 location_name=location_name,
                 language_name=language_name,
                 device=device,
-                depth=depth,
+                depth=api_depth,
                 **client_kwargs,
             )
             _validate_body_status(body)
@@ -213,7 +215,7 @@ class SerpRankCheckService:
                 body,
                 normalized_domain,
                 depth,
-                settings.SERP_TOP_RESULTS_LIMIT,
+                depth,
                 deep_tracking=deep_tracking,
             )
             check.result = result
@@ -287,7 +289,7 @@ class SerpRankCheckService:
                 check.raw_response,
                 check.domain,
                 check.depth,
-                settings.SERP_TOP_RESULTS_LIMIT,
+                check.depth,
                 deep_tracking=deep_tracking,
             )
         except SerpParseError as exc:

@@ -373,3 +373,114 @@ async def test_router_compact_result_omits_html_fallback_pages():
     response = _to_compact_result_response(check)
 
     assert response.model_dump(mode="json")["data"]["sitemaps"] == []
+
+
+@pytest.mark.asyncio
+async def test_router_status_failed_returns_502(db_session):
+    """GET /status/{check_id} for a failed check returns 502 with error_code."""
+    loop_conflict_err = (
+        "Task <Task pending name='Task-4' "
+        "coro=<run_check.<locals>._run() "
+        "got Future <Future pending> attached to a different loop"
+    )
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.FAILED,
+        progress={"phase": "failed", "message": "Check failed",
+                  "error_code": "event_loop_conflict"},
+        error="Internal error: the background check encountered an "
+              "event-loop conflict. Please retry the check.",
+    )
+    db_session.add(check)
+    await db_session.commit()
+    await db_session.refresh(check)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/status/{check.id}")
+
+    assert response.status_code == 502
+    assert response.headers["X-Check-Status"] == "failed"
+    data = response.json()
+    assert data["status"] == "failed"
+    assert data["error_code"] == "event_loop_conflict"
+    assert "event-loop conflict" in data["error"]
+    assert "Task <Task pending" not in data["error"]
+
+
+@pytest.mark.asyncio
+async def test_router_status_failed_timeout_returns_504(db_session):
+    """GET /status/{check_id} for a timeout failure returns 504."""
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.FAILED,
+        progress={"phase": "failed", "message": "Check failed",
+                  "error_code": "timeout"},
+        error="The check timed out while contacting the target website.",
+    )
+    db_session.add(check)
+    await db_session.commit()
+    await db_session.refresh(check)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/status/{check.id}")
+
+    assert response.status_code == 504
+    data = response.json()
+    assert data["error_code"] == "timeout"
+
+
+@pytest.mark.asyncio
+async def test_router_result_failed_returns_502(db_session):
+    """GET /result/{check_id} for a failed check returns 502 (not 400)."""
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.FAILED,
+        progress={"phase": "failed", "message": "Check failed",
+                  "error_code": "event_loop_conflict"},
+        error="Internal error: the background check encountered an "
+              "event-loop conflict. Please retry the check.",
+    )
+    db_session.add(check)
+    await db_session.commit()
+    await db_session.refresh(check)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/result/{check.id}")
+
+    assert response.status_code == 502
+    data = response.json()
+    assert "event-loop conflict" in data["detail"]
+
+
+@pytest.mark.asyncio
+async def test_router_status_failed_no_error_code_defaults_500(db_session):
+    """GET /status/{check_id} for a failed check without error_code returns 500."""
+    check = SitemapCheck(
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.FAILED,
+        progress={"phase": "failed", "message": "Check failed",
+                  "error_code": None},
+        error="Something unexpected happened",
+    )
+    db_session.add(check)
+    await db_session.commit()
+    await db_session.refresh(check)
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get(f"/api/v1/sitemap/status/{check.id}")
+
+    assert response.status_code == 500
+    data = response.json()
+    assert data["status"] == "failed"

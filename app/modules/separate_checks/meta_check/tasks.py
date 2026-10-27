@@ -1,10 +1,10 @@
 from uuid import UUID
 
 from app.core.logger import logger
+from app.modules.separate_checks.meta_check.service import MetaCheckService
+from app.shared.exceptions import categorize_error
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
-
-from .service import MetaCheckService
 
 
 @celery_app.task(
@@ -35,4 +35,21 @@ def run_check(self, check_id: str) -> dict:
             update_state=_report_progress,
         )
 
-    return run_async(_run())
+    try:
+        result = run_async(_run())
+        logger.info(
+            "meta.run_check: task finished for check_id=%s, status=%s",
+            check_id,
+            result.get("status") if isinstance(result, dict) else "unknown",
+        )
+        return result
+    except Exception as exc:
+        error_code, user_message = categorize_error(exc)
+        logger.error(
+            "meta.run_check: task failed for check_id=%s (error_code=%s): %s",
+            check_id,
+            error_code,
+            exc,
+            exc_info=True,
+        )
+        raise

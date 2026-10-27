@@ -8,11 +8,12 @@ Endpoints:
 from typing import Union
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
 from app.core.logger import logger
+from app.shared.exceptions import HTTP_STATUS_BY_ERROR_CODE
 from app.shared.tasks.celery_app import celery_app
 
 from .model import SitemapCheck, SitemapCheckStatus
@@ -245,11 +246,27 @@ async def check_sitemap(
 )
 async def get_check_status(
     check_id: str,
+    response: Response,
     db: AsyncSession = Depends(get_db),
 ) -> SitemapCheckStatusResponse:
     check = await _get_check_or_404(check_id, db)
 
     status_str = _str_status(check.status)
+
+    progress = check.progress or {}
+    error_code = progress.get("error_code")
+
+    if status_str == SitemapCheckStatus.FAILED.value:
+        http_status = HTTP_STATUS_BY_ERROR_CODE.get(
+            error_code or "internal_error", 500
+        )
+        response.status_code = http_status
+        response.headers["X-Check-Status"] = "failed"
+        logger.info(
+            "sitemap status: check_id=%s failed with error_code=%s "
+            "(HTTP %d)", check_id, error_code, http_status,
+        )
+
     return SitemapCheckStatusResponse(
         check_id=check.id,
         url=check.url,
@@ -257,6 +274,7 @@ async def get_check_status(
         status=check.status,
         progress=check.progress,
         error=check.error,
+        error_code=error_code,
     )
 
 
@@ -274,6 +292,17 @@ async def get_check_result(
     check = await _get_check_or_404(check_id, db)
 
     status_str = _str_status(check.status)
+    if status_str == SitemapCheckStatus.FAILED.value:
+        progress = check.progress or {}
+        error_code = progress.get("error_code")
+        http_status = HTTP_STATUS_BY_ERROR_CODE.get(
+            error_code or "internal_error", 500
+        )
+        error_detail = check.error or "Check failed. See error_code for details."
+        raise HTTPException(
+            status_code=http_status,
+            detail=error_detail,
+        )
     if status_str != SitemapCheckStatus.COMPLETED.value:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

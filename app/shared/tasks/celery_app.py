@@ -43,7 +43,7 @@ celery_app.conf.update(
     task_acks_late=True,
     worker_prefetch_multiplier=1,
     task_default_retry_delay=60,
-    task_acks_on_failure=False,
+    task_acks_on_failure_or_timeout=False,
     # Limit how long a broker operation can block — prevents indefinite
     # hangs when the Redis connection is slow or unresponsive.
     redis_socket_timeout=10,

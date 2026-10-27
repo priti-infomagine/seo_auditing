@@ -3,6 +3,7 @@ from uuid import UUID
 
 from app.core.logger import logger
 from app.modules.separate_checks.sitemap_check.service import SitemapCheckService
+from app.shared.exceptions import categorize_error
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
 
@@ -27,8 +28,13 @@ def run_check(
     url: str,
 ) -> dict:
     """Celery task: run asynchronous sitemap discovery and evaluation."""
-    logger.info(f"sitemap.run_check: task started for check_id={check_id}, url={url}")
     task_id = self.request.id
+    logger.info(
+        "sitemap.run_check: task started for check_id=%s, url=%s, task_id=%s",
+        check_id,
+        url,
+        task_id,
+    )
 
     def _report_progress(state, meta=None):
         if task_id:
@@ -46,13 +52,20 @@ def run_check(
     try:
         result = run_async(_run())
         logger.info(
-            f"sitemap.run_check: task finished for check_id={check_id}, "
-            f"status={result.get('status') if isinstance(result, dict) else 'unknown'}"
+            "sitemap.run_check: task finished for check_id=%s, "
+            "status=%s",
+            check_id,
+            result.get("status") if isinstance(result, dict) else "unknown",
         )
         return result
     except Exception as exc:
+        error_code, user_message = categorize_error(exc)
         logger.error(
-            f"sitemap.run_check: task failed for check_id={check_id}: {exc}",
+            "sitemap.run_check: task failed for check_id=%s "
+            "(error_code=%s): %s",
+            check_id,
+            error_code,
+            exc,
             exc_info=True,
         )
         raise

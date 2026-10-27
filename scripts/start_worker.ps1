@@ -30,7 +30,7 @@
 param(
     [string]$Queues = "crawler,audit",
     [string]$LogLevel = "info",
-    [string]$Pool = "gevent",
+    [string]$Pool = "solo",
     [int]$Concurrency = 4
 )
 

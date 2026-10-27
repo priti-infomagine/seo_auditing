@@ -100,27 +100,69 @@ def run_async(coro):
       4. ``worker_process_shutdown`` disposes the engine and stops the loop.
 
     Falls back to ``asyncio.run()`` when no persistent worker loop exists
-    (e.g. standalone scripts).  When inside an existing active event loop (e.g.
-    ``@pytest.mark.asyncio`` tests), uses ``nest_asyncio`` to run on the same loop.
+    (e.g. standalone scripts).  When inside an existing active event loop that is
+    *not* the worker loop (e.g. ``@pytest.mark.asyncio`` tests), uses
+    ``nest_asyncio`` to run on the same loop.
+
+    **Important:** When a persistent worker loop exists, it is *always*
+    preferred — even if the caller is already inside a different running loop
+    (e.g. ``core_seo.tasks._run_async`` creates a per-task loop).  This ensures
+    the SQLAlchemy async engine's connection pool is exclusively accessed from
+    one event loop, preventing ``RuntimeError: Future attached to a different
+    loop`` when connections cross loop boundaries.
     """
-    # 1. Check if we are running inside an active event loop in the current thread (e.g. pytest)
+    global _worker_loop
+
+    # 1. Celery worker path: _worker_loop is the single source of truth for
+    #    DB connections.  If it's running, route all coroutines through it
+    #    regardless of whether the caller has its own event loop.  This
+    #    prevents pool contamination: connections created on one loop must
+    #    not be reused from another loop (asyncpg raises "attached to a
+    #    different loop" when they are).
+    if _worker_loop is not None and _worker_loop.is_running():
+        # If we are already executing ON _worker_loop (nested call from a
+        # coroutine scheduled by run_async itself), run inline via
+        # nest_asyncio to avoid a thread hop and a potential deadlock
+        # (run_coroutine_threadsafe would work too, but inline is faster).
+        try:
+            running_loop = asyncio.get_running_loop()
+            if running_loop.is_running() and running_loop is _worker_loop:
+                import nest_asyncio
+
+                nest_asyncio.apply(running_loop)
+                return running_loop.run_until_complete(coro)
+        except RuntimeError:
+            pass
+        # Otherwise (different running loop, or no loop in this thread),
+        # submit to _worker_loop via a thread-safe future.  The calling
+        # thread blocks on future.result() until the coroutine completes
+        # on _worker_loop — this is safe because _worker_loop runs in a
+        # separate daemon thread.
+        logger.debug(
+            "run_async: scheduling coroutine on _worker_loop (pid=%d)", os.getpid()
+        )
+        future = asyncio.run_coroutine_threadsafe(coro, _worker_loop)
+        return future.result()
+
+    # 2. No persistent worker loop (e.g. pytest with @pytest.mark.asyncio,
+    #    or standalone scripts started outside Celery).  If we are inside a
+    #    running event loop, reuse it with nest_asyncio so that mock
+    #    sessions / test fixtures on that loop still work.
     try:
         running_loop = asyncio.get_running_loop()
         if running_loop.is_running():
             import nest_asyncio
 
             nest_asyncio.apply(running_loop)
+            logger.debug(
+                "run_async: running on existing loop (pid=%d, not _worker_loop)",
+                os.getpid(),
+            )
             return running_loop.run_until_complete(coro)
     except RuntimeError:
         pass
 
-    # 2. Celery worker path: submit to background worker event loop
-    global _worker_loop
-    if _worker_loop is not None and _worker_loop.is_running():
-        future = asyncio.run_coroutine_threadsafe(coro, _worker_loop)
-        return future.result()
-
-    # 3. Fallback for standalone scripts outside Celery
+    # 3. Fallback for standalone scripts outside Celery with no running loop.
     async def _wrapper():
         try:
             return await coro

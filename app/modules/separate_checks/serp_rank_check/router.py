@@ -95,6 +95,7 @@ async def create_rank_check(
     """
     try:
         service = SerpRankCheckService(db)
+        deep_tracking = body.domain is not None
         check, _ = await service.check_serp_rank(
             user_id=None,
             keyword=body.keyword,
@@ -103,7 +104,7 @@ async def create_rank_check(
             language_name=body.language,
             device=body.device,
             depth=body.depth,
-            deep_tracking=body.deep_tracking,
+            deep_tracking=deep_tracking,
         )
         await db.refresh(check)
         return _to_status_response(check)

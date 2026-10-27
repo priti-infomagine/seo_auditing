@@ -1,5 +1,8 @@
 import uuid
+import asyncio
 import pytest
+
+import httpx
 
 from app.core.config import settings
 from app.modules.crawler.services.site_discovery_service import (
@@ -17,6 +20,7 @@ from app.modules.separate_checks.sitemap_check.service import SitemapCheckServic
 from app.modules.separate_checks.google_lighthouse_check.pagespeed_client import (
     PagespeedClient,
 )
+from app.shared.exceptions import categorize_error
 
 
 @pytest.fixture
@@ -249,3 +253,150 @@ def test_sitemap_index_entry_count_uses_child_sitemap_count():
     result = SitemapCheckService()._evaluate_sitemap_file(sitemap, "example.com")
 
     assert result.entry_count == 3
+
+
+@pytest.mark.asyncio
+async def test_sitemap_check_async_sanitizes_loop_conflict_error(monkeypatch, db_session):
+    """When asyncio raises 'attached to a different loop', the stored error
+    is sanitized and error_code is set in progress."""
+    check_id = uuid.uuid4()
+    check = SitemapCheck(
+        id=check_id,
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.QUEUED,
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    loop_conflict_msg = (
+        "Task <Task pending name='Task-4' coro=<run_check.<locals>._run() "
+        "got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> "
+        "attached to a different loop"
+    )
+
+    class FakeDiscoveryFailingLoopConflict:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def discover(self):
+            raise RuntimeError(loop_conflict_msg)
+
+    monkeypatch.setattr(
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
+        FakeDiscoveryFailingLoopConflict,
+    )
+
+    with pytest.raises(RuntimeError, match="attached to a different loop"):
+        await SitemapCheckService().run_check_async(
+            check_id=check_id, url="https://example.com", db=db_session
+        )
+
+    saved = await SitemapCheckRepository(db_session).get(check_id)
+    assert saved.status == SitemapCheckStatus.FAILED
+    assert saved.error is not None
+    assert "attached to a different loop" not in saved.error
+    assert "event-loop conflict" in saved.error.lower() or "retry" in saved.error.lower()
+    progress = saved.progress or {}
+    assert progress.get("error_code") == "event_loop_conflict"
+
+
+@pytest.mark.asyncio
+async def test_sitemap_check_async_sanitizes_timeout_error(monkeypatch, db_session):
+    """asyncio.TimeoutError is categorized as a timeout with HTTP 504."""
+    check_id = uuid.uuid4()
+    check = SitemapCheck(
+        id=check_id,
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.QUEUED,
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    class FakeDiscoveryTimeout:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def discover(self):
+            raise asyncio.TimeoutError("Discovery timed out after 90s")
+
+    monkeypatch.setattr(
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
+        FakeDiscoveryTimeout,
+    )
+
+    with pytest.raises(asyncio.TimeoutError):
+        await SitemapCheckService().run_check_async(
+            check_id=check_id, url="https://example.com", db=db_session
+        )
+
+    saved = await SitemapCheckRepository(db_session).get(check_id)
+    assert saved.status == SitemapCheckStatus.FAILED
+    assert "timed out" not in (saved.error or "").lower() or saved.error is not None
+    progress = saved.progress or {}
+    assert progress.get("error_code") == "timeout"
+
+
+@pytest.mark.asyncio
+async def test_sitemap_check_async_sanitizes_network_error(monkeypatch, db_session):
+    """httpx.ConnectError is categorized as a network error with HTTP 502."""
+    check_id = uuid.uuid4()
+    check = SitemapCheck(
+        id=check_id,
+        url="https://example.com",
+        domain="example.com",
+        status=SitemapCheckStatus.QUEUED,
+    )
+    db_session.add(check)
+    await db_session.commit()
+
+    class FakeDiscoveryNetworkError:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def discover(self):
+            raise httpx.ConnectError("Connection refused")
+
+    monkeypatch.setattr(
+        "app.modules.separate_checks.sitemap_check.service.SiteDiscoveryService",
+        FakeDiscoveryNetworkError,
+    )
+
+    with pytest.raises(httpx.ConnectError):
+        await SitemapCheckService().run_check_async(
+            check_id=check_id, url="https://example.com", db=db_session
+        )
+
+    saved = await SitemapCheckRepository(db_session).get(check_id)
+    assert saved.status == SitemapCheckStatus.FAILED
+    progress = saved.progress or {}
+    assert progress.get("error_code") == "network_error"
+
+
+def test_categorize_error_loop_conflict():
+    exc = RuntimeError(
+        "Task <Task pending> got Future <Future pending> attached to a "
+        "different loop"
+    )
+    code, msg = categorize_error(exc)
+    assert code == "event_loop_conflict"
+    assert "event-loop conflict" in msg.lower()
+
+
+def test_categorize_error_timeout():
+    exc = asyncio.TimeoutError("timed out")
+    code, msg = categorize_error(exc)
+    assert code == "timeout"
+
+
+def test_categorize_error_httpx_connect_error():
+    exc = httpx.ConnectError("Connection refused")
+    code, msg = categorize_error(exc)
+    assert code == "network_error"
+
+
+def test_categorize_error_internal():
+    exc = ValueError("some unexpected error")
+    code, msg = categorize_error(exc)
+    assert code == "internal_error"

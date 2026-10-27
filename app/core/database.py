@@ -34,6 +34,14 @@ engine = create_async_engine(
     pool_pre_ping=True,
     pool_size=5,
     max_overflow=20,
+    # Recycle connections after 30 min.  This is a defence-in-depth measure
+    # alongside the run_async() fix that ensures the SQLAlchemy async engine's
+    # connection pool is accessed from a single event loop (_worker_loop).
+    # pool_recycle prevents long-lived connections from going stale (e.g.
+    # TCP timeouts, server restarts) which can surface as the same class of
+    # "Future attached to a different loop" errors if a recycled connection
+    # somehow retains state from a previous loop.
+    pool_recycle=1800,
 )
 
 # ── Session Factory ──────────────────────────────────────────────────

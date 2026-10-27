@@ -63,7 +63,6 @@ class MetaCheckService:
         await MetaCheckRepository(db).create(check)
         await db.commit()
         return check
-        return check
 
     async def run_check_async(
         self,

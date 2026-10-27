@@ -23,7 +23,6 @@ from .constants import (
     DEFAULT_USER_AGENT,
 )
 
-
 @dataclass
 class CoreSEOConfig:
     """Configuration for the Core SEO crawler pipeline."""

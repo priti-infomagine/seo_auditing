@@ -137,4 +137,11 @@ class SitemapCheckStatusResponse(BaseModel):
     domain: str
     status: SitemapCheckStatus
     progress: Optional[dict] = None
-    error: Optional[str] = None
+    error: Optional[str] = Field(
+        None,
+        description="User-friendly error message when status is 'failed'",
+    )
+    error_code: Optional[str] = Field(
+        None,
+        description="Machine-readable error code (e.g. 'event_loop_conflict', 'timeout', 'network_error')",
+    )

@@ -110,7 +110,7 @@ def parse_serp_response(
     body: dict[str, Any],
     target_domain: str | None,
     depth: int,
-    top_results_limit: int,
+    top_results_limit: int | None = None,
     deep_tracking: bool = False,
 ) -> dict[str, Any]:
     """Build the rank result from a raw provider response body.
@@ -118,6 +118,10 @@ def parse_serp_response(
     When *target_domain* is ``None`` (no domain supplied), the parser
     returns only ``top_results`` with ``found=False`` and
     ``status="no_target"`` — no domain matching is attempted.
+
+    *depth* controls both how many ``top_results`` are returned and
+    the ``partial`` flag.  When *top_results_limit* is provided it
+    overrides *depth* for capping ``top_results`` only.
     """
     items = _extract_items(body)
 
@@ -179,8 +183,10 @@ def parse_serp_response(
         }
     )
 
+    limit = top_results_limit if top_results_limit is not None else depth
+
     top_results: list[dict[str, Any]] = []
-    for item in organic[:top_results_limit]:
+    for item in organic[:limit]:
         url = item.get("url")
         url = url if isinstance(url, str) else ""
         top_results.append(

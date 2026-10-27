@@ -8,6 +8,8 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.shared.exceptions import categorize_error
+
 from app.core.database import async_session_factory
 from app.core.logger import logger
 from app.modules.crawler.services.site_discovery_service import (
@@ -251,16 +253,33 @@ class SitemapCheckService:
             }
 
         except Exception as exc:
+            error_code, user_message = categorize_error(exc)
             logger.error(
-                f"run_check_async failed for check_id={check_id}: {exc}",
+                f"run_check_async failed for check_id={check_id} "
+                f"(error_code={error_code}): {exc}",
                 exc_info=True,
             )
-            await repo.update_progress(
-                check_id,
-                SitemapCheckStatus.FAILED,
-                error=str(exc),
-            )
-            await db.commit()
+            # Persist the sanitized error so the UI can show a meaningful
+            # message.  Guard against DB session state issues (e.g. an
+            # async event-loop conflict that may have corrupted the session).
+            try:
+                await repo.update_progress(
+                    check_id,
+                    SitemapCheckStatus.FAILED,
+                    progress={
+                        "phase": "failed",
+                        "message": "Check failed",
+                        "error_code": error_code,
+                    },
+                    error=user_message,
+                )
+                await db.commit()
+            except Exception:
+                logger.error(
+                    f"run_check_async: failed to persist error state for "
+                    f"check_id={check_id}",
+                    exc_info=True,
+                )
             raise
 
     def _evaluate_sitemap_file(self, item, domain: str) -> SitemapFileItem:

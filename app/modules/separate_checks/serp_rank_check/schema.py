@@ -1,20 +1,19 @@
 """Pydantic schemas for the SERP rank check API."""
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import Literal
 from uuid import UUID
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class RankCheckRequest(BaseModel):
     keyword: str = Field(min_length=1, max_length=700)
-    domain: Optional[str] = Field(default=None, max_length=253)
+    domain: str | None = Field(default=None, max_length=253)
     location: str = Field(min_length=1, max_length=200)
     language: str = Field(min_length=1, max_length=100)
     device: Literal["desktop", "mobile"] = "desktop"
-    depth: int = Field(default=10, ge=10, le=100)
-    deep_tracking: bool = False
+    depth: Literal[10, 20, 50, 100] = 10
 
     @field_validator("keyword", "location", "language")
     @classmethod
@@ -26,17 +25,11 @@ class RankCheckRequest(BaseModel):
 
     @field_validator("domain")
     @classmethod
-    def normalize_domain_input(cls, value: Optional[str]) -> Optional[str]:
+    def normalize_domain_input(cls, value: str | None) -> str | None:
         if value is None:
             return None
         value = value.strip()
         return value or None
-
-    @model_validator(mode="after")
-    def validate_deep_tracking(self) -> "RankCheckRequest":
-        if self.deep_tracking and not self.domain:
-            raise ValueError("deep_tracking requires a domain")
-        return self
 
 
 class RankCheckCreateResponse(BaseModel):
@@ -79,7 +72,7 @@ class RankCheckStatusResponse(BaseModel):
     language: str
     device: str
     depth: int
-    deep_tracking: bool = False
+    deep_tracking: bool
     status: str
     result: RankCheckResult | None = None
     error_code: str | None = None
@@ -104,7 +97,7 @@ class SERPResponseSchema(BaseModel):
     location: str
     language: str
     device: str
-    deep_tracking: bool = False
+    deep_tracking: bool
     position: int | None
     ranking_url: str | None
     status: str
