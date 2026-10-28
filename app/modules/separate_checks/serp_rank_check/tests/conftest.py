@@ -143,15 +143,54 @@ def make_serp_body_no_match(
     return make_serp_body(items, cost=cost)
 
 
+def make_location(code, name, location_type="City", country_iso="IN"):
+    return {
+        "location_code": code,
+        "location_name": name,
+        "location_code_parent": None,
+        "country_iso_code": country_iso,
+        "location_type": location_type,
+    }
+
+
+def make_locations_body(items):
+    """Build a DataForSEO ``/serp/google/locations`` response body."""
+    return {
+        "status_code": 20000,
+        "status_message": "Ok.",
+        "cost": 0,
+        "tasks_count": 1,
+        "tasks_error": 0,
+        "tasks": [
+            {
+                "status_code": 20000,
+                "status_message": "Ok.",
+                "result_count": len(items),
+                "path": ["v3", "serp", "google", "locations"],
+                "result": items,
+            }
+        ],
+    }
+
+
 class FakeSerpClient:
     """In-memory stand-in for SERPDataForSEOClient."""
 
-    def __init__(self, body=None, cost=0.0005, exc=None, delay=0):
+    def __init__(
+        self,
+        body=None,
+        cost=0.0005,
+        exc=None,
+        delay=0,
+        locations_body=None,
+    ):
         self.calls: list[dict] = []
+        self.location_calls: list[dict] = []
         self._body = body
         self._cost = cost
         self._exc = exc
         self._delay = delay
+        self._locations_body = locations_body
 
     def set_response(self, body=None, cost=0.0005, exc=None, delay=0):
         self._body = body
@@ -159,11 +198,16 @@ class FakeSerpClient:
         self._exc = exc
         self._delay = delay
 
+    def set_locations_response(self, body):
+        """Set the raw body returned by ``serp_google_locations``."""
+        self._locations_body = body
+
     async def serp_google_organic_live_advanced(
         self,
         *,
         keyword,
-        location_name,
+        location_name=None,
+        location_code=None,
         language_name,
         device,
         depth,
@@ -175,6 +219,7 @@ class FakeSerpClient:
             {
                 "keyword": keyword,
                 "location_name": location_name,
+                "location_code": location_code,
                 "language_name": language_name,
                 "device": device,
                 "depth": depth,
@@ -202,13 +247,50 @@ class FakeSerpClient:
             return self._body
         return make_serp_body([], cost=self._cost)
 
+    async def serp_google_locations(
+        self, *, country=None, **_kwargs
+    ):
+        """Return a canned DataForSEO locations response body."""
+        self.location_calls.append({"country": country})
+        if self._locations_body is not None:
+            return self._locations_body
+        return {
+            "status_code": 20000,
+            "status_message": "Ok.",
+            "cost": 0,
+            "tasks_count": 1,
+            "tasks": [
+                {
+                    "status_code": 20000,
+                    "result_count": 0,
+                    "result": [],
+                }
+            ],
+        }
+
     async def aclose(self) -> None:
         pass
 
 
+@pytest.fixture(autouse=True)
+def clear_locations_cache():
+    """Reset the module-level locations cache before each test so
+    cache hits don't leak between tests."""
+    from app.modules.separate_checks.serp_rank_check import router as _router
+
+    _router._locations_cache.clear()
+    yield
+    _router._locations_cache.clear()
+
+
 @pytest_asyncio.fixture
 async def fake_serp_client(monkeypatch):
-    """Patch the service's provider client factory with a fake."""
+    """Patch the provider client factory with a fake.
+
+    Patches both the service-layer and router-layer references so the
+    ``/locations`` endpoint (which calls ``get_serp_client`` directly)
+    uses the same in-memory fake as the rank-check path.
+    """
     client = FakeSerpClient()
 
     async def _get():
@@ -216,6 +298,10 @@ async def fake_serp_client(monkeypatch):
 
     monkeypatch.setattr(
         "app.modules.separate_checks.serp_rank_check.service.get_serp_client",
+        _get,
+    )
+    monkeypatch.setattr(
+        "app.modules.separate_checks.serp_rank_check.router.get_serp_client",
         _get,
     )
     return client

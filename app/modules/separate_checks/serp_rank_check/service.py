@@ -110,6 +110,7 @@ class SerpRankCheckService:
         keyword: str,
         domain: str | None,
         location_name: str,
+        location_code: int | None = None,
         language_name: str,
         device: str,
         depth: int,
@@ -148,6 +149,13 @@ class SerpRankCheckService:
         location_name = location_name.strip()
         if not location_name:
             raise ValueError("location must not be blank")
+        if location_code is not None:
+            if not isinstance(location_code, int) or isinstance(
+                location_code, bool
+            ):
+                raise ValueError("location_code must be an integer")
+            if location_code < 1:
+                raise ValueError("location_code must be a positive integer")
         language_name = language_name.strip()
         if not language_name:
             raise ValueError("language must not be blank")
@@ -156,6 +164,7 @@ class SerpRankCheckService:
             keyword=normalized_keyword,
             domain=normalized_domain,
             location_name=location_name,
+            location_code=location_code,
             language_name=language_name,
             device=device,
             depth=depth,
@@ -167,6 +176,7 @@ class SerpRankCheckService:
             keyword=normalized_keyword,
             domain=normalized_domain,
             location_name=location_name,
+            location_code=location_code,
             language_name=language_name,
             device=device,
             depth=depth,
@@ -198,6 +208,7 @@ class SerpRankCheckService:
             body = await client.serp_google_organic_live_advanced(
                 keyword=normalized_keyword,
                 location_name=location_name,
+                location_code=location_code,
                 language_name=language_name,
                 device=device,
                 depth=api_depth,

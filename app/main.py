@@ -39,6 +39,10 @@ async def _prewarm_celery_broker():
     access ``celery_app.producer_pool`` (the same cached pool ``send_task``
     pulls from) and acquire/release a producer to force the underlying
     Redis connection to be established.
+
+    This runs as a **non-blocking background task** so server startup is
+    not delayed.  If the first request arrives before pre-warming finishes,
+    it simply pays the one-time connection cost itself.
     """
     try:
         from app.shared.tasks.celery_app import celery_app
@@ -48,17 +52,16 @@ async def _prewarm_celery_broker():
             producer = pool.acquire(block=True)  # establishes Redis connection
             pool.release(producer)  # return to pool for reuse by send_task
 
-        # Cap at 15s so startup isn't delayed if Redis is unreachable
-        await asyncio.wait_for(asyncio.to_thread(_warm), timeout=15.0)
-        logger.info("Celery broker connection pre-warmed successfully")
-    except asyncio.TimeoutError:
-        logger.warning(
-            "Celery broker pre-warm timed out after 15s "
-            "(brokers may be down; first request may be slower)"
+        # Run in background — do not block server startup.
+        # The 15s timeout still applies per-task; first request will wait
+        # if the background task is still in progress.
+        asyncio.create_task(
+            asyncio.wait_for(asyncio.to_thread(_warm), timeout=15.0)
         )
+        logger.info("Celery broker pre-warm started in background")
     except Exception as exc:
         logger.warning(
-            f"Celery broker pre-warm failed (will retry on first request): {exc}",
+            f"Celery broker pre-warm scheduling failed: {exc}",
             exc_info=True,
         )
 

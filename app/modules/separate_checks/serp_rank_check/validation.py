@@ -68,6 +68,7 @@ def compute_fingerprint(
     keyword: str,
     domain: str | None,
     location_name: str,
+    location_code: int | None,
     language_name: str,
     device: str,
     depth: int,
@@ -77,6 +78,12 @@ def compute_fingerprint(
 
     Uses ``location_name`` and ``language_name`` (strings accepted
     directly by the DataForSEO API) instead of integer codes.
+
+    ``location_code`` is included so that a search targeting the same
+    keyword from two *different* location codes (e.g. the City
+    "Jaipur" vs. the Sub District "Jaipur" which share a name but
+    have distinct codes) are not mistakenly de-duplicated as the same
+    in-flight check.
 
     The fingerprint identifies a *search configuration*, not an
     individual check — repeated checks with the same configuration
@@ -91,6 +98,7 @@ def compute_fingerprint(
         "keyword": keyword,
         "domain": domain,
         "location_name": location_name,
+        "location_code": location_code,
         "language_name": language_name,
         "device": device,
         "depth": depth,

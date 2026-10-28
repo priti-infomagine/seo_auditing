@@ -34,6 +34,10 @@ from .storage import WriteBehindStore
 from .summary import summarize_page
 
 from app.core.logger import logger
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 
 
 class CoreSEOCrawlerService:
@@ -68,6 +72,8 @@ class CoreSEOCrawlerService:
         max_pages: int | None = None,
         max_depth: int | None = None,
         audit_id: str | None = None,
+        require_sitemap: bool = False,
+        preflight_sitemap_urls: list[str] | None = None,
     ) -> str:
         """Start a full Core SEO audit from a start URL.
 
@@ -105,7 +111,29 @@ class CoreSEOCrawlerService:
             start_url=start_url,
             max_pages=max_pages,
             max_depth=max_depth,
+            preflight_sitemap_urls=preflight_sitemap_urls,
         )
+
+        # Sitemap-required gate: when enabled, the audit must not proceed
+        # unless live discovery found at least one sitemap-sourced URL. This is
+        # evaluated here (after discovery) so the gate is exercised only by the
+        # real crawl path; callers that pass require_sitemap=False (e.g. tests)
+        # are unaffected.
+        if require_sitemap:
+            has_sitemap = any(
+                du.source_type == "sitemap" for du in discovered_urls
+            )
+            if not has_sitemap:
+                await self._emit_event(
+                    CoreSEOEventType.AUDIT_FAILED, audit_id,
+                    {"error": NO_SITEMAP_MESSAGE, "start_url": start_url},
+                )
+                EventBus.set_audit_state(
+                    audit_id, status="failed",
+                    start_url=start_url, error=NO_SITEMAP_MESSAGE,
+                )
+                self._write_behind.mark_dirty(audit_id)
+                raise NoSitemapAvailableError()
 
         for du in discovered_urls:
             await self._emit_event(CoreSEOEventType.PAGE_DISCOVERED, audit_id, {
@@ -274,6 +302,7 @@ class CoreSEOCrawlerService:
         max_pages: int | None = None,
         max_depth: int | None = None,
         audit_id: str | None = None,
+        require_sitemap: bool = False,
     ) -> tuple[str, list[str]]:
         """Discover pages and emit events, but don't process them.
 
@@ -418,6 +447,7 @@ class CoreSEOCrawlerService:
                 "audit_id": audit_id,
                 "status": state.get("status", "unknown"),
                 "start_url": state.get("start_url"),
+                "error": state.get("error"),
                 "total_pages": counters.get("pages_discovered", 0),
                 "pages_done": counters.get("pages_crawled", 0),
                 "pages_failed": counters.get("pages_failed", 0),

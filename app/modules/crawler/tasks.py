@@ -9,8 +9,13 @@ from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+from app.modules.crawler.services.site_discovery_service import (
+    deserialize_site_result,
+)
+from app.modules.separate_checks.sitemap_check.errors import NoSitemapAvailableError
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
+from app.core.redis import get_redis
 from app.shared.utils.url_utils import get_domain
 
 
@@ -135,6 +140,26 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
 
             try:
                 cfg = job.crawl_config or {}
+
+                # Retrieve pre-flight discovery result from Redis (if the HTTP
+                # handler ran a pre-flight check). Falls back to worker-side
+                # discovery when the key is missing or Redis is unavailable.
+                preflight_site_result = None
+                redis_client = get_redis()
+                if redis_client:
+                    discovery_key = f"crawler:discovery:{audit_id}"
+                    try:
+                        cached = await redis_client.get(discovery_key)
+                        if cached:
+                            preflight_site_result = deserialize_site_result(cached)
+                        await redis_client.delete(discovery_key)
+                    except Exception:
+                        logger.debug(
+                            "Pre-flight discovery cache miss or parse error "
+                            "for audit_id=%s; will discover in-worker",
+                            audit_id,
+                        )
+
                 orchestrator = CrawlOrchestrator(db, crawl_uuid)
                 result = await orchestrator.run(
                     start_url=url,
@@ -147,6 +172,7 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                     respect_robots=cfg.get("respect_robots", True),
                     user_agent=cfg.get("user_agent"),
                     progress_callback=_progress_callback,
+                    preflight_site_result=preflight_site_result,
                     require_sitemap=True,
                 )
 

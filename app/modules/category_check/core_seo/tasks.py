@@ -107,11 +107,33 @@ def run_audit_inline(
     max_pages: int | None = None,
     max_depth: int | None = None,
     audit_id: str | None = None,
+    require_sitemap: bool = False,
 ) -> str:
     """Run a full audit in-line (no Celery).
 
     Pipeline events are emitted directly to Redis via EventBus.
     """
+    # Retrieve pre-flight sitemap URLs from Redis (cached by the HTTP handler)
+    # to avoid re-running sitemap discovery inside the worker.
+    preflight_sitemap_urls: list[str] | None = None
+    if audit_id:
+        try:
+            from .events import _get_sync_redis
+
+            redis_client = _get_sync_redis()
+            if redis_client:
+                key = f"core_seo:discovery:{audit_id}"
+                cached = redis_client.get(key)
+                if cached:
+                    preflight_sitemap_urls = json.loads(cached)
+                redis_client.delete(key)
+        except Exception:
+            logger.debug(
+                "Pre-flight sitemap cache miss for audit_id=%s; "
+                "will discover in-worker",
+                audit_id,
+            )
+
     service = CoreSEOCrawlerService()
     audit_id = _run_async(
         service.start_audit(
@@ -119,6 +141,8 @@ def run_audit_inline(
             max_pages=max_pages,
             max_depth=max_depth,
             audit_id=audit_id,
+            require_sitemap=require_sitemap,
+            preflight_sitemap_urls=preflight_sitemap_urls,
         )
     )
     return audit_id
@@ -151,14 +175,15 @@ if CELERY_AVAILABLE:
         return finalize_audit_inline(audit_id)
 
     @celery_app.task(name="core_seo.run_audit", bind=True, max_retries=3)
-    def run_audit(self, start_url: str, max_pages: int = DEFAULT_MAX_PAGES, max_depth: int = DEFAULT_MAX_DEPTH, audit_id: str | None = None) -> str:
+    def run_audit(self, start_url, max_pages=DEFAULT_MAX_PAGES, max_depth=DEFAULT_MAX_DEPTH, audit_id=None, require_sitemap=False):
         """Celery task: run a full Core SEO audit.
 
         Delegates to ``run_audit_inline`` — all events are emitted directly
         to Redis via EventBus, visible to the web API process in real time.
         """
         return run_audit_inline(
-            start_url, max_pages=max_pages, max_depth=max_depth, audit_id=audit_id
+            start_url, max_pages=max_pages, max_depth=max_depth, audit_id=audit_id,
+            require_sitemap=require_sitemap,
         )
 
 else:

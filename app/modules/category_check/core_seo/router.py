@@ -18,7 +18,11 @@ from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, We
 from fastapi.responses import JSONResponse
 
 from app.core.logger import logger
-
+from app.core.redis import get_redis
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 from .events import EventBus
 from .models import CoreSEOEventType
 from .page_discoverer import PageDiscoverer
@@ -30,6 +34,7 @@ from .schema import (
     CrawlStatusResponse,
     RuleResultSchema,
 )
+from .url_normalizer import URLNormalizer
 from .tasks import CELERY_AVAILABLE, run_audit
 
 router = APIRouter(prefix="/core-seo")
@@ -60,6 +65,31 @@ async def start_audit(config: AuditConfig):
     audit_id = str(uuid.uuid4())
 
     if CELERY_AVAILABLE:
+        # --- Pre-flight sitemap check (fail fast before queueing) ---
+        normalized = URLNormalizer.normalize_url(config.url)
+        domain = URLNormalizer.get_domain(normalized)
+        discoverer = PageDiscoverer()
+        sitemap_urls = await discoverer._discover_sitemap_urls(
+            normalized, domain, 100
+        )
+        if not sitemap_urls:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=NO_SITEMAP_MESSAGE,
+            )
+
+        # Cache sitemap URLs in Redis for the worker to reuse
+        redis_client = await get_redis()
+        if redis_client:
+            try:
+                await redis_client.setex(
+                    f"core_seo:discovery:{audit_id}",
+                    3600,
+                    json.dumps(sitemap_urls),
+                )
+            except Exception:
+                logger.debug("Failed to cache pre-flight sitemap URLs in Redis")
+
         # Dispatch the Celery task; send_task/delay is blocking (Redis I/O),
         # so run it in a thread to avoid blocking the event loop.
         await asyncio.to_thread(
@@ -67,16 +97,25 @@ async def start_audit(config: AuditConfig):
             config.url,
             config.max_pages,
             audit_id=audit_id,
+            require_sitemap=True,
         )
         logger.info("Core SEO audit dispatched to Celery: audit_id=%s", audit_id)
     else:
         # Fallback: run inline (no Celery worker available)
         service = get_service()
-        await service.start_audit(
-            start_url=config.url,
-            max_pages=config.max_pages,
-            audit_id=audit_id,
-        )
+        try:
+            await service.start_audit(
+                start_url=config.url,
+                max_pages=config.max_pages,
+                audit_id=audit_id,
+                require_sitemap=True,
+            )
+        except NoSitemapAvailableError:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=NO_SITEMAP_MESSAGE,
+                headers={"X-Sitemap-Check": "not-found"},
+            )
         logger.info("Core SEO audit completed inline: audit_id=%s", audit_id)
 
     return CrawlStartedResponse(

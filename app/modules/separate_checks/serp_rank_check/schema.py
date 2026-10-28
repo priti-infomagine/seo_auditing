@@ -11,6 +11,16 @@ class RankCheckRequest(BaseModel):
     keyword: str = Field(min_length=1, max_length=700)
     domain: str | None = Field(default=None, max_length=253)
     location: str = Field(min_length=1, max_length=200)
+    location_code: int | None = Field(
+        default=None,
+        ge=1,
+        description=(
+            "Optional DataForSEO location_code. When provided it targets "
+            "the exact location (e.g. a specific City) and takes "
+            "precedence over location_name; location_name is still "
+            "required for display and backward compatibility."
+        ),
+    )
     language: str = Field(min_length=1, max_length=100)
     device: Literal["desktop", "mobile"] = "desktop"
     depth: Literal[10, 20, 50, 100] = 10
@@ -69,6 +79,7 @@ class RankCheckStatusResponse(BaseModel):
     keyword: str
     domain: str | None = None
     location: str
+    location_code: int | None = None
     language: str
     device: str
     depth: int
@@ -88,6 +99,14 @@ class RankCheckListResponse(BaseModel):
     offset: int
 
 
+class LocationOption(BaseModel):
+    """A single DataForSEO location returned by the `/locations` search."""
+
+    code: int
+    name: str
+    type: str | None = None
+
+
 class SERPResponseSchema(BaseModel):
     """Unified response model for the synchronous SERP rank-check endpoint."""
 
@@ -95,6 +114,7 @@ class SERPResponseSchema(BaseModel):
     keyword: str
     domain: str | None = None
     location: str
+    location_code: int | None = None
     language: str
     device: str
     deep_tracking: bool

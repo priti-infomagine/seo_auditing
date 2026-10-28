@@ -77,6 +77,7 @@ class TestComputeFingerprint:
             "keyword": "seo tools",
             "domain": "example.com",
             "location_name": "United States",
+            "location_code": None,
             "language_name": "English",
             "device": "desktop",
             "depth": 10,
@@ -100,6 +101,14 @@ class TestComputeFingerprint:
     def test_different_location_changes_fingerprint(self):
         assert self._fp() != self._fp(location_name="London")
 
+    def test_different_location_code_changes_fingerprint(self):
+        # Same keyword + location_name but different codes must NOT be
+        # de-duplicated (they target different geographic locations).
+        assert self._fp(location_code=2840) != self._fp(location_code=21132)
+
+    def test_location_code_none_is_deterministic(self):
+        assert self._fp(location_code=None) == self._fp(location_code=None)
+
     def test_different_language_changes_fingerprint(self):
         assert self._fp() != self._fp(language_name="French")
 
@@ -117,6 +126,7 @@ class TestComputeFingerprint:
             "keyword": "seo tools",
             "domain": "example.com",
             "location_name": "United States",
+            "location_code": None,
             "language_name": "English",
             "device": "desktop",
             "depth": 10,

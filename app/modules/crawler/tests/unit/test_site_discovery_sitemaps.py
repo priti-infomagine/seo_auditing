@@ -18,6 +18,9 @@ from app.modules.crawler.services.site_discovery_service import (
     SiteDiscoveryResult,
     SiteDiscoveryService,
     SitemapEvidence,
+    RobotsTxtEvidence,
+    serialize_site_result,
+    deserialize_site_result,
 )
 from app.modules.crawler.utils.sitemap_discoverer import SitemapDiscoverer
 from app.shared.utils.http_client import HTTPClient
@@ -605,3 +608,94 @@ class TestSitemapLimits:
             urls.extend(s.urls)
         assert "https://example.com/ok" in urls
         assert len(sitemaps) >= 1  # valid sitemap still present
+
+
+# ---------------------------------------------------------------------------
+# Serialization round-trip tests for Redis-cached pre-flight results
+# ---------------------------------------------------------------------------
+class TestSerialization:
+    """Verify serialize/deserialize round-trip preserves all fields."""
+
+    def test_round_trip_preserves_fields(self):
+        result = SiteDiscoveryResult(
+            robots=RobotsTxtEvidence(
+                url="https://example.com/robots.txt",
+                exists=True,
+                status_code=200,
+                content="User-agent: *",
+                rules_count=1,
+                allows_crawling=True,
+                sitemap_references=["https://example.com/sitemap.xml"],
+            ),
+            sitemaps=[
+                SitemapEvidence(
+                    url="https://example.com/sitemap.xml",
+                    exists=True,
+                    status_code=200,
+                    content_type="application/xml",
+                    content_length=1024,
+                    raw_content="<urlset>...</urlset>",
+                    urls=["https://example.com/page1", "https://example.com/page2"],
+                    child_sitemaps=[],
+                    is_index=False,
+                    error=None,
+                ),
+            ],
+            discovered_urls=["https://example.com/page1", "https://example.com/page2"],
+            sitemap_probes=[
+                SitemapEvidence(
+                    url="https://example.com/wp-sitemap.xml",
+                    exists=False,
+                    status_code=None,
+                    error="404 Not Found",
+                ),
+            ],
+        )
+
+        serialized = serialize_site_result(result)
+        deserialized = deserialize_site_result(serialized)
+
+        assert deserialized.robots.url == result.robots.url
+        assert deserialized.robots.exists == result.robots.exists
+        assert deserialized.robots.status_code == result.robots.status_code
+        assert deserialized.robots.sitemap_references == result.robots.sitemap_references
+
+        assert len(deserialized.sitemaps) == 1
+        assert deserialized.sitemaps[0].url == "https://example.com/sitemap.xml"
+        assert deserialized.sitemaps[0].urls == ["https://example.com/page1", "https://example.com/page2"]
+        assert deserialized.sitemaps[0].is_index is False
+
+        assert deserialized.discovered_urls == ["https://example.com/page1", "https://example.com/page2"]
+        assert len(deserialized.sitemap_probes) == 1
+        assert deserialized.sitemap_probes[0].error == "404 Not Found"
+
+    def test_round_trip_empty_result(self):
+        result = SiteDiscoveryResult(
+            robots=RobotsTxtEvidence(),
+            sitemaps=[],
+            discovered_urls=[],
+            sitemap_probes=[],
+        )
+        serialized = serialize_site_result(result)
+        deserialized = deserialize_site_result(serialized)
+        assert deserialized.robots.exists is False
+        assert deserialized.sitemaps == []
+        assert deserialized.discovered_urls == []
+        assert deserialized.sitemap_probes == []
+
+    def test_round_trip_sitemap_index(self):
+        result = SiteDiscoveryResult(
+            robots=RobotsTxtEvidence(),
+            sitemaps=[
+                SitemapEvidence(
+                    url="https://example.com/sitemap_index.xml",
+                    is_index=True,
+                    child_sitemaps=["https://example.com/sitemap-posts.xml"],
+                    urls=[],
+                ),
+            ],
+        )
+        serialized = serialize_site_result(result)
+        deserialized = deserialize_site_result(serialized)
+        assert deserialized.sitemaps[0].is_index is True
+        assert deserialized.sitemaps[0].child_sitemaps == ["https://example.com/sitemap-posts.xml"]

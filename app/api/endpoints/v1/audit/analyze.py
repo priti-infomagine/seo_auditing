@@ -28,7 +28,13 @@ from app.modules.audit.schemas.audit_schemas import (
 )
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+from app.modules.crawler.services.site_discovery_service import (
+    SiteDiscoveryService,
+    serialize_site_result,
+)
+from app.modules.separate_checks.sitemap_check.errors import NO_SITEMAP_MESSAGE
 from app.shared.tasks.celery_app import celery_app
+from app.core.redis import get_redis
 from app.shared.utils.url_utils import get_domain
 
 router = APIRouter()
@@ -93,6 +99,38 @@ async def analyze_website(
             )
 
         audit_id = uuid.uuid4()
+
+        # --- Pre-flight sitemap check (fail fast before queueing) ---
+        discovery = SiteDiscoveryService(
+            base_url=url_str,
+            timeout=30,
+            max_child_sitemaps=10,
+            max_urls_per_sitemap=50,
+            max_total_page_urls=50,
+            max_sitemap_index_depth=2,
+        )
+        site_result = await discovery.discover()
+
+        if not site_result.sitemaps:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=NO_SITEMAP_MESSAGE,
+            )
+
+        # Cache discovery result in Redis for the celery worker (avoids
+        # re-running discovery inside the worker)
+        redis_client = await get_redis()
+        if redis_client:
+            try:
+                await redis_client.setex(
+                    f"crawler:discovery:{audit_id}",
+                    3600,
+                    serialize_site_result(site_result),
+                )
+            except Exception:
+                logger.debug(
+                    "Failed to cache pre-flight discovery result in Redis"
+                )
 
         # effective_max_pages = (
         #      settings.CRAWL_MAX_PAGES

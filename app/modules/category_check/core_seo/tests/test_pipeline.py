@@ -9,10 +9,15 @@ import pytest
 from app.modules.category_check.core_seo.models import (
     CoreSEOEventType,
     CrawlResult,
+    DiscoveredURL,
     PageScore,
 )
 from app.modules.category_check.core_seo.events import EventBus
 from app.modules.category_check.core_seo.pipeline import CoreSEOCrawlerService
+from app.modules.separate_checks.sitemap_check.errors import (
+    NO_SITEMAP_MESSAGE,
+    NoSitemapAvailableError,
+)
 
 
 class MockCrawler:
@@ -37,7 +42,7 @@ class MockPageDiscoverer:
     def __init__(self, urls=None):
         self._urls = urls or [{"url": "https://example.com", "normalized_url": "https://example.com/", "source_type": "seed", "depth": 0}]
 
-    async def discover_pages(self, start_url: str, max_pages: int = 10, max_depth: int = 3):
+    async def discover_pages(self, start_url: str, max_pages: int = 10, max_depth: int = 3, **kwargs):
         from app.modules.category_check.core_seo.models import DiscoveredURL
         return [DiscoveredURL(**u) for u in self._urls]
 
@@ -131,7 +136,7 @@ class TestCoreSEOCrawlerService:
         pages in this mock scenario) instead of emitting an AUDIT_FAILED event."""
 
         class _EmptyDiscoverer:
-            async def discover_pages(self, start_url, max_pages=10, max_depth=3):
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
                 return []
 
         service = CoreSEOCrawlerService()
@@ -151,6 +156,78 @@ class TestCoreSEOCrawlerService:
         # Should have AUDIT_COMPLETED
         assert CoreSEOEventType.AUDIT_COMPLETED.value in event_types
         assert CoreSEOEventType.AUDIT_STARTED.value in event_types
+
+        state = EventBus.get_audit_state(audit_id)
+        assert state.get("status") == "completed"
+
+        EventBus.clear_audit_state(audit_id)
+
+    @pytest.mark.asyncio
+    async def test_start_audit_no_sitemap_required_raises(self, sample_html):
+        """When require_sitemap=True and discoverer returns no sitemap-sourced URLs,
+        start_audit emits AUDIT_FAILED, sets state to failed, and raises."""
+
+        class _NoSitemapDiscoverer:
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
+                return [DiscoveredURL(
+                    url=start_url,
+                    normalized_url=start_url,
+                    source_type="seed",
+                    depth=0,
+                )]
+
+        service = CoreSEOCrawlerService()
+        service.crawler = MockCrawler(sample_html)
+        service.page_discoverer = _NoSitemapDiscoverer()
+        audit_id = "test-no-sitemap-gate"
+
+        with pytest.raises(NoSitemapAvailableError) as exc_info:
+            await service.start_audit(
+                start_url="https://example.com",
+                max_pages=1, max_depth=1,
+                audit_id=audit_id,
+                require_sitemap=True,
+            )
+        assert exc_info.value.message == NO_SITEMAP_MESSAGE
+
+        events = EventBus.get_events_for_audit(audit_id)
+        event_types = {e.event_type for e in events}
+        assert CoreSEOEventType.AUDIT_FAILED.value in event_types
+
+        state = EventBus.get_audit_state(audit_id)
+        assert state.get("status") == "failed"
+        assert state.get("error") == NO_SITEMAP_MESSAGE
+
+        EventBus.clear_audit_state(audit_id)
+
+    @pytest.mark.asyncio
+    async def test_start_audit_sitemap_required_proceeds_when_sitemap_present(self, sample_html):
+        """When require_sitemap=True and discoverer returns sitemap-sourced URLs,
+        start_audit proceeds normally (no raise, audit completes)."""
+
+        class _HasSitemapDiscoverer:
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
+                return [DiscoveredURL(
+                    url=start_url,
+                    normalized_url=start_url,
+                    source_type="sitemap",
+                    depth=0,
+                )]
+
+        service = CoreSEOCrawlerService()
+        service.crawler = MockCrawler(sample_html)
+        service.page_discoverer = _HasSitemapDiscoverer()
+
+        audit_id = await service.start_audit(
+            start_url="https://example.com",
+            max_pages=1, max_depth=1,
+            require_sitemap=True,
+        )
+
+        events = EventBus.get_events_for_audit(audit_id)
+        event_types = {e.event_type for e in events}
+        assert CoreSEOEventType.AUDIT_FAILED.value not in event_types
+        assert CoreSEOEventType.AUDIT_COMPLETED.value in event_types
 
         state = EventBus.get_audit_state(audit_id)
         assert state.get("status") == "completed"

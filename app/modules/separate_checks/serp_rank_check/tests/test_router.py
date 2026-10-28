@@ -20,6 +20,8 @@ from app.modules.separate_checks.serp_rank_check.repository import (
 from .conftest import (
     FAKE_USER_ID,
     feature_item,
+    make_location,
+    make_locations_body,
     make_serp_body,
     make_serp_body_no_match,
     make_serp_body_with_target_at,
@@ -568,3 +570,168 @@ async def test_auto_deep_tracking_provider_5xx_returns_502(
             f"{API}/rank-checks", json=_valid_payload()
         )
     assert response.status_code == 502
+
+
+# ── location_code round-trip ──────────────────────────────────
+@pytest.mark.asyncio
+async def test_create_rank_check_returns_location_code(
+    db_session, fake_serp_client
+):
+    """A request with location_code echoes it back and forwards it to the
+    provider (name still required for display / backward compat)."""
+    items = [organic_item(1, "https://example.com/")]
+    fake_serp_client.set_response(make_serp_body(items))
+
+    payload = _valid_payload()
+    payload["location_code"] = 1007805
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=payload
+        )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["location_code"] == 1007805
+    assert body["location"] == "United States"
+    assert fake_serp_client.calls[0]["location_code"] == 1007805
+
+
+@pytest.mark.asyncio
+async def test_create_rank_check_without_location_code_is_none(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(make_serp_body([]))
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload()
+        )
+    assert response.status_code == 200
+    assert response.json()["location_code"] is None
+
+
+# ── /locations autocomplete ──────────────────────────────
+@pytest.mark.asyncio
+async def test_locations_filters_sorts_city_first(
+    db_session, fake_serp_client
+):
+    """Jaipur City (1007805) and Jaipur Sub District (9182305) share a
+    name — the City must sort first so the code disambiguates them."""
+    locations = [
+        make_location(9182305, "Jaipur,Rajasthan,India", "Sub District"),
+        make_location(1007805, "Jaipur,Rajasthan,India", "City"),
+        make_location(12345, "Ajmer,Rajasthan,India", "City"),  # no match
+    ]
+    fake_serp_client.set_locations_response(make_locations_body(locations))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.get(
+            f"{API}/locations", params={"q": "jaipur", "country": "in"}
+        )
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) == 2
+    assert data[0]["code"] == 1007805
+    assert data[0]["name"] == "Jaipur,Rajasthan,India"
+    assert data[0]["type"] == "City"
+    assert data[1]["code"] == 9182305
+    assert data[1]["type"] == "Sub District"
+    # Provider called with the country and cached.
+    assert fake_serp_client.location_calls[0]["country"] == "in"
+
+
+@pytest.mark.asyncio
+async def test_locations_caps_results_at_10(
+    db_session, fake_serp_client
+):
+    cities = [
+        make_location(100000 + i, f"Jaipur {i},Rajasthan,India", "City")
+        for i in range(1, 13)
+    ]
+    cities.append(
+        make_location(9182305, "Jaipur,Rajasthan,India", "Sub District")
+    )
+    fake_serp_client.set_locations_response(make_locations_body(cities))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.get(
+            f"{API}/locations", params={"q": "jaipur", "country": "in"}
+        )
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) == 10
+    assert all(item["type"] == "City" for item in data)
+
+
+@pytest.mark.asyncio
+async def test_locations_empty_query_returns_empty(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_locations_response(
+        make_locations_body(
+            [make_location(1007805, "Jaipur,Rajasthan,India", "City")]
+        )
+    )
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.get(
+            f"{API}/locations", params={"q": "", "country": "in"}
+        )
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+@pytest.mark.asyncio
+async def test_locations_caches_per_country(
+    db_session, fake_serp_client
+):
+    """The same country is fetched from DataForSEO only once."""
+    fake_serp_client.set_locations_response(
+        make_locations_body(
+            [make_location(1007805, "Jaipur,Rajasthan,India", "City")]
+        )
+    )
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        r1 = await client.get(
+            f"{API}/locations", params={"q": "jaipur", "country": "in"}
+        )
+        r2 = await client.get(
+            f"{API}/locations", params={"q": "jaip", "country": "in"}
+        )
+    assert r1.status_code == 200 and r2.status_code == 200
+    # Second request served from the in-memory cache — no second fetch.
+    assert len(fake_serp_client.location_calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_locations_provider_not_configured_returns_503(
+    db_session, fake_serp_client, monkeypatch
+):
+    from app.modules.separate_checks.serp_rank_check.client import (
+        SERPDataForSEOConfigurationError,
+    )
+
+    async def _raise():
+        raise SERPDataForSEOConfigurationError("not configured")
+
+    monkeypatch.setattr(
+        "app.modules.separate_checks.serp_rank_check.router.get_serp_client",
+        _raise,
+    )
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.get(
+            f"{API}/locations", params={"q": "jaipur", "country": "in"}
+        )
+    assert response.status_code == 503

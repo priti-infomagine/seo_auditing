@@ -15,7 +15,8 @@ It does NOT:
 import asyncio
 from contextlib import asynccontextmanager
 import gzip
-from dataclasses import dataclass, field
+import json
+from dataclasses import asdict, dataclass, field
 from typing import AsyncGenerator, List, Optional, Set
 from urllib.parse import urljoin, urlparse
 
@@ -56,10 +57,27 @@ class SitemapEvidence:
 @dataclass
 class SiteDiscoveryResult:
     """Combined site discovery result."""
+
     robots: RobotsTxtEvidence
     sitemaps: list = field(default_factory=list)
     discovered_urls: list = field(default_factory=list)
     sitemap_probes: list = field(default_factory=list)
+
+
+def serialize_site_result(result: SiteDiscoveryResult) -> str:
+    """Serialize SiteDiscoveryResult to JSON for Redis storage."""
+    return json.dumps(asdict(result), default=str)
+
+
+def deserialize_site_result(data: str) -> SiteDiscoveryResult:
+    """Reconstruct SiteDiscoveryResult from JSON cached in Redis."""
+    d = json.loads(data)
+    return SiteDiscoveryResult(
+        robots=RobotsTxtEvidence(**d["robots"]),
+        sitemaps=[SitemapEvidence(**s) for s in d["sitemaps"]],
+        discovered_urls=d["discovered_urls"],
+        sitemap_probes=[SitemapEvidence(**s) for s in d["sitemap_probes"]],
+    )
 
 
 class SiteDiscoveryService:

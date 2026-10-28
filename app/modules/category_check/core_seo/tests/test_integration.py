@@ -75,7 +75,7 @@ class TestFullAudit:
             def __init__(self, html):
                 self._html = html
 
-            async def discover_pages(self, start_url, max_pages=10, max_depth=3):
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
                 from app.modules.category_check.core_seo.models import DiscoveredURL
                 return [DiscoveredURL(
                     url=start_url,
@@ -106,7 +106,7 @@ class TestFullAudit:
             def __init__(self, html):
                 self._html = html
 
-            async def discover_pages(self, start_url, max_pages=10, max_depth=3):
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
                 from app.modules.category_check.core_seo.models import DiscoveredURL
                 return [DiscoveredURL(
                     url=start_url, normalized_url=start_url,
@@ -194,7 +194,7 @@ class TestFullAudit:
                 )
 
         class MockMultiDiscoverer:
-            async def discover_pages(self, start_url, max_pages=10, max_depth=3):
+            async def discover_pages(self, start_url, max_pages=10, max_depth=3, **kwargs):
                 from app.modules.category_check.core_seo.models import DiscoveredURL
                 return [
                     DiscoveredURL(url="https://example.com", normalized_url="https://example.com/",

@@ -9,6 +9,12 @@ Key differences from ``backlink_analysis.data_for_seo_client``:
 * Accepts ``location_name`` and ``language_name`` **strings**
   (e.g. ``"United States"``, ``"English"``) directly — no
   integer ``location_code`` / ``language_code`` lookup is needed.
+  An optional integer ``location_code`` may be supplied instead of
+  (or in preference to) ``location_name``; when provided it takes
+  precedence so that ambiguous names such as ``"Jaipur"`` resolve
+  to a single, exact location.  ``location_name`` and
+  ``location_code`` are **never sent together** — the provider
+  rejects requests that include both.
 * Raises typed exceptions (``SerpProvider4xx``, ``SerpProvider5xx``,
   ``SerpProviderTimeout``) so the caller can classify errors and
   decide on retry behaviour.  An empty response body is **not**
@@ -86,7 +92,8 @@ class SERPDataForSEOClient:
         self,
         *,
         keyword: str,
-        location_name: str,
+        location_name: str | None = None,
+        location_code: int | None = None,
         language_name: str,
         device: str,
         depth: int,
@@ -99,6 +106,14 @@ class SERPDataForSEOClient:
         Returns the raw response body (a dict with ``status_code``,
         ``tasks``, ``cost`` etc.).  The caller is responsible for
         validating the body's ``status_code`` and extracting results.
+
+        ``location_code`` and ``location_name`` are mutually exclusive
+        location specifiers.  When ``location_code`` is provided it
+        takes precedence and ``location_name`` is omitted; otherwise
+        ``location_name`` is sent.  This lets callers target an
+        exact location by integer code, avoiding the ambiguity of
+        names such as ``"Jaipur"`` (which may match a City *and* a
+        Sub District).
 
         When ``stop_crawl_on_match`` is provided, DataForSEO stops
         crawling once a matching URL is found, returning results up
@@ -113,11 +128,17 @@ class SERPDataForSEOClient:
         """
         task: dict[str, Any] = {
             "keyword": keyword,
-            "location_name": location_name,
             "language_name": language_name,
             "device": device,
             "depth": depth,
         }
+        # Send exactly one location specifier.  location_code takes
+        # precedence so an exact integer target wins over an ambiguous
+        # name; DataForSEO rejects requests that include both.
+        if location_code is not None:
+            task["location_code"] = location_code
+        elif location_name is not None:
+            task["location_name"] = location_name
         if find_targets_in is not None:
             task["find_targets_in"] = find_targets_in
         if stop_crawl_on_match is not None:
@@ -128,6 +149,27 @@ class SERPDataForSEOClient:
         return await self._post_with_retries(
             "/serp/google/organic/live/advanced", payload
         )
+
+    async def serp_google_locations(
+        self,
+        *,
+        country: str | None = None,
+    ) -> dict[str, Any]:
+        """Fetch the list of Google locations from DataForSEO.
+
+        Calls ``GET /serp/google/locations`` (all locations) or
+        ``GET /serp/google/locations/{country}`` when a country ISO
+        code is supplied (e.g. ``"in"``, ``"us"``).
+
+        Returns the raw response body.  The caller extracts
+        ``tasks[0].result``.  Retries on transient transport / 5xx
+        responses and raises the same typed exceptions as the organic
+        call.
+        """
+        endpoint = "/serp/google/locations"
+        if country:
+            endpoint = f"{endpoint}/{country}"
+        return await self._get_with_retries(endpoint)
 
     # ── internals ───────────────────────────────────────────
 
@@ -187,6 +229,83 @@ class SERPDataForSEOClient:
                 )
                 # Include the response body in the error message
                 # so callers can see DataForSEO's status_message.
+                detail = ""
+                if exc.response is not None:
+                    try:
+                        err_body = exc.response.json()
+                        if isinstance(err_body, dict):
+                            msg = err_body.get("status_message", "")
+                            if msg:
+                                detail = f": {msg}"
+                    except Exception:  # noqa: BLE001
+                        detail = ""
+                if (
+                    status_code in RETRYABLE_STATUS
+                    and attempt < self._max_attempts
+                ):
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                if 500 <= status_code < 600:
+                    raise SerpProvider5xx(
+                        f"DataForSEO HTTP {status_code}{detail}"
+                    ) from exc
+                raise SerpProvider4xx(
+                    f"DataForSEO HTTP {status_code}{detail}"
+                ) from exc
+        if last_exc is not None:
+            raise SerpProviderTimeout(str(last_exc)) from last_exc
+        raise SerpProvider5xx("DataForSEO request exhausted retries")
+
+    async def _get_with_retries(
+        self,
+        endpoint: str,
+    ) -> dict[str, Any]:
+        """GET with retry-on-transient.
+
+        Mirrors ``_post_with_retries`` but for GET requests (no body).
+        Non-retryable HTTP errors (4xx) and exhausted retries propagate
+        as typed exceptions that the caller can classify.
+        """
+        import asyncio
+
+        last_exc: Exception | None = None
+        for attempt in range(1, self._max_attempts + 1):
+            try:
+                client = self._get_client()
+                response = await client.get(f"{self.BASE_URL}{endpoint}")
+                if (
+                    response.status_code in RETRYABLE_STATUS
+                    and attempt < self._max_attempts
+                ):
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                response.raise_for_status()
+                body = response.json()
+                if not isinstance(body, dict):
+                    raise TypeError(
+                        "DataForSEO returned a non-object JSON response"
+                    )
+                return body
+            except httpx.TimeoutException as exc:
+                last_exc = exc
+                if attempt < self._max_attempts:
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                raise SerpProviderTimeout(
+                    f"DataForSEO timeout: {exc}"
+                ) from exc
+            except httpx.TransportError as exc:
+                last_exc = exc
+                if attempt < self._max_attempts:
+                    await asyncio.sleep(2 ** (attempt - 1))
+                    continue
+                raise SerpProviderTimeout(
+                    f"DataForSEO connection error: {exc}"
+                ) from exc
+            except httpx.HTTPStatusError as exc:
+                status_code = (
+                    exc.response.status_code if exc.response else 0
+                )
                 detail = ""
                 if exc.response is not None:
                     try:

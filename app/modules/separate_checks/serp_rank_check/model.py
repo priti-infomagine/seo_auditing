@@ -18,9 +18,11 @@ Primary table:
   checks; the COALESCE collapses all anonymous rows to a single
   constant UUID so the fingerprint alone de-duplicates them.
 
-Location and language are now stored as **names** (strings) rather
-than integer codes — DataForSEO accepts ``location_name`` and
+Location is now stored as a **name** (string) plus an optional integer
+**location_code** — DataForSEO accepts ``location_name`` and
 ``language_name`` directly, so no reference-table lookup is needed.
+Storing the code too lets the UI target an exact location (e.g. a
+specific City) by integer code, avoiding name ambiguity.
 """
 import enum
 import uuid
@@ -120,6 +122,15 @@ class RankCheck(TimestampMixin, Base):
     domain: Mapped[str | None] = mapped_column(Text, nullable=True)
     location_name: Mapped[str] = mapped_column(Text, nullable=False)
     language_name: Mapped[str] = mapped_column(Text, nullable=False)
+    location_code: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+        comment=(
+            "DataForSEO location_code used for the rank check, when the "
+            "caller targeted a specific location by integer code. Null when "
+            "the check was run via location_name only (backward compatible)."
+        ),
+    )
     device: Mapped[str] = mapped_column(Text, nullable=False)
     depth: Mapped[int] = mapped_column(Integer, nullable=False)
     deep_tracking: Mapped[bool] = mapped_column(

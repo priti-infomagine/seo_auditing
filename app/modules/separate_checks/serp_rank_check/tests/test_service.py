@@ -182,6 +182,44 @@ async def test_check_rejects_invalid_domain(
         await _do_check(db_session, domain="not-a-domain")
 
 
+# ── location_code forwarding ──────────────────────────────────
+@pytest.mark.asyncio
+async def test_check_passes_location_code_to_provider(
+    db_session, fake_serp_client
+):
+    """When location_code is supplied it is forwarded to the provider."""
+    fake_serp_client.set_response(make_serp_body([]))
+    check, _ = await _do_check(db_session, location_code=1007805)
+    assert len(fake_serp_client.calls) == 1
+    assert fake_serp_client.calls[0]["location_code"] == 1007805
+    assert fake_serp_client.calls[0]["location_name"] == "United States"
+    # Persisted alongside the name for auditability / replay.
+    assert check.location_code == 1007805
+    assert check.location_name == "United States"
+
+
+@pytest.mark.asyncio
+async def test_check_without_location_code_omits_it(
+    db_session, fake_serp_client
+):
+    """Backward-compatible name-only request: location_code is None."""
+    fake_serp_client.set_response(make_serp_body([]))
+    check, _ = await _do_check(db_session, location_code=None)
+    assert fake_serp_client.calls[0]["location_code"] is None
+    assert check.location_code is None
+
+
+@pytest.mark.asyncio
+async def test_check_rejects_invalid_location_code(
+    db_session, fake_serp_client
+):
+    fake_serp_client.set_response(make_serp_body([]))
+    with pytest.raises(ValueError, match="location_code"):
+        await _do_check(db_session, location_code=0)
+    with pytest.raises(ValueError, match="location_code"):
+        await _do_check(db_session, location_code=-5)
+
+
 @pytest.mark.asyncio
 async def test_check_provider_5xx_marks_running(
     db_session, fake_serp_client

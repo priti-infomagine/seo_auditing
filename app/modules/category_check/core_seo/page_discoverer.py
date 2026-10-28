@@ -43,6 +43,7 @@ class PageDiscoverer:
         start_url: str,
         max_pages: int = 10,
         max_depth: int = 3,
+        preflight_sitemap_urls: list[str] | None = None,
     ) -> list[DiscoveredURL]:
         """Discover pages starting from *start_url*.
 
@@ -50,6 +51,10 @@ class PageDiscoverer:
             start_url: The seed URL to begin from.
             max_pages: Hard cap on total pages to discover.
             max_depth: Maximum link-hops from the start URL.
+            preflight_sitemap_urls: Pre-discovered sitemap page URLs from a
+                pre-flight check (HTTP level). When provided, the sitemap
+                fetch + parse steps are skipped entirely, avoiding redundant
+                network requests inside the celery worker.
 
         Returns:
             List of DiscoveredURL objects.
@@ -77,7 +82,11 @@ class PageDiscoverer:
                 )
             )
 
-        sitemap_urls = await self._discover_sitemap_urls(normalized, domain, max_pages)
+        sitemap_urls = (
+            preflight_sitemap_urls
+            if preflight_sitemap_urls is not None
+            else await self._discover_sitemap_urls(normalized, domain, max_pages)
+        )
 
         # No sitemap? Fall through to BFS link discovery from the seed URL
         # (already queued above). This allows auditing sites that don't expose a
@@ -145,17 +154,71 @@ class PageDiscoverer:
         domain: str,
         max_pages: int,
     ) -> list[str]:
-        """Fetch robots.txt and sitemap(s), return page URLs from sitemaps."""
+        """Fetch robots.txt and sitemap(s), return page URLs from sitemaps.
+
+        Sitemaps are discovered from two sources:
+        1. ``Sitemap:`` directives in robots.txt
+        2. Common sitemap paths (/sitemap.xml, /wp-sitemap.xml, etc.)
+
+        Sitemap-index files are recursively expanded to fetch their child
+        sitemaps before extracting page URLs.
+        """
         sitemap_urls: list[str] = []
 
         robots_url = self._build_robots_url(start_url)
         robots_text = await self._fetch_text(robots_url)
 
+        sitemap_candidates: list[str] = []
         if robots_text:
-            sitemap_locs = self._extract_sitemap_locations(robots_text)
-            for loc in sitemap_locs[:10]:
-                urls = await self._parse_sitemap(loc, max_pages)
-                sitemap_urls.extend(urls)
+            sitemap_candidates.extend(
+                self._extract_sitemap_locations(robots_text)
+            )
+
+        # Probe common sitemap locations — many sites publish a sitemap without
+        # referencing it in robots.txt. Mirrors SiteDiscoveryService behavior.
+        parts = urlsplit(start_url)
+        base = f"{parts.scheme}://{parts.netloc}"
+        common_paths = [
+            "/sitemap.xml",
+            "/sitemap_index.xml",
+            "/sitemap-index.xml",
+            "/sitemap/",
+            "/wp-sitemap.xml",
+            "/posts/sitemap.xml",
+            "/pages/sitemap.xml",
+            "/sitemap-posts.xml",
+            "/sitemap-pages.xml",
+        ]
+        for path in common_paths:
+            url = urljoin(base, path)
+            if url not in sitemap_candidates:
+                sitemap_candidates.append(url)
+
+        seen: set[str] = set()
+        for sitemap_url in sitemap_candidates[:20]:
+            if sitemap_url in seen:
+                continue
+            seen.add(sitemap_url)
+
+            if len(sitemap_urls) >= max_pages:
+                break
+
+            urls, child_sitemaps = await self._parse_sitemap_with_children(
+                sitemap_url, max_pages
+            )
+            sitemap_urls.extend(urls)
+
+            # Recursively expand child sitemaps from sitemap-index files
+            for child_url in child_sitemaps:
+                if child_url in seen:
+                    continue
+                seen.add(child_url)
+                if len(sitemap_urls) >= max_pages:
+                    break
+                child_urls, _ = await self._parse_sitemap_with_children(
+                    child_url, max_pages
+                )
+                sitemap_urls.extend(child_urls)
 
         return sitemap_urls[:max_pages]
 
@@ -181,6 +244,19 @@ class PageDiscoverer:
                             return await response.text()
             except Exception:
                 return ""
+
+        # Fallback: httpx (aiohttp not installed)
+        try:
+            import httpx
+
+            async with httpx.AsyncClient(
+                timeout=DEFAULT_TIMEOUT, follow_redirects=True
+            ) as client:
+                response = await client.get(url)
+                if response.status_code == 200:
+                    return response.text
+        except Exception:
+            return ""
         return ""
 
     async def _fetch_html(self, url: str) -> str:
@@ -202,55 +278,100 @@ class PageDiscoverer:
                     locations.append(loc)
         return locations
 
-    async def _parse_sitemap(self, sitemap_url: str, max_pages: int) -> list[str]:
-        """Parse a sitemap (XML) and return page URLs."""
+    async def _parse_sitemap_with_children(
+        self, sitemap_url: str, max_pages: int
+    ) -> tuple[list[str], list[str]]:
+        """Fetch and parse a sitemap, returning (page_urls, child_sitemap_urls).
+
+        Page URLs come from ``<url><loc>`` entries; child sitemap URLs come from
+        ``<sitemap><loc>`` entries (sitemap-index files). The caller is
+        responsible for recursively expanding child sitemaps.
+        """
         content = await self._fetch_text(sitemap_url)
         if not content:
-            return []
+            return [], []
 
-        if content.strip().startswith("<?xml") or "<urlset" in content.lower() or "<sitemapindex" in content.lower():
+        if (
+            content.strip().startswith("<?xml")
+            or "<urlset" in content.lower()
+            or "<sitemapindex" in content.lower()
+        ):
             return self._parse_sitemap_xml(content, sitemap_url, max_pages)
 
-        return [line.strip() for line in content.splitlines() if line.strip()]
+        # Non-XML: treat each non-empty line as a URL
+        urls = [line.strip() for line in content.splitlines() if line.strip()]
+        return urls[:max_pages], []
 
     def _parse_sitemap_xml(
         self, content: str, sitemap_url: str, max_pages: int
-    ) -> list[str]:
-        """Parse XML sitemap and extract URLs (handles sitemap index → nested sitemaps)."""
-        urls: list[str] = []
+    ) -> tuple[list[str], list[str]]:
+        """Parse XML sitemap and extract page URLs and child sitemap references.
+
+        Returns ``(page_urls, child_sitemap_urls)`` so the caller can
+        recursively expand sitemap-index files.
+        """
+        page_urls: list[str] = []
+        child_sitemaps: list[str] = []
         try:
             soup = BeautifulSoup(content, "xml") if BS4_AVAILABLE else None
         except Exception:
             soup = None
 
         if soup is not None:
+            # Page URLs live in <url><loc>...</loc></url>
             for loc in soup.find_all("loc"):
+                # Skip <loc> that are children of <sitemap> (those are child sitemaps)
+                parent = loc.parent
+                if parent is not None and parent.name == "sitemap":
+                    continue
                 url = loc.get_text().strip()
                 if url:
-                    urls.append(url)
+                    page_urls.append(url)
 
+            # Child sitemap references live in <sitemap><loc>...</loc></sitemap>
             for sitemap in soup.find_all("sitemap"):
                 loc = sitemap.find("loc")
                 if loc:
                     nested_url = loc.get_text().strip()
                     if nested_url:
-                        urls.append(nested_url)
+                        child_sitemaps.append(nested_url)
 
-        if not urls:
-            loc_pattern = re.compile(r"<loc>\s*(.*?)\s*</loc>", re.IGNORECASE | re.DOTALL)
-            for match in loc_pattern.finditer(content):
-                urls.append(match.group(1).strip())
+        # Fallback: regex extraction if BeautifulSoup is unavailable or found nothing
+        if not page_urls and not child_sitemaps:
+            loc_pattern = re.compile(
+                r"<loc>\s*(.*?)\s*</loc>", re.IGNORECASE | re.DOTALL
+            )
+            urlset_context = re.compile(
+                r"<urlset.*?</urlset>", re.IGNORECASE | re.DOTALL
+            )
+            index_context = re.compile(
+                r"<sitemapindex.*?</sitemapindex>", re.IGNORECASE | re.DOTALL
+            )
+            # Extract page URLs from <url> context
+            for urlset_match in urlset_context.finditer(content):
+                for match in loc_pattern.finditer(urlset_match.group(0)):
+                    page_urls.append(match.group(1).strip())
+            # Extract child sitemaps from <sitemap> context within sitemapindex
+            for index_match in index_context.finditer(content):
+                section = index_match.group(0)
+                for sm in re.finditer(
+                    r"<sitemap>\s*<loc>\s*(.*?)\s*</loc>\s*</sitemap>",
+                    section,
+                    re.IGNORECASE | re.DOTALL,
+                ):
+                    child_sitemaps.append(sm.group(1).strip())
 
+        # Deduplicate page URLs while preserving order
         seen: set[str] = set()
-        unique_urls = []
-        for url in urls:
+        unique_pages = []
+        for url in page_urls:
             if url not in seen:
                 seen.add(url)
-                unique_urls.append(url)
-            if len(unique_urls) >= max_pages:
+                unique_pages.append(url)
+            if len(unique_pages) >= max_pages:
                 break
 
-        return unique_urls
+        return unique_pages[:max_pages], child_sitemaps
 
     def _extract_links(
         self, html: str, page_url: str, domain: str
