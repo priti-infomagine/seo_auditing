@@ -47938,3 +47938,47 @@ Call log:
 2026-10-27T18:31:37 | INFO | app | sitemap.run_check: task started for check_id=c4a04b1a-2c93-4f1d-b5ef-f6afad763b8d, url=https://moneymatters.co.in, task_id=f2cd23a9-fa6e-4d19-84dd-2102b488c949
 2026-10-27T18:31:39 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=4
 2026-10-27T18:31:40 | INFO | app | sitemap.run_check: task finished for check_id=c4a04b1a-2c93-4f1d-b5ef-f6afad763b8d, status=completed
+2026-10-28T10:18:18 | INFO | app | Celery broker connection pre-warmed successfully
+2026-10-28T10:27:17 | INFO | app | Worker process initialized with persistent background event loop (pid=9992)
+2026-10-28T10:27:19 | INFO | app | meta.run_check: task started for check_id=42373ed8-a53f-4197-aebd-a0a5040226f4
+2026-10-28T10:27:21 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-28T10:27:21 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-10-28T10:27:21 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=100, max_depth=3)
+2026-10-28T10:27:21 | INFO | app | Submitted 3 sitemap URLs to crawl queue (total selected: 4)
+2026-10-28T10:27:29 | INFO | app | Worker process initialized with persistent background event loop (pid=18492)
+2026-10-28T10:27:34 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=5, pages_discovered=5, pages_failed=0, duration=14446ms
+2026-10-28T10:27:34 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 93, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-28T10:27:34 | INFO | app | meta.run_check: task finished for check_id=42373ed8-a53f-4197-aebd-a0a5040226f4, status=completed
+2026-10-28T10:27:36 | INFO | app | Worker process initialized with persistent background event loop (pid=21996)
+2026-10-28T10:39:09 | INFO | app | meta.run_check: task started for check_id=bdf0a0cb-f5c6-49de-a848-93a444543a41
+2026-10-28T10:39:11 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-28T10:39:11 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-10-28T10:39:11 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=100, max_depth=3)
+2026-10-28T10:39:11 | INFO | app | Submitted 3 sitemap URLs to crawl queue (total selected: 4)
+2026-10-28T10:39:18 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=5, pages_discovered=5, pages_failed=0, duration=8423ms
+2026-10-28T10:39:18 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 93, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-28T10:39:19 | INFO | app | meta.run_check: task finished for check_id=bdf0a0cb-f5c6-49de-a848-93a444543a41, status=completed
+2026-10-28T11:01:53 | INFO | app | meta.run_check: task started for check_id=ddeb0221-f067-430e-8a41-75a8b4d076dd
+2026-10-28T11:01:56 | INFO | app | Site discovery complete for https://seomator.com/: robots=True, sitemaps=2, page_urls=462
+2026-10-28T11:01:56 | INFO | app | Robots policy attached to scheduler for seomator.com (sitemaps: 2)
+2026-10-28T11:01:56 | INFO | app | Crawl started: https://seomator.com/ (max_pages=100, max_depth=3)
+2026-10-28T11:01:56 | INFO | app | Submitted 310 sitemap URLs to crawl queue (total selected: 462)
+2026-10-28T11:02:41 | INFO | app | Crawl completed: https://seomator.com/ — pages_crawled=119, pages_discovered=312, pages_failed=0, duration=47123ms
+2026-10-28T11:02:41 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 11237, 'non_html': 0, 'resource': 2, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-28T11:02:41 | INFO | app | meta.run_check: task finished for check_id=ddeb0221-f067-430e-8a41-75a8b4d076dd, status=completed
+2026-10-28T11:03:53 | INFO | app | meta.run_check: task started for check_id=56c016e0-bd91-416a-965b-cbb6da0ced01
+2026-10-28T11:03:54 | INFO | app | Site discovery complete for https://monkeytype.com/: robots=True, sitemaps=1, page_urls=9
+2026-10-28T11:03:54 | INFO | app | Robots policy attached to scheduler for monkeytype.com (sitemaps: 1)
+2026-10-28T11:03:54 | INFO | app | Crawl started: https://monkeytype.com/ (max_pages=100, max_depth=3)
+2026-10-28T11:03:54 | INFO | app | Submitted 5 sitemap URLs to crawl queue (total selected: 9)
+2026-10-28T11:03:55 | INFO | app | Crawl completed: https://monkeytype.com/ — pages_crawled=6, pages_discovered=6, pages_failed=0, duration=1571ms
+2026-10-28T11:03:55 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 19, 'non_html': 9, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-28T11:03:55 | INFO | app | meta.run_check: task finished for check_id=56c016e0-bd91-416a-965b-cbb6da0ced01, status=completed
+2026-10-28T11:09:01 | INFO | app | meta.run_check: task started for check_id=b38ae57d-0229-480e-9d73-3b1b7d54dda9
+2026-10-28T11:09:02 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-10-28T11:09:02 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-10-28T11:09:02 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=100, max_depth=3)
+2026-10-28T11:09:02 | INFO | app | Submitted 3 sitemap URLs to crawl queue (total selected: 4)
+2026-10-28T11:09:06 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=5, pages_discovered=5, pages_failed=0, duration=4464ms
+2026-10-28T11:09:06 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 93, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-10-28T11:09:06 | INFO | app | meta.run_check: task finished for check_id=b38ae57d-0229-480e-9d73-3b1b7d54dda9, status=completed

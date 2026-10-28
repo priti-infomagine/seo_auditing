@@ -8,11 +8,11 @@ if sys.platform == "win32":
 else:
     # Linux/macOS (incl. Docker deployment target): use uvloop if available
     # for faster I/O dispatch; fall back to stock asyncio loop otherwise.
-    try:
-        import uvloop
-        uvloop.install()
-    except ImportError:
-        pass
+        try:
+            import uvloop
+            uvloop.install()
+        except ImportError:
+            pass
 
 from contextlib import asynccontextmanager
 
