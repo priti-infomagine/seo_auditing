@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
+import app.modules.separate_checks.link_analysis.crawler as crawler_module
 from app.modules.separate_checks.link_analysis.crawler import CrawlState, SiteCrawler
 from app.modules.separate_checks.link_analysis.graph import LinkGraph
 
@@ -116,3 +117,47 @@ async def test_contact_anchors_are_recorded_without_being_crawled():
     assert len(page.non_http_links) == 2
     assert len(page.outgoing_edges) == 1
     assert queue.qsize() == 1
+
+
+@pytest.mark.asyncio
+async def test_robots_blocked_links_are_recorded_without_being_crawled(monkeypatch):
+    crawler = SiteCrawler(
+        canonical_url="https://example.com/",
+        domain="example.com",
+        max_pages=5,
+    )
+    state = CrawlState(graph=LinkGraph(base_host="example.com"))
+    queue = asyncio.Queue()
+
+    monkeypatch.setattr(
+        crawler_module,
+        "_is_robot_blocked",
+        lambda parser, url: url.endswith("/blocked"),
+    )
+
+    async def fetch(url):
+        return SimpleNamespace(
+            normalized_url=url,
+            status_code=200,
+            final_url=url,
+            redirect_chain=[],
+            content_type="text/html",
+            content=b'<a href="/blocked">Blocked page</a>',
+            error_type=None,
+            success=True,
+        )
+
+    crawler._safe_fetch = fetch
+    await crawler._process_url(
+        "https://example.com/",
+        0,
+        state,
+        object(),
+        queue,
+    )
+
+    page = state.graph.pages["https://example.com/"]
+    assert len(page.outgoing_edges) == 1
+    assert page.outgoing_edges[0].target_url == "https://example.com/blocked"
+    assert state.graph.blocked_by_robots_urls == {"https://example.com/blocked"}
+    assert queue.qsize() == 0

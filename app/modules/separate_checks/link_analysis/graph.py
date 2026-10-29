@@ -73,6 +73,7 @@ class LinkGraph:
     base_scheme: str = "https"
     crawl_truncated: bool = False
     blocked_by_robots: int = 0
+    blocked_by_robots_urls: Set[str] = field(default_factory=set)
     assets_skipped: int = 0
 
     def _ensure_edge_index(self, source: str) -> None:

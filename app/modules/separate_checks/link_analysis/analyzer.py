@@ -647,8 +647,11 @@ def compute_page_analysis(
 
         def edge_evidence(edge) -> Dict[str, Any]:
             result = (checked_urls or {}).get(edge.target_url)
-            status_class = result.status_class.value if result and hasattr(result.status_class, "value") else (
+            is_robots_blocked = edge.target_url in graph.blocked_by_robots_urls
+            status_class = "blocked_by_robots" if is_robots_blocked else (
+                result.status_class.value if result and hasattr(result.status_class, "value") else (
                 str(result.status_class) if result else None
+                )
             )
             evidence = {
                 "target_url": edge.target_url,
@@ -658,6 +661,7 @@ def compute_page_analysis(
                 "status_class": status_class,
                 "status_code": result.status_code if result else None,
                 "check_status": (
+                    "blocked_by_robots" if is_robots_blocked else
                     "checked" if result else
                     "not_applicable" if edge in node.non_http_links else
                     "not_checked"
@@ -766,6 +770,7 @@ def compute_summary(
         "pages_crawled": len(graph.pages),
         "crawl_truncated": crawl_truncated,
         "blocked_by_robots": 0,  # set by caller
+        "blocked_by_robots_urls": sorted(graph.blocked_by_robots_urls),
         "internal_link_occurrences": sum(
             1 for edge in all_page_links if edge.is_internal
         ),

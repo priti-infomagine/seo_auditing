@@ -117,6 +117,7 @@ class CrawlResult:
     pages_crawled: int
     crawl_truncated: bool
     blocked_by_robots: int
+    blocked_by_robots_urls: Set[str]
     assets_skipped: int
 
 
@@ -403,6 +404,7 @@ class SiteCrawler:
             pages_crawled=state.pages_crawled,
             crawl_truncated=state.crawl_truncated,
             blocked_by_robots=state.blocked_by_robots,
+            blocked_by_robots_urls=graph.blocked_by_robots_urls,
             assets_skipped=state.assets_skipped,
         )
 
@@ -439,6 +441,11 @@ class SiteCrawler:
         # Robots check — skip disallowed URLs (do NOT report as broken)
         if _is_robot_blocked(robot_parser, url):
             state.blocked_by_robots += 1
+            try:
+                graph_url = normalize_url(url)
+            except Exception:
+                graph_url = url
+            state.graph.blocked_by_robots_urls.add(graph_url)
             return
 
         state.pages_reserved += 1
@@ -506,6 +513,21 @@ class SiteCrawler:
             # Robots check on target
             if _is_robot_blocked(robot_parser, absolute):
                 state.blocked_by_robots += 1
+                try:
+                    blocked_target = normalize_url(absolute)
+                except Exception:
+                    blocked_target = absolute
+                edge = LinkEdge(
+                    source_url=norm_url,
+                    target_url=blocked_target,
+                    anchor_text=link_data.text,
+                    rel=link_data.rel,
+                    is_internal=is_internal,
+                    href_raw=href,
+                )
+                state.graph.add_edge(edge)
+                page_node.outgoing_edges.append(edge)
+                state.graph.blocked_by_robots_urls.add(blocked_target)
                 continue
 
             # Record edge

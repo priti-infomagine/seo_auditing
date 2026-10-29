@@ -281,6 +281,8 @@ class LinkAnalysisService:
 
             for page_node in crawl_result.graph.pages.values():
                 for edge in page_node.outgoing_edges:
+                    if edge.target_url in crawl_result.graph.blocked_by_robots_urls:
+                        continue
                     if edge.is_internal:
                         if edge.target_url not in crawl_result.graph.pages:
                             internal_unfetched.add(edge.target_url)

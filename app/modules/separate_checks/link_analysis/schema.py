@@ -90,6 +90,7 @@ class LinkAnalysisSummary(BaseModel):
     pages_crawled: int = 0
     crawl_truncated: bool = False
     blocked_by_robots: int = 0
+    blocked_by_robots_urls: List[str] = Field(default_factory=list)
     internal_link_occurrences: int = 0
     unique_internal_targets: int = 0
     unique_external_targets: int = 0
@@ -156,4 +157,3 @@ __all__ = [
     "LinkAnalysisSeverity",
     "LinkStatusClass",
 ]
-
