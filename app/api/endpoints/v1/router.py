@@ -43,6 +43,9 @@ from app.modules.separate_checks.serp_rank_check.router import (
 from app.modules.category_check.core_seo.router import (
     router as core_seo_router,
 )
+from app.modules.category_check.content.router import (
+    router as content_router,
+)
 
 router = APIRouter()
 
@@ -69,5 +72,6 @@ router.include_router(redirect_check_router, prefix="/redirect-check", tags=["Re
 router.include_router(schema_generation_router, prefix="/schema", tags=["Schema Generation"])
 router.include_router(serp_rank_check_router, prefix="/serp", tags=["SERP Rank Check"])
 router.include_router(core_seo_router, prefix="/category-check", tags=["Core SEO"])
+router.include_router(content_router, prefix="/category-check", tags=["Content"])
 
 __all__ = ["router"]

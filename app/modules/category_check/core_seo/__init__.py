@@ -62,6 +62,41 @@ from .storage import WriteBehindStore
 from .tasks import crawl_page_inline, crawl_page_task, run_audit, run_audit_inline
 from .url_normalizer import URLNormalizer
 
+# Content category exports are resolved lazily at attribute access time
+# to avoid a circular import: core_seo.__init__ → content.__init__ →
+# content.config → core_seo.__init__ (already in progress).
+_LAZY_CONTENT_EXPORTS = {
+    "ContentCrawlerService": "pipeline",
+    "ContentConfig": "pipeline",
+    "ContentEventBus": "events",
+    "ContentRuleRegistry": "pipeline",
+    "default_content_registry": "pipeline",
+}
+
+
+def __getattr__(name: str):
+    if name in _LAZY_CONTENT_EXPORTS:
+        module_name = _LAZY_CONTENT_EXPORTS[name]
+        if module_name == "pipeline":
+            from ..content.pipeline import ContentCrawlerService, ContentConfig
+            from ..content.events import ContentEventBus
+            from ..content.rules.registry import ContentRuleRegistry, default_content_registry
+            _exports = {
+                "ContentCrawlerService": ContentCrawlerService,
+                "ContentConfig": ContentConfig,
+                "ContentEventBus": ContentEventBus,
+                "ContentRuleRegistry": ContentRuleRegistry,
+                "default_content_registry": default_content_registry,
+            }
+            if name in _exports:
+                globals()[name] = _exports[name]
+                return _exports[name]
+        elif module_name == "events":
+            from ..content.events import ContentEventBus
+            globals()["ContentEventBus"] = ContentEventBus
+            return ContentEventBus
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 def register_with_app(app: Any) -> None:
     """Register all Core SEO routes and exception handlers on a FastAPI app."""
@@ -135,4 +170,10 @@ __all__ = [
     "core_seo_router",
     # Registration
     "register_with_app",
+    # Content category (imported lazily — see note above)
+    "ContentCrawlerService",
+    "ContentConfig",
+    "ContentEventBus",
+    "ContentRuleRegistry",
+    "default_content_registry",
 ]

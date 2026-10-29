@@ -23,7 +23,7 @@ from app.modules.separate_checks.sitemap_check.errors import (
     NO_SITEMAP_MESSAGE,
     NoSitemapAvailableError,
 )
-from .events import EventBus
+from .events import EventBus, REDIS_TTL_SECONDS
 from .models import CoreSEOEventType
 from .page_discoverer import PageDiscoverer
 from .pipeline import CoreSEOCrawlerService
@@ -154,6 +154,7 @@ async def get_audit_report(audit_id: str):
         raise HTTPException(status_code=404, detail=f"Audit {audit_id} not found or still running")
 
     summary = result.summary or {}
+    content_info = summary.get("content_summary", {})
     return AuditReportResponse(
         audit_id=result.audit_id or audit_id,
         status=result.status,
@@ -167,6 +168,9 @@ async def get_audit_report(audit_id: str):
         pass_percentage=summary.get("pass_percentage", 0.0),
         pages=result.pages,
         errors=[],
+        content_rules_passed=content_info.get("rules_passed", summary.get("content_rules_passed", 0)),
+        content_rules_failed=content_info.get("rules_failed", summary.get("content_rules_failed", 0)),
+        content_pass_percentage=content_info.get("pass_percentage", summary.get("content_pass_percentage", 0.0)),
     )
 
 
@@ -199,9 +203,16 @@ async def audit_websocket_http_docs(audit_id: str):
 async def audit_websocket(websocket: WebSocket, audit_id: str):
     """Real-time audit progress stream via WebSocket.
 
+    Reads from BOTH Redis streams — core_seo:events:{audit_id} and
+    content:events:{audit_id} — tagging each event with its ``category``
+    so the frontend can route/filter.
+
     Clients can pass ``?last_id=<redis_stream_entry_id>`` to resume
-    from a specific stream position. Falls back to DB snapshot when
-    Redis data has expired.
+    from a specific stream position for the core_seo stream. The content
+    stream starts from the same position by default.
+
+    The final snapshot is sent only after BOTH core_seo and content
+    audits have completed.
     """
     await websocket.accept()
 
@@ -216,7 +227,8 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
         for k, v in parsed.items():
             query_params[k] = v[0] if v else ""
 
-    last_id = query_params.get("last_id", "0")
+    last_core_id = query_params.get("last_id", "0")
+    last_content_id = "0"
 
     # Establish Redis client once — reused for all stream reads below.
     import redis
@@ -230,11 +242,12 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
         await websocket.close(code=1011, reason="Redis unavailable")
         return
 
-    stream_key = f"core_seo:events:{audit_id}"
+    core_stream_key = f"core_seo:events:{audit_id}"
+    content_stream_key = f"content:events:{audit_id}"
 
-    async def _send_event(evt: dict) -> bool:
-        """Send a single event dict as a JSON frame. Returns False if the client
-        has disconnected so callers can break out of the event loop."""
+    async def _send_event(evt: dict, category: str = "core_seo") -> bool:
+        """Send a single event dict as a JSON frame with category tag.
+        Returns False if the client has disconnected."""
         try:
             await websocket.send_text(
                 json.dumps({
@@ -244,6 +257,7 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                     "url": evt.get("url", ""),
                     "timestamp": evt.get("timestamp", ""),
                     "payload": evt.get("data", {}),
+                    "category": category,
                 })
             )
             return True
@@ -255,8 +269,7 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
 
         Returns:
             True  — snapshot sent successfully.
-            None  — report not ready yet (audit_completed but report not
-                    in Redis).  Caller should keep waiting.
+            None  — report not ready yet.
             False — client disconnected mid-send.
         """
         report = get_service().get_report(audit_id)
@@ -276,19 +289,23 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
         return None
 
     async def _safe_close(**kwargs) -> None:
-        """Close the WebSocket, ignoring errors if the connection is already
-        closing/closed (common when the client disconnects mid-stream)."""
+        """Close the WebSocket, ignoring errors if already closing."""
         try:
             await websocket.close(**kwargs)
         except (WebSocketDisconnect, RuntimeError):
             pass
 
+    def _is_core_completed() -> bool:
+        state = EventBus.get_audit_state(audit_id)
+        return state.get("status") == "completed"
+
+    def _is_content_completed() -> bool:
+        from ..content.events import ContentEventBus
+        state = ContentEventBus.get_audit_state(audit_id)
+        return state.get("status") == "completed"
+
     try:
         # --- Phase 1: Wait for the audit to appear in Redis ----------------
-        # FIX (race condition): Previously, if no state and no events existed,
-        # the handler closed immediately with code 1000. This caused the frontend
-        # WebSocket to open and close with zero data whenever the Celery worker
-        # hadn't started the audit yet. Now we poll for up to 30 seconds.
         state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
         if not state:
             for _ in range(_WS_WAIT_TIMEOUT):
@@ -303,80 +320,94 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 )
                 return
 
-        # --- Phase 2: Send catch-up events (existing events in the stream) ---
-        # FIX (blocking): Wrap sync EventBus.get_events_for_audit in to_thread
-        events = await asyncio.to_thread(EventBus.get_events_for_audit, audit_id)
-        for event in events:
+        # --- Phase 2: Send catch-up events from BOTH streams ---------------
+        core_events = await asyncio.to_thread(EventBus.get_events_for_audit, audit_id)
+        from ..content.events import ContentEventBus
+        content_events = await asyncio.to_thread(ContentEventBus.get_events_for_audit, audit_id)
+
+        # Merge and sort by timestamp for interleaved delivery
+        all_catchup: list[tuple[str, Any]] = []
+        for e in core_events:
+            all_catchup.append(("core_seo", e))
+        for e in content_events:
+            all_catchup.append(("content", e))
+        all_catchup.sort(key=lambda pair: pair[1].timestamp)
+
+        for category, event in all_catchup:
             sent = await _send_event({
                 "event_type": event.event_type,
                 "audit_id": event.audit_id,
                 "url": event.url,
                 "timestamp": event.timestamp,
                 "data": event.payload or event.data,
-            })
+            }, category=category)
             if not sent:
-                # Client disconnected during catch-up
                 return
 
-        # FIX (duplicate events): After the catch-up loop, advance last_id to
-        # the newest stream entry so the xread loop only receives *new* events.
-        # Without this, xread(last_id=0) re-emits all events already sent above.
-        if events:
-            last_entries = await asyncio.to_thread(client.xrevrange, stream_key, count=1)
-            if last_entries:
-                last_id = last_entries[0][0]
+        # Advance last_id for both streams to the newest entry
+        if core_events:
+            last_core = await asyncio.to_thread(client.xrevrange, core_stream_key, count=1)
+            if last_core:
+                last_core_id = last_core[0][0]
+        if content_events:
+            last_content = await asyncio.to_thread(client.xrevrange, content_stream_key, count=1)
+            if last_content:
+                last_content_id = last_content[0][0]
 
-        # --- Phase 3: If already completed, send the final snapshot ----------
-        state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
-        if state.get("status") == "completed":
+        # --- Phase 3: If both streams completed, send the final snapshot ----
+        core_done = _is_core_completed()
+        content_done = _is_content_completed()
+        if core_done and content_done:
             result = await _send_final(audit_id)
             if result is True:
                 await _safe_close()
                 return
             if result is False:
-                # Client disconnected
                 return
 
-        # --- Phase 4: Live-stream new events via Redis XREAD -----------------
-        # FIX (blocking): xread(block=5000) is synchronous and would freeze the
-        # entire asyncio event loop for up to 5 s per iteration. Wrapping in
-        # asyncio.to_thread keeps the loop responsive for other connections.
+        # --- Phase 4: Live-stream new events from both streams ------------
+        streams = {core_stream_key: last_core_id, content_stream_key: last_content_id}
         while True:
             try:
                 resp = await asyncio.to_thread(
                     client.xread,
-                    {stream_key: last_id},
+                    streams,
                     count=10,
                     block=5000,
                 )
                 if resp:
-                    stream, entries = resp[0]
-                    for entry_id, fields in entries:
-                        last_id = entry_id
-                        raw = fields.get("event", "")
-                        if raw:
-                            try:
-                                evt = json.loads(raw)
-                                if not await _send_event({
-                                    "event_type": evt.get("event_type", ""),
-                                    "audit_id": evt.get("audit_id", audit_id),
-                                    "url": evt.get("url", ""),
-                                    "timestamp": evt.get("timestamp", ""),
-                                    "data": evt.get("data", {}),
-                                }):
-                                    return
-                            except (json.JSONDecodeError, TypeError):
-                                pass
+                    for stream_key, entries in resp:
+                        category = "core_seo" if stream_key == core_stream_key else "content"
+                        stream_key_name = core_stream_key if category == "core_seo" else content_stream_key
+                        for entry_id, fields in entries:
+                            if category == "core_seo":
+                                last_core_id = entry_id
+                            else:
+                                last_content_id = entry_id
+                            raw = fields.get("event", "")
+                            if raw:
+                                try:
+                                    evt = json.loads(raw)
+                                    if not await _send_event({
+                                        "event_type": evt.get("event_type", ""),
+                                        "audit_id": evt.get("audit_id", audit_id),
+                                        "url": evt.get("url", ""),
+                                        "timestamp": evt.get("timestamp", ""),
+                                        "data": evt.get("data", {}),
+                                    }, category=category):
+                                        return
+                                except (json.JSONDecodeError, TypeError):
+                                    pass
 
-                # Check if audit completed
-                state = await asyncio.to_thread(EventBus.get_audit_state, audit_id)
-                if state.get("status") == "completed":
+                # Check if both audits completed
+                core_done = _is_core_completed()
+                content_done = _is_content_completed()
+                if core_done and content_done:
                     result = await _send_final(audit_id)
                     if result is True:
                         await _safe_close()
                         return
                     if result is False:
-                        # Client disconnected
                         return
             except json.JSONDecodeError:
                 continue

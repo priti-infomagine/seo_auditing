@@ -39,6 +39,10 @@ from app.modules.separate_checks.sitemap_check.errors import (
     NoSitemapAvailableError,
 )
 
+# ContentCrawlerService is imported lazily in __init__ to avoid circular imports:
+# core_seo/__init__.py → content/__init__.py → content/config.py →
+# core_seo/__init__.py (already loading).
+
 
 class CoreSEOCrawlerService:
     """Service that runs a complete Core SEO audit pipeline.
@@ -55,6 +59,8 @@ class CoreSEOCrawlerService:
         rule_registry: RuleRegistry | None = None,
         event_bus: EventBus | None = None,
         page_discoverer: PageDiscoverer | None = None,
+        content_service: ContentCrawlerService | None = None,
+        run_content: bool = True,
     ):
         self.config = config or CoreSEOConfig()
         self.crawler = crawler or Crawler()
@@ -65,6 +71,14 @@ class CoreSEOCrawlerService:
             crawler=self.crawler, config=self.config
         )
         self._write_behind: WriteBehindStore = WriteBehindStore()
+        self.run_content = run_content
+        if run_content:
+            if content_service is None:
+                from ..content.pipeline import ContentCrawlerService as _ContentCrawlerService
+                content_service = _ContentCrawlerService(crawler=self.crawler, page_discoverer=self.page_discoverer)
+        else:
+            content_service = None
+        self.content_service = content_service
 
     async def start_audit(
         self,
@@ -197,9 +211,15 @@ class CoreSEOCrawlerService:
                 "error": str(exc),
                 "stage": "fetch",
             })
-            return PageScore(url=url), CrawlResult(
+            crawl_result = CrawlResult(
                 url=url, error=str(exc), success=False,
             )
+            if self.run_content and self.content_service:
+                await self.content_service.process_page(
+                    url=url, audit_id=audit_id, index=index, total=total,
+                    crawl_result=crawl_result,
+                )
+            return PageScore(url=url), crawl_result
 
         if not crawl_result.success:
             await self._emit_event(CoreSEOEventType.PAGE_FAILED, audit_id, {
@@ -209,6 +229,11 @@ class CoreSEOCrawlerService:
             })
             empty = PageScore(url=url)
             self._write_behind.write_result(audit_id, empty, crawl_result)
+            if self.run_content and self.content_service:
+                await self.content_service.process_page(
+                    url=url, audit_id=audit_id, index=index, total=total,
+                    crawl_result=crawl_result,
+                )
             return empty, crawl_result
 
         # ── Parse ──────────────────────────────────────────────
@@ -294,6 +319,15 @@ class CoreSEOCrawlerService:
         })
 
         self._write_behind.write_result(audit_id, page_score, crawl_result)
+
+        if self.run_content and self.content_service:
+            logger.debug("CoreSEO process_page: calling content_service.process_page for url=%s audit_id=%s", url, audit_id)
+            await self.content_service.process_page(
+                url=url, audit_id=audit_id, index=index, total=total,
+                crawl_result=crawl_result, parsed_page=parsed,
+            )
+            logger.debug("CoreSEO process_page: content_service.process_page completed for url=%s", url)
+
         return page_score, crawl_result
 
     async def discover_pages_async(
@@ -359,6 +393,12 @@ class CoreSEOCrawlerService:
         page_states = EventBus.get_all_page_states(audit_id)
         state = EventBus.get_audit_state(audit_id)
 
+        if self.run_content and self.content_service:
+            from ..content.events import ContentEventBus
+            content_counters = ContentEventBus.get_counters(audit_id)
+        else:
+            content_counters = {}
+
         pages_done = counters.get("pages_crawled", 0)
         pages_failed = counters.get("pages_failed", 0)
         pages_discovered = counters.get("pages_discovered", 0)
@@ -369,6 +409,15 @@ class CoreSEOCrawlerService:
             rules_passed / rules_total * 100, 1
         ) if rules_total else 0.0
 
+        content_pages_done = content_counters.get("pages_crawled", 0)
+        content_pages_failed = content_counters.get("pages_failed", 0)
+        content_rules_passed = content_counters.get("rules_passed", 0)
+        content_rules_failed = content_counters.get("rules_failed", 0)
+        content_rules_total = content_rules_passed + content_rules_failed
+        content_pass_percentage = round(
+            content_rules_passed / content_rules_total * 100, 1
+        ) if content_rules_total else 0.0
+
         summary: dict[str, Any] = {
             "pages_total": pages_discovered,
             "pages_done": pages_done,
@@ -377,6 +426,22 @@ class CoreSEOCrawlerService:
             "rules_failed": rules_failed,
             "pass_percentage": pass_percentage,
         }
+
+        if self.run_content and self.content_service:
+            summary["content_summary"] = {
+                "pages_done": content_pages_done,
+                "pages_failed": content_pages_failed,
+                "rules_passed": content_rules_passed,
+                "rules_failed": content_rules_failed,
+                "pass_percentage": content_pass_percentage,
+            }
+            summary.update({
+                "content_pages_done": content_pages_done,
+                "content_pages_failed": content_pages_failed,
+                "content_rules_passed": content_rules_passed,
+                "content_rules_failed": content_rules_failed,
+                "content_pass_percentage": content_pass_percentage,
+            })
 
         start_url = state.get("start_url", "")
         started_at = state.get("started_at") or datetime.utcnow().isoformat()
@@ -424,6 +489,27 @@ class CoreSEOCrawlerService:
                 for page_state in page_states.values()
             ],
         }
+        if self.run_content and self.content_service:
+            from ..content.events import ContentEventBus
+            content_audit_state = ContentEventBus.get_audit_state(audit_id)
+            content_report_json = content_audit_state.get("report")
+            content_report_dict = None
+            if content_report_json:
+                try:
+                    content_report_dict = json.loads(content_report_json) if isinstance(content_report_json, str) else content_report_json
+                except (json.JSONDecodeError, TypeError):
+                    pass
+            report_dict["content"] = {
+                "summary": {
+                    "pages_total": content_pages_done + content_pages_failed,
+                    "pages_done": content_pages_done,
+                    "pages_failed": content_pages_failed,
+                    "rules_passed": content_rules_passed,
+                    "rules_failed": content_rules_failed,
+                    "pass_percentage": content_pass_percentage,
+                },
+                "pages": content_report_dict.get("pages", []) if content_report_dict else [],
+            }
         EventBus.set_audit_state(audit_id, report=json.dumps(report_dict, default=str))
 
         self._write_behind.mark_dirty(audit_id)
@@ -443,7 +529,8 @@ class CoreSEOCrawlerService:
             pass_percentage = round(
                 rules_passed / rules_total * 100, 1
             ) if rules_total else 0.0
-            return {
+
+            result = {
                 "audit_id": audit_id,
                 "status": state.get("status", "unknown"),
                 "start_url": state.get("start_url"),
@@ -456,8 +543,25 @@ class CoreSEOCrawlerService:
                 "pass_percentage": pass_percentage,
             }
 
+            if self.run_content and self.content_service:
+                from ..content.events import ContentEventBus
+                content_counters = ContentEventBus.get_counters(audit_id)
+                content_pass = round(
+                    content_counters.get("rules_passed", 0) /
+                    (content_counters.get("rules_passed", 0) + content_counters.get("rules_failed", 0)) * 100, 1
+                ) if (content_counters.get("rules_passed", 0) + content_counters.get("rules_failed", 0)) else 0.0
+                result.update({
+                    "content_pages_done": content_counters.get("pages_crawled", 0),
+                    "content_pages_failed": content_counters.get("pages_failed", 0),
+                    "content_rules_passed": content_counters.get("rules_passed", 0),
+                    "content_rules_failed": content_counters.get("rules_failed", 0),
+                    "content_pass_percentage": content_pass,
+                })
+
+            return result
+
         if counters["pages_discovered"] > 0 or counters["pages_crawled"] > 0:
-            return {
+            result = {
                 "audit_id": audit_id,
                 "status": "running",
                 "start_url": None,
@@ -465,6 +569,16 @@ class CoreSEOCrawlerService:
                 "pages_done": counters.get("pages_crawled", 0),
                 "pages_failed": counters.get("pages_failed", 0),
             }
+            if self.run_content and self.content_service:
+                from ..content.events import ContentEventBus
+                content_counters = ContentEventBus.get_counters(audit_id)
+                result.update({
+                    "content_pages_done": content_counters.get("pages_crawled", 0),
+                    "content_pages_failed": content_counters.get("pages_failed", 0),
+                    "content_rules_passed": content_counters.get("rules_passed", 0),
+                    "content_rules_failed": content_counters.get("rules_failed", 0),
+                })
+            return result
 
         return {"audit_id": audit_id, "status": "unknown"}
 

@@ -47,6 +47,11 @@ class CrawlStatusResponse(BaseModel):
     rules_passed: int = 0
     rules_failed: int = 0
     pass_percentage: float = 0.0
+    content_pages_done: int = 0
+    content_pages_failed: int = 0
+    content_rules_passed: int = 0
+    content_rules_failed: int = 0
+    content_pass_percentage: float = 0.0
     events: list[dict[str, Any]] = Field(
         default_factory=list,
         description="Recent events emitted during the audit pipeline",
@@ -98,6 +103,9 @@ class AuditReportResponse(BaseModel):
     pass_percentage: float
     pages: list[PageScoreSchema] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
+    content_rules_passed: int = 0
+    content_rules_failed: int = 0
+    content_pass_percentage: float = 0.0
 
 
 # Backwards-compatible alias from original schema

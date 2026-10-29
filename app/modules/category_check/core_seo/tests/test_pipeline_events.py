@@ -41,7 +41,7 @@ class MockPageDiscoverer:
     def __init__(self, urls=None):
         self._urls = urls or [{"url": "https://example.com", "normalized_url": "https://example.com/", "source_type": "seed", "depth": 0}]
 
-    async def discover_pages(self, start_url: str, max_pages: int = 10, max_depth: int = 3):
+    async def discover_pages(self, start_url: str, max_pages: int = 10, max_depth: int = 3, **kwargs):
         from app.modules.category_check.core_seo.models import DiscoveredURL
         return [DiscoveredURL(**u) for u in self._urls]
 
