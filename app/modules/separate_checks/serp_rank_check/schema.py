@@ -63,6 +63,23 @@ class SerpTopResult(BaseModel):
     snippet: str = ""
 
 
+class DomainPreview(BaseModel):
+    """Website metadata extracted from the target domain's live HTML.
+
+    Populated only when a domain is provided and the site is reachable.
+    Fields may be ``None`` when the corresponding metadata tag is absent
+    or the fetch failed.  This is a best-effort enrichment — the rank
+    check itself is never failed by a preview error.
+    """
+
+    site_name: str | None = None
+    domain: str | None = None
+    favicon: str | None = None
+    title: str | None = None
+    description: str | None = None
+    warning: str | None = None
+
+
 class RankCheckResult(BaseModel):
     found: bool
     status: str = "pending"
@@ -72,6 +89,7 @@ class RankCheckResult(BaseModel):
     serp_features: list[str] = Field(default_factory=list)
     top_results: list[SerpTopResult] = Field(default_factory=list)
     partial: bool = False
+    domain_preview: DomainPreview | None = None
 
 
 class RankCheckStatusResponse(BaseModel):

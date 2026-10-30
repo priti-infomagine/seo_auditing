@@ -17,6 +17,8 @@ import uuid
 from datetime import datetime
 from typing import Any
 
+from app.modules.category_check.content.db_models.audit_db import ContentAuditCheck
+
 from .config import CONTENT_RULE_COUNT, ContentConfig
 from .events import ContentEventBus
 from .data_builder import build_content_rule_data
@@ -91,7 +93,7 @@ class ContentCrawlerService:
         PAGE_STARTED → PARSED → 13× RULE_CHECKED → PAGE_COMPLETED
         (or PAGE_FAILED on error).
         """
-        logger.debug("Content process_page START: url=%s audit_id=%s crawl_result=%s", url, audit_id, type(crawl_result))
+        print(f"[content] Starting content checks for: {url} (audit={audit_id[:8]})", flush=True)
         if crawl_result is None:
             try:
                 crawl_result = await self.crawler.crawl(url)
@@ -118,12 +120,10 @@ class ContentCrawlerService:
         })
 
         html = crawl_result.html or ""
-        logger.debug("Content process_page: html_len=%d has_parsed=%s", len(html), parsed_page is not None)
         if parsed_page is None:
             parsed_page = self.parser.parse(html, url)
 
-        rule_data = self.parser.build_content_rule_data(parsed_page, crawl_result, self.config)
-        logger.debug("Content process_page: rule_data keys=%s", list(rule_data.keys()) if isinstance(rule_data, dict) else "NOT_DICT")
+        rule_data = self.parser.build_content_rule_data(parsed_page, crawl_result)
 
         await self._emit_event(ContentEventType.PARSED, audit_id, {"url": url})
 
@@ -204,6 +204,12 @@ class ContentCrawlerService:
             "total": summary.total,
             "pass_percentage": summary.pass_percentage,
         })
+        print(
+            f"[content] Page completed: {url} | "
+            f"passed={summary.passed}/{summary.total} | "
+            f"failed={summary.failed} | pass%={summary.pass_percentage}%",
+            flush=True,
+        )
 
         self._write_behind.write_result(audit_id, page_score, crawl_result)
         return page_score

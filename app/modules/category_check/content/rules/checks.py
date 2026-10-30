@@ -89,28 +89,26 @@ class LinkDensityRule(BaseRule):
     MAX_DENSITY = 0.5
 
     def evaluate(self, data: dict[str, Any]) -> list[Any]:
-        links = data.get("links", [])
-        content_text = data.get("content_text", "")
-        if not content_text:
-            return [self._result(
-                passed=True,
-                message="No content text to evaluate link density",
-                severity=Severity.INFO.value,
-            )]
-        link_text = " ".join(l.get("text", "") for l in links if isinstance(l, dict))
-        if not link_text:
-            return [self._result(
-                passed=True,
-                message="No link text found — link density is 0%",
-                severity=Severity.PASSED.value,
-                details={"density": 0.0},
-            )]
-        content_chars = len(content_text)
-        link_chars = len(link_text)
-        if content_chars == 0:
+        density = data.get("link_density")
+        if density is None:
+            # Fallback: compute from links and content_text if link_density not pre-computed
+            links = data.get("links", [])
+            content_text = data.get("content_text", "")
+            if not content_text:
+                return [self._result(
+                    passed=True,
+                    message="No content text to evaluate link density",
+                    severity=Severity.INFO.value,
+                )]
+            link_text = " ".join(l.get("text", "") for l in links if isinstance(l, dict))
+            content_chars = len(content_text)
+            link_chars = len(link_text)
+            if content_chars == 0:
+                density = 0.0
+            else:
+                density = round(link_chars / content_chars, 4)
+        if not isinstance(density, (int, float)):
             density = 0.0
-        else:
-            density = round(link_chars / content_chars, 4)
         if density <= self.MAX_DENSITY:
             return [self._result(
                 passed=True,
@@ -123,7 +121,7 @@ class LinkDensityRule(BaseRule):
             message=f"Link density is {density:.1%} (too high, recommended: ≤{self.MAX_DENSITY:.0%}) — page may be over-linked",
             severity=Severity.WARNING.value,
             recommendation="Reduce the amount of link text relative to total content.",
-            details={"density": density, "link_chars": link_chars, "content_chars": content_chars},
+            details={"density": density, "threshold": self.MAX_DENSITY},
         )]
 
 

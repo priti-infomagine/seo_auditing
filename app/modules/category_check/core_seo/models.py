@@ -168,6 +168,7 @@ class NormalizedResult:
     status: str = ""
     summary: dict[str, Any] = field(default_factory=dict)
     pages: list[dict[str, Any]] = field(default_factory=list)
+    content_pages: list[dict[str, Any]] = field(default_factory=list)
     events: list[dict[str, Any]] = field(default_factory=list)
     page_url: str = ""
     normalized_url: str = ""

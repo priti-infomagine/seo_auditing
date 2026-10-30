@@ -270,6 +270,26 @@ class ContentEventBus:
         self._emit_to_redis(event)
         self._dispatch(event)
 
+        # Print content check events to console for easy testing
+        if et in (
+            ContentEventType.RULE_CHECKED.value,
+            ContentEventType.PAGE_COMPLETED.value,
+            ContentEventType.PAGE_FAILED.value,
+            ContentEventType.AUDIT_COMPLETED.value,
+        ):
+            rule_id = event_data.get("rule_id", "")
+            passed = event_data.get("passed", "")
+            msg = event_data.get("message", "")[:80]
+            try:
+                print(
+                    f"[content] {et} | audit={audit_id[:8]} | url={url} "
+                    f"| rule_id={rule_id} | passed={passed} | msg={msg}",
+                    flush=True,
+                )
+            except Exception:
+                # Ignore encoding errors in console output
+                pass
+
         return event
 
     async def publish(self, event: ContentPipelineEvent) -> None:

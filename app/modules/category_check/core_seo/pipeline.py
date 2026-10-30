@@ -321,12 +321,10 @@ class CoreSEOCrawlerService:
         self._write_behind.write_result(audit_id, page_score, crawl_result)
 
         if self.run_content and self.content_service:
-            logger.debug("CoreSEO process_page: calling content_service.process_page for url=%s audit_id=%s", url, audit_id)
             await self.content_service.process_page(
                 url=url, audit_id=audit_id, index=index, total=total,
                 crawl_result=crawl_result, parsed_page=parsed,
             )
-            logger.debug("CoreSEO process_page: content_service.process_page completed for url=%s", url)
 
         return page_score, crawl_result
 
@@ -395,6 +393,9 @@ class CoreSEOCrawlerService:
 
         if self.run_content and self.content_service:
             from ..content.events import ContentEventBus
+            # Let the content service finalize its own audit state (sets
+            # status="completed", computes report, emits AUDIT_COMPLETED)
+            await self.content_service.finalize_audit(audit_id)
             content_counters = ContentEventBus.get_counters(audit_id)
         else:
             content_counters = {}
@@ -630,10 +631,25 @@ class CoreSEOCrawlerService:
                     "results": p.get("rule_results", []),
                 })
 
+        # Include content page results from the content sub-report
+        content_pages = []
+        content_report = report_dict.get("content", {})
+        for p in content_report.get("pages", []):
+            if isinstance(p, dict):
+                content_pages.append({
+                    "url": p.get("url", ""),
+                    "status": p.get("status", "completed"),
+                    "passed": p.get("passed", 0),
+                    "failed": p.get("failed", 0),
+                    "total": p.get("total", 0),
+                    "pass_percentage": p.get("pass_percentage", 0.0),
+                    "results": p.get("rule_results", []),
+                })
+
         started_at = report_dict.get("started_at", "")
         completed_at = report_dict.get("completed_at")
 
-        return NormalizedResult(
+        result = NormalizedResult(
             audit_id=audit_id,
             status="completed",
             summary=summary,
@@ -643,6 +659,8 @@ class CoreSEOCrawlerService:
             pass_percentage=summary.get("pass_percentage", 0.0),
             timestamp=completed_at or started_at or "",
         )
+        result.content_pages = content_pages  # type: ignore[attr-defined]
+        return result
 
     def _build_normalized_from_redis(
         self,
@@ -687,18 +705,51 @@ class CoreSEOCrawlerService:
                 "url": e.url,
                 "timestamp": e.timestamp,
                 "payload": e.payload or e.data,
+                "category": "core_seo",
             }
             for e in events
         ]
 
-        return NormalizedResult(
+        # Include content events and page states from the content Redis stream
+        content_pages = []
+        if self.run_content and self.content_service:
+            from ..content.events import ContentEventBus
+            content_page_states = ContentEventBus.get_all_page_states(audit_id)
+            content_events = ContentEventBus.get_events_for_audit(audit_id)
+            for url, ps in content_page_states.items():
+                content_pages.append({
+                    "url": url,
+                    "status": ps.get("status", "completed"),
+                    "passed": ps.get("passed", 0),
+                    "failed": ps.get("failed", 0),
+                    "total": ps.get("total", 0),
+                    "pass_percentage": ps.get("pass_percentage", 0.0),
+                    "results": ps.get("rule_results", []),
+                })
+            for e in content_events:
+                event_list.append({
+                    "event_type": e.event_type,
+                    "audit_id": e.audit_id,
+                    "url": e.url,
+                    "timestamp": e.timestamp,
+                    "payload": e.payload or e.data,
+                    "category": "content",
+                })
+            # Sort all events by timestamp
+            event_list.sort(key=lambda ev: ev["timestamp"])
+
+        result = NormalizedResult(
             audit_id=audit_id,
             status="completed",
             summary=summary,
             pages=pages,
+            page_url="",
+            normalized_url="",
             pass_percentage=pass_percentage,
             events=event_list,
         )
+        result.content_pages = content_pages
+        return result
 
     def _build_normalized_from_db(self, audit_id: str) -> NormalizedResult | None:
         """Build NormalizedResult from the DB when Redis expired."""

@@ -150,9 +150,9 @@ class ContentWriteBehindStore:
 
         result.total_pages = counters.get("pages_discovered", state.get("total_pages", 0))
         result.crawled_pages = counters.get("pages_crawled", state.get("crawled_pages", 0))
-        result.pages_failed = counters.get("pages_failed", 0)
-        result.rules_passed = counters.get("rules_passed", 0)
-        result.rules_failed = counters.get("rules_failed", 0)
+        result.pages_failed = counters.get("pages_failed", state.get("pages_failed", 0))
+        result.rules_passed = counters.get("rules_passed", state.get("rules_passed", 0))
+        result.rules_failed = counters.get("rules_failed", state.get("rules_failed", 0))
         total_rules = counters.get("rules_total", 0)
         result.pass_percentage = round(
             result.rules_passed / total_rules * 100, 1
@@ -185,7 +185,7 @@ class ContentWriteBehindStore:
             if self.flush_audit_to_db(audit_id):
                 flushed += 1
         return flushed
-
+    # start thread other than main thread in background
     def start_background_flush(self) -> None:
         if self._flush_thread is not None and self._flush_thread.is_alive():
             return

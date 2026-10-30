@@ -25,6 +25,7 @@ from .exceptions import (
 )
 from .model import RankCheck, RankCheckStatus
 from .parser import parse_serp_response
+from .preview import fetch_domain_preview
 from .repository import RankCheckRepository
 from .validation import (
     compute_fingerprint,
@@ -101,6 +102,35 @@ class SerpRankCheckService:
 
     def __init__(self, db: AsyncSession | None = None):
         self.db = db
+
+    # ── Domain preview enrichment ──────────────────────────
+
+    async def _enrich_with_preview(
+        self,
+        result: dict[str, Any],
+        domain: str | None,
+    ) -> dict[str, Any]:
+        """Attach preview metadata for the single input domain.
+
+        Best-effort: never raises.  On failure ``domain_preview``
+        is set to ``None`` and the rank check still succeeds.  This
+        fetches the target domain's live HTML to extract favicon,
+        title, description, and site name — separate from the SERP
+        snippet data returned by DataForSEO.
+        """
+        if domain is None:
+            result["domain_preview"] = None
+            return result
+        try:
+            result["domain_preview"] = await fetch_domain_preview(domain)
+        except Exception as exc:  # noqa: BLE001
+            logger.warning(
+                "serp_rank_check: preview fetch failed for domain=%s: %s",
+                domain,
+                exc,
+            )
+            result["domain_preview"] = None
+        return result
 
     # ── API-facing: synchronous check ──────────────────────
     async def check_serp_rank(
@@ -229,6 +259,7 @@ class SerpRankCheckService:
                 depth,
                 deep_tracking=deep_tracking,
             )
+            await self._enrich_with_preview(result, normalized_domain)
             check.result = result
             check.status = RankCheckStatus.DONE.value
             await self.db.commit()
@@ -303,6 +334,7 @@ class SerpRankCheckService:
                 check.depth,
                 deep_tracking=deep_tracking,
             )
+            await self._enrich_with_preview(result, check.domain)
         except SerpParseError as exc:
             logger.error(
                 "serp_rank_check: parse failed id=%s: %s", check.id, exc

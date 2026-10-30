@@ -613,6 +613,55 @@ async def test_create_rank_check_without_location_code_is_none(
     assert response.json()["location_code"] is None
 
 
+# ── Domain preview enrichment ──────────────────────────
+@pytest.mark.asyncio
+async def test_rank_check_includes_domain_preview(
+    db_session, fake_serp_client
+):
+    """When a domain is provided, the response includes ``domain_preview``
+    with favicon, title, description, and site_name."""
+    fake_serp_client.set_response(
+        make_serp_body([organic_item(2, "https://example.com/page")])
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks", json=_valid_payload()
+        )
+    assert response.status_code == 200
+    result = response.json()["result"]
+    assert "domain_preview" in result
+    preview = result["domain_preview"]
+    assert preview is not None
+    assert preview["site_name"] == "Test Site"
+    assert preview["domain"] == "example.com"
+    assert preview["favicon"] == "https://example.com/favicon.ico"
+    assert preview["title"] == "Test Page Title"
+    assert preview["description"] == "Test page description."
+    assert preview["warning"] is None
+
+
+@pytest.mark.asyncio
+async def test_rank_check_no_domain_preview_is_none(
+    db_session, fake_serp_client
+):
+    """When no domain is provided, ``domain_preview`` is null."""
+    fake_serp_client.set_response(make_serp_body([]))
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as client:
+        response = await client.post(
+            f"{API}/rank-checks",
+            json=_valid_payload(domain=None, depth=10),
+        )
+    assert response.status_code == 200
+    result = response.json()["result"]
+    assert result["domain_preview"] is None
+
+
 # ── /locations autocomplete ──────────────────────────────
 @pytest.mark.asyncio
 async def test_locations_filters_sorts_city_first(

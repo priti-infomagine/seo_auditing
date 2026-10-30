@@ -132,16 +132,31 @@ async def get_audit_status(audit_id: str):
     if status_data.get("status") == "unknown":
         raise HTTPException(status_code=404, detail=f"Audit {audit_id} not found")
 
-    events = EventBus.get_events_for_audit(audit_id)
-    status_data["events"] = [
-        {
+    # Merge events from both core_seo and content Redis streams
+    core_events = EventBus.get_events_for_audit(audit_id)
+    from ..content.events import ContentEventBus
+    content_events = ContentEventBus.get_events_for_audit(audit_id)
+
+    # Interleave and sort by timestamp for a unified event timeline
+    all_events = []
+    for e in core_events:
+        all_events.append({
             "event_type": e.event_type,
             "url": e.url,
             "timestamp": e.timestamp,
             "payload": e.payload or e.data,
-        }
-        for e in events[-50:]
-    ]
+            "category": "core_seo",
+        })
+    for e in content_events:
+        all_events.append({
+            "event_type": e.event_type,
+            "url": e.url,
+            "timestamp": e.timestamp,
+            "payload": e.payload or e.data,
+            "category": "content",
+        })
+    all_events.sort(key=lambda e: e["timestamp"])
+    status_data["events"] = all_events[-50:]
     return CrawlStatusResponse(**status_data)
 
 
@@ -155,6 +170,8 @@ async def get_audit_report(audit_id: str):
 
     summary = result.summary or {}
     content_info = summary.get("content_summary", {})
+    # Get content_pages from the NormalizedResult (populated by finalize_audit)
+    content_pages = getattr(result, "content_pages", []) or []
     return AuditReportResponse(
         audit_id=result.audit_id or audit_id,
         status=result.status,
@@ -167,6 +184,7 @@ async def get_audit_report(audit_id: str):
         rules_failed=summary.get("rules_failed", 0),
         pass_percentage=summary.get("pass_percentage", 0.0),
         pages=result.pages,
+        content_pages=content_pages,
         errors=[],
         content_rules_passed=content_info.get("rules_passed", summary.get("content_rules_passed", 0)),
         content_rules_failed=content_info.get("rules_failed", summary.get("content_rules_failed", 0)),

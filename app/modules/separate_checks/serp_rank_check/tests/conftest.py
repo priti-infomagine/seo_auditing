@@ -283,6 +283,31 @@ def clear_locations_cache():
     _router._locations_cache.clear()
 
 
+@pytest.fixture(autouse=True)
+def mock_domain_preview(monkeypatch):
+    """Prevent real HTTP calls during tests by stubbing ``fetch_domain_preview``.
+
+    Returns a realistic preview dict so tests can assert on
+    ``domain_preview`` values if needed.  Individual tests can
+    override this by re-patching
+    ``app.modules.separate_checks.serp_rank_check.service.fetch_domain_preview``.
+    """
+    async def _mock_preview(domain: str) -> dict:
+        return {
+            "site_name": "Test Site",
+            "domain": domain,
+            "favicon": f"https://{domain}/favicon.ico",
+            "title": "Test Page Title",
+            "description": "Test page description.",
+            "warning": None,
+        }
+
+    monkeypatch.setattr(
+        "app.modules.separate_checks.serp_rank_check.service.fetch_domain_preview",
+        _mock_preview,
+    )
+
+
 @pytest_asyncio.fixture
 async def fake_serp_client(monkeypatch):
     """Patch the provider client factory with a fake.

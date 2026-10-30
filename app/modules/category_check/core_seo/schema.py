@@ -102,6 +102,7 @@ class AuditReportResponse(BaseModel):
     rules_failed: int
     pass_percentage: float
     pages: list[PageScoreSchema] = Field(default_factory=list)
+    content_pages: list[PageScoreSchema] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
     content_rules_passed: int = 0
     content_rules_failed: int = 0

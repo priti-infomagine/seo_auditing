@@ -439,12 +439,23 @@ class TestWebSocketDuplicateEvents:
                 except Exception:
                     break
 
-        # Count events by event_type + timestamp (unique identifier)
+        # Count events by event_type + timestamp + category + url (unique identifier)
+        # Events from core_seo and content streams can share the same
+        # event_type and timestamp since they are processed concurrently.
+        # Within a single stream, multiple rules can emit at the same microsecond.
         event_messages = [m for m in all_messages if m["type"] == "event"]
         seen = set()
         duplicates = []
         for m in event_messages:
-            key = (m["event_type"], m["timestamp"])
+            key = (
+                m["event_type"],
+                m["timestamp"],
+                m.get("category", "core_seo"),
+                m.get("url", ""),
+                # Include a distinguishing field from payload to differentiate
+                # individual rule_checked events that share a timestamp
+                m.get("payload", {}).get("rule_id", ""),
+            )
             if key in seen:
                 duplicates.append(key)
             seen.add(key)
