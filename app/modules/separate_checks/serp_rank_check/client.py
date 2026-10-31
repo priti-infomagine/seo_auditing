@@ -342,6 +342,8 @@ _client: SERPDataForSEOClient | None = None
 _credentials: tuple[str, str] | None = None
 
 
+import base64
+
 async def get_serp_client() -> SERPDataForSEOClient:
     """Return the shared SERPDataForSEOClient singleton.
 
@@ -349,22 +351,70 @@ async def get_serp_client() -> SERPDataForSEOClient:
     so a credential rotation mid-process is handled correctly.
     """
     global _client, _credentials
-    if not settings.DATAFORSEO_LOGIN or not settings.DATAFORSEO_PASSWORD:
+
+    encoded_credentials = settings.BASE64_DATAFORSEO_Format
+
+    if not encoded_credentials:
         raise SERPDataForSEOConfigurationError(
-            "DataForSEO credentials are not configured"
+            "DataForSEO Base64 credentials are not configured"
         )
-    credentials = (settings.DATAFORSEO_LOGIN, settings.DATAFORSEO_PASSWORD)
+
+    try:
+        decoded_credentials = base64.b64decode(
+            encoded_credentials,
+            validate=True
+        ).decode("utf-8")
+
+        login, password = decoded_credentials.split(":", 1)
+
+        if not login or not password:
+            raise ValueError("Login or password is empty")
+
+    except (ValueError, UnicodeDecodeError) as exc:
+        raise SERPDataForSEOConfigurationError(
+            "Invalid DataForSEO Base64 credentials"
+        ) from exc
+
+    credentials = (login, password)
+
     if _credentials != credentials:
         if _client is not None:
             await _client.aclose()
+
         _client = SERPDataForSEOClient(
-            settings.DATAFORSEO_LOGIN,
-            settings.DATAFORSEO_PASSWORD,
+            login,
+            password,
             timeout=settings.SERP_PROVIDER_TIMEOUT,
             max_attempts=3,
         )
+
         _credentials = credentials
+
     return _client
+
+# async def get_serp_client() -> SERPDataForSEOClient:
+#     """Return the shared SERPDataForSEOClient singleton.
+
+#     The singleton is recreated only when the credentials change,
+#     so a credential rotation mid-process is handled correctly.
+#     """
+#     global _client, _credentials
+#     if not settings.DATAFORSEO_LOGIN or not settings.DATAFORSEO_PASSWORD:
+#         raise SERPDataForSEOConfigurationError(
+#             "DataForSEO credentials are not configured"
+#         )
+#     credentials = (settings.DATAFORSEO_LOGIN, settings.DATAFORSEO_PASSWORD)
+#     if _credentials != credentials:
+#         if _client is not None:
+#             await _client.aclose()
+#         _client = SERPDataForSEOClient(
+#             settings.DATAFORSEO_LOGIN,
+#             settings.DATAFORSEO_PASSWORD,
+#             timeout=settings.SERP_PROVIDER_TIMEOUT,
+#             max_attempts=3,
+#         )
+#         _credentials = credentials
+#     return _client
 
 
 async def close_serp_client() -> None:
