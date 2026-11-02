@@ -54,6 +54,7 @@ class ContentPipelineEvent:
     timestamp: str = field(default_factory=lambda: utc_now().isoformat())
     data: dict[str, Any] = field(default_factory=dict)
     payload: dict[str, Any] = field(default_factory=dict)
+    seq: int = 0
 
     def __post_init__(self):
         if not self.data:

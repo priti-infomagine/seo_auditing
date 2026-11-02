@@ -80547,3 +80547,147 @@ app.modules.separate_checks.serp_rank_check.client.SERPDataForSEOConfigurationEr
 2026-11-02T15:31:50 | INFO | app | Core SEO audit dispatched to Celery: audit_id=13535006-0a37-4ae7-9000-78d70273838f
 2026-11-02T15:32:05 | INFO | app | ContentWriteBehindStore: flushed audit 13535006-0a37-4ae7-9000-78d70273838f to DB (status=completed, passed=74, failed=56)
 2026-11-02T15:32:05 | INFO | app | WriteBehindStore: flushed audit 13535006-0a37-4ae7-9000-78d70273838f to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:41:35 | INFO | app | Core SEO audit dispatched to Celery: audit_id=571a15c0-9afa-4d05-8e5a-ae8bfcccbda2
+2026-11-02T15:41:58 | INFO | app | ContentWriteBehindStore: flushed audit 571a15c0-9afa-4d05-8e5a-ae8bfcccbda2 to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:41:58 | INFO | app | WriteBehindStore: flushed audit 571a15c0-9afa-4d05-8e5a-ae8bfcccbda2 to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:41:58 | INFO | app | Core SEO audit dispatched to Celery: audit_id=4700e1d3-f8ad-43b3-8d0b-eefc0809758a
+2026-11-02T15:42:20 | INFO | app | ContentWriteBehindStore: flushed audit 4700e1d3-f8ad-43b3-8d0b-eefc0809758a to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:42:20 | INFO | app | WriteBehindStore: flushed audit 4700e1d3-f8ad-43b3-8d0b-eefc0809758a to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:45:50 | INFO | app | Core SEO audit dispatched to Celery: audit_id=dfcba44c-41ba-439f-8eca-c0d7be53cfed
+2026-11-02T15:46:10 | INFO | app | ContentWriteBehindStore: flushed audit dfcba44c-41ba-439f-8eca-c0d7be53cfed to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:46:10 | INFO | app | WriteBehindStore: flushed audit dfcba44c-41ba-439f-8eca-c0d7be53cfed to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:49:07 | INFO | app | Core SEO audit dispatched to Celery: audit_id=8d5c153c-b559-4b0f-a0d0-2cebf7dcae70
+2026-11-02T15:49:18 | INFO | app | ContentWriteBehindStore: flushed audit 8d5c153c-b559-4b0f-a0d0-2cebf7dcae70 to DB (status=completed, passed=43, failed=22)
+2026-11-02T15:49:18 | INFO | app | WriteBehindStore: flushed audit 8d5c153c-b559-4b0f-a0d0-2cebf7dcae70 to DB (status=completed, passed=64, failed=26)
+2026-11-02T15:52:25 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:52:43 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:52:55 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:53:15 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:53:17 | INFO | app | Core SEO audit dispatched to Celery: audit_id=5b4d8713-fe03-4be8-9bc6-f07ee78f15b8
+2026-11-02T15:53:39 | INFO | app | ContentWriteBehindStore: flushed audit 5b4d8713-fe03-4be8-9bc6-f07ee78f15b8 to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:53:39 | INFO | app | WriteBehindStore: flushed audit 5b4d8713-fe03-4be8-9bc6-f07ee78f15b8 to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:53:46 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:54:20 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:54:41 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:54:42 | INFO | app | Core SEO audit dispatched to Celery: audit_id=1a6d3f23-c542-423f-936f-56173c8732c2
+2026-11-02T15:55:11 | INFO | app | ContentWriteBehindStore: flushed audit 1a6d3f23-c542-423f-936f-56173c8732c2 to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:55:11 | INFO | app | WriteBehindStore: flushed audit 1a6d3f23-c542-423f-936f-56173c8732c2 to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:55:21 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:55:42 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:55:59 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:56:56 | INFO | app | Content audit dispatched to Celery: audit_id=a7431338-c030-49d9-9102-aae58ec36cbc
+2026-11-02T15:57:40 | INFO | app | Core SEO audit dispatched to Celery: audit_id=52ae1c57-be1e-4d42-aef6-32aca0b4b1cd
+2026-11-02T15:57:55 | INFO | app | ContentWriteBehindStore: flushed audit 52ae1c57-be1e-4d42-aef6-32aca0b4b1cd to DB (status=completed, passed=74, failed=56)
+2026-11-02T15:57:55 | INFO | app | WriteBehindStore: flushed audit 52ae1c57-be1e-4d42-aef6-32aca0b4b1cd to DB (status=completed, passed=113, failed=67)
+2026-11-02T15:59:09 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T15:59:24 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T16:00:39 | INFO | app | ContentWriteBehindStore: flushed audit 9f3f804a-6f0b-4f41-a8bc-dd7de5927247 to DB (status=completed, passed=12, failed=1)
+2026-11-02T16:00:39 | INFO | app | WriteBehindStore: flushed audit 9f3f804a-6f0b-4f41-a8bc-dd7de5927247 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:39 | ERROR | app | ContentWriteBehindStore: DB flush failed for 87f60fa1-306b-4088-8e61-ba6a9982af63: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:39 | INFO | app | WriteBehindStore: flushed audit 87f60fa1-306b-4088-8e61-ba6a9982af63 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:39 | ERROR | app | ContentWriteBehindStore: DB flush failed for 06ec3dd4-40b4-4e8e-bb5d-c2505df8ae1f: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:39 | INFO | app | WriteBehindStore: flushed audit 06ec3dd4-40b4-4e8e-bb5d-c2505df8ae1f to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:39 | ERROR | app | ContentWriteBehindStore: DB flush failed for 562d3e37-95c5-4a79-9eca-066ff0f4be11: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:40 | INFO | app | WriteBehindStore: flushed audit 562d3e37-95c5-4a79-9eca-066ff0f4be11 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:40 | ERROR | app | ContentWriteBehindStore: DB flush failed for 224dfe8c-3fd5-4889-8dc1-0f23f80d5f16: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:40 | INFO | app | WriteBehindStore: flushed audit 224dfe8c-3fd5-4889-8dc1-0f23f80d5f16 to DB (status=completed, passed=0, failed=0)
+2026-11-02T16:00:40 | ERROR | app | ContentWriteBehindStore: DB flush failed for e8099cfa-8078-4a8c-8ae3-ae3fe645c58d: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:40 | INFO | app | WriteBehindStore: flushed audit e8099cfa-8078-4a8c-8ae3-ae3fe645c58d to DB (status=completed, passed=0, failed=0)
+2026-11-02T16:00:40 | ERROR | app | ContentWriteBehindStore: DB flush failed for 4c0767dd-badb-4162-8f9e-53cf8802c457: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:41 | INFO | app | WriteBehindStore: flushed audit 4c0767dd-badb-4162-8f9e-53cf8802c457 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:41 | ERROR | app | ContentWriteBehindStore: DB flush failed for bae80859-0c98-4e41-9433-656b498e62e6: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:41 | INFO | app | WriteBehindStore: flushed audit bae80859-0c98-4e41-9433-656b498e62e6 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:52 | INFO | app | ContentWriteBehindStore: flushed audit af76c08b-c4b7-4e80-8d5e-e42987287ae9 to DB (status=completed, passed=12, failed=1)
+2026-11-02T16:00:52 | INFO | app | WriteBehindStore: flushed audit af76c08b-c4b7-4e80-8d5e-e42987287ae9 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:00:52 | ERROR | app | ContentWriteBehindStore: DB flush failed for e9a0f21d-2a93-4e89-b5c2-aed95cf13e25: 'NoneType' object has no attribute 'send'
+2026-11-02T16:00:53 | INFO | app | WriteBehindStore: flushed audit e9a0f21d-2a93-4e89-b5c2-aed95cf13e25 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:23 | ERROR | app | ContentWriteBehindStore: DB flush failed for 38e330a1-5c2e-4d33-a6bb-1e085599404e: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:23 | INFO | app | WriteBehindStore: flushed audit 38e330a1-5c2e-4d33-a6bb-1e085599404e to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:23 | ERROR | app | ContentWriteBehindStore: DB flush failed for 8c8f124f-2604-4fb2-844e-74ba042d89db: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:23 | INFO | app | WriteBehindStore: flushed audit 8c8f124f-2604-4fb2-844e-74ba042d89db to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:24 | ERROR | app | ContentWriteBehindStore: DB flush failed for 07a19f67-75fe-4078-89d0-dfba726245d7: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:24 | INFO | app | WriteBehindStore: flushed audit 07a19f67-75fe-4078-89d0-dfba726245d7 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:24 | ERROR | app | ContentWriteBehindStore: DB flush failed for 794e2313-b40d-414f-83b2-dff72b64a5f0: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:24 | INFO | app | WriteBehindStore: flushed audit 794e2313-b40d-414f-83b2-dff72b64a5f0 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:24 | ERROR | app | ContentWriteBehindStore: DB flush failed for 54bb0f23-cc6a-4ca9-aa54-25a18b7c391c: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:24 | INFO | app | WriteBehindStore: flushed audit 54bb0f23-cc6a-4ca9-aa54-25a18b7c391c to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:24 | ERROR | app | ContentWriteBehindStore: DB flush failed for 9b645db2-5b6c-4da1-bbaf-4c397fdffc5f: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:24 | INFO | app | WriteBehindStore: flushed audit 9b645db2-5b6c-4da1-bbaf-4c397fdffc5f to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:34 | ERROR | app | ContentWriteBehindStore: DB flush failed for f67e2efa-ff12-4476-be7c-ba233c5689c5: 'NoneType' object has no attribute 'send'
+2026-11-02T16:01:34 | INFO | app | WriteBehindStore: flushed audit f67e2efa-ff12-4476-be7c-ba233c5689c5 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:01:48 | INFO | app | Core SEO audit dispatched to Celery: audit_id=c6a82637-b675-4074-9602-16f47421c836
+2026-11-02T16:01:53 | INFO | app | ContentWriteBehindStore: flushed audit c6a82637-b675-4074-9602-16f47421c836 to DB (status=completed, passed=15, failed=11)
+2026-11-02T16:01:53 | INFO | app | WriteBehindStore: flushed audit c6a82637-b675-4074-9602-16f47421c836 to DB (status=completed, passed=24, failed=12)
+2026-11-02T16:02:42 | INFO | app | Core SEO audit dispatched to Celery: audit_id=7d15222f-dca7-4433-a442-1a79b571b035
+2026-11-02T16:02:48 | INFO | app | ContentWriteBehindStore: flushed audit 7d15222f-dca7-4433-a442-1a79b571b035 to DB (status=completed, passed=23, failed=16)
+2026-11-02T16:02:48 | INFO | app | WriteBehindStore: flushed audit 7d15222f-dca7-4433-a442-1a79b571b035 to DB (status=completed, passed=36, failed=18)
+2026-11-02T16:03:14 | INFO | app | Core SEO audit dispatched to Celery: audit_id=c001d532-fda7-4957-930c-e5fb94f9d453
+2026-11-02T16:03:24 | INFO | app | ContentWriteBehindStore: flushed audit c001d532-fda7-4957-930c-e5fb94f9d453 to DB (status=completed, passed=30, failed=22)
+2026-11-02T16:03:24 | INFO | app | WriteBehindStore: flushed audit c001d532-fda7-4957-930c-e5fb94f9d453 to DB (status=completed, passed=46, failed=26)
+2026-11-02T16:08:10 | INFO | app | Core SEO audit dispatched to Celery: audit_id=549f9fd1-874a-4a81-b865-ee38665181b2
+2026-11-02T16:08:19 | INFO | app | ContentWriteBehindStore: flushed audit 549f9fd1-874a-4a81-b865-ee38665181b2 to DB (status=completed, passed=38, failed=27)
+2026-11-02T16:08:19 | INFO | app | WriteBehindStore: flushed audit 549f9fd1-874a-4a81-b865-ee38665181b2 to DB (status=completed, passed=56, failed=34)
+2026-11-02T16:09:12 | INFO | app | Core SEO audit dispatched to Celery: audit_id=119d4848-4a6e-471e-bfcc-68cdb15bea74
+2026-11-02T16:09:28 | INFO | app | ContentWriteBehindStore: flushed audit 119d4848-4a6e-471e-bfcc-68cdb15bea74 to DB (status=completed, passed=38, failed=27)
+2026-11-02T16:09:28 | INFO | app | WriteBehindStore: flushed audit 119d4848-4a6e-471e-bfcc-68cdb15bea74 to DB (status=completed, passed=77, failed=13)
+2026-11-02T16:10:04 | INFO | app | Core SEO audit dispatched to Celery: audit_id=6f2e2716-66bf-48e1-a8d3-c0d296c56d04
+2026-11-02T16:10:32 | INFO | app | ContentWriteBehindStore: flushed audit 6f2e2716-66bf-48e1-a8d3-c0d296c56d04 to DB (status=completed, passed=74, failed=56)
+2026-11-02T16:10:32 | INFO | app | WriteBehindStore: flushed audit 6f2e2716-66bf-48e1-a8d3-c0d296c56d04 to DB (status=completed, passed=153, failed=27)
+2026-11-02T16:12:26 | INFO | app | Core SEO audit dispatched to Celery: audit_id=35d93e76-b67a-4a22-90cf-e5db4764859a
+2026-11-02T16:12:39 | INFO | app | ContentWriteBehindStore: flushed audit 35d93e76-b67a-4a22-90cf-e5db4764859a to DB (status=completed, passed=74, failed=56)
+2026-11-02T16:12:39 | INFO | app | WriteBehindStore: flushed audit 35d93e76-b67a-4a22-90cf-e5db4764859a to DB (status=completed, passed=113, failed=67)
+2026-11-02T16:32:09 | INFO | app | Worker process initialized with persistent background event loop (pid=23732)
+2026-11-02T16:32:12 | INFO | app | Worker process initialized with persistent background event loop (pid=5012)
+2026-11-02T16:32:13 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T16:32:28 | INFO | app | Worker process initialized with persistent background event loop (pid=13112)
+2026-11-02T16:32:33 | INFO | app | Worker process initialized with persistent background event loop (pid=26976)
+2026-11-02T16:32:38 | INFO | app | Worker process initialized with persistent background event loop (pid=18996)
+2026-11-02T16:32:47 | INFO | app | Worker process initialized with persistent background event loop (pid=26556)
+2026-11-02T16:32:54 | INFO | app | Worker process initialized with persistent background event loop (pid=17080)
+2026-11-02T16:33:07 | INFO | app | Core SEO audit dispatched to Celery: audit_id=dc099a31-90fc-4c0f-aa36-4e4b4a3a9edf
+2026-11-02T16:33:30 | INFO | app | ContentWriteBehindStore: flushed audit dc099a31-90fc-4c0f-aa36-4e4b4a3a9edf to DB (status=completed, passed=74, failed=56)
+2026-11-02T16:33:30 | INFO | app | WriteBehindStore: flushed audit dc099a31-90fc-4c0f-aa36-4e4b4a3a9edf to DB (status=completed, passed=113, failed=67)
+2026-11-02T16:33:49 | INFO | app | Core SEO audit dispatched to Celery: audit_id=815eedef-dbd3-40d1-98c3-68e3e15e21ad
+2026-11-02T16:34:05 | INFO | app | ContentWriteBehindStore: flushed audit 815eedef-dbd3-40d1-98c3-68e3e15e21ad to DB (status=completed, passed=74, failed=56)
+2026-11-02T16:34:05 | INFO | app | WriteBehindStore: flushed audit 815eedef-dbd3-40d1-98c3-68e3e15e21ad to DB (status=completed, passed=113, failed=67)
+2026-11-02T16:34:29 | INFO | app | Core SEO audit dispatched to Celery: audit_id=f9fbf979-7134-45c3-ae20-1ff91294f4c1
+2026-11-02T16:34:46 | INFO | app | ContentWriteBehindStore: flushed audit f9fbf979-7134-45c3-ae20-1ff91294f4c1 to DB (status=completed, passed=74, failed=56)
+2026-11-02T16:34:46 | INFO | app | WriteBehindStore: flushed audit f9fbf979-7134-45c3-ae20-1ff91294f4c1 to DB (status=completed, passed=113, failed=67)
+2026-11-02T16:42:54 | INFO | app | Core SEO audit dispatched to Celery: audit_id=3d3a6eb6-63c4-4c48-a656-62d6b38c5f3a
+2026-11-02T16:43:04 | INFO | app | ContentWriteBehindStore: flushed audit 3d3a6eb6-63c4-4c48-a656-62d6b38c5f3a to DB (status=completed, passed=43, failed=22)
+2026-11-02T16:43:04 | INFO | app | WriteBehindStore: flushed audit 3d3a6eb6-63c4-4c48-a656-62d6b38c5f3a to DB (status=completed, passed=64, failed=26)
+2026-11-02T16:45:25 | INFO | app | Core SEO audit dispatched to Celery: audit_id=002de0cc-84b2-4f1d-ad9d-5755e17c8a84
+2026-11-02T16:45:45 | INFO | app | ContentWriteBehindStore: flushed audit 002de0cc-84b2-4f1d-ad9d-5755e17c8a84 to DB (status=completed, passed=89, failed=41)
+2026-11-02T16:45:45 | INFO | app | WriteBehindStore: flushed audit 002de0cc-84b2-4f1d-ad9d-5755e17c8a84 to DB (status=completed, passed=150, failed=30)
+2026-11-02T16:49:25 | INFO | app | Content audit dispatched to Celery: audit_id=44561301-e92a-4c52-aa2e-c9abd1d935f3
+2026-11-02T16:52:06 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T16:52:39 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T16:52:44 | INFO | app | ContentWriteBehindStore: flushed audit 6c75db69-90e6-4246-af53-450b208d5c39 to DB (status=completed, passed=12, failed=1)
+2026-11-02T16:52:44 | INFO | app | WriteBehindStore: flushed audit 6c75db69-90e6-4246-af53-450b208d5c39 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:52:45 | ERROR | app | ContentWriteBehindStore: DB flush failed for af6e86c7-ff19-4ab4-87b4-1238e9e42747: 'NoneType' object has no attribute 'send'
+2026-11-02T16:52:45 | INFO | app | WriteBehindStore: flushed audit af6e86c7-ff19-4ab4-87b4-1238e9e42747 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:16 | ERROR | app | ContentWriteBehindStore: DB flush failed for a891002b-432f-47c6-b0f4-7372e342400d: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:16 | INFO | app | WriteBehindStore: flushed audit a891002b-432f-47c6-b0f4-7372e342400d to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:16 | ERROR | app | ContentWriteBehindStore: DB flush failed for a9e822db-e03b-4274-9877-4f79d9731056: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:16 | INFO | app | WriteBehindStore: flushed audit a9e822db-e03b-4274-9877-4f79d9731056 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:17 | ERROR | app | ContentWriteBehindStore: DB flush failed for 348fedd7-a8f0-4be4-ada0-892d6877ddee: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:17 | INFO | app | WriteBehindStore: flushed audit 348fedd7-a8f0-4be4-ada0-892d6877ddee to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:17 | ERROR | app | ContentWriteBehindStore: DB flush failed for 057bfeca-219a-4404-a0f2-b351a3f5700f: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:17 | INFO | app | WriteBehindStore: flushed audit 057bfeca-219a-4404-a0f2-b351a3f5700f to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:17 | ERROR | app | ContentWriteBehindStore: DB flush failed for d598215f-a97c-400c-a1d8-5630e0ad9c3e: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:18 | INFO | app | WriteBehindStore: flushed audit d598215f-a97c-400c-a1d8-5630e0ad9c3e to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:18 | ERROR | app | ContentWriteBehindStore: DB flush failed for 70014600-b936-45d6-86e7-d066dc13e716: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:18 | INFO | app | WriteBehindStore: flushed audit 70014600-b936-45d6-86e7-d066dc13e716 to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:53:27 | ERROR | app | ContentWriteBehindStore: DB flush failed for 4b1e45a1-f443-447f-aa28-a59a08e1019b: 'NoneType' object has no attribute 'send'
+2026-11-02T16:53:28 | INFO | app | WriteBehindStore: flushed audit 4b1e45a1-f443-447f-aa28-a59a08e1019b to DB (status=completed, passed=16, failed=2)
+2026-11-02T16:57:14 | INFO | app | Core SEO audit dispatched to Celery: audit_id=20671107-8304-4d01-879e-8cacf4d45a4c
+2026-11-02T16:57:38 | INFO | app | ContentWriteBehindStore: flushed audit 20671107-8304-4d01-879e-8cacf4d45a4c to DB (status=completed, passed=90, failed=40)
+2026-11-02T16:57:38 | INFO | app | WriteBehindStore: flushed audit 20671107-8304-4d01-879e-8cacf4d45a4c to DB (status=completed, passed=156, failed=24)
+2026-11-02T17:06:42 | INFO | app | Core SEO audit dispatched to Celery: audit_id=2cda6a50-62a8-4f19-b77e-c75ad238185d
+2026-11-02T17:06:51 | INFO | app | ContentWriteBehindStore: flushed audit 2cda6a50-62a8-4f19-b77e-c75ad238185d to DB (status=completed, passed=43, failed=22)
+2026-11-02T17:06:51 | INFO | app | WriteBehindStore: flushed audit 2cda6a50-62a8-4f19-b77e-c75ad238185d to DB (status=completed, passed=64, failed=26)
+2026-11-02T17:09:08 | INFO | app | Core SEO audit dispatched to Celery: audit_id=cb9b8597-6b6c-43b3-8749-d1c1848641dd
+2026-11-02T17:10:24 | INFO | app | ContentWriteBehindStore: flushed audit cb9b8597-6b6c-43b3-8749-d1c1848641dd to DB (status=completed, passed=447, failed=203)
+2026-11-02T17:10:24 | INFO | app | WriteBehindStore: flushed audit cb9b8597-6b6c-43b3-8749-d1c1848641dd to DB (status=completed, passed=763, failed=137)
+2026-11-02T17:21:07 | INFO | app | Celery broker pre-warm started in background
+2026-11-02T17:22:39 | INFO | app | Celery broker pre-warm started in background

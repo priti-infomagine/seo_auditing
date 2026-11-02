@@ -199,12 +199,28 @@ async def audit_websocket_http_docs(audit_id: str):
     The real-time event stream lives at the WebSocket endpoint:
         ws://host:port/api/v1/category-check/core-seo/ws/{audit_id}
 
-    Query parameters:
-        last_id  – Redis stream entry ID to resume from (default: "0" for full catch-up).
+    Query parameters (all formats supported):
+        Legacy:
+            last_seq         – Core SEO event sequence number to resume from (default: 0).
+            last_content_seq – Content event sequence number to resume from (default: 0).
+
+        Single category (one pair):
+            seq       – Sequence number to resume from.
+            category  – "core-seo" or "content".
+
+        Multiple categories (array format, recommended):
+            seq[]      – Array of sequence numbers.
+            category[] – Array of categories ("core-seo" | "content"), parallel to seq[].
+
+    Examples:
+        ?last_seq=43&last_content_seq=15
+        ?seq=43&category=core-seo
+        ?seq=15&category=content
+        ?seq[]=43&category[]=core-seo&seq[]=15&category[]=content
 
     WebSocket message format (JSON, each on its own frame):
-        {"type":"event","event_type":"<EVENT_TYPE>","audit_id":"...","url":"...","timestamp":"...","payload":{}}
-        {"type":"final","audit_id":"...","summary":{...},"pages":[...]}
+        {"type":"event","event_type":"<EVENT_TYPE>","audit_id":"...","url":"...","timestamp":"...","seq":N,"payload":{},"category":"core_seo|content"}
+        {"type":"final","audit_id":"...","summary":{...},"pages":[...],"content_pages":[...]}
 
     Event types you will receive:
         audit_started, page_discovered, page_queued, page_started,
@@ -225,28 +241,62 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
     content:events:{audit_id} — tagging each event with its ``category``
     so the frontend can route/filter.
 
-    Clients can pass ``?last_id=<redis_stream_entry_id>`` to resume
-    from a specific stream position for the core_seo stream. The content
-    stream starts from the same position by default.
+    Clients can pass ``?last_seq=<core_seo_seq>&last_content_seq=<content_seq>``
+    to resume from a specific sequence number for each category.
+    Default is 0 (from start).
 
     The final snapshot is sent only after BOTH core_seo and content
     audits have completed.
     """
     await websocket.accept()
 
-    # Accept optional last_id query param
+    # Accept optional sequence query params for resumption
+    # Supported formats:
+    #   1. Legacy: ?last_seq=43&last_content_seq=15
+    #   2. Single pair: ?seq=43&category=core-seo
+    #   3. Multiple pairs: ?seq[]=43&category[]=core-seo&seq[]=15&category[]=content
     raw_query = websocket.scope.get("query_string", b"")
-    query_params: dict[str, str] = {}
+    query_params: dict[str, list[str]] = {}
     if isinstance(raw_query, bytes):
         raw_query = raw_query.decode("utf-8")
     if raw_query:
         from urllib.parse import parse_qs
-        parsed = parse_qs(raw_query)
-        for k, v in parsed.items():
-            query_params[k] = v[0] if v else ""
+        query_params = parse_qs(raw_query)
 
-    last_core_id = query_params.get("last_id", "0")
-    last_content_id = "0"
+    def _extract_leading_int(value: str) -> int:
+        """Extract leading integer from a string (handles malformed params like '15 ?seq=43')."""
+        import re
+        match = re.match(r'^\s*(\d+)', value)
+        return int(match.group(1)) if match else 0
+
+    def _get_seq_for_category(category: str, default: int = 0) -> int:
+        """Extract sequence number for a category from various param formats."""
+        # Format 1: Legacy params
+        if category == "core_seo":
+            if "last_seq" in query_params:
+                return _extract_leading_int(query_params["last_seq"][0])
+        elif category == "content":
+            if "last_content_seq" in query_params:
+                return _extract_leading_int(query_params["last_content_seq"][0])
+
+        # Format 2: Single pair (seq + category)
+        if "seq" in query_params and "category" in query_params:
+            if query_params["category"][0] == category:
+                return _extract_leading_int(query_params["seq"][0])
+
+        # Format 3: Array pairs (seq[] + category[])
+        if "seq[]" in query_params and "category[]" in query_params:
+            seqs = query_params["seq[]"]
+            cats = query_params["category[]"]
+            for i, cat in enumerate(cats):
+                if cat == category and i < len(seqs):
+                    return _extract_leading_int(seqs[i])
+
+        return default
+
+    # Use sequence numbers for resumption (default 0 = from start)
+    last_core_seq = _get_seq_for_category("core_seo")
+    last_content_seq = _get_seq_for_category("content")
 
     # Establish Redis client once — reused for all stream reads below.
     import redis
@@ -274,6 +324,7 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                     "audit_id": evt.get("audit_id", audit_id),
                     "url": evt.get("url", ""),
                     "timestamp": evt.get("timestamp", ""),
+                    "seq": evt.get("seq", 0),
                     "payload": evt.get("data", {}),
                     "category": category,
                 })
@@ -299,6 +350,7 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                         "audit_id": audit_id,
                         "summary": report.summary,
                         "pages": report.pages,
+                        "content_pages": getattr(report, "content_pages", []),
                     })
                 )
                 return True
@@ -338,18 +390,22 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 )
                 return
 
-        # --- Phase 2: Send catch-up events from BOTH streams ---------------
-        core_events = await asyncio.to_thread(EventBus.get_events_for_audit, audit_id)
+        # --- Phase 2: Send catch-up events from BOTH streams using sequence numbers ---
+        core_events = await asyncio.to_thread(
+            EventBus.get_events_for_audit_after_seq, audit_id, last_core_seq
+        )
         from ..content.events import ContentEventBus
-        content_events = await asyncio.to_thread(ContentEventBus.get_events_for_audit, audit_id)
+        content_events = await asyncio.to_thread(
+            ContentEventBus.get_events_for_audit_after_seq, audit_id, last_content_seq
+        )
 
-        # Merge and sort by timestamp for interleaved delivery
+        # Merge and sort by sequence number for interleaved delivery
         all_catchup: list[tuple[str, Any]] = []
         for e in core_events:
             all_catchup.append(("core_seo", e))
         for e in content_events:
             all_catchup.append(("content", e))
-        all_catchup.sort(key=lambda pair: pair[1].timestamp)
+        all_catchup.sort(key=lambda pair: pair[1].seq)
 
         for category, event in all_catchup:
             sent = await _send_event({
@@ -357,20 +413,17 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 "audit_id": event.audit_id,
                 "url": event.url,
                 "timestamp": event.timestamp,
+                "seq": event.seq,
                 "data": event.payload or event.data,
             }, category=category)
             if not sent:
                 return
 
-        # Advance last_id for both streams to the newest entry
+        # Update last_seq to latest received in catch-up
         if core_events:
-            last_core = await asyncio.to_thread(client.xrevrange, core_stream_key, count=1)
-            if last_core:
-                last_core_id = last_core[0][0]
+            last_core_seq = core_events[-1].seq
         if content_events:
-            last_content = await asyncio.to_thread(client.xrevrange, content_stream_key, count=1)
-            if last_content:
-                last_content_id = last_content[0][0]
+            last_content_seq = content_events[-1].seq
 
         # --- Phase 3: If both streams completed, send the final snapshot ----
         core_done = _is_core_completed()
@@ -383,8 +436,9 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
             if result is False:
                 return
 
-        # --- Phase 4: Live-stream new events from both streams ------------
-        streams = {core_stream_key: last_core_id, content_stream_key: last_content_id}
+        # --- Phase 4: Live-stream new events from both streams using seq filtering ---
+        # Use $ to read only new entries, then filter by seq
+        streams = {core_stream_key: "$", content_stream_key: "$"}
         while True:
             try:
                 resp = await asyncio.to_thread(
@@ -396,21 +450,31 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                 if resp:
                     for stream_key, entries in resp:
                         category = "core_seo" if stream_key == core_stream_key else "content"
-                        stream_key_name = core_stream_key if category == "core_seo" else content_stream_key
                         for entry_id, fields in entries:
-                            if category == "core_seo":
-                                last_core_id = entry_id
-                            else:
-                                last_content_id = entry_id
                             raw = fields.get("event", "")
                             if raw:
                                 try:
                                     evt = json.loads(raw)
+                                    evt_seq = evt.get("seq", 0)
+
+                                    # Skip if we already sent this seq (duplicate protection)
+                                    if category == "core_seo" and evt_seq <= last_core_seq:
+                                        continue
+                                    if category == "content" and evt_seq <= last_content_seq:
+                                        continue
+
+                                    # Update last_seq
+                                    if category == "core_seo":
+                                        last_core_seq = evt_seq
+                                    else:
+                                        last_content_seq = evt_seq
+
                                     if not await _send_event({
                                         "event_type": evt.get("event_type", ""),
                                         "audit_id": evt.get("audit_id", audit_id),
                                         "url": evt.get("url", ""),
                                         "timestamp": evt.get("timestamp", ""),
+                                        "seq": evt_seq,
                                         "data": evt.get("data", {}),
                                     }, category=category):
                                         return

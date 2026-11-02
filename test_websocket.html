@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test - Category Check</title>
+    <style>
+        body { font-family: monospace; max-width: 1000px; margin: 20px auto; padding: 20px; }
+        .container { display: flex; gap: 20px; }
+        .panel { flex: 1; border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+        .panel h3 { margin-top: 0; }
+        input, select { width: 100%; padding: 8px; margin: 5px 0; box-sizing: border-box; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        #log { height: 400px; overflow-y: auto; background: #f5f5f5; padding: 10px; border-radius: 4px; font-size: 12px; }
+        .event { margin: 2px 0; padding: 4px; border-left: 3px solid #007bff; background: white; }
+        .event.final { border-left-color: #28a745; background: #e8f5e9; }
+        .event.core_seo { border-left-color: #007bff; }
+        .event.content { border-left-color: #ffc107; }
+        .event.error { border-left-color: #dc3545; background: #fce4ec; }
+        .controls { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+        label { display: flex; align-items: center; gap: 5px; font-size: 13px; }
+        .stats { display: flex; gap: 20px; margin: 10px 0; font-size: 13px; }
+        .stat { background: #e9ecef; padding: 5px 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🔌 WebSocket Test Client - Category Check</h1>
+    
+    <div class="panel">
+        <h3>Connection</h3>
+        <div>
+            <label>Base URL: <input type="text" id="baseUrl" value="ws://localhost:8000" style="width: 300px;"></label>
+        </div>
+        <div>
+            <label>Audit ID: <input type="text" id="auditId" value="20671107-8304-4d01-879e-8cacf4d45a4c" style="width: 400px;"></label>
+        </div>
+        <div class="controls">
+            <button id="connectBtn" onclick="connect()">Connect</button>
+            <button id="disconnectBtn" onclick="disconnect()" disabled>Disconnect</button>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+        <div class="stats">
+            <span class="stat">Events: <span id="eventCount">0</span></span>
+            <span class="stat">Core SEO: <span id="coreCount">0</span></span>
+            <span class="stat">Content: <span id="contentCount">0</span></span>
+            <span class="stat">Final: <span id="finalCount">0</span></span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel">
+            <h3>Query Parameter Builder</h3>
+            <div>
+                <label>
+                    Format:
+                    <select id="paramFormat" onchange="updateUrlPreview()">
+                        <option value="legacy">Legacy: ?last_seq=X&last_content_seq=Y</option>
+                        <option value="single">Single: ?seq=X&category=core-seo|content</option>
+                        <option value="array">Array: ?seq[]=X&category[]=core-seo&seq[]=Y&category[]=content</option>
+                        <option value="none">None (fresh connection)</option>
+                    </select>
+                </label>
+            </div>
+            <div id="legacyParams" style="display:none;">
+                <label>last_seq: <input type="number" id="lastSeq" value="0" min="0"></label>
+                <label>last_content_seq: <input type="number" id="lastContentSeq" value="0" min="0"></label>
+            </div>
+            <div id="singleParams" style="display:none;">
+                <label>seq: <input type="number" id="singleSeq" value="0" min="0"></label>
+                <label>category: <select id="singleCategory"><option value="core-seo">core-seo</option><option value="content">content</option></select></label>
+            </div>
+            <div id="arrayParams" style="display:none;">
+                <label>seq[] (core-seo): <input type="number" id="arraySeqCore" value="0" min="0"></label>
+                <label>seq[] (content): <input type="number" id="arraySeqContent" value="0" min="0"></label>
+            </div>
+            <div>
+                <label>Custom Params: <input type="text" id="customParams" placeholder="e.g., last_seq=10&category=core-seo" style="width: 400px;"></label>
+            </div>
+            <div>
+                <strong>Generated URL:</strong>
+                <div id="urlPreview" style="background: #f5f5f5; padding: 10px; border-radius: 4px; word-break: break-all; font-size: 12px;"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>Event Log</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        let stats = { total: 0, core_seo: 0, content: 0, final: 0 };
+
+        const log = document.getElementById('log');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+
+        function updateUrlPreview() {
+            const format = document.getElementById('paramFormat').value;
+            const baseUrl = document.getElementById('baseUrl').value;
+            const auditId = document.getElementById('auditId').value;
+            let params = '';
+
+            if (format === 'legacy') {
+                const s = document.getElementById('lastSeq').value;
+                const c = document.getElementById('lastContentSeq').value;
+                params = `?last_seq=${s}&last_content_seq=${c}`;
+            } else if (format === 'single') {
+                const s = document.getElementById('singleSeq').value;
+                const cat = document.getElementById('singleCategory').value;
+                params = `?seq=${s}&category=${cat}`;
+            } else if (format === 'array') {
+                const s1 = document.getElementById('arraySeqCore').value;
+                const s2 = document.getElementById('arraySeqContent').value;
+                params = `?seq[]=${s1}&category[]=core-seo&seq[]=${s2}&category[]=content`;
+            } else if (format === 'none') {
+                params = '';
+            } else {
+                params = document.getElementById('customParams').value;
+            }
+
+            const url = `${baseUrl}/api/v1/category-check/core-seo/ws/${auditId}${params}`;
+            document.getElementById('urlPreview').textContent = url;
+            return url;
+        }
+
+        function addLogEntry(type, data) {
+            const entry = document.createElement('div');
+            entry.className = `event ${type}`;
+            const time = new Date().toLocaleTimeString();
+            let html = `<strong>[${time}] ${type.toUpperCase()}</strong><br>`;
+            
+            if (type === 'event') {
+                html += `Category: <strong>${data.category}</strong> | Seq: <strong>${data.seq}</strong> | Type: ${data.event_type}`;
+                if (data.url) html += ` | URL: ${data.url}`;
+            } else if (type === 'final') {
+                html += `Audit Complete! Pages: ${data.summary?.pages_total || 'N/A'}`;
+            } else if (type === 'error') {
+                html += data.message || JSON.stringify(data);
+            } else {
+                html += JSON.stringify(data, null, 2);
+            }
+            
+            entry.innerHTML = html;
+            log.insertBefore(entry, log.firstChild);
+            
+            // Update stats
+            if (type === 'event') {
+                stats.total++;
+                stats[data.category]++;
+            } else if (type === 'final') {
+                stats.final++;
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('eventCount').textContent = stats.total;
+            document.getElementById('coreCount').textContent = stats.core_seo;
+            document.getElementById('contentCount').textContent = stats.content;
+            document.getElementById('finalCount').textContent = stats.final;
+        }
+
+        function clearLog() {
+            log.innerHTML = '';
+            stats = { total: 0, core_seo: 0, content: 0, final: 0 };
+            updateStats();
+        }
+
+        function connect() {
+            const url = updateUrlPreview();
+            addLogEntry('info', { message: `Connecting to: ${url}` });
+            
+            ws = new WebSocket(url);
+            
+            ws.onopen = () => {
+                addLogEntry('info', { message: '✅ Connected' });
+                connectBtn.disabled = true;
+                disconnectBtn.disabled = false;
+            };
+            
+            ws.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    if (msg.type === 'event') {
+                        addLogEntry('event', msg);
+                    } else if (msg.type === 'final') {
+                        addLogEntry('final', msg);
+                    } else {
+                        addLogEntry('info', msg);
+                    }
+                } catch (e) {
+                    addLogEntry('error', { message: 'Parse error: ' + event.data });
+                }
+            };
+            
+            ws.onerror = (error) => {
+                addLogEntry('error', { message: 'WebSocket error: ' + error.message });
+            };
+            
+            ws.onclose = (event) => {
+                addLogEntry('info', { message: `❌ Disconnected (code: ${event.code}, reason: ${event.reason})` });
+                connectBtn.disabled = false;
+                disconnectBtn.disabled = true;
+            };
+        }
+
+        function disconnect() {
+            if (ws) {
+                ws.close(1000, 'User disconnected');
+                ws = null;
+            }
+        }
+
+        // Show/hide param fields based on format
+        document.getElementById('paramFormat').addEventListener('change', () => {
+            const format = document.getElementById('paramFormat').value;
+            document.getElementById('legacyParams').style.display = format === 'legacy' ? 'block' : 'none';
+            document.getElementById('singleParams').style.display = format === 'single' ? 'block' : 'none';
+            document.getElementById('arrayParams').style.display = format === 'array' ? 'block' : 'none';
+            updateUrlPreview();
+        });
+
+        // Update preview on input changes
+        ['lastSeq', 'lastContentSeq', 'singleSeq', 'singleCategory', 'arraySeqCore', 'arraySeqContent', 'customParams', 'baseUrl', 'auditId'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateUrlPreview);
+        });
+
+        // Initial preview
+        updateUrlPreview();
+    </script>
+</body>
+</html>

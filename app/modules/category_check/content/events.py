@@ -33,7 +33,11 @@ _DEFAULT_COUNTERS = {
     "rules_passed": 0,
     "rules_failed": 0,
     "rules_total": 0,
+    "event_seq": 0,
 }
+
+# Sequence counter key (separate from default counters to avoid reset)
+_SEQ_COUNTER_KEY = "event_seq"
 
 _redis_client: Any = None
 
@@ -245,11 +249,15 @@ class ContentEventBus:
         if not url and event_data.get("url"):
             url = event_data["url"]
 
+        # ATOMIC: Increment sequence counter in Redis (HINCRBY)
+        seq = _redis_hincrby_sync(audit_id, "counters", _SEQ_COUNTER_KEY, 1)
+
         event = ContentPipelineEvent(
             event_type=event_type.value if isinstance(event_type, ContentEventType) else str(event_type),
             audit_id=audit_id,
             url=url,
             data=event_data,
+            seq=seq,
         )
 
         et = event.event_type
@@ -320,7 +328,39 @@ class ContentEventBus:
                             url=evt_data.get("url", ""),
                             timestamp=evt_data.get("timestamp", ""),
                             data=evt_data.get("data", {}),
+                            seq=evt_data.get("seq", 0),
                         ))
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+        except Exception as exc:
+            logger.debug("ContentEventBus Redis xrange failed: %s", exc)
+        return events
+
+    @classmethod
+    def get_events_for_audit_after_seq(cls, audit_id: str, after_seq: int) -> list[ContentPipelineEvent]:
+        """Retrieve events with seq > after_seq (for resumption)."""
+        events: list[ContentPipelineEvent] = []
+        client = _get_sync_redis()
+        if client is None:
+            return events
+        try:
+            stream_key = f"{_CONTENT_EVENTS_PREFIX}:{audit_id}"
+            entries = client.xrange(stream_key, count=5000)
+            for _id, fields in entries:
+                raw = fields.get("event", "")
+                if raw:
+                    try:
+                        evt_data = json.loads(raw)
+                        seq = evt_data.get("seq", 0)
+                        if seq > after_seq:
+                            events.append(ContentPipelineEvent(
+                                event_type=evt_data.get("event_type", ""),
+                                audit_id=evt_data.get("audit_id", audit_id),
+                                url=evt_data.get("url", ""),
+                                timestamp=evt_data.get("timestamp", ""),
+                                data=evt_data.get("data", {}),
+                                seq=seq,
+                            ))
                     except (json.JSONDecodeError, TypeError):
                         pass
         except Exception as exc:
@@ -370,6 +410,7 @@ class ContentEventBus:
                     "url": event.url,
                     "timestamp": event.timestamp,
                     "data": event.data,
+                    "seq": event.seq,
                 },
                 default=str,
             )
