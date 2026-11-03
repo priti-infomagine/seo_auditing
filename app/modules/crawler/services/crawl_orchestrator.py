@@ -28,6 +28,7 @@ from app.modules.crawler.repositories.crawl_job_repository import CrawlJobReposi
 from app.modules.crawler.services.crawl_scheduler import CrawlScheduler
 from app.modules.crawler.services.crawl_persistence_service import CrawlPersistenceService
 from app.modules.crawler.services.crawl_pipeline_events import CrawlPipelineBus, CrawlPipelineEvent
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.crawler.services.link_analysis_service import LinkAnalysisService, LinkAnalysisResult
 from app.modules.crawler.services.page_crawl_service import PageCrawlService, PageCrawlResult
 from app.modules.crawler.services.page_extraction_service import PageExtractionService, PageFacts
@@ -57,7 +58,7 @@ class CrawlOrchestrator:
         self.technical_analysis_service = TechnicalAnalysisService
         self.redirect_service_factory = lambda page_id: RedirectService(db, page_id)
         self.config: Optional[CrawlConfig] = None
-        self.event_bus = CrawlPipelineBus()
+        self.event_bus = AuditEventBus()
         self._scheduler: Optional[CrawlScheduler] = None
         self._progress_callback: Optional[callable] = None
         self._ignore_service: Optional[UrlIgnoreService] = None
@@ -105,11 +106,14 @@ class CrawlOrchestrator:
         site_result = None
 
         await self.event_bus.emit(
-            CrawlPipelineEvent.SCHEDULER_START,
+            AuditEventType.CRAWL_STARTED,
             audit_id=str(self.crawl_job_id),
-            start_url=start_url,
-            max_depth=self.config.max_depth,
-            max_pages=self.config.max_pages,
+            url=start_url,
+            data={
+                "start_url": start_url,
+                "max_depth": self.config.max_depth,
+                "max_pages": self.config.max_pages,
+            },
         )
 
         if respect_robots:
@@ -278,11 +282,13 @@ class CrawlOrchestrator:
         await self._mark_completed(duration_ms)
 
         await self.event_bus.emit(
-            CrawlPipelineEvent.SCHEDULER_COMPLETE,
+            AuditEventType.CRAWL_COMPLETE,
             audit_id=str(self.crawl_job_id),
-            pages_crawled=pages_crawled_count,
-            pages_discovered=pages_discovered_count,
-            duration_ms=duration_ms,
+            data={
+                "pages_crawled": pages_crawled_count,
+                "pages_discovered": pages_discovered_count,
+                "duration_ms": duration_ms,
+            },
         )
 
         pages_failed_count = getattr(scheduler, "pages_failed_count", 0)
@@ -336,10 +342,13 @@ class CrawlOrchestrator:
 
     async def _crawl_page(self, item: DiscoveredURL, http_sem: asyncio.Semaphore, browser_sem: asyncio.Semaphore) -> None:
         await self.event_bus.emit(
-            CrawlPipelineEvent.PAGE_START,
+            AuditEventType.CRAWL_PAGE_STARTED,
+            audit_id=str(self.crawl_job_id),
             url=item.normalized_url,
-            depth=item.depth,
-            parent_page_id=str(item.parent_page_id) if item.parent_page_id else None,
+            data={
+                "depth": item.depth,
+                "parent_page_id": str(item.parent_page_id) if item.parent_page_id else None,
+            },
         )
 
         async with http_sem:
@@ -351,10 +360,13 @@ class CrawlOrchestrator:
             )
 
         await self.event_bus.emit(
-            CrawlPipelineEvent.PAGE_FETCHED,
+            AuditEventType.CRAWL_PAGE_FETCHED,
+            audit_id=str(self.crawl_job_id),
             url=item.normalized_url,
-            success=crawl_result.success,
-            error=crawl_result.error,
+            data={
+                "success": crawl_result.success,
+                "error": crawl_result.error,
+            },
         )
 
         if crawl_result.error:
@@ -372,9 +384,10 @@ class CrawlOrchestrator:
                 )
                 await worker_db.commit()
             await self.event_bus.emit(
-                CrawlPipelineEvent.PAGE_ERROR,
+                AuditEventType.CRAWL_PAGE_FAILED,
+                audit_id=str(self.crawl_job_id),
                 url=item.normalized_url,
-                error=crawl_result.error,
+                data={"error": crawl_result.error},
             )
             logger.warning("Page crawl failed: %s — error=%s", item.normalized_url, crawl_result.error)
             return False
@@ -582,9 +595,10 @@ class CrawlOrchestrator:
                 self._enqueue_links(link_result.links, page.id, effective_url, item.depth)
 
             await self.event_bus.emit(
-                CrawlPipelineEvent.PAGE_PERSISTED,
+                AuditEventType.CRAWL_PAGE_PERSISTED,
+                audit_id=str(self.crawl_job_id),
                 url=item.normalized_url,
-                page_id=str(page.id),
+                data={"page_id": str(page.id)},
             )
 
             # Flush buffered data into the session, then update progress

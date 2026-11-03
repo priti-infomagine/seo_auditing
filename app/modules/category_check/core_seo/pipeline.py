@@ -581,6 +581,26 @@ class CoreSEOCrawlerService:
                 })
             return result
 
+        # Fallback to database when Redis TTL expires
+        try:
+            from app.shared.tasks.db import run_async
+            from .storage.write_behind import get_audit_status_from_db
+            db_status = run_async(get_audit_status_from_db(audit_id))
+            if db_status:
+                # Include content data if running content checks
+                if self.run_content and self.content_service:
+                    from ..content.events import ContentEventBus
+                    content_counters = ContentEventBus.get_counters(audit_id)
+                    db_status.update({
+                        "content_pages_done": content_counters.get("pages_crawled", 0),
+                        "content_pages_failed": content_counters.get("pages_failed", 0),
+                        "content_rules_passed": content_counters.get("rules_passed", 0),
+                        "content_rules_failed": content_counters.get("rules_failed", 0),
+                    })
+                return db_status
+        except Exception:
+            pass
+
         return {"audit_id": audit_id, "status": "unknown"}
 
     def get_report(self, audit_id: str) -> NormalizedResult | None:

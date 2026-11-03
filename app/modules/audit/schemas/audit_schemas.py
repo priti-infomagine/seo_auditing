@@ -179,6 +179,7 @@ class AuditAnalyzeQueuedResponse(BaseModel):
     pipeline_status_url: str = Field(..., description="URL to fetch pipeline stage status")
     result_url: str = Field(..., description="URL to fetch the final analysis result")
     poll_url: Optional[str] = Field(None, description="URL to poll directly for cached progress and completed results without DB queries")
+    websocket_url: Optional[str] = Field(None, description="WebSocket URL for real-time event streaming")
     full_pipeline: bool = Field(..., description="Whether the full pipeline was requested")
 
 

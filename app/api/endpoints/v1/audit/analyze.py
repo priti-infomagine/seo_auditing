@@ -21,7 +21,6 @@ from redis.asyncio import Redis
 from app.core.database import get_db
 from app.core.redis import get_redis
 from app.core.logger import logger
-from app.core.config import settings
 from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeQueuedResponse,
@@ -180,6 +179,9 @@ async def analyze_website(
 
         fmt = "" if format == "full" else f"?format={format}"
 
+        # Build websocket URL - relative path that frontend can resolve
+        websocket_url = f"/api/v1/audit/ws/{audit_id}"
+
         return AuditAnalyzeQueuedResponse(
             success=True,
             status="queued",
@@ -193,6 +195,7 @@ async def analyze_website(
             pipeline_status_url=f"/api/v1/audit/status/{audit_id}",
             result_url=f"/api/v1/audit/result/{audit_id}{fmt}",
             poll_url=f"/api/v1/audit/analyze/poll/{audit_id}{fmt}",
+            websocket_url=websocket_url,
             full_pipeline=body.full_pipeline,
         )
 

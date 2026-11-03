@@ -80691,3 +80691,1072 @@ app.modules.separate_checks.serp_rank_check.client.SERPDataForSEOConfigurationEr
 2026-11-02T17:10:24 | INFO | app | WriteBehindStore: flushed audit cb9b8597-6b6c-43b3-8749-d1c1848641dd to DB (status=completed, passed=763, failed=137)
 2026-11-02T17:21:07 | INFO | app | Celery broker pre-warm started in background
 2026-11-02T17:22:39 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T09:53:48 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T09:53:49 | INFO | app | Worker process initialized with persistent background event loop (pid=21404)
+2026-11-03T09:55:11 | INFO | app | Worker process initialized with persistent background event loop (pid=9444)
+2026-11-03T09:55:22 | INFO | app | Worker process initialized with persistent background event loop (pid=10880)
+2026-11-03T09:56:01 | INFO | app | Worker process initialized with persistent background event loop (pid=8948)
+2026-11-03T09:57:00 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T09:57:09 | INFO | app | Worker process initialized with persistent background event loop (pid=28524)
+2026-11-03T10:40:04 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T10:40:07 | INFO | app | Worker process initialized with persistent background event loop (pid=29120)
+2026-11-03T10:40:22 | INFO | app | Worker process initialized with persistent background event loop (pid=12376)
+2026-11-03T10:40:34 | INFO | app | Worker process initialized with persistent background event loop (pid=14820)
+2026-11-03T10:45:06 | INFO | app | Core SEO audit dispatched to Celery: audit_id=df656c4c-6e38-4e2f-b32f-bfd4570dac35
+2026-11-03T10:45:20 | INFO | app | ContentWriteBehindStore: flushed audit df656c4c-6e38-4e2f-b32f-bfd4570dac35 to DB (status=completed, passed=43, failed=22)
+2026-11-03T10:45:20 | INFO | app | WriteBehindStore: flushed audit df656c4c-6e38-4e2f-b32f-bfd4570dac35 to DB (status=completed, passed=64, failed=26)
+2026-11-03T10:46:49 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-11-03T10:46:49 | INFO | app | LighthouseCheckService: prepared check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-11-03T10:46:49 | INFO | app | Lighthouse check queued: check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, task_id=d41a691f-3293-4067-b3f8-bc1732e070c4, domain=moneymatters.co.in
+2026-11-03T10:46:49 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:46:49 | INFO | app | lighthouse.run_check: task started for check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-11-03T10:46:52 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:46:54 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-11-03T10:46:54 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-11-03T10:46:54 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-11-03T10:46:54 | INFO | app | Crawl started: https://moneymatters.co.in/ (max_pages=3, max_depth=3)
+2026-11-03T10:46:54 | INFO | app | Submitted 2 sitemap URLs to crawl queue (total selected: 3)
+2026-11-03T10:46:55 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:46:57 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:00 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:02 | INFO | app | Crawl completed: https://moneymatters.co.in/ — pages_crawled=3, pages_discovered=3, pages_failed=0, duration=7934ms
+2026-11-03T10:47:02 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 39, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-11-03T10:47:02 | INFO | app | LighthouseCheckService: crawl done for check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, discovered 3 URLs across 1 devices — starting pagespeed phase (3 checks)
+2026-11-03T10:47:03 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:05 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:08 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:11 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:13 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:16 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:19 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:21 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:24 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:47:25 | INFO | app | LighthouseCheckService: completed check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, total=3, succeeded=3, failed=0
+2026-11-03T10:47:25 | INFO | app | lighthouse.run_check: task finished for check_id=f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5, status=completed
+2026-11-03T10:47:27 | INFO | app | GET /lighthouse/status/f1c106a5-26c1-48d1-9d1a-7d6c5e377ae5
+2026-11-03T10:48:20 | INFO | app | meta.run_check: task started for check_id=63a59e7a-4c7d-4422-b0de-345fb109de09
+2026-11-03T10:48:22 | INFO | app | Site discovery complete for https://seomator.com/: robots=True, sitemaps=2, page_urls=464
+2026-11-03T10:48:22 | INFO | app | Robots policy attached to scheduler for seomator.com (sitemaps: 2)
+2026-11-03T10:48:22 | INFO | app | Crawl started: https://seomator.com/ (max_pages=100, max_depth=3)
+2026-11-03T10:48:23 | INFO | app | Submitted 311 sitemap URLs to crawl queue (total selected: 464)
+2026-11-03T10:49:07 | INFO | app | Crawl completed: https://seomator.com/ — pages_crawled=119, pages_discovered=313, pages_failed=0, duration=46385ms
+2026-11-03T10:49:07 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 11253, 'non_html': 0, 'resource': 2, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-11-03T10:49:07 | INFO | app | meta.run_check: task finished for check_id=63a59e7a-4c7d-4422-b0de-345fb109de09, status=completed
+2026-11-03T11:03:02 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:03:22 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:03:32 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:04:55 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:05:24 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:05:32 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:06:51 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:06:57 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:07:33 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:07:43 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:08:26 | INFO | app | WriteBehindStore: no state found for audit test-audit-1 in Redis
+2026-11-03T11:08:26 | INFO | app | WriteBehindStore: background flush started (interval=0.1s)
+2026-11-03T11:08:26 | INFO | app | WriteBehindStore: background flush stopped
+2026-11-03T11:08:37 | ERROR | app | ContentWriteBehindStore: DB flush failed for 88cc42de-12e1-4bbd-bec8-6e6e6626b769: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:37 | ERROR | app | ContentWriteBehindStore: DB flush failed for b0d753eb-e56b-486e-bab7-9b3e5a984135: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for df627576-db8c-47c0-92bb-7d32ca4b2ece: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for test-namespace-isolation: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for e446367f-444b-455e-966f-5aa6fbad4572: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for e3d155b0-a737-4cc1-b02c-c6cbd581601e: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for 40fd75db-c7ab-49d2-816b-56e71d15531f: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:38 | ERROR | app | ContentWriteBehindStore: DB flush failed for 5da65e57-aae0-4ab7-88a3-e671e6daa353: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:39 | ERROR | app | ContentWriteBehindStore: DB flush failed for 938b6e78-dd40-41a1-a218-510ab0c4bd27: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:54 | ERROR | app | ContentWriteBehindStore: DB flush failed for e0bfcbed-983b-4fd4-b507-9884f1eb0347: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:54 | ERROR | app | ContentWriteBehindStore: DB flush failed for 751ad4b0-f93c-41ab-9c23-03d63dddd724: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for b9ed5a2c-6bab-48c6-93df-243b3bbe9006: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for test-namespace-isolation: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for a98f30fb-58f1-47bf-8a87-fe524b38fd8d: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for 3ba0bf2b-ba05-4c34-a982-f33e66584a3a: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for 5445fc8a-85d2-494b-8bb6-0465bb1131cf: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:56 | ERROR | app | ContentWriteBehindStore: DB flush failed for 082e1ae0-591a-443e-9eeb-4188a6ae2aae: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:56 | ERROR | app | ContentWriteBehindStore: DB flush failed for 075d0a84-baca-470c-8abc-d0f2d3734da2: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:56 | ERROR | app | ContentWriteBehindStore: DB flush failed for 16a5c4b9-316c-45d4-b9f2-ef046c67a4e5: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:56 | ERROR | app | WriteBehindStore: DB flush failed for 16a5c4b9-316c-45d4-b9f2-ef046c67a4e5: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:57 | ERROR | app | ContentWriteBehindStore: DB flush failed for 2fc31574-e660-4211-b4c9-ca9521259d92: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:57 | ERROR | app | WriteBehindStore: DB flush failed for 2fc31574-e660-4211-b4c9-ca9521259d92: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:57 | ERROR | app | ContentWriteBehindStore: DB flush failed for 61caf1b5-a463-40ac-805e-33b1b4fc22e3: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:57 | ERROR | app | WriteBehindStore: DB flush failed for 61caf1b5-a463-40ac-805e-33b1b4fc22e3: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:57 | ERROR | app | ContentWriteBehindStore: DB flush failed for d0ccc78b-9ecb-4f92-9cac-942d19c695fb: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:58 | ERROR | app | WriteBehindStore: DB flush failed for d0ccc78b-9ecb-4f92-9cac-942d19c695fb: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:58 | ERROR | app | ContentWriteBehindStore: DB flush failed for 9732bbfb-da77-42dc-8a7b-7e15616cfefc: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:59 | ERROR | app | WriteBehindStore: DB flush failed for 9732bbfb-da77-42dc-8a7b-7e15616cfefc: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:08:59 | ERROR | app | ContentWriteBehindStore: DB flush failed for aa8a8658-68ef-4830-b4de-c8a22652e293: 'NoneType' object has no attribute 'send'
+2026-11-03T11:08:59 | ERROR | app | WriteBehindStore: DB flush failed for aa8a8658-68ef-4830-b4de-c8a22652e293: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:00 | ERROR | app | ContentWriteBehindStore: DB flush failed for 1690486e-0f32-4e7e-bc5a-f7b89551c2c5: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:00 | ERROR | app | WriteBehindStore: DB flush failed for 1690486e-0f32-4e7e-bc5a-f7b89551c2c5: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:00 | ERROR | app | ContentWriteBehindStore: DB flush failed for c1c9192b-fa1d-4016-87ac-5c6146402b9e: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:00 | ERROR | app | WriteBehindStore: DB flush failed for c1c9192b-fa1d-4016-87ac-5c6146402b9e: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:00 | ERROR | app | ContentWriteBehindStore: DB flush failed for 927ffe8f-7899-4c01-a32c-1763a4e36165: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:01 | ERROR | app | WriteBehindStore: DB flush failed for 927ffe8f-7899-4c01-a32c-1763a4e36165: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:01 | ERROR | app | ContentWriteBehindStore: DB flush failed for 1d89b039-d8ed-49f0-955d-5e1ac4837d43: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:01 | ERROR | app | WriteBehindStore: DB flush failed for 1d89b039-d8ed-49f0-955d-5e1ac4837d43: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:01 | ERROR | app | ContentWriteBehindStore: DB flush failed for 37a8caa6-d6fd-4a8e-8bbc-39a838c15e6b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:01 | ERROR | app | WriteBehindStore: DB flush failed for 37a8caa6-d6fd-4a8e-8bbc-39a838c15e6b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for 6e612136-2f89-4c3f-b171-59fbdbaafdb0: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:02 | ERROR | app | WriteBehindStore: DB flush failed for 6e612136-2f89-4c3f-b171-59fbdbaafdb0: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for 6c47d234-9837-49ec-b08b-c17afe2bad63: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:02 | ERROR | app | WriteBehindStore: DB flush failed for 6c47d234-9837-49ec-b08b-c17afe2bad63: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for a16e2bd3-3aee-4d27-b562-f4aab2cf2de8: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:02 | ERROR | app | WriteBehindStore: DB flush failed for a16e2bd3-3aee-4d27-b562-f4aab2cf2de8: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for 0ac65894-53d8-4895-86d1-7b99996b4b7d: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:03 | ERROR | app | WriteBehindStore: DB flush failed for 0ac65894-53d8-4895-86d1-7b99996b4b7d: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 455a6aee-e9cf-4be4-bf1b-fefaec1a5eba: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:03 | ERROR | app | WriteBehindStore: DB flush failed for 455a6aee-e9cf-4be4-bf1b-fefaec1a5eba: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 3b68e73c-7b83-48cb-a94c-3372a4ab00c5: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:03 | ERROR | app | WriteBehindStore: DB flush failed for 3b68e73c-7b83-48cb-a94c-3372a4ab00c5: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 37e47fea-8df6-454a-9655-b6ae859dcdfd: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:04 | ERROR | app | WriteBehindStore: DB flush failed for 37e47fea-8df6-454a-9655-b6ae859dcdfd: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:04 | ERROR | app | ContentWriteBehindStore: DB flush failed for c2f3d53a-79fd-4905-9617-090227cb0040: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:04 | ERROR | app | WriteBehindStore: DB flush failed for c2f3d53a-79fd-4905-9617-090227cb0040: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:11 | ERROR | app | ContentWriteBehindStore: DB flush failed for e7c5706d-3a11-47c4-9ef9-50bfae129a98: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:11 | ERROR | app | WriteBehindStore: DB flush failed for e7c5706d-3a11-47c4-9ef9-50bfae129a98: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:11 | ERROR | app | ContentWriteBehindStore: DB flush failed for da71f4f7-56b0-491c-9a94-57cca64eb444: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:11 | ERROR | app | WriteBehindStore: DB flush failed for da71f4f7-56b0-491c-9a94-57cca64eb444: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:14 | ERROR | app | ContentWriteBehindStore: DB flush failed for 37d393b5-2d3c-4e1a-b637-0c24d51a3d04: Task <Task pending name='Task-327' coro=<ContentWriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\content\storage\content_write_behind.py:97>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-11-03T11:09:14 | ERROR | app | WriteBehindStore: DB flush failed for 37d393b5-2d3c-4e1a-b637-0c24d51a3d04: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:14 | ERROR | app | ContentWriteBehindStore: DB flush failed for bb585536-7297-47eb-b762-efc417fa87ed: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:14 | ERROR | app | WriteBehindStore: DB flush failed for bb585536-7297-47eb-b762-efc417fa87ed: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:45 | ERROR | app | ContentWriteBehindStore: DB flush failed for 0840be85-df33-42e2-b67c-bb542cc02e08: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:45 | ERROR | app | WriteBehindStore: DB flush failed for 0840be85-df33-42e2-b67c-bb542cc02e08: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:45 | ERROR | app | ContentWriteBehindStore: DB flush failed for 2c8b3b3d-4f47-4ca8-93d6-15dce773090a: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:45 | ERROR | app | WriteBehindStore: DB flush failed for 2c8b3b3d-4f47-4ca8-93d6-15dce773090a: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:45 | ERROR | app | ContentWriteBehindStore: DB flush failed for 42079726-6163-4371-b290-5db9b07d4ab9: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:45 | ERROR | app | WriteBehindStore: DB flush failed for 42079726-6163-4371-b290-5db9b07d4ab9: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:45 | ERROR | app | ContentWriteBehindStore: DB flush failed for e944d4a0-fafa-43f8-b721-467208cde832: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:46 | ERROR | app | WriteBehindStore: DB flush failed for e944d4a0-fafa-43f8-b721-467208cde832: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:46 | ERROR | app | ContentWriteBehindStore: DB flush failed for 1af8b1b6-d83f-4a41-8798-1327e2a22978: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:46 | ERROR | app | WriteBehindStore: DB flush failed for 1af8b1b6-d83f-4a41-8798-1327e2a22978: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:46 | ERROR | app | ContentWriteBehindStore: DB flush failed for 88dd99d9-5b3e-4aec-a8be-80ce4984f7b2: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:46 | ERROR | app | WriteBehindStore: DB flush failed for 88dd99d9-5b3e-4aec-a8be-80ce4984f7b2: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:09:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for 6e30b55c-cdc7-47a6-8bb6-45da337fc1df: 'NoneType' object has no attribute 'send'
+2026-11-03T11:09:55 | ERROR | app | WriteBehindStore: DB flush failed for 6e30b55c-cdc7-47a6-8bb6-45da337fc1df: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T11:48:07 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:48:15 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:48:26 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:48:49 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:02 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:15 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:33 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:39 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:52 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:49:59 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:50:07 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:57:34 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:58:53 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T11:59:17 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T12:00:00 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T12:00:15 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T12:00:29 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T12:00:45 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T12:00:54 | ERROR | app | ContentWriteBehindStore: DB flush failed for 9ee9ade2-e0f1-424e-b9b4-284cc6854ae6: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:54 | ERROR | app | ContentWriteBehindStore: DB flush failed for f897f852-fe97-49e3-8f0d-09824a1512dc: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for bf0cd081-df54-4a03-b476-bf27c7ca6d39: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for test-namespace-isolation: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for 880c6fc1-9cf9-48f5-912e-4ccdcbcb6715: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for 90d60319-8052-4d73-a63e-ab91505bb9b0: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:55 | ERROR | app | ContentWriteBehindStore: DB flush failed for df0079ff-69dc-4240-acb0-6a6b435b21d3: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:56 | ERROR | app | ContentWriteBehindStore: DB flush failed for c49cc75d-25d9-44d4-bd31-76a480efe022: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:56 | ERROR | app | ContentWriteBehindStore: DB flush failed for a6e4460a-1e07-49da-92a0-a3e816a53e91: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:57 | ERROR | app | ContentWriteBehindStore: DB flush failed for e6b902df-747d-4c6c-86c5-8071df992574: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:57 | ERROR | app | WriteBehindStore: DB flush failed for e6b902df-747d-4c6c-86c5-8071df992574: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:57 | ERROR | app | ContentWriteBehindStore: DB flush failed for 75a6bc85-e6ed-4db8-8cd3-b9bc1854a88e: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:57 | ERROR | app | WriteBehindStore: DB flush failed for 75a6bc85-e6ed-4db8-8cd3-b9bc1854a88e: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:58 | ERROR | app | ContentWriteBehindStore: DB flush failed for 1873060f-e7cb-4393-86e3-412a9a9592d7: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:58 | ERROR | app | WriteBehindStore: DB flush failed for 1873060f-e7cb-4393-86e3-412a9a9592d7: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:58 | ERROR | app | ContentWriteBehindStore: DB flush failed for c6a965b5-8b27-4b75-b8af-9c434801a8fc: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:58 | ERROR | app | WriteBehindStore: DB flush failed for c6a965b5-8b27-4b75-b8af-9c434801a8fc: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:58 | ERROR | app | ContentWriteBehindStore: DB flush failed for 4af23a01-0377-438e-a038-177a07de82e9: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:59 | ERROR | app | WriteBehindStore: DB flush failed for 4af23a01-0377-438e-a038-177a07de82e9: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:59 | ERROR | app | ContentWriteBehindStore: DB flush failed for e1e5a0ef-3bf5-4894-89d8-b6092e0617f4: 'NoneType' object has no attribute 'send'
+2026-11-03T12:00:59 | ERROR | app | WriteBehindStore: DB flush failed for e1e5a0ef-3bf5-4894-89d8-b6092e0617f4: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:00:59 | ERROR | app | ContentWriteBehindStore: DB flush failed for 33eeec3e-1908-4424-8f86-faf71d9be7a7: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:00 | ERROR | app | WriteBehindStore: DB flush failed for 33eeec3e-1908-4424-8f86-faf71d9be7a7: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:00 | ERROR | app | ContentWriteBehindStore: DB flush failed for debd217f-435e-4496-a512-0a694a623ff2: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:00 | ERROR | app | WriteBehindStore: DB flush failed for debd217f-435e-4496-a512-0a694a623ff2: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:00 | ERROR | app | ContentWriteBehindStore: DB flush failed for 76841f79-162a-462b-9f48-a8ea1b86e910: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:01 | ERROR | app | WriteBehindStore: DB flush failed for 76841f79-162a-462b-9f48-a8ea1b86e910: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:01 | ERROR | app | ContentWriteBehindStore: DB flush failed for 21d7eeaa-bc58-421f-9860-311f29118b8f: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:01 | ERROR | app | WriteBehindStore: DB flush failed for 21d7eeaa-bc58-421f-9860-311f29118b8f: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:01 | ERROR | app | ContentWriteBehindStore: DB flush failed for cdd20cf7-5948-499c-96df-e9031e70de7a: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:01 | ERROR | app | WriteBehindStore: DB flush failed for cdd20cf7-5948-499c-96df-e9031e70de7a: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:01 | ERROR | app | ContentWriteBehindStore: DB flush failed for f174bcf4-a960-439a-8536-cee193dcd975: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:02 | ERROR | app | WriteBehindStore: DB flush failed for f174bcf4-a960-439a-8536-cee193dcd975: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for d636f56c-16b8-46b0-970f-0b5f6eb672a6: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:02 | ERROR | app | WriteBehindStore: DB flush failed for d636f56c-16b8-46b0-970f-0b5f6eb672a6: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for addd599e-d6a9-42e4-9d25-566b7baed8b8: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:02 | ERROR | app | WriteBehindStore: DB flush failed for addd599e-d6a9-42e4-9d25-566b7baed8b8: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:02 | ERROR | app | ContentWriteBehindStore: DB flush failed for 3ed0c724-5f2b-470f-bcef-c716dc9436c4: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:03 | ERROR | app | WriteBehindStore: DB flush failed for 3ed0c724-5f2b-470f-bcef-c716dc9436c4: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 9cffc31e-90c3-462f-b07e-fe8e89934345: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:03 | ERROR | app | WriteBehindStore: DB flush failed for 9cffc31e-90c3-462f-b07e-fe8e89934345: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 106fef3f-88c8-43d5-a50b-36370b2a3254: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:03 | ERROR | app | WriteBehindStore: DB flush failed for 106fef3f-88c8-43d5-a50b-36370b2a3254: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for cabfbcc5-3310-4586-ad5a-c88b44fcfbe9: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:03 | ERROR | app | WriteBehindStore: DB flush failed for cabfbcc5-3310-4586-ad5a-c88b44fcfbe9: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:03 | ERROR | app | ContentWriteBehindStore: DB flush failed for 3d4ba212-038a-4f3f-b3df-07eda75e6aec: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:04 | ERROR | app | WriteBehindStore: DB flush failed for 3d4ba212-038a-4f3f-b3df-07eda75e6aec: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:15 | ERROR | app | ContentWriteBehindStore: DB flush failed for 438cf9a4-30eb-446f-bf21-8ff993576cbd: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:15 | ERROR | app | WriteBehindStore: DB flush failed for 438cf9a4-30eb-446f-bf21-8ff993576cbd: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:15 | ERROR | app | ContentWriteBehindStore: DB flush failed for 40bf8fea-727b-4442-a4f7-23d9f2d6c5be: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:15 | ERROR | app | WriteBehindStore: DB flush failed for 40bf8fea-727b-4442-a4f7-23d9f2d6c5be: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:18 | ERROR | app | ContentWriteBehindStore: DB flush failed for db3edb9a-3e12-41fb-8081-91bb9000920b: Task <Task pending name='Task-331' coro=<ContentWriteBehindStore.flush_audit_to_db.<locals>._do_flush() running at I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\category_check\content\storage\content_write_behind.py:97>> got Future <Future pending cb=[BaseProtocol._on_waiter_completed()]> attached to a different loop
+2026-11-03T12:01:18 | ERROR | app | WriteBehindStore: DB flush failed for db3edb9a-3e12-41fb-8081-91bb9000920b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:18 | ERROR | app | ContentWriteBehindStore: DB flush failed for d57ea7a2-e00e-40e8-9aac-0acd35f42e90: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:18 | ERROR | app | WriteBehindStore: DB flush failed for d57ea7a2-e00e-40e8-9aac-0acd35f42e90: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:49 | ERROR | app | ContentWriteBehindStore: DB flush failed for 758c10e1-a06d-4298-b872-8b0dfdeff46c: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:49 | ERROR | app | WriteBehindStore: DB flush failed for 758c10e1-a06d-4298-b872-8b0dfdeff46c: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:49 | ERROR | app | ContentWriteBehindStore: DB flush failed for 2be4a254-d757-45cb-a323-7e2605a9a84e: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:49 | ERROR | app | WriteBehindStore: DB flush failed for 2be4a254-d757-45cb-a323-7e2605a9a84e: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:49 | ERROR | app | ContentWriteBehindStore: DB flush failed for 5b81ea74-336f-4171-93f2-f72fc002d40b: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:49 | ERROR | app | WriteBehindStore: DB flush failed for 5b81ea74-336f-4171-93f2-f72fc002d40b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:50 | ERROR | app | ContentWriteBehindStore: DB flush failed for 5191ab2a-beb5-4535-a814-cd141bcffb49: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:50 | ERROR | app | WriteBehindStore: DB flush failed for 5191ab2a-beb5-4535-a814-cd141bcffb49: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:50 | ERROR | app | ContentWriteBehindStore: DB flush failed for 609df45b-7e46-4c36-8329-ec0c878776c7: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:50 | ERROR | app | WriteBehindStore: DB flush failed for 609df45b-7e46-4c36-8329-ec0c878776c7: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:50 | ERROR | app | ContentWriteBehindStore: DB flush failed for a9c65281-ed8a-4485-a255-5c18293aab32: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:50 | ERROR | app | WriteBehindStore: DB flush failed for a9c65281-ed8a-4485-a255-5c18293aab32: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:01:59 | ERROR | app | ContentWriteBehindStore: DB flush failed for faa533ed-a8b2-48cf-aac9-db71b49f0501: 'NoneType' object has no attribute 'send'
+2026-11-03T12:01:59 | ERROR | app | WriteBehindStore: DB flush failed for faa533ed-a8b2-48cf-aac9-db71b49f0501: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:04 | ERROR | app | ContentWriteBehindStore: DB flush failed for 3fcc26b0-c201-4fe9-a628-37267de4f56c: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:04 | ERROR | app | WriteBehindStore: DB flush failed for 3fcc26b0-c201-4fe9-a628-37267de4f56c: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:04 | ERROR | app | ContentWriteBehindStore: DB flush failed for e22273e0-9cff-4923-974b-d15c3e37e628: 'NoneType' object has no attribute 'send'
+2026-11-03T12:03:04 | ERROR | app | WriteBehindStore: DB flush failed for e22273e0-9cff-4923-974b-d15c3e37e628: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:05 | ERROR | app | ContentWriteBehindStore: DB flush failed for 490ab5f1-4429-474e-80b7-44e3bdc27a38: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:05 | ERROR | app | WriteBehindStore: DB flush failed for 490ab5f1-4429-474e-80b7-44e3bdc27a38: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:05 | ERROR | app | ContentWriteBehindStore: DB flush failed for f3989b94-7ca6-46c3-b25d-10e70b67a2d9: 'NoneType' object has no attribute 'send'
+2026-11-03T12:03:05 | ERROR | app | WriteBehindStore: DB flush failed for f3989b94-7ca6-46c3-b25d-10e70b67a2d9: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:05 | ERROR | app | ContentWriteBehindStore: DB flush failed for 8f5c5494-387a-42cc-8bf4-d3abafa05407: 'NoneType' object has no attribute 'send'
+2026-11-03T12:03:06 | ERROR | app | WriteBehindStore: DB flush failed for 8f5c5494-387a-42cc-8bf4-d3abafa05407: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:06 | ERROR | app | ContentWriteBehindStore: DB flush failed for d59411ea-5ad7-4409-a8be-30c23df87c0b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:06 | ERROR | app | WriteBehindStore: DB flush failed for d59411ea-5ad7-4409-a8be-30c23df87c0b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:21 | ERROR | app | ContentWriteBehindStore: DB flush failed for 7af3e857-5bc8-4d46-a530-9d5f8453ba57: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:03:21 | ERROR | app | ContentWriteBehindStore: DB flush failed for 05bcb31b-ff93-498a-882f-6e5ca3b66236: 'NoneType' object has no attribute 'send'
+2026-11-03T12:03:21 | ERROR | app | ContentWriteBehindStore: DB flush failed for c4015e7f-5ed6-4058-8d75-7856f0335702: 'NoneType' object has no attribute 'send'
+2026-11-03T12:03:21 | ERROR | app | ContentWriteBehindStore: DB flush failed for test-namespace-isolation: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T12:16:03 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T13:44:30 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:15:41 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:15:48 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:15:57 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:16:07 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:16:14 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:16:20 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:16:31 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:16:42 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:17:35 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:18:22 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:19:12 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:21:27 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:23:20 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:26:39 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:26:39 | INFO | app | Contact form submitted: topic=General question, from=jane@example.com
+2026-11-03T14:27:43 | ERROR | app | Contact form submission failed: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 357, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 358, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 730, in _connect
+    raise err
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 718, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 349, in reconnect_on_error
+    yield
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 165, in _consume_from
+    self._pubsub.subscribe(key)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 957, in subscribe
+    ret_val = self.execute_command("SUBSCRIBE", *new_channels.keys())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 786, in execute_command
+    self.connection = self.connection_pool.get_connection(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 1422, in get_connection
+    connection.connect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 363, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 357, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 358, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 730, in _connect
+    raise err
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 718, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 352, in reconnect_on_error
+    self._reconnect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 121, in _reconnect
+    self._ensure(self._reconnect_pubsub, ())
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 413, in ensure
+    return retry_over_time(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\kombu\utils\functional.py", line 318, in retry_over_time
+    return fun(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 103, in _reconnect_pubsub
+    metas = self.backend.client.mget(self.subscribed_to)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\commands\core.py", line 2009, in mget
+    return self.execute_command("MGET", *args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 559, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 565, in _execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 1422, in get_connection
+    connection.connect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 363, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\contact\contact.py", line 31, in submit_contact
+    return service.execute(body)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\contact\services\contact_service.py", line 30, in execute
+    send_contact_email(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\contact\utils\email_utils.py", line 26, in send_contact_email
+    send_contact_email_task.delay(recipient, name, email, website, topic, message)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\task.py", line 463, in delay
+    return self.apply_async(args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\task.py", line 627, in apply_async
+    return app.send_task(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\base.py", line 968, in send_task
+    self.backend.on_task_call(P, task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 402, in on_task_call
+    self.result_consumer.consume_from(task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 157, in consume_from
+    return self.start(task_id)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 135, in start
+    self._consume_from(initial_task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 164, in _consume_from
+    with self.reconnect_on_error():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 355, in reconnect_on_error
+    raise RuntimeError(E_RETRY_LIMIT_EXCEEDED) from exc
+RuntimeError: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-11-03T14:27:43 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:27:43 | INFO | app | Contact form submitted: topic=General question, from=jane@example.com
+2026-11-03T14:28:59 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:28:59 | INFO | app | Contact form submitted: topic=General question, from=jane@example.com
+2026-11-03T14:30:03 | ERROR | app | Contact form submission failed: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 357, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 358, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 730, in _connect
+    raise err
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 718, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 349, in reconnect_on_error
+    yield
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 165, in _consume_from
+    self._pubsub.subscribe(key)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 957, in subscribe
+    ret_val = self.execute_command("SUBSCRIBE", *new_channels.keys())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 786, in execute_command
+    self.connection = self.connection_pool.get_connection(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 1422, in get_connection
+    connection.connect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 363, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 357, in connect
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\retry.py", line 62, in call_with_retry
+    return do()
+           ^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 358, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 730, in _connect
+    raise err
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 718, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 352, in reconnect_on_error
+    self._reconnect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 121, in _reconnect
+    self._ensure(self._reconnect_pubsub, ())
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 413, in ensure
+    return retry_over_time(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\kombu\utils\functional.py", line 318, in retry_over_time
+    return fun(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 103, in _reconnect_pubsub
+    metas = self.backend.client.mget(self.subscribed_to)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\commands\core.py", line 2009, in mget
+    return self.execute_command("MGET", *args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 559, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\client.py", line 565, in _execute_command
+    conn = self.connection or pool.get_connection(command_name, **options)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 1422, in get_connection
+    connection.connect()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\redis\connection.py", line 363, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. No connection could be made because the target machine actively refused it.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\contact\contact.py", line 31, in submit_contact
+    return service.execute(body)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\contact\services\contact_service.py", line 30, in execute
+    send_contact_email(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\contact\utils\email_utils.py", line 26, in send_contact_email
+    send_contact_email_task.delay(recipient, name, email, website, topic, message)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\task.py", line 463, in delay
+    return self.apply_async(args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\task.py", line 627, in apply_async
+    return app.send_task(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\app\base.py", line 968, in send_task
+    self.backend.on_task_call(P, task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 402, in on_task_call
+    self.result_consumer.consume_from(task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 157, in consume_from
+    return self.start(task_id)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 135, in start
+    self._consume_from(initial_task_id)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\redis.py", line 164, in _consume_from
+    with self.reconnect_on_error():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\celery\backends\asynchronous.py", line 355, in reconnect_on_error
+    raise RuntimeError(E_RETRY_LIMIT_EXCEEDED) from exc
+RuntimeError: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-11-03T14:34:01 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:43:47 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T14:45:43 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:45:43 | INFO | app | Contact form submitted: topic=string, from=user23@xample.com
+2026-11-03T14:46:23 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:46:23 | INFO | app | Contact form submitted: topic=string, from=user23@info.in
+2026-11-03T14:56:37 | INFO | app | Worker process initialized with persistent background event loop (pid=7356)
+2026-11-03T14:57:05 | ERROR | app | ContentWriteBehindStore: DB flush failed for af9163cf-e92d-47cb-95d3-8caf37118771: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T14:57:05 | ERROR | app | WriteBehindStore: DB flush failed for af9163cf-e92d-47cb-95d3-8caf37118771: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T14:57:08 | INFO | app | Worker process initialized with persistent background event loop (pid=7160)
+2026-11-03T14:57:09 | INFO | app | contact.send_contact_email: task started for topic=string, from=user23@xample.com
+2026-11-03T14:57:10 | INFO | app | contact.send_contact_email: successfully sent contact email for topic=string to report@yopmail.com
+2026-11-03T14:57:10 | INFO | app | contact.send_contact_email: task started for topic=string, from=user23@info.in
+2026-11-03T14:57:12 | INFO | app | contact.send_contact_email: successfully sent contact email for topic=string to report@yopmail.com
+2026-11-03T14:58:30 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T14:58:30 | INFO | app | Contact form submitted: topic=string, from=priti.kumari@infomagine.in
+2026-11-03T14:58:30 | INFO | app | contact.send_contact_email: task started for topic=string, from=priti.kumari@infomagine.in
+2026-11-03T14:58:31 | INFO | app | contact.send_contact_email: successfully sent contact email for topic=string to report@yopmail.com
+2026-11-03T14:58:53 | INFO | app | Core SEO audit dispatched to Celery: audit_id=a9875815-1a55-47ac-a7bd-bfd3efa0ee2b
+2026-11-03T14:59:13 | ERROR | app | ContentWriteBehindStore: DB flush failed for a9875815-1a55-47ac-a7bd-bfd3efa0ee2b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T14:59:13 | ERROR | app | WriteBehindStore: DB flush failed for a9875815-1a55-47ac-a7bd-bfd3efa0ee2b: module 'datetime' has no attribute 'fromisoformat'
+2026-11-03T15:02:00 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:02:00 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:02:00 | INFO | app | contact.send_contact_email: task started for topic=string, from=priti90066@gmail.com
+2026-11-03T15:02:01 | INFO | app | contact.send_contact_email: successfully sent contact email for topic=string to report@yopmail.com
+2026-11-03T15:02:56 | INFO | app | POST /lighthouse/check — url=https://moneymatters.co.in/, devices=['mobile'], max_pages=3, category=['performance', 'accessibility', 'best-practices', 'seo'], version=None
+2026-11-03T15:02:57 | INFO | app | LighthouseCheckService: prepared check_id=752ebec1-8af5-420a-9018-efad5af361d8, domain=moneymatters.co.in, devices=['mobile'], max_pages=3, version=None
+2026-11-03T15:02:57 | INFO | app | Lighthouse check queued: check_id=752ebec1-8af5-420a-9018-efad5af361d8, task_id=7b42431c-b09b-4d50-bfa3-896303b1a815, domain=moneymatters.co.in
+2026-11-03T15:02:57 | INFO | app | lighthouse.run_check: task started for check_id=752ebec1-8af5-420a-9018-efad5af361d8, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-11-03T15:02:57 | INFO | app | GET /lighthouse/status/752ebec1-8af5-420a-9018-efad5af361d8
+2026-11-03T15:02:58 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-11-03T15:02:58 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-11-03T15:02:58 | ERROR | app | LighthouseCheckService: crawl failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:02:58 | ERROR | app | lighthouse.run_check: task failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 104, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 145, in run_async
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 91, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:02:59 | INFO | app | lighthouse.run_check: task started for check_id=752ebec1-8af5-420a-9018-efad5af361d8, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-11-03T15:03:00 | INFO | app | GET /lighthouse/status/752ebec1-8af5-420a-9018-efad5af361d8
+2026-11-03T15:03:00 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-11-03T15:03:00 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-11-03T15:03:00 | ERROR | app | LighthouseCheckService: crawl failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:00 | ERROR | app | lighthouse.run_check: task failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 104, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 145, in run_async
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 91, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:01 | INFO | app | lighthouse.run_check: task started for check_id=752ebec1-8af5-420a-9018-efad5af361d8, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-11-03T15:03:02 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-11-03T15:03:02 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-11-03T15:03:02 | ERROR | app | LighthouseCheckService: crawl failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:02 | ERROR | app | lighthouse.run_check: task failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 104, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 145, in run_async
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 91, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:02 | INFO | app | lighthouse.run_check: task started for check_id=752ebec1-8af5-420a-9018-efad5af361d8, url=https://moneymatters.co.in/, device=['mobile'], max_pages=3, version=None
+2026-11-03T15:03:02 | INFO | app | GET /lighthouse/status/752ebec1-8af5-420a-9018-efad5af361d8
+2026-11-03T15:03:03 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=3
+2026-11-03T15:03:03 | INFO | app | Lighthouse preflight: discovered=3, selected=3, source=sitemap
+2026-11-03T15:03:03 | ERROR | app | LighthouseCheckService: crawl failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:03 | ERROR | app | lighthouse.run_check: task failed for check_id=752ebec1-8af5-420a-9018-efad5af361d8: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 104, in run_check
+    result = run_async(_run())
+             ^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\shared\tasks\db.py", line 145, in run_async
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\tasks.py", line 91, in _run
+    result = await service.run_check_async(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 228, in run_check_async
+    crawled_urls = await self._crawl_and_collect(check_id, url, max_pages, categories)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\separate_checks\google_lighthouse_check\services.py", line 458, in _crawl_and_collect
+    await orchestrator.run(
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:03:05 | INFO | app | GET /lighthouse/status/752ebec1-8af5-420a-9018-efad5af361d8
+2026-11-03T15:05:42 | INFO | app | POST /audit/analyze - Queuing audit for URL: https://moneymatters.co.in/, 
+2026-11-03T15:05:43 | INFO | app | Site discovery complete for https://moneymatters.co.in/: robots=True, sitemaps=1, page_urls=4
+2026-11-03T15:05:43 | INFO | app | CrawlJob created: audit_id=89dac4e6-4576-4b7e-b1a0-f9a8d1237a48, domain=moneymatters.co.in
+2026-11-03T15:05:43 | INFO | app | Audit enqueued: audit_id=89dac4e6-4576-4b7e-b1a0-f9a8d1237a48, task_id=a965eaa6-1ab3-478f-91e0-cd20ae482743, queued on 'crawler'
+2026-11-03T15:05:43 | INFO | app | crawler.crawl_website: task started for audit_id=89dac4e6-4576-4b7e-b1a0-f9a8d1237a48, url=https://moneymatters.co.in/, user_id=e7ba225d-9104-4ec9-ad38-07356c2989ef
+2026-11-03T15:05:43 | ERROR | app | crawler.crawl_website: task failed for audit_id=89dac4e6-4576-4b7e-b1a0-f9a8d1237a48: object PipelineEvent can't be used in 'await' expression
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\tasks.py", line 171, in _run
+    result = await orchestrator.run(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\crawler\services\crawl_orchestrator.py", line 108, in run
+    await self.event_bus.emit(
+TypeError: object PipelineEvent can't be used in 'await' expression
+2026-11-03T15:05:48 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:05:53 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:05:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:03 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:08 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:14 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:19 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:24 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:29 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:39 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:44 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:49 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:06:54 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:00 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:05 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:16 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:28 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:40 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:46 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:52 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:07:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:04 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:16 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:28 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:40 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:46 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:51 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:08:51 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:08:51 | INFO | app | contact.send_contact_email: task started for topic=string, from=priti90066@gmail.com
+2026-11-03T15:08:52 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:08:53 | INFO | app | contact.send_contact_email: successfully sent contact email for topic=string to report@yopmail.com
+2026-11-03T15:08:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:04 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:16 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:28 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:40 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:46 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:52 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:09:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:04 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:16 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:28 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:40 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:46 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:52 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:10:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:04 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:16 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:28 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:34 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:40 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:46 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:52 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:11:58 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:04 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:20 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:12:20 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:27 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:12:27 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:33 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:39 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:43 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:12:43 | INFO | app | Contact form submitted: topic=General question, from=jane@example.com
+2026-11-03T15:12:45 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:51 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:12:57 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:03 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:09 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:15 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:21 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:27 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:33 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:39 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:45 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:51 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:13:57 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:03 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:10 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:17 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:22 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:27 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:14:27 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:14:30 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:37 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:44 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:14:44 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:14:45 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:50 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:14:57 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:02 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:08 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:13 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:18 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:24 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:31 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:37 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:42 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:48 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:15:54 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:00 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:06 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:13 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:19 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:25 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:31 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:38 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:44 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:50 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:16:55 | INFO | app | GET /audit/status/89dac4e6-4576-4b7e-b1a0-f9a8d1237a48
+2026-11-03T15:21:04 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:21:04 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:24:58 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:27:02 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:27:02 | INFO | app | Contact form submitted: topic=string, from=priti90066@gmail.com
+2026-11-03T15:27:34 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:27:34 | INFO | app | Contact form submitted: topic=string, from=priti.kumari@infomagine.in
+2026-11-03T15:33:50 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T15:33:50 | INFO | app | Contact form submitted: topic=Report a problem, from=sunilgadri4747@gmail.com
+2026-11-03T15:37:51 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:38:05 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:38:18 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:38:30 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:39:01 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:39:19 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:39:35 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:39:43 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:39:57 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:40:43 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T15:40:43 | INFO | app | Subscription request for: test@example.com
+2026-11-03T15:40:44 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T15:40:44 | INFO | app | Subscription request for: test@example.com
+2026-11-03T15:40:44 | ERROR | app | Subscription failed: 'NoneType' object has no attribute 'send'
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 762, in call_soon
+    self._check_closed()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\subscribe\subscribe.py", line 30, in subscribe
+    return await service.execute(body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\subscribe\services\subscribe_service.py", line 26, in execute
+    existing = await db.execute(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+  File "asyncpg/protocol/protocol.pyx", line 362, in asyncpg.protocol.protocol.BaseProtocol.query
+  File "asyncpg/protocol/coreproto.pyx", line 1174, in asyncpg.protocol.protocol.CoreProtocol._simple_query
+  File "asyncpg/protocol/protocol.pyx", line 956, in asyncpg.protocol.protocol.BaseProtocol._write
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 365, in write
+    self._loop_writing(data=bytes(data))
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 401, in _loop_writing
+    self._write_fut = self._loop._proactor.send(self._sock, data)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'send'
+2026-11-03T15:43:50 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:45:32 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:45:50 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T15:45:50 | INFO | app | Subscription request for: test@example.com
+2026-11-03T15:45:51 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T15:45:51 | INFO | app | Subscription request for: test@example.com
+2026-11-03T15:45:51 | ERROR | app | Subscription failed: 'NoneType' object has no attribute 'send'
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 762, in call_soon
+    self._check_closed()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\base_events.py", line 520, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\api\endpoints\v1\subscribe\subscribe.py", line 30, in subscribe
+    return await service.execute(body)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\subscribe\services\subscribe_service.py", line 26, in execute
+    existing = await db.execute(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 448, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\orm\session.py", line 1191, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3295, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 144, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\base.py", line 3319, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1371, in _checkout
+    with util.safe_reraise():
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\pool\base.py", line 1309, in _checkout
+    result = pool._dialect._do_ping_w_event(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\engine\default.py", line 729, in _do_ping_w_event
+    return self.do_ping(dbapi_connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 1164, in do_ping
+    dbapi_connection.ping()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 818, in ping
+    self._handle_exception(error)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 799, in _handle_exception
+    raise error
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 816, in ping
+    _ = self.await_(self._async_ping())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 825, in _async_ping
+    await tr.start()
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\transaction.py", line 146, in start
+    await self._connection.execute(query)
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\site-packages\asyncpg\connection.py", line 354, in execute
+    result = await self._protocol.query(query, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "asyncpg/protocol/protocol.pyx", line 369, in query
+  File "asyncpg/protocol/protocol.pyx", line 362, in asyncpg.protocol.protocol.BaseProtocol.query
+  File "asyncpg/protocol/coreproto.pyx", line 1174, in asyncpg.protocol.protocol.CoreProtocol._simple_query
+  File "asyncpg/protocol/protocol.pyx", line 956, in asyncpg.protocol.protocol.BaseProtocol._write
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 365, in write
+    self._loop_writing(data=bytes(data))
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\asyncio\proactor_events.py", line 401, in _loop_writing
+    self._write_fut = self._loop._proactor.send(self._sock, data)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'send'
+2026-11-03T15:46:44 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:46:54 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:48:31 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T15:50:30 | INFO | app | Worker process initialized with persistent background event loop (pid=5968)
+2026-11-03T15:50:43 | INFO | app | Worker process initialized with persistent background event loop (pid=7460)
+2026-11-03T15:50:59 | INFO | app | Worker process initialized with persistent background event loop (pid=360)
+2026-11-03T15:51:50 | INFO | app | Worker process initialized with persistent background event loop (pid=11108)
+2026-11-03T15:53:29 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T15:53:29 | INFO | app | Subscription request for: priti90066@gmail.com
+2026-11-03T15:53:29 | INFO | app | subscribe.send_subscription_confirmation: task started for priti90066@gmail.com
+2026-11-03T15:53:31 | INFO | app | Subscription confirmation sent to priti90066@gmail.com
+2026-11-03T16:04:37 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T16:23:24 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T16:23:24 | INFO | app | Contact form submitted: topic=string, from=priti.kumari@infomagine.in
+2026-11-03T16:23:25 | INFO | app | contact.send_contact_email: task started for topic=string, to=priti.kumari@infomagine.in
+2026-11-03T16:23:26 | INFO | app | contact.send_contact_email: successfully sent confirmation email to priti.kumari@infomagine.in
+2026-11-03T16:23:54 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T16:23:54 | INFO | app | Subscription request for: priti90066@gmail.com
+2026-11-03T16:27:01 | INFO | app | Celery broker pre-warm started in background
+2026-11-03T17:57:05 | INFO | app | POST /contact - Contact form submission received
+2026-11-03T17:57:05 | INFO | app | Contact form submitted: topic=string, from=priti.kumari@infomagine.in
+2026-11-03T17:57:06 | INFO | app | contact.send_contact_email: task started for topic=string, to=priti.kumari@infomagine.in
+2026-11-03T17:57:07 | INFO | app | contact.send_contact_email: successfully sent confirmation email to priti.kumari@infomagine.in
+2026-11-03T17:58:31 | INFO | app | POST /subscribe - Subscription request received
+2026-11-03T17:58:31 | INFO | app | Subscription request for: priti@mail.com
+2026-11-03T17:58:32 | INFO | app | subscribe.send_subscription_confirmation: task started for priti@mail.com
+2026-11-03T17:58:33 | INFO | app | Subscription confirmation sent to priti@mail.com

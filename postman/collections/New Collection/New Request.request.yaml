@@ -1,0 +1,19 @@
+$kind: http-request
+url: http://192.168.0.8:8000/api/v1/contact
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"priti\",\r
+
+    \  \"email\": \"priti90066@gmail.com\",\r
+
+    \  \"website\": \"https://example.com/\",\r
+
+    \  \"topic\": \"string\",\r
+
+    \  \"message\": \"stringstri\"\r
+
+    }"
+order: 1000

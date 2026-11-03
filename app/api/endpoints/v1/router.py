@@ -46,6 +46,8 @@ from app.modules.category_check.core_seo.router import (
 from app.modules.category_check.content.router import (
     router as content_router,
 )
+from app.api.endpoints.v1.contact.router import router as contact_router
+from app.api.endpoints.v1.subscribe.router import router as subscribe_router
 
 router = APIRouter()
 
@@ -73,5 +75,7 @@ router.include_router(schema_generation_router, prefix="/schema", tags=["Schema 
 router.include_router(serp_rank_check_router, prefix="/serp", tags=["SERP Rank Check"])
 router.include_router(core_seo_router, prefix="/category-check", tags=["Core SEO"])
 router.include_router(content_router, prefix="/category-check", tags=["Content"])
+router.include_router(contact_router, prefix="/contact", tags=["Contact"])
+router.include_router(subscribe_router, prefix="/subscribe", tags=["Subscribe"])
 
 __all__ = ["router"]

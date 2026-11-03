@@ -11,6 +11,7 @@ from app.api.endpoints.v1.audit.parse import router as parse_router
 from app.api.endpoints.v1.audit.evaluate import router as evaluate_router
 from app.api.endpoints.v1.audit.score import router as score_router
 from app.api.endpoints.v1.audit.results import router as results_router
+from app.api.endpoints.v1.audit.websocket import router as websocket_router
 
 router = APIRouter()
 
@@ -20,3 +21,4 @@ router.include_router(parse_router, prefix="")
 router.include_router(evaluate_router, prefix="")
 router.include_router(score_router, prefix="")
 router.include_router(results_router, prefix="")
+router.include_router(websocket_router, prefix="")

@@ -85,6 +85,7 @@ class ContentAuditCheck(Base):
         total_pages: int = 0,
         pages_failed: int = 0,
         report: dict[str, Any] | None = None,
+        completed_at: datetime | None = None,
     ) -> None:
         self.status = ContentAuditStatus.COMPLETED
         self.rules_passed = rules_passed
@@ -93,7 +94,7 @@ class ContentAuditCheck(Base):
         self.crawled_pages = crawled_pages
         self.total_pages = total_pages
         self.pages_failed = pages_failed
-        self.completed_at = func.now()
+        self.completed_at = completed_at if completed_at is not None else func.now()
         if report is not None:
             self.set_report(report)
 

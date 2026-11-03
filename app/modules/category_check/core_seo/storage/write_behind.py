@@ -13,6 +13,7 @@ Redis TTL:
 """
 from __future__ import annotations
 
+import datetime
 import json
 import threading
 from typing import Any
@@ -189,6 +190,14 @@ class WriteBehindStore:
         ) if total_rules else 0.0
 
         if state.get("status") == "completed" and report_dict:
+            # Parse completed_at from report_dict if available
+            completed_at = None
+            if report_dict.get("completed_at"):
+                try:
+                    completed_at = datetime.fromisoformat(report_dict["completed_at"].replace('Z', '+00:00'))
+                except (ValueError, TypeError):
+                    pass
+            
             result.mark_completed(
                 rules_passed=result.rules_passed,
                 rules_failed=result.rules_failed,
@@ -197,6 +206,7 @@ class WriteBehindStore:
                 total_pages=result.total_pages,
                 pages_failed=result.pages_failed,
                 report=report_dict,
+                completed_at=completed_at,  # PASS THE ACTUAL COMPLETION TIME
             )
 
         return result
@@ -294,3 +304,18 @@ __all__ = [
     "WriteBehindStore",
     "get_write_behind_store",
 ]
+
+
+async def get_audit_status_from_db(audit_id: str) -> dict[str, Any] | None:
+    """Get audit status from the database (fallback when Redis TTL expires)."""
+    try:
+        from app.core.database import async_session_factory
+        from ..db_models.audit_db import AuditCheck
+    except ImportError:
+        return None
+
+    async with async_session_factory() as session:
+        record = await session.get(AuditCheck, audit_id)
+        if record is None:
+            return None
+        return record.to_dict()

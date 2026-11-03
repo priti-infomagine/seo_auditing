@@ -20,6 +20,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import utc_now
 from app.core.logger import logger
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
 from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResult
@@ -102,6 +103,11 @@ class RuleEvaluatorService:
                 f"RuleEvaluatorService.evaluate_crawl: audit_id={audit_id}, force={force}"
             )
 
+            # Initialize event bus
+            audit_id_str = str(audit_id)
+            event_bus = AuditEventBus()
+            event_bus.emit(AuditEventType.EVALUATE_STARTED, audit_id=audit_id_str)
+
             parsed_facts = await self.parsed_fact_repo.get_by_audit_id(audit_id)
 
             if not parsed_facts:
@@ -109,8 +115,13 @@ class RuleEvaluatorService:
                     f"RuleEvaluatorService.evaluate_crawl: no parsed facts for "
                     f"audit_id={audit_id}"
                 )
+                event_bus.emit(
+                    AuditEventType.EVALUATE_COMPLETE,
+                    audit_id=audit_id_str,
+                    data={"pages_evaluated": 0, "rules_run": 0, "total_results": 0},
+                )
                 return {
-                    "audit_id": str(audit_id),
+                    "audit_id": audit_id_str,
                     "pages_evaluated": 0,
                     "rules_run": 0,
                     "total_results": 0,
@@ -158,6 +169,9 @@ class RuleEvaluatorService:
             page_links_map: dict = {}
             for pl in all_page_links:
                 page_links_map.setdefault(pl.page_id, []).append(pl)
+
+            # Build page_id -> fact map for URL lookup in events
+            fact_by_page_id = {f.page_id: f for f in filtered_facts}
 
             pages_evaluated = 0
             total_results = 0
@@ -232,6 +246,42 @@ class RuleEvaluatorService:
                 rules_run += len(self.rules)
                 pages_evaluated += 1
 
+                # Emit EVALUATE_PAGE_COMPLETE with batched rule results
+                rules_passed = sum(1 for r in page_results if r.passed)
+                rules_failed = sum(1 for r in page_results if not r.passed)
+                rules_total = len(page_results)
+                
+                # Get URL from fact map
+                fact = fact_by_page_id.get(page_id)
+                page_url = fact.url if fact else ""
+                
+                # Build rule summary for event
+                rule_summaries = [
+                    {
+                        "rule_id": r.rule_id,
+                        "rule_name": r.rule_name,
+                        "category": r.category,
+                        "severity": r.severity,
+                        "passed": r.passed,
+                        "score_impact": r.score_impact,
+                        "message": r.message,
+                    }
+                    for r in page_results
+                ]
+                
+                event_bus.emit(
+                    AuditEventType.EVALUATE_PAGE_COMPLETE,
+                    audit_id=audit_id_str,
+                    url=page_url,
+                    data={
+                        "page_id": str(page_id),
+                        "rules_passed": rules_passed,
+                        "rules_failed": rules_failed,
+                        "rules_total": rules_total,
+                        "rules": rule_summaries,
+                    },
+                )
+
             # Bulk upsert all results
             if all_results:
                 await self.rule_eval_repo.bulk_upsert(all_results)
@@ -242,8 +292,15 @@ class RuleEvaluatorService:
                 f"pages_skipped={pages_skipped}, errors={len(errors)} for audit_id={audit_id}"
             )
 
+            # Emit EVALUATE_COMPLETE event
+            event_bus.emit(
+                AuditEventType.EVALUATE_COMPLETE,
+                audit_id=audit_id_str,
+                data={"pages_evaluated": pages_evaluated, "rules_run": rules_run, "total_results": total_results},
+            )
+
             return {
-                "audit_id": str(audit_id),
+                "audit_id": audit_id_str,
                 "pages_evaluated": pages_evaluated,
                 "pages_skipped": pages_skipped,
                 "rules_run": rules_run,

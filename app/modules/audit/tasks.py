@@ -17,7 +17,9 @@ import os
 import sys
 from uuid import UUID
 
+from app.core.datetime_utils import utc_now
 from app.core.logger import logger
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
@@ -214,6 +216,11 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     async def _run():
         from app.core.database import async_session_factory
 
+        # Initialize AuditEventBus for real-time event streaming
+        event_bus = AuditEventBus()
+        event_bus.set_audit_state(audit_id, status="analyzing", pipeline_started_at=utc_now().isoformat())
+        event_bus.emit(AuditEventType.PIPELINE_STARTED, audit_id=audit_id)
+
         results: dict = {
             "audit_id": audit_id,
         }
@@ -243,6 +250,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
 
         # Stage 1: Parse
         _report_progress("parse")
+        event_bus.emit(AuditEventType.PARSE_STARTED, audit_id=audit_id)
         logger.info(
             f"audit.run_analysis_pipeline: STAGE parse starting "
             f"audit_id={audit_id}, force={force}"
@@ -258,6 +266,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                 f"audit.run_analysis_pipeline: STAGE parse finished "
                 f"audit_id={audit_id}"
             )
+            event_bus.emit(AuditEventType.PARSE_COMPLETE, audit_id=audit_id, data=results.get("parse", {}))
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: parse stage failed: {exc}",
@@ -267,6 +276,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
 
         # Stage 2: Evaluate
         _report_progress("evaluate")
+        event_bus.emit(AuditEventType.EVALUATE_STARTED, audit_id=audit_id)
         logger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
             f"audit_id={audit_id}, force={force}"
@@ -282,6 +292,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                 f"audit.run_analysis_pipeline: STAGE evaluate finished "
                 f"audit_id={audit_id}"
             )
+            event_bus.emit(AuditEventType.EVALUATE_COMPLETE, audit_id=audit_id, data=results.get("evaluate", {}))
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: evaluate stage failed: {exc}",
@@ -291,6 +302,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
 
         # Stage 3: Score
         _report_progress("score")
+        event_bus.emit(AuditEventType.SCORE_STARTED, audit_id=audit_id)
         logger.info(
             f"audit.run_analysis_pipeline: STAGE score starting "
             f"audit_id={audit_id}, force={force}"
@@ -306,6 +318,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                 f"audit.run_analysis_pipeline: STAGE score finished "
                 f"audit_id={audit_id}"
             )
+            event_bus.emit(AuditEventType.SCORE_COMPLETE, audit_id=audit_id, data=results.get("score", {}))
         except Exception as exc:
             logger.error(
                 f"audit.run_analysis_pipeline: score stage failed: {exc}",
@@ -314,6 +327,19 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["score"] = {"error": str(exc)}
 
         results["status"] = "completed"
+
+        # Store final report in Redis state for WebSocket final snapshot
+        score_data = results.get("score")
+        if isinstance(score_data, dict) and "error" not in score_data:
+            event_bus.set_audit_state(audit_id, status="completed", report=score_data)
+        else:
+            event_bus.set_audit_state(audit_id, status="failed")
+
+        # Emit final pipeline completed/failed event
+        if results["status"] == "completed" and isinstance(score_data, dict) and "error" not in score_data:
+            event_bus.emit(AuditEventType.PIPELINE_COMPLETED, audit_id=audit_id, data={"summary": score_data.get("summary", {})})
+        else:
+            event_bus.emit(AuditEventType.PIPELINE_FAILED, audit_id=audit_id, data={"error": "Pipeline failed"})
 
         # Cache result and pipeline status in Redis for zero-DB polling
         try:
@@ -360,4 +386,8 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             f"audit_id={audit_id}: {exc}",
             exc_info=True,
         )
+        # Emit failed event
+        event_bus = AuditEventBus()
+        event_bus.set_audit_state(audit_id, status="failed", error=str(exc)[:1024])
+        event_bus.emit(AuditEventType.PIPELINE_FAILED, audit_id=audit_id, data={"error": str(exc)[:1024]})
         raise

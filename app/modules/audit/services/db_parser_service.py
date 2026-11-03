@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import utc_now
 from app.core.logger import logger
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.audit.models.parsed_page_facts import ParsedPageFact
 from app.modules.audit.repositories.parsed_page_fact_repository import ParsedPageFactRepository
 from app.modules.crawler.models.crawl_pages import CrawlPage
@@ -89,6 +90,11 @@ class DBParserService:
                 f"DBParserService.parse_crawl: audit_id={audit_id}, force={force}"
             )
 
+            # Initialize event bus
+            audit_id_str = str(audit_id)
+            event_bus = AuditEventBus()
+            event_bus.emit(AuditEventType.PARSE_STARTED, audit_id=audit_id_str)
+
             pages = await self.crawl_page_repo.get_by_audit_id(audit_id)
             pages_to_parse = [p for p in pages if p.is_success]
 
@@ -97,7 +103,7 @@ class DBParserService:
                     f"DBParserService.parse_crawl: no crawled pages found for audit_id={audit_id}"
                 )
                 return {
-                    "audit_id": str(audit_id),
+                    "audit_id": audit_id_str,
                     "pages_parsed": 0,
                     "pages_failed": 0,
                     "pages_skipped": len(pages),
@@ -135,6 +141,13 @@ class DBParserService:
                     )
                     if fact:
                         parsed_count += 1
+                        # Emit PARSE_PAGE_COMPLETE event
+                        event_bus.emit(
+                            AuditEventType.PARSE_PAGE_COMPLETE,
+                            audit_id=audit_id_str,
+                            url=page.normalized_url,
+                            data={"page_id": str(page.id), "parsed_count": parsed_count},
+                        )
                     else:
                         failed_count += 1
                         errors.append({
@@ -159,8 +172,15 @@ class DBParserService:
                 f"failed={failed_count}, skipped={skipped_count} for audit_id={audit_id}"
             )
 
+            # Emit PARSE_COMPLETE event
+            event_bus.emit(
+                AuditEventType.PARSE_COMPLETE,
+                audit_id=audit_id_str,
+                data={"pages_parsed": parsed_count, "pages_failed": failed_count, "pages_skipped": skipped_count},
+            )
+
             return {
-                "audit_id": str(audit_id),
+                "audit_id": audit_id_str,
                 "pages_parsed": parsed_count,
                 "pages_failed": failed_count,
                 "pages_skipped": skipped_count,

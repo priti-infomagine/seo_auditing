@@ -109,5 +109,9 @@ class Settings(BaseSettings):
     COMPANY_NAME: str = "Info@magine"
     COPYRIGHT_TEXT: str = "Confidential Report"
 
+    # ── Audit WebSocket Streaming ─────────────────────────────────
+    AUDIT_WS_ENABLED: bool = True
+    AUDIT_WS_WAIT_TIMEOUT: int = 30
+
 
 settings = Settings()

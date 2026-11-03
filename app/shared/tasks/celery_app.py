@@ -24,6 +24,8 @@ celery_app = Celery(
         "app.modules.separate_checks.redirect_check.tasks",
         "app.modules.separate_checks.serp_rank_check.tasks",
         "app.modules.category_check.core_seo.tasks",
+        "app.modules.contact.tasks",
+        "app.modules.subscribe.tasks",
     ],
 )
 

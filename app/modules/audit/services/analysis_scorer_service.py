@@ -19,6 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import to_iso, utc_now
 from app.core.logger import logger
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.audit.models.seo_analysis_runs import SeoAnalysisRun
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.audit.repositories.seo_analysis_repository import SeoAnalysisRunRepository
@@ -57,6 +58,10 @@ class AnalysisScorerService:
         Returns:
             The unified audit response dict (see audit_response_schemas.UnifiedAuditResponse).
         """
+        audit_id_str = str(audit_id)
+        event_bus = AuditEventBus()
+        event_bus.emit(AuditEventType.SCORE_STARTED, audit_id=audit_id_str)
+        
         try:
             logger.info(
                 f"AnalysisScorerService.score_project: audit_id={audit_id}, "
@@ -122,6 +127,13 @@ class AnalysisScorerService:
                 f"audit_id={audit_id}"
             )
 
+            # Emit SCORE_COMPLETE event
+            event_bus.emit(
+                AuditEventType.SCORE_COMPLETE,
+                audit_id=audit_id_str,
+                data={"overall_score": overall, "grade": grade, "pages_analyzed": unified['audit']['pages']['analyzed']},
+            )
+
             return unified
 
         except ScoringError:
@@ -131,6 +143,11 @@ class AnalysisScorerService:
                 f"AnalysisScorerService.score_project: unhandled error "
                 f"for audit_id={audit_id}: {exc}",
                 exc_info=True,
+            )
+            event_bus.emit(
+                AuditEventType.SCORE_COMPLETE,
+                audit_id=audit_id_str,
+                data={"error": str(exc)},
             )
             raise ScoringError(f"Project scoring failed: {exc}") from exc
 

@@ -9,6 +9,7 @@ from app.core.logger import logger
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.crawl_orchestrator import CrawlOrchestrator
+from app.modules.audit.events import AuditEventBus, AuditEventType
 from app.modules.crawler.services.site_discovery_service import (
     deserialize_site_result,
 )
@@ -53,6 +54,12 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
             # Some enqueue paths use a placeholder user_id; we still need
             # *some* valid UUID for the FK on the recreated row.
             user_uuid = uuid4()
+
+        # Initialize AuditEventBus for real-time event streaming
+        event_bus = AuditEventBus()
+        event_bus.reset_counters(audit_id)
+        event_bus.set_audit_state(audit_id, status="crawling", start_url=url, started_at=utc_now().isoformat())
+        
         async with async_session_factory() as db:
             job_repo = CrawlJobRepository(db)
             job = await job_repo.get_by_id(crawl_uuid)
@@ -208,6 +215,19 @@ def crawl_website(self, audit_id: str, url: str, user_id: str, force: bool = Fal
                             "audit_id": audit_id,
                         },
                     )
+                
+                # Update AuditEventBus state to completed
+                event_bus.set_audit_state(audit_id, status="completed")
+                event_bus.emit(
+                    AuditEventType.PIPELINE_COMPLETED,
+                    audit_id=audit_id,
+                    data={
+                        "pages_crawled": result.get('pages_crawled'),
+                        "pages_discovered": result.get('pages_discovered'),
+                        "pages_failed": result.get('pages_failed'),
+                    },
+                )
+                
                 logger.info(
                     f"crawler.crawl_website: task succeeded for audit_id={audit_id}, "
                     f"pages_crawled={result.get('pages_crawled')}"
@@ -233,3 +253,13 @@ async def _mark_failed(db, crawl_uuid: UUID, error_message: str) -> None:
         job.completed_at = utc_now()
         job.progress_percent = 100
         await job_repo.update(job)
+
+        # Update AuditEventBus state
+        audit_id = str(crawl_uuid)
+        event_bus = AuditEventBus()
+        event_bus.set_audit_state(audit_id, status="failed", error=error_message[:1024])
+        event_bus.emit(
+            AuditEventType.PIPELINE_FAILED,
+            audit_id=audit_id,
+            data={"error": error_message[:1024]},
+        )
