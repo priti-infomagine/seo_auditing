@@ -1,5 +1,12 @@
 $kind: http-request
 name: New Request
-url: ""
-method: GET
+url: http://192.168.0.8:8000/api/v1/subscribe
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\" : \"priti@mail.com\"\r
+
+    }"
 order: 2000

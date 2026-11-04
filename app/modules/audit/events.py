@@ -405,6 +405,25 @@ class AuditEventBus:
             data=event.payload or event.data,
         )
 
+    async def emit_async(
+        self,
+        event_type: AuditEventType | str,
+        audit_id: str,
+        url: str = "",
+        data: dict[str, Any] | None = None,
+    ) -> None:
+        """Async version of emit for use with await.
+
+        This method has the same signature as emit but is awaitable.
+        It calls the synchronous emit internally and returns None.
+        """
+        self.emit(
+            event_type=event_type,
+            audit_id=audit_id,
+            url=url,
+            data=data,
+        )
+
     # ── Event retrieval ───────────────────────────────────────────────
 
     @classmethod

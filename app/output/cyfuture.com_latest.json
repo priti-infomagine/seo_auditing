@@ -1,0 +1,4166 @@
+{
+  "audit": {
+    "audit_id": "f5435def-14a0-4c43-b05e-57beacd87f7b",
+    "url": "https://cyfuture.com",
+    "domain": "cyfuture.com",
+    "started_at": "2026-11-04T08:31:25.372255+00:00",
+    "completed_at": "2026-11-04T08:32:00.554691+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 97,
+      "crawled": 97,
+      "analyzed": 97
+    },
+    "crawl_stats": {
+      "pages_discovered": 97,
+      "pages_crawled": 97,
+      "pages_analyzed": 97,
+      "redirects": 1,
+      "broken_pages": 58,
+      "crawl_errors": 58,
+      "status_codes": {
+        "200": 39,
+        "429": 58
+      },
+      "started_at": "2026-11-04T08:31:25.372255+00:00",
+      "completed_at": "2026-11-04T08:32:00.554691+00:00"
+    },
+    "indexation": {
+      "indexable": 39,
+      "noindex": 58,
+      "canonicalized": 39,
+      "not_indexable": 58
+    },
+    "performance": {
+      "available": true,
+      "ttfb": {
+        "available": true,
+        "value": 1214.7,
+        "unit": "milliseconds",
+        "status": "poor"
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 39,
+      "pages_without_schema": 0,
+      "valid": 245,
+      "invalid": 0,
+      "types": {
+        "Product": 39,
+        "Corporation": 39,
+        "BreadcrumbList": 3,
+        "http://schema.org/Question": 79,
+        "http://schema.org/Answer": 79,
+        "http://schema.org/FAQPage": 6
+      }
+    },
+    "links": {
+      "internal": {
+        "total": 5972,
+        "broken": {
+          "available": true,
+          "value": 1340
+        }
+      },
+      "external": {
+        "total": 0,
+        "broken": {
+          "available": true,
+          "value": 78
+        }
+      },
+      "total_links": 5972
+    },
+    "images": {
+      "total": 1614,
+      "missing_alt": 331,
+      "empty_alt": 0,
+      "missing_dimensions": 1535,
+      "oversized": 0,
+      "modern_format": 562,
+      "lazy_loading": 24
+    },
+    "content": {
+      "thin_pages": 0,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 64,
+      "total_issues": 980,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 89.0,
+    "health": "excellent",
+    "issues": {
+      "critical": 1,
+      "high": 5,
+      "medium": 8,
+      "low": 10,
+      "total": 24
+    },
+    "checks": {
+      "passed": 40,
+      "failed": 24,
+      "total": 64
+    }
+  },
+  "categories": [
+    {
+      "id": "on_page",
+      "name": "On-Page SEO",
+      "score": 18.9,
+      "status": "critical",
+      "checks_total": 9,
+      "checks_passed": 0,
+      "checks_failed": 9
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 29.3,
+      "status": "critical",
+      "checks_total": 13,
+      "checks_passed": 0,
+      "checks_failed": 13
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 28.1,
+      "status": "critical",
+      "checks_total": 10,
+      "checks_passed": 0,
+      "checks_failed": 10
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 16.1,
+      "status": "critical",
+      "checks_total": 5,
+      "checks_passed": 0,
+      "checks_failed": 5
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 17.9,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 0,
+      "checks_failed": 6
+    },
+    {
+      "id": "structured_data",
+      "name": "Structured Data",
+      "score": 27.3,
+      "status": "critical",
+      "checks_total": 6,
+      "checks_passed": 0,
+      "checks_failed": 6
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 3,
+      "checks_passed": 0,
+      "checks_failed": 3
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 40.2,
+      "status": "poor",
+      "checks_total": 2,
+      "checks_passed": 0,
+      "checks_failed": 2
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 40.2,
+      "status": "poor",
+      "checks_total": 1,
+      "checks_passed": 0,
+      "checks_failed": 1
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 28.7,
+      "status": "critical",
+      "checks_total": 9,
+      "checks_passed": 0,
+      "checks_failed": 9
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "links_003",
+      "category": "links",
+      "severity": "critical",
+      "title": "Broken links detected",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "36 broken links"
+        },
+        {
+          "current_value": "34 broken links"
+        },
+        {
+          "current_value": "57 broken links"
+        },
+        {
+          "current_value": "49 broken links"
+        },
+        {
+          "current_value": "35 broken links"
+        },
+        {
+          "current_value": "56 broken links"
+        },
+        {
+          "current_value": "37 broken links"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "href": "gpu-clusters.html",
+            "text": "Dedicated GPU Power for AI Dedicated GPU infrastructure Discover dedicated GPU servers and compute infrastructure built for demanding AI training, model development, and production workloads. Explore Dedicated GPUs →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "gpu-clusters.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/gpu-clusters.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "href": "simple-index-new.html",
+            "text": "",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "simple-index-new.html"
+            },
+            "absolute_url": "https://cyfuture.com/simple-index-new.html",
+            "target_status_code": 429
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "href": "nvidia-gpu-cloud.html",
+            "text": "Sovereign AI Infrastructure GPU cloud & GPUaaS Access high-performance GPU cloud and GPU-as-a-Service for AI training, inference, and demanding workloads with scalable, secure infrastructure. Explore GPU Cloud  →",
+            "title": "",
+            "target": "",
+            "download": "",
+            "attributes": {
+              "href": "nvidia-gpu-cloud.html",
+              "class": "cyf-showcase-card"
+            },
+            "absolute_url": "https://cyfuture.com/nvidia-gpu-cloud.html",
+            "target_status_code": 429
+          }
+        ]
+      },
+      "recommendation": "Fix 36 broken links to improve user experience and SEO"
+    },
+    {
+      "rule_id": "on_page_002",
+      "category": "on_page",
+      "severity": "critical",
+      "title": "Missing or poorly sized meta description",
+      "affected_pages": 21,
+      "occurrences": [
+        {
+          "current_value": "Meta description: Cyfuture is a leading consulting and management service provider for the telecom industry. Get the best telecom technology and management solutions from us. Reach us at sales@cyfuture.com (187 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture, best Digital Marketing Company in India offering solutions for a variety of industries. Get top-notch digital marketing services like SEO, SMO, PPC, ORM etc. (167 chars)"
+        },
+        {
+          "current_value": "Meta description: To uplift the profit and handle scalability while raising the customer experience level, Cyfuture provides travel and hospitality industry-specific solutions at affordable cost. (177 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture, one of the premier Big Data Companies. Get top-notch big data analytics consulting services to harness useful business insights. (138 chars)"
+        },
+        {
+          "current_value": "Meta description: Explore the latest Press Releases and Media highlights of Cyfuture to be updated with our latest endeavors. (107 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture provides assessable business value through result-driven digital transformation. Fill the form as per your requirement and we will get back to you in a fly. (165 chars)"
+        },
+        {
+          "current_value": "Meta description: Discover the power of change! Pledge for social impact and be a part of something bigger. Your actions matter, start today. (123 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture empowers you with Artificial Intelligence solution and expertise in BFSI, Retail, Broadcast & Telecom & Automotive industry (132 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture offers a portfolio of inventive technology, management, and consulting services to assist organizations in reshaping their business for the digital era. (161 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture data centers in India. Tier 3-certified Noida facility for colocation services, plus upcoming hyperscale sites in Jaipur, Chennai, and Bangalore. Contact us. (166 chars)"
+        },
+        {
+          "current_value": "Meta description: Blockchain solutons to empower a new class of applications. Cyfuture, a trusted name in blockchain development companies develops new revenue streams for your business. (168 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture is a renowned solutions provider in E-commerce and Retail industry. To avail E-commerce and retail services for your business, reach us at sales@cyfuture.com. (167 chars)"
+        },
+        {
+          "current_value": "Meta description: Business Process Outsourcing Services: Hire the leading business process outsourcing company, Cyfuture for cost-effective BPO services to improve your client base and experience. (178 chars)"
+        },
+        {
+          "current_value": "Meta description: Explore an integrated portfolio of technology consulting services & solutions offered by Cyfuture for hybrid cloud, flexibility, digital-driven transformation, and portability. (176 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture offers next-generation enterprise application services. The in-house crafted application services help in attaining core business values with optimal cost. (164 chars)"
+        },
+        {
+          "current_value": "Meta description: Achieve the perfect symphony between work and life. Pledge today for a balanced lifestyle that empowers your every moment. (122 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture – Trusted cloud provider in India delivering ✔️secure, ✔️scalable, and ✔️reliable cloud solutions to drive your digital success. (137 chars)"
+        },
+        {
+          "current_value": "Meta description: 22 years of experience in offering data center services ✔️ #1 Data center in Mumbai ✔️ MeitY Empaneled ✔️ 99.95% Uptime ✔️ State-of-the-art infrastructure ✔️ Scalable solutions (176 chars)"
+        },
+        {
+          "current_value": "Meta description: Get industry-tailored business and technology solutions from our specific industry consultants. Contact at sales@cyfuture.com. (126 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture is the leading Chatbot Service Provider in India. Automate your business queries with the best AI chatbot customer service and Chatbot development solutions for your website. (183 chars)"
+        },
+        {
+          "current_value": "Meta description: Cyfuture benefits the transport and logistics industries by providing technology and management services to trim the operational cost and brace digital transformation. (167 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "length_status": "too_long",
+            "character_count": 187,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture is a leading consulting and management service provider for the telecom industry. Get the best telecom technology and management solutions from us. Reach us at sales@cyfuture.com",
+            "pixel_width_estimate": 1215
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "length_status": "slightly_long",
+            "character_count": 167,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture, best Digital Marketing Company in India offering solutions for a variety of industries. Get top-notch digital marketing services like SEO, SMO, PPC, ORM etc.",
+            "pixel_width_estimate": 1085
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "length_status": "slightly_long",
+            "character_count": 177,
+            "truncation_risk": true,
+            "meta_description": "To uplift the profit and handle scalability while raising the customer experience level, Cyfuture provides travel and hospitality industry-specific solutions at affordable cost.",
+            "pixel_width_estimate": 1150
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "length_status": "acceptable",
+            "character_count": 138,
+            "meta_description": "Cyfuture, one of the premier Big Data Companies. Get top-notch big data analytics consulting services to harness useful business insights.",
+            "pixel_width_estimate": 897
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "length_status": "acceptable",
+            "character_count": 107,
+            "meta_description": "Explore the latest Press Releases and Media highlights of Cyfuture to be updated with our latest endeavors.",
+            "pixel_width_estimate": 695
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "length_status": "slightly_long",
+            "character_count": 165,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture provides assessable business value through result-driven digital transformation. Fill the form as per your requirement and we will get back to you in a fly.",
+            "pixel_width_estimate": 1072
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "length_status": "acceptable",
+            "character_count": 123,
+            "meta_description": "Discover the power of change! Pledge for social impact and be a part of something bigger. Your actions matter, start today.",
+            "pixel_width_estimate": 799
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "length_status": "acceptable",
+            "character_count": 132,
+            "meta_description": "Cyfuture empowers you with Artificial Intelligence solution and expertise in BFSI, Retail, Broadcast & Telecom & Automotive industry",
+            "pixel_width_estimate": 858
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "length_status": "slightly_long",
+            "character_count": 161,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture offers a portfolio of inventive technology, management, and consulting services to assist organizations in reshaping their business for the digital era.",
+            "pixel_width_estimate": 1046
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "length_status": "slightly_long",
+            "character_count": 166,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture data centers in India. Tier 3-certified Noida facility for colocation services, plus upcoming hyperscale sites in Jaipur, Chennai, and Bangalore. Contact us.",
+            "pixel_width_estimate": 1079
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "length_status": "slightly_long",
+            "character_count": 168,
+            "truncation_risk": true,
+            "meta_description": "Blockchain solutons to empower a new class of applications. Cyfuture, a trusted name in blockchain development companies develops new revenue streams for your business.",
+            "pixel_width_estimate": 1092
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "length_status": "slightly_long",
+            "character_count": 167,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture is a renowned solutions provider in E-commerce and Retail industry. To avail E-commerce and retail services for your business, reach us at sales@cyfuture.com.",
+            "pixel_width_estimate": 1085
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "length_status": "slightly_long",
+            "character_count": 178,
+            "truncation_risk": true,
+            "meta_description": "Business Process Outsourcing Services: Hire the leading business process outsourcing company, Cyfuture for cost-effective BPO services to improve your client base and experience.",
+            "pixel_width_estimate": 1157
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "length_status": "slightly_long",
+            "character_count": 176,
+            "truncation_risk": true,
+            "meta_description": "Explore an integrated portfolio of technology consulting services & solutions offered by Cyfuture for hybrid cloud, flexibility, digital-driven transformation, and portability.",
+            "pixel_width_estimate": 1144
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "length_status": "slightly_long",
+            "character_count": 164,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture offers next-generation enterprise application services. The in-house crafted application services help in attaining core business values with optimal cost.",
+            "pixel_width_estimate": 1066
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "length_status": "acceptable",
+            "character_count": 122,
+            "meta_description": "Achieve the perfect symphony between work and life. Pledge today for a balanced lifestyle that empowers your every moment.",
+            "pixel_width_estimate": 793
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "length_status": "acceptable",
+            "character_count": 137,
+            "meta_description": "Cyfuture – Trusted cloud provider in India delivering ✔️secure, ✔️scalable, and ✔️reliable cloud solutions to drive your digital success.",
+            "pixel_width_estimate": 890
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "length_status": "slightly_long",
+            "character_count": 176,
+            "truncation_risk": true,
+            "meta_description": "22 years of experience in offering data center services ✔️ #1 Data center in Mumbai ✔️ MeitY Empaneled ✔️ 99.95% Uptime ✔️ State-of-the-art infrastructure ✔️ Scalable solutions",
+            "pixel_width_estimate": 1144
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "length_status": "acceptable",
+            "character_count": 126,
+            "meta_description": "Get industry-tailored business and technology solutions from our specific industry consultants. Contact at sales@cyfuture.com.",
+            "pixel_width_estimate": 819
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "length_status": "too_long",
+            "character_count": 183,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture is the leading Chatbot Service Provider in India. Automate your business queries with the best AI chatbot customer service and Chatbot development solutions for your website.",
+            "pixel_width_estimate": 1189
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "length_status": "slightly_long",
+            "character_count": 167,
+            "truncation_risk": true,
+            "meta_description": "Cyfuture benefits the transport and logistics industries by providing technology and management services to trim the operational cost and brace digital transformation.",
+            "pixel_width_estimate": 1085
+          }
+        ]
+      },
+      "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display"
+    },
+    {
+      "rule_id": "content_006",
+      "category": "content",
+      "severity": "high",
+      "title": "Duplicate content detected",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No canonical URL set"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/our-clientele.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/partner-ecosystems.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/cyfuture-backed-jodhpur-discom.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "canonical_url": ""
+          }
+        ]
+      },
+      "recommendation": "Add canonical URL tag and ensure unique content"
+    },
+    {
+      "rule_id": "images_004",
+      "category": "images",
+      "severity": "high",
+      "title": "Images missing width/height dimensions",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "10 images missing width/height attributes"
+        },
+        {
+          "current_value": "9 images missing width/height attributes"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/our-clientele.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/partner-ecosystems.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "missing_dimensions": 10
+          },
+          {
+            "page_url": "https://cyfuture.com/cyfuture-backed-jodhpur-discom.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "missing_dimensions": 9
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "missing_dimensions": 9
+          }
+        ]
+      },
+      "recommendation": "Add width and height attributes to prevent Cumulative Layout Shift (CLS)"
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "146 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "148 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "194 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "151 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "158 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "217 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "143 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "141 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "159 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "182 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "181 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "156 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "149 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "147 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "150 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "171 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "142 links have generic/non-descriptive anchor text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "total_links": 146,
+            "generic_count": 146
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "total_links": 194,
+            "generic_count": 194
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "total_links": 151,
+            "generic_count": 151
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "total_links": 158,
+            "generic_count": 158
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "total_links": 194,
+            "generic_count": 194
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "total_links": 217,
+            "generic_count": 217
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "total_links": 143,
+            "generic_count": 143
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "total_links": 159,
+            "generic_count": 159
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "total_links": 182,
+            "generic_count": 182
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "total_links": 181,
+            "generic_count": 181
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "total_links": 143,
+            "generic_count": 143
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "total_links": 156,
+            "generic_count": 156
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "total_links": 149,
+            "generic_count": 149
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "total_links": 149,
+            "generic_count": 149
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "total_links": 147,
+            "generic_count": 147
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "total_links": 150,
+            "generic_count": 150
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/our-clientele.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "total_links": 171,
+            "generic_count": 171
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "total_links": 150,
+            "generic_count": 150
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "total_links": 143,
+            "generic_count": 143
+          },
+          {
+            "page_url": "https://cyfuture.com/partner-ecosystems.html",
+            "total_links": 142,
+            "generic_count": 142
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "total_links": 148,
+            "generic_count": 148
+          },
+          {
+            "page_url": "https://cyfuture.com/cyfuture-backed-jodhpur-discom.html",
+            "total_links": 141,
+            "generic_count": 141
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "total_links": 143,
+            "generic_count": 143
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "total_links": 149,
+            "generic_count": 149
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "total_links": 143,
+            "generic_count": 143
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "total_links": 148,
+            "generic_count": 148
+          }
+        ]
+      },
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility"
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "Missing canonical URL tag"
+        }
+      ],
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+    },
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "high",
+      "title": "Slow server response time (TTFB)",
+      "affected_pages": 30,
+      "occurrences": [
+        {
+          "current_value": "Slow response time: 0.77s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.44s"
+        },
+        {
+          "current_value": "Very slow response time: 2.47s"
+        },
+        {
+          "current_value": "Very slow response time: 1.68s"
+        },
+        {
+          "current_value": "Very slow response time: 1.48s"
+        },
+        {
+          "current_value": "Very slow response time: 1.14s"
+        },
+        {
+          "current_value": "Very slow response time: 1.02s"
+        },
+        {
+          "current_value": "Slow response time: 0.51s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 2.88s"
+        },
+        {
+          "current_value": "Very slow response time: 1.31s"
+        },
+        {
+          "current_value": "Very slow response time: 1.36s"
+        },
+        {
+          "current_value": "Slow response time: 0.66s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.12s"
+        },
+        {
+          "current_value": "Very slow response time: 2.53s"
+        },
+        {
+          "current_value": "Slow response time: 0.80s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 3.65s"
+        },
+        {
+          "current_value": "Slow response time: 0.78s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.87s"
+        },
+        {
+          "current_value": "Very slow response time: 2.08s"
+        },
+        {
+          "current_value": "Slow response time: 0.92s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.33s"
+        },
+        {
+          "current_value": "Very slow response time: 1.83s"
+        },
+        {
+          "current_value": "Slow response time: 0.76s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 1.42s"
+        },
+        {
+          "current_value": "Very slow response time: 2.99s"
+        },
+        {
+          "current_value": "Slow response time: 0.96s (should be <200ms)"
+        },
+        {
+          "current_value": "Very slow response time: 2.40s"
+        },
+        {
+          "current_value": "Slow response time: 0.58s (should be <200ms)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "response_time": 0.769
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "response_time": 1.438
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "response_time": 2.466
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "response_time": 1.682
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "response_time": 1.477
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "response_time": 1.137
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "response_time": 1.022
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "response_time": 0.512
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "response_time": 2.88
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "response_time": 1.31
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "response_time": 1.364
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "response_time": 0.66
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "response_time": 1.116
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "response_time": 2.527
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "response_time": 0.8
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "response_time": 3.654
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "response_time": 0.781
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "response_time": 1.122
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "response_time": 1.871
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "response_time": 2.085
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "response_time": 0.918
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "response_time": 1.335
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "response_time": 1.835
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "response_time": 0.76
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "response_time": 1.419
+          },
+          {
+            "page_url": "https://cyfuture.com/cyfuture-backed-jodhpur-discom.html",
+            "response_time": 2.994
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "response_time": 0.959
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "response_time": 0.96
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "response_time": 2.398
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "response_time": 0.585
+          }
+        ]
+      },
+      "recommendation": "Optimize server response time to under 200ms"
+    },
+    {
+      "rule_id": "content_003",
+      "category": "content",
+      "severity": "medium",
+      "title": "Paragraph structure needs improvement",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No paragraphs found"
+        }
+      ],
+      "recommendation": "Break content into paragraphs for better readability"
+    },
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing or multiple H1 tags",
+      "affected_pages": 21,
+      "occurrences": [
+        {
+          "current_value": "H1: Build the Intelligence That Powers India's Future"
+        },
+        {
+          "current_value": "H1: For the best of customer experience"
+        },
+        {
+          "current_value": "5 H1 tags: Powering AI. From India. For the world., Great models need Great infrastructure., Models are the brain. Not the whole body."
+        },
+        {
+          "current_value": "H1: Conjoin the governance with digitalization"
+        },
+        {
+          "current_value": "H1: Visibility Isn't Optional Anymore."
+        },
+        {
+          "current_value": "H1: Instigate the traveling experience with digital connections"
+        },
+        {
+          "current_value": "2 H1 tags: Quantify your business success, The Array of Big Data Analytics Services"
+        },
+        {
+          "current_value": "H1: Pledge for Environmental Sustainability"
+        },
+        {
+          "current_value": "H1: Press Releases"
+        },
+        {
+          "current_value": "H1: Let’s Talk!"
+        },
+        {
+          "current_value": "H1: Pledge for Social Impact"
+        },
+        {
+          "current_value": "2 H1 tags: Artificial Intelligence, Types of Artificial Intelligence"
+        },
+        {
+          "current_value": "H1: About Us"
+        },
+        {
+          "current_value": "2 H1 tags: Data Center in India Powering India's, Our Largest Data Centers"
+        },
+        {
+          "current_value": "H1: Bolster your customer relationship with fineness"
+        },
+        {
+          "current_value": "12 H1 tags: Business Process Outsourcing Services, IVY Edge, BPO Call Center Services for Customers"
+        },
+        {
+          "current_value": "3 H1 tags: Business Applications, Overview, Our Services"
+        },
+        {
+          "current_value": "2 H1 tags: Accelerate decision-making with world-class cloud computing services, Our Value Proposition"
+        },
+        {
+          "current_value": "2 H1 tags: Web Design and Development Services, Experience our Full Stack Web Development Service"
+        },
+        {
+          "current_value": "H1: Get Tangible outcomes with superior transparency"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "h1_text": "Build the Intelligence That Powers India's Future",
+            "h1_length": 49,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "h1_text": "For the best of customer experience",
+            "h1_length": 35,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "h1_tags": [
+              "Powering AI. From India. For the world.",
+              "Great models need Great infrastructure.",
+              "Models are the brain. Not the whole body."
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "h1_text": "Conjoin the governance with digitalization",
+            "h1_length": 42,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "h1_text": "Visibility Isn't Optional Anymore.",
+            "h1_length": 34,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "h1_tags": [
+              "Powering AI. From India. For the world.",
+              "Great models need Great infrastructure.",
+              "Models are the brain. Not the whole body."
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "h1_text": "Instigate the traveling experience with digital connections",
+            "h1_length": 59,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "h1_tags": [
+              "Quantify your business success",
+              "The Array of Big Data Analytics Services"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "h1_text": "Pledge for Environmental Sustainability",
+            "h1_length": 39,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "h1_text": "Press Releases",
+            "h1_length": 14,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "h1_text": "Let’s Talk!",
+            "h1_length": 11,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "h1_text": "Pledge for Social Impact",
+            "h1_length": 24,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "h1_tags": [
+              "Artificial Intelligence",
+              "Types of Artificial Intelligence"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "h1_text": "About Us",
+            "h1_length": 8,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "h1_tags": [
+              "Data Center in India Powering India's",
+              "Our Largest Data Centers"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "h1_text": "Bolster your customer relationship with fineness",
+            "h1_length": 48,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "h1_tags": [
+              "Business Process Outsourcing Services",
+              "IVY Edge",
+              "BPO Call Center Services for Customers"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "h1_tags": [
+              "Business Applications",
+              "Overview",
+              "Our Services"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "h1_tags": [
+              "Accelerate decision-making with world-class cloud computing services",
+              "Our Value Proposition"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "h1_tags": [
+              "Web Design and Development Services",
+              "Experience our Full Stack Web Development Service"
+            ]
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "h1_text": "Get Tangible outcomes with superior transparency",
+            "h1_length": 48,
+            "title_h1_overlap": 0.0,
+            "consistency_warning": true
+          }
+        ]
+      },
+      "recommendation": "Use one concise H1 tag that aligns with the page title"
+    },
+    {
+      "rule_id": "on_page_004",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Illogical heading hierarchy",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "Heading issues: H1=1, H2=3, H3=3, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=7, H4=8, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=5, H2=21, H3=29, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=10, H4=8, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=14, H3=20, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=0, H3=0, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=7, H4=7, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=23, H3=11, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=1, H3=0, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=2, H3=16, H4=5, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=0, H3=40, H4=5, H5=38, H6=0 — H3 used without H2, Excessive headings, 3 duplicate headings, 5 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=3, H3=0, H4=22, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=25, H3=22, H4=5, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=36, H3=75, H4=7, H5=38, H6=0 — Excessive headings, 25 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=8, H4=9, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=43, H3=41, H4=7, H5=38, H6=0 — Excessive headings, 11 duplicate headings, 3 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=2, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=3, H3=21, H4=5, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=10, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=12, H2=43, H3=13, H4=5, H5=38, H6=0 — Excessive headings, 6 duplicate headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=2, H3=12, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=2, H3=0, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=3, H2=12, H3=16, H4=8, H5=38, H6=0 — Excessive headings, 8 duplicate headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=22, H3=45, H4=5, H5=38, H6=0 — Excessive headings, 5 duplicate headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=8, H3=21, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=7, H4=9, H5=38, H6=0 — Excessive headings, 5 duplicate headings, 1 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=2, H2=23, H3=28, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=21, H3=24, H4=6, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=10, H4=5, H5=38, H6=0 — Excessive headings, 5 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=7, H4=5, H5=38, H6=0 — Excessive headings, 3 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=4, H3=7, H4=5, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=23, H3=29, H4=11, H5=38, H6=0 — Excessive headings, 9 duplicate headings, 7 headings longer than 100 characters"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=18, H3=14, H4=9, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        },
+        {
+          "current_value": "Heading issues: H1=1, H2=5, H3=7, H4=7, H5=38, H6=0 — Excessive headings, 4 duplicate headings"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "4 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "H3 used without H2"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "5 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "target": "4 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "target": "25 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "target": "11 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "target": "3 headings longer than 100 characters"
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "target": "3 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "target": "5 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "target": "4 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "target": "Excessive headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "target": "6 duplicate headings"
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "target": "1 headings longer than 100 characters"
+          }
+        ]
+      },
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
+    },
+    {
+      "rule_id": "on_page_008",
+      "category": "on_page",
+      "severity": "medium",
+      "title": "Missing Open Graph tags",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "Missing Open Graph tags: og:title, og:description, og:image, og:url"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/video-conferencing.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "og:description"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "og:image"
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "target": "og:url"
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "target": "og:title"
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "target": "og:description"
+          }
+        ]
+      },
+      "recommendation": "Add missing OG tags: og:title, og:description, og:image, og:url"
+    },
+    {
+      "rule_id": "perf_006",
+      "category": "performance",
+      "severity": "medium",
+      "title": "Compression not enabled",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No compression detected"
+        }
+      ],
+      "recommendation": "Enable gzip or brotli compression on your server"
+    },
+    {
+      "rule_id": "social_005",
+      "category": "social",
+      "severity": "medium",
+      "title": "Missing social media image",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No social media image specified"
+        }
+      ],
+      "recommendation": "Add og:image and twitter:image tags for better social sharing"
+    },
+    {
+      "rule_id": "technical_003",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing HTML language declaration",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "HTML language attribute not specified"
+        }
+      ],
+      "recommendation": "Add lang attribute to <html> tag (e.g., <html lang='en'>)"
+    },
+    {
+      "rule_id": "technical_005",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Missing DOCTYPE declaration",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "Missing DOCTYPE declaration"
+        }
+      ],
+      "recommendation": "Add <!DOCTYPE html> at the very beginning of the document"
+    },
+    {
+      "rule_id": "technical_004",
+      "category": "technical",
+      "severity": "medium",
+      "title": "Character encoding not declared",
+      "affected_pages": 21,
+      "occurrences": [
+        {
+          "current_value": "Character encoding not specified"
+        }
+      ],
+      "recommendation": "Add <meta charset='UTF-8'> in the first 1024 bytes of HTML"
+    },
+    {
+      "rule_id": "content_007",
+      "category": "content",
+      "severity": "low",
+      "title": "Missing content freshness dates",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No content freshness dates found"
+        }
+      ],
+      "recommendation": "Consider adding article published/modified dates"
+    },
+    {
+      "rule_id": "images_003",
+      "category": "images",
+      "severity": "low",
+      "title": "Lazy loading not implemented",
+      "affected_pages": 36,
+      "occurrences": [
+        {
+          "current_value": "Lazy loading not detected"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/public-sector-and-Government.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/media-center.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/news.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/banking-and-financial-services.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/ecommerce-and-retail.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/csr.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/technologies.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/our-clientele.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/partner-ecosystems.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/cyfuture-backed-jodhpur-discom.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "lazy_loading": false
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "lazy_loading": false
+          }
+        ]
+      },
+      "recommendation": "Add loading='lazy' attribute to images below the fold"
+    },
+    {
+      "rule_id": "images_005",
+      "category": "images",
+      "severity": "low",
+      "title": "Missing responsive image attributes",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No responsive images (srcset) detected"
+        }
+      ],
+      "recommendation": "Consider using srcset and sizes for responsive images"
+    },
+    {
+      "rule_id": "links_002",
+      "category": "links",
+      "severity": "low",
+      "title": "No external links found",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No external links found"
+        }
+      ],
+      "recommendation": "Consider linking to authoritative external sources"
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "low",
+      "title": "Missing or poor page title",
+      "affected_pages": 27,
+      "occurrences": [
+        {
+          "current_value": "Title: Cyfuture Careers | A Place for People Who Love Innovation | Join Us (67 chars)"
+        },
+        {
+          "current_value": "Title: Telecom Industry Consulting and Management Services – Cyfuture (62 chars)"
+        },
+        {
+          "current_value": "Title: Digital Marketing Company in India | Digital Marketing Services (63 chars)"
+        },
+        {
+          "current_value": "Title: Certifications and Accreditations – Our Technological Rise – Cyfuture (69 chars)"
+        },
+        {
+          "current_value": "Title: Travel and Hospitality Industry Consulting Services – Cyfuture (62 chars)"
+        },
+        {
+          "current_value": "Title: Big Data Analytics Company | Big Data Analytics Consulting Services (67 chars)"
+        },
+        {
+          "current_value": "Title: Green Revolution Starts Now: Take the Pledge for Environmental Sustainability! (78 chars)"
+        },
+        {
+          "current_value": "Title: Unleash Your Power! Take the Pledge for Social Impact Today. Transform the World in (83 chars)"
+        },
+        {
+          "current_value": "Title: Artificial Intelligence ( AI ) Solution Provider in India, ai solution providers | Cyfuture (91 chars)"
+        },
+        {
+          "current_value": "Title: Cyfuture – Global Leader in Business Consulting and Management Solutions (72 chars)"
+        },
+        {
+          "current_value": "Title: Data Center India | data center Colocation  & Hyperscale - Cyfuture (67 chars)"
+        },
+        {
+          "current_value": "Title: Blockchain Solutions | Blockchain Development Company | Cyfuture (64 chars)"
+        },
+        {
+          "current_value": "Title: Awards & Recognition: Cyfuture Bags Top Honors for Constant Innovation (70 chars)"
+        },
+        {
+          "current_value": "Title: Business Process Outsourcing Company | BPO Services | Business Process Services | Cyfuture (90 chars)"
+        },
+        {
+          "current_value": "Title: Enterprise Business Application Development and Support Services | Cyfuture (75 chars)"
+        },
+        {
+          "current_value": "Title: \"Empower Your Days: Unlock Work-Life Balance with Your Pledge\" (62 chars)"
+        },
+        {
+          "current_value": "Title: Cloud Service Providers in India | Cloud Infrastructure Services | Cyfuture (75 chars)"
+        },
+        {
+          "current_value": "Title: Business Consulting Services in India | Consulting Firm - Cyfuture (66 chars)"
+        },
+        {
+          "current_value": "Title: Manufacturing and Hi tech Industry Consulting Services – Cyfuture (65 chars)"
+        },
+        {
+          "current_value": "Title: Outsource Web Design and Development Services | Web Design Consultant (69 chars)"
+        },
+        {
+          "current_value": "Title: Leading Data Center in Mumbai, India | Tier III Data Center Facility | Cyfuture (79 chars)"
+        },
+        {
+          "current_value": "Title: Partner Ecosystems | Corporate Alliance and Partnerships| Cyfuture (66 chars)"
+        },
+        {
+          "current_value": "Title: Industry Specific Business and Technology Consulting Services- Cyfuture (71 chars)"
+        },
+        {
+          "current_value": "Title: Internet of Things ( IoT ) solutions & service provider in India (64 chars)"
+        },
+        {
+          "current_value": "Title: Data Center in Noida | Award Winning Noida Data Center | Cyfuture (65 chars)"
+        },
+        {
+          "current_value": "Title: Best Chatbot Service Provider Company | Chatbot India | AI Chatbot Customer Service | Cyfuture (94 chars)"
+        },
+        {
+          "current_value": "Title: Transport and Logistics Industry Solutions & Services – Cyfuture (64 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/careers.html",
+            "title": "Cyfuture Careers | A Place for People Who Love Innovation | Join Us",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 67,
+            "truncation_risk": false,
+            "pixel_width_estimate": 388,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/telecom.html",
+            "title": "Telecom Industry Consulting and Management Services – Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 374,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "title": "Digital Marketing Company in India | Digital Marketing Services",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 63,
+            "truncation_risk": false,
+            "pixel_width_estimate": 356,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/accreditations-and-certifications.html",
+            "title": "Certifications and Accreditations – Our Technological Rise – Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 69,
+            "truncation_risk": false,
+            "pixel_width_estimate": 406,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/travel-and-hospitality.html",
+            "title": "Travel and Hospitality Industry Consulting Services – Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 363,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "title": "Big Data Analytics Company | Big Data Analytics Consulting Services",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 67,
+            "truncation_risk": false,
+            "pixel_width_estimate": 388,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-environmental-sustainability.html",
+            "title": "Green Revolution Starts Now: Take the Pledge for Environmental Sustainability!",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 78,
+            "truncation_risk": false,
+            "pixel_width_estimate": 455,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-social-impact.html",
+            "title": "Unleash Your Power! Take the Pledge for Social Impact Today. Transform the World in",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 83,
+            "truncation_risk": false,
+            "pixel_width_estimate": 484,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/artificial-intellegence.html",
+            "title": "Artificial Intelligence ( AI ) Solution Provider in India, ai solution providers | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 91,
+            "truncation_risk": false,
+            "pixel_width_estimate": 494,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/about-us.html",
+            "title": "Cyfuture – Global Leader in Business Consulting and Management Solutions",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 72,
+            "truncation_risk": false,
+            "pixel_width_estimate": 425,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-india.html",
+            "title": "Data Center India | data center Colocation  & Hyperscale - Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 67,
+            "truncation_risk": false,
+            "pixel_width_estimate": 392,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/blockchain.html",
+            "title": "Blockchain Solutions | Blockchain Development Company | Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 374,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/awards-recognitions.html",
+            "title": "Awards & Recognition: Cyfuture Bags Top Honors for Constant Innovation",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 70,
+            "truncation_risk": false,
+            "pixel_width_estimate": 423,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/business-process-services.html",
+            "title": "Business Process Outsourcing Company | BPO Services | Business Process Services | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 90,
+            "truncation_risk": false,
+            "pixel_width_estimate": 541,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/business-applications.html",
+            "title": "Enterprise Business Application Development and Support Services | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 75,
+            "truncation_risk": false,
+            "pixel_width_estimate": 446,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/pledge-for-work-life-balance.html",
+            "title": "\"Empower Your Days: Unlock Work-Life Balance with Your Pledge\"",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 62,
+            "truncation_risk": false,
+            "pixel_width_estimate": 371,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/cloud-infrastructure.html",
+            "title": "Cloud Service Providers in India | Cloud Infrastructure Services | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 75,
+            "truncation_risk": false,
+            "pixel_width_estimate": 430,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/business-consulting-services.html",
+            "title": "Business Consulting Services in India | Consulting Firm - Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 66,
+            "truncation_risk": false,
+            "pixel_width_estimate": 375,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/manufacturing-and-hi-tech.html",
+            "title": "Manufacturing and Hi tech Industry Consulting Services – Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 65,
+            "truncation_risk": false,
+            "pixel_width_estimate": 388,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/outsource-web-design-services.html",
+            "title": "Outsource Web Design and Development Services | Web Design Consultant",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 69,
+            "truncation_risk": false,
+            "pixel_width_estimate": 418,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-mumbai.html",
+            "title": "Leading Data Center in Mumbai, India | Tier III Data Center Facility | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 79,
+            "truncation_risk": false,
+            "pixel_width_estimate": 440,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/partner-ecosystems.html",
+            "title": "Partner Ecosystems | Corporate Alliance and Partnerships| Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 66,
+            "truncation_risk": false,
+            "pixel_width_estimate": 396,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/industry.html",
+            "title": "Industry Specific Business and Technology Consulting Services- Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 71,
+            "truncation_risk": false,
+            "pixel_width_estimate": 422,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/internet-of-things.html",
+            "title": "Internet of Things ( IoT ) solutions & service provider in India",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 358,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/data-center-noida.html",
+            "title": "Data Center in Noida | Award Winning Noida Data Center | Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 65,
+            "truncation_risk": false,
+            "pixel_width_estimate": 380,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/chatbot.html",
+            "title": "Best Chatbot Service Provider Company | Chatbot India | AI Chatbot Customer Service | Cyfuture",
+            "generic": false,
+            "length_status": "very_long",
+            "character_count": 94,
+            "truncation_risk": false,
+            "pixel_width_estimate": 553,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://cyfuture.com/transport-and-logistics.html",
+            "title": "Transport and Logistics Industry Solutions & Services – Cyfuture",
+            "generic": false,
+            "length_status": "long",
+            "character_count": 64,
+            "truncation_risk": false,
+            "pixel_width_estimate": 381,
+            "content_consistency_score": 1.0
+          }
+        ]
+      },
+      "recommendation": "Consider shortening the title to make the main topic clearer and reduce the possibility of SERP truncation."
+    },
+    {
+      "rule_id": "schema_003",
+      "category": "schema",
+      "severity": "low",
+      "title": "Missing Breadcrumb schema",
+      "affected_pages": 36,
+      "occurrences": [
+        {
+          "current_value": "No breadcrumb schema found"
+        }
+      ],
+      "recommendation": "Add BreadcrumbList schema for better navigation display"
+    },
+    {
+      "rule_id": "schema_004",
+      "category": "schema",
+      "severity": "low",
+      "title": "Missing Article schema",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No Article schema found"
+        }
+      ],
+      "recommendation": "Add Article or BlogPosting schema for content pages"
+    },
+    {
+      "rule_id": "social_003",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing social media links",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No social media links found"
+        }
+      ],
+      "recommendation": "Add links to your social media profiles"
+    },
+    {
+      "rule_id": "social_004",
+      "category": "social",
+      "severity": "low",
+      "title": "Missing Facebook domain verification",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No Facebook App ID or admins meta tag"
+        }
+      ],
+      "recommendation": "Add fb:app_id or fb:admins for Facebook Insights"
+    },
+    {
+      "rule_id": "technical_009",
+      "category": "technical",
+      "severity": "low",
+      "title": "Missing XML sitemap",
+      "affected_pages": 39,
+      "occurrences": [
+        {
+          "current_value": "No sitemap data available"
+        }
+      ],
+      "recommendation": "Create and submit XML sitemap to search engines"
+    },
+    {
+      "rule_id": "perf_005",
+      "category": "performance",
+      "severity": "low",
+      "title": "Missing browser caching headers",
+      "affected_pages": 31,
+      "occurrences": [
+        {
+          "current_value": "No cache headers found"
+        }
+      ],
+      "recommendation": "Add Cache-Control and Expires headers for static assets"
+    },
+    {
+      "rule_id": "images_001",
+      "category": "images",
+      "severity": "low",
+      "title": "Images missing alt text",
+      "affected_pages": 16,
+      "occurrences": [
+        {
+          "current_value": "13/27 images missing alt text"
+        },
+        {
+          "current_value": "11/29 images missing alt text"
+        },
+        {
+          "current_value": "41/54 images missing alt text"
+        },
+        {
+          "current_value": "15/48 images missing alt text"
+        },
+        {
+          "current_value": "21/100 images missing alt text"
+        },
+        {
+          "current_value": "21/62 images missing alt text"
+        },
+        {
+          "current_value": "7/29 images missing alt text"
+        },
+        {
+          "current_value": "8/35 images missing alt text"
+        },
+        {
+          "current_value": "6/25 images missing alt text"
+        },
+        {
+          "current_value": "16/51 images missing alt text"
+        },
+        {
+          "current_value": "14/39 images missing alt text"
+        },
+        {
+          "current_value": "40/52 images missing alt text"
+        },
+        {
+          "current_value": "9/36 images missing alt text"
+        },
+        {
+          "current_value": "5/20 images missing alt text"
+        },
+        {
+          "current_value": "18/61 images missing alt text"
+        },
+        {
+          "current_value": "6/28 images missing alt text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "https://www.facebook.com/tr?id=3441877369427016&ev=PageView&noscript=1",
+            "sizes": "",
+            "title": "",
+            "width": "1",
+            "height": "1",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Cyfuture Logo",
+            "src": "../images/cyfuture-logo1.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Liquid Cooled Data Center",
+            "src": "../images/data-center-bg5.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Data Center in India",
+            "src": "../images/data-centers-menu-bg2.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Data Center in Noida",
+            "src": "../images/data-center-bg2.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Data Center in Mumbai",
+            "src": "../images/data-center-bg3.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Data Center in Bangalore",
+            "src": "../images/data-center-bg4.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Global Presence",
+            "src": "../images/global-infra-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Industry Transformation",
+            "src": "../images/industry-scale-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "About Banner",
+            "src": "images/digital-marketing-headbnr.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/wave-white.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/ab-loader.gif",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "captcha.php",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "captcha",
+            "src": "/refresh_grey.png",
+            "sizes": "",
+            "title": "",
+            "width": "30",
+            "height": "30",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/services-img4.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/eye.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/wh2.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/digital-marketing.html",
+            "alt": "",
+            "src": "images/wh3.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "",
+            "src": "https://www.facebook.com/tr?id=3441877369427016&ev=PageView&noscript=1",
+            "sizes": "",
+            "title": "",
+            "width": "1",
+            "height": "1",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Cyfuture Logo",
+            "src": "../images/cyfuture-logo1.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Liquid Cooled Data Center",
+            "src": "../images/data-center-bg5.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Data Center in India",
+            "src": "../images/data-centers-menu-bg2.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Data Center in Noida",
+            "src": "../images/data-center-bg2.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Data Center in Mumbai",
+            "src": "../images/data-center-bg3.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Data Center in Bangalore",
+            "src": "../images/data-center-bg4.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Global Presence",
+            "src": "../images/global-infra-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Industry Transformation",
+            "src": "../images/industry-scale-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "About Banner",
+            "src": "images/bigdata-analytics-head-bnr.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "",
+            "src": "images/wave-white.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "",
+            "src": "images/business-applications-overview.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "",
+            "src": "images/services-img4.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Big Data & Analytics Solutions",
+            "src": "images/cube-box.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Abstract representation of reactive artificial intelligence",
+            "src": "images/scalability-flexibility-img.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Representation of limited memory artificial intelligence",
+            "src": "images/enhanced-security-img.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Representation of theory of mind artificial intelligence",
+            "src": "images/support-maintenance-img.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/bigdata-analytics.html",
+            "alt": "Representation of self-aware artificial intelligence",
+            "src": "images/cost-efficiency-img.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Cyfuture Logo",
+            "src": "../images/cyfuture-logo1.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.png",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Liquid Cooled Data Center",
+            "src": "../images/data-center-bg5.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Data Center in India",
+            "src": "../images/data-centers-menu-bg2.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Data Center in Noida",
+            "src": "../images/data-center-bg2.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Data Center in Mumbai",
+            "src": "../images/data-center-bg3.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Data Center in Bangalore",
+            "src": "../images/data-center-bg4.webp",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Global Presence",
+            "src": "../images/global-infra-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Industry Transformation",
+            "src": "../images/industry-scale-img.jpg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          },
+          {
+            "page_url": "https://cyfuture.com/contact-us.html",
+            "alt": "Cyfuture Logo",
+            "src": "/../images/cyfuture-logo.svg",
+            "sizes": "",
+            "title": "",
+            "width": "",
+            "height": "",
+            "srcset": "",
+            "loading": "",
+            "file_size": 0
+          }
+        ]
+      },
+      "recommendation": "Add descriptive alt text to 13 images"
+    }
+  ]
+}

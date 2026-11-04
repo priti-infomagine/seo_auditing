@@ -324,7 +324,7 @@ async function pollAudit(auditId) {
 WebSocket streaming can be disabled server-side via environment variable:
 
 ```bash
-AUDIT_WS_ENABLED=false
+AUDIT_WS_ENABLED=true
 ```
 
 When disabled, the WebSocket endpoint returns a 1011 error and clients should use polling.

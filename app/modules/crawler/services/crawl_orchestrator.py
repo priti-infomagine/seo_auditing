@@ -105,7 +105,7 @@ class CrawlOrchestrator:
         start_domain = get_domain(start_url)
         site_result = None
 
-        await self.event_bus.emit(
+        await self.event_bus.emit_async(
             AuditEventType.CRAWL_STARTED,
             audit_id=str(self.crawl_job_id),
             url=start_url,
@@ -281,7 +281,7 @@ class CrawlOrchestrator:
         duration_ms = int((time.time() - start_time) * 1000)
         await self._mark_completed(duration_ms)
 
-        await self.event_bus.emit(
+        await self.event_bus.emit_async(
             AuditEventType.CRAWL_COMPLETE,
             audit_id=str(self.crawl_job_id),
             data={
@@ -341,7 +341,7 @@ class CrawlOrchestrator:
         )
 
     async def _crawl_page(self, item: DiscoveredURL, http_sem: asyncio.Semaphore, browser_sem: asyncio.Semaphore) -> None:
-        await self.event_bus.emit(
+        await self.event_bus.emit_async(
             AuditEventType.CRAWL_PAGE_STARTED,
             audit_id=str(self.crawl_job_id),
             url=item.normalized_url,
@@ -359,7 +359,7 @@ class CrawlOrchestrator:
                 user_agent=self.config.user_agent if self.config else None,
             )
 
-        await self.event_bus.emit(
+        await self.event_bus.emit_async(
             AuditEventType.CRAWL_PAGE_FETCHED,
             audit_id=str(self.crawl_job_id),
             url=item.normalized_url,
@@ -383,7 +383,7 @@ class CrawlOrchestrator:
                     error_message=crawl_result.error,
                 )
                 await worker_db.commit()
-            await self.event_bus.emit(
+            await self.event_bus.emit_async(
                 AuditEventType.CRAWL_PAGE_FAILED,
                 audit_id=str(self.crawl_job_id),
                 url=item.normalized_url,
@@ -594,7 +594,7 @@ class CrawlOrchestrator:
             if document.is_html:
                 self._enqueue_links(link_result.links, page.id, effective_url, item.depth)
 
-            await self.event_bus.emit(
+            await self.event_bus.emit_async(
                 AuditEventType.CRAWL_PAGE_PERSISTED,
                 audit_id=str(self.crawl_job_id),
                 url=item.normalized_url,

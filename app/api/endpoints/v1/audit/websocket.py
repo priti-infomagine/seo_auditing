@@ -271,8 +271,8 @@ async def audit_websocket_http_docs(audit_id: str):
         score_started, score_complete,
         pipeline_started, pipeline_completed, pipeline_failed
     """
-    raise JSONResponse(
-        status_code=426,
+    return JSONResponse(
+        
         content={"detail": "This is a WebSocket endpoint. Use a WebSocket client to connect."},
     )
 
