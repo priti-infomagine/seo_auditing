@@ -8,7 +8,7 @@ from app.modules.crawler.extractors.document_extractor import (
 )
 from app.modules.crawler.extractors.metadata_extractor import MetadataFacts
 from app.modules.crawler.extractors.content_extractor import ContentFacts
-from app.modules.crawler.extractors.link_extractor import LinkFacts
+from app.modules.crawler.extractors.link_extractor import LinkFacts, extract_links_from_html
 from app.modules.crawler.extractors.asset_extractor import ResourceFacts
 from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
 from app.modules.crawler.extractors.seo_fact_extractor import (
@@ -25,6 +25,7 @@ __all__ = [
     "MetadataFacts",
     "ContentFacts",
     "LinkFacts",
+    "extract_links_from_html",
     "ResourceFacts",
     "TechnicalFacts",
     "PageFacts",

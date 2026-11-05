@@ -15,3 +15,7 @@ class LinkData(BaseModel):
     absolute_url: str = ""
 
     attributes: dict[str, str] = Field(default_factory=dict)
+    
+    # Raw/unmodified values for rules that need original HTML
+    raw_href: str = ""
+    raw_attributes: dict[str, str] = Field(default_factory=dict)

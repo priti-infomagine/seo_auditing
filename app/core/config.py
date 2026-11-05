@@ -97,6 +97,14 @@ class Settings(BaseSettings):
     LINK_ANALYSIS_TIME_LIMIT: int = 1800
     LINK_ANALYSIS_SOFT_TIME_LIMIT: int = 1700
 
+    # ── Link Rules Thresholds ───────────────────────────────────────
+    LINK_MAX_COUNT_THRESHOLD: int = 100          # ExcessiveLinkCountRule
+    LINK_MAX_COUNT_CRITICAL_THRESHOLD: int = 200 # ExcessiveLinkCountRule
+    URL_MAX_DEPTH_THRESHOLD: int = 4             # UrlDepthRule
+    URL_MAX_DEPTH_WARNING_THRESHOLD: int = 6     # UrlDepthRule
+    DEAD_END_CHECK_ENABLED: bool = True          # DeadEndPagesRule
+    FRAGMENT_CHECK_RENDERED: bool = True         # FragmentLinkTargetsRule
+
     # ── Chat Auth ───────────────────────────────────────────────────
     CHAT_AUTH_ENABLED: bool = False
 

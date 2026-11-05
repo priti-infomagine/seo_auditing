@@ -90,6 +90,18 @@ class LinkAnalysisService:
             link_facts.external_count,
         )
 
+        # Add rendered links summary if available
+        if hasattr(link_facts, "deep_links") and link_facts.deep_links:
+            rendered_count = len(link_facts.deep_links)
+            fragment_links = [l for l in link_facts.deep_links if l.get("url", "").startswith("#")]
+            summary["rendered_total_links"] = rendered_count
+            summary["fragment_link_count"] = len(fragment_links)
+            summary["has_rendered_links"] = True
+        else:
+            summary["rendered_total_links"] = 0
+            summary["fragment_link_count"] = 0
+            summary["has_rendered_links"] = False
+
         return LinkAnalysisResult(
             links=enriched_links,
             internal_count=link_facts.internal_count,

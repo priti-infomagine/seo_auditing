@@ -76,6 +76,7 @@ def parsed_document_to_page_facts(
     response_time_ms: int = 0,
     redirects: list | None = None,
     raw_html: str = "",
+    rendered_links: list | None = None,
 ) -> PageFacts:
     """
     Convert a ParserService ParsedDocument into the crawler's PageFacts
@@ -203,13 +204,33 @@ def parsed_document_to_page_facts(
                 "nofollow": "nofollow" in [r.lower() for r in l.rel],
                 "ugc": "ugc" in [r.lower() for r in l.rel],
                 "sponsored": "sponsored" in [r.lower() for r in l.rel],
+                # Preserve raw fields for rules that need original HTML
+                "raw_href": getattr(l, "raw_href", ""),
+                "raw_attributes": getattr(l, "raw_attributes", {}),
             }
         )
+
+    # Add rendered links to deep_links for comparison
+    deep_links = []
+    if rendered_links:
+        for rl in rendered_links:
+            # Determine if internal/external based on domain
+            link_url = rl.get("url", "")
+            link_domain = urlparse(link_url).netloc.lower() if link_url else ""
+            is_internal = bool(page_domain) and bool(link_domain) and is_same_site(link_domain, page_domain)
+            is_external = bool(link_domain) and not is_internal
+            
+            # Merge rendered link with internal/external classification
+            enriched = dict(rl)
+            enriched["is_internal"] = is_internal
+            enriched["is_external"] = is_external
+            deep_links.append(enriched)
 
     link_facts = LinkFacts(
         links=link_list,
         internal_count=internal_count,
         external_count=external_count,
+        deep_links=deep_links,
     )
 
     resource_list = []

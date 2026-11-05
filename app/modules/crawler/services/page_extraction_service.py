@@ -48,6 +48,7 @@ class PageExtractionService:
         response_time_ms: int = 0,
         redirects: list | None = None,
         raw_html: str = "",
+        rendered_links: list | None = None,
     ) -> PageFacts:
         """
         Convert a ParserService ParsedDocument into PageFacts.
@@ -64,4 +65,5 @@ class PageExtractionService:
             response_time_ms=response_time_ms,
             redirects=redirects,
             raw_html=raw_html,
+            rendered_links=rendered_links,
         )

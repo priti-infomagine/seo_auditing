@@ -16,6 +16,7 @@ import asyncio
 from app.core.logger import logger
 from app.modules.crawler.config import CrawlConfig
 from app.modules.crawler.extractors.document_extractor import create_document_facts, DocumentFacts
+from app.modules.crawler.extractors.link_extractor import extract_links_from_html
 from app.modules.crawler.fetchers.base import Fetcher
 from app.modules.crawler.fetchers.browser_fetcher import BrowserFetcher
 from app.modules.crawler.fetchers.http_fetcher import HttpFetcher
@@ -37,6 +38,7 @@ class PageCrawlResult:
         initial_fetch_result: Optional[FetchResult] = None,
         error: Optional[str] = None,
         error_type: Optional[str] = None,
+        rendered_links: Optional[list] = None,
     ):
         self.url = url
         self.normalized_url = normalized_url
@@ -46,6 +48,7 @@ class PageCrawlResult:
         self.error = error
         self.error_type = error_type
         self.success = document is not None and fetch_result is not None and error is None
+        self.rendered_links = rendered_links or []
 
 
 class PageCrawlService:
@@ -87,7 +90,8 @@ class PageCrawlService:
             PageCrawlResult with document facts or error.
             If browser fallback occurred, fetch_result contains the merged
             browser result and initial_fetch_result contains the original
-            HTTP response.
+            HTTP response. rendered_links contains links extracted from
+            rendered HTML (if browser rendering was used).
         """
         try:
             normalized_url = normalize_url(url)
@@ -113,6 +117,11 @@ class PageCrawlService:
         initial_fetch_result = http_result
         html_content = http_result.content.decode("utf-8", errors="replace")
 
+        # Extract links from initial HTML (static)
+        static_links = extract_links_from_html(html_content, normalized_url)
+
+        rendered_links = []
+
         # 2. Rendering decision (only for successful HTML responses)
         if http_result.success and self.config.enable_browser_rendering:
             loop = asyncio.get_running_loop()
@@ -128,7 +137,10 @@ class PageCrawlService:
                         headers=headers if headers else None,
                     )
                     if browser_result.success and browser_result.content:
-                        html_content = browser_result.content.decode("utf-8", errors="replace")
+                        rendered_html = browser_result.content.decode("utf-8", errors="replace")
+                        # Extract links from rendered HTML
+                        rendered_links = extract_links_from_html(rendered_html, normalized_url)
+                        html_content = rendered_html
                         http_result = _merge_render_into_fetch(initial_fetch_result, browser_result)
                     else:
                         logger.warning(
@@ -153,6 +165,7 @@ class PageCrawlService:
                 initial_fetch_result=initial_fetch_result if initial_fetch_result.error else None,
                 error=http_result.error,
                 error_type=http_result.error_type,
+                rendered_links=rendered_links,
             )
 
         # 4. Build minimal document facts (extraction happens via parser module)
@@ -164,6 +177,7 @@ class PageCrawlService:
             document=document,
             fetch_result=http_result,
             initial_fetch_result=initial_fetch_result,
+            rendered_links=rendered_links,
         )
 
 

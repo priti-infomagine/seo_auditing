@@ -427,6 +427,9 @@ class DBParserService:
                     "id": None,
                     "classes": link.attributes.get("class", []) if hasattr(link, "attributes") and link.attributes else [],
                     "aria_label": link.attributes.get("aria-label", None) if hasattr(link, "attributes") and link.attributes else None,
+                    # Preserve raw fields for rules that need original HTML
+                    "raw_href": getattr(link, "raw_href", ""),
+                    "raw_attributes": getattr(link, "raw_attributes", {}),
                 })
 
         if parsed.images:

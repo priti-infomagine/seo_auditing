@@ -12,6 +12,7 @@ from app.modules.crawler.services.broken_link_checker import BrokenLinkChecker, 
 from app.modules.crawler.services.site_discovery_service import SiteDiscoveryService, SiteDiscoveryResult
 from app.modules.crawler.services.technical_analysis_service import TechnicalAnalysisService, TechnicalAnalysisResult
 from app.modules.crawler.services.crawl_persistence_service import CrawlPersistenceService
+from app.modules.crawler.services.link_graph_service import LinkGraphService, LinkGraphStats, get_dead_end_pages
 
 __all__ = [
     "FetchResult",
@@ -29,4 +30,7 @@ __all__ = [
     "TechnicalAnalysisService",
     "TechnicalAnalysisResult",
     "CrawlPersistenceService",
+    "LinkGraphService",
+    "LinkGraphStats",
+    "get_dead_end_pages",
 ]

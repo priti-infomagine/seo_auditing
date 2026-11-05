@@ -22,6 +22,9 @@ class LinkExtractor:
 
         for tag in soup.find_all("a"):
             href = str(tag.get("href", "")).strip()
+            # Store raw href before normalization
+            raw_href = str(tag.get("href", ""))
+            
             if not href:
                 continue
 
@@ -31,11 +34,14 @@ class LinkExtractor:
             rel = [str(value).strip().lower() for value in rel]
 
             attributes = {}
+            raw_attributes = {}
             for key, value in tag.attrs.items():
                 if isinstance(value, list):
                     attributes[key] = " ".join(str(item) for item in value)
+                    raw_attributes[key] = " ".join(str(item) for item in value)
                 else:
                     attributes[key] = str(value)
+                    raw_attributes[key] = str(value)
 
             results.append(
                 LinkData(
@@ -47,6 +53,8 @@ class LinkExtractor:
                     download=str(tag.get("download", "")).strip(),
                     absolute_url=urljoin(context.url, href),
                     attributes=attributes,
+                    raw_href=raw_href,
+                    raw_attributes=raw_attributes,
                 )
             )
 

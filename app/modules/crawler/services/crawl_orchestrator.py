@@ -442,6 +442,8 @@ class CrawlOrchestrator:
                 {"url": r.url, "status_code": r.status_code}
                 for r in fetch_result.redirect_chain
             ],
+            raw_html=document.raw_html,
+            rendered_links=crawl_result.rendered_links,
         )
 
         if parsed.content and parsed.content.text:

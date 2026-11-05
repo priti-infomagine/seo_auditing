@@ -27,7 +27,7 @@ def extract_schema_from_url(url):
         return None
 
 # --- Quick Test Run ---
-target_url = "https://youtube.com"  # Replace with any website
+target_url = "https://moneymatters.co.in/"  # Replace with any website
 extracted_data = extract_schema_from_url(target_url)
 
 if extracted_data:

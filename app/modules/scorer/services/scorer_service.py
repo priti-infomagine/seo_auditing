@@ -26,7 +26,11 @@ from app.modules.rule_engine.category_rules.content import (
 )
 from app.modules.rule_engine.category_rules.links import (
     InternalLinksRule, ExternalLinksRule, BrokenLinksRule,
-    AnchorTextRule, NofollowLinksRule
+    AnchorTextRule, NofollowLinksRule,
+    DeadEndPagesRule, FragmentLinkTargetsRule, ExcessiveLinkCountRule,
+    NoLocalhostLinksRule, NoLocalFileLinksRule, NoOnclickNavigationRule,
+    CleanLinkHrefsRule, NoHttpsDowngradeRule, ValidPhoneEmailLinksRule,
+    UrlDepthRule
 )
 from app.modules.rule_engine.category_rules.images import (
     ImageAltTextRule, ImageSizeRule, LazyLoadingRule, ImageDimensionsRule,
@@ -88,9 +92,13 @@ class ScorerService:
             ContentFreshnessRule(), DuplicateTitlesRule(), DuplicateDescriptionsRule(),
             DuplicateH1sRule(),
             
-            # Links (5 rules)
+            # Links (15 rules)
             InternalLinksRule(), ExternalLinksRule(), BrokenLinksRule(),
             AnchorTextRule(), NofollowLinksRule(),
+            DeadEndPagesRule(), FragmentLinkTargetsRule(), ExcessiveLinkCountRule(),
+            NoLocalhostLinksRule(), NoLocalFileLinksRule(), NoOnclickNavigationRule(),
+            CleanLinkHrefsRule(), NoHttpsDowngradeRule(), ValidPhoneEmailLinksRule(),
+            UrlDepthRule(),
             
             # Images (6 rules)
             ImageAltTextRule(), ImageSizeRule(), LazyLoadingRule(),

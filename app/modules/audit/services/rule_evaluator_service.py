@@ -34,6 +34,7 @@ from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.scorer.services.scorer_service import ScorerService
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.crawler.services.url_ignore_service import UrlIgnoreService
+from app.modules.crawler.services.link_graph_service import LinkGraphService
 from app.shared.exceptions import RuleEvaluationError
 
 
@@ -53,6 +54,7 @@ class RuleEvaluatorService:
         "javascript", "seo", "social", "media",
         "content", "headings", "links", "images",
         "schemas", "hreflang", "resources", "technical",
+        "site_links",
     ]
 
     def __init__(
@@ -170,6 +172,12 @@ class RuleEvaluatorService:
             for pl in all_page_links:
                 page_links_map.setdefault(pl.page_id, []).append(pl)
 
+            # Build link graph for dead-end page detection (site-wide)
+            link_graph_service = LinkGraphService(self.db)
+            link_graph_stats = await link_graph_service.build_graph(audit_id)
+            dead_end_pages = set(link_graph_stats.dead_end_pages)
+            out_degree = link_graph_stats.out_degree
+
             # Build page_id -> fact map for URL lookup in events
             fact_by_page_id = {f.page_id: f for f in filtered_facts}
 
@@ -197,6 +205,8 @@ class RuleEvaluatorService:
                             seo_map.get(fact.page_id),
                             network_map.get(fact.page_id),
                             page_links_map.get(fact.page_id, []),
+                            dead_end_pages,
+                            out_degree,
                         )
                         return page_results, fact.page_id
                     except Exception as exc:
@@ -324,6 +334,8 @@ class RuleEvaluatorService:
         seo_data,
         network_data,
         page_links: list = None,
+        dead_end_pages: set = None,
+        out_degree: dict = None,
     ) -> List[RuleEvaluationResult]:
         """
         Evaluate all rules for a single page.
@@ -343,6 +355,8 @@ class RuleEvaluatorService:
             seo_data: The PageSEOData row (batch-fetched) or None.
              network_data: The PageNetworkData row (batch-fetched) or None.
             page_links: The PageLink rows for this page (batch-fetched) or None.
+            dead_end_pages: Set of normalized URLs that are dead ends (no outbound links).
+            out_degree: Dict mapping normalized URL to count of outbound internal links.
 
         Returns:
             List of RuleEvaluationResult objects (one per rule, or synthetic
@@ -351,7 +365,7 @@ class RuleEvaluatorService:
         try:
             page_id = fact.page_id
             # Reconstruct data dict from the batch-fetched objects
-            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links)
+            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links, dead_end_pages, out_degree)
 
             # Run all rules concurrently with per-rule timeout
             rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
@@ -463,6 +477,8 @@ class RuleEvaluatorService:
         seo_data,
         network_data,
         page_links: list = None,
+        dead_end_pages: set = None,
+        out_degree: dict = None,
     ) -> Dict[str, Any]:
         """
         Reconstruct the `data` dict that SEO rules expect.
@@ -489,10 +505,17 @@ class RuleEvaluatorService:
         | javascript  | page_network_data.performance (or empty)       |
         | seo         | page_seo_data (basic SEO facts)                |
         | media       | parsed_page_facts.parsed_data.images           |
+        | site_links  | link_graph_service (dead ends, out_degree)     |
         """
         # Start with safe empty defaults
         data: Dict[str, Any] = {key: {} for key in self.RULE_DATA_KEYS}
         page_id = fact.page_id if fact else None
+
+        # Add site_links for dead-end detection
+        data["site_links"] = {
+            "dead_end_pages": list(dead_end_pages) if dead_end_pages else [],
+            "out_degree": out_degree if out_degree else {},
+        }
 
         try:
             # --- Parsed facts (already loaded) ---
@@ -603,6 +626,8 @@ class RuleEvaluatorService:
         external_links = []
         broken_internal = []
         broken_external = []
+        rendered_total = 0
+        fragment_count = 0
 
         status_by_url: dict = {}
         broken_link_data_available = page_links is not None
@@ -614,7 +639,7 @@ class RuleEvaluatorService:
         for link in links:
             if not isinstance(link, dict):
                 continue
-            match_key = link.get("absolute_url") or link.get("href", "")
+            match_key = link.get("absolute_url") or link.get("url") or link.get("href", "")
             status = status_by_url.get(match_key)
             if status is not None:
                 link["target_status_code"] = status
@@ -634,6 +659,13 @@ class RuleEvaluatorService:
                     broken_internal.append(link)
             if link.get("nofollow") or link.get("is_nofollow"):
                 nofollow_count += 1
+
+            # Track rendered links and fragment links
+            if link.get("source") == "rendered":
+                rendered_total += 1
+            if link.get("url", "").startswith("#") or link.get("href", "").startswith("#"):
+                fragment_count += 1
+
         return {
             "total_links": len(links),
             "internal_count": internal_count,
@@ -644,6 +676,10 @@ class RuleEvaluatorService:
             "broken_internal": broken_internal,
             "broken_external": broken_external,
             "broken_link_data_available": broken_link_data_available,
+            # New fields for new rules
+            "rendered_total_links": rendered_total,
+            "fragment_link_count": fragment_count,
+            "has_rendered_links": rendered_total > 0,
         }
 
     def _build_images_summary(self, images: list) -> dict:
