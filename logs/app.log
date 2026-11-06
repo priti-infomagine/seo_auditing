@@ -187404,3 +187404,6 @@ For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/St
 2026-11-06T15:30:22 | INFO | app | GET /audit/status/b94eeb8f-fcc1-4ddc-9ec4-4eef5201424a
 2026-11-06T15:30:22 | INFO | app | GET /audit/result/b94eeb8f-fcc1-4ddc-9ec4-4eef5201424a - format=full
 2026-11-06T15:30:22 | INFO | app | Cache hit: returning audit result from Redis for audit_id=b94eeb8f-fcc1-4ddc-9ec4-4eef5201424a
+2026-11-06T17:41:27 | INFO | app | Celery broker pre-warm started in background
+2026-11-06T17:41:39 | INFO | app | Worker process initialized with persistent background event loop (pid=12816)
+2026-11-06T17:42:10 | INFO | app | Worker process initialized with persistent background event loop (pid=15644)
