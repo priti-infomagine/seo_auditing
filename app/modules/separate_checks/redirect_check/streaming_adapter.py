@@ -6,12 +6,23 @@ redirect check pipeline can stream per-URL results to SSE clients in real time.
 from __future__ import annotations
 
 import json
+import random
 from datetime import datetime, timezone
 from typing import Any
 
 from app.core.logger import logger
 from app.modules.streaming_audit.config import STREAMING_AUDIT_REDIS_NAMESPACE
 from app.modules.streaming_audit.services.redis_scheduler import RedisQueueScheduler
+
+
+# Max TTL for streaming audit Redis keys (1 hour) with jitter
+MAX_TTL_SECONDS = 3600
+TTL_JITTER_SECONDS = 300  # 5 minutes jitter
+
+
+def _ttl_with_jitter() -> int:
+    """Return TTL with small random jitter to prevent thundering herd."""
+    return MAX_TTL_SECONDS + random.randint(-TTL_JITTER_SECONDS, TTL_JITTER_SECONDS)
 
 
 class StreamingRedirectAdapter(RedisQueueScheduler):
@@ -42,7 +53,9 @@ class StreamingRedirectAdapter(RedisQueueScheduler):
         try:
             serialized = json.dumps(payload)
             await self.redis.publish(self.ns_events(audit_id), serialized)
-            await self.redis.rpush(self._events_list_key(audit_id), serialized)
+            events_key = self._events_list_key(audit_id)
+            await self.redis.rpush(events_key, serialized)
+            await self.redis.expire(events_key, _ttl_with_jitter())
         except Exception as exc:
             logger.warning("StreamingRedirectAdapter: failed to publish event: %s", exc)
 

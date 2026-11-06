@@ -45,6 +45,16 @@ RULE_AFFECTED_PART: Dict[str, str] = {
     "links_003": "broken_links",
     "links_004": "anchor_text",
     "links_005": "nofollow_links",
+    "links_006": "dead_end_pages",
+    "links_007": "fragment_link_targets",
+    "links_008": "excessive_link_count",
+    "links_009": "localhost_links",
+    "links_010": "local_file_links",
+    "links_011": "onclick_navigation",
+    "links_012": "clean_link_hrefs",
+    "links_013": "https_downgrade",
+    "links_014": "phone_email_links",
+    "links_015": "url_depth",
     # schema
     "schema_001": "structured_data",
     "schema_002": "organization_schema",
@@ -118,16 +128,17 @@ HIGH_IMPACT_WARNINGS: set = {
 # internal category -> response category id + display name (spec §6)
 # ---------------------------------------------------------------------------
 CATEGORY_DISPLAY: Dict[str, Dict[str, str]] = {
-    "on_page":        {"id": "on_page",            "name": "On-Page SEO"},
-    "technical":      {"id": "technical_seo",      "name": "Technical SEO"},
-    "content":        {"id": "content_quality",    "name": "Content Quality"},
-    "links":          {"id": "internal_linking",   "name": "Internal Linking"},
-    "images":         {"id": "images_media",       "name": "Images & Media"},
-    "schema":         {"id": "structured_data",    "name": "Structured Data"},
-    "social":         {"id": "social",             "name": "Social"},
-    "security":       {"id": "security_trust",     "name": "Security & Trust"},
-    "accessibility":  {"id": "accessibility",      "name": "Accessibility"},
-    "performance":    {"id": "performance",        "name": "Performance"},
+    "indexability":     {"id": "indexability",       "name": "Indexability"},
+    "on_page":          {"id": "on_page_seo",        "name": "On-Page SEO"},
+    "technical":        {"id": "technical_seo",      "name": "Technical SEO"},
+    "content":          {"id": "content_quality",    "name": "Content Quality"},
+    "links":            {"id": "internal_linking",   "name": "Internal Linking"},
+    "performance":      {"id": "performance",        "name": "Performance"},
+    "security":         {"id": "security_trust",     "name": "Security & Trust"},
+    "structured_data":  {"id": "structured_data",    "name": "Structured Data"},
+    "images":           {"id": "images_media",       "name": "Images & Media"},
+    "social":           {"id": "social",             "name": "Social"},
+    "accessibility":    {"id": "accessibility",      "name": "Accessibility"},
 }
 
 # ---------------------------------------------------------------------------
@@ -144,6 +155,7 @@ SUBCATEGORY_OF: Dict[str, str] = {
     "on_page_008": "open_graph",
     "on_page_009": "twitter_cards",
     "technical_001": "ssl_certificate",
+    "technical_003": "language_declaration",
     "technical_002": "viewport",
     "technical_004": "charset",
     "technical_005": "doctype",

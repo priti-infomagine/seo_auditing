@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import random
 from typing import Iterable
 
 from redis.asyncio import Redis
@@ -8,6 +9,16 @@ from redis.asyncio import Redis
 from app.core.config import settings
 from app.modules.streaming_audit.config import STREAMING_AUDIT_MAX_CONCURRENCY
 from app.modules.streaming_audit.services.streaming_audit_service import normalize_url
+
+
+# Max TTL for streaming audit Redis keys (1 hour) with jitter
+MAX_TTL_SECONDS = 3600
+TTL_JITTER_SECONDS = 300  # 5 minutes jitter
+
+
+def _ttl_with_jitter() -> int:
+    """Return TTL with small random jitter to prevent thundering herd."""
+    return MAX_TTL_SECONDS + random.randint(-TTL_JITTER_SECONDS, TTL_JITTER_SECONDS)
 
 
 class RedisQueueScheduler:
@@ -49,7 +60,10 @@ return 0
     async def mark_seen(self, audit_id: str, url: str) -> bool:
         key = f"{self.ns(audit_id)}:seen"
         normalized = normalize_url(url)
-        return bool(await self.redis.sadd(key, normalized))
+        added = await self.redis.sadd(key, normalized)
+        if added:
+            await self.redis.expire(key, _ttl_with_jitter())
+        return bool(added)
 
     async def enqueue(self, audit_id: str, url: str, depth: int = 0, max_pages: int | None = None) -> bool:
         normalized = normalize_url(url)
@@ -63,7 +77,9 @@ return 0
                 return False
         if await self.mark_seen(audit_id, normalized):
             payload = json.dumps({"url": normalized, "depth": depth})
-            await self.redis.rpush(f"{self.ns(audit_id)}:queued", payload)
+            queued_key = f"{self.ns(audit_id)}:queued"
+            await self.redis.rpush(queued_key, payload)
+            await self.redis.expire(queued_key, _ttl_with_jitter())
             if max_pages is not None:
                 await self.redis.decrby(f"{self.ns(audit_id)}:remaining", 1)
             return True
@@ -81,7 +97,9 @@ return 0
                 continue
             if await self.mark_seen(audit_id, normalized):
                 payload = json.dumps({"url": normalized, "depth": depth})
-                await self.redis.rpush(f"{self.ns(audit_id)}:queued", payload)
+                queued_key = f"{self.ns(audit_id)}:queued"
+                await self.redis.rpush(queued_key, payload)
+                await self.redis.expire(queued_key, _ttl_with_jitter())
                 queued.append(normalized)
                 if max_pages is not None:
                     await self.redis.decrby(f"{self.ns(audit_id)}:remaining", 1)
@@ -90,7 +108,10 @@ return 0
     async def reserve_slot(self, audit_id: str, limit: int | None = None) -> bool:
         limit = limit or STREAMING_AUDIT_MAX_CONCURRENCY
         active_key = f"{self.ns(audit_id)}:active"
-        return bool(await self.redis.eval(self._RESERVE_SLOT_SCRIPT, 1, active_key, limit))
+        result = await self.redis.eval(self._RESERVE_SLOT_SCRIPT, 1, active_key, limit)
+        if result:
+            await self.redis.expire(active_key, _ttl_with_jitter())
+        return bool(result)
 
     async def release_slot(self, audit_id: str) -> None:
         active_key = f"{self.ns(audit_id)}:active"
@@ -108,8 +129,11 @@ return 0
         seen = normalize_url(seed_url)
         await self.redis.delete(f"{ns}:seen", f"{ns}:queued", f"{ns}:active", f"{ns}:remaining")
         await self.redis.sadd(f"{ns}:seen", seen)
+        await self.redis.expire(f"{ns}:seen", _ttl_with_jitter())
         await self.redis.set(f"{ns}:remaining", max(0, max_pages - 1))
+        await self.redis.expire(f"{ns}:remaining", _ttl_with_jitter())
         await self.redis.rpush(f"{ns}:queued", json.dumps({"url": seen, "depth": 0}))
+        await self.redis.expire(f"{ns}:queued", _ttl_with_jitter())
 
     async def has_pending_work(self, audit_id: str) -> bool:
         return bool(await self.redis.llen(f"{self.ns(audit_id)}:queued"))

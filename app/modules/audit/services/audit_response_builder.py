@@ -446,6 +446,12 @@ class AuditResponseBuilder:
         rule_cache: Dict[str, Dict[str, bool]],
         total_pages: int,
     ) -> List[Dict[str, Any]]:
+        # Map internal rule categories to scoring categories (matching ScoreCalculator)
+        scoring_categories: Dict[str, set] = defaultdict(set)
+        for cat, rule_ids in main_rules_per_cat.items():
+            scoring_cat = ScoreCalculator.CATEGORY_MAP.get(cat, cat)
+            scoring_categories[scoring_cat].update(rule_ids)
+
         # Per main rule: pass-rate across canonical pages.
         #   check_score = 100 * pages_passing / total_pages_checked
         #   checks_passed = #main_rules with check_score >= PASS_THRESHOLD
@@ -453,7 +459,7 @@ class AuditResponseBuilder:
         # the key is omitted entirely when a category has no failures.
         out: List[Dict[str, Any]] = []
         for cat, display in CATEGORY_DISPLAY.items():
-            main_rule_ids = main_rules_per_cat.get(cat, set())
+            main_rule_ids = scoring_categories.get(cat, set())
             checks_total = len(main_rule_ids)
             check_scores: List[float] = []
             checks_passed = 0
