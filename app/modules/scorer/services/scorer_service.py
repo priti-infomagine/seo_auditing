@@ -52,7 +52,12 @@ from app.modules.rule_engine.category_rules.accessibility import (
 from app.modules.rule_engine.category_rules.performance import (
     ResponseTimeRule, HTMLSizeRule, MinificationRule, ResourceCountRule,
     CacheHeadersRule, CompressionRule, PageSizeRule, JavaScriptErrorsRule,
-    CoreWebVitalsRule
+    CoreWebVitalsRule,
+    # New rules:
+    BrotliCompressionRule, PreconnectHintsRule, FontLoadingOptimizationRule,
+    LCPOptimizationRule, MinifyInlineCSSRule, HTTP2SupportRule, DOMSizeRule,
+    RenderBlockingResourcesRule, LazyLoadingAboveFoldRule, CSSFileSizeRule,
+    MinifyInlineJSRule, InlineJSSizeRule, VideoInsteadOfGIFRule,
 )
 
 
@@ -117,10 +122,14 @@ class ScorerService:
             # Accessibility (1 rule)
             FormLabelsRule(),
             
-            # Performance (9 rules)
+            # Performance (21 rules - 9 original + 3 extended + 12 new)
             ResponseTimeRule(), HTMLSizeRule(), MinificationRule(),
             ResourceCountRule(), CacheHeadersRule(), CompressionRule(),
             PageSizeRule(), JavaScriptErrorsRule(), CoreWebVitalsRule(),
+            BrotliCompressionRule(), PreconnectHintsRule(), FontLoadingOptimizationRule(),
+            LCPOptimizationRule(), MinifyInlineCSSRule(), HTTP2SupportRule(), DOMSizeRule(),
+            RenderBlockingResourcesRule(), LazyLoadingAboveFoldRule(), CSSFileSizeRule(),
+            MinifyInlineJSRule(), InlineJSSizeRule(), VideoInsteadOfGIFRule(),
         ]
         
         logger.info(f"Loaded {len(rules)} scoring rules")

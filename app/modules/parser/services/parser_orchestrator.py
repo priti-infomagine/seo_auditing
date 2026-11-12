@@ -9,6 +9,9 @@ from app.modules.parser.models.page_metadata import PageMetadata
 from app.modules.parser.models.content_data import ContentData
 from app.modules.parser.models.social_data import SocialData
 from app.modules.parser.models.technical_data import TechnicalData
+from app.modules.parser.models.head_data import HeadData
+from app.modules.parser.models.inline_css_data import InlineCSSData
+from app.modules.parser.models.inline_js_data import InlineJSData
 from app.modules.parser.services.document_parser_service import DocumentContext, DocumentParserService
 from app.modules.parser.extractors.metadata_extractor import MetadataExtractor
 from app.modules.parser.extractors.content_extractor import ContentExtractor
@@ -20,6 +23,9 @@ from app.modules.parser.extractors.hreflang_extractor import HreflangExtractor
 from app.modules.parser.extractors.social_extractor import SocialExtractor
 from app.modules.parser.extractors.resource_extractor import ResourceExtractor
 from app.modules.parser.extractors.technical_extractor import TechnicalExtractor
+from app.modules.parser.extractors.head_extractor import HeadExtractor
+from app.modules.parser.extractors.inline_css_extractor import InlineCSSExtractor
+from app.modules.parser.extractors.inline_js_extractor import InlineJSExtractor
 from app.modules.parser.analyzers import (
     analyze_content,
     analyze_headings,
@@ -59,11 +65,31 @@ class ParserOrchestrator:
             "social": SocialExtractor(),
             "resource": ResourceExtractor(),
             "technical": TechnicalExtractor(),
+            "head": HeadExtractor(),
+            "inline_css": InlineCSSExtractor(),
+            "inline_js": InlineJSExtractor(),
         }
 
     def parse(self, html: str, url: str = "") -> ParsedPage:
+        """Parse static HTML only."""
+        return self._parse_with_context(html, url, None)
+
+    def parse_dual(self, html: str, url: str = "", rendered_html: str = "") -> ParsedPage:
+        """
+        Parse both static and rendered HTML for dual-pass extraction.
+
+        Args:
+            html: Static HTML from initial HTTP response
+            url: Page URL
+            rendered_html: Rendered HTML from Playwright (optional)
+        """
+        return self._parse_with_context(html, url, rendered_html)
+
+    def _parse_with_context(self, html: str, url: str, rendered_html: str | None) -> ParsedPage:
+        # Parse static HTML
         context = self.document_parser.parse(html=html, url=url)
 
+        # Run extractors on static HTML
         metadata = self.extractors["metadata"].extract(context)
         content = self.extractors["content"].extract(context)
         headings = self.extractors["heading"].extract(context)
@@ -74,6 +100,26 @@ class ParserOrchestrator:
         social = self.extractors["social"].extract(context)
         resources = self.extractors["resource"].extract(context)
         technical = self.extractors["technical"].extract(context)
+        head = self.extractors["head"].extract(context)
+        inline_css = self.extractors["inline_css"].extract(context)
+        inline_js = self.extractors["inline_js"].extract(context)
+
+        # Run extractors on rendered HTML if available
+        head_rendered = None
+        images_rendered = None
+        resources_rendered = None
+        technical_rendered = None
+        inline_css_rendered = None
+        inline_js_rendered = None
+
+        if rendered_html and rendered_html != html:
+            rendered_context = self.document_parser.parse(html=rendered_html, url=url)
+            head_rendered = self.extractors["head"].extract(rendered_context)
+            images_rendered = self.extractors["image"].extract(rendered_context)
+            resources_rendered = self.extractors["resource"].extract(rendered_context)
+            technical_rendered = self.extractors["technical"].extract(rendered_context)
+            inline_css_rendered = self.extractors["inline_css"].extract(rendered_context)
+            inline_js_rendered = self.extractors["inline_js"].extract(rendered_context)
 
         analysis: dict[str, dict] = {}
         if content:
@@ -118,6 +164,16 @@ class ParserOrchestrator:
                 warnings=context.warnings,
                 errors=errors,
             ),
+            # New dual-pass fields
+            head=head,
+            head_rendered=head_rendered,
+            images_rendered=images_rendered,
+            resources_rendered=resources_rendered,
+            technical_rendered=technical_rendered,
+            inline_css=inline_css,
+            inline_css_rendered=inline_css_rendered,
+            inline_js=inline_js,
+            inline_js_rendered=inline_js_rendered,
         )
 
     def parse_html(

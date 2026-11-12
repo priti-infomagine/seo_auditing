@@ -19,3 +19,6 @@ class TechnicalData(BaseModel):
     inline_styles: int = 0
 
     external_resource_count: int = 0
+
+    # New field for DOM size rule
+    dom_elements: int = 0

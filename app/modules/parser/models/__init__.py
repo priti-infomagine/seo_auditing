@@ -8,6 +8,9 @@ from .hreflang_data import HreflangData
 from .social_data import SocialData, OpenGraphData, TwitterCardData
 from .resource_data import ResourceData
 from .technical_data import TechnicalData
+from .head_data import HeadData
+from .inline_css_data import InlineCSSData
+from .inline_js_data import InlineJSData
 
 ParsedPage.model_rebuild()
 
@@ -33,4 +36,7 @@ __all__ = [
     "TwitterCardData",
     "ResourceData",
     "TechnicalData",
+    "HeadData",
+    "InlineCSSData",
+    "InlineJSData",
 ]

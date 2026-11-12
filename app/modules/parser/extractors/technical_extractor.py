@@ -37,6 +37,9 @@ class TechnicalExtractor:
             + len(soup.find_all("img", src=True))
         )
 
+        # DOM element count for DOM size rule
+        dom_elements = len(soup.find_all())
+
         return TechnicalData(
             doctype=doctype,
             html_lang=html_lang,
@@ -50,6 +53,7 @@ class TechnicalExtractor:
             inline_scripts=inline_scripts,
             inline_styles=inline_styles,
             external_resource_count=external_resource_count,
+            dom_elements=dom_elements,
         )
 
     @staticmethod

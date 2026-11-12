@@ -40,6 +40,7 @@ class ResourceExtractor:
                     decoding=str(tag.get("decoding", "")).strip(),
                     srcset=str(tag.get("srcset", "")).strip(),
                     sizes=str(tag.get("sizes", "")).strip(),
+                    fetchpriority=str(tag.get("fetchpriority", "")).strip(),
                     attributes={str(k): str(v) for k, v in tag.attrs.items()},
                 )
             )
@@ -47,16 +48,28 @@ class ResourceExtractor:
 
     @staticmethod
     def _scripts(soup):
-        return [
-            ResourceData(
-                resource_type="script",
-                tag="script",
-                url=str(tag.get("src", "")).strip(),
-                attributes={str(k): str(v) for k, v in tag.attrs.items()},
+        results = []
+        for tag in soup.find_all("script"):
+            if not tag.get("src"):
+                continue
+            attrs = {str(k): str(v) for k, v in tag.attrs.items()}
+            async_attr = tag.get("async") is not None
+            defer_attr = tag.get("defer") is not None
+            module_attr = tag.get("type") == "module"
+            fetchpriority = str(tag.get("fetchpriority", "")).strip()
+            results.append(
+                ResourceData(
+                    resource_type="script",
+                    tag="script",
+                    url=str(tag.get("src", "")).strip(),
+                    async_attr=async_attr,
+                    defer_attr=defer_attr,
+                    module_attr=module_attr,
+                    fetchpriority=fetchpriority,
+                    attributes=attrs,
+                )
             )
-            for tag in soup.find_all("script")
-            if tag.get("src")
-        ]
+        return results
 
     @staticmethod
     def _stylesheets(soup):
@@ -68,13 +81,18 @@ class ResourceExtractor:
             rel = [str(value).lower() for value in rel]
             if "stylesheet" not in rel:
                 continue
+            attrs = {str(k): str(v) for k, v in tag.attrs.items()}
+            media = str(tag.get("media", "")).strip()
+            fetchpriority = str(tag.get("fetchpriority", "")).strip()
             results.append(
                 ResourceData(
                     resource_type="stylesheet",
                     tag="link",
                     url=str(tag.get("href", "")).strip(),
                     rel=rel,
-                    attributes={str(k): str(v) for k, v in tag.attrs.items()},
+                    media=media,
+                    fetchpriority=fetchpriority,
+                    attributes=attrs,
                 )
             )
         return results

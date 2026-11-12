@@ -1,10 +1,10 @@
 {
   "audit": {
-    "audit_id": "dee48e37-abc9-45b8-aae0-d89880662af6",
+    "audit_id": "8b2f0181-0172-4d14-bdb6-cfe057595ec7",
     "url": "https://monkeytype.com/",
     "domain": "monkeytype.com",
-    "started_at": "2026-11-05T05:04:44.784896+00:00",
-    "completed_at": "2026-11-05T05:04:47.927400+00:00",
+    "started_at": "2026-11-12T12:42:38.268837+00:00",
+    "completed_at": "2026-11-12T12:42:40.821868+00:00",
     "status": "completed",
     "pages": {
       "discovered": 6,
@@ -21,8 +21,8 @@
       "status_codes": {
         "200": 6
       },
-      "started_at": "2026-11-05T05:04:44.784896+00:00",
-      "completed_at": "2026-11-05T05:04:47.927400+00:00"
+      "started_at": "2026-11-12T12:42:38.268837+00:00",
+      "completed_at": "2026-11-12T12:42:40.821868+00:00"
     },
     "indexation": {
       "indexable": 6,
@@ -34,7 +34,7 @@
       "available": true,
       "ttfb": {
         "available": true,
-        "value": 395.5,
+        "value": 317.5,
         "unit": "milliseconds",
         "status": "excellent"
       }
@@ -102,30 +102,39 @@
       "crawler_version": "unknown",
       "parser_version": "unknown",
       "rule_engine_version": "1.0.0",
-      "rules_executed": 64,
-      "total_issues": 113,
+      "rules_executed": 74,
+      "total_issues": 115,
       "output_shape": "unified_v1"
     }
   },
   "summary": {
-    "score": 89.8,
-    "health": "excellent",
+    "score": 71.0,
+    "health": "needs_improvement",
     "issues": {
-      "critical": 0,
-      "high": 6,
-      "medium": 5,
-      "low": 8,
+      "critical": 1,
+      "high": 5,
+      "medium": 6,
+      "low": 7,
       "total": 19
     },
     "checks": {
-      "passed": 45,
+      "passed": 55,
       "failed": 19,
-      "total": 64
+      "total": 74
     }
   },
   "categories": [
     {
-      "id": "on_page",
+      "id": "indexability",
+      "name": "Indexability",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "on_page_seo",
       "name": "On-Page SEO",
       "score": 55.6,
       "status": "poor",
@@ -154,19 +163,28 @@
     {
       "id": "internal_linking",
       "name": "Internal Linking",
-      "score": 40.0,
-      "status": "poor",
-      "checks_total": 5,
-      "checks_passed": 1,
-      "checks_failed": 4
+      "score": 77.8,
+      "status": "good",
+      "checks_total": 15,
+      "checks_passed": 10,
+      "checks_failed": 5
     },
     {
-      "id": "images_media",
-      "name": "Images & Media",
+      "id": "performance",
+      "name": "Performance",
+      "score": 98.1,
+      "status": "excellent",
+      "checks_total": 9,
+      "checks_passed": 8,
+      "checks_failed": 1
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
       "score": 100.0,
       "status": "excellent",
-      "checks_total": 6,
-      "checks_passed": 6,
+      "checks_total": 2,
+      "checks_passed": 2,
       "checks_failed": 0
     },
     {
@@ -179,6 +197,15 @@
       "checks_failed": 1
     },
     {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 100.0,
+      "status": "excellent",
+      "checks_total": 6,
+      "checks_passed": 6,
+      "checks_failed": 0
+    },
+    {
       "id": "social",
       "name": "Social",
       "score": 33.3,
@@ -188,15 +215,6 @@
       "checks_failed": 2
     },
     {
-      "id": "security_trust",
-      "name": "Security & Trust",
-      "score": 100.0,
-      "status": "excellent",
-      "checks_total": 2,
-      "checks_passed": 2,
-      "checks_failed": 0
-    },
-    {
       "id": "accessibility",
       "name": "Accessibility",
       "score": 100.0,
@@ -204,18 +222,94 @@
       "checks_total": 1,
       "checks_passed": 1,
       "checks_failed": 0
-    },
-    {
-      "id": "performance",
-      "name": "Performance",
-      "score": 98.1,
-      "status": "excellent",
-      "checks_total": 9,
-      "checks_passed": 8,
-      "checks_failed": 1
     }
   ],
   "issues": [
+    {
+      "rule_id": "on_page_003",
+      "category": "on_page",
+      "severity": "critical",
+      "title": "Missing or multiple H1 tags",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "Missing H1 tag"
+        },
+        {
+          "current_value": "2 H1 tags: How to Disclose a Vulnerability, Submission Guidelines"
+        },
+        {
+          "current_value": "8 H1 tags: Agreement, Limitations, Privacy Policy"
+        },
+        {
+          "current_value": "15 H1 tags: What data do we collect?, How do we collect your data?, How will we use your data?"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "h1_tags": [
+              "How to Disclose a Vulnerability",
+              "Submission Guidelines"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "h1_tags": [
+              "Agreement",
+              "Limitations",
+              "Privacy Policy"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "h1_tags": [
+              "What data do we collect?",
+              "How do we collect your data?",
+              "How will we use your data?"
+            ]
+          }
+        ]
+      },
+      "recommendation": "Add a single <h1> tag containing your primary keyword"
+    },
+    {
+      "rule_id": "content_001",
+      "category": "content",
+      "severity": "high",
+      "title": "Thin or overly long content",
+      "affected_pages": 4,
+      "occurrences": [
+        {
+          "current_value": "57 words on unknown page"
+        },
+        {
+          "current_value": "138 words on unknown page"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "page_type": "unknown"
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "page_type": "unknown"
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "page_type": "unknown"
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "page_type": "unknown"
+          }
+        ]
+      },
+      "recommendation": "Increase content to at least 150 words"
+    },
     {
       "rule_id": "content_006",
       "category": "content",
@@ -230,11 +324,7 @@
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "canonical_url": ""
-          },
-          {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/",
             "canonical_url": ""
           },
           {
@@ -246,16 +336,123 @@
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/",
+            "page_url": "https://monkeytype.com/terms-of-service",
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/terms-of-service",
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "canonical_url": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
             "canonical_url": ""
           }
         ]
       },
       "recommendation": "Add canonical URL tag and ensure unique content"
+    },
+    {
+      "rule_id": "links_004",
+      "category": "links",
+      "severity": "high",
+      "title": "Generic or non-descriptive anchor text",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "1 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "4 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "3 links have generic/non-descriptive anchor text"
+        },
+        {
+          "current_value": "20 links have generic/non-descriptive anchor text"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "total_links": 1,
+            "generic_count": 1
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "total_links": 4,
+            "generic_count": 4
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "total_links": 1,
+            "generic_count": 1
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "total_links": 3,
+            "generic_count": 3
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "total_links": 20,
+            "generic_count": 20
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "total_links": 1,
+            "generic_count": 1
+          }
+        ]
+      },
+      "recommendation": "Use descriptive anchor text for better SEO and accessibility"
+    },
+    {
+      "rule_id": "on_page_006",
+      "category": "on_page",
+      "severity": "high",
+      "title": "Missing canonical URL",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "Missing canonical URL tag"
+        }
+      ],
+      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+    },
+    {
+      "rule_id": "schema_001",
+      "category": "schema",
+      "severity": "high",
+      "title": "Missing schema markup",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "No structured data / schema markup found"
+        }
+      ],
+      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "perf_001",
+      "category": "performance",
+      "severity": "high",
+      "title": "Slow server response time (TTFB)",
+      "affected_pages": 1,
+      "occurrences": [
+        {
+          "current_value": "Slow response time: 0.53s (should be <200ms)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "response_time": 0.533
+          }
+        ]
+      },
+      "recommendation": "Optimize server response time to under 200ms"
     },
     {
       "rule_id": "links_003",
@@ -281,12 +478,18 @@
             "title": "",
             "target": "_blank",
             "download": "",
+            "raw_href": "https://support.google.com/analytics/answer/6004245?hl=en",
             "attributes": {
               "rel": "noopener noreferrer",
               "href": "https://support.google.com/analytics/answer/6004245?hl=en",
               "target": "_blank"
             },
             "absolute_url": "https://support.google.com/analytics/answer/6004245?hl=en",
+            "raw_attributes": {
+              "rel": "noopener noreferrer",
+              "href": "https://support.google.com/analytics/answer/6004245?hl=en",
+              "target": "_blank"
+            },
             "target_status_code": 404
           },
           {
@@ -300,156 +503,23 @@
             "title": "",
             "target": "_blank",
             "download": "",
+            "raw_href": "https://en.wikipedia.org/wiki/HTTP_cookie",
             "attributes": {
               "rel": "noreferrer noopener",
               "href": "https://en.wikipedia.org/wiki/HTTP_cookie",
               "target": "_blank"
             },
             "absolute_url": "https://en.wikipedia.org/wiki/HTTP_cookie",
+            "raw_attributes": {
+              "rel": "noreferrer noopener",
+              "href": "https://en.wikipedia.org/wiki/HTTP_cookie",
+              "target": "_blank"
+            },
             "target_status_code": 403
           }
         ]
       },
       "recommendation": "Fix 2 broken links to improve user experience and SEO"
-    },
-    {
-      "rule_id": "links_004",
-      "category": "links",
-      "severity": "high",
-      "title": "Generic or non-descriptive anchor text",
-      "affected_pages": 6,
-      "occurrences": [
-        {
-          "current_value": "20 links have generic/non-descriptive anchor text"
-        },
-        {
-          "current_value": "1 links have generic/non-descriptive anchor text"
-        },
-        {
-          "current_value": "4 links have generic/non-descriptive anchor text"
-        },
-        {
-          "current_value": "3 links have generic/non-descriptive anchor text"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "total_links": 20,
-            "generic_count": 20
-          },
-          {
-            "page_url": "https://monkeytype.com/settings",
-            "total_links": 1,
-            "generic_count": 1
-          },
-          {
-            "page_url": "https://monkeytype.com/security-policy",
-            "total_links": 4,
-            "generic_count": 4
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
-            "total_links": 1,
-            "generic_count": 1
-          },
-          {
-            "page_url": "https://monkeytype.com/",
-            "total_links": 1,
-            "generic_count": 1
-          },
-          {
-            "page_url": "https://monkeytype.com/terms-of-service",
-            "total_links": 3,
-            "generic_count": 3
-          }
-        ]
-      },
-      "recommendation": "Use descriptive anchor text for better SEO and accessibility"
-    },
-    {
-      "rule_id": "on_page_006",
-      "category": "on_page",
-      "severity": "high",
-      "title": "Missing canonical URL",
-      "affected_pages": 6,
-      "occurrences": [
-        {
-          "current_value": "Missing canonical URL tag"
-        }
-      ],
-      "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
-    },
-    {
-      "rule_id": "perf_001",
-      "category": "performance",
-      "severity": "high",
-      "title": "Slow server response time (TTFB)",
-      "affected_pages": 1,
-      "occurrences": [
-        {
-          "current_value": "Slow response time: 0.66s (should be <200ms)"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "response_time": 0.658
-          }
-        ]
-      },
-      "recommendation": "Optimize server response time to under 200ms"
-    },
-    {
-      "rule_id": "schema_001",
-      "category": "schema",
-      "severity": "high",
-      "title": "Missing schema markup",
-      "affected_pages": 6,
-      "occurrences": [
-        {
-          "current_value": "No structured data / schema markup found"
-        }
-      ],
-      "recommendation": "Add Schema.org markup to enable rich snippets in search results"
-    },
-    {
-      "rule_id": "content_001",
-      "category": "content",
-      "severity": "high",
-      "title": "Thin or overly long content",
-      "affected_pages": 4,
-      "occurrences": [
-        {
-          "current_value": "96 words on unknown page"
-        },
-        {
-          "current_value": "138 words on unknown page"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/settings",
-            "page_type": "unknown"
-          },
-          {
-            "page_url": "https://monkeytype.com/security-policy",
-            "page_type": "unknown"
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
-            "page_type": "unknown"
-          },
-          {
-            "page_url": "https://monkeytype.com/",
-            "page_type": "unknown"
-          }
-        ]
-      },
-      "recommendation": "Increase content to at least 150 words"
     },
     {
       "rule_id": "content_003",
@@ -465,6 +535,59 @@
       "recommendation": "Break content into paragraphs for better readability"
     },
     {
+      "rule_id": "links_001",
+      "category": "links",
+      "severity": "medium",
+      "title": "Insufficient internal links",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "1 internal links"
+        },
+        {
+          "current_value": "4 internal links"
+        },
+        {
+          "current_value": "3 internal links"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "internal_count": 4,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "internal_count": 3,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "internal_count": 1,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          }
+        ]
+      },
+      "recommendation": "Add more internal links to improve site structure and user navigation"
+    },
+    {
       "rule_id": "on_page_002",
       "category": "on_page",
       "severity": "medium",
@@ -478,15 +601,7 @@
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "length_status": "slightly_long",
-            "character_count": 162,
-            "truncation_risk": true,
-            "meta_description": "The most customizable typing test website with a minimal design and a ton of features. Test yourself in various modes, track your progress and improve your speed.",
-            "pixel_width_estimate": 1053
-          },
-          {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -510,7 +625,7 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/",
+            "page_url": "https://monkeytype.com/terms-of-service",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -518,7 +633,15 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/terms-of-service",
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "length_status": "slightly_long",
+            "character_count": 162,
+            "truncation_risk": true,
+            "meta_description": "The most customizable typing test website with a minimal design and a ton of features. Test yourself in various modes, track your progress and improve your speed.",
+            "pixel_width_estimate": 1053
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -530,53 +653,33 @@
       "recommendation": "Adjust meta description to 140-160 characters for optimal SERP display"
     },
     {
-      "rule_id": "on_page_003",
+      "rule_id": "on_page_004",
       "category": "on_page",
       "severity": "medium",
-      "title": "Missing or multiple H1 tags",
-      "affected_pages": 6,
+      "title": "Illogical heading hierarchy",
+      "affected_pages": 3,
       "occurrences": [
         {
-          "current_value": "15 H1 tags: What data do we collect?, How do we collect your data?, How will we use your data?"
-        },
-        {
-          "current_value": "Missing H1 tag"
-        },
-        {
-          "current_value": "2 H1 tags: How to Disclose a Vulnerability, Submission Guidelines"
-        },
-        {
-          "current_value": "8 H1 tags: Agreement, Limitations, Privacy Policy"
+          "current_value": "Heading issues: H1=0, H2=0, H3=0, H4=0, H5=0, H6=0 — Missing H1"
         }
       ],
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "h1_tags": [
-              "What data do we collect?",
-              "How do we collect your data?",
-              "How will we use your data?"
-            ]
+            "page_url": "https://monkeytype.com/",
+            "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
-            "h1_tags": [
-              "How to Disclose a Vulnerability",
-              "Submission Guidelines"
-            ]
+            "page_url": "https://monkeytype.com/about",
+            "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/terms-of-service",
-            "h1_tags": [
-              "Agreement",
-              "Limitations",
-              "Privacy Policy"
-            ]
+            "page_url": "https://monkeytype.com/settings",
+            "target": "Missing H1"
           }
         ]
       },
-      "recommendation": "Use only one H1 tag per page for better SEO"
+      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
     },
     {
       "rule_id": "technical_003",
@@ -605,86 +708,36 @@
       "recommendation": "Add <!DOCTYPE html> at the very beginning of the document"
     },
     {
-      "rule_id": "links_001",
+      "rule_id": "links_007",
       "category": "links",
       "severity": "medium",
-      "title": "Insufficient internal links",
-      "affected_pages": 5,
+      "title": "Fragment link targets missing",
+      "affected_pages": 2,
       "occurrences": [
         {
-          "current_value": "1 internal links"
+          "current_value": "Found 2 fragment link(s) - verify targets exist in rendered DOM"
         },
         {
-          "current_value": "4 internal links"
-        },
-        {
-          "current_value": "3 internal links"
+          "current_value": "Found 15 fragment link(s) - verify targets exist in rendered DOM"
         }
       ],
       "evidence": {
         "locations": [
-          {
-            "page_url": "https://monkeytype.com/settings",
-            "internal_count": 1,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
-          },
           {
             "page_url": "https://monkeytype.com/security-policy",
-            "internal_count": 4,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
+            "fragment_link_count": 2,
+            "rendered_links_available": false
           },
           {
-            "page_url": "https://monkeytype.com/about",
-            "internal_count": 1,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
-          },
-          {
-            "page_url": "https://monkeytype.com/",
-            "internal_count": 1,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
-          },
-          {
-            "page_url": "https://monkeytype.com/terms-of-service",
-            "internal_count": 3,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "fragment_link_count": 15,
+            "rendered_links_available": false
           }
         ]
       },
-      "recommendation": "Add more internal links to improve site structure and user navigation"
-    },
-    {
-      "rule_id": "on_page_004",
-      "category": "on_page",
-      "severity": "medium",
-      "title": "Illogical heading hierarchy",
-      "affected_pages": 3,
-      "occurrences": [
-        {
-          "current_value": "Heading issues: H1=0, H2=0, H3=0, H4=0, H5=0, H6=0 — Missing H1"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/settings",
-            "target": "Missing H1"
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
-            "target": "Missing H1"
-          },
-          {
-            "page_url": "https://monkeytype.com/",
-            "target": "Missing H1"
-          }
-        ]
-      },
-      "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
+      "why": "Fragment links without matching DOM targets cause broken in-page navigation and poor UX.",
+      "what": "Fragment links (#id) reference non-existent DOM elements.",
+      "recommendation": "Ensure fragment link targets (e.g., #section) have matching id attributes in the rendered HTML"
     },
     {
       "rule_id": "content_007",
@@ -711,59 +764,6 @@
         }
       ],
       "recommendation": "Consider linking to authoritative external sources"
-    },
-    {
-      "rule_id": "on_page_001",
-      "category": "on_page",
-      "severity": "low",
-      "title": "Missing or poor page title",
-      "affected_pages": 3,
-      "occurrences": [
-        {
-          "current_value": "Title: Privacy Policy | Monkeytype (27 chars)"
-        },
-        {
-          "current_value": "Title: Security Policy | Monkeytype (28 chars)"
-        },
-        {
-          "current_value": "Title: Terms of Service | Monkeytype (29 chars)"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "title": "Privacy Policy | Monkeytype",
-            "generic": false,
-            "length_status": "very_short",
-            "character_count": 27,
-            "truncation_risk": false,
-            "pixel_width_estimate": 160,
-            "content_consistency_score": 1.0
-          },
-          {
-            "page_url": "https://monkeytype.com/security-policy",
-            "title": "Security Policy | Monkeytype",
-            "generic": false,
-            "length_status": "very_short",
-            "character_count": 28,
-            "truncation_risk": false,
-            "pixel_width_estimate": 166,
-            "content_consistency_score": 1.0
-          },
-          {
-            "page_url": "https://monkeytype.com/terms-of-service",
-            "title": "Terms of Service | Monkeytype",
-            "generic": false,
-            "length_status": "very_short",
-            "character_count": 29,
-            "truncation_risk": false,
-            "pixel_width_estimate": 176,
-            "content_consistency_score": 1.0
-          }
-        ]
-      },
-      "recommendation": "Consider making the title more descriptive. Do not add filler simply to reach a character count."
     },
     {
       "rule_id": "social_003",
@@ -805,21 +805,7 @@
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "present": [
-              "strict-transport-security",
-              "content-security-policy",
-              "x-frame-options"
-            ],
-            "missing_optional": [
-              "x-content-type-options"
-            ],
-            "obsolete_missing": [
-              "x-xss-protection"
-            ]
-          },
-          {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -861,7 +847,7 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/",
+            "page_url": "https://monkeytype.com/terms-of-service",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -875,7 +861,21 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/terms-of-service",
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "present": [
+              "strict-transport-security",
+              "content-security-policy",
+              "x-frame-options"
+            ],
+            "missing_optional": [
+              "x-content-type-options"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -917,6 +917,59 @@
         }
       ],
       "recommendation": "Add Schema.org markup to enable rich snippets in search results"
+    },
+    {
+      "rule_id": "on_page_001",
+      "category": "on_page",
+      "severity": "low",
+      "title": "Missing or poor page title",
+      "affected_pages": 3,
+      "occurrences": [
+        {
+          "current_value": "Title: Security Policy | Monkeytype (28 chars)"
+        },
+        {
+          "current_value": "Title: Terms of Service | Monkeytype (29 chars)"
+        },
+        {
+          "current_value": "Title: Privacy Policy | Monkeytype (27 chars)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "title": "Security Policy | Monkeytype",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 28,
+            "truncation_risk": false,
+            "pixel_width_estimate": 166,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "title": "Terms of Service | Monkeytype",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 29,
+            "truncation_risk": false,
+            "pixel_width_estimate": 176,
+            "content_consistency_score": 1.0
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "title": "Privacy Policy | Monkeytype",
+            "generic": false,
+            "length_status": "very_short",
+            "character_count": 27,
+            "truncation_risk": false,
+            "pixel_width_estimate": 160,
+            "content_consistency_score": 1.0
+          }
+        ]
+      },
+      "recommendation": "Consider making the title more descriptive. Do not add filler simply to reach a character count."
     }
   ]
 }

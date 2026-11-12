@@ -8,6 +8,9 @@ from .hreflang_extractor import HreflangExtractor
 from .social_extractor import SocialExtractor
 from .resource_extractor import ResourceExtractor
 from .technical_extractor import TechnicalExtractor
+from .head_extractor import HeadExtractor
+from .inline_css_extractor import InlineCSSExtractor
+from .inline_js_extractor import InlineJSExtractor
 
 __all__ = [
     "MetadataExtractor",
@@ -20,4 +23,7 @@ __all__ = [
     "SocialExtractor",
     "ResourceExtractor",
     "TechnicalExtractor",
+    "HeadExtractor",
+    "InlineCSSExtractor",
+    "InlineJSExtractor",
 ]

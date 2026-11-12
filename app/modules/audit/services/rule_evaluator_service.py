@@ -55,6 +55,12 @@ class RuleEvaluatorService:
         "content", "headings", "links", "images",
         "schemas", "hreflang", "resources", "technical",
         "site_links",
+        # New dual-pass keys
+        "head", "head_rendered",
+        "inline_css", "inline_css_rendered",
+        "inline_js", "inline_js_rendered",
+        "images_rendered", "resources_rendered",
+        "technical_rendered",
     ]
 
     def __init__(
@@ -532,6 +538,16 @@ class RuleEvaluatorService:
                 data["social"] = parsed_data.get("social", {}) or {}
                 data["resources"] = parsed_data.get("resources", [])
                 data["technical"] = parsed_data.get("technical", {}) or {}
+                # Dual-pass fields
+                data["head"] = parsed_data.get("head", {})
+                data["head_rendered"] = parsed_data.get("head_rendered", {})
+                data["images_rendered"] = parsed_data.get("images_rendered", [])
+                data["resources_rendered"] = parsed_data.get("resources_rendered", [])
+                data["technical_rendered"] = parsed_data.get("technical_rendered", {}) or {}
+                data["inline_css"] = parsed_data.get("inline_css", [])
+                data["inline_css_rendered"] = parsed_data.get("inline_css_rendered", [])
+                data["inline_js"] = parsed_data.get("inline_js", [])
+                data["inline_js_rendered"] = parsed_data.get("inline_js_rendered", [])
                 # Flatten page_facts for quick access
                 data["_page_facts"] = fact.page_facts or {}
         except Exception as exc:

@@ -1,4 +1,6 @@
 from pydantic import BaseModel, Field
+
+
 class ImageData(BaseModel):
     resource_type: str = "image"
     url: str = ""
@@ -15,5 +17,9 @@ class ImageData(BaseModel):
 
     srcset: str = ""
     sizes: str = ""
+
+    # New fields for performance rules
+    fetchpriority: str = ""
+    is_gif: bool = False
 
     attributes: dict[str, str] = Field(default_factory=dict)

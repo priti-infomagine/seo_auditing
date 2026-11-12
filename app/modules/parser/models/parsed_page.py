@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pydantic import BaseModel, Field
+from typing import Any
 
 from app.modules.parser.models.content_data import ContentData, HeadingData
 from app.modules.parser.models.hreflang_data import HreflangData
@@ -11,6 +12,9 @@ from app.modules.parser.models.resource_data import ResourceData
 from app.modules.parser.models.schema_data import SchemaData
 from app.modules.parser.models.social_data import SocialData
 from app.modules.parser.models.technical_data import TechnicalData
+from app.modules.parser.models.head_data import HeadData
+from app.modules.parser.models.inline_css_data import InlineCSSData
+from app.modules.parser.models.inline_js_data import InlineJSData
 
 
 class PageIdentity(BaseModel):
@@ -40,6 +44,17 @@ class ParsedPage(BaseModel):
     resources: list[ResourceData] = Field(default_factory=list)
     technical: TechnicalData | None = None
     parser_metadata: ParserMetadata = Field(default_factory=ParserMetadata)
+    
+    # Dual-pass fields for rendered HTML
+    head: HeadData | None = None
+    head_rendered: HeadData | None = None
+    images_rendered: list[ImageData] = Field(default_factory=list)
+    resources_rendered: list[ResourceData] = Field(default_factory=list)
+    technical_rendered: TechnicalData | None = None
+    inline_css: list[InlineCSSData] = Field(default_factory=list)
+    inline_css_rendered: list[InlineCSSData] = Field(default_factory=list)
+    inline_js: list[InlineJSData] = Field(default_factory=list)
+    inline_js_rendered: list[InlineJSData] = Field(default_factory=list)
 
     @property
     def structured_data(self) -> list[SchemaData]:
