@@ -111,7 +111,7 @@ class AnalysisScorerService:
                     },
                     "categories": unified["categories"],
                 },
-                top_issues={"schema_version": 2, "issues": unified["issues"]},
+                top_issues={"schema_version": 2, "issues": unified.get("issues", [])},
                 summary=f"SEO audit scored: {overall}/100 (Grade {grade}).",
                 analysis_status="completed",
                 scored_at=scored_at,
