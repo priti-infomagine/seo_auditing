@@ -849,11 +849,16 @@ class RenderBlockingResourcesRule(BaseRule):
         
         for res in resources:
             if res.get("resource_type") == "script":
+                # Skip JSON-LD / JSON data blocks — they don't block rendering
+                script_type = (res.get("attributes", {}).get("type") or "").lower()
+                if script_type in ["application/ld+json", "application/json"]:
+                    continue
                 if not res.get("async_attr") and not res.get("defer_attr") and not res.get("module_attr"):
                     blocking_scripts.append(res.get("url", ""))
             elif res.get("resource_type") == "stylesheet":
                 media = res.get("media", "").lower()
-                if not media or media == "all" or "screen" in media:
+                # Exact match for media="all" or "screen" (substring "screen" in media is too broad)
+                if not media or media in ["all", "screen"]:
                     blocking_styles.append(res.get("url", ""))
         
         issues = []

@@ -1,10 +1,10 @@
 {
   "audit": {
-    "audit_id": "ef719a6c-8938-4674-9436-adbfd8fc6dc8",
+    "audit_id": "2fc11ffc-edb4-42a4-9964-9e1d38b6d8cc",
     "url": "https://moneymatters.co.in/",
     "domain": "moneymatters.co.in",
-    "started_at": "2026-11-12T09:53:15.495248+00:00",
-    "completed_at": "2026-11-12T09:53:25.417859+00:00",
+    "started_at": "2026-11-13T11:54:11.941309+00:00",
+    "completed_at": "2026-11-13T11:54:20.618873+00:00",
     "status": "completed",
     "pages": {
       "discovered": 5,
@@ -26,8 +26,8 @@
       "status_codes": {
         "200": 5
       },
-      "started_at": "2026-11-12T09:53:15.495248+00:00",
-      "completed_at": "2026-11-12T09:53:25.417859+00:00"
+      "started_at": "2026-11-13T11:54:11.941309+00:00",
+      "completed_at": "2026-11-13T11:54:20.618873+00:00"
     },
     "indexation": {
       "indexable": 5,
@@ -44,7 +44,7 @@
       "available": true,
       "ttfb": {
         "available": true,
-        "value": 3977.6,
+        "value": 5076.8,
         "unit": "milliseconds",
         "status": "critical"
       }
@@ -108,29 +108,121 @@
         "reason": "not_connected"
       }
     ],
+    "errors": [
+      {
+        "rule_id": "perf_011",
+        "page_id": "21bfce64-efb6-48a4-9993-1bd60e55b32a",
+        "url": "https://moneymatters.co.in/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "21bfce64-efb6-48a4-9993-1bd60e55b32a",
+        "url": "https://moneymatters.co.in/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "21bfce64-efb6-48a4-9993-1bd60e55b32a",
+        "url": "https://moneymatters.co.in/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "7694254d-f755-4ef9-bcbb-8c882b540ff6",
+        "url": "https://moneymatters.co.in/services",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "7694254d-f755-4ef9-bcbb-8c882b540ff6",
+        "url": "https://moneymatters.co.in/services",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "7694254d-f755-4ef9-bcbb-8c882b540ff6",
+        "url": "https://moneymatters.co.in/services",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "b597c1a1-9e22-450c-a721-efaee7c73e26",
+        "url": "https://moneymatters.co.in/products",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "b597c1a1-9e22-450c-a721-efaee7c73e26",
+        "url": "https://moneymatters.co.in/products",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "b597c1a1-9e22-450c-a721-efaee7c73e26",
+        "url": "https://moneymatters.co.in/products",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "d04952b6-76f5-4a72-b152-f7ad77ed064a",
+        "url": "https://moneymatters.co.in/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "d04952b6-76f5-4a72-b152-f7ad77ed064a",
+        "url": "https://moneymatters.co.in/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "d04952b6-76f5-4a72-b152-f7ad77ed064a",
+        "url": "https://moneymatters.co.in/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "f7dffb8f-5725-4bce-806f-fa7700d02dea",
+        "url": "https://moneymatters.co.in/contact",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "f7dffb8f-5725-4bce-806f-fa7700d02dea",
+        "url": "https://moneymatters.co.in/contact",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "f7dffb8f-5725-4bce-806f-fa7700d02dea",
+        "url": "https://moneymatters.co.in/contact",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      }
+    ],
     "meta": {
       "crawler_version": "unknown",
       "parser_version": "unknown",
       "rule_engine_version": "1.0.0",
-      "rules_executed": 74,
-      "total_issues": 134,
+      "rules_executed": 87,
+      "total_issues": 154,
       "output_shape": "unified_v1"
     }
   },
   "summary": {
-    "score": 65.5,
+    "score": 63.5,
     "health": "needs_improvement",
     "issues": {
       "critical": 2,
-      "high": 7,
-      "medium": 7,
-      "low": 11,
-      "total": 27
+      "high": 8,
+      "medium": 8,
+      "low": 13,
+      "total": 31
     },
     "checks": {
-      "passed": 47,
-      "failed": 27,
-      "total": 74
+      "passed": 53,
+      "failed": 31,
+      "total": 84
     }
   },
   "categories": [
@@ -182,11 +274,11 @@
     {
       "id": "performance",
       "name": "Performance",
-      "score": 77.8,
-      "status": "good",
-      "checks_total": 9,
-      "checks_passed": 7,
-      "checks_failed": 2
+      "score": 68.4,
+      "status": "needs_improvement",
+      "checks_total": 19,
+      "checks_passed": 13,
+      "checks_failed": 6
     },
     {
       "id": "security_trust",
@@ -300,42 +392,42 @@
       "affected_pages": 5,
       "occurrences": [
         {
-          "current_value": "Very slow response time: 4.19s"
+          "current_value": "Very slow response time: 5.69s"
         },
         {
-          "current_value": "Very slow response time: 3.81s"
+          "current_value": "Very slow response time: 5.03s"
         },
         {
-          "current_value": "Very slow response time: 1.94s"
+          "current_value": "Very slow response time: 1.72s"
         },
         {
-          "current_value": "Very slow response time: 4.18s"
+          "current_value": "Very slow response time: 5.36s"
         },
         {
-          "current_value": "Very slow response time: 5.77s"
+          "current_value": "Very slow response time: 7.58s"
         }
       ],
       "evidence": {
         "locations": [
           {
             "page_url": "https://moneymatters.co.in/",
-            "response_time": 4.193
+            "response_time": 5.694
           },
           {
             "page_url": "https://moneymatters.co.in/services",
-            "response_time": 3.813
+            "response_time": 5.027
           },
           {
             "page_url": "https://moneymatters.co.in/products",
-            "response_time": 1.935
+            "response_time": 1.72
           },
           {
             "page_url": "https://moneymatters.co.in/about",
-            "response_time": 4.178
+            "response_time": 5.362
           },
           {
             "page_url": "https://moneymatters.co.in/contact",
-            "response_time": 5.769
+            "response_time": 7.581
           }
         ]
       },
@@ -524,7 +616,7 @@
               "target": "_blank",
               "aria-label": "Visit LinkedIn Profile"
             },
-            "target_status_code": 405
+            "target_status_code": 429
           },
           {
             "page_url": "https://moneymatters.co.in/about",
@@ -553,7 +645,7 @@
               "target": "_blank",
               "aria-label": "Visit LinkedIn Profile"
             },
-            "target_status_code": 405
+            "target_status_code": 999
           },
           {
             "page_url": "https://moneymatters.co.in/about",
@@ -582,7 +674,7 @@
               "target": "_blank",
               "aria-label": "Visit LinkedIn Profile"
             },
-            "target_status_code": 405
+            "target_status_code": 429
           },
           {
             "page_url": "https://moneymatters.co.in/contact",
@@ -664,6 +756,55 @@
         }
       ],
       "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
+    },
+    {
+      "rule_id": "perf_018",
+      "category": "performance",
+      "severity": "high",
+      "title": "Render-blocking resources detected",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "Render-blocking resources: 1 blocking stylesheet(s)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://moneymatters.co.in/",
+            "blocking_styles": [
+              "/assets/index-92t6bOWQ.css"
+            ]
+          },
+          {
+            "page_url": "https://moneymatters.co.in/services",
+            "blocking_styles": [
+              "/assets/index-92t6bOWQ.css"
+            ]
+          },
+          {
+            "page_url": "https://moneymatters.co.in/products",
+            "blocking_styles": [
+              "/assets/index-92t6bOWQ.css"
+            ]
+          },
+          {
+            "page_url": "https://moneymatters.co.in/about",
+            "blocking_styles": [
+              "/assets/index-92t6bOWQ.css"
+            ]
+          },
+          {
+            "page_url": "https://moneymatters.co.in/contact",
+            "blocking_styles": [
+              "/assets/index-92t6bOWQ.css"
+            ]
+          }
+        ]
+      },
+      "why": "Render-blocking resources delay First Contentful Paint and LCP.",
+      "what": "Scripts/stylesheets in <head> without async/defer or media optimization.",
+      "recommendation": "Add async/defer to non-critical scripts, inline critical CSS, defer non-critical CSS"
     },
     {
       "rule_id": "schema_001",
@@ -867,6 +1008,21 @@
         ]
       },
       "recommendation": "Organize headings in logical hierarchy (H1 → H2 → H3)"
+    },
+    {
+      "rule_id": "perf_009",
+      "category": "performance",
+      "severity": "medium",
+      "title": "Missing preconnect/dns-prefetch hints",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "No preconnect or dns-prefetch hints found"
+        }
+      ],
+      "why": "Missing preconnect/dns-prefetch delays critical third-party connections, increasing latency.",
+      "what": "No <link rel='preconnect|dns-prefetch'> found for critical third-party origins.",
+      "recommendation": "Add <link rel='preconnect'> for critical third-party origins (fonts, CDN, APIs)"
     },
     {
       "rule_id": "security_005",
@@ -1096,6 +1252,89 @@
         }
       ],
       "recommendation": "Add Cache-Control and Expires headers for static assets"
+    },
+    {
+      "rule_id": "perf_014",
+      "category": "performance",
+      "severity": "low",
+      "title": "Brotli compression not enabled",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "Brotli compression not detected - consider upgrading from gzip"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://moneymatters.co.in/",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://moneymatters.co.in/services",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://moneymatters.co.in/products",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://moneymatters.co.in/about",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://moneymatters.co.in/contact",
+            "current_encoding": "gzip"
+          }
+        ]
+      },
+      "why": "Brotli provides 20-30% better compression than gzip, reducing transfer size and latency.",
+      "what": "Response uses gzip/deflate instead of Brotli compression.",
+      "recommendation": "Configure server to use Brotli compression for better compression ratios"
+    },
+    {
+      "rule_id": "perf_016",
+      "category": "performance",
+      "severity": "low",
+      "title": "HTTP/2 or HTTP/3 not enabled",
+      "affected_pages": 5,
+      "occurrences": [
+        {
+          "current_value": "HTTP/2 or HTTP/3 not detected"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://moneymatters.co.in/",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://moneymatters.co.in/services",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://moneymatters.co.in/products",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://moneymatters.co.in/about",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://moneymatters.co.in/contact",
+            "alt_svc": "",
+            "http_version": ""
+          }
+        ]
+      },
+      "why": "HTTP/1.1 lacks multiplexing, causing head-of-line blocking and slower resource loading.",
+      "what": "Server does not advertise HTTP/2 or HTTP/3 via alt-svc header.",
+      "recommendation": "Enable HTTP/2 or HTTP/3 on your server for better multiplexing"
     },
     {
       "rule_id": "social_003",

@@ -1,10 +1,10 @@
 {
   "audit": {
-    "audit_id": "e2cc30f7-26f8-4e1d-b4b5-018c51ce9385",
+    "audit_id": "85ca12d2-4c41-42c3-b254-68a289c48642",
     "url": "https://monkeytype.com/",
     "domain": "monkeytype.com",
-    "started_at": "2026-11-12T09:55:56.383182+00:00",
-    "completed_at": "2026-11-12T09:55:57.899509+00:00",
+    "started_at": "2026-11-13T09:20:59.336312+00:00",
+    "completed_at": "2026-11-13T09:21:00.668064+00:00",
     "status": "completed",
     "pages": {
       "discovered": 6,
@@ -21,8 +21,8 @@
       "status_codes": {
         "200": 6
       },
-      "started_at": "2026-11-12T09:55:56.383182+00:00",
-      "completed_at": "2026-11-12T09:55:57.899509+00:00"
+      "started_at": "2026-11-13T09:20:59.336312+00:00",
+      "completed_at": "2026-11-13T09:21:00.668064+00:00"
     },
     "indexation": {
       "indexable": 6,
@@ -34,7 +34,7 @@
       "available": true,
       "ttfb": {
         "available": true,
-        "value": 340.5,
+        "value": 230.0,
         "unit": "milliseconds",
         "status": "excellent"
       }
@@ -100,182 +100,110 @@
     ],
     "errors": [
       {
-        "rule_id": "perf_009",
-        "page_id": "9fea0964-5dc4-414b-97ce-572d4cee1cc9",
-        "url": "https://monkeytype.com/terms-of-service",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "9fea0964-5dc4-414b-97ce-572d4cee1cc9",
-        "url": "https://monkeytype.com/terms-of-service",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
         "rule_id": "perf_011",
-        "page_id": "9fea0964-5dc4-414b-97ce-572d4cee1cc9",
+        "page_id": "1b80b341-24bf-43dd-9dc4-60f3668f34f5",
         "url": "https://monkeytype.com/terms-of-service",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_019",
-        "page_id": "9fea0964-5dc4-414b-97ce-572d4cee1cc9",
+        "page_id": "1b80b341-24bf-43dd-9dc4-60f3668f34f5",
         "url": "https://monkeytype.com/terms-of-service",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_024",
-        "page_id": "9fea0964-5dc4-414b-97ce-572d4cee1cc9",
+        "page_id": "1b80b341-24bf-43dd-9dc4-60f3668f34f5",
         "url": "https://monkeytype.com/terms-of-service",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
-        "rule_id": "perf_009",
-        "page_id": "a0ac9c6a-33d6-4e0f-b5da-4aacf6e83e17",
-        "url": "https://monkeytype.com/",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "a0ac9c6a-33d6-4e0f-b5da-4aacf6e83e17",
-        "url": "https://monkeytype.com/",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
         "rule_id": "perf_011",
-        "page_id": "a0ac9c6a-33d6-4e0f-b5da-4aacf6e83e17",
+        "page_id": "206ca23c-2db6-4d52-b207-bfb88abd92af",
         "url": "https://monkeytype.com/",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_019",
-        "page_id": "a0ac9c6a-33d6-4e0f-b5da-4aacf6e83e17",
+        "page_id": "206ca23c-2db6-4d52-b207-bfb88abd92af",
         "url": "https://monkeytype.com/",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_024",
-        "page_id": "a0ac9c6a-33d6-4e0f-b5da-4aacf6e83e17",
+        "page_id": "206ca23c-2db6-4d52-b207-bfb88abd92af",
         "url": "https://monkeytype.com/",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
-        "rule_id": "perf_009",
-        "page_id": "d0e69baf-1dbd-479f-98cb-8efc594d3154",
-        "url": "https://monkeytype.com/privacy-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "d0e69baf-1dbd-479f-98cb-8efc594d3154",
-        "url": "https://monkeytype.com/privacy-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
         "rule_id": "perf_011",
-        "page_id": "d0e69baf-1dbd-479f-98cb-8efc594d3154",
-        "url": "https://monkeytype.com/privacy-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
+        "page_id": "2bae66cc-0dc2-478b-8ee5-96dc6c411cd6",
+        "url": "https://monkeytype.com/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_019",
-        "page_id": "d0e69baf-1dbd-479f-98cb-8efc594d3154",
-        "url": "https://monkeytype.com/privacy-policy",
-        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_024",
-        "page_id": "d0e69baf-1dbd-479f-98cb-8efc594d3154",
-        "url": "https://monkeytype.com/privacy-policy",
-        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_009",
-        "page_id": "dc3224b8-6182-4e27-81fc-f19d2b1a62ad",
-        "url": "https://monkeytype.com/settings",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "dc3224b8-6182-4e27-81fc-f19d2b1a62ad",
-        "url": "https://monkeytype.com/settings",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_011",
-        "page_id": "dc3224b8-6182-4e27-81fc-f19d2b1a62ad",
-        "url": "https://monkeytype.com/settings",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_019",
-        "page_id": "dc3224b8-6182-4e27-81fc-f19d2b1a62ad",
-        "url": "https://monkeytype.com/settings",
-        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_024",
-        "page_id": "dc3224b8-6182-4e27-81fc-f19d2b1a62ad",
-        "url": "https://monkeytype.com/settings",
-        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_009",
-        "page_id": "e0dcbf76-ef99-4a7c-8b9a-3c2e181401ba",
-        "url": "https://monkeytype.com/about",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "e0dcbf76-ef99-4a7c-8b9a-3c2e181401ba",
-        "url": "https://monkeytype.com/about",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_011",
-        "page_id": "e0dcbf76-ef99-4a7c-8b9a-3c2e181401ba",
-        "url": "https://monkeytype.com/about",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_019",
-        "page_id": "e0dcbf76-ef99-4a7c-8b9a-3c2e181401ba",
+        "page_id": "2bae66cc-0dc2-478b-8ee5-96dc6c411cd6",
         "url": "https://monkeytype.com/about",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_024",
-        "page_id": "e0dcbf76-ef99-4a7c-8b9a-3c2e181401ba",
+        "page_id": "2bae66cc-0dc2-478b-8ee5-96dc6c411cd6",
         "url": "https://monkeytype.com/about",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
-        "rule_id": "perf_009",
-        "page_id": "e1884ff5-b496-4e87-862d-643171f345f6",
+        "rule_id": "perf_011",
+        "page_id": "6c41f866-d468-4bbc-a744-51c4206bd777",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "6c41f866-d468-4bbc-a744-51c4206bd777",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "6c41f866-d468-4bbc-a744-51c4206bd777",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "6cf89470-25d7-4353-9a63-c80411824ab0",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "6cf89470-25d7-4353-9a63-c80411824ab0",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "6cf89470-25d7-4353-9a63-c80411824ab0",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "d6cd465b-52a5-4170-af66-0f837d54785a",
         "url": "https://monkeytype.com/security-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_010",
-        "page_id": "e1884ff5-b496-4e87-862d-643171f345f6",
-        "url": "https://monkeytype.com/security-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
-      },
-      {
-        "rule_id": "perf_011",
-        "page_id": "e1884ff5-b496-4e87-862d-643171f345f6",
-        "url": "https://monkeytype.com/security-policy",
-        "error": "Rule evaluation failed: 'NoneType' object has no attribute 'get'"
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_019",
-        "page_id": "e1884ff5-b496-4e87-862d-643171f345f6",
+        "page_id": "d6cd465b-52a5-4170-af66-0f837d54785a",
         "url": "https://monkeytype.com/security-policy",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       },
       {
         "rule_id": "perf_024",
-        "page_id": "e1884ff5-b496-4e87-862d-643171f345f6",
+        "page_id": "d6cd465b-52a5-4170-af66-0f837d54785a",
         "url": "https://monkeytype.com/security-policy",
         "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
       }
@@ -285,24 +213,24 @@
       "parser_version": "unknown",
       "rule_engine_version": "1.0.0",
       "rules_executed": 87,
-      "total_issues": 133,
+      "total_issues": 135,
       "output_shape": "unified_v1"
     }
   },
   "summary": {
-    "score": 69.0,
+    "score": 68.8,
     "health": "needs_improvement",
     "issues": {
       "critical": 1,
-      "high": 5,
-      "medium": 6,
+      "high": 4,
+      "medium": 7,
       "low": 10,
       "total": 22
     },
     "checks": {
-      "passed": 60,
+      "passed": 62,
       "failed": 22,
-      "total": 82
+      "total": 84
     }
   },
   "categories": [
@@ -354,10 +282,10 @@
     {
       "id": "performance",
       "name": "Performance",
-      "score": 81.4,
+      "score": 81.6,
       "status": "good",
-      "checks_total": 17,
-      "checks_passed": 13,
+      "checks_total": 19,
+      "checks_passed": 15,
       "checks_failed": 4
     },
     {
@@ -416,9 +344,6 @@
       "occurrences": [
         {
           "current_value": "Render-blocking resources: 1 blocking script(s), 1 blocking stylesheet(s)"
-        },
-        {
-          "current_value": "Render-blocking resources: 3 blocking script(s), 1 blocking stylesheet(s)"
         }
       ],
       "evidence": {
@@ -438,9 +363,16 @@
               "/css/monkeytype.CFSL0O8R.css"
             ],
             "blocking_scripts": [
-              "/js/monkeytype.Bjobc-52.js",
-              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js",
-              "https://www.google.com/recaptcha/api.js?render=explicit"
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "blocking_styles": [
+              "/css/monkeytype.CFSL0O8R.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
             ]
           },
           {
@@ -458,20 +390,7 @@
               "/css/monkeytype.CFSL0O8R.css"
             ],
             "blocking_scripts": [
-              "/js/monkeytype.Bjobc-52.js",
-              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js",
-              "https://www.google.com/recaptcha/api.js?render=explicit"
-            ]
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
-            "blocking_styles": [
-              "/css/monkeytype.CFSL0O8R.css"
-            ],
-            "blocking_scripts": [
-              "/js/monkeytype.Bjobc-52.js",
-              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js",
-              "https://www.google.com/recaptcha/api.js?render=explicit"
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
             ]
           },
           {
@@ -511,15 +430,15 @@
             "canonical_url": ""
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "canonical_url": ""
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "canonical_url": ""
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "canonical_url": ""
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "canonical_url": ""
           },
           {
@@ -563,17 +482,17 @@
             "generic_count": 1
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "total_links": 1,
+            "generic_count": 1
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "total_links": 20,
             "generic_count": 20
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "total_links": 1,
-            "generic_count": 1
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "total_links": 1,
             "generic_count": 1
           },
@@ -598,27 +517,6 @@
         }
       ],
       "recommendation": "Add <link rel='canonical' href='...'> to prevent duplicate content issues"
-    },
-    {
-      "rule_id": "perf_001",
-      "category": "performance",
-      "severity": "high",
-      "title": "Slow server response time (TTFB)",
-      "affected_pages": 1,
-      "occurrences": [
-        {
-          "current_value": "Slow response time: 0.74s (should be <200ms)"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/terms-of-service",
-            "response_time": 0.738
-          }
-        ]
-      },
-      "recommendation": "Optimize server response time to under 200ms"
     },
     {
       "rule_id": "schema_001",
@@ -654,11 +552,11 @@
             "page_type": "unknown"
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "page_type": "unknown"
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "page_type": "unknown"
           },
           {
@@ -781,13 +679,13 @@
             "contextual_ratio": 0.0
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "internal_count": 1,
             "contextual_links": 0,
             "contextual_ratio": 0.0
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "internal_count": 1,
             "contextual_links": 0,
             "contextual_ratio": 0.0
@@ -832,6 +730,14 @@
             "pixel_width_estimate": 1053
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "length_status": "slightly_long",
+            "character_count": 162,
+            "truncation_risk": true,
+            "meta_description": "The most customizable typing test website with a minimal design and a ton of features. Test yourself in various modes, track your progress and improve your speed.",
+            "pixel_width_estimate": 1053
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "length_status": "slightly_long",
             "character_count": 162,
@@ -841,14 +747,6 @@
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "length_status": "slightly_long",
-            "character_count": 162,
-            "truncation_risk": true,
-            "meta_description": "The most customizable typing test website with a minimal design and a ton of features. Test yourself in various modes, track your progress and improve your speed.",
-            "pixel_width_estimate": 1053
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -917,6 +815,21 @@
       "recommendation": "Use only one H1 tag per page for better SEO"
     },
     {
+      "rule_id": "perf_009",
+      "category": "performance",
+      "severity": "medium",
+      "title": "Missing preconnect/dns-prefetch hints",
+      "affected_pages": 3,
+      "occurrences": [
+        {
+          "current_value": "No preconnect or dns-prefetch hints found"
+        }
+      ],
+      "why": "Missing preconnect/dns-prefetch delays critical third-party connections, increasing latency.",
+      "what": "No <link rel='preconnect|dns-prefetch'> found for critical third-party origins.",
+      "recommendation": "Add <link rel='preconnect'> for critical third-party origins (fonts, CDN, APIs)"
+    },
+    {
       "rule_id": "technical_003",
       "category": "technical",
       "severity": "medium",
@@ -960,11 +873,11 @@
             "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "target": "Missing H1"
           }
         ]
@@ -1104,15 +1017,15 @@
             "current_encoding": "gzip"
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "current_encoding": "gzip"
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "current_encoding": "gzip"
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "current_encoding": "gzip"
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "current_encoding": "gzip"
           },
           {
@@ -1149,17 +1062,17 @@
             "http_version": ""
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "alt_svc": "",
             "http_version": ""
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "alt_svc": "",
-            "http_version": ""
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "alt_svc": "",
             "http_version": ""
           },
@@ -1242,6 +1155,20 @@
             ]
           },
           {
+            "page_url": "https://monkeytype.com/about",
+            "present": [
+              "strict-transport-security",
+              "content-security-policy",
+              "x-frame-options"
+            ],
+            "missing_optional": [
+              "x-content-type-options"
+            ],
+            "obsolete_missing": [
+              "x-xss-protection"
+            ]
+          },
+          {
             "page_url": "https://monkeytype.com/privacy-policy",
             "present": [
               "strict-transport-security",
@@ -1257,20 +1184,6 @@
           },
           {
             "page_url": "https://monkeytype.com/settings",
-            "present": [
-              "strict-transport-security",
-              "content-security-policy",
-              "x-frame-options"
-            ],
-            "missing_optional": [
-              "x-content-type-options"
-            ],
-            "obsolete_missing": [
-              "x-xss-protection"
-            ]
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
             "present": [
               "strict-transport-security",
               "content-security-policy",

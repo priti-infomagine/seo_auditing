@@ -1,10 +1,10 @@
 {
   "audit": {
-    "audit_id": "8b2f0181-0172-4d14-bdb6-cfe057595ec7",
+    "audit_id": "e52e2498-1789-47d3-8ee5-cd59b945f686",
     "url": "https://monkeytype.com/",
     "domain": "monkeytype.com",
-    "started_at": "2026-11-12T12:42:38.268837+00:00",
-    "completed_at": "2026-11-12T12:42:40.821868+00:00",
+    "started_at": "2026-11-13T09:43:35.614911+00:00",
+    "completed_at": "2026-11-13T09:43:36.743316+00:00",
     "status": "completed",
     "pages": {
       "discovered": 6,
@@ -21,8 +21,8 @@
       "status_codes": {
         "200": 6
       },
-      "started_at": "2026-11-12T12:42:38.268837+00:00",
-      "completed_at": "2026-11-12T12:42:40.821868+00:00"
+      "started_at": "2026-11-13T09:43:35.614911+00:00",
+      "completed_at": "2026-11-13T09:43:36.743316+00:00"
     },
     "indexation": {
       "indexable": 6,
@@ -34,7 +34,7 @@
       "available": true,
       "ttfb": {
         "available": true,
-        "value": 317.5,
+        "value": 250.5,
         "unit": "milliseconds",
         "status": "excellent"
       }
@@ -98,29 +98,139 @@
         "reason": "not_connected"
       }
     ],
+    "errors": [
+      {
+        "rule_id": "perf_011",
+        "page_id": "28b28077-2dc1-47f2-b2c1-4c3142e6f628",
+        "url": "https://monkeytype.com/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "28b28077-2dc1-47f2-b2c1-4c3142e6f628",
+        "url": "https://monkeytype.com/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "28b28077-2dc1-47f2-b2c1-4c3142e6f628",
+        "url": "https://monkeytype.com/",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "3818b0f1-5fc0-45f2-848f-2cdc84ca695f",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "3818b0f1-5fc0-45f2-848f-2cdc84ca695f",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "3818b0f1-5fc0-45f2-848f-2cdc84ca695f",
+        "url": "https://monkeytype.com/privacy-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "5a5cc1e3-1ae0-438a-bc51-01d0d6d6000e",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "5a5cc1e3-1ae0-438a-bc51-01d0d6d6000e",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "5a5cc1e3-1ae0-438a-bc51-01d0d6d6000e",
+        "url": "https://monkeytype.com/settings",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "5ec683a7-f234-4d6e-9caa-98ad4daa406a",
+        "url": "https://monkeytype.com/terms-of-service",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "5ec683a7-f234-4d6e-9caa-98ad4daa406a",
+        "url": "https://monkeytype.com/terms-of-service",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "5ec683a7-f234-4d6e-9caa-98ad4daa406a",
+        "url": "https://monkeytype.com/terms-of-service",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "a0e1055b-74d0-4450-929c-5c6a923ef97d",
+        "url": "https://monkeytype.com/security-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "a0e1055b-74d0-4450-929c-5c6a923ef97d",
+        "url": "https://monkeytype.com/security-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "a0e1055b-74d0-4450-929c-5c6a923ef97d",
+        "url": "https://monkeytype.com/security-policy",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_011",
+        "page_id": "c88e8aab-8b5a-4aad-ad20-7c9fbf8ef049",
+        "url": "https://monkeytype.com/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_019",
+        "page_id": "c88e8aab-8b5a-4aad-ad20-7c9fbf8ef049",
+        "url": "https://monkeytype.com/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      },
+      {
+        "rule_id": "perf_024",
+        "page_id": "c88e8aab-8b5a-4aad-ad20-7c9fbf8ef049",
+        "url": "https://monkeytype.com/about",
+        "error": "Rule evaluation failed: 'str' object has no attribute 'get'"
+      }
+    ],
     "meta": {
       "crawler_version": "unknown",
       "parser_version": "unknown",
       "rule_engine_version": "1.0.0",
-      "rules_executed": 74,
-      "total_issues": 115,
+      "rules_executed": 87,
+      "total_issues": 135,
       "output_shape": "unified_v1"
     }
   },
   "summary": {
-    "score": 71.0,
+    "score": 68.8,
     "health": "needs_improvement",
     "issues": {
-      "critical": 1,
+      "critical": 2,
       "high": 5,
       "medium": 6,
-      "low": 7,
-      "total": 19
+      "low": 9,
+      "total": 22
     },
     "checks": {
-      "passed": 55,
-      "failed": 19,
-      "total": 74
+      "passed": 62,
+      "failed": 22,
+      "total": 84
     }
   },
   "categories": [
@@ -172,11 +282,11 @@
     {
       "id": "performance",
       "name": "Performance",
-      "score": 98.1,
-      "status": "excellent",
-      "checks_total": 9,
-      "checks_passed": 8,
-      "checks_failed": 1
+      "score": 81.6,
+      "status": "good",
+      "checks_total": 19,
+      "checks_passed": 15,
+      "checks_failed": 4
     },
     {
       "id": "security_trust",
@@ -236,22 +346,23 @@
           "current_value": "Missing H1 tag"
         },
         {
-          "current_value": "2 H1 tags: How to Disclose a Vulnerability, Submission Guidelines"
+          "current_value": "15 H1 tags: What data do we collect?, How do we collect your data?, How will we use your data?"
         },
         {
           "current_value": "8 H1 tags: Agreement, Limitations, Privacy Policy"
         },
         {
-          "current_value": "15 H1 tags: What data do we collect?, How do we collect your data?, How will we use your data?"
+          "current_value": "2 H1 tags: How to Disclose a Vulnerability, Submission Guidelines"
         }
       ],
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/security-policy",
+            "page_url": "https://monkeytype.com/privacy-policy",
             "h1_tags": [
-              "How to Disclose a Vulnerability",
-              "Submission Guidelines"
+              "What data do we collect?",
+              "How do we collect your data?",
+              "How will we use your data?"
             ]
           },
           {
@@ -263,16 +374,88 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
+            "page_url": "https://monkeytype.com/security-policy",
             "h1_tags": [
-              "What data do we collect?",
-              "How do we collect your data?",
-              "How will we use your data?"
+              "How to Disclose a Vulnerability",
+              "Submission Guidelines"
             ]
           }
         ]
       },
       "recommendation": "Add a single <h1> tag containing your primary keyword"
+    },
+    {
+      "rule_id": "perf_018",
+      "category": "performance",
+      "severity": "critical",
+      "title": "Render-blocking resources detected",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "Render-blocking resources: 1 blocking script(s), 1 blocking stylesheet(s)"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "blocking_styles": [
+              "/css/monkeytype.CFSL0O8R.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "blocking_styles": [
+              "/css/standalone.DNnHOPqk.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "blocking_styles": [
+              "/css/monkeytype.CFSL0O8R.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "blocking_styles": [
+              "/css/standalone.DNnHOPqk.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "blocking_styles": [
+              "/css/standalone.DNnHOPqk.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "blocking_styles": [
+              "/css/monkeytype.CFSL0O8R.css"
+            ],
+            "blocking_scripts": [
+              "/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+            ]
+          }
+        ]
+      },
+      "why": "Render-blocking resources delay First Contentful Paint and LCP.",
+      "what": "Scripts/stylesheets in <head> without async/defer or media optimization.",
+      "recommendation": "Add async/defer to non-critical scripts, inline critical CSS, defer non-critical CSS"
     },
     {
       "rule_id": "content_001",
@@ -295,15 +478,15 @@
             "page_type": "unknown"
           },
           {
+            "page_url": "https://monkeytype.com/settings",
+            "page_type": "unknown"
+          },
+          {
             "page_url": "https://monkeytype.com/security-policy",
             "page_type": "unknown"
           },
           {
             "page_url": "https://monkeytype.com/about",
-            "page_type": "unknown"
-          },
-          {
-            "page_url": "https://monkeytype.com/settings",
             "page_type": "unknown"
           }
         ]
@@ -328,11 +511,11 @@
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
+            "page_url": "https://monkeytype.com/privacy-policy",
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "canonical_url": ""
           },
           {
@@ -340,11 +523,11 @@
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
+            "page_url": "https://monkeytype.com/security-policy",
             "canonical_url": ""
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "canonical_url": ""
           }
         ]
@@ -362,13 +545,13 @@
           "current_value": "1 links have generic/non-descriptive anchor text"
         },
         {
-          "current_value": "4 links have generic/non-descriptive anchor text"
+          "current_value": "20 links have generic/non-descriptive anchor text"
         },
         {
           "current_value": "3 links have generic/non-descriptive anchor text"
         },
         {
-          "current_value": "20 links have generic/non-descriptive anchor text"
+          "current_value": "4 links have generic/non-descriptive anchor text"
         }
       ],
       "evidence": {
@@ -379,12 +562,12 @@
             "generic_count": 1
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
-            "total_links": 4,
-            "generic_count": 4
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "total_links": 20,
+            "generic_count": 20
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "total_links": 1,
             "generic_count": 1
           },
@@ -394,12 +577,12 @@
             "generic_count": 3
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "total_links": 20,
-            "generic_count": 20
+            "page_url": "https://monkeytype.com/security-policy",
+            "total_links": 4,
+            "generic_count": 4
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "total_links": 1,
             "generic_count": 1
           }
@@ -432,27 +615,6 @@
         }
       ],
       "recommendation": "Add Schema.org markup to enable rich snippets in search results"
-    },
-    {
-      "rule_id": "perf_001",
-      "category": "performance",
-      "severity": "high",
-      "title": "Slow server response time (TTFB)",
-      "affected_pages": 1,
-      "occurrences": [
-        {
-          "current_value": "Slow response time: 0.53s (should be <200ms)"
-        }
-      ],
-      "evidence": {
-        "locations": [
-          {
-            "page_url": "https://monkeytype.com/security-policy",
-            "response_time": 0.533
-          }
-        ]
-      },
-      "recommendation": "Optimize server response time to under 200ms"
     },
     {
       "rule_id": "links_003",
@@ -545,10 +707,10 @@
           "current_value": "1 internal links"
         },
         {
-          "current_value": "4 internal links"
+          "current_value": "3 internal links"
         },
         {
-          "current_value": "3 internal links"
+          "current_value": "4 internal links"
         }
       ],
       "evidence": {
@@ -560,13 +722,7 @@
             "contextual_ratio": 0.0
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
-            "internal_count": 4,
-            "contextual_links": 0,
-            "contextual_ratio": 0.0
-          },
-          {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "internal_count": 1,
             "contextual_links": 0,
             "contextual_ratio": 0.0
@@ -578,7 +734,13 @@
             "contextual_ratio": 0.0
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/security-policy",
+            "internal_count": 4,
+            "contextual_links": 0,
+            "contextual_ratio": 0.0
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
             "internal_count": 1,
             "contextual_links": 0,
             "contextual_ratio": 0.0
@@ -609,7 +771,7 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
+            "page_url": "https://monkeytype.com/privacy-policy",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -617,7 +779,7 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -633,7 +795,7 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
+            "page_url": "https://monkeytype.com/security-policy",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -641,7 +803,7 @@
             "pixel_width_estimate": 1053
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "length_status": "slightly_long",
             "character_count": 162,
             "truncation_risk": true,
@@ -670,11 +832,11 @@
             "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "target": "Missing H1"
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "target": "Missing H1"
           }
         ]
@@ -715,22 +877,22 @@
       "affected_pages": 2,
       "occurrences": [
         {
-          "current_value": "Found 2 fragment link(s) - verify targets exist in rendered DOM"
+          "current_value": "Found 15 fragment link(s) - verify targets exist in rendered DOM"
         },
         {
-          "current_value": "Found 15 fragment link(s) - verify targets exist in rendered DOM"
+          "current_value": "Found 2 fragment link(s) - verify targets exist in rendered DOM"
         }
       ],
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/security-policy",
-            "fragment_link_count": 2,
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "fragment_link_count": 15,
             "rendered_links_available": false
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "fragment_link_count": 15,
+            "page_url": "https://monkeytype.com/security-policy",
+            "fragment_link_count": 2,
             "rendered_links_available": false
           }
         ]
@@ -738,6 +900,21 @@
       "why": "Fragment links without matching DOM targets cause broken in-page navigation and poor UX.",
       "what": "Fragment links (#id) reference non-existent DOM elements.",
       "recommendation": "Ensure fragment link targets (e.g., #section) have matching id attributes in the rendered HTML"
+    },
+    {
+      "rule_id": "perf_009",
+      "category": "performance",
+      "severity": "medium",
+      "title": "Missing preconnect/dns-prefetch hints",
+      "affected_pages": 3,
+      "occurrences": [
+        {
+          "current_value": "No preconnect or dns-prefetch hints found"
+        }
+      ],
+      "why": "Missing preconnect/dns-prefetch delays critical third-party connections, increasing latency.",
+      "what": "No <link rel='preconnect|dns-prefetch'> found for critical third-party origins.",
+      "recommendation": "Add <link rel='preconnect'> for critical third-party origins (fonts, CDN, APIs)"
     },
     {
       "rule_id": "content_007",
@@ -764,6 +941,98 @@
         }
       ],
       "recommendation": "Consider linking to authoritative external sources"
+    },
+    {
+      "rule_id": "perf_014",
+      "category": "performance",
+      "severity": "low",
+      "title": "Brotli compression not enabled",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "Brotli compression not detected - consider upgrading from gzip"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "current_encoding": "gzip"
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "current_encoding": "gzip"
+          }
+        ]
+      },
+      "why": "Brotli provides 20-30% better compression than gzip, reducing transfer size and latency.",
+      "what": "Response uses gzip/deflate instead of Brotli compression.",
+      "recommendation": "Configure server to use Brotli compression for better compression ratios"
+    },
+    {
+      "rule_id": "perf_016",
+      "category": "performance",
+      "severity": "low",
+      "title": "HTTP/2 or HTTP/3 not enabled",
+      "affected_pages": 6,
+      "occurrences": [
+        {
+          "current_value": "HTTP/2 or HTTP/3 not detected"
+        }
+      ],
+      "evidence": {
+        "locations": [
+          {
+            "page_url": "https://monkeytype.com/",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/settings",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/terms-of-service",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/security-policy",
+            "alt_svc": "",
+            "http_version": ""
+          },
+          {
+            "page_url": "https://monkeytype.com/about",
+            "alt_svc": "",
+            "http_version": ""
+          }
+        ]
+      },
+      "why": "HTTP/1.1 lacks multiplexing, causing head-of-line blocking and slower resource loading.",
+      "what": "Server does not advertise HTTP/2 or HTTP/3 via alt-svc header.",
+      "recommendation": "Enable HTTP/2 or HTTP/3 on your server for better multiplexing"
     },
     {
       "rule_id": "social_003",
@@ -819,7 +1088,7 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/security-policy",
+            "page_url": "https://monkeytype.com/privacy-policy",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -833,7 +1102,7 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/about",
+            "page_url": "https://monkeytype.com/settings",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -861,7 +1130,7 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
+            "page_url": "https://monkeytype.com/security-policy",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -875,7 +1144,7 @@
             ]
           },
           {
-            "page_url": "https://monkeytype.com/settings",
+            "page_url": "https://monkeytype.com/about",
             "present": [
               "strict-transport-security",
               "content-security-policy",
@@ -926,25 +1195,25 @@
       "affected_pages": 3,
       "occurrences": [
         {
-          "current_value": "Title: Security Policy | Monkeytype (28 chars)"
+          "current_value": "Title: Privacy Policy | Monkeytype (27 chars)"
         },
         {
           "current_value": "Title: Terms of Service | Monkeytype (29 chars)"
         },
         {
-          "current_value": "Title: Privacy Policy | Monkeytype (27 chars)"
+          "current_value": "Title: Security Policy | Monkeytype (28 chars)"
         }
       ],
       "evidence": {
         "locations": [
           {
-            "page_url": "https://monkeytype.com/security-policy",
-            "title": "Security Policy | Monkeytype",
+            "page_url": "https://monkeytype.com/privacy-policy",
+            "title": "Privacy Policy | Monkeytype",
             "generic": false,
             "length_status": "very_short",
-            "character_count": 28,
+            "character_count": 27,
             "truncation_risk": false,
-            "pixel_width_estimate": 166,
+            "pixel_width_estimate": 160,
             "content_consistency_score": 1.0
           },
           {
@@ -958,13 +1227,13 @@
             "content_consistency_score": 1.0
           },
           {
-            "page_url": "https://monkeytype.com/privacy-policy",
-            "title": "Privacy Policy | Monkeytype",
+            "page_url": "https://monkeytype.com/security-policy",
+            "title": "Security Policy | Monkeytype",
             "generic": false,
             "length_status": "very_short",
-            "character_count": 27,
+            "character_count": 28,
             "truncation_risk": false,
-            "pixel_width_estimate": 160,
+            "pixel_width_estimate": 166,
             "content_consistency_score": 1.0
           }
         ]
