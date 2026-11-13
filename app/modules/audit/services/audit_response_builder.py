@@ -373,7 +373,7 @@ class AuditResponseBuilder:
             "issues": issues,
         }
         return self._strip_empty(raw_response) or {}
-
+    
     def _strip_empty(self, data: Any) -> Any:
         """Recursively remove empty data: None, empty lists, and unavailable structs."""
         if isinstance(data, dict):
@@ -384,7 +384,11 @@ class AuditResponseBuilder:
             cleaned = {}
             for k, v in data.items():
                 val = self._strip_empty(v)
-                if val is not None and val != []:
+                # Keep: non-None, non-empty-list, non-empty-dict, and dicts with any keys (even if all values are falsy like 0)
+                if val is not None and val != [] and val != {}:
+                    cleaned[k] = val
+                elif isinstance(val, dict) and val:
+                    # Keep dicts that have keys (even if all values are falsy like 0)
                     cleaned[k] = val
             return cleaned if cleaned else None
         elif isinstance(data, list):
@@ -393,6 +397,71 @@ class AuditResponseBuilder:
             return cleaned_list if cleaned_list else None
         else:
             return data
+    
+    # def _strip_empty(self, data: Any) -> Any:
+    #     """Recursively remove empty data: None, empty lists, and unavailable structs."""
+    #     if isinstance(data, dict):
+    #         # Prune `_unavailable` metrics completely
+    #         if data.get("available") is False and data.get("value") is None:
+    #             return None
+            
+    #         cleaned = {}
+    #         for k, v in data.items():
+    #             val = self._strip_empty(v)
+    #             if val is not None and val != []:
+    #                 cleaned[k] = val
+    #         return cleaned if cleaned else None
+    #     elif isinstance(data, list):
+    #         cleaned_list = [self._strip_empty(item) for item in data]
+    #         cleaned_list = [item for item in cleaned_list if item is not None and item != []]
+    #         return cleaned_list if cleaned_list else None
+    #     else:
+    #         return data
+
+# ------------------------------------------------------------------ summary
+    def _build_summary(
+        self,
+        overall_score: float,
+        all_seo_issues: List[SEOIssue],
+    ) -> Dict[str, Any]:
+        # Normalize rule checks for one main URL: deduplicate by rule_id so
+        # the same check is not counted once per page.
+        seen_rules: set = set()
+        normalized_failed: List[SEOIssue] = []
+        normalized_passed: List[SEOIssue] = []
+        for i in all_seo_issues:
+            key = i.rule_id
+            if key in seen_rules:
+                continue
+            seen_rules.add(key)
+            if i.status == "failed":
+                normalized_failed.append(i)
+            else:
+                normalized_passed.append(i)
+
+        failed = normalized_failed
+        passed = normalized_passed
+        tier_counts = {t.value: 0 for t in SeverityTier}
+        for i in failed:
+            tier_counts[i.severity.value] += 1
+
+        return {
+            "score": overall_score,
+            "health": get_status(overall_score),
+            "issues": {
+                "critical": tier_counts["critical"],
+                "high": tier_counts["high"],
+                "medium": tier_counts["medium"],
+                "low": tier_counts["low"],
+                "total": len(normalized_failed),
+            },
+            "checks": {
+                "passed": len(passed),
+                "failed": len(failed),
+                "total": len(passed) + len(failed),
+            },
+        }
+    #         return data
 
     # ------------------------------------------------------------------ summary
     def _build_summary(

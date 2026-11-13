@@ -106,11 +106,11 @@ class ParserOrchestrator:
 
         # Run extractors on rendered HTML if available
         head_rendered = None
-        images_rendered = None
-        resources_rendered = None
+        images_rendered = []
+        resources_rendered = []
         technical_rendered = None
-        inline_css_rendered = None
-        inline_js_rendered = None
+        inline_css_rendered = []
+        inline_js_rendered = []
 
         if rendered_html and rendered_html != html:
             rendered_context = self.document_parser.parse(html=rendered_html, url=url)

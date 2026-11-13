@@ -76,6 +76,10 @@ class AnalysisScorerService:
             builder = AuditResponseBuilder(self.db)
             unified: Dict[str, Any] = await builder.build(audit_id)
 
+            # In AnalysisScorerService.score_project after line 77:
+            logger.info(f"-----Unified response keys: {unified.keys()}")
+            logger.info(f"-----------Summary keys: {unified.get('summary', {}).keys() if 'summary' in unified else 'NO SUMMARY'}")
+            
             scored_at = utc_now()
             overall = unified["summary"]["score"]
             grade = self.calculator._get_grade(overall)
