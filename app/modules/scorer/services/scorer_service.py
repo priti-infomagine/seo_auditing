@@ -34,7 +34,11 @@ from app.modules.rule_engine.category_rules.links import (
 )
 from app.modules.rule_engine.category_rules.images import (
     ImageAltTextRule, ImageSizeRule, LazyLoadingRule, ImageDimensionsRule,
-    ResponsiveImagesRule, ImageFormatsRule
+    ResponsiveImagesRule, ImageFormatsRule,
+    # New rules (8):
+    ImageAltQualityRule, ImageFilenameQualityRule, FigureCaptionsRule,
+    InlineSVGSizeRule, PictureFallbackRule, ImageDimensionsSizeRule,
+    BrokenImageDetectionRule, CSSBackgroundImagesRule,
 )
 from app.modules.rule_engine.category_rules.schema import (
     SchemaMarkupRule, OrganizationSchemaRule, BreadcrumbSchemaRule,
@@ -105,9 +109,13 @@ class ScorerService:
             CleanLinkHrefsRule(), NoHttpsDowngradeRule(), ValidPhoneEmailLinksRule(),
             UrlDepthRule(),
             
-            # Images (6 rules)
+            # Images (14 rules — 6 original + 8 new)
             ImageAltTextRule(), ImageSizeRule(), LazyLoadingRule(),
             ImageDimensionsRule(), ResponsiveImagesRule(), ImageFormatsRule(),
+            ImageAltQualityRule(), ImageFilenameQualityRule(),
+            FigureCaptionsRule(), InlineSVGSizeRule(),
+            PictureFallbackRule(), ImageDimensionsSizeRule(),
+            BrokenImageDetectionRule(), CSSBackgroundImagesRule(),
             
             # Schema (6 rules)
             SchemaMarkupRule(), OrganizationSchemaRule(), BreadcrumbSchemaRule(),

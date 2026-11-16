@@ -531,7 +531,16 @@ class RuleEvaluatorService:
                 data["content"] = parsed_data.get("content", {})
                 data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
                 data["links"] = self._build_links_summary(parsed_data.get("links", []), page_links)
-                data["images"] = self._build_images_summary(parsed_data.get("images", []))
+                # Merge raw + rendered images, preferring rendered for SPA pages
+                raw_images = parsed_data.get("images", [])
+                rendered_images = parsed_data.get("images_rendered", [])
+                # For SPA pages, raw HTML has zero images but rendered has the actual ones.
+                # Prefer rendered images when raw is empty.
+                if not raw_images and rendered_images:
+                    images_for_rules = rendered_images
+                else:
+                    images_for_rules = raw_images or rendered_images
+                data["images"] = self._build_images_summary(images_for_rules)
                 data["schemas"] = parsed_data.get("schemas", [])
                 data["structured_data"] = self._build_structured_data(parsed_data.get("schemas", []))
                 data["hreflang"] = parsed_data.get("hreflang", [])
@@ -700,18 +709,17 @@ class RuleEvaluatorService:
 
     def _build_images_summary(self, images: list) -> dict:
         """Transform raw parsed images list into the dict structure that SEO rules expect."""
-        total_count = len(images)
-        without_alt = 0
-        lazy_loading = False
+        from app.modules.parser.analyzers.image_analyzer import analyze_images
+        
+        # Get comprehensive analysis from the new analyzer
+        analysis = analyze_images(images)
+        
+        # Build sample for backward compatibility (used by existing rules)
         sample = []
         for img in images:
             if not isinstance(img, dict):
                 continue
             alt = img.get('alt', '')
-            if not alt or not alt.strip():
-                without_alt += 1
-            if img.get('loading', '').strip().lower() == 'lazy':
-                lazy_loading = True
             if len(sample) < 20:
                 sample.append({
                     'src': img.get('url', img.get('src', '')),
@@ -722,15 +730,13 @@ class RuleEvaluatorService:
                     'loading': img.get('loading', ''),
                     'srcset': img.get('srcset', ''),
                     'sizes': img.get('sizes', ''),
-                    'file_size': 0,
+                    'file_size': img.get('file_size_bytes', 0),
                 })
+        
+        # Merge analysis with sample for backward compatibility
         return {
-            'total_count': total_count,
-            'without_alt': without_alt,
-            'with_alt': total_count - without_alt,
-            'lazy_loading': lazy_loading,
+            **analysis,
             'sample': sample,
-            'has_alt_text': without_alt == 0,
         }
 
 
