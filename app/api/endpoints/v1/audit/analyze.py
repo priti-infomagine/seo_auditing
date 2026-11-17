@@ -97,7 +97,7 @@ async def analyze_website(
                 detail=f"Invalid URL: {body.url} - could not extract domain",
             )
 
-        audit_id = uuid.uuid4()
+        
 
         # --- Pre-flight sitemap check (fail fast before queueing) ---
         discovery = SiteDiscoveryService(
@@ -111,12 +111,16 @@ async def analyze_website(
         site_result = await discovery.discover()
 
         if not site_result.sitemaps:
-            logger.warning(
-                f"No sitemap found for {url_str} - continuing with BFS fallback"
+            logger.warning(f"No sitemap found for {url_str}. Stopping audit.")
+            raise HTTPException(
+                status_code=422,
+                detail="No sitemap found for this site. Please build a sitemap first.",
             )
-            # Don't fail - continue with BFS fallback discovery
+                # Don't fail - continue with BFS fallback discovery
             site_result = None
-
+            return None
+        
+        audit_id = uuid.uuid4()
         # Cache discovery result in Redis for the celery worker (avoids
         # re-running discovery inside the worker)
         if site_result:
