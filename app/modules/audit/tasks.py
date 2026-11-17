@@ -187,9 +187,11 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     """
     Celery task: run the full analysis pipeline sequentially.
 
-    1. Parse: parse all crawl pages → parsed_page_facts
-    2. Evaluate: run all rules → rule_evaluation_results
-    3. Score: aggregate, score, persist, write output file → seo_analysis_runs
+    1. Link Check: broken link detection
+    2. Site Signals: collect TLS, redirect, security headers (once per audit)
+    3. Parse: parse all crawl pages → parsed_page_facts
+    4. Evaluate: run all rules → rule_evaluation_results
+    5. Score: aggregate, score, persist, write output file → seo_analysis_runs
 
     Each stage is fault-tolerant — errors in one stage don't prevent
     the next from running.
@@ -198,7 +200,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
         audit_id: The audit ID (== audit_id).
 
     Returns:
-        Dict with results from all three stages.
+        Dict with results from all stages.
     """
     logger.info(
         f"audit.run_analysis_pipeline: task started for audit_id={audit_id}"
@@ -248,7 +250,37 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             )
             results["link_check"] = {"error": str(exc)}
 
-        # Stage 1: Parse
+        # Stage 1: Collect site signals (NEW - for security checks)
+        _report_progress("site_signals")
+        event_bus.emit(AuditEventType.SITE_SIGNALS_STARTED, audit_id=audit_id)
+        logger.info(
+            f"audit.run_analysis_pipeline: STAGE site_signals starting "
+            f"audit_id={audit_id}"
+        )
+        try:
+            from app.modules.audit.services.security.collector import collect_site_signals
+            from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
+            async with async_session_factory() as db:
+                job_repo = CrawlJobRepository(db)
+                job = await job_repo.get_by_id(UUID(audit_id))
+                if job:
+                    site_signals = await collect_site_signals(audit_id, job.url)
+                    results["site_signals"] = {"collected": True, "hostname": site_signals.hostname}
+                else:
+                    results["site_signals"] = {"error": "CrawlJob not found"}
+            logger.info(
+                f"audit.run_analysis_pipeline: STAGE site_signals finished "
+                f"audit_id={audit_id}"
+            )
+            event_bus.emit(AuditEventType.SITE_SIGNALS_COMPLETE, audit_id=audit_id, data={"hostname": site_signals.hostname if job else "unknown"})
+        except Exception as exc:
+            logger.error(
+                f"audit.run_analysis_pipeline: site_signals stage failed: {exc}",
+                exc_info=True,
+            )
+            results["site_signals"] = {"error": str(exc)}
+
+        # Stage 2: Parse
         _report_progress("parse")
         event_bus.emit(AuditEventType.PARSE_STARTED, audit_id=audit_id)
         logger.info(
@@ -274,7 +306,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             )
             results["parse"] = {"error": str(exc)}
 
-        # Stage 2: Evaluate
+        # Stage 3: Evaluate
         _report_progress("evaluate")
         event_bus.emit(AuditEventType.EVALUATE_STARTED, audit_id=audit_id)
         logger.info(
@@ -300,7 +332,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             )
             results["evaluate"] = {"error": str(exc)}
 
-        # Stage 3: Score
+        # Stage 4: Score
         _report_progress("score")
         event_bus.emit(AuditEventType.SCORE_STARTED, audit_id=audit_id)
         logger.info(

@@ -272,6 +272,9 @@ class DBParserService:
 
             # Build parsed_data dict
             parsed_data = parsed.model_dump(mode="json")
+            
+            # Add raw HTML for security checks (mixed content, forms, protocol-relative URLs, etc.)
+            parsed_data["raw_html"] = snapshot.content
 
             # Build flat page_facts for easy querying
             page_facts = self._build_page_facts(parsed, page, network_dict, seo_dict)

@@ -51,6 +51,7 @@ class ParsedPage(BaseModel):
     images_rendered: list[ImageData] = Field(default_factory=list)
     resources_rendered: list[ResourceData] = Field(default_factory=list)
     technical_rendered: TechnicalData | None = None
+    schemas_rendered: list[SchemaData] = Field(default_factory=list)
     inline_css: list[InlineCSSData] = Field(default_factory=list)
     inline_css_rendered: list[InlineCSSData] = Field(default_factory=list)
     inline_js: list[InlineJSData] = Field(default_factory=list)

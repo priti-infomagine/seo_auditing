@@ -44,6 +44,10 @@ class PageNetworkData(TimestampMixin, Base):
         Integer,
         nullable=True,
     )
+    http_version: Mapped[str | None] = mapped_column(
+        String(20),
+        nullable=True,
+    )
     # --- JSONB columns ---
     headers: Mapped[dict | None] = mapped_column(
         JSONB,

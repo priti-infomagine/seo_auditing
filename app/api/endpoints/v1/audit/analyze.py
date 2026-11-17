@@ -111,25 +111,27 @@ async def analyze_website(
         site_result = await discovery.discover()
 
         if not site_result.sitemaps:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=NO_SITEMAP_MESSAGE,
+            logger.warning(
+                f"No sitemap found for {url_str} - continuing with BFS fallback"
             )
+            # Don't fail - continue with BFS fallback discovery
+            site_result = None
 
         # Cache discovery result in Redis for the celery worker (avoids
         # re-running discovery inside the worker)
-        redis_client = await get_redis()
-        if redis_client:
-            try:
-                await redis_client.setex(
-                    f"crawler:discovery:{audit_id}",
-                    3600,
-                    serialize_site_result(site_result),
-                )
-            except Exception:
-                logger.debug(
-                    "Failed to cache pre-flight discovery result in Redis"
-                )
+        if site_result:
+            redis_client = await get_redis()
+            if redis_client:
+                try:
+                    await redis_client.setex(
+                        f"crawler:discovery:{audit_id}",
+                        3600,
+                        serialize_site_result(site_result),
+                    )
+                except Exception:
+                    logger.debug(
+                        "Failed to cache pre-flight discovery result in Redis"
+                    )
 
         # effective_max_pages = (
         #      settings.CRAWL_MAX_PAGES

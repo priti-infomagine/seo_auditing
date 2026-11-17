@@ -372,6 +372,10 @@ class AuditResponseBuilder:
             "categories": categories,
             "issues": issues,
         }
+        # Ensure required fields are always present (even if empty)
+        # so the UnifiedAuditResponse schema validation passes.
+        if "issues" not in raw_response or raw_response["issues"] is None:
+            raw_response["issues"] = []
         return self._strip_empty(raw_response) or {}
     
     def _strip_empty(self, data: Any) -> Any:
@@ -394,7 +398,7 @@ class AuditResponseBuilder:
         elif isinstance(data, list):
             cleaned_list = [self._strip_empty(item) for item in data]
             cleaned_list = [item for item in cleaned_list if item is not None and item != []]
-            return cleaned_list if cleaned_list else None
+            return cleaned_list if cleaned_list else []
         else:
             return data
     
@@ -994,6 +998,7 @@ class AuditResponseBuilder:
         links, images, content, external_deps, errors, metadata,
     ) -> Dict[str, Any]:
         return {
+            "id": str(audit_id),
             "audit_id": str(audit_id),
             "url": crawl_job.url if crawl_job else None,
             "domain": crawl_job.domain if crawl_job else None,

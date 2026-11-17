@@ -53,6 +53,10 @@ class AuditEventType(str, Enum):
     PIPELINE_COMPLETED = "pipeline_completed"
     PIPELINE_FAILED = "pipeline_failed"
 
+    # Site Signals phase (for security checks)
+    SITE_SIGNALS_STARTED = "site_signals_started"
+    SITE_SIGNALS_COMPLETE = "site_signals_complete"
+
 
 class PipelineEvent:
     """Represents a pipeline event."""

@@ -41,14 +41,22 @@ from app.modules.rule_engine.category_rules.images import (
     BrokenImageDetectionRule, CSSBackgroundImagesRule,
 )
 from app.modules.rule_engine.category_rules.schema import (
-    SchemaMarkupRule, OrganizationSchemaRule, BreadcrumbSchemaRule,
+    OrganizationSchemaRule, BreadcrumbSchemaRule,
     ArticleSchemaRule, ProductSchemaRule, JsonLdFormatRule
 )
 from app.modules.rule_engine.category_rules.social import (
     SocialMediaLinksRule, FacebookDomainRule, SocialImageRule
 )
 from app.modules.rule_engine.category_rules.security import (
-    HSTSRule, XSSProtectionRule
+    XSSProtectionRule,
+    # New rules (14):
+    TLSConfigurationRule, HSTSHeaderRule, CSPRule, XFrameOptionsRule,
+    XContentTypeOptionsRule, PermissionsPolicyRule, ReferrerPolicyRule,
+    HTTPSRedirectRule, ExternalLinksSecurityRule, FormHTTPSActionsRule,
+    MixedContentRule, NoLeakedSecretsRule, NoPasswordFieldsOnHTTPRule,
+    NoProtocolRelativeURLsRule,
+    # Legacy rules (keep for backward compat):
+    HTTPSRule as LegacyHTTPSRule, SSLCertificateRule, SecurityHeadersRule,
 )
 from app.modules.rule_engine.category_rules.accessibility import (
     FormLabelsRule
@@ -92,7 +100,7 @@ class ScorerService:
             # Technical (12 rules)
             SSL_CertificateRule(), MobileViewportRule(), LanguageDeclarationRule(),
             CharsetRule(), DoctypeRule(),
-            SecurityHeadersRule(), RobotsTxtRule(), SitemapRule(), StructuredDataRule(),
+            RobotsTxtRule(), SitemapRule(), StructuredDataRule(),
             UrlRule(), MobileRule(), HttpStatusRule(), HreflangRule(),
             
             # Content (10 rules)
@@ -117,15 +125,31 @@ class ScorerService:
             PictureFallbackRule(), ImageDimensionsSizeRule(),
             BrokenImageDetectionRule(), CSSBackgroundImagesRule(),
             
-            # Schema (6 rules)
-            SchemaMarkupRule(), OrganizationSchemaRule(), BreadcrumbSchemaRule(),
+            # Schema (5 rules — removed duplicate schema_001, kept technical_010)
+            OrganizationSchemaRule(), BreadcrumbSchemaRule(),
             ArticleSchemaRule(), ProductSchemaRule(), JsonLdFormatRule(),
             
             # Social (3 rules)
             SocialMediaLinksRule(), FacebookDomainRule(), SocialImageRule(),
             
-            # Security (2 rules)
-            HSTSRule(), XSSProtectionRule(),
+            # Security (14 new rules)
+            TLSConfigurationRule(),        # security_007
+            HSTSHeaderRule(),              # security_005
+            CSPRule(),                     # security_008
+            XFrameOptionsRule(),           # security_009
+            XContentTypeOptionsRule(),     # security_010
+            PermissionsPolicyRule(),       # security_011
+            ReferrerPolicyRule(),          # security_012
+            HTTPSRedirectRule(),           # security_001
+            ExternalLinksSecurityRule(),   # security_013
+            FormHTTPSActionsRule(),        # security_014
+            MixedContentRule(),            # security_002
+            NoLeakedSecretsRule(),         # security_015
+            NoPasswordFieldsOnHTTPRule(),  # security_016
+            NoProtocolRelativeURLsRule(),  # security_017
+            
+            # Security (legacy rules - keep for backward compat)
+            LegacyHTTPSRule(), SSLCertificateRule(), SecurityHeadersRule(), XSSProtectionRule(),
             
             # Accessibility (1 rule)
             FormLabelsRule(),

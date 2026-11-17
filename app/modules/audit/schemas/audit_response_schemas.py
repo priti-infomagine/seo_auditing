@@ -36,4 +36,4 @@ class UnifiedAuditResponse(BaseModel):
     audit: Dict[str, Any]
     summary: Dict[str, Any]
     categories: List[Dict[str, Any]]
-    issues: List[RuleLevelIssue]
+    issues: List[RuleLevelIssue] = Field(default_factory=list)

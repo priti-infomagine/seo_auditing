@@ -12,6 +12,7 @@ remaining rules and pages.
 from __future__ import annotations
 
 import asyncio
+import json
 from typing import Dict, Any, List, Optional
 import uuid
 from uuid import UUID
@@ -187,6 +188,10 @@ class RuleEvaluatorService:
             # Build page_id -> fact map for URL lookup in events
             fact_by_page_id = {f.page_id: f for f in filtered_facts}
 
+            # Fetch site signals from Redis (for security checks)
+            from app.modules.audit.services.security.collector import get_site_signals
+            site_signals = await get_site_signals(audit_id_str)
+
             pages_evaluated = 0
             total_results = 0
             rules_run = 0
@@ -213,6 +218,7 @@ class RuleEvaluatorService:
                             page_links_map.get(fact.page_id, []),
                             dead_end_pages,
                             out_degree,
+                            site_signals,
                         )
                         return page_results, fact.page_id
                     except Exception as exc:
@@ -342,6 +348,7 @@ class RuleEvaluatorService:
         page_links: list = None,
         dead_end_pages: set = None,
         out_degree: dict = None,
+        site_signals: dict = None,
     ) -> List[RuleEvaluationResult]:
         """
         Evaluate all rules for a single page.
@@ -363,6 +370,7 @@ class RuleEvaluatorService:
             page_links: The PageLink rows for this page (batch-fetched) or None.
             dead_end_pages: Set of normalized URLs that are dead ends (no outbound links).
             out_degree: Dict mapping normalized URL to count of outbound internal links.
+            site_signals: Site-level security signals from Redis.
 
         Returns:
             List of RuleEvaluationResult objects (one per rule, or synthetic
@@ -371,7 +379,7 @@ class RuleEvaluatorService:
         try:
             page_id = fact.page_id
             # Reconstruct data dict from the batch-fetched objects
-            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links, dead_end_pages, out_degree)
+            data = await self._build_rule_data(fact, crawl_page, seo_data, network_data, page_links, dead_end_pages, out_degree, site_signals)
 
             # Run all rules concurrently with per-rule timeout
             rule_results: List[RuleResult] = await self._run_rules_concurrently(data, page_id)
@@ -485,6 +493,7 @@ class RuleEvaluatorService:
         page_links: list = None,
         dead_end_pages: set = None,
         out_degree: dict = None,
+        site_signals: dict = None,
     ) -> Dict[str, Any]:
         """
         Reconstruct the `data` dict that SEO rules expect.
@@ -523,10 +532,15 @@ class RuleEvaluatorService:
             "out_degree": out_degree if out_degree else {},
         }
 
+        # Add site signals for security checks
+        data["site_security"] = site_signals or {}
+
         try:
             # --- Parsed facts (already loaded) ---
             if fact:
                 parsed_data = fact.parsed_data or {}
+                # Add raw HTML for security checks (mixed content, forms, etc.)
+                data["html"] = parsed_data.get("raw_html", "")
                 # Map parsed data keys to rule data keys
                 data["content"] = parsed_data.get("content", {})
                 data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
@@ -541,22 +555,37 @@ class RuleEvaluatorService:
                 else:
                     images_for_rules = raw_images or rendered_images
                 data["images"] = self._build_images_summary(images_for_rules)
-                data["schemas"] = parsed_data.get("schemas", [])
-                data["structured_data"] = self._build_structured_data(parsed_data.get("schemas", []))
+                # Merge raw + rendered schemas, preferring rendered for SPA pages
+                raw_schemas = parsed_data.get("schemas", [])
+                rendered_schemas = parsed_data.get("schemas_rendered", [])
+                if not raw_schemas and rendered_schemas:
+                    schemas_for_rules = rendered_schemas
+                else:
+                    schemas_for_rules = raw_schemas or rendered_schemas
+                data["schemas"] = schemas_for_rules
+                data["structured_data"] = self._build_structured_data(schemas_for_rules)
                 data["hreflang"] = parsed_data.get("hreflang", [])
                 data["social"] = parsed_data.get("social", {}) or {}
                 data["resources"] = parsed_data.get("resources", [])
                 data["technical"] = parsed_data.get("technical", {}) or {}
-                # Dual-pass fields
-                data["head"] = parsed_data.get("head", {})
-                data["head_rendered"] = parsed_data.get("head_rendered", {})
-                data["images_rendered"] = parsed_data.get("images_rendered", [])
-                data["resources_rendered"] = parsed_data.get("resources_rendered", [])
-                data["technical_rendered"] = parsed_data.get("technical_rendered", {}) or {}
-                data["inline_css"] = parsed_data.get("inline_css", [])
-                data["inline_css_rendered"] = parsed_data.get("inline_css_rendered", [])
-                data["inline_js"] = parsed_data.get("inline_js", [])
-                data["inline_js_rendered"] = parsed_data.get("inline_js_rendered", [])
+                # Dual-pass fields - safely parse JSON strings from JSONB
+                def _parse_jsonb(val, default):
+                    if isinstance(val, str):
+                        try:
+                            return json.loads(val)
+                        except json.JSONDecodeError:
+                            return default
+                    return val if val is not None else default
+
+                data["head"] = _parse_jsonb(parsed_data.get("head"), {})
+                data["head_rendered"] = _parse_jsonb(parsed_data.get("head_rendered"), {})
+                data["images_rendered"] = _parse_jsonb(parsed_data.get("images_rendered"), [])
+                data["resources_rendered"] = _parse_jsonb(parsed_data.get("resources_rendered"), [])
+                data["technical_rendered"] = _parse_jsonb(parsed_data.get("technical_rendered"), {}) or {}
+                data["inline_css"] = _parse_jsonb(parsed_data.get("inline_css"), [])
+                data["inline_css_rendered"] = _parse_jsonb(parsed_data.get("inline_css_rendered"), [])
+                data["inline_js"] = _parse_jsonb(parsed_data.get("inline_js"), [])
+                data["inline_js_rendered"] = _parse_jsonb(parsed_data.get("inline_js_rendered"), [])
                 # Flatten page_facts for quick access
                 data["_page_facts"] = fact.page_facts or {}
         except Exception as exc:

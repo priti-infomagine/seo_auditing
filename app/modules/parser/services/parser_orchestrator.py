@@ -109,6 +109,7 @@ class ParserOrchestrator:
         images_rendered = []
         resources_rendered = []
         technical_rendered = None
+        schemas_rendered = []
         inline_css_rendered = []
         inline_js_rendered = []
 
@@ -118,6 +119,7 @@ class ParserOrchestrator:
             images_rendered = self.extractors["image"].extract(rendered_context)
             resources_rendered = self.extractors["resource"].extract(rendered_context)
             technical_rendered = self.extractors["technical"].extract(rendered_context)
+            schemas_rendered = self.extractors["schema"].extract(rendered_context)
             inline_css_rendered = self.extractors["inline_css"].extract(rendered_context)
             inline_js_rendered = self.extractors["inline_js"].extract(rendered_context)
 
@@ -170,6 +172,7 @@ class ParserOrchestrator:
             images_rendered=images_rendered,
             resources_rendered=resources_rendered,
             technical_rendered=technical_rendered,
+            schemas_rendered=schemas_rendered,
             inline_css=inline_css,
             inline_css_rendered=inline_css_rendered,
             inline_js=inline_js,

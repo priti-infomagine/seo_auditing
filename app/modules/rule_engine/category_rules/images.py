@@ -109,6 +109,58 @@ class ImageSizeRule(BaseRule):
         )]
 
 
+# class LazyLoadingRule(BaseRule):
+#     """Check for lazy loading implementation."""
+#     rule_id = "images_003"
+#     name = "Lazy Loading"
+#     category = "images"
+#     description = "Images should use lazy loading for performance"
+#     weight = 0.8
+#     tags = ["info", "images", "performance"]
+    
+#     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
+#         images = data.get("images", {})
+#         lazy_count = images.get("has_lazy_loading_count", 0)
+#         total_count = images.get("total_count", 0)
+#         below_fold = images.get("below_fold_count", 0)
+#         below_fold_missing = images.get("below_fold_missing_lazy", 0)
+        
+#         if total_count == 0:
+#             return [self._create_result(
+#                 passed=True,
+#                 message="No images found on page",
+#                 severity=Severity.INFO,
+#                 score_impact=0,
+#             )]
+        
+#         if lazy_count > 0:
+#             return [self._create_result(
+#                 passed=True,
+#                 message=f"Lazy loading is implemented ({lazy_count} images with loading='lazy')",
+#                 severity=Severity.PASSED,
+#                 score_impact=1,
+#                 data={"lazy_loading": True, "lazy_count": lazy_count},
+#             )]
+        
+        # if below_fold_missing > 0:
+        #     return [self._create_result(
+        #         passed=False,
+        #         message=f"{below_fold_missing} below-fold images missing loading='lazy'",
+        #         severity=Severity.WARNING,
+        #         score_impact=-min(below_fold_missing, 5),
+        #         recommendation="Add loading='lazy' attribute to images below the fold",
+        #         data={"lazy_loading": False, "below_fold_missing": below_fold_missing},
+        #     )]
+        
+        # return [self._create_result(
+        #     passed=False,
+        #     message="Lazy loading not detected on any image",
+        #     severity=Severity.INFO,
+        #     score_impact=-1,
+        #     recommendation="Add loading='lazy' attribute to images below the fold",
+        #     data={"lazy_loading": False},
+        # )]
+
 class LazyLoadingRule(BaseRule):
     """Check for lazy loading implementation."""
     rule_id = "images_003"
@@ -124,6 +176,7 @@ class LazyLoadingRule(BaseRule):
         total_count = images.get("total_count", 0)
         below_fold = images.get("below_fold_count", 0)
         below_fold_missing = images.get("below_fold_missing_lazy", 0)
+        sample = images.get("sample", [])
         
         if total_count == 0:
             return [self._create_result(
@@ -142,6 +195,20 @@ class LazyLoadingRule(BaseRule):
                 data={"lazy_loading": True, "lazy_count": lazy_count},
             )]
         
+        # Collect image URLs missing lazy loading from sample
+        missing_lazy_images = []
+        for img in sample:
+            loading = img.get("loading", "").strip().lower()
+            if loading != "lazy":
+                src = img.get("src") or img.get("url", "")
+                if src:
+                    missing_lazy_images.append({
+                        "image_url": src,
+                        "alt": img.get("alt", ""),
+                        "width": img.get("width", ""),
+                        "height": img.get("height", ""),
+                    })
+        
         if below_fold_missing > 0:
             return [self._create_result(
                 passed=False,
@@ -149,7 +216,11 @@ class LazyLoadingRule(BaseRule):
                 severity=Severity.WARNING,
                 score_impact=-min(below_fold_missing, 5),
                 recommendation="Add loading='lazy' attribute to images below the fold",
-                data={"lazy_loading": False, "below_fold_missing": below_fold_missing},
+                data={
+                    "lazy_loading": False, 
+                    "below_fold_missing": below_fold_missing,
+                    "missing_lazy_images": missing_lazy_images[:20],  # cap at 20
+                },
             )]
         
         return [self._create_result(
@@ -158,8 +229,12 @@ class LazyLoadingRule(BaseRule):
             severity=Severity.INFO,
             score_impact=-1,
             recommendation="Add loading='lazy' attribute to images below the fold",
-            data={"lazy_loading": False},
+            data={
+                "lazy_loading": False,
+                "missing_lazy_images": missing_lazy_images[:20],
+            },
         )]
+
 
 
 class ImageDimensionsRule(BaseRule):

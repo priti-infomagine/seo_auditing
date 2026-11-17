@@ -507,16 +507,18 @@ class SitemapRule(BaseRule):
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         sitemap = data.get("sitemap", {})
-        
+
+        # Sitemap is checked separately via /api/v1/sitemap/check.
+        # When no sitemap data is available in the rule engine, pass with INFO
+        # rather than failing — the separate check provides the authoritative verdict.
         if not sitemap:
             return [self._create_result(
-                passed=False,
-                message="No sitemap data available",
+                passed=True,
+                message="Sitemap checked separately (see Sitemap Check results)",
                 severity=Severity.INFO,
-                score_impact=-2,
-                recommendation="Create and submit XML sitemap to search engines",
+                score_impact=0,
             )]
-        
+
         sitemap_urls = sitemap.get("urls", [])
         url_count = len(sitemap_urls) if sitemap_urls else 0
         valid_urls = sitemap.get("valid_urls", 0)
