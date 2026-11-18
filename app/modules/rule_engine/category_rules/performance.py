@@ -658,7 +658,7 @@ class LCPOptimizationRule(BaseRule):
     tags = ["critical", "performance", "lcp", "core_web_vitals"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        images = data.get("images_rendered") or data.get("images", [])
+        images = data.get("images_raw", [])
         preload_hints = (data.get("head_rendered") or data.get("head", {})).get("preload_hints", [])
         
         # Find LCP candidates: images with fetchpriority=high or preloaded with fetchpriority=high
@@ -895,7 +895,7 @@ class LazyLoadingAboveFoldRule(BaseRule):
     tags = ["warning", "performance", "lazy_loading"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        images = data.get("images_rendered") or data.get("images", [])
+        images = data.get("images_raw", [])
         
         lazy_above_fold = []
         for img in images:
@@ -1060,7 +1060,7 @@ class VideoInsteadOfGIFRule(BaseRule):
     tags = ["info", "performance", "images", "gif"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        images = data.get("images_rendered") or data.get("images", [])
+        images = data.get("images_raw", [])
         gifs = [img for img in images if img.get("is_gif", False)]
         
         if not gifs:

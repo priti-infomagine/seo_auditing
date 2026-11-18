@@ -77,6 +77,7 @@ def parsed_document_to_page_facts(
     redirects: list | None = None,
     raw_html: str = "",
     rendered_links: list | None = None,
+    http_version: str = "",
 ) -> PageFacts:
     """
     Convert a ParserService ParsedDocument into the crawler's PageFacts
@@ -274,6 +275,7 @@ def parsed_document_to_page_facts(
         performance={},
         accessibility={},
         json_ld=json_ld_list,
+        http_version=http_version,
     )
 
     return PageFacts(

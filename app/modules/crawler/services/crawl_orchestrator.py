@@ -444,6 +444,7 @@ class CrawlOrchestrator:
             ],
             raw_html=document.raw_html,
             rendered_links=crawl_result.rendered_links,
+            http_version=fetch_result.http_version or "",
         )
 
         if parsed.content and parsed.content.text:
@@ -515,6 +516,7 @@ class CrawlOrchestrator:
                     content_type=technical_result.content_type,
                     content_length=technical_result.content_length,
                     response_time_ms=technical_result.response_time_ms,
+                    http_version=technical_result.http_version,
                     headers=technical_result.headers,
                     redirects=technical_result.redirects,
                     security=technical_result.security,

@@ -56,6 +56,7 @@ class FetchResult:
     error_type: Optional[str] = None
     render_mode: str = "http"
     render_reason: str = "default_http"
+    http_version: Optional[str] = None
 
 
 @dataclass(slots=True)
@@ -71,6 +72,7 @@ class RenderResult:
     console_errors: List[str] = field(default_factory=list)
     js_errors: List[str] = field(default_factory=list)
     failed_requests: List[Dict[str, Any]] = field(default_factory=list)
+    http_version: Optional[str] = None
 
 
 @dataclass(slots=True)

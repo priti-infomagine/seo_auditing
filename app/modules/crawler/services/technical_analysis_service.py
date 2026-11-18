@@ -35,6 +35,7 @@ class TechnicalAnalysisResult:
     json_ld: list = field(default_factory=list)
     checksum: Optional[str] = None
     is_https: bool = False
+    http_version: str = ""
 
 
 class TechnicalAnalysisService:
@@ -79,4 +80,5 @@ class TechnicalAnalysisService:
             json_ld=technical.json_ld,
             checksum=checksum,
             is_https=is_https,
+            http_version=technical.http_version,
         )

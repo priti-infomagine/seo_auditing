@@ -532,43 +532,34 @@ class RuleEvaluatorService:
             "out_degree": out_degree if out_degree else {},
         }
 
-        # Add site signals for security checks
-        data["site_security"] = site_signals or {}
+        # Add site signals for security checks - convert SiteSignals dataclass to dict
+        def _signals_to_dict(signals):
+            """Convert SiteSignals dataclass to dict for rule evaluation."""
+            if signals is None:
+                return {}
+            if hasattr(signals, '__dataclass_fields__'):
+                result = {}
+                for field_name in signals.__dataclass_fields__:
+                    value = getattr(signals, field_name)
+                    if hasattr(value, '__dataclass_fields__'):
+                        result[field_name] = _signals_to_dict(value)
+                    elif isinstance(value, list):
+                        result[field_name] = [_signals_to_dict(v) if hasattr(v, '__dataclass_fields__') else v for v in value]
+                    elif isinstance(value, dict):
+                        result[field_name] = {k: _signals_to_dict(v) for k, v in value.items()}
+                    else:
+                        result[field_name] = value
+                return result
+            return signals if isinstance(signals, dict) else {}
+        
+        data["site_security"] = _signals_to_dict(site_signals)
 
         try:
             # --- Parsed facts (already loaded) ---
             if fact:
                 parsed_data = fact.parsed_data or {}
-                # Add raw HTML for security checks (mixed content, forms, etc.)
-                data["html"] = parsed_data.get("raw_html", "")
-                # Map parsed data keys to rule data keys
-                data["content"] = parsed_data.get("content", {})
-                data["headings"] = self._build_headings_summary(parsed_data.get("headings", []))
-                data["links"] = self._build_links_summary(parsed_data.get("links", []), page_links)
-                # Merge raw + rendered images, preferring rendered for SPA pages
-                raw_images = parsed_data.get("images", [])
-                rendered_images = parsed_data.get("images_rendered", [])
-                # For SPA pages, raw HTML has zero images but rendered has the actual ones.
-                # Prefer rendered images when raw is empty.
-                if not raw_images and rendered_images:
-                    images_for_rules = rendered_images
-                else:
-                    images_for_rules = raw_images or rendered_images
-                data["images"] = self._build_images_summary(images_for_rules)
-                # Merge raw + rendered schemas, preferring rendered for SPA pages
-                raw_schemas = parsed_data.get("schemas", [])
-                rendered_schemas = parsed_data.get("schemas_rendered", [])
-                if not raw_schemas and rendered_schemas:
-                    schemas_for_rules = rendered_schemas
-                else:
-                    schemas_for_rules = raw_schemas or rendered_schemas
-                data["schemas"] = schemas_for_rules
-                data["structured_data"] = self._build_structured_data(schemas_for_rules)
-                data["hreflang"] = parsed_data.get("hreflang", [])
-                data["social"] = parsed_data.get("social", {}) or {}
-                data["resources"] = parsed_data.get("resources", [])
-                data["technical"] = parsed_data.get("technical", {}) or {}
-                # Dual-pass fields - safely parse JSON strings from JSONB
+                
+                # Helper to safely parse JSON strings from JSONB columns
                 def _parse_jsonb(val, default):
                     if isinstance(val, str):
                         try:
@@ -576,7 +567,42 @@ class RuleEvaluatorService:
                         except json.JSONDecodeError:
                             return default
                     return val if val is not None else default
-
+                
+                # Add raw HTML for security checks (mixed content, forms, etc.)
+                data["html"] = _parse_jsonb(parsed_data.get("raw_html"), "")
+                # Map parsed data keys to rule data keys - parse all JSONB fields
+                data["content"] = _parse_jsonb(parsed_data.get("content"), {})
+                data["headings"] = self._build_headings_summary(_parse_jsonb(parsed_data.get("headings"), []))
+                data["links"] = self._build_links_summary(_parse_jsonb(parsed_data.get("links"), []), page_links)
+                # Merge raw + rendered images, preferring rendered for SPA pages
+                raw_images = _parse_jsonb(parsed_data.get("images"), [])
+                rendered_images = _parse_jsonb(parsed_data.get("images_rendered"), [])
+                # For SPA pages, raw HTML has zero images but rendered has the actual ones.
+                # Prefer rendered images when raw is empty.
+                if not raw_images and rendered_images:
+                    images_for_rules = rendered_images
+                else:
+                    images_for_rules = raw_images or rendered_images
+                # Keep analysis dict for image/accessibility rules (backward compat)
+                data["images"] = self._build_images_summary(images_for_rules)
+                # Add raw list for performance rules (perf_011, perf_019, perf_024)
+                data["images_raw"] = images_for_rules
+                # Also keep rendered images for dual-pass
+                data["images_rendered"] = _parse_jsonb(parsed_data.get("images_rendered"), [])
+                # Merge raw + rendered schemas, preferring rendered for SPA pages
+                raw_schemas = _parse_jsonb(parsed_data.get("schemas"), [])
+                rendered_schemas = _parse_jsonb(parsed_data.get("schemas_rendered"), [])
+                if not raw_schemas and rendered_schemas:
+                    schemas_for_rules = rendered_schemas
+                else:
+                    schemas_for_rules = raw_schemas or rendered_schemas
+                data["schemas"] = schemas_for_rules
+                data["structured_data"] = self._build_structured_data(schemas_for_rules)
+                data["hreflang"] = _parse_jsonb(parsed_data.get("hreflang"), [])
+                data["social"] = _parse_jsonb(parsed_data.get("social"), {}) or {}
+                data["resources"] = _parse_jsonb(parsed_data.get("resources"), [])
+                data["technical"] = _parse_jsonb(parsed_data.get("technical"), {}) or {}
+                # Dual-pass fields - safely parse JSON strings from JSONB
                 data["head"] = _parse_jsonb(parsed_data.get("head"), {})
                 data["head_rendered"] = _parse_jsonb(parsed_data.get("head_rendered"), {})
                 data["images_rendered"] = _parse_jsonb(parsed_data.get("images_rendered"), [])
@@ -605,6 +631,8 @@ class RuleEvaluatorService:
                     "status_code": page.status_code or 0,
                     "url": page.url or "",
                 }
+                # Add top-level final_url string for rules that expect it (e.g., MixedContentRule)
+                data["final_url"] = page.final_url or page.url or ""
         except Exception as exc:
             logger.debug(f"Could not load crawl page for page_id={page_id}: {exc}")
 

@@ -33,6 +33,7 @@ class PlaywrightRenderer:
                 render_mode="browser",
                 render_reason="playwright_not_installed",
                 console_errors=["Playwright package is not installed"],
+                http_version=None,
             )
 
         start_time = time.perf_counter()
@@ -54,6 +55,7 @@ class PlaywrightRenderer:
                     render_mode="browser",
                     render_reason="browser_acquisition_failed",
                     console_errors=["Could not acquire browser page"],
+                    http_version=None,
                 )
 
             # Event listeners
@@ -73,6 +75,7 @@ class PlaywrightRenderer:
                 if response:
                     status_code = response.status
                     response_headers = {k.lower(): v for k, v in (await response.all_headers()).items()}
+                    http_version = response.http_version
 
                 # Wait for network idle or fallback timeout
                 try:
@@ -96,6 +99,7 @@ class PlaywrightRenderer:
                     console_errors=console_errors,
                     js_errors=js_errors,
                     failed_requests=failed_requests,
+                    http_version=http_version,
                 )
 
             except Exception as exc:
@@ -112,4 +116,5 @@ class PlaywrightRenderer:
                     console_errors=console_errors + [str(exc)],
                     js_errors=js_errors,
                     failed_requests=failed_requests,
+                    http_version=None,
                 )

@@ -49,6 +49,7 @@ class PageExtractionService:
         redirects: list | None = None,
         raw_html: str = "",
         rendered_links: list | None = None,
+        http_version: str = "",
     ) -> PageFacts:
         """
         Convert a ParserService ParsedDocument into PageFacts.
@@ -66,4 +67,5 @@ class PageExtractionService:
             redirects=redirects,
             raw_html=raw_html,
             rendered_links=rendered_links,
+            http_version=http_version,
         )

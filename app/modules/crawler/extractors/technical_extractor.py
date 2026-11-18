@@ -23,3 +23,4 @@ class TechnicalFacts:
     performance: dict = field(default_factory=dict)
     accessibility: dict = field(default_factory=dict)
     json_ld: list = field(default_factory=list)
+    http_version: str = ""

@@ -71,6 +71,7 @@ class HttpFetcher(Fetcher):
                 error=str(exc),
                 error_type="ssrf_blocked",
                 render_mode="http",
+                http_version=None,
             )
 
         req_headers = dict(self._client.headers)
@@ -111,6 +112,7 @@ class HttpFetcher(Fetcher):
                         error=f"Response size {len(content)} exceeds limit {self.config.max_response_size}",
                         error_type="content_too_large",
                         render_mode="http",
+                        http_version=str(response.http_version),
                     )
 
                 redirects = []
@@ -145,6 +147,7 @@ class HttpFetcher(Fetcher):
                     error=None,
                     error_type=None,
                     render_mode="http",
+                    http_version=str(response.http_version),
                 )
 
             except (httpx.TimeoutException, httpx.ConnectError, httpx.NetworkError) as exc:
@@ -175,4 +178,5 @@ class HttpFetcher(Fetcher):
             error=last_error or "Fetch failed",
             error_type=last_error_type or "fetch_error",
             render_mode="http",
+            http_version=None,
         )

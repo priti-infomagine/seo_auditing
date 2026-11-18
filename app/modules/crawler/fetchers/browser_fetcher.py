@@ -42,6 +42,7 @@ class BrowserFetcher(Fetcher):
                 error_type="browser_render_error",
                 render_mode="browser",
                 render_reason="render_exception",
+                http_version=None,
             )
 
         content_bytes = render_res.html.encode("utf-8")
@@ -62,4 +63,5 @@ class BrowserFetcher(Fetcher):
             error_type="browser_render_error" if render_res.status_code == 0 else None,
             render_mode="browser",
             render_reason=render_res.render_reason,
+            http_version=render_res.http_version,
         )
