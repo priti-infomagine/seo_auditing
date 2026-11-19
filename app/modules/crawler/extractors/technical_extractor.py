@@ -12,6 +12,17 @@ from typing import Any
 
 
 @dataclass
+class IframeFact:
+    src: str = ""
+    title: str = ""
+    name: str = ""
+    id: str = ""
+    sandbox: str = ""
+    allow: str = ""
+    has_title: bool = False
+
+
+@dataclass
 class TechnicalFacts:
     status_code: int = 0
     content_type: str = ""
@@ -24,3 +35,7 @@ class TechnicalFacts:
     accessibility: dict = field(default_factory=dict)
     json_ld: list = field(default_factory=list)
     http_version: str = ""
+
+    # New accessibility fields
+    iframes: list[IframeFact] = field(default_factory=list)
+    viewport_zoom_allows: bool = True

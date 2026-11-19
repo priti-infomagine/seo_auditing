@@ -692,6 +692,38 @@ class RuleEvaluatorService:
         data.setdefault("seo", data.get("basic", {}))
         data.setdefault("javascript", {})
 
+        # Extract accessibility data from parsed_data and seo_data for a11y rules
+        if fact:
+            parsed_data = fact.parsed_data or {}
+            # Accessibility data from parser (new fields)
+            data["forms"] = _parse_jsonb(parsed_data.get("forms"), [])
+            data["buttons"] = _parse_jsonb(parsed_data.get("buttons"), [])
+            data["skip_links"] = _parse_jsonb(parsed_data.get("skip_links"), [])
+            data["landmarks"] = _parse_jsonb(parsed_data.get("landmarks"), [])
+            data["aria_attributes"] = _parse_jsonb(parsed_data.get("aria_attributes"), {})
+            data["viewport_zoom_allows"] = parsed_data.get("technical", {}).get("viewport_zoom_allows", True)
+            # Also get iframes from technical
+            data["iframes"] = _parse_jsonb(parsed_data.get("technical", {}).get("iframes"), [])
+
+        # Also extract from seo_data.accessibility if available
+        if seo_data and seo_data.accessibility:
+            a11y = seo_data.accessibility
+            if isinstance(a11y, dict):
+                if "forms" in a11y:
+                    data["forms"] = a11y["forms"]
+                if "buttons" in a11y:
+                    data["buttons"] = a11y["buttons"]
+                if "iframes" in a11y:
+                    data["iframes"] = a11y["iframes"]
+                if "skip_links" in a11y:
+                    data["skip_links"] = a11y["skip_links"]
+                if "landmarks" in a11y:
+                    data["landmarks"] = a11y["landmarks"]
+                if "viewport_zoom_allows" in a11y:
+                    data["viewport_zoom_allows"] = a11y["viewport_zoom_allows"]
+                if "aria_attributes" in a11y:
+                    data["aria_attributes"] = a11y["aria_attributes"]
+
         return data
 
     def _build_links_summary(self, links: list, page_links: list = None) -> dict:

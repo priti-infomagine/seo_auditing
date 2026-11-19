@@ -59,7 +59,18 @@ from app.modules.rule_engine.category_rules.security import (
     HTTPSRule as LegacyHTTPSRule, SSLCertificateRule, SecurityHeadersRule,
 )
 from app.modules.rule_engine.category_rules.accessibility import (
-    FormLabelsRule
+    FormLabelsRule,           # a11y_001
+    ARIALabelsRule,           # a11y_002
+    ColorContrastRule,        # a11y_003
+    KeyboardNavigationRule,   # a11y_004
+    FocusVisibilityRule,      # a11y_005
+    HeadingAccessibilityRule, # a11y_006
+    LandmarkRegionsRule,      # a11y_007
+    LinkTextAccessibilityRule,# a11y_008
+    SkipNavigationLinkRule,   # a11y_009
+    ButtonAccessibilityRule,  # a11y_010
+    IframeAccessibilityRule,  # a11y_011
+    ViewportZoomAccessibilityRule, # a11y_012
 )
 from app.modules.rule_engine.category_rules.performance import (
     ResponseTimeRule, HTMLSizeRule, MinificationRule, ResourceCountRule,
@@ -151,8 +162,19 @@ class ScorerService:
             # Security (legacy rules - keep for backward compat)
             LegacyHTTPSRule(), SSLCertificateRule(), SecurityHeadersRule(), XSSProtectionRule(),
             
-            # Accessibility (1 rule)
-            FormLabelsRule(),
+            # Accessibility (12 rules)
+            FormLabelsRule(),           # a11y_001
+            ARIALabelsRule(),           # a11y_002
+            ColorContrastRule(),        # a11y_003
+            KeyboardNavigationRule(),   # a11y_004
+            FocusVisibilityRule(),      # a11y_005
+            HeadingAccessibilityRule(), # a11y_006
+            LandmarkRegionsRule(),      # a11y_007
+            LinkTextAccessibilityRule(),# a11y_008
+            SkipNavigationLinkRule(),   # a11y_009
+            ButtonAccessibilityRule(),  # a11y_010
+            IframeAccessibilityRule(),  # a11y_011
+            ViewportZoomAccessibilityRule(), # a11y_012
             
             # Performance (21 rules - 9 original + 3 extended + 12 new)
             ResponseTimeRule(), HTMLSizeRule(), MinificationRule(),

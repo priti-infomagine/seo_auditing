@@ -19,11 +19,21 @@ from typing import Any
 from urllib.parse import urlparse
 
 from app.modules.crawler.extractors.asset_extractor import ResourceFacts
-from app.modules.crawler.extractors.content_extractor import ContentFacts
+from app.modules.crawler.extractors.content_extractor import (
+    ContentFacts,
+    FormFact,
+    FormFieldFact,
+    ButtonFact,
+    SkipLinkFact,
+    LandmarkFact,
+)
 from app.modules.crawler.extractors.document_extractor import DocumentFacts
 from app.modules.crawler.extractors.link_extractor import LinkFacts
 from app.modules.crawler.extractors.metadata_extractor import MetadataFacts
-from app.modules.crawler.extractors.technical_extractor import TechnicalFacts
+from app.modules.crawler.extractors.technical_extractor import (
+    TechnicalFacts,
+    IframeFact,
+)
 from app.shared.utils.url_utils import is_same_site
 
 
@@ -121,16 +131,102 @@ def parsed_document_to_page_facts(
             key = f"h{h.level}"
             heading_dict.setdefault(key, []).append(h.text)
 
+    # Convert forms
+    forms_detailed = []
+    for form in getattr(content, "forms", []):
+        fields_detailed = []
+        for field in getattr(form, "fields", []):
+            fields_detailed.append(FormFieldFact(
+                tag=getattr(field, "tag", ""),
+                type=getattr(field, "type", ""),
+                name=getattr(field, "name", ""),
+                id=getattr(field, "id", ""),
+                label_text=getattr(field, "label_text", ""),
+                has_label_for=getattr(field, "has_label_for", False),
+                has_wrapping_label=getattr(field, "has_wrapping_label", False),
+                aria_label=getattr(field, "aria_label", ""),
+                aria_labelledby=getattr(field, "aria_labelledby", ""),
+                aria_describedby=getattr(field, "aria_describedby", ""),
+                required=getattr(field, "required", False),
+                disabled=getattr(field, "disabled", False),
+                readonly=getattr(field, "readonly", False),
+                placeholder=getattr(field, "placeholder", ""),
+                title=getattr(field, "title", ""),
+                accessible_name=getattr(field, "accessible_name", ""),
+                accessible_name_source=getattr(field, "accessible_name_source", ""),
+            ))
+        fieldsets_detailed = []
+        for fs in getattr(form, "fieldsets", []):
+            fieldsets_detailed.append(fs)
+        forms_detailed.append(FormFact(
+            action=getattr(form, "action", ""),
+            method=getattr(form, "method", ""),
+            id=getattr(form, "id", ""),
+            name=getattr(form, "name", ""),
+            fields=fields_detailed,
+            fieldsets=fieldsets_detailed,
+        ))
+
+    # Convert buttons
+    buttons_detailed = []
+    for btn in getattr(content, "buttons", []):
+        buttons_detailed.append(ButtonFact(
+            tag=getattr(btn, "tag", ""),
+            type=getattr(btn, "type", ""),
+            id=getattr(btn, "id", ""),
+            name=getattr(btn, "name", ""),
+            text_content=getattr(btn, "text_content", ""),
+            value=getattr(btn, "value", ""),
+            aria_label=getattr(btn, "aria_label", ""),
+            aria_labelledby=getattr(btn, "aria_labelledby", ""),
+            title=getattr(btn, "title", ""),
+            accessible_name=getattr(btn, "accessible_name", ""),
+            accessible_name_source=getattr(btn, "accessible_name_source", ""),
+            has_accessible_name=getattr(btn, "has_accessible_name", False),
+        ))
+
+    # Convert skip links
+    skip_links_detailed = []
+    for sl in getattr(content, "skip_links", []):
+        skip_links_detailed.append(SkipLinkFact(
+            href=getattr(sl, "href", ""),
+            text=getattr(sl, "text", ""),
+            is_first_focusable=getattr(sl, "is_first_focusable", False),
+            position=getattr(sl, "position", 0),
+        ))
+
+    # Convert landmarks
+    landmarks_detailed = []
+    for lm in getattr(content, "landmarks", []):
+        landmarks_detailed.append(LandmarkFact(
+            type=getattr(lm, "type", ""),
+            element=getattr(lm, "element", ""),
+            role=getattr(lm, "role", ""),
+            aria_label=getattr(lm, "aria_label", ""),
+            aria_labelledby=getattr(lm, "aria_labelledby", ""),
+            has_accessible_name=getattr(lm, "has_accessible_name", False),
+        ))
+
     content_facts = ContentFacts(
         text=content.text or "",
         word_count=content.word_count or 0,
         sentence_count=getattr(content, "sentence_count", 0),
         paragraph_count=len(content.paragraphs or []),
         headings=heading_dict,
-        forms=getattr(content, "forms", 0),
-        buttons=getattr(content, "buttons", 0),
+        forms=len(forms_detailed),
+        buttons=len(buttons_detailed),
         content_hash="",
         text_html_ratio=getattr(content, "text_html_ratio", 0.0),
+        forms_detailed=forms_detailed,
+        buttons_detailed=buttons_detailed,
+        skip_links=skip_links_detailed,
+        landmarks=landmarks_detailed,
+        aria_attributes=getattr(content, "aria_attributes", {}),
+        has_main=getattr(content, "has_main", False),
+        has_article=getattr(content, "has_article", False),
+        has_nav=getattr(content, "has_nav", False),
+        has_header=getattr(content, "has_header", False),
+        has_footer=getattr(content, "has_footer", False),
     )
 
     hreflang_list = []
@@ -264,6 +360,21 @@ def parsed_document_to_page_facts(
                 }
             )
 
+    # Convert iframes
+    iframes_detailed = []
+    for iframe in getattr(parsed_document.technical, "iframes", []):
+        iframes_detailed.append(IframeFact(
+            src=getattr(iframe, "src", ""),
+            title=getattr(iframe, "title", ""),
+            name=getattr(iframe, "name", ""),
+            id=getattr(iframe, "id", ""),
+            sandbox=getattr(iframe, "sandbox", ""),
+            allow=getattr(iframe, "allow", ""),
+            has_title=getattr(iframe, "has_title", False),
+        ))
+
+    viewport_zoom_allows = getattr(parsed_document.technical, "viewport_zoom_allows", True)
+
     technical_facts = TechnicalFacts(
         status_code=status_code,
         content_type=headers.get("content-type", "").split(";")[0].strip().lower(),
@@ -276,6 +387,8 @@ def parsed_document_to_page_facts(
         accessibility={},
         json_ld=json_ld_list,
         http_version=http_version,
+        iframes=iframes_detailed,
+        viewport_zoom_allows=viewport_zoom_allows,
     )
 
     return PageFacts(

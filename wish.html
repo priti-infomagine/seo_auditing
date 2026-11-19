@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>⚠️ Special Gift</title>
+<style>
+  body{margin:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+       background:linear-gradient(#ffd6e8,#fff0f6);font-family:sans-serif;text-align:center;overflow:hidden}
+  h2{color:#d6336c;margin:10px 15px}
+  #hint{color:#555;margin-top:10px;min-height:24px}
+
+  /* gift box */
+  #box{font-size:130px;cursor:pointer;animation:shake .6s infinite;user-select:none}
+  @keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+  #box.open{animation:fly .8s forwards}
+  @keyframes fly{to{transform:translateY(-120vh) rotate(360deg);opacity:0}}
+
+  /* flower */
+  #stage{display:none;flex-direction:column;align-items:center}
+  .flower{position:relative;width:260px;height:260px}
+  .petal{position:absolute;width:90px;height:90px;background:#ff6fa5;border-radius:50%;
+         left:85px;top:85px;transition:transform 1s cubic-bezier(.3,1.6,.5,1)}
+  .photo{position:absolute;width:130px;height:130px;border-radius:50%;left:65px;top:65px;
+         object-fit:cover;border:5px solid #ffd54f;z-index:5;transform:scale(0);
+         transition:transform 1s .6s cubic-bezier(.3,1.6,.5,1)}
+  .show .photo{transform:scale(1) rotate(360deg)}
+  h1{color:#d6336c;font-size:22px;margin:15px 10px 5px}
+  #likes{font-size:20px;color:#1877f2;font-weight:bold}
+  .float{position:fixed;bottom:-50px;font-size:34px;animation:up 3s linear forwards;pointer-events:none}
+  @keyframes up{to{transform:translateY(-110vh)}}
+  .conf{position:fixed;top:-20px;width:10px;height:14px;animation:fall 3s linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <h2>⚠️ Sirf sabse irritating insaan ke liye ⚠️</h2>
+  <div id="box">🎁</div>
+  <div id="hint">Click mat karna... 😏</div>
+</div>
+
+<div id="stage">
+  <div class="flower" id="flower">
+    <img class="photo" src="dhoom.jpeg">
+  </div>
+  <h1>Happy Men's Day to the most irritating man 😂</h1>
+  <div id="likes">👍 0 likes</div>
+  <div id="caption" style="margin-top:8px;color:#555"></div>
+</div>
+
+<script>
+  const hints=["Click mat karna... 😏","Arre bola na mat karna 😤","Tu sunta nahi hai kabhi 🙄","Theek hai kar hi le 😒"];
+  let h=0; const hint=document.getElementById('hint');
+  setInterval(()=>{hint.textContent=hints[h++%hints.length]},1500);
+
+  // build petals
+  const f=document.getElementById('flower'), petals=[];
+  for(let i=0;i<8;i++){
+    const p=document.createElement('div'); p.className='petal';
+    p.style.background=i%2?'#ff6fa5':'#ff8fb8';
+    p.style.transform='rotate('+(i*45)+'deg) translateY(0) scale(0)';
+    f.prepend(p); petals.push(p);
+  }
+
+  function confetti(){
+    const c=['#ff6fa5','#ffd54f','#4dd0e1','#81c784','#ba68c8'];
+    for(let i=0;i<60;i++){
+      const d=document.createElement('div'); d.className='conf';
+      d.style.left=Math.random()*100+'vw'; d.style.background=c[i%5];
+      d.style.animationDelay=Math.random()*1.5+'s';
+      document.body.appendChild(d); setTimeout(()=>d.remove(),5000);
+    }
+  }
+
+  document.getElementById('box').onclick=function(){
+    this.classList.add('open');
+    setTimeout(()=>{
+      document.getElementById('intro').style.display='none';
+      document.getElementById('stage').style.display='flex';
+      confetti();
+      petals.forEach((p,i)=>p.style.transform='rotate('+(i*45)+'deg) translateY(-85px) scale(1)');
+      document.getElementById('flower').classList.add('show');
+
+      // flying likes
+      setInterval(()=>{
+        const t=document.createElement('div'); t.className='float'; t.textContent='👍';
+        t.style.left=Math.random()*90+'vw'; document.body.appendChild(t);
+        setTimeout(()=>t.remove(),3000);
+      },250);
+
+      // fake like counter
+      let n=0; const L=document.getElementById('likes');
+      setInterval(()=>{n+=Math.floor(Math.random()*9000)+1000; L.textContent='👍 '+n.toLocaleString('en-IN')+' likes';},120);
+
+      // funny captions
+      const cap=["Itna handsome hai, par irritating bhi 😎","Likes sab fake hain, bas tu real hai 🤡","Aaj ke din thoda kam irritate karna 🙏","Chal party de ab 🍕"];
+      let c=0; const C=document.getElementById('caption');
+      C.textContent=cap[0]; setInterval(()=>{C.textContent=cap[++c%cap.length]},2500);
+    },700);
+  };
+</script>
+</body>
+</html>

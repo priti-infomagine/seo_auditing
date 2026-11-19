@@ -130,6 +130,19 @@ RULE_AFFECTED_PART: Dict[str, str] = {
     # Synthesized at the site level when www and non-www both resolve
     # without redirecting to a single canonical host (see audit_response_builder).
     "missing_www_redirect": "canonical",
+    # accessibility
+    "a11y_001": "form_labels",
+    "a11y_002": "aria_labels",
+    "a11y_003": "color_contrast",
+    "a11y_004": "keyboard_navigation",
+    "a11y_005": "focus_visibility",
+    "a11y_006": "heading_accessibility",
+    "a11y_007": "landmark_regions",
+    "a11y_008": "link_text_accessibility",
+    "a11y_009": "skip_navigation_link",
+    "a11y_010": "button_accessibility",
+    "a11y_011": "iframe_accessibility",
+    "a11y_012": "viewport_zoom",
 }
 
 # WARNING rules whose failure is high-impact and therefore promoted to 'high'.
@@ -143,7 +156,15 @@ HIGH_IMPACT_WARNINGS: set = {
     "on_page_007",      # nofollow / noindex directive
     "technical_007",    # missing security headers
     "images_004",       # image dimensions (CLS risk)
-    "a11y_001",         # image alt text
+    "a11y_001",         # form labels
+    "a11y_002",         # ARIA labels
+    "a11y_006",         # heading accessibility
+    "a11y_007",         # landmark regions
+    "a11y_008",         # link text accessibility
+    "a11y_009",         # skip navigation link
+    "a11y_010",         # button accessibility
+    "a11y_011",         # iframe accessibility
+    "a11y_012",         # viewport zoom
     "security_003",     # security headers
     "security_004",     # ssl certificate issues
     "security_005",     # HSTS
@@ -273,6 +294,18 @@ SUBCATEGORY_OF: Dict[str, str] = {
     "security_015": "leaked_secrets",
     "security_016": "password_on_http",
     "security_017": "protocol_relative_urls",
+    "a11y_001": "form_labels",
+    "a11y_002": "aria_labels",
+    "a11y_003": "color_contrast",
+    "a11y_004": "keyboard_navigation",
+    "a11y_005": "focus_visibility",
+    "a11y_006": "heading_accessibility",
+    "a11y_007": "landmark_regions",
+    "a11y_008": "link_text_accessibility",
+    "a11y_009": "skip_navigation_link",
+    "a11y_010": "button_accessibility",
+    "a11y_011": "iframe_accessibility",
+    "a11y_012": "viewport_zoom",
 }
 
 # ---------------------------------------------------------------------------
@@ -374,6 +407,18 @@ RECOMMENDATIONS: Dict[str, Dict[str, str]] = {
     "perf_022": {"action": "Minify inline JavaScript blocks.", "effort": "low"},
     "perf_023": {"action": "Move inline JavaScript to external files, minify, and defer.", "effort": "medium"},
     "perf_024": {"action": "Convert animated GIFs to MP4/WebM for 90%+ size reduction.", "effort": "medium"},
+    "a11y_001": {"action": "Ensure all form inputs have accessible labels via label[for], wrapping <label>, aria-label, aria-labelledby, or title.", "effort": "medium"},
+    "a11y_002": {"action": "Add aria-label or aria-labelledby to interactive elements lacking accessible names.", "effort": "low"},
+    "a11y_003": {"action": "Test color contrast with automated tools (axe, Lighthouse) and ensure 4.5:1 ratio for normal text.", "effort": "medium"},
+    "a11y_004": {"action": "Remove tabindex='-1' from interactive elements, avoid aria-hidden on focusable elements, preserve focus outlines.", "effort": "medium"},
+    "a11y_005": {"action": "Don't remove focus outlines without providing alternative focus styles (box-shadow, border, background).", "effort": "low"},
+    "a11y_006": {"action": "Use logical heading hierarchy: one H1, then H2, H3 sequentially. Ensure all headings have meaningful text.", "effort": "low"},
+    "a11y_007": {"action": "Add landmark regions: <main> for primary content, <nav> for navigation, <header> for header, <footer> for footer.", "effort": "low"},
+    "a11y_008": {"action": "Use descriptive link text that makes sense out of context. Avoid 'click here', 'read more'. Use aria-label if needed.", "effort": "medium"},
+    "a11y_009": {"action": "Add skip-to-content link as first focusable element: <a href='#main' class='skip-link'>Skip to main content</a>.", "effort": "low"},
+    "a11y_010": {"action": "Ensure all buttons have accessible names: text content for <button>, value for inputs, aria-label, or title.", "effort": "medium"},
+    "a11y_011": {"action": "Add descriptive title attribute to all iframes: <iframe title='Description' src='...'></iframe>.", "effort": "low"},
+    "a11y_012": {"action": "Remove user-scalable=no and maximum-scale restrictions from viewport meta tag.", "effort": "low"},
 }
 
 # Human-readable title fallback per rule_id (for recommendations/priorities display).
@@ -468,14 +513,18 @@ RULE_TITLES: Dict[str, str] = {
      "security_001": "Website not using HTTPS",
      "security_003": "Missing security headers",
      "security_004": "SSL certificate issues",
-     "a11y_001": "Images missing alt text for accessibility",
-     "a11y_002": "HTML language attribute not specified",
-     "a11y_003": "Heading structure issues",
-     "a11y_004": "Non-descriptive link text",
-     "a11y_005": "Color contrast check required",
-     "a11y_006": "Keyboard navigation not verified",
-     "a11y_007": "Missing ARIA labels",
-     "a11y_008": "Forms missing associated labels",
+"a11y_001": "Form inputs missing accessible labels",
+    "a11y_002": "Interactive elements missing accessible names",
+    "a11y_003": "Color contrast requires testing with automated tools",
+    "a11y_004": "Keyboard navigation blockers detected",
+    "a11y_005": "Focus visibility may be removed by CSS",
+    "a11y_006": "Heading structure issues",
+    "a11y_007": "Missing landmark regions",
+    "a11y_008": "Links with non-descriptive text",
+    "a11y_009": "Missing skip navigation link",
+    "a11y_010": "Buttons missing accessible names",
+    "a11y_011": "Iframes missing title attributes",
+    "a11y_012": "Viewport prevents zooming",
     "perf_002": "Large HTML document size",
     "perf_003": "Code minification not enabled",
     "perf_004": "High resource count",
@@ -522,6 +571,18 @@ RULE_WHY: Dict[str, str] = {
     "perf_022": "Unminified inline JS adds bytes to HTML and delays parsing/execution.",
     "perf_023": "Large inline JS increases HTML size and delays interactive time.",
     "perf_024": "Animated GIFs are 5-10x larger than equivalent MP4/WebM videos.",
+    "a11y_001": "Form inputs without accessible labels cannot be used by screen reader users, preventing form completion.",
+    "a11y_002": "Interactive elements without accessible names are announced as generic 'button' or 'link' by screen readers.",
+    "a11y_003": "Insufficient color contrast makes text unreadable for users with low vision or color blindness.",
+    "a11y_004": "Elements removed from keyboard navigation trap keyboard-only users, preventing access to functionality.",
+    "a11y_005": "Invisible focus indicators leave keyboard users unable to track their position on the page.",
+    "a11y_006": "Illogical heading hierarchy confuses screen reader users who navigate by headings.",
+    "a11y_007": "Missing landmarks force screen reader users to listen to entire page to find main content.",
+    "a11y_008": "Non-descriptive link text forces screen reader users to read surrounding context to understand link purpose.",
+    "a11y_009": "Without skip links, keyboard users must tab through all navigation to reach main content.",
+    "a11y_010": "Buttons without accessible names are announced as 'button' without indicating their function.",
+    "a11y_011": "Iframes without titles are announced as 'frame' without describing the embedded content.",
+    "a11y_012": "Blocking zoom prevents low-vision users from enlarging text to readable sizes.",
 }
 RULE_WHAT: Dict[str, str] = {
     "links_006": "Crawl found pages with zero outbound internal links.",
@@ -547,4 +608,16 @@ RULE_WHAT: Dict[str, str] = {
     "perf_022": "Inline <script> blocks contain excessive whitespace (>10%).",
     "perf_023": f"Total inline JS: {{total_kb}}KB (recommended <5KB).",
     "perf_024": "Animated GIFs detected in page content.",
+    "a11y_001": "Form inputs found without accessible names (label, aria-label, aria-labelledby, title).",
+    "a11y_002": "Interactive elements (links, buttons, custom widgets) found without accessible names.",
+    "a11y_003": "Color contrast cannot be verified statically; requires computed styles analysis.",
+    "a11y_004": "Found tabindex='-1' on interactive elements, aria-hidden='true', or outline removal in CSS.",
+    "a11y_005": "Found CSS rules removing focus outlines without alternative focus indicators.",
+    "a11y_006": "Heading hierarchy issues: missing H1, multiple H1s, non-sequential levels, or empty headings.",
+    "a11y_007": "Missing expected landmarks: main, navigation, header, footer.",
+    "a11y_008": "Links found with generic anchor text (click here, read more, here, etc.) or aria-label.",
+    "a11y_009": "No skip-to-content link found, or skip link not first focusable element.",
+    "a11y_010": "Buttons found without accessible names (text, value, aria-label, aria-labelledby, title).",
+    "a11y_011": "Iframes found without descriptive title attributes.",
+    "a11y_012": "Viewport meta tag contains user-scalable=no or maximum-scale<=1 restricting zoom.",
 }

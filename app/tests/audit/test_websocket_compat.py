@@ -22,7 +22,7 @@ class TestAuditPollingEndpoints:
 
     @pytest.fixture
     def mock_redis(self):
-        with patch("app.api.endpoints.v1.audit.analyze.get_redis") as mock:
+        with patch("app.core.redis.get_redis") as mock:
             client = AsyncMock()
             mock.return_value = client
             yield client

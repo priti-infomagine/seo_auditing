@@ -583,7 +583,91 @@ class CrawlOrchestrator:
                         "robots_meta": page_facts.metadata.robots_meta,
                         "canonical": page_facts.metadata.canonical,
                     },
-                    accessibility=technical_result.accessibility,
+                    accessibility={
+                        "forms": [
+                            {
+                                "action": f.action,
+                                "method": f.method,
+                                "id": f.id,
+                                "name": f.name,
+                                "fields": [
+                                    {
+                                        "tag": field.tag,
+                                        "type": field.type,
+                                        "name": field.name,
+                                        "id": field.id,
+                                        "label_text": field.label_text,
+                                        "has_label_for": field.has_label_for,
+                                        "has_wrapping_label": field.has_wrapping_label,
+                                        "aria_label": field.aria_label,
+                                        "aria_labelledby": field.aria_labelledby,
+                                        "aria_describedby": field.aria_describedby,
+                                        "required": field.required,
+                                        "disabled": field.disabled,
+                                        "readonly": field.readonly,
+                                        "placeholder": field.placeholder,
+                                        "title": field.title,
+                                        "accessible_name": field.accessible_name,
+                                        "accessible_name_source": field.accessible_name_source,
+                                    }
+                                    for field in f.fields
+                                ],
+                                "fieldsets": f.fieldsets,
+                            }
+                            for f in page_facts.content.forms_detailed
+                        ],
+                        "buttons": [
+                            {
+                                "tag": btn.tag,
+                                "type": btn.type,
+                                "id": btn.id,
+                                "name": btn.name,
+                                "text_content": btn.text_content,
+                                "value": btn.value,
+                                "aria_label": btn.aria_label,
+                                "aria_labelledby": btn.aria_labelledby,
+                                "title": btn.title,
+                                "accessible_name": btn.accessible_name,
+                                "accessible_name_source": btn.accessible_name_source,
+                                "has_accessible_name": btn.has_accessible_name,
+                            }
+                            for btn in page_facts.content.buttons_detailed
+                        ],
+                        "iframes": [
+                            {
+                                "src": iframe.src,
+                                "title": iframe.title,
+                                "name": iframe.name,
+                                "id": iframe.id,
+                                "sandbox": iframe.sandbox,
+                                "allow": iframe.allow,
+                                "has_title": iframe.has_title,
+                            }
+                            for iframe in page_facts.technical.iframes
+                        ],
+                        "skip_links": [
+                            {
+                                "href": sl.href,
+                                "text": sl.text,
+                                "is_first_focusable": sl.is_first_focusable,
+                                "position": sl.position,
+                            }
+                            for sl in page_facts.content.skip_links
+                        ],
+                        "landmarks": [
+                            {
+                                "type": lm.type,
+                                "element": lm.element,
+                                "role": lm.role,
+                                "aria_label": lm.aria_label,
+                                "aria_labelledby": lm.aria_labelledby,
+                                "has_accessible_name": lm.has_accessible_name,
+                            }
+                            for lm in page_facts.content.landmarks
+                        ],
+                        "viewport_zoom_allows": page_facts.technical.viewport_zoom_allows,
+                        "aria_attributes": page_facts.content.aria_attributes,
+                    },
                     page_metadata=page_metadata,
                 )
             )

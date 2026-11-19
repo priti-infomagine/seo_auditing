@@ -298,8 +298,8 @@ def test_build_overview_categories_have_no_nested_issues():
     ]
     service = _stub_service_with_overview_inputs({}, rows)
     overview = asyncio.run(service.build_overview("crawl-1"))
-    # All 10 categories are emitted (even those with zero failures)
-    assert len(overview.categories) == 10
+    # All 11 categories are emitted (even those with zero failures) - includes accessibility
+    assert len(overview.categories) == 11
     # The aggregate counts add up
     total_in_categories = sum(c.issues.total for c in overview.categories)
     assert total_in_categories == 2
@@ -308,7 +308,7 @@ def test_build_overview_categories_have_no_nested_issues():
         # No nested issue field
         assert not hasattr(cat, "issues_detail")
         # checks_total reflects unique rule_ids seen for the category
-        if cat.id == "on_page":
+        if cat.id == "on_page_seo":
             assert cat.checks_total == 1
             assert cat.issues.critical == 1
         elif cat.id == "technical_seo":

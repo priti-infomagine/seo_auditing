@@ -1,6 +1,16 @@
 from pydantic import BaseModel, Field
 
 
+class IframeData(BaseModel):
+    src: str = ""
+    title: str = ""
+    name: str = ""
+    id: str = ""
+    sandbox: str = ""
+    allow: str = ""
+    has_title: bool = False
+
+
 class TechnicalData(BaseModel):
     doctype: str = ""
     html_lang: str = ""
@@ -22,3 +32,7 @@ class TechnicalData(BaseModel):
 
     # New field for DOM size rule
     dom_elements: int = 0
+
+    # New fields for accessibility
+    iframes: list[IframeData] = Field(default_factory=list)
+    viewport_zoom_allows: bool = True

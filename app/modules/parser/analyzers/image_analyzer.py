@@ -141,6 +141,8 @@ def analyze_images(images: list) -> dict:
             "has_fetchpriority_high": False,
             "aspect_ratio_mismatch_count": 0,
             "thumbnails_with_large_files": 0,
+            "alt_coverage_percent": 0.0,
+            "has_lazy_loading": False,
         }
 
     total = len(images)
@@ -207,7 +209,7 @@ def analyze_images(images: list) -> dict:
             file_size = img.get("file_size_bytes", 0)
             http_status = img.get("http_status", 0)
         
-        if tag in ("img", "source"):
+        if tag in ("img", "source") or (not tag and url):
             src_count += 1
             
             # Alt text analysis
@@ -330,6 +332,7 @@ def analyze_images(images: list) -> dict:
         "alt_length_min": alt_length_min,
         "alt_length_max": alt_length_max,
         "alt_length_avg": round(alt_length_avg, 1),
+        "alt_coverage_percent": round((with_alt / src_count * 100) if src_count > 0 else 0.0, 1),
         "has_width_attr": has_width,
         "has_height_attr": has_height,
         "missing_dimensions": missing_dims,
@@ -339,6 +342,7 @@ def analyze_images(images: list) -> dict:
         "modern_format_count": modern_format,
         "legacy_format_count": legacy_format,
         "has_lazy_loading_count": lazy_loading,
+        "has_lazy_loading": lazy_loading > 0,
         "above_fold_count": above_fold,
         "below_fold_count": below_fold,
         "below_fold_missing_lazy": below_fold_missing_lazy,
