@@ -110508,3 +110508,4 @@ NameError: name 're' is not defined
 2026-11-20T14:39:07 | INFO | app | audit.run_analysis_pipeline: task finished for audit_id=123b32c8-8c28-477d-8fc9-e34a0c4a1570
 2026-11-20T14:39:07 | INFO | app | GET /audit/result/123b32c8-8c28-477d-8fc9-e34a0c4a1570 - format=full
 2026-11-20T14:39:07 | INFO | app | Cache hit: returning audit result from Redis for audit_id=123b32c8-8c28-477d-8fc9-e34a0c4a1570
+2026-11-20T14:56:42 | INFO | app | Celery broker pre-warm started in background
