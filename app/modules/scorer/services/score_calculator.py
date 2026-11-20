@@ -43,7 +43,7 @@ class ScoreCalculator:
         "links": 0.10,           # Internal/external links, anchors, broken
         "performance": 0.05,     # Speed, TTFB, caching, compression
         "security": 0.05,        # Headers, SSL, mixed content
-        "structured_data": 0.03, # Schema markup
+        "schema": 0.03,          # Schema markup
         "images": 0.02,          # Alt, dimensions, formats, lazy loading
         "social": 0.00,          # Not scored (informational)
         "accessibility": 0.00,   # Not scored (separate audit)
@@ -58,7 +58,7 @@ class ScoreCalculator:
         "links": "links",
         "performance": "performance",
         "security": "security",
-        "schema": "structured_data",
+        "schema": "schema",
         "images": "images",
         "social": "social",
         "accessibility": "accessibility",
@@ -288,6 +288,7 @@ CATEGORY_ORDER: Dict[str, int] = {
     "security": 12,
     "accessibility": 13,
     "mobile": 14,
+    "schema": 15,
 }
 
 # Category status thresholds (minimum inclusive score per tier):
@@ -325,7 +326,7 @@ INTERNAL_TO_RESPONSE: Dict[str, str] = {
     "content": "content",
     "links": "off_page_seo",
     "images": "images",
-    "schema": "technical_seo",
+    "schema": "schema",
     "social": "social",
     "security": "security",
     "accessibility": "accessibility",
@@ -356,6 +357,7 @@ CATEGORY_LABELS: Dict[str, str] = {
     "security": "Security",
     "accessibility": "Accessibility",
     "mobile": "Mobile",
+    "schema": "Schema & Structured Data",
 }
 
 

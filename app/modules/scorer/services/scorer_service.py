@@ -41,8 +41,16 @@ from app.modules.rule_engine.category_rules.images import (
     BrokenImageDetectionRule, CSSBackgroundImagesRule,
 )
 from app.modules.rule_engine.category_rules.schema import (
-    OrganizationSchemaRule, BreadcrumbSchemaRule,
-    ArticleSchemaRule, ProductSchemaRule, JsonLdFormatRule
+    SchemaMarkupPresenceRule,      # schema_001
+    SchemaSyntaxValidationRule,    # schema_002
+    SchemaTypeValidationRule,      # schema_003
+    SchemaRequiredPropertiesRule,  # schema_004
+    SchemaContentConsistencyRule,  # schema_005
+    OrganizationSchemaRule,        # schema_006
+    BreadcrumbSchemaRule,          # schema_007
+    ArticleSchemaRule,             # schema_008
+    ProductSchemaRule,             # schema_009
+    JsonLdFormatRule,              # schema_010
 )
 from app.modules.rule_engine.category_rules.social import (
     SocialMediaLinksRule, FacebookDomainRule, SocialImageRule
@@ -136,9 +144,17 @@ class ScorerService:
             PictureFallbackRule(), ImageDimensionsSizeRule(),
             BrokenImageDetectionRule(), CSSBackgroundImagesRule(),
             
-            # Schema (5 rules — removed duplicate schema_001, kept technical_010)
-            OrganizationSchemaRule(), BreadcrumbSchemaRule(),
-            ArticleSchemaRule(), ProductSchemaRule(), JsonLdFormatRule(),
+            # Schema (10 rules — 5 core validation + 5 type-specific)
+            SchemaMarkupPresenceRule(),           # schema_001
+            SchemaSyntaxValidationRule(),         # schema_002
+            SchemaTypeValidationRule(),           # schema_003
+            SchemaRequiredPropertiesRule(),       # schema_004
+            SchemaContentConsistencyRule(),       # schema_005
+            OrganizationSchemaRule(),             # schema_006
+            BreadcrumbSchemaRule(),               # schema_007
+            ArticleSchemaRule(),                  # schema_008
+            ProductSchemaRule(),                  # schema_009
+            JsonLdFormatRule(),                   # schema_010
             
             # Social (3 rules)
             SocialMediaLinksRule(), FacebookDomainRule(), SocialImageRule(),
@@ -339,18 +355,40 @@ class ScorerService:
 
         schemas_list = parsed_data.get('schemas', [])
         schema_markup = []
+        formats = []
         for schema in schemas_list:
             if isinstance(schema, dict):
+                # SchemaData has: format, raw, parsed, types, context, attributes
+                schema_format = schema.get('format', 'unknown')
+                formats.append(schema_format)
+                
                 parsed_val = schema.get('parsed', schema.get('raw', {}))
                 if isinstance(parsed_val, dict):
-                    schema_markup.append(parsed_val)
+                    # Preserve full schema object with all fields
+                    schema_obj = dict(parsed_val)
+                    schema_obj['format'] = schema_format
+                    schema_obj['attributes'] = schema.get('attributes', {})
+                    schema_obj['context'] = schema.get('context', '')
+                    schema_obj['raw'] = schema.get('raw', '')
+                    schema_obj['parsed'] = parsed_val  # Keep reference to parsed object for validation
+                    schema_markup.append(schema_obj)
                 else:
                     type_val = schema.get('types', [])
                     tn = type_val[0] if type_val else 'Unknown'
-                    schema_markup.append({'@type': str(tn)})
+                    schema_markup.append({
+                        '@type': str(tn),
+                        'format': schema_format,
+                        'attributes': schema.get('attributes', {}),
+                        'parsed': parsed_val,
+                    })
             else:
-                schema_markup.append({'@type': str(schema)})
-        data['structured_data'] = {'schema_markup': schema_markup, 'schema_count': len(schema_markup)}
+                schema_markup.append({'@type': str(schema), 'format': 'unknown'})
+                formats.append('unknown')
+        data['structured_data'] = {
+            'schema_markup': schema_markup, 
+            'schema_count': len(schema_markup),
+            'formats': formats
+        }
 
         data['social'] = parsed_data.get('social', {}) or {}
         crawler_data = parsed_data.get('crawler_data', {}) or {}
