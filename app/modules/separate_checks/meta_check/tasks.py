@@ -1,7 +1,11 @@
+import asyncio
 from uuid import UUID
 
 from app.core.logger import logger
-from app.modules.separate_checks.meta_check.service import MetaCheckService
+from app.modules.separate_checks.meta_check.service import (
+    META_CHECK_CRAWL_TIMEOUT_SECONDS,
+    MetaCheckService,
+)
 from app.shared.exceptions import categorize_error
 from app.shared.tasks.celery_app import celery_app
 from app.shared.tasks.db import run_async
@@ -15,10 +19,11 @@ from app.shared.tasks.db import run_async
     retry_backoff=True,
     retry_backoff_max=300,
     retry_jitter=True,
+    dont_autoretry_for=(asyncio.TimeoutError,),
     max_retries=2,
     acks_late=True,
-    time_limit=900,
-    soft_time_limit=840,
+    time_limit=META_CHECK_CRAWL_TIMEOUT_SECONDS + 60,
+    soft_time_limit=META_CHECK_CRAWL_TIMEOUT_SECONDS,
     track_started=True,
 )
 def run_check(self, check_id: str) -> dict:

@@ -26,13 +26,26 @@ class TestHttpFetcherPooling:
         mock_response.status_code = 200
         mock_response.url = "https://example.com/page"
         mock_response.headers = {"content-type": "text/html"}
-        mock_response.content = b"<html><body>Hello</body></html>"
+        mock_response.http_version = "HTTP/1.1"
         mock_response.history = []
 
-        with patch.object(fetcher._client, "get", new_callable=AsyncMock, return_value=mock_response) as mock_get:
+        async def chunks():
+            yield b"<html><body>Hello</body></html>"
+
+        mock_response.aiter_bytes = chunks
+        stream_context = MagicMock()
+        stream_context.__aenter__ = AsyncMock(return_value=mock_response)
+        stream_context.__aexit__ = AsyncMock(return_value=None)
+        with patch(
+            "app.modules.crawler.fetchers.http_fetcher.validate_url_ssrf_async",
+            new_callable=AsyncMock,
+        ), patch.object(
+            fetcher._client, "stream", return_value=stream_context
+        ) as mock_stream:
             result = await fetcher.fetch("https://example.com/page")
             assert result.success is True
-            mock_get.assert_called_once()
+            assert result.content == b"<html><body>Hello</body></html>"
+            mock_stream.assert_called_once()
 
     @pytest.mark.asyncio
     async def test_close_cleans_up(self):

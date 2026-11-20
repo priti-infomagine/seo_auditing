@@ -1,3 +1,4 @@
+import asyncio
 import time
 from typing import Any, Callable, Optional
 from uuid import UUID, uuid4
@@ -18,6 +19,9 @@ from .metadata_rows import build_metadata_rows
 from .repository import MetaCheckRepository
 from .schema import MetaCheckRequest
 from .validation import normalize_target_url
+
+
+META_CHECK_CRAWL_TIMEOUT_SECONDS = 840
 
 
 class MetaCheckService:
@@ -88,6 +92,23 @@ class MetaCheckService:
         if check is None:
             raise ValueError(f"MetaCheck with id {check_id} not found")
 
+        if check.status == MetaCheckStatus.COMPLETED.value:
+            logger.info(
+                "Meta check %s is already completed; skipping duplicate task",
+                check_id,
+            )
+            summary = check.summary or {}
+            return {
+                "status": MetaCheckStatus.COMPLETED.value,
+                "check_id": str(check_id),
+                "pages_checked": summary.get(
+                    "pages_checked", len(check.pages or [])
+                ),
+                "total_findings": summary.get(
+                    "total_findings", len(check.findings or [])
+                ),
+            }
+
         try:
             progress = {
                 "phase": "crawling",
@@ -112,12 +133,17 @@ class MetaCheckService:
                     update_state("PROGRESS", payload)
 
             orchestrator = CrawlOrchestrator(db, check_id)
-            await orchestrator.run(
-                start_url=check.url,
-                max_depth=check.max_depth,
-                max_pages=check.max_pages,
-                respect_robots=(check.progress or {}).get("respect_robots", True),
-                progress_callback=on_progress,
+            await asyncio.wait_for(
+                orchestrator.run(
+                    start_url=check.url,
+                    max_depth=check.max_depth,
+                    max_pages=check.max_pages,
+                    respect_robots=(check.progress or {}).get(
+                        "respect_robots", True
+                    ),
+                    progress_callback=on_progress,
+                ),
+                timeout=META_CHECK_CRAWL_TIMEOUT_SECONDS,
             )
 
             page_rows = (
@@ -174,13 +200,24 @@ class MetaCheckService:
                 "total_findings": summary["total_findings"],
             }
         except Exception as exc:
-            logger.error("Meta check failed for %s: %s", check_id, exc, exc_info=True)
+            error_message = (
+                f"Metadata crawl exceeded "
+                f"{META_CHECK_CRAWL_TIMEOUT_SECONDS} seconds"
+                if isinstance(exc, asyncio.TimeoutError)
+                else str(exc) or type(exc).__name__
+            )
+            logger.error(
+                "Meta check failed for %s: %s",
+                check_id,
+                error_message,
+                exc_info=True,
+            )
             await db.rollback()
             await repo.update_progress(
                 check_id,
                 MetaCheckStatus.FAILED,
                 progress={"phase": "failed", "message": "Metadata crawl failed"},
-                error=str(exc)[:1024],
+                error=error_message[:1024],
             )
             await db.commit()
             raise

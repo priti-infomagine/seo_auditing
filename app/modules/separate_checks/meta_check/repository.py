@@ -34,11 +34,17 @@ class MetaCheckRepository:
         progress: Optional[dict] = None,
         error: Optional[str] = None,
     ) -> None:
-        values: dict[str, Any] = {"status": _value(status)}
+        status_value = _value(status)
+        values: dict[str, Any] = {"status": status_value}
         if progress is not None:
             values["progress"] = progress
         if error is not None:
             values["error"] = error
+        elif status_value in {
+            MetaCheckStatus.QUEUED.value,
+            MetaCheckStatus.PROCESSING.value,
+        }:
+            values["error"] = None
         await self.db.execute(
             update(MetaCheck).where(MetaCheck.id == check_id).values(**values)
         )

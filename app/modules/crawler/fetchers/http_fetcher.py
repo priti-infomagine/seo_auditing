@@ -51,10 +51,38 @@ class HttpFetcher(Fetcher):
         headers: Optional[Dict[str, str]] = None,
     ) -> FetchResult:
         req_timeout = timeout if timeout is not None else self.config.request_timeout
+        start_time = time.perf_counter()
+        deadline = start_time + req_timeout
 
         # SSRF Protection Check — async DNS (non-blocking)
         try:
-            await validate_url_ssrf_async(url, allow_private=self.config.allow_private_ips)
+            await asyncio.wait_for(
+                validate_url_ssrf_async(
+                    url, allow_private=self.config.allow_private_ips
+                ),
+                timeout=req_timeout,
+            )
+        except asyncio.TimeoutError:
+            return FetchResult(
+                url=url,
+                normalized_url=url,
+                status_code=0,
+                content=b"",
+                headers={},
+                final_url=url,
+                content_type=None,
+                content_length=0,
+                response_time_ms=int((time.perf_counter() - start_time) * 1000),
+                redirect_chain=[],
+                success=False,
+                error=(
+                    f"URL validation exceeded total timeout of "
+                    f"{req_timeout} seconds"
+                ),
+                error_type="timeout",
+                render_mode="http",
+                http_version=None,
+            )
         except Exception as exc:
             return FetchResult(
                 url=url,
@@ -78,25 +106,45 @@ class HttpFetcher(Fetcher):
         if headers:
             req_headers.update(headers)
 
-        start_time = time.perf_counter()
         max_retries = 3
         last_error = None
         last_error_type = None
 
         for attempt in range(1, max_retries + 1):
+            remaining_timeout = deadline - time.perf_counter()
+            if remaining_timeout <= 0:
+                last_error = f"Request exceeded total timeout of {req_timeout} seconds"
+                last_error_type = "timeout"
+                break
+
             try:
-                response = await self._client.get(
-                    url,
-                    timeout=req_timeout,
-                    headers=req_headers,
+                async def _read_response():
+                    async with self._client.stream(
+                        "GET",
+                        url,
+                        timeout=remaining_timeout,
+                        headers=req_headers,
+                    ) as response:
+                        chunks = []
+                        content_length = 0
+                        async for chunk in response.aiter_bytes():
+                            content_length += len(chunk)
+                            if content_length > self.config.max_response_size:
+                                return response, b"", content_length, True
+                            chunks.append(chunk)
+                        return response, b"".join(chunks), content_length, False
+
+                response, content, content_length, content_too_large = (
+                    await asyncio.wait_for(
+                        _read_response(),
+                        timeout=remaining_timeout,
+                    )
                 )
 
                 response_time_ms = int((time.perf_counter() - start_time) * 1000)
                 norm_headers = {k.lower(): v for k, v in response.headers.items()}
-                content = response.content
 
-                # Content-size limit check
-                if len(content) > self.config.max_response_size:
+                if content_too_large:
                     return FetchResult(
                         url=url,
                         normalized_url=shared_normalize_url(str(response.url)),
@@ -105,11 +153,14 @@ class HttpFetcher(Fetcher):
                         headers=norm_headers,
                         final_url=str(response.url),
                         content_type=norm_headers.get("content-type"),
-                        content_length=len(content),
+                        content_length=content_length,
                         response_time_ms=response_time_ms,
                         redirect_chain=[],
                         success=False,
-                        error=f"Response size {len(content)} exceeds limit {self.config.max_response_size}",
+                        error=(
+                            f"Response size exceeds limit "
+                            f"{self.config.max_response_size}"
+                        ),
                         error_type="content_too_large",
                         render_mode="http",
                         http_version=str(response.http_version),
@@ -129,7 +180,10 @@ class HttpFetcher(Fetcher):
 
                 # Transient retries (500, 502, 503, 504, 429)
                 if status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
-                    await asyncio.sleep(0.5 * (2 ** (attempt - 1)) + random.uniform(0, 0.2))
+                    retry_delay = 0.5 * (2 ** (attempt - 1)) + random.uniform(0, 0.2)
+                    await asyncio.sleep(
+                        min(retry_delay, max(0, deadline - time.perf_counter()))
+                    )
                     continue
 
                 return FetchResult(
@@ -140,7 +194,7 @@ class HttpFetcher(Fetcher):
                     headers=norm_headers,
                     final_url=str(response.url),
                     content_type=norm_headers.get("content-type"),
-                    content_length=len(content),
+                    content_length=content_length,
                     response_time_ms=response_time_ms,
                     redirect_chain=redirects,
                     success=200 <= status_code < 400,
@@ -150,11 +204,20 @@ class HttpFetcher(Fetcher):
                     http_version=str(response.http_version),
                 )
 
+            except asyncio.TimeoutError:
+                last_error = (
+                    f"Request exceeded total timeout of {req_timeout} seconds"
+                )
+                last_error_type = "timeout"
+                break
             except (httpx.TimeoutException, httpx.ConnectError, httpx.NetworkError) as exc:
                 last_error = str(exc)
                 last_error_type = "timeout" if isinstance(exc, httpx.TimeoutException) else "network_error"
                 if attempt < max_retries:
-                    await asyncio.sleep(0.5 * (2 ** (attempt - 1)) + random.uniform(0, 0.2))
+                    retry_delay = 0.5 * (2 ** (attempt - 1)) + random.uniform(0, 0.2)
+                    await asyncio.sleep(
+                        min(retry_delay, max(0, deadline - time.perf_counter()))
+                    )
                     continue
                 break
             except Exception as exc:
