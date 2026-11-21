@@ -52,21 +52,20 @@
           "check_id": "on_page_001",
           "severity": "critical",
           "title": "Missing Title Tag",
+          "evidence": {
+            "title_len": 0
+          },
           "description": "Page 1 is missing a <title> tag.",
           "recommendation": "Add a descriptive <title> tag (30-60 characters).",
           "priority": "high",
           "estimated_impact": "high",
           "affected_page_count": 1,
-          "affected_pages": [
+          "occurrences": [
             {
-              "url": "https://example.com/page1",
               "found_value": {
                 "title": ""
               },
-              "expected_value": "30-60 chars",
-              "evidence": {
-                "title_len": 0
-              }
+              "expected_value": "30-60 chars"
             }
           ]
         }
@@ -198,6 +197,18 @@
       "order": 14,
       "applicable": false,
       "reason_not_applicable": "no applicable checks configured for mobile.",
+      "weight": 0.0,
+      "score": null,
+      "status": null,
+      "issue_count": null,
+      "issues": []
+    },
+    {
+      "id": "schema",
+      "label": "Schema & Structured Data",
+      "order": 15,
+      "applicable": false,
+      "reason_not_applicable": "no applicable checks configured for schema & structured data.",
       "weight": 0.0,
       "score": null,
       "status": null,

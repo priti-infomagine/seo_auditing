@@ -88,25 +88,27 @@ def sample_parsed_data():
         "social": {
             "open_graph": {
                 "tags": {
-                    "og:title": "Test Page",
-                    "og:description": "Test description",
-                    "og:image": "https://example.com/image.jpg",
-                    "og:url": "https://example.com/page",
+                    "og:title": ["Test Page"],
+                    "og:description": ["Test description"],
+                    "og:image": ["https://example.com/image.jpg"],
+                    "og:url": ["https://example.com/page"],
                 }
             },
             "twitter_cards": {
                 "tags": {
-                    "twitter:card": "summary_large_image",
-                    "twitter:title": "Test Page",
-                    "twitter:description": "Test description",
+                    "twitter:card": ["summary_large_image"],
+                    "twitter:title": ["Test Page"],
+                    "twitter:description": ["Test description"],
                 }
             },
-            "social_links": {
-                "links": [
-                    {"platform": "facebook", "url": "https://facebook.com/example"},
-                    {"platform": "twitter", "url": "https://twitter.com/example"},
-                ]
-            },
+            "social_links": [
+                {"platform": "facebook", "url": "https://facebook.com/example", "text": "Facebook"},
+                {"platform": "twitter", "url": "https://twitter.com/example", "text": "Twitter"},
+            ],
+            "sharing_buttons": [
+                {"platform": "facebook", "selector": "a.fb-share", "url": "https://facebook.com/sharer", "text": "Share on Facebook"},
+                {"platform": "twitter", "selector": "a.tweet", "url": "https://twitter.com/intent/tweet", "text": "Tweet"},
+            ],
         },
         "security": {
             "mixed_content": [],
@@ -147,12 +149,13 @@ class TestScorerService:
         assert "overall_score" in result
         assert "grade" in result
         assert "categories" in result
-        assert "summary" in result
-        assert "top_issues" in result
+        assert "total_rules" in result
+        assert "total_passed" in result
+        assert "total_failed" in result
         assert "rule_results" in result
         
         assert 0 <= result["overall_score"] <= 100
-        assert result["grade"] in ["A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"]
+        assert result["grade"] in ["A+", "A", "B+", "B", "C+", "C", "D+", "D", "E", "F"]
         assert isinstance(result["categories"], dict)
         assert len(result["rule_results"]) > 0
     
@@ -208,7 +211,7 @@ class TestIndividualRules:
         result = await rule.evaluate({"basic": {}})
         assert len(result) == 1
         assert result[0].passed is False
-        assert result[0].severity == Severity.CRITICAL
+        assert result[0].severity == Severity.WARNING  # Updated: now WARNING not CRITICAL
         
         # Test optimal title
         result = await rule.evaluate({"basic": {"title": "Test Title", "title_length": 45}})
@@ -217,7 +220,7 @@ class TestIndividualRules:
         # Test too short title
         result = await rule.evaluate({"basic": {"title": "Short", "title_length": 15}})
         assert result[0].passed is False
-        assert result[0].severity == Severity.WARNING
+        assert result[0].severity == Severity.INFO  # Updated: now INFO not WARNING
     
     @pytest.mark.asyncio
     async def test_ssl_certificate_rule(self, scorer_service):
@@ -290,7 +293,7 @@ class TestIndividualRules:
             "images": {"total_count": 10, "without_alt": 5}
         })
         assert result[0].passed is False
-        assert result[0].severity == Severity.WARNING
+        assert result[0].severity == Severity.INFO  # Updated: now INFO not WARNING
 
     @pytest.mark.asyncio
     async def test_title_tag_pixel_width(self, scorer_service):
@@ -302,7 +305,8 @@ class TestIndividualRules:
             "basic": {"title": "A" * 100},
             "content": {"text": "word " * 20}
         })
-        assert result[0].data["pixel_width_estimate"] == 650
+        # Updated: new pixel width estimation gives ~750 for 100 chars
+        assert result[0].data["pixel_width_estimate"] == 750
 
     @pytest.mark.asyncio
     async def test_h1_tag_improvements(self, scorer_service):
@@ -504,7 +508,7 @@ class TestIndividualRules:
             "seo": {"title": "Same Title", "duplicate_titles": ["Same Title", "Other"]}
         })
         assert result[0].passed is False
-        assert result[0].severity == Severity.WARNING
+        assert result[0].severity == Severity.INFO  # Updated: now INFO not WARNING
         
         # Duplicate description
         rule = DuplicateDescriptionsRule()

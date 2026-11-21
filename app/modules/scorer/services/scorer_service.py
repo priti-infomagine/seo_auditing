@@ -11,7 +11,7 @@ from app.core.logger import logger
 # Import all rule classes
 from app.modules.rule_engine.category_rules.on_page import (
     TitleTagRule, MetaDescriptionRule, H1TagRule, HeadingHierarchyRule,
-    MetaKeywordsRule, CanonicalUrlRule, RobotsMetaRule, OpenGraphRule, TwitterCardsRule
+    MetaKeywordsRule, CanonicalUrlRule, RobotsMetaRule
 )
 from app.modules.rule_engine.category_rules.technical import (
     SSL_CertificateRule, MobileViewportRule, LanguageDeclarationRule,
@@ -53,7 +53,16 @@ from app.modules.rule_engine.category_rules.schema import (
     JsonLdFormatRule,              # schema_010
 )
 from app.modules.rule_engine.category_rules.social import (
-    SocialMediaLinksRule, FacebookDomainRule, SocialImageRule
+    OpenGraphTitleRule,
+    OpenGraphDescriptionRule,
+    OpenGraphImageRule,
+    OpenGraphImageDimensionsRule,
+    TwitterCardMetadataRule,
+    OpenGraphUrlRule,
+    OpenGraphCanonicalConsistencyRule,
+    SocialSharingIntegrationRule,
+    SocialProfileLinksRule,
+    FacebookDomainRule,
 )
 from app.modules.rule_engine.category_rules.security import (
     XSSProtectionRule,
@@ -111,10 +120,10 @@ class ScorerService:
     def _load_rules(self) -> List[BaseRule]:
         """Load all scoring rules."""
         rules = [
-            # On-Page (9 rules)
+            # On-Page (7 rules)
             TitleTagRule(), MetaDescriptionRule(), H1TagRule(),
             HeadingHierarchyRule(), MetaKeywordsRule(), CanonicalUrlRule(),
-            RobotsMetaRule(), OpenGraphRule(), TwitterCardsRule(),
+            RobotsMetaRule(),
             
             # Technical (12 rules)
             SSL_CertificateRule(), MobileViewportRule(), LanguageDeclarationRule(),
@@ -156,8 +165,17 @@ class ScorerService:
             ProductSchemaRule(),                  # schema_009
             JsonLdFormatRule(),                   # schema_010
             
-            # Social (3 rules)
-            SocialMediaLinksRule(), FacebookDomainRule(), SocialImageRule(),
+            # Social (10 rules)
+            OpenGraphTitleRule(),
+            OpenGraphDescriptionRule(),
+            OpenGraphImageRule(),
+            OpenGraphImageDimensionsRule(),
+            TwitterCardMetadataRule(),
+            OpenGraphUrlRule(),
+            OpenGraphCanonicalConsistencyRule(),
+            SocialSharingIntegrationRule(),
+            SocialProfileLinksRule(),
+            FacebookDomainRule(),
             
             # Security (14 new rules)
             TLSConfigurationRule(),        # security_007
@@ -252,6 +270,19 @@ class ScorerService:
             
             # Add raw results for transparency
             score_report["rule_results"] = rule_results
+            
+            # Map high_issues to warnings for API schema compatibility
+            score_report["warnings"] = score_report.pop("high_issues", 0)
+            
+            # Generate summary and top_issues for API compatibility
+            score_report["summary"] = self._generate_summary(score_report, rule_results)
+            score_report["top_issues"] = self._get_top_issues(rule_results)
+            
+            # Convert categories to match API schema
+            converted_categories = {}
+            for cat_name, cat_data in score_report.get("categories", {}).items():
+                converted_categories[cat_name] = self._convert_category_score(cat_name, cat_data)
+            score_report["categories"] = converted_categories
             
             logger.info(
                 f"SEO Score calculated: {score_report['overall_score']}/100 "
@@ -426,4 +457,91 @@ class ScorerService:
                 cat: {"count": len(rules), "rules": rules}
                 for cat, rules in categories.items()
             }
+        }
+    
+    def _generate_summary(self, score_report: Dict[str, Any], rule_results: List) -> str:
+        """Generate human-readable summary of SEO score."""
+        overall_score = score_report.get("overall_score", 0)
+        grade = score_report.get("grade", "F")
+        total_rules = score_report.get("total_rules", 0)
+        total_failed = score_report.get("total_failed", 0)
+        critical_issues = score_report.get("critical_issues", 0)
+        
+        if overall_score >= 90:
+            status = "excellent"
+        elif overall_score >= 70:
+            status = "good"
+        elif overall_score >= 50:
+            status = "needs improvement"
+        else:
+            status = "poor"
+        
+        return (
+            f"SEO Score: {overall_score}/100 (Grade {grade}) - {status}. "
+            f"Checked {total_rules} rules, {total_failed} issues found "
+            f"({critical_issues} critical)."
+        )
+    
+    def _get_top_issues(self, rule_results: List) -> List[Dict[str, Any]]:
+        """Get top priority issues (critical and high severity failures) as dicts for API compatibility."""
+        from app.modules.rule_engine.models.rule_result import Severity
+        
+        # Filter failed rules by severity priority
+        failed_rules = [r for r in rule_results if not r.passed]
+        
+        # Sort by severity: CRITICAL > WARNING > INFO > ERROR
+        severity_order = {
+            Severity.CRITICAL: 0,
+            Severity.ERROR: 1,
+            Severity.WARNING: 2,
+            Severity.INFO: 3,
+        }
+        
+        failed_rules.sort(key=lambda r: severity_order.get(r.severity, 4))
+        
+        # Return top 10 issues as dicts
+        top_issues = []
+        for r in failed_rules[:10]:
+            top_issues.append({
+                "rule_id": r.rule_id,
+                "name": r.name,
+                "category": r.category,
+                "severity": r.severity.value if hasattr(r.severity, 'value') else str(r.severity),
+                "passed": r.passed,
+                "score_impact": r.score_impact,
+                "message": r.message,
+                "recommendation": r.recommendation,
+                "data": r.data,
+                "tags": r.tags,
+            })
+        return top_issues
+    
+    def _convert_rule_result(self, r) -> Dict[str, Any]:
+        """Convert RuleResult to dict matching RuleResultSchema."""
+        return {
+            "rule_id": r.rule_id,
+            "name": r.name,
+            "category": r.category,
+            "severity": r.severity.value if hasattr(r.severity, 'value') else str(r.severity),
+            "passed": r.passed,
+            "score_impact": r.score_impact,
+            "message": r.message,
+            "recommendation": r.recommendation,
+            "data": r.data,
+            "tags": r.tags,
+        }
+    
+    def _convert_category_score(self, cat_name: str, cat_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert category score to match CategoryScoreSchema."""
+        return {
+            "category": cat_name,
+            "score": cat_data.get("score", 0),
+            "max_score": cat_data.get("max_score", 100.0),
+            "weight": cat_data.get("weight", 0),
+            "rules_checked": cat_data.get("rules_checked", 0),
+            "rules_passed": cat_data.get("rules_passed", 0),
+            "rules_failed": cat_data.get("rules_failed", 0),
+            "issues": [self._convert_rule_result(r) for r in cat_data.get("issues", [])],
+            "warnings": [self._convert_rule_result(r) for r in cat_data.get("warnings", [])],
+            "passed_rules": [self._convert_rule_result(r) for r in cat_data.get("passed_rules", [])],
         }

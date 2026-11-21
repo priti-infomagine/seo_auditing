@@ -36,7 +36,6 @@ class ScoreCalculator:
 
     # Category weights (sum = 1.0)
     DEFAULT_WEIGHTS = {
-        "indexability": 0.25,    # Crawlability, noindex, canonical, robots
         "on_page": 0.20,         # Title, meta, headings, content structure
         "technical": 0.15,       # HTTPS, viewport, charset, doctype, redirects
         "content": 0.15,         # Word count, duplicates, freshness, structure
@@ -51,7 +50,6 @@ class ScoreCalculator:
 
     # Map internal rule categories to scoring categories
     CATEGORY_MAP = {
-        "indexability": "indexability",
         "technical": "technical",
         "on_page": "on_page",
         "content": "content",
