@@ -99,6 +99,13 @@ from app.modules.rule_engine.category_rules.performance import (
     RenderBlockingResourcesRule, LazyLoadingAboveFoldRule, CSSFileSizeRule,
     MinifyInlineJSRule, InlineJSSizeRule, VideoInsteadOfGIFRule,
 )
+from app.modules.rule_engine.category_rules.eeat import (
+    PrivacyPolicyRule, TermsOfServiceRule, AuthorBylineRule,
+    AuthorExpertiseRule, ContentDatesRule, PhysicalAddressRule,
+    EditorialPolicyRule, TrustSignalsRule, DisclaimersRule,
+    AboutPageRule, ContactPageRule, ExternalCitationsRule,
+    AffiliateDisclosureRule, YMYLDetectionRule,
+)
 
 
 class ScorerService:
@@ -218,6 +225,13 @@ class ScorerService:
             LCPOptimizationRule(), MinifyInlineCSSRule(), HTTP2SupportRule(), DOMSizeRule(),
             RenderBlockingResourcesRule(), LazyLoadingAboveFoldRule(), CSSFileSizeRule(),
             MinifyInlineJSRule(), InlineJSSizeRule(), VideoInsteadOfGIFRule(),
+            
+            # EEAT (14 rules — Category 10)
+            PrivacyPolicyRule(), TermsOfServiceRule(), AuthorBylineRule(),
+            AuthorExpertiseRule(), ContentDatesRule(), PhysicalAddressRule(),
+            EditorialPolicyRule(), TrustSignalsRule(), DisclaimersRule(),
+            AboutPageRule(), ContactPageRule(), ExternalCitationsRule(),
+            AffiliateDisclosureRule(), YMYLDetectionRule(),
         ]
         
         logger.info(f"Loaded {len(rules)} scoring rules")
@@ -422,6 +436,8 @@ class ScorerService:
         }
 
         data['social'] = parsed_data.get('social', {}) or {}
+        # EEAT data
+        data['eeat'] = parsed_data.get('eeat', {}) or {}
         crawler_data = parsed_data.get('crawler_data', {}) or {}
         rt = crawler_data.get('response_time_ms', 0)
         data['http'] = {'status_code': crawler_data.get('status_code', 0), 'content_type': crawler_data.get('content_type', ''), 'response_time': rt / 1000.0 if rt else 0.0, 'headers': crawler_data.get('headers', {})}

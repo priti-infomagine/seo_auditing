@@ -12,6 +12,7 @@ from app.modules.parser.models.technical_data import TechnicalData
 from app.modules.parser.models.head_data import HeadData
 from app.modules.parser.models.inline_css_data import InlineCSSData
 from app.modules.parser.models.inline_js_data import InlineJSData
+from app.modules.parser.models.eeat_data import EEATData
 from app.modules.parser.services.document_parser_service import DocumentContext, DocumentParserService
 from app.modules.parser.extractors.metadata_extractor import MetadataExtractor
 from app.modules.parser.extractors.content_extractor import ContentExtractor
@@ -26,6 +27,7 @@ from app.modules.parser.extractors.technical_extractor import TechnicalExtractor
 from app.modules.parser.extractors.head_extractor import HeadExtractor
 from app.modules.parser.extractors.inline_css_extractor import InlineCSSExtractor
 from app.modules.parser.extractors.inline_js_extractor import InlineJSExtractor
+from app.modules.parser.extractors.eeat_extractor import EEATExtractor
 from app.modules.parser.analyzers import (
     analyze_content,
     analyze_headings,
@@ -68,6 +70,7 @@ class ParserOrchestrator:
             "head": HeadExtractor(),
             "inline_css": InlineCSSExtractor(),
             "inline_js": InlineJSExtractor(),
+            "eeat": EEATExtractor(),
         }
 
     def parse(self, html: str, url: str = "") -> ParsedPage:
@@ -103,6 +106,7 @@ class ParserOrchestrator:
         head = self.extractors["head"].extract(context)
         inline_css = self.extractors["inline_css"].extract(context)
         inline_js = self.extractors["inline_js"].extract(context)
+        eeat = self.extractors["eeat"].extract(context)
 
         # Run extractors on rendered HTML if available
         head_rendered = None
@@ -177,6 +181,8 @@ class ParserOrchestrator:
             inline_css_rendered=inline_css_rendered,
             inline_js=inline_js,
             inline_js_rendered=inline_js_rendered,
+            # EEAT fields
+            eeat=eeat,
         )
 
     def parse_html(

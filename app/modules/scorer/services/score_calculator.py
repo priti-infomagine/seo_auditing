@@ -44,6 +44,7 @@ class ScoreCalculator:
         "security": 0.05,        # Headers, SSL, mixed content
         "schema": 0.03,          # Schema markup
         "images": 0.02,          # Alt, dimensions, formats, lazy loading
+        "eeat": 0.05,            # E-E-A-T trust signals
         "social": 0.00,          # Not scored (informational)
         "accessibility": 0.00,   # Not scored (separate audit)
     }
@@ -68,6 +69,7 @@ class ScoreCalculator:
         "perf": "performance",
         "core_web_vitals": "performance",
         "a11y": "accessibility",
+        "eeat": "eeat",
     }
 
     # Severity penalties (per failed check) - aligned with Ahrefs/Semrush impact

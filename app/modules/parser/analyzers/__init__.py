@@ -5,6 +5,7 @@ from .image_analyzer import analyze_images
 from .schema_analyzer import analyze_schemas
 from .hreflang_analyzer import analyze_hreflang
 from .resource_analyzer import analyze_resources
+from .eeat_analyzer import EEATAnalyzer
 
 __all__ = [
     "analyze_content",
@@ -14,4 +15,5 @@ __all__ = [
     "analyze_schemas",
     "analyze_hreflang",
     "analyze_resources",
+    "EEATAnalyzer",
 ]

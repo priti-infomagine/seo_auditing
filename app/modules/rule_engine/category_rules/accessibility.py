@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 
 from app.modules.scorer.services.base_rule import BaseRule
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
-
+import re
 
 class FormLabelsRule(BaseRule):
     """a11y_001 - Form inputs have associated accessible labels."""

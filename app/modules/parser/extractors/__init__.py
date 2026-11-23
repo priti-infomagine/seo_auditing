@@ -11,6 +11,7 @@ from .technical_extractor import TechnicalExtractor
 from .head_extractor import HeadExtractor
 from .inline_css_extractor import InlineCSSExtractor
 from .inline_js_extractor import InlineJSExtractor
+from .eeat_extractor import EEATExtractor
 
 __all__ = [
     "MetadataExtractor",
@@ -26,4 +27,5 @@ __all__ = [
     "HeadExtractor",
     "InlineCSSExtractor",
     "InlineJSExtractor",
+    "EEATExtractor",
 ]

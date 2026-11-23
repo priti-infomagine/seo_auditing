@@ -15,6 +15,7 @@ from app.modules.parser.models.technical_data import TechnicalData
 from app.modules.parser.models.head_data import HeadData
 from app.modules.parser.models.inline_css_data import InlineCSSData
 from app.modules.parser.models.inline_js_data import InlineJSData
+from app.modules.parser.models.eeat_data import EEATData
 
 
 class PageIdentity(BaseModel):
@@ -56,6 +57,8 @@ class ParsedPage(BaseModel):
     inline_css_rendered: list[InlineCSSData] = Field(default_factory=list)
     inline_js: list[InlineJSData] = Field(default_factory=list)
     inline_js_rendered: list[InlineJSData] = Field(default_factory=list)
+    # EEAT fields
+    eeat: EEATData | None = None
 
     @property
     def structured_data(self) -> list[SchemaData]:

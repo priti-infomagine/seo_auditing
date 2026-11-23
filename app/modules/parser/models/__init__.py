@@ -11,6 +11,7 @@ from .technical_data import TechnicalData
 from .head_data import HeadData
 from .inline_css_data import InlineCSSData
 from .inline_js_data import InlineJSData
+from .eeat_data import EEATData, EEATSignal
 
 ParsedPage.model_rebuild()
 
@@ -39,4 +40,6 @@ __all__ = [
     "HeadData",
     "InlineCSSData",
     "InlineJSData",
+    "EEATData",
+    "EEATSignal",
 ]

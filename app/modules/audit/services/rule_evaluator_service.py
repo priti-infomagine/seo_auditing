@@ -16,7 +16,7 @@ import json
 from typing import Dict, Any, List, Optional
 import uuid
 from uuid import UUID
-
+import re
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.datetime_utils import utc_now
@@ -62,6 +62,8 @@ class RuleEvaluatorService:
         "inline_js", "inline_js_rendered",
         "images_rendered", "resources_rendered",
         "technical_rendered",
+        # EEAT key
+        "eeat",
     ]
 
     def __init__(
@@ -612,6 +614,8 @@ class RuleEvaluatorService:
                 data["inline_css_rendered"] = _parse_jsonb(parsed_data.get("inline_css_rendered"), [])
                 data["inline_js"] = _parse_jsonb(parsed_data.get("inline_js"), [])
                 data["inline_js_rendered"] = _parse_jsonb(parsed_data.get("inline_js_rendered"), [])
+                # EEAT fields
+                data["eeat"] = _parse_jsonb(parsed_data.get("eeat"), {})
                 # Flatten page_facts for quick access
                 data["_page_facts"] = fact.page_facts or {}
         except Exception as exc:
