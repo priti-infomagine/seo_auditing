@@ -162,9 +162,9 @@ class AnchorTextRule(BaseRule):
     rule_id = "links_004"
     name = "Anchor Text"
     category = "links"
-    description = "Links should have descriptive anchor text"
+    description = "Links should have descriptive anchor text (accessible name per WCAG)"
     weight = 1.0
-    tags = ["warning", "links", "ux"]
+    tags = ["warning", "links", "ux", "accessibility"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         links = data.get("links", {})
@@ -178,7 +178,8 @@ class AnchorTextRule(BaseRule):
                 score_impact=0,
             )]
         
-        # Check for generic anchor text
+        # Check for generic anchor text using accessible_name (WCAG 2.1)
+        # accessible_name = aria-label > aria-labelledby > title > link text
         generic_anchors = {
             "click here",
             "read more",
@@ -196,11 +197,12 @@ class AnchorTextRule(BaseRule):
             "see more",
             "find out more",
         }
-
+        
         generic_count = 0
         
         for link in all_links:
-            anchor = link.get("anchor_text", "").lower().strip()
+            # Use accessible_name (WCAG) which includes aria-label, aria-labelledby, title, link text
+            anchor = (link.get("accessible_name") or link.get("text") or "").lower().strip()
             if anchor in generic_anchors or len(anchor) < 3:
                 generic_count += 1
         
@@ -218,7 +220,7 @@ class AnchorTextRule(BaseRule):
             message=f"{generic_count} links have generic/non-descriptive anchor text",
             severity=Severity.WARNING,
             score_impact=impact,
-            recommendation="Use descriptive anchor text for better SEO and accessibility",
+            recommendation="Use descriptive anchor text for better SEO and accessibility. Use aria-label for icon-only links.",
             data={"generic_count": generic_count, "total_links": len(all_links)},
         )]
 

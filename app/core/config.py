@@ -80,6 +80,20 @@ class Settings(BaseSettings):
     LINK_CHECK_TIMEOUT: float = 10.0
     LINK_CHECK_MAX_CONCURRENCY: int = 5
     LINK_CHECK_EXTERNAL_ENABLED: bool = True
+    # Domains that consistently block automated checks (social media, etc.)
+    # These will be skipped during external link checking to avoid false positives
+    LINK_CHECK_EXCLUDED_DOMAINS: list[str] = [
+        "linkedin.com",
+        "facebook.com",
+        "instagram.com",
+        "twitter.com",
+        "x.com",
+        "youtube.com",
+        "tiktok.com",
+        "pinterest.com",
+        "reddit.com",
+        "github.com",
+    ]
 
     # ── Link Analysis ───────────────────────────────────────────────
     LINK_ANALYSIS_MAX_PAGES: int = 2000
@@ -103,6 +117,16 @@ class Settings(BaseSettings):
     URL_MAX_DEPTH_THRESHOLD: int = 4             # UrlDepthRule
     URL_MAX_DEPTH_WARNING_THRESHOLD: int = 6     # UrlDepthRule
     DEAD_END_CHECK_ENABLED: bool = True          # DeadEndPagesRule
+
+    # ── SEO Ignore Patterns ─────────────────────────────────────────
+    # URL patterns (regex) to exclude from SEO analysis
+    # Useful for 404 pages, test pages, etc. that shouldn't be scored
+    SEO_IGNORE_PATTERNS: list[str] = [
+        r"/Users\.midasx\.in",      # 404 page on moneymatters
+        r"/404",                     # Generic 404 pages
+        r"/test",                    # Test pages
+        r"/staging",                 # Staging pages
+    ]
     FRAGMENT_CHECK_RENDERED: bool = True         # FragmentLinkTargetsRule
 
     # ── Chat Auth ───────────────────────────────────────────────────

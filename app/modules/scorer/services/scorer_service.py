@@ -106,6 +106,7 @@ from app.modules.rule_engine.category_rules.eeat import (
     AboutPageRule, ContactPageRule, ExternalCitationsRule,
     AffiliateDisclosureRule, YMYLDetectionRule,
 )
+from app.modules.rule_engine.category_rules.url_structure import ALL_URL_STRUCTURE_RULES
 
 
 class ScorerService:
@@ -232,6 +233,9 @@ class ScorerService:
             EditorialPolicyRule(), TrustSignalsRule(), DisclaimersRule(),
             AboutPageRule(), ContactPageRule(), ExternalCitationsRule(),
             AffiliateDisclosureRule(), YMYLDetectionRule(),
+            
+            # URL Structure (15 rules)
+            *[rule_cls() for rule_cls in ALL_URL_STRUCTURE_RULES],
         ]
         
         logger.info(f"Loaded {len(rules)} scoring rules")

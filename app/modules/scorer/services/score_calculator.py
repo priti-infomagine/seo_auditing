@@ -45,6 +45,7 @@ class ScoreCalculator:
         "schema": 0.03,          # Schema markup
         "images": 0.02,          # Alt, dimensions, formats, lazy loading
         "eeat": 0.05,            # E-E-A-T trust signals
+        "url_structure": 0.03,   # URL cleanliness, readability, structure
         "social": 0.00,          # Not scored (informational)
         "accessibility": 0.00,   # Not scored (separate audit)
     }
@@ -70,6 +71,7 @@ class ScoreCalculator:
         "core_web_vitals": "performance",
         "a11y": "accessibility",
         "eeat": "eeat",
+        "url_structure": "url_structure",
     }
 
     # Severity penalties (per failed check) - aligned with Ahrefs/Semrush impact
@@ -331,6 +333,7 @@ INTERNAL_TO_RESPONSE: Dict[str, str] = {
     "security": "security",
     "accessibility": "accessibility",
     "performance": "performance",
+    "url_structure": "url_structure",
 }
 
 # Response category id -> site_categories for which the category is relevant.
@@ -358,6 +361,7 @@ CATEGORY_LABELS: Dict[str, str] = {
     "accessibility": "Accessibility",
     "mobile": "Mobile",
     "schema": "Schema & Structured Data",
+    "url_structure": "URL Structure",
 }
 
 

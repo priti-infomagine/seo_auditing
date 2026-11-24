@@ -1,0 +1,6 @@
+$kind: websocket-request
+name: audit/websocket
+description: ""
+url: ws://localhost:8000/api/v1/audit/ws/8850340e-05d4-4140-b210-7bdcd1eb3d13
+settings: {}
+order: 8000

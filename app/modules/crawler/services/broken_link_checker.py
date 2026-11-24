@@ -116,17 +116,30 @@ class BrokenLinkChecker:
                 for link in links
                 if link.is_external and link.target_url
             }
+            # Filter out excluded domains (social media, etc. that block bots)
             if unique_externals:
-                status_map = await self._check_external_urls(unique_externals)
-                for link in links:
-                    if not link.is_external or not link.target_url:
-                        continue
-                    status = status_map.get(link.target_url)
-                    if status is not None:
-                        link.target_status_code = status
-                        if status >= 400:
-                            link.target_error = f"HTTP {status}"
-                            stats.broken_external += 1
+                excluded = set(settings.LINK_CHECK_EXCLUDED_DOMAINS)
+                filtered_externals = {
+                    url for url in unique_externals
+                    if urlparse(url).netloc.lower().replace("www.", "") not in excluded
+                }
+                skipped_count = len(unique_externals) - len(filtered_externals)
+                if skipped_count:
+                    logger.info(
+                        "BrokenLinkChecker: skipped %d external URLs from excluded domains",
+                        skipped_count
+                    )
+                if filtered_externals:
+                    status_map = await self._check_external_urls(filtered_externals)
+                    for link in links:
+                        if not link.is_external or not link.target_url:
+                            continue
+                        status = status_map.get(link.target_url)
+                        if status is not None:
+                            link.target_status_code = status
+                            if status >= 400:
+                                link.target_error = f"HTTP {status}"
+                                stats.broken_external += 1
 
         await self.db.flush()
         logger.info(

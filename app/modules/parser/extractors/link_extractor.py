@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
 from app.modules.parser.models.link_data import LinkData
 from app.modules.parser.services.document_parser_service import DocumentContext
-from app.modules.parser.normalizers.url_normalizer import normalize_rel
+from app.modules.parser.normalizers.url_normalizer import normalize_rel, is_internal
 
 
 class LinkExtractor:
@@ -24,7 +24,7 @@ class LinkExtractor:
             href = str(tag.get("href", "")).strip()
             # Store raw href before normalization
             raw_href = str(tag.get("href", ""))
-            
+
             if not href:
                 continue
 
@@ -32,6 +32,21 @@ class LinkExtractor:
             if isinstance(rel, str):
                 rel = rel.split()
             rel = [str(value).strip().lower() for value in rel]
+
+            # Extract accessible name components (WCAG 2.1)
+            # Priority: aria-label > aria-labelledby > title > link text
+            aria_label = str(tag.get("aria-label", "")).strip()
+            aria_labelledby = str(tag.get("aria-labelledby", "")).strip()
+            title_attr = str(tag.get("title", "")).strip()
+            link_text = tag.get_text(" ", strip=True)
+
+            # Compute accessible name per WCAG
+            accessible_name = aria_label or aria_labelledby or title_attr or link_text or ""
+
+            # Determine if link is internal or external
+            absolute_url = urljoin(context.url, href)
+            link_is_internal = is_internal(context.url, absolute_url)
+            link_is_external = not link_is_internal
 
             attributes = {}
             raw_attributes = {}
@@ -46,12 +61,17 @@ class LinkExtractor:
             results.append(
                 LinkData(
                     href=href,
-                    text=tag.get_text(" ", strip=True),
+                    text=link_text,
+                    accessible_name=accessible_name,
+                    aria_label=aria_label,
+                    aria_labelledby=aria_labelledby,
+                    is_internal=link_is_internal,
+                    is_external=link_is_external,
                     rel=rel,
                     target=str(tag.get("target", "")).strip(),
-                    title=str(tag.get("title", "")).strip(),
+                    title=title_attr,
                     download=str(tag.get("download", "")).strip(),
-                    absolute_url=urljoin(context.url, href),
+                    absolute_url=absolute_url,
                     attributes=attributes,
                     raw_href=raw_href,
                     raw_attributes=raw_attributes,

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from pydoc import text
 import re
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
@@ -222,32 +223,142 @@ class EEATAnalyzer:
         return any(re.search(p, text) for p in patterns)
 
     # --- Address ---
+    # def _extract_address(self, soup: BeautifulSoup) -> EEATSignal:
+    #     for selector in self.ADDRESS_SELECTORS:
+    #         try:
+    #             elements = soup.select(selector)
+    #             for el in elements:
+    #                 text = el.get_text(" ", strip=True)
+    #                 if text and len(text) > 10 and self._looks_like_address(text):
+    #                     return EEATSignal(found=True, confidence=0.75, evidence=f"Address: {text[:200]}", location=selector)
+    #         except Exception:
+    #             continue
+        
+    #     # Check footer for address-like content
+    #     footer = soup.find("footer") or soup.find(class_=re.compile("footer"))
+    #     if footer:
+    #         text = footer.get_text(" ", strip=True)
+    #         if self._looks_like_address(text):
+    #             return EEATSignal(found=True, confidence=0.5, evidence=f"Footer address: {text[:200]}", location="footer")
+        
+    #     return EEATSignal(found=False, confidence=0.0, evidence="", location="")
+
+    # def _looks_like_address(self, text: str) -> bool:
+    #     # Heuristic: street number + street name + city/state/zip indicators
+    #     has_number = bool(re.search(r"\d+", text))
+        
+    #     # US street suffixes
+    #     has_us_street = bool(re.search(r"\b(st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court|pl|place|pkwy|parkway)\b", text, re.I))
+        
+    #     # International street suffixes (covers India, UK, Canada, Australia, etc.)
+    #     has_intl_street = bool(re.search(r"\b(marg|road|street|avenue|lane|drive|boulevard|plaza|building|floor|tower|complex|parkway|highway|expressway|bypass|ring road|main road|colony|nagar|vihar|enclave|extension|sector|block|phase)\b", text, re.I))
+        
+    #     # US city/state/zip (CA 90210)
+    #     has_us_zip = bool(re.search(r"\b[A-Z]{2}\s+\d{5}", text))
+        
+    #     # International postal codes (Indian 6-digit PIN, UK alphanumeric, Canadian, etc.)
+    #     has_intl_postal = bool(re.search(r"\b\d{6}\b", text)) or bool(re.search(r"\b\d{4,5}\b", text))
+        
+    #     # Common address keywords
+    #     has_addr_keywords = bool(re.search(r"\b(address|location|office|headquarters|branch|suite|unit|floor|building|plaza|tower|complex|po box|p\.o\. box)\b", text, re.I))
+        
+    #     return has_number and (has_us_street or has_intl_street or has_us_zip or has_intl_postal or has_addr_keywords)
+
+
+
     def _extract_address(self, soup: BeautifulSoup) -> EEATSignal:
+        found_addresses = []
+
+        # 1. Check JSON-LD Schema first
+        for script in soup.find_all("script", type="application/ld+json"):
+            if script.string and (
+                "PostalAddress" in script.string or "streetAddress" in script.string
+            ):
+                return EEATSignal(
+                    found=True,
+                    confidence=0.95,
+                    evidence="Structured JSON-LD PostalAddress found",
+                    location="json-ld",
+                )
+
+        # 2. Check targeted selectors first
         for selector in self.ADDRESS_SELECTORS:
             try:
-                elements = soup.select(selector)
-                for el in elements:
+                for el in soup.select(selector):
                     text = el.get_text(" ", strip=True)
-                    if text and len(text) > 10 and self._looks_like_address(text):
-                        return EEATSignal(found=True, confidence=0.75, evidence=f"Address: {text[:200]}", location=selector)
+                    if 15 < len(text) < 250 and self._looks_like_address(text):
+                        if text not in found_addresses:
+                            found_addresses.append(text)
             except Exception:
                 continue
-        
-        # Check footer for address-like content
-        footer = soup.find("footer") or soup.find(class_=re.compile("footer"))
+
+        if found_addresses:
+            return EEATSignal(
+                found=True,
+                confidence=0.80,
+                evidence=" | ".join(found_addresses)[:300],
+                location="selector",
+            )
+
+        # 3. Scoped footer scan (captures both New Delhi & Jaipur blocks cleanly)
+        footer = soup.find("footer") or soup.find(
+            attrs={"class": re.compile(r"footer", re.I)}
+        )
         if footer:
-            text = footer.get_text(" ", strip=True)
-            if self._looks_like_address(text):
-                return EEATSignal(found=True, confidence=0.5, evidence=f"Footer address: {text[:200]}", location="footer")
-        
+            for el in footer.find_all(["address", "p", "li", "div", "span"]):
+                # Skip container elements that wrap multiple paragraphs/blocks
+                if len(el.find_all(["p", "div", "li"])) > 1:
+                    continue
+
+                text = el.get_text(" ", strip=True)
+                if 15 < len(text) < 250 and self._looks_like_address(text):
+                    # Avoid adding substrings of an already-captured address
+                    if not any(
+                        text in existing or existing in text for existing in found_addresses
+                    ):
+                        found_addresses.append(text)
+
+        if found_addresses:
+            return EEATSignal(
+                found=True,
+                confidence=0.65,
+                evidence=" | ".join(found_addresses)[:300],
+                location="footer",
+            )
+
         return EEATSignal(found=False, confidence=0.0, evidence="", location="")
 
+
     def _looks_like_address(self, text: str) -> bool:
-        # Heuristic: street number + street name + city/state/zip indicators
-        has_number = bool(re.search(r"\d+", text))
-        has_street = bool(re.search(r"\b(st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court|pl|place|pkwy|parkway)\b", text, re.I))
-        has_city_state = bool(re.search(r"\b[A-Z]{2}\s+\d{5}", text))  # CA 90210
-        return has_number and (has_street or has_city_state)
+    # Ignore copyright lines that often cause false positives
+        if re.search(r"(©|&copy;|copyright|all rights reserved)", text, re.I):
+            return False
+
+    # Require a standalone number (e.g., street number, sector, or PIN/ZIP), not embedded in a word
+        has_number = bool(re.search(r"\b\d{1,6}\b", text))
+        if not has_number:
+            return False
+
+        # Combined US & International street/locality indicators
+        has_street_or_locality = bool(
+            re.search(
+                r"\b(st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|ln|lane|ct|court|pl|place|pkwy|parkway|"
+                r"marg|plaza|building|floor|tower|complex|highway|expressway|bypass|ring road|main road|"
+                r"colony|nagar|vihar|enclave|extension|sector|block|phase|suite|unit|po box|p\.o\. box)\b",
+                text,
+                re.I,
+            )
+        )
+
+        # Postal codes (US ZIP, Indian 6-digit PIN, UK postcode)
+        has_postal = bool(
+            re.search(
+                r"\b([A-Z]{2}\s+\d{5}|\d{6}|[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b", text
+            )
+        )
+
+    # Require a number PLUS either a street/locality term or a valid postal code
+        return has_street_or_locality or has_postal
 
     # --- Trust Signals ---
     def _extract_trust_signals(self, soup: BeautifulSoup) -> EEATSignal:

@@ -1,5 +1,5 @@
 $kind: http-request
 name: New Request
-url: ""
+url: http://localhost:8000/api/v1/audit/ws/9e8c9752-4452-40d3-b3b5-db093716e513
 method: GET
 order: 3000
