@@ -13,6 +13,36 @@ async def probe_tls(hostname: str, port: int = 443) -> TLSSignal:
     return await loop.run_in_executor(None, _probe_tls_sync, hostname, port)
 
 
+def _extract_common_name(issuer) -> str:
+    """Extract commonName from certificate issuer field.
+    
+    issuer is a list of tuples: [[('commonName', 'Value'), ('organizationName', 'Value'), ...]]
+    """
+    if not issuer:
+        return ""
+    try:
+        for rdn in issuer:
+            for attr in rdn:
+                if isinstance(attr, (tuple, list)) and len(attr) >= 2:
+                    if attr[0].lower() in ('commonname', 'cn'):
+                        return str(attr[1])
+    except Exception:
+        pass
+    return ""
+
+
+def _extract_san(cert) -> list[str]:
+    """Extract Subject Alternative Names from certificate."""
+    san_list = []
+    try:
+        for ext in cert.get('subjectAltName', []):
+            if isinstance(ext, (tuple, list)) and len(ext) >= 2:
+                san_list.append(str(ext[1]))
+    except Exception:
+        pass
+    return san_list
+
+
 def _probe_tls_sync(hostname: str, port: int) -> TLSSignal:
     signal = TLSSignal(hostname=hostname, port=port)
     try:
@@ -26,12 +56,11 @@ def _probe_tls_sync(hostname: str, port: int) -> TLSSignal:
                 cert = ssock.getpeercert()
                 if cert:
                     signal.certificate_valid = True
-                    signal.certificate_issuer = dict(cert.get('issuer', [])).get('commonName', '')
+                    signal.certificate_issuer = _extract_common_name(cert.get('issuer', []))
                     not_after = cert.get('notAfter', '')
                     if not_after:
                         signal.certificate_expiry = datetime.strptime(not_after, '%b %d %H:%M:%S %Y %Z')
-                    for ext in cert.get('subjectAltName', []):
-                        signal.certificate_san.append(ext[1])
+                    signal.certificate_san = _extract_san(cert)
                     signal.chain_trusted = True
         signal.tested_tls10 = _test_legacy_tls(hostname, port, ssl.PROTOCOL_TLSv1)
         signal.tested_tls11 = _test_legacy_tls(hostname, port, ssl.PROTOCOL_TLSv1_1)
