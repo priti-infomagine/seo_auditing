@@ -12,6 +12,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import uuid
+from datetime import datetime, timezone
 from types import SimpleNamespace
 from typing import Any, Dict, Optional
 
@@ -30,6 +31,8 @@ from app.modules.crawler.models.page_snapshots import PageSnapshot
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
+from app.modules.audit.repositories.rule_evaluation_repository import RuleEvaluationResultRepository
+from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 
 
 # --------------------------------------------------------------------- fixtures
@@ -406,6 +409,78 @@ async def test_result_format_compact_returns_overview(
     data = result_resp.json()
     for key in ("audit", "summary", "categories", "top_issues"):
         assert key in data, f"missing compact top-level key {key!r}"
+
+
+@pytest.mark.asyncio
+async def test_evaluator_persists_datetime_rule_data_as_jsonb(
+    _ensure_schema, monkeypatch
+):
+    session_factory = _ensure_schema
+    audit_id = uuid.uuid4()
+    checked_at = datetime(2026, 11, 27, tzinfo=timezone.utc)
+
+    async with session_factory() as db:
+        db.add(CrawlJob(
+            id=audit_id,
+            user_id=uuid.uuid4(),
+            url="https://example.test/",
+            domain="example.test",
+            status="completed",
+            crawl_config={},
+        ))
+        await db.commit()
+        await _seed_crawl(db, audit_id, n_pages=1)
+
+    async with session_factory() as db:
+        parse_result = await DBParserService(db).parse_crawl(audit_id)
+        await db.commit()
+    assert parse_result["pages_parsed"] == 1
+
+    async def _rule_results(_self, _data, page_id):
+        return [RuleResult(
+            rule_id="test_datetime",
+            name="Datetime serialization",
+            category="on_page",
+            severity=Severity.INFO,
+            passed=True,
+            message="Datetime value is serialized",
+            data={
+                "checked_at": checked_at,
+                "nested": {"page_id": page_id},
+            },
+        )]
+
+    monkeypatch.setattr(
+        RuleEvaluatorService,
+        "_run_rules_concurrently",
+        _rule_results,
+    )
+    async with session_factory() as db:
+        evaluate_result = await RuleEvaluatorService(db).evaluate_crawl(audit_id)
+        await db.commit()
+        persisted_rows = await RuleEvaluationResultRepository(db).get_by_audit_id(
+            audit_id
+        )
+
+    assert evaluate_result["persisted_results"] == 1
+    assert evaluate_result["scorable_results"] == 1
+    assert persisted_rows[0].rule_data["checked_at"] == checked_at.isoformat()
+    assert persisted_rows[0].rule_data["nested"]["page_id"] == str(persisted_rows[0].page_id)
+
+    async def _skip_output_file(_self, _audit_id, _domain, _unified):
+        return ""
+
+    monkeypatch.setattr(
+        AnalysisScorerService,
+        "_write_output_file",
+        _skip_output_file,
+    )
+    async with session_factory() as db:
+        scored_result = await AnalysisScorerService(db).score_project(audit_id)
+        await db.commit()
+
+    assert scored_result["summary"]["checks"]["total"] == 1
+    assert scored_result["audit"]["meta"]["rules_executed"] == 1
 
 
 # =====================================================================

@@ -28,6 +28,7 @@ class UrlRecord:
     scope: str
     parts: SplitResult
     anchor: str = ''
+    is_internal: bool = True
 
     @property
     def path(self) -> str:
@@ -106,7 +107,13 @@ def build_records(data: Dict[str, Any], cfg: UrlStructureConfig) -> List[UrlReco
     records: List[UrlRecord] = []
     seen: set = set()
     
-    def add(url: str, raw: str, scope: str, anchor: str = ''):
+    def add(
+        url: str,
+        raw: str,
+        scope: str,
+        anchor: str = '',
+        is_internal: bool = True,
+    ):
         if not url or len(url) > MAX_URL_LEN:
             return
         try:
@@ -116,7 +123,7 @@ def build_records(data: Dict[str, Any], cfg: UrlStructureConfig) -> List[UrlReco
             key = parts._replace(fragment='').geturl()
             if key in seen:
                 return
-            rec = UrlRecord(url, raw or url, scope, parts, anchor)
+            rec = UrlRecord(url, raw or url, scope, parts, anchor, is_internal)
             rec.raw_parts  # Force parse to catch bad hrefs early
         except ValueError:
             return
@@ -141,7 +148,19 @@ def build_records(data: Dict[str, Any], cfg: UrlStructureConfig) -> List[UrlReco
         raw_href = link.get('href') or link.get('raw_href')
         anchor_text = link.get('text') or ''
         if abs_url:
-            add(abs_url, raw_href or abs_url, 'link', anchor_text)
+            is_internal = link.get('is_internal')
+            if is_internal is None:
+                is_internal = not (
+                    link.get('is_external')
+                    or link.get('link_type') == 'external'
+                )
+            add(
+                abs_url,
+                raw_href or abs_url,
+                'link',
+                anchor_text,
+                bool(is_internal),
+            )
     
     return records
 

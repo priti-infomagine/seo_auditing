@@ -25,6 +25,7 @@ from app.modules.audit.schemas.audit_schemas import (
     AuditAnalyzeRequest,
     AuditAnalyzeQueuedResponse,
 )
+from app.modules.audit.services.result_state import result_payload_is_incomplete
 from app.modules.crawler.models.crawl_jobs import CrawlJob
 from app.modules.crawler.repositories.crawl_job_repository import CrawlJobRepository
 from app.modules.crawler.services.site_discovery_service import (
@@ -245,22 +246,40 @@ async def get_analyze_task_status(
         response["meta"] = async_result.info
     elif async_result.state == "SUCCESS":
         response["result"] = async_result.result
+        if isinstance(async_result.result, dict):
+            pipeline_status = async_result.result.get("status")
+            if pipeline_status:
+                response["pipeline_status"] = pipeline_status
+            if pipeline_status == "failed":
+                response["error"] = (
+                    async_result.result.get("evaluate", {}).get("error")
+                    or async_result.result.get("score", {}).get("error")
+                    or "Audit pipeline failed"
+                )
         # If result indicates completion and has an audit_id, attach final audit result without DB query
-        if isinstance(async_result.result, dict) and async_result.result.get("audit_id"):
+        if (
+            isinstance(async_result.result, dict)
+            and async_result.result.get("audit_id")
+            and async_result.result.get("status") != "failed"
+        ):
             audit_id_str = str(async_result.result["audit_id"])
             if redis:
                 try:
                     cached_res = await redis.get(f"audit:result:{audit_id_str}:full")
                     if cached_res:
-                        response["audit_result"] = json.loads(cached_res)
+                        cached_payload = json.loads(cached_res)
+                        if not result_payload_is_incomplete(cached_payload):
+                            response["audit_result"] = cached_payload
                 except Exception:
                     pass
             if "audit_result" not in response:
                 for p in Path("app/output").glob(f"*_{audit_id_str}.json"):
                     if p.is_file():
                         try:
-                            response["audit_result"] = json.loads(p.read_text(encoding="utf-8"))
-                            break
+                            disk_payload = json.loads(p.read_text(encoding="utf-8"))
+                            if not result_payload_is_incomplete(disk_payload):
+                                response["audit_result"] = disk_payload
+                                break
                         except Exception:
                             pass
     elif async_result.state == "FAILURE":
@@ -285,15 +304,39 @@ async def poll_audit_result(
     audit_id_str = str(audit_id)
     logger.info(f"GET /audit/analyze/poll/{audit_id_str}")
 
+    status_data = {}
+    if redis:
+        try:
+            status_str = await redis.get(f"audit:status:{audit_id_str}")
+            if status_str:
+                status_data = json.loads(status_str)
+                pipeline_status = status_data.get("status")
+                if pipeline_status in {"running", "analyzing", "failed"}:
+                    return {
+                        "audit_id": audit_id_str,
+                        "status": pipeline_status,
+                        "stage": status_data.get("current_stage"),
+                        "error": status_data.get("error"),
+                    }
+        except Exception as exc:
+            logger.debug("Audit status lookup failed for %s: %s", audit_id_str, exc)
+
     # 1. Check if the completed result is in Redis
     if redis:
         try:
             cached_res = await redis.get(f"audit:result:{audit_id_str}:{format}")
             if cached_res:
+                cached_payload = json.loads(cached_res)
+                if result_payload_is_incomplete(cached_payload):
+                    return {
+                        "audit_id": audit_id_str,
+                        "status": "failed",
+                        "error": "Cached audit result contains no persisted rule checks.",
+                    }
                 return {
                     "audit_id": audit_id_str,
                     "status": "completed",
-                    "result": json.loads(cached_res),
+                    "result": cached_payload,
                 }
         except Exception:
             pass
@@ -304,6 +347,12 @@ async def poll_audit_result(
             if p.is_file():
                 try:
                     data = json.loads(p.read_text(encoding="utf-8"))
+                    if result_payload_is_incomplete(data):
+                        return {
+                            "audit_id": audit_id_str,
+                            "status": "failed",
+                            "error": "On-disk audit result contains no persisted rule checks.",
+                        }
                     if redis:
                         try:
                             await redis.set(f"audit:result:{audit_id_str}:full", json.dumps(data), ex=86400)
@@ -318,21 +367,16 @@ async def poll_audit_result(
                     pass
 
     # 3. Check cached progress status in Redis
-    if redis:
-        try:
-            status_str = await redis.get(f"audit:status:{audit_id_str}")
-            if status_str:
-                status_data = json.loads(status_str)
-                return {
-                    "audit_id": audit_id_str,
-                    "status": status_data.get("score_status", "in_progress"),
-                    "stage": status_data.get("current_stage", "crawling"),
-                    "pages_parsed": status_data.get("pages_parsed", 0),
-                    "overall_score": status_data.get("overall_score"),
-                    "grade": status_data.get("grade"),
-                }
-        except Exception:
-            pass
+    if status_data:
+        return {
+            "audit_id": audit_id_str,
+            "status": status_data.get("status", status_data.get("score_status", "in_progress")),
+            "stage": status_data.get("current_stage", "crawling"),
+            "pages_parsed": status_data.get("pages_parsed", 0),
+            "overall_score": status_data.get("overall_score"),
+            "grade": status_data.get("grade"),
+            "error": status_data.get("error"),
+        }
 
     # 4. Fallback: audit in progress
     return {

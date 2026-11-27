@@ -10,8 +10,14 @@ from uuid import UUID
 from sqlalchemy import select, delete, func, cast, Integer
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.encoders import jsonable_encoder
 
 from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResult
+
+
+def _json_safe_value(value: Any) -> Any:
+    """Convert values nested in JSONB payloads to JSON-compatible primitives."""
+    return jsonable_encoder(value)
 
 
 class RuleEvaluationResultRepository:
@@ -34,13 +40,15 @@ class RuleEvaluationResultRepository:
             existing.score_impact = result.score_impact
             existing.message = result.message
             existing.recommendation = result.recommendation
-            existing.rule_data = result.rule_data
-            existing.tags = result.tags
+            existing.rule_data = _json_safe_value(result.rule_data)
+            existing.tags = _json_safe_value(result.tags)
             existing.evaluated_at = result.evaluated_at
             self.db.add(existing)
             await self.db.flush()
             await self.db.refresh(existing)
             return existing
+        result.rule_data = _json_safe_value(result.rule_data)
+        result.tags = _json_safe_value(result.tags)
         self.db.add(result)
         await self.db.flush()
         await self.db.refresh(result)
@@ -119,8 +127,8 @@ class RuleEvaluationResultRepository:
                     "score_impact": r.score_impact,
                     "message": r.message,
                     "recommendation": r.recommendation,
-                    "rule_data": r.rule_data,
-                    "tags": r.tags,
+                    "rule_data": _json_safe_value(r.rule_data),
+                    "tags": _json_safe_value(r.tags),
                     "evaluated_at": r.evaluated_at,
                 })
 
@@ -323,6 +331,12 @@ class RuleEvaluationResultRepository:
                         Integer,
                     )
                 ).label("errors"),
+                func.sum(
+                    cast(RuleEvaluationResult.severity != "error", Integer)
+                ).label("scorable"),
+                func.sum(
+                    cast(RuleEvaluationResult.severity == "error", Integer)
+                ).label("evaluation_errors"),
             ).where(RuleEvaluationResult.audit_id == audit_id)
         )
         row = result.mappings().first()
@@ -335,6 +349,8 @@ class RuleEvaluationResultRepository:
             "critical": row["critical"] or 0,
             "warnings": row["warnings"] or 0,
             "errors": row["errors"] or 0,
+            "scorable": row["scorable"] or 0,
+            "evaluation_errors": row["evaluation_errors"] or 0,
         }
 
     async def delete_by_audit_id(self, audit_id: UUID) -> int:

@@ -1,0 +1,247 @@
+{
+  "audit": {
+    "id": "e45b4c64-e376-4e05-a268-249162e65d13",
+    "audit_id": "e45b4c64-e376-4e05-a268-249162e65d13",
+    "url": "https://moneymatters.co.in",
+    "domain": "moneymatters.co.in",
+    "started_at": "2026-11-27T04:09:56.890267+00:00",
+    "completed_at": "2026-11-27T04:10:06.845467+00:00",
+    "status": "completed",
+    "pages": {
+      "discovered": 6,
+      "crawled": 6,
+      "analyzed": 6
+    },
+    "crawl_stats": {
+      "pages_discovered": 6,
+      "pages_crawled": 6,
+      "pages_analyzed": 6,
+      "blocked_by_robots": {
+        "available": true,
+        "value": 0,
+        "reason": "No site-wide wildcard block detected in robots.txt"
+      },
+      "redirects": 0,
+      "broken_pages": 0,
+      "crawl_errors": 0,
+      "status_codes": {
+        "200": 6
+      },
+      "started_at": "2026-11-27T04:09:56.890267+00:00",
+      "completed_at": "2026-11-27T04:10:06.845467+00:00"
+    },
+    "indexation": {
+      "indexable": 6,
+      "noindex": 0,
+      "canonicalized": 6,
+      "blocked_by_robots": {
+        "available": true,
+        "value": 0,
+        "reason": "No site-wide wildcard block detected in robots.txt"
+      },
+      "not_indexable": 0
+    },
+    "performance": {
+      "available": true,
+      "ttfb": {
+        "available": true,
+        "value": 5284.8,
+        "unit": "milliseconds",
+        "status": "critical"
+      }
+    },
+    "structured_data": {
+      "pages_with_schema": 0,
+      "pages_without_schema": 6,
+      "valid": 0,
+      "invalid": 6
+    },
+    "links": {
+      "internal": {
+        "total": 118,
+        "broken": {
+          "available": true,
+          "value": 0
+        }
+      },
+      "external": {
+        "total": 53,
+        "broken": {
+          "available": true,
+          "value": 0
+        }
+      },
+      "total_links": 171
+    },
+    "images": {
+      "total": 45,
+      "missing_alt": 8,
+      "empty_alt": 0,
+      "missing_dimensions": 45,
+      "oversized": 0,
+      "modern_format": 0,
+      "lazy_loading": 0
+    },
+    "content": {
+      "thin_pages": 0,
+      "duplicate_pages": 0,
+      "duplicate_groups": 0
+    },
+    "external_dependencies": [
+      {
+        "feature": "Core Web Vitals (LCP/INP/CLS)",
+        "status": "not_available",
+        "reason": "browser_performance_measurement_not_available"
+      },
+      {
+        "feature": "Backlink analysis",
+        "status": "not_available",
+        "reason": "backlink_data_provider_not_configured"
+      },
+      {
+        "feature": "Keyword search volume / SERP data",
+        "status": "not_available",
+        "reason": "keyword_serp_data_provider_not_configured"
+      },
+      {
+        "feature": "Google Search Console",
+        "status": "not_available",
+        "reason": "not_connected"
+      }
+    ],
+    "meta": {
+      "crawler_version": "unknown",
+      "parser_version": "unknown",
+      "rule_engine_version": "1.0.0",
+      "rules_executed": 159,
+      "total_issues": 0,
+      "output_shape": "unified_v1"
+    }
+  },
+  "summary": {
+    "score": 0.0,
+    "health": "critical",
+    "issues": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "total": 0
+    },
+    "checks": {
+      "passed": 0,
+      "failed": 0,
+      "total": 0
+    }
+  },
+  "categories": [
+    {
+      "id": "on_page_seo",
+      "name": "On-Page SEO",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "technical_seo",
+      "name": "Technical SEO",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "content_quality",
+      "name": "Content Quality",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "internal_linking",
+      "name": "Internal Linking",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "security_trust",
+      "name": "Security & Trust",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "schema",
+      "name": "Schema & Structured Data",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "images_media",
+      "name": "Images & Media",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "social",
+      "name": "Social",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "eeat",
+      "name": "EEAT",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    },
+    {
+      "id": "url_structure",
+      "name": "URL Structure",
+      "score": 0.0,
+      "status": "critical",
+      "checks_total": 0,
+      "checks_passed": 0,
+      "checks_failed": 0
+    }
+  ]
+}

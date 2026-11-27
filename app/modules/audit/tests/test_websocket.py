@@ -127,10 +127,13 @@ class TestAuditWebSocket:
         mock_async_redis.return_value.close = AsyncMock()
 
         with patch("app.modules.audit.events.AuditEventBus.get_audit_state") as mock_state:
-            mock_state.side_effect = [
-                {"status": "completed", "report": {"summary": {"score": 85}}},
-                {"status": "completed", "report": {"summary": {"score": 85}}},
-            ]
+            mock_state.return_value = {
+                "status": "completed",
+                "report": {
+                    "summary": {"score": 85},
+                    "audit": {"pages": {"discovered": 6, "analyzed": 6}},
+                },
+            }
 
             with TestClient(app) as client:
                 with client.websocket_connect(f"/api/v1/audit/ws/{audit_id}") as ws:
@@ -138,6 +141,7 @@ class TestAuditWebSocket:
                     assert msg["type"] == "final"
                     assert msg["audit_id"] == audit_id
                     assert msg["summary"]["score"] == 85
+                    assert msg["pages"]["analyzed"] == 6
 
     def test_audit_websocket_error_on_failed(self, audit_id, mock_async_redis):
         """Test error event sent when audit fails."""

@@ -57,6 +57,9 @@ class PipelineStatusResponse(BaseModel):
     parse_status: str = Field(..., description="pending | completed | failed | missing")
     evaluate_status: str = Field(..., description="pending | completed | failed | missing")
     score_status: str = Field(..., description="pending | completed | failed | missing")
+    status: Optional[str] = Field(None, description="running | completed | failed")
+    current_stage: Optional[str] = None
+    error: Optional[str] = None
     pages_parsed: int = Field(0, description="Number of pages with parsed facts")
     rules_evaluated: int = Field(0, description="Number of rule result rows")
     overall_score: Optional[float] = Field(None, description="Overall SEO score (0-100)")

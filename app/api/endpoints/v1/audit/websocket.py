@@ -92,7 +92,10 @@ async def audit_websocket(websocket: WebSocket, audit_id: str):
                         "type": "final",
                         "audit_id": audit_id,
                         "summary": report.get("summary", {}),
-                        "pages": report.get("pages", []),
+                        "pages": report.get(
+                            "pages",
+                            (report.get("audit") or {}).get("pages", []),
+                        ),
                         "status": "completed",
                     })
                 )

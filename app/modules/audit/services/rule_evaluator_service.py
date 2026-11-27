@@ -126,16 +126,27 @@ class RuleEvaluatorService:
                     f"RuleEvaluatorService.evaluate_crawl: no parsed facts for "
                     f"audit_id={audit_id}"
                 )
+                persisted_summary = await self.rule_eval_repo.get_summary(audit_id)
                 event_bus.emit(
                     AuditEventType.EVALUATE_COMPLETE,
                     audit_id=audit_id_str,
-                    data={"pages_evaluated": 0, "rules_run": 0, "total_results": 0},
+                    data={
+                        "pages_evaluated": 0,
+                        "rules_run": 0,
+                        "total_results": 0,
+                        "persisted_results": persisted_summary.get("total", 0),
+                        "scorable_results": persisted_summary.get("scorable", 0),
+                        "evaluation_errors": persisted_summary.get("evaluation_errors", 0),
+                    },
                 )
                 return {
                     "audit_id": audit_id_str,
                     "pages_evaluated": 0,
                     "rules_run": 0,
                     "total_results": 0,
+                    "persisted_results": persisted_summary.get("total", 0),
+                    "scorable_results": persisted_summary.get("scorable", 0),
+                    "evaluation_errors": persisted_summary.get("evaluation_errors", 0),
                     "errors": [],
                     "evaluated_at": utc_now().isoformat(),
                 }
@@ -310,9 +321,12 @@ class RuleEvaluatorService:
             if all_results:
                 await self.rule_eval_repo.bulk_upsert(all_results)
 
+            persisted_summary = await self.rule_eval_repo.get_summary(audit_id)
             logger.info(
                 f"RuleEvaluatorService.evaluate_crawl: pages_evaluated={pages_evaluated}, "
                 f"rules_run={rules_run}, total_results={total_results}, "
+                f"persisted_results={persisted_summary.get('total', 0)}, "
+                f"scorable_results={persisted_summary.get('scorable', 0)}, "
                 f"pages_skipped={pages_skipped}, errors={len(errors)} for audit_id={audit_id}"
             )
 
@@ -320,7 +334,14 @@ class RuleEvaluatorService:
             event_bus.emit(
                 AuditEventType.EVALUATE_COMPLETE,
                 audit_id=audit_id_str,
-                data={"pages_evaluated": pages_evaluated, "rules_run": rules_run, "total_results": total_results},
+                data={
+                    "pages_evaluated": pages_evaluated,
+                    "rules_run": rules_run,
+                    "total_results": total_results,
+                    "persisted_results": persisted_summary.get("total", 0),
+                    "scorable_results": persisted_summary.get("scorable", 0),
+                    "evaluation_errors": persisted_summary.get("evaluation_errors", 0),
+                },
             )
 
             return {
@@ -329,6 +350,9 @@ class RuleEvaluatorService:
                 "pages_skipped": pages_skipped,
                 "rules_run": rules_run,
                 "total_results": total_results,
+                "persisted_results": persisted_summary.get("total", 0),
+                "scorable_results": persisted_summary.get("scorable", 0),
+                "evaluation_errors": persisted_summary.get("evaluation_errors", 0),
                 "errors": errors,
                 "evaluated_at": utc_now().isoformat(),
             }
@@ -695,6 +719,17 @@ class RuleEvaluatorService:
         data.setdefault("media", data.get("images", {}))
         data.setdefault("seo", data.get("basic", {}))
         data.setdefault("javascript", {})
+        
+        # Add security_headers for rules that expect it (SecurityHeadersRule, etc.)
+        # Use http.headers as the source
+        if network_data and network_data.headers:
+            data.setdefault("security_headers", network_data.headers)
+        else:
+            data.setdefault("security_headers", {})
+        
+        # Add robots and sitemap keys (checked separately but rules expect them)
+        data.setdefault("robots", {})
+        data.setdefault("sitemap", {})
 
         # Extract accessibility data from parsed_data and seo_data for a11y rules
         if fact:
@@ -786,6 +821,7 @@ class RuleEvaluatorService:
 
         return {
             "total_links": len(links),
+            "total_count": len(links),  # Legacy alias for rules
             "internal_count": internal_count,
             "external_count": external_count,
             "nofollow_count": nofollow_count,
@@ -801,7 +837,11 @@ class RuleEvaluatorService:
         }
 
     def _build_images_summary(self, images: list) -> dict:
-        """Transform raw parsed images list into the dict structure that SEO rules expect."""
+        """Transform raw parsed images list into the dict structure that SEO rules expect.
+        
+        Returns BOTH legacy keys (for existing 159+ rules) AND new analyzer keys
+        (for new rules) to maintain full backward compatibility.
+        """
         from app.modules.parser.analyzers.image_analyzer import analyze_images
         
         # Get comprehensive analysis from the new analyzer
@@ -826,10 +866,24 @@ class RuleEvaluatorService:
                     'file_size': img.get('file_size_bytes', 0),
                 })
         
-        # Merge analysis with sample for backward compatibility
+        # Legacy keys that ALL existing rules expect (from ScorerService._prepare_rule_data)
+        total_images = analysis.get("total_images", 0)
+        without_alt = analysis.get("without_alt", 0)
+        with_alt = analysis.get("with_alt", 0)
+        has_lazy_loading = analysis.get("has_lazy_loading", False)
+        
+        # Merge: legacy keys FIRST (rules expect these), then all analyzer keys
         return {
+            # === LEGACY KEYS (required by 159+ existing rules) ===
+            "total_count": total_images,
+            "without_alt": without_alt,
+            "with_alt": with_alt,
+            "lazy_loading": has_lazy_loading,
+            "sample": sample,
+            "has_alt_text": without_alt == 0,
+            
+            # === NEW ANALYZER KEYS (for new rules) ===
             **analysis,
-            'sample': sample,
         }
 
 

@@ -1,11 +1,11 @@
 {
   "audit": {
-    "id": "9f455106-c06a-44e8-8b98-02fd7e05932d",
-    "audit_id": "9f455106-c06a-44e8-8b98-02fd7e05932d",
+    "id": "55aeb3e4-6038-4685-be42-3314f6e853a2",
+    "audit_id": "55aeb3e4-6038-4685-be42-3314f6e853a2",
     "url": "https://moneymatters.co.in",
     "domain": "moneymatters.co.in",
-    "started_at": "2026-11-25T08:28:30.058656+00:00",
-    "completed_at": "2026-11-25T08:28:40.442179+00:00",
+    "started_at": "2026-11-27T05:14:15.369198+00:00",
+    "completed_at": "2026-11-27T05:14:30.085930+00:00",
     "status": "completed",
     "pages": {
       "discovered": 6,
@@ -27,8 +27,8 @@
       "status_codes": {
         "200": 6
       },
-      "started_at": "2026-11-25T08:28:30.058656+00:00",
-      "completed_at": "2026-11-25T08:28:40.442179+00:00"
+      "started_at": "2026-11-27T05:14:15.369198+00:00",
+      "completed_at": "2026-11-27T05:14:30.085930+00:00"
     },
     "indexation": {
       "indexable": 6,
@@ -45,7 +45,7 @@
       "available": true,
       "ttfb": {
         "available": true,
-        "value": 4384.2,
+        "value": 8353.0,
         "unit": "milliseconds",
         "status": "critical"
       }

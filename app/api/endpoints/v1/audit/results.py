@@ -17,6 +17,7 @@ from app.core.redis import get_redis
 from app.core.logger import logger
 from app.modules.audit.services.audit_read_model_service import AuditReadModelService
 from app.modules.audit.services.audit_response_builder import AuditResponseBuilder
+from app.modules.audit.services.result_state import result_payload_is_incomplete
 from app.modules.audit.schemas.analysis_schemas import (
     SeoAnalysisResponse,
     PaginatedAnalyses,
@@ -38,6 +39,43 @@ router = APIRouter()
 
 # Response model union for the format switch.
 _AuditResultResponse = Union[SeoAnalysisResponse, AuditOverview]
+
+
+async def _get_pipeline_status(redis: Optional[Redis], audit_id: UUID) -> dict:
+    if not redis:
+        return {}
+    try:
+        raw_status = await redis.get(f"audit:status:{audit_id}")
+        return json.loads(raw_status) if raw_status else {}
+    except Exception as exc:
+        logger.debug("Audit status lookup failed for %s: %s", audit_id, exc)
+        return {}
+
+
+def _ensure_result_ready(pipeline_status: dict) -> None:
+    status_value = pipeline_status.get("status")
+    if status_value in {"running", "analyzing", "failed"}:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail={
+                "status": status_value,
+                "stage": pipeline_status.get("current_stage"),
+                "error": pipeline_status.get("error"),
+                "message": "A completed, valid audit result is not available.",
+            },
+        )
+
+
+def _raise_if_incomplete_result(payload: object, audit_id: UUID) -> None:
+    if result_payload_is_incomplete(payload):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail={
+                "status": "incomplete",
+                "audit_id": str(audit_id),
+                "message": "The audit has analyzed pages but no persisted rule checks.",
+            },
+        )
 
 
 @router.get(
@@ -65,14 +103,21 @@ async def get_analysis_result(
 ) -> _AuditResultResponse:
     """Fetch the existing analysis result for an audit."""
     logger.info(f"GET /audit/result/{audit_id} - format={format}")
+    _ensure_result_ready(await _get_pipeline_status(redis, audit_id))
 
     # 1. Fast path: Check Redis cache
     if redis:
         try:
             cached_data = await redis.get(f"audit:result:{audit_id}:{format}")
             if cached_data:
-                logger.info(f"Cache hit: returning audit result from Redis for audit_id={audit_id}")
-                return json.loads(cached_data)
+                cached_payload = json.loads(cached_data)
+                if not result_payload_is_incomplete(cached_payload):
+                    logger.info(f"Cache hit: returning audit result from Redis for audit_id={audit_id}")
+                    return cached_payload
+                logger.warning(
+                    "Ignoring incomplete cached audit result for audit_id=%s",
+                    audit_id,
+                )
         except Exception as redis_exc:
             logger.debug(f"Redis cache check failed: {redis_exc}")
 
@@ -82,6 +127,12 @@ async def get_analysis_result(
             if p.is_file():
                 try:
                     data = json.loads(p.read_text(encoding="utf-8"))
+                    if result_payload_is_incomplete(data):
+                        logger.warning(
+                            "Ignoring incomplete on-disk audit result for audit_id=%s",
+                            audit_id,
+                        )
+                        continue
                     if redis:
                         try:
                             await redis.set(f"audit:result:{audit_id}:full", json.dumps(data), ex=86400)
@@ -113,6 +164,7 @@ async def get_analysis_result(
 
         if format == "compact":
             overview = await AuditReadModelService(db).build_overview(audit_id)
+            _raise_if_incomplete_result(overview, audit_id)
             if redis:
                 try:
                     await redis.set(f"audit:result:{audit_id}:compact", overview.model_dump_json(), ex=86400)
@@ -122,6 +174,7 @@ async def get_analysis_result(
 
         builder = AuditResponseBuilder(db)
         unified = await builder.build(audit_id)
+        _raise_if_incomplete_result(unified, audit_id)
         if redis:
             try:
                 await redis.set(f"audit:result:{audit_id}:full", json.dumps(unified, default=str), ex=86400)
@@ -158,7 +211,10 @@ async def get_analysis_result_by_project(
 ):
     """Fetch the audit response by audit_id (no auth required)."""
     if format == "compact":
-        return await AuditReadModelService(db).build_overview(audit_id)
+        _ensure_result_ready(await _get_pipeline_status(redis, audit_id))
+        overview = await AuditReadModelService(db).build_overview(audit_id)
+        _raise_if_incomplete_result(overview, audit_id)
+        return overview
     # 202 fallthrough handled by get_analysis_result
     return await get_analysis_result(audit_id=audit_id, format=format, db=db, redis=redis)
 
@@ -268,15 +324,28 @@ async def get_pipeline_status(
             if cached_status_str:
                 cached_status = json.loads(cached_status_str)
                 result_payload = None
-                if include_result and cached_status.get("score_status") == "completed":
+                if cached_status.get("score_status") == "completed":
                     cached_result = await redis.get(f"audit:result:{audit_id}:{format}")
                     if cached_result:
-                        result_payload = json.loads(cached_result)
+                        candidate = json.loads(cached_result)
                     elif format == "full":
+                        candidate = None
                         for p in Path("app/output").glob(f"*_{audit_id}.json"):
                             if p.is_file():
-                                result_payload = json.loads(p.read_text(encoding="utf-8"))
+                                candidate = json.loads(p.read_text(encoding="utf-8"))
                                 break
+                    else:
+                        candidate = None
+
+                    if result_payload_is_incomplete(candidate):
+                        cached_status["status"] = "failed"
+                        cached_status["evaluate_status"] = "failed"
+                        cached_status["score_status"] = "failed"
+                        cached_status["error"] = (
+                            "Cached audit result contains no persisted rule checks."
+                        )
+                    elif include_result:
+                        result_payload = candidate
 
                 return PipelineStatusResponse(
                     audit_id=str(audit_id),
@@ -293,6 +362,9 @@ async def get_pipeline_status(
                     pages_skipped=cached_status.get("pages_skipped", 0),
                     skip_breakdown=cached_status.get("skip_breakdown"),
                     result=result_payload,
+                    status=cached_status.get("status"),
+                    current_stage=cached_status.get("current_stage"),
+                    error=cached_status.get("error"),
                 )
         except Exception as redis_exc:
             logger.debug(f"Redis pipeline status check failed: {redis_exc}")
@@ -309,8 +381,11 @@ async def get_pipeline_status(
         rule_repo = RuleEvaluationResultRepository(db)
         rule_results = await rule_repo.get_by_audit_id(audit_id)
         rules_evaluated = len(rule_results)
+        rule_summary = await rule_repo.get_summary(audit_id)
         if rules_evaluated > 0:
-            evaluate_status = "completed"
+            evaluate_status = (
+                "completed" if rule_summary.get("scorable", 0) > 0 else "failed"
+            )
         elif pages_parsed > 0:
             evaluate_status = "pending"
         else:
@@ -345,6 +420,19 @@ async def get_pipeline_status(
                     except Exception:
                         pass
 
+        if run and pages_parsed > 0 and rules_evaluated == 0:
+            evaluate_status = "failed"
+        if evaluate_status == "failed":
+            score_status = "failed"
+            result_payload = None
+        pipeline_status = (
+            "failed"
+            if evaluate_status == "failed" or score_status == "failed"
+            else "completed"
+            if evaluate_status == "completed" and score_status == "completed"
+            else "running"
+        )
+
         # Fetch skip data
         ignore_repo = UrlIgnorePatternRepository(db)
         skip_count_from_repo = await ignore_repo.get_skip_count_by_audit(audit_id)
@@ -371,6 +459,18 @@ async def get_pipeline_status(
             pages_skipped=pages_skipped,
             skip_breakdown=skip_breakdown,
             result=result_payload,
+            status=pipeline_status,
+            current_stage=(
+                "evaluate" if evaluate_status == "failed"
+                else "score" if score_status == "failed"
+                else "completed" if pipeline_status == "completed"
+                else None
+            ),
+            error=(
+                "No persisted scorable rule results were found."
+                if evaluate_status == "failed"
+                else None
+            ),
         )
 
     except HTTPException:

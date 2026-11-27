@@ -72,6 +72,26 @@ class TestUrlStructureUtils:
         assert len(records) == 2
         assert records[0].scope == 'page'
         assert records[1].scope == 'link'
+        assert records[1].is_internal is True
+
+    def test_build_records_marks_external_links(self):
+        cfg = UrlStructureConfig(max_links=500)
+        data = {
+            'url': {'final_url': 'https://example.com/page'},
+            'links': [
+                {
+                    'url': 'https://other.example/?utm_source=test',
+                    'href': 'https://other.example/?utm_source=test',
+                    'is_external': True,
+                }
+            ],
+        }
+
+        records = build_records(data, cfg)
+
+        assert len(records) == 2
+        assert records[1].is_internal is False
+        assert NoTrackingParameters().check(records[1], cfg, {}) is None
 
     def test_build_records_skips_non_http(self):
         cfg = UrlStructureConfig(max_links=500)

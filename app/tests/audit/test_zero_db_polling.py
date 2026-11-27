@@ -39,6 +39,48 @@ async def test_zero_db_polling_endpoint_returns_from_redis():
 
 
 @pytest.mark.asyncio
+async def test_zero_db_polling_reports_failed_status_before_stale_cached_result():
+    audit_id = str(uuid.uuid4())
+    stale_result = {
+        "audit": {"id": audit_id, "pages": {"analyzed": 6}},
+        "summary": {"score": 0, "checks": {"total": 0}},
+    }
+    failed_status = {
+        "audit_id": audit_id,
+        "status": "failed",
+        "current_stage": "evaluate",
+        "error": "Rule result persistence failed",
+    }
+
+    async def _get(key):
+        if key.endswith(":status:" + audit_id):
+            return json.dumps(failed_status)
+        if key.endswith(":full"):
+            return json.dumps(stale_result)
+        return None
+
+    mock_redis = AsyncMock()
+    mock_redis.get = AsyncMock(side_effect=_get)
+    app.dependency_overrides[get_redis] = lambda: mock_redis
+    try:
+        async with AsyncClient(
+            transport=ASGITransport(app=app), base_url="http://test"
+        ) as client:
+            response = await client.get(
+                f"/api/v1/audit/analyze/poll/{audit_id}?format=full"
+            )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "failed"
+        assert data["stage"] == "evaluate"
+        assert "persistence failed" in data["error"]
+        assert mock_redis.get.await_count == 1
+    finally:
+        app.dependency_overrides.pop(get_redis, None)
+
+
+@pytest.mark.asyncio
 async def test_pipeline_status_includes_result_without_db():
     """GET /api/v1/audit/status/{audit_id}?include_result=true returns cached status & result from Redis."""
     audit_id = str(uuid.uuid4())

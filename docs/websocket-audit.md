@@ -108,17 +108,17 @@ All messages are JSON objects with a `type` field.
   "audit_id": "550e8400-e29b-41d4-a716-446655440000",
   "summary": {
     "score": 85,
-    "grade": "B",
-    "pages": {"analyzed": 50, "total": 50},
-    "checks": {"passed": 2800, "failed": 200}
+    "health": "good",
+    "checks": {"passed": 2800, "failed": 200, "total": 3000},
+    "issues": {"critical": 1, "high": 20, "medium": 80, "low": 99, "total": 200}
   },
-  "pages": [
-    {"url": "https://example.com/", "score": 90, "issues": [...]},
-    {"url": "https://example.com/about", "score": 82, "issues": [...]}
-  ],
+  "pages": {"discovered": 50, "crawled": 50, "analyzed": 50},
   "status": "completed"
 }
 ```
+
+`pages` contains the aggregate page counts from the audit response. Fetch the
+`result_url` returned by `POST /audit/analyze` for detailed per-page evidence.
 
 ### Error Event
 
@@ -168,7 +168,7 @@ All messages are JSON objects with a `type` field.
 |-------|-------------|---------|
 | `evaluate_started` | Rule evaluation began | - |
 | `evaluate_page_complete` | Page evaluated (batched) | `page_id`, `rules_passed`, `rules_failed`, `rules_total`, `rules[]` |
-| `evaluate_complete` | Evaluation finished | `pages_evaluated`, `rules_run`, `total_results` |
+| `evaluate_complete` | Evaluation finished or failed | `pages_evaluated`, `rules_run`, `total_results`, `persisted_results`, `scorable_results`, `evaluation_errors` |
 
 > **Note**: By default, rule results are batched per page (`evaluate_page_complete`). Use `?detail=true` to receive individual `rule_checked` events (60+ per page).
 

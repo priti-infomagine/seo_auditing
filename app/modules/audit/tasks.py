@@ -15,6 +15,7 @@ import asyncio
 import json
 import os
 import sys
+from pathlib import Path
 from uuid import UUID
 
 from app.core.datetime_utils import utc_now
@@ -171,6 +172,38 @@ def score_project(audit_id: str, force: bool = False) -> dict:
         raise
 
 
+async def _invalidate_previous_audit_result(audit_id: str):
+    """Remove cached and on-disk results before recomputing this audit."""
+    from app.core.redis import get_redis
+
+    redis_client = get_redis()
+    if redis_client:
+        try:
+            await redis_client.delete(
+                f"audit:result:{audit_id}:full",
+                f"audit:result:{audit_id}:compact",
+            )
+        except Exception as exc:
+            logger.warning(
+                "Could not invalidate cached results for audit_id=%s: %s",
+                audit_id,
+                exc,
+            )
+
+    output_dir = Path("app/output")
+    if output_dir.exists():
+        for result_path in output_dir.glob(f"*_{audit_id}.json"):
+            try:
+                result_path.unlink()
+            except OSError as exc:
+                logger.error(
+                    "Could not remove stale result file %s: %s",
+                    result_path,
+                    exc,
+                )
+    return redis_client
+
+
 @celery_app.task(
     name="audit.run_analysis_pipeline",
     queue="audit",
@@ -193,8 +226,8 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
     4. Evaluate: run all rules → rule_evaluation_results
     5. Score: aggregate, score, persist, write output file → seo_analysis_runs
 
-    Each stage is fault-tolerant — errors in one stage don't prevent
-    the next from running.
+    Link and site-signal checks are best-effort. Parse, evaluation, and
+    scoring failures stop the dependent stages and produce a failed status.
 
     Args:
         audit_id: The audit ID (== audit_id).
@@ -225,7 +258,47 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
 
         results: dict = {
             "audit_id": audit_id,
+            "status": "running",
         }
+        stage_status = {
+            "parse": "pending",
+            "evaluate": "pending",
+            "score": "pending",
+        }
+        current_stage = "link_check"
+        pipeline_error = None
+        failed_stage = None
+        redis_client = await _invalidate_previous_audit_result(audit_id)
+
+        async def _cache_pipeline_status(status: str, error: str | None = None) -> None:
+            if not redis_client:
+                return
+            status_payload = {
+                "audit_id": str(audit_id),
+                "status": status,
+                "current_stage": current_stage,
+                "parse_status": stage_status["parse"],
+                "evaluate_status": stage_status["evaluate"],
+                "score_status": stage_status["score"],
+                "pages_parsed": (results.get("parse") or {}).get("pages_parsed", 0),
+                "overall_score": (results.get("score") or {}).get("summary", {}).get("score"),
+                "grade": (results.get("score") or {}).get("summary", {}).get("grade"),
+                "error": error,
+            }
+            try:
+                await redis_client.set(
+                    f"audit:status:{audit_id}",
+                    json.dumps(status_payload, default=str),
+                    ex=86400,
+                )
+            except Exception as exc:
+                logger.warning(
+                    "Could not cache pipeline status for audit_id=%s: %s",
+                    audit_id,
+                    exc,
+                )
+
+        await _cache_pipeline_status("running")
 
         # Stage 0: Broken link check (runs after crawl, before parse)
         _report_progress("link_check")
@@ -281,6 +354,8 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
             results["site_signals"] = {"error": str(exc)}
 
         # Stage 2: Parse
+        current_stage = "parse"
+        await _cache_pipeline_status("running")
         _report_progress("parse")
         event_bus.emit(AuditEventType.PARSE_STARTED, audit_id=audit_id)
         logger.info(
@@ -294,6 +369,7 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                     UUID(audit_id), force=force
                 )
                 await db.commit()
+                stage_status["parse"] = "completed"
             logger.info(
                 f"audit.run_analysis_pipeline: STAGE parse finished "
                 f"audit_id={audit_id}"
@@ -305,103 +381,161 @@ def run_analysis_pipeline(self, audit_id: str, force: bool = False) -> dict:
                 exc_info=True,
             )
             results["parse"] = {"error": str(exc)}
+            stage_status["parse"] = "failed"
+            pipeline_error = f"parse stage failed: {exc}"
+            failed_stage = "parse"
 
         # Stage 3: Evaluate
+        current_stage = "evaluate"
+        await _cache_pipeline_status("running")
         _report_progress("evaluate")
         event_bus.emit(AuditEventType.EVALUATE_STARTED, audit_id=audit_id)
         logger.info(
             f"audit.run_analysis_pipeline: STAGE evaluate starting "
             f"audit_id={audit_id}, force={force}"
         )
-        try:
-            async with async_session_factory() as db:
-                evaluator = RuleEvaluatorService(db)
-                results["evaluate"] = await evaluator.evaluate_crawl(
-                    UUID(audit_id), force=force
+        if pipeline_error:
+            results["evaluate"] = {"error": "Skipped because the parse stage failed"}
+            stage_status["evaluate"] = "failed"
+        else:
+            try:
+                async with async_session_factory() as db:
+                    evaluator = RuleEvaluatorService(db)
+                    evaluate_result = await evaluator.evaluate_crawl(
+                        UUID(audit_id), force=force
+                    )
+                    results["evaluate"] = evaluate_result
+                    if (
+                        evaluate_result.get("pages_evaluated", 0) <= 0
+                        or evaluate_result.get("scorable_results", 0) <= 0
+                    ):
+                        raise RuntimeError(
+                            "Rule evaluation produced no persisted scorable results"
+                        )
+                    await db.commit()
+                stage_status["evaluate"] = "completed"
+                logger.info(
+                    f"audit.run_analysis_pipeline: STAGE evaluate finished "
+                    f"audit_id={audit_id}"
                 )
-                await db.commit()
-            logger.info(
-                f"audit.run_analysis_pipeline: STAGE evaluate finished "
-                f"audit_id={audit_id}"
-            )
-            event_bus.emit(AuditEventType.EVALUATE_COMPLETE, audit_id=audit_id, data=results.get("evaluate", {}))
-        except Exception as exc:
-            logger.error(
-                f"audit.run_analysis_pipeline: evaluate stage failed: {exc}",
-                exc_info=True,
-            )
-            results["evaluate"] = {"error": str(exc)}
+                event_bus.emit(
+                    AuditEventType.EVALUATE_COMPLETE,
+                    audit_id=audit_id,
+                    data=results["evaluate"],
+                )
+            except Exception as exc:
+                logger.error(
+                    f"audit.run_analysis_pipeline: evaluate stage failed: {exc}",
+                    exc_info=True,
+                )
+                if isinstance(results.get("evaluate"), dict):
+                    results["evaluate"]["error"] = str(exc)
+                else:
+                    results["evaluate"] = {"error": str(exc)}
+                stage_status["evaluate"] = "failed"
+                pipeline_error = f"evaluate stage failed: {exc}"
+                failed_stage = "evaluate"
+                event_bus.emit(
+                    AuditEventType.EVALUATE_COMPLETE,
+                    audit_id=audit_id,
+                    data={"status": "failed", "error": str(exc)},
+                )
 
         # Stage 4: Score
-        _report_progress("score")
-        event_bus.emit(AuditEventType.SCORE_STARTED, audit_id=audit_id)
-        logger.info(
-            f"audit.run_analysis_pipeline: STAGE score starting "
-            f"audit_id={audit_id}, force={force}"
-        )
-        try:
-            async with async_session_factory() as db:
-                scorer = AnalysisScorerService(db)
-                results["score"] = await scorer.score_project(
-                    UUID(audit_id), force=force
-                )
-                await db.commit()
+        current_stage = "score"
+        await _cache_pipeline_status("running")
+        if pipeline_error:
+            results["score"] = {
+                "error": f"Skipped because {pipeline_error}"
+            }
+            stage_status["score"] = "failed"
+        else:
+            _report_progress("score")
+            event_bus.emit(AuditEventType.SCORE_STARTED, audit_id=audit_id)
             logger.info(
-                f"audit.run_analysis_pipeline: STAGE score finished "
-                f"audit_id={audit_id}"
+                f"audit.run_analysis_pipeline: STAGE score starting "
+                f"audit_id={audit_id}, force={force}"
             )
-            event_bus.emit(AuditEventType.SCORE_COMPLETE, audit_id=audit_id, data=results.get("score", {}))
-        except Exception as exc:
-            logger.error(
-                f"audit.run_analysis_pipeline: score stage failed: {exc}",
-                exc_info=True,
-            )
-            results["score"] = {"error": str(exc)}
-
-        results["status"] = "completed"
+            try:
+                async with async_session_factory() as db:
+                    scorer = AnalysisScorerService(db)
+                    results["score"] = await scorer.score_project(
+                        UUID(audit_id), force=force
+                    )
+                    await db.commit()
+                stage_status["score"] = "completed"
+                logger.info(
+                    f"audit.run_analysis_pipeline: STAGE score finished "
+                    f"audit_id={audit_id}"
+                )
+                event_bus.emit(
+                    AuditEventType.SCORE_COMPLETE,
+                    audit_id=audit_id,
+                    data=results["score"],
+                )
+            except Exception as exc:
+                logger.error(
+                    f"audit.run_analysis_pipeline: score stage failed: {exc}",
+                    exc_info=True,
+                )
+                results["score"] = {"error": str(exc)}
+                stage_status["score"] = "failed"
+                pipeline_error = f"score stage failed: {exc}"
+                failed_stage = "score"
+                event_bus.emit(
+                    AuditEventType.SCORE_COMPLETE,
+                    audit_id=audit_id,
+                    data={"status": "failed", "error": str(exc)},
+                )
 
         # Store final report in Redis state for WebSocket final snapshot
         score_data = results.get("score")
-        if isinstance(score_data, dict) and "error" not in score_data:
+        succeeded = (
+            pipeline_error is None
+            and stage_status["parse"] == "completed"
+            and stage_status["evaluate"] == "completed"
+            and stage_status["score"] == "completed"
+            and isinstance(score_data, dict)
+            and "error" not in score_data
+        )
+        results["status"] = "completed" if succeeded else "failed"
+        current_stage = "completed" if succeeded else (failed_stage or "failed")
+        if succeeded:
             event_bus.set_audit_state(audit_id, status="completed", report=score_data)
         else:
-            event_bus.set_audit_state(audit_id, status="failed")
+            event_bus.set_audit_state(
+                audit_id,
+                status="failed",
+                error=(pipeline_error or "Audit pipeline did not produce a valid score"),
+            )
 
         # Emit final pipeline completed/failed event
-        if results["status"] == "completed" and isinstance(score_data, dict) and "error" not in score_data:
+        if succeeded:
             event_bus.emit(AuditEventType.PIPELINE_COMPLETED, audit_id=audit_id, data={"summary": score_data.get("summary", {})})
         else:
-            event_bus.emit(AuditEventType.PIPELINE_FAILED, audit_id=audit_id, data={"error": "Pipeline failed"})
+            event_bus.emit(
+                AuditEventType.PIPELINE_FAILED,
+                audit_id=audit_id,
+                data={"error": pipeline_error or "Audit pipeline did not produce a valid score"},
+            )
 
-        # Cache result and pipeline status in Redis for zero-DB polling
-        try:
-            from app.core.redis import get_redis
-            redis_client = get_redis()
-            if redis_client:
-                score_data = results.get("score")
-                if isinstance(score_data, dict) and "error" not in score_data:
-                    await redis_client.set(
-                        f"audit:result:{audit_id}:full",
-                        json.dumps(score_data, default=str),
-                        ex=86400,
-                    )
-                    status_payload = {
-                        "audit_id": str(audit_id),
-                        "parse_status": "completed",
-                        "evaluate_status": "completed",
-                        "score_status": "completed",
-                        "overall_score": score_data.get("summary", {}).get("score"),
-                        "grade": score_data.get("summary", {}).get("grade"),
-                        "pages_parsed": score_data.get("audit", {}).get("pages", {}).get("analyzed", 0),
-                        "output_file_path": score_data.get("output_file_path"),
-                    }
-                    await redis_client.set(
-                        f"audit:status:{audit_id}",
-                        json.dumps(status_payload, default=str),
-                        ex=86400,
-                    )
-        except Exception as redis_exc:
-            logger.debug(f"Failed to cache audit result in Redis: {redis_exc}")
+        if succeeded and redis_client:
+            try:
+                await redis_client.set(
+                    f"audit:result:{audit_id}:full",
+                    json.dumps(score_data, default=str),
+                    ex=86400,
+                )
+            except Exception as redis_exc:
+                logger.warning(
+                    "Failed to cache audit result in Redis for audit_id=%s: %s",
+                    audit_id,
+                    redis_exc,
+                )
+        await _cache_pipeline_status(
+            results["status"],
+            None if succeeded else (pipeline_error or "Audit pipeline did not produce a valid score"),
+        )
 
         return results
 

@@ -357,7 +357,10 @@ class AuditResponseBuilder:
         errors = all_errors
         metadata = self._build_metadata(
             total_issues=len([i for i in all_seo_issues if i.status == "failed"]),
-            total_rules_evaluated=len(self.rules),
+            total_rules_evaluated=len({
+                row.rule_id for row in eval_rows
+                if row.severity != Severity.ERROR.value
+            }),
         )
         audit = self._build_audit_block(
             crawl_job, audit_id,
