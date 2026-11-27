@@ -28,6 +28,7 @@ from app.modules.crawler.models.crawl_pages import CrawlPage
 from app.modules.crawler.models.page_network_data import PageNetworkData
 from app.modules.crawler.models.page_seo_data import PageSEOData
 from app.modules.crawler.models.page_snapshots import PageSnapshot
+from app.modules.audit.models.rule_evaluation_results import RuleEvaluationResult
 from app.modules.audit.services.analysis_scorer_service import AnalysisScorerService
 from app.modules.audit.services.db_parser_service import DBParserService
 from app.modules.audit.services.rule_evaluator_service import RuleEvaluatorService
@@ -481,6 +482,76 @@ async def test_evaluator_persists_datetime_rule_data_as_jsonb(
 
     assert scored_result["summary"]["checks"]["total"] == 1
     assert scored_result["audit"]["meta"]["rules_executed"] == 1
+
+
+@pytest.mark.asyncio
+async def test_evaluator_refreshes_existing_rows_when_rule_category_changed(
+    _ensure_schema, monkeypatch
+):
+    session_factory = _ensure_schema
+    audit_id = uuid.uuid4()
+
+    async with session_factory() as db:
+        db.add(CrawlJob(
+            id=audit_id,
+            user_id=uuid.uuid4(),
+            url="https://example.test/",
+            domain="example.test",
+            status="completed",
+            crawl_config={},
+        ))
+        await db.commit()
+        pages = await _seed_crawl(db, audit_id, n_pages=1)
+        page_id = pages[0].id
+
+    async with session_factory() as db:
+        await DBParserService(db).parse_crawl(audit_id)
+        db.add(RuleEvaluationResult(
+            id=uuid.uuid4(),
+            audit_id=audit_id,
+            page_id=page_id,
+            rule_id="technical_002",
+            rule_name="Mobile Viewport",
+            category="technical",
+            severity="critical",
+            passed=True,
+            score_impact=0,
+            message="Old category assignment",
+            evaluated_at=datetime.now(timezone.utc),
+        ))
+        await db.commit()
+
+    calls = []
+
+    async def _reevaluate_mobile_rule(
+        _self, _audit_id, fact, *_args, **_kwargs
+    ):
+        calls.append(fact.page_id)
+        return [RuleEvaluationResult(
+            id=uuid.uuid4(),
+            audit_id=audit_id,
+            page_id=fact.page_id,
+            rule_id="technical_002",
+            rule_name="Mobile Viewport",
+            category="mobile",
+            severity="critical",
+            passed=True,
+            score_impact=0,
+            message="Current category assignment",
+            evaluated_at=datetime.now(timezone.utc),
+        )]
+
+    monkeypatch.setattr(
+        RuleEvaluatorService, "evaluate_page", _reevaluate_mobile_rule
+    )
+    async with session_factory() as db:
+        await RuleEvaluatorService(db).evaluate_crawl(audit_id)
+        await db.commit()
+        rows = await RuleEvaluationResultRepository(db).get_by_audit_id(audit_id)
+
+    assert calls == [page_id]
+    mobile_row = next(row for row in rows if row.rule_id == "technical_002")
+    assert mobile_row.category == "mobile"
 
 
 # =====================================================================

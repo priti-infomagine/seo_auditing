@@ -525,7 +525,11 @@ class AuditResponseBuilder:
         # Map internal rule categories to scoring categories (matching ScoreCalculator)
         scoring_categories: Dict[str, set] = defaultdict(set)
         for cat, rule_ids in main_rules_per_cat.items():
-            scoring_cat = ScoreCalculator.CATEGORY_MAP.get(cat, cat)
+            scoring_cat = (
+                "mobile"
+                if cat == "mobile"
+                else ScoreCalculator.CATEGORY_MAP.get(cat, cat)
+            )
             scoring_categories[scoring_cat].update(rule_ids)
 
         # Per main rule: pass-rate across canonical pages.

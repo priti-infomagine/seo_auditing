@@ -216,6 +216,7 @@ class AuditReadModelService:
         run = inputs["analysis_run"]
         crawl_job = inputs["crawl_job"]
         crawl_pages = inputs["crawl_pages"]
+        rule_results = inputs.get("rule_results", inputs["failed_results"])
         failed_results = inputs["failed_results"]
 
         # --- summary ---------------------------------------------------------
@@ -249,14 +250,22 @@ class AuditReadModelService:
         # Group tier counts by category so categories[].issues has per-cat totals.
         by_cat: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
         cat_rule_counts: Dict[str, set] = defaultdict(set)
-        for r in failed_results:
-            by_cat[r.category or "unknown"][(r.severity or "low").lower()] += 1
-            cat_rule_counts[r.category or "unknown"].add(r.rule_id)
+        failed_rule_counts: Dict[str, set] = defaultdict(set)
+        for r in rule_results:
+            if (r.severity or "").lower() == "error":
+                continue
+            category = r.category or "unknown"
+            cat_rule_counts[category].add(r.rule_id)
+            if not r.passed:
+                failed_rule_counts[category].add(r.rule_id)
+                by_cat[category][(r.severity or "low").lower()] += 1
 
         categories: List[CategorySummary] = []
         for cat_id, d in CATEGORY_DISPLAY.items():
             counts = by_cat.get(cat_id, {})
             failed_for_cat = sum(counts.values())
+            checks_total = len(cat_rule_counts.get(cat_id, set()))
+            checks_failed = len(failed_rule_counts.get(cat_id, set()))
             categories.append(
                 CategorySummary(
                     id=d["id"],
@@ -270,9 +279,9 @@ class AuditReadModelService:
                         low=counts.get("low", 0),
                         total=failed_for_cat,
                     ),
-                    checks_total=len(cat_rule_counts.get(cat_id, set())),
-                    checks_passed=0,
-                    checks_failed=len(cat_rule_counts.get(cat_id, set())),
+                    checks_total=checks_total,
+                    checks_passed=checks_total - checks_failed,
+                    checks_failed=checks_failed,
                 )
             )
 

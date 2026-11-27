@@ -471,6 +471,7 @@ class TestIndividualRules:
             "basic": {"viewport": "width=device-width, initial-scale=1.0"}
         })
         assert result[0].passed is True
+        assert result[0].category == "mobile"
 
     @pytest.mark.asyncio
     async def test_new_http_status_rule(self, scorer_service):

@@ -88,6 +88,27 @@ class RuleEvaluationResultRepository:
         )
         return {row[0] for row in rows.all()}
 
+    async def get_existing_rule_categories(
+        self, audit_id: UUID, page_ids: List[UUID]
+    ) -> Dict[UUID, Dict[str, str]]:
+        """Return persisted rule categories indexed by page and rule ID."""
+        if not page_ids:
+            return {}
+        rows = await self.db.execute(
+            select(
+                RuleEvaluationResult.page_id,
+                RuleEvaluationResult.rule_id,
+                RuleEvaluationResult.category,
+            ).where(
+                RuleEvaluationResult.audit_id == audit_id,
+                RuleEvaluationResult.page_id.in_(page_ids),
+            )
+        )
+        categories: Dict[UUID, Dict[str, str]] = {}
+        for page_id, rule_id, category in rows.all():
+            categories.setdefault(page_id, {})[rule_id] = category
+        return categories
+
     async def bulk_upsert(self, results: List[RuleEvaluationResult]) -> int:
         """
         True bulk upsert of RuleEvaluationResult rows in batched statements.

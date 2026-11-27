@@ -46,7 +46,9 @@ from app.modules.audit.services.audit_read_model_service import AuditReadModelSe
 # --------------------------------------------------------------------- helpers
 
 
-def _mk_result(rule_id, category, severity, score_impact, message, page_id=None):
+def _mk_result(
+    rule_id, category, severity, score_impact, message, page_id=None, passed=False
+):
     return SimpleNamespace(
         rule_id=rule_id,
         category=category,
@@ -55,7 +57,7 @@ def _mk_result(rule_id, category, severity, score_impact, message, page_id=None)
         message=message,
         page_id=page_id or "00000000-0000-0000-0000-000000000001",
         rule_name=rule_id,
-        passed=False,
+        passed=passed,
     )
 
 
@@ -218,6 +220,7 @@ def _stub_service_with_overview_inputs(groups, failed_results, *, run=None, job=
         "analysis_run": run,
         "crawl_job": job,
         "crawl_pages": pages,
+        "rule_results": failed_results,
         "failed_results": failed_results,
     })
     return service
@@ -298,8 +301,9 @@ def test_build_overview_categories_have_no_nested_issues():
     ]
     service = _stub_service_with_overview_inputs({}, rows)
     overview = asyncio.run(service.build_overview("crawl-1"))
-    # All 11 categories are emitted (even those with zero failures) - includes accessibility
-    assert len(overview.categories) == 11
+    # Every configured response category is emitted, including those with no failures.
+    from app.modules.rule_engine.models.rule_evidence_map import CATEGORY_DISPLAY
+    assert len(overview.categories) == len(CATEGORY_DISPLAY)
     # The aggregate counts add up
     total_in_categories = sum(c.issues.total for c in overview.categories)
     assert total_in_categories == 2
@@ -314,6 +318,32 @@ def test_build_overview_categories_have_no_nested_issues():
         elif cat.id == "technical_seo":
             assert cat.checks_total == 1
             assert cat.issues.high == 1
+
+
+def test_build_overview_includes_mobile_checks_and_issues():
+    failed = _mk_result(
+        "mobile_001", "mobile", "warning", -5.0, "Missing viewport", page_id="p1"
+    )
+    passed = _mk_result(
+        "technical_002",
+        "mobile",
+        "passed",
+        0.0,
+        "Viewport configured",
+        page_id="p2",
+        passed=True,
+    )
+    service = _stub_service_with_overview_inputs({}, [failed])
+    service.repo._payload["rule_results"] = [failed, passed]
+
+    overview = asyncio.run(service.build_overview("crawl-1"))
+    mobile = next(category for category in overview.categories if category.id == "mobile")
+
+    assert mobile.checks_total == 2
+    assert mobile.checks_passed == 1
+    assert mobile.checks_failed == 1
+    assert mobile.issues.total == 1
+    assert overview.top_issues[0].category == "mobile"
 
 
 def test_build_overview_does_not_include_legacy_fields():

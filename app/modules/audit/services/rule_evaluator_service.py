@@ -178,9 +178,14 @@ class RuleEvaluatorService:
             # --- Batch fetch everything needed for the evaluate stage (O(1) queries) ---
             # Replaces per-page rule-result / crawl-page / seo / network re-fetches (N+1).
             page_ids = [f.page_id for f in filtered_facts]
-            existing_ids = await self.rule_eval_repo.get_existing_page_ids(
-                audit_id, page_ids
+            existing_rule_categories = (
+                await self.rule_eval_repo.get_existing_rule_categories(
+                    audit_id, page_ids
+                )
             )
+            expected_rule_categories = {
+                rule.rule_id: rule.category for rule in self.rules
+            }
             crawl_pages = await self.crawl_page_repo.get_by_ids(page_ids)
             seo_map = await self.seo_repo.get_by_page_ids(page_ids)
             network_map = await self.network_repo.get_by_page_ids(page_ids)
@@ -218,7 +223,14 @@ class RuleEvaluatorService:
                 nonlocal pages_evaluated, total_results, rules_run
                 async with semaphore:
                     try:
-                        if not force and fact.page_id in existing_ids:
+                        persisted_categories = existing_rule_categories.get(
+                            fact.page_id, {}
+                        )
+                        evaluation_is_current = all(
+                            persisted_categories.get(rule_id) == category
+                            for rule_id, category in expected_rule_categories.items()
+                        )
+                        if not force and evaluation_is_current:
                             pages_evaluated += 1
                             return None, None
 

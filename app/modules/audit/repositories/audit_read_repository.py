@@ -79,7 +79,8 @@ class AuditReadRepository:
         1. ``seo_analysis_repo.get_by_audit_id`` (analysis run row)
         2. ``crawl_job_repo.get_by_id`` (crawl metadata)
         3. ``crawl_page_repo.get_by_audit_id`` (all crawl pages)
-        4. ``rule_eval_repo.get_failed_by_audit_id`` (failed rules only)
+        4. ``rule_eval_repo.get_by_audit_id`` (all evaluated rules)
+        5. ``rule_eval_repo.get_failed_by_audit_id`` (failed rules only)
 
         No per-page ``page_seo_data`` or ``page_network_data`` is loaded —
         those are only fetched lazily by the detail endpoints.
@@ -89,6 +90,7 @@ class AuditReadRepository:
             return None
         crawl_job = await self.crawl_job_repo.get_by_id(run.audit_id)
         crawl_pages = await self.crawl_page_repo.get_by_audit_id(run.audit_id)
+        rule_results = await self.rule_eval_repo.get_by_audit_id(run.audit_id)
         failed_results = await self.rule_eval_repo.get_failed_by_audit_id(
             run.audit_id
         )
@@ -97,5 +99,6 @@ class AuditReadRepository:
             "analysis_run": run,
             "crawl_job": crawl_job,
             "crawl_pages": crawl_pages,
+            "rule_results": rule_results,
             "failed_results": failed_results,
         }

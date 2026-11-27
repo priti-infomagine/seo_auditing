@@ -184356,3 +184356,1208 @@ RuntimeError: JSON serialization failed
 2026-11-27T11:29:33 | INFO | app | audit.run_analysis_pipeline: task finished for audit_id=a8f5ef94-8dfc-4403-b5fa-ffd0ad19a857
 2026-11-27T11:42:04 | INFO | app | GET /audit/result/a8f5ef94-8dfc-4403-b5fa-ffd0ad19a857 - format=full
 2026-11-27T11:42:04 | INFO | app | Cache hit: returning audit result from Redis for audit_id=a8f5ef94-8dfc-4403-b5fa-ffd0ad19a857
+2026-11-27T12:05:05 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:07:54 | INFO | app | Celery broker pre-warm started in background
+2026-11-27T12:08:21 | INFO | app | GET /audit/result/a8f5ef94-8dfc-4403-b5fa-ffd0ad19a857 - format=full
+2026-11-27T12:08:21 | INFO | app | Cache hit: returning audit result from Redis for audit_id=a8f5ef94-8dfc-4403-b5fa-ffd0ad19a857
+2026-11-27T12:13:56 | INFO | app | Celery broker pre-warm started in background
+2026-11-27T12:14:18 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Thin or overly long content': 
+2026-11-27T12:14:18 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poor page title': 
+2026-11-27T12:14:18 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poorly sized meta description': 
+2026-11-27T12:14:21 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': 
+2026-11-27T12:15:01 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:01 | INFO | app | Starting SEO scoring...
+2026-11-27T12:15:01 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:01 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:01 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:01 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:15:01 | INFO | app | SEO Score calculated: 47.1/100 (Grade F)
+2026-11-27T12:15:03 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:03 | INFO | app | Starting SEO scoring...
+2026-11-27T12:15:03 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:03 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:03 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:03 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:15:03 | INFO | app | SEO Score calculated: 47.1/100 (Grade F)
+2026-11-27T12:15:05 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:06 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:08 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:09 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:11 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:12 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:14 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:16 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:17 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:19 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:20 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:22 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:23 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:26 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:27 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:29 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:30 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:32 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:34 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:35 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:37 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:37 | INFO | app | Scoring provided parsed data
+2026-11-27T12:15:37 | INFO | app | Starting SEO scoring...
+2026-11-27T12:15:37 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:37 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:37 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:15:37 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:15:37 | INFO | app | SEO Score calculated: 45.3/100 (Grade F)
+2026-11-27T12:15:38 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:40 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:15:41 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:16:54 | INFO | app | Celery broker pre-warm started in background
+2026-11-27T12:17:06 | INFO | app | DBParserService.parse_crawl: audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a, force=False
+2026-11-27T12:17:06 | INFO | app | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a
+2026-11-27T12:17:07 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:17:07 | INFO | app | RuleEvaluatorService.evaluate_crawl: audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a, force=False
+2026-11-27T12:17:07 | INFO | app | LinkGraphService.build_graph: starting audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a
+2026-11-27T12:17:07 | INFO | app | LinkGraphService.build_graph: done audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a pages=0 dead_ends=0 orphans=0
+2026-11-27T12:17:07 | INFO | app | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=159, total_results=1, persisted_results=1, scorable_results=1, pages_skipped=0, errors=0 for audit_id=dffee64b-7f5b-4658-b016-fe7bb261167a
+2026-11-27T12:17:08 | INFO | app | Celery broker pre-warm started in background
+2026-11-27T12:17:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Thin or overly long content': 
+2026-11-27T12:17:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poorly sized meta description': 
+2026-11-27T12:17:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poor page title': 
+2026-11-27T12:17:17 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': 
+2026-11-27T12:18:03 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:03 | INFO | app | Starting SEO scoring...
+2026-11-27T12:18:03 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:03 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:03 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:03 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:18:03 | INFO | app | SEO Score calculated: 47.1/100 (Grade F)
+2026-11-27T12:18:05 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:05 | INFO | app | Starting SEO scoring...
+2026-11-27T12:18:05 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:05 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:05 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:18:05 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:18:05 | INFO | app | SEO Score calculated: 47.1/100 (Grade F)
+2026-11-27T12:18:06 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:07 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:09 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:10 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:12 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:13 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:15 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:16 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:18 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:19 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:22 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:25 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:32 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:39 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:42 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:46 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:49 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:52 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:55 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:18:58 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:01 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:01 | INFO | app | Scoring provided parsed data
+2026-11-27T12:19:01 | INFO | app | Starting SEO scoring...
+2026-11-27T12:19:01 | ERROR | app | Error running rule eeat_009: 'NoneType' object has no attribute 'found'
+2026-11-27T12:19:01 | ERROR | app | Error running rule eeat_013: 'NoneType' object has no attribute 'found'
+2026-11-27T12:19:01 | ERROR | app | Error running rule eeat_014: 'NoneType' object has no attribute 'found'
+2026-11-27T12:19:01 | INFO | app | Completed 144 rule evaluations
+2026-11-27T12:19:01 | INFO | app | SEO Score calculated: 45.3/100 (Grade F)
+2026-11-27T12:19:04 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:07 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:09 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:29 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:56 | INFO | app | DBParserService.parse_crawl: audit_id=42632dc0-1498-4115-a666-8c602c431db3, force=False
+2026-11-27T12:19:57 | INFO | app | DBParserService.parse_crawl: parsed=1, failed=0, skipped=0 for audit_id=42632dc0-1498-4115-a666-8c602c431db3
+2026-11-27T12:19:57 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:57 | INFO | app | RuleEvaluatorService.evaluate_crawl: audit_id=42632dc0-1498-4115-a666-8c602c431db3, force=False
+2026-11-27T12:19:57 | INFO | app | LinkGraphService.build_graph: starting audit_id=42632dc0-1498-4115-a666-8c602c431db3
+2026-11-27T12:19:57 | INFO | app | LinkGraphService.build_graph: done audit_id=42632dc0-1498-4115-a666-8c602c431db3 pages=0 dead_ends=0 orphans=0
+2026-11-27T12:19:57 | INFO | app | RuleEvaluatorService.evaluate_crawl: pages_evaluated=1, rules_run=159, total_results=1, persisted_results=1, scorable_results=1, pages_skipped=0, errors=0 for audit_id=42632dc0-1498-4115-a666-8c602c431db3
+2026-11-27T12:19:57 | INFO | app | AnalysisScorerService.score_project: audit_id=42632dc0-1498-4115-a666-8c602c431db3, force=False
+2026-11-27T12:19:57 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:19:57 | INFO | app.modules.audit.services.audit_response_builder | AuditResponseBuilder.build: audit_id=42632dc0-1498-4115-a666-8c602c431db3
+2026-11-27T12:19:57 | WARNING | app.modules.rule_engine.services.issue_factory | rule_evidence_map: rule_id 'test_datetime' has no affected_part mapping; using 'unknown'. Add it to RULE_AFFECTED_PART.
+2026-11-27T12:19:57 | INFO | app | -----Unified response keys: dict_keys(['audit', 'summary', 'categories'])
+2026-11-27T12:19:57 | INFO | app | -----------Summary keys: dict_keys(['score', 'health', 'issues', 'checks'])
+2026-11-27T12:19:57 | INFO | app | AnalysisScorerService.score_project: score=100.0, grade=A+, pages=1, audit_id=42632dc0-1498-4115-a666-8c602c431db3
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: task started for audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE link_check starting audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE link_check finished audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE site_signals starting audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE site_signals finished audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE parse starting audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc, force=False
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE parse finished audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: STAGE evaluate starting audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc, force=False
+2026-11-27T12:20:04 | ERROR | app | audit.run_analysis_pipeline: evaluate stage failed: JSON serialization failed
+Traceback (most recent call last):
+  File "I:\Priti\PROJECTS\Automated SEO & Website Audit Tool\backend\app\modules\audit\tasks.py", line 404, in _run
+    evaluate_result = await evaluator.evaluate_crawl(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 2240, in _execute_mock_call
+    raise effect
+RuntimeError: JSON serialization failed
+2026-11-27T12:20:04 | INFO | app | audit.run_analysis_pipeline: task finished for audit_id=720b264d-ea62-4d7b-9b6e-c5f17eab42fc
+2026-11-27T12:20:06 | INFO | app | GET /audit/analyze/poll/a76e8d61-b005-4031-989e-947ac3a81532
+2026-11-27T12:20:07 | INFO | app | GET /audit/analyze/poll/7484110f-d164-4e5b-8a8d-c5bd66a85dd5
+2026-11-27T12:20:08 | INFO | app | GET /audit/status/5f4a1e11-6887-4965-8712-e979b5708a46
+2026-11-27T12:35:33 | INFO | app | Celery broker pre-warm started in background
+2026-11-27T12:37:33 | INFO | app | POST /audit/analyze - Queuing audit for URL: https://moneymatters.co.in, 
+2026-11-27T12:37:37 | INFO | app | Site discovery complete for https://moneymatters.co.in: robots=True, sitemaps=1, page_urls=5
+2026-11-27T12:37:37 | INFO | app | CrawlJob created: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, domain=moneymatters.co.in
+2026-11-27T12:37:37 | INFO | app | Audit enqueued: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, task_id=a6ebef41-5044-4c55-bfd4-9fe324be6348, queued on 'crawler'
+2026-11-27T12:37:59 | INFO | app | Worker process initialized with persistent background event loop (pid=3160)
+2026-11-27T12:38:11 | INFO | app | Worker process initialized with persistent background event loop (pid=5192)
+2026-11-27T12:38:13 | INFO | app | crawler.crawl_website: task started for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, url=https://moneymatters.co.in, user_id=1f32c9b4-bec5-4f15-9e99-9de0c4cc59e4
+2026-11-27T12:38:14 | INFO | app | Robots policy attached to scheduler for moneymatters.co.in (sitemaps: 1)
+2026-11-27T12:38:14 | INFO | app | Crawl started: https://moneymatters.co.in (max_pages=100, max_depth=5)
+2026-11-27T12:38:14 | INFO | app | Submitted 4 sitemap URLs to crawl queue (total selected: 5)
+2026-11-27T12:38:25 | INFO | app | Crawl completed: https://moneymatters.co.in — pages_crawled=6, pages_discovered=6, pages_failed=0, duration=11937ms
+2026-11-27T12:38:25 | INFO | app | URL diagnostics: {'external_host': 0, 'duplicate': 118, 'non_html': 0, 'resource': 0, 'api': 0, 'max_depth': 0, 'max_pages': 0, 'invalid_url': 0, 'robots_blocked': 0}
+2026-11-27T12:38:25 | INFO | app | crawler.crawl_website: auto_analyze fired for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:25 | INFO | app | audit.run_analysis_pipeline: task started for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:26 | INFO | app | crawler.crawl_website: task succeeded for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, pages_crawled=6
+2026-11-27T12:38:26 | INFO | app | audit.run_analysis_pipeline: STAGE link_check starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:26 | INFO | app | BrokenLinkChecker.check_links: starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:26 | INFO | app | BrokenLinkChecker: skipped 6 external URLs from excluded domains
+2026-11-27T12:38:27 | INFO | app | BrokenLinkChecker.check_links: done audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6 stats={'broken_internal': 0, 'broken_external': 0, 'total_checked': 171, 'errors': []}
+2026-11-27T12:38:27 | INFO | app | audit.run_analysis_pipeline: STAGE link_check finished audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:27 | INFO | app | audit.run_analysis_pipeline: STAGE site_signals starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:28 | INFO | app | audit.run_analysis_pipeline: STAGE site_signals finished audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:28 | INFO | app | audit.run_analysis_pipeline: STAGE parse starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:28 | INFO | app | DBParserService.parse_crawl: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:28 | INFO | app | DBParserService.parse_crawl: parsed=6, failed=0, skipped=0 for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:28 | INFO | app | audit.run_analysis_pipeline: STAGE parse finished audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:28 | INFO | app | audit.run_analysis_pipeline: STAGE evaluate starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:28 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService.evaluate_crawl: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:28 | INFO | app | LinkGraphService.build_graph: starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:28 | INFO | app | LinkGraphService.build_graph: done audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6 pages=0 dead_ends=0 orphans=0
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=343
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=359
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=375
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=391
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=407
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=422
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=438
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=452
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=468
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=484
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=500
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:28 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=516
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=532
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=547
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=547
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=547
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=547
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=547
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=563
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=577
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=593
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=609
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=609
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=609
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=609
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=609
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=625
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=641
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=657
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=657
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=657
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=657
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=657
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=on_page_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=672
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=technical_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=mobile_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=http_status_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=hreflang_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=content_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=duplicate_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_013 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=links_015 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_013 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=images_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=schema_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_013 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_015 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_016 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_017 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_001_legacy page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=688
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=security_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=a11y_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=core_web_vitals_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_015 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_016 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_017 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_018 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_019 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_020 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_022 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_023 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=perf_024 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=702
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_013 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=eeat_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_001 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_002 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_005 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_006 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_007 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_008 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_009 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_010 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_011 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_012 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_013 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_014 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=url_structure_015 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=718
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=843
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=4ef3929c-1709-40c4-bbf8-afbf828ffcc8 duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=17f772e8-8e58-45b0-bd60-9df1bce0723b duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=5a82bc5b-e6fc-4244-9ced-728810b15624 duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=859
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=875
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=4b54bbcb-d36c-48e1-a4a1-ff75379a26b2 duration_ms=875
+2026-11-27T12:38:29 | INFO | app | RuleEvaluatorService: rule=social_003 page_id=e381da0f-af66-4797-aa0f-eebeeb741aec duration_ms=1157
+2026-11-27T12:38:30 | INFO | app | RuleEvaluatorService: rule=social_004 page_id=def352e6-a821-4163-9de3-def8f34868f4 duration_ms=1827
+2026-11-27T12:38:31 | INFO | app | RuleEvaluatorService.evaluate_crawl: pages_evaluated=6, rules_run=954, total_results=954, persisted_results=954, scorable_results=954, pages_skipped=0, errors=0 for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:31 | INFO | app | audit.run_analysis_pipeline: STAGE evaluate finished audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:31 | INFO | app | audit.run_analysis_pipeline: STAGE score starting audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:31 | INFO | app | AnalysisScorerService.score_project: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6, force=False
+2026-11-27T12:38:31 | INFO | app | Loaded 159 scoring rules
+2026-11-27T12:38:31 | INFO | app.modules.audit.services.audit_response_builder | AuditResponseBuilder.build: audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:38:34 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Interactive elements missing accessible names': 
+2026-11-27T12:38:34 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing landmark regions': 
+2026-11-27T12:38:34 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Form inputs missing accessible labels': 
+2026-11-27T12:38:36 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing skip navigation link': 
+2026-11-27T12:38:36 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Links with non-descriptive text': 
+2026-11-27T12:38:36 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Buttons missing accessible names': 
+2026-11-27T12:38:39 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Paragraph structure needs improvement': 
+2026-11-27T12:38:39 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing content freshness dates': 
+2026-11-27T12:38:39 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Duplicate content detected': 
+2026-11-27T12:38:41 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing privacy policy link': 
+2026-11-27T12:38:41 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing terms of service link': 
+2026-11-27T12:38:41 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing author expertise signals': 
+2026-11-27T12:38:43 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing editorial policy': 
+2026-11-27T12:38:43 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing trust signals': 
+2026-11-27T12:38:43 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing content dates': 
+2026-11-27T12:38:46 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing external citations': 
+2026-11-27T12:38:46 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Images missing width/height dimensions': 
+2026-11-27T12:38:46 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Lazy loading not implemented': 
+2026-11-27T12:38:48 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Generic alt text detected': 
+2026-11-27T12:38:48 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing responsive image attributes': 
+2026-11-27T12:38:48 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Only traditional image formats detected': 
+2026-11-27T12:38:50 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Generic or non-descriptive anchor text': 
+2026-11-27T12:38:51 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'CSS background images used for content': 
+2026-11-27T12:38:51 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Broken image sources detected': 
+2026-11-27T12:38:53 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or multiple H1 tags': 
+2026-11-27T12:38:53 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poorly sized meta description': 
+2026-11-27T12:38:53 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Fragment link targets missing': 
+2026-11-27T12:38:55 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Slow server response time (TTFB)': 
+2026-11-27T12:38:55 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing canonical URL': 
+2026-11-27T12:38:56 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing browser caching headers': 
+2026-11-27T12:38:58 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Brotli compression not enabled': 
+2026-11-27T12:38:58 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing preconnect/dns-prefetch hints': 
+2026-11-27T12:38:58 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'LCP element not optimized (missing fetchpriority/preload)': 
+2026-11-27T12:39:00 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Render-blocking resources detected': 
+2026-11-27T12:39:00 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Website not using HTTPS': 
+2026-11-27T12:39:00 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'HTTP/2 or HTTP/3 not enabled': 
+2026-11-27T12:39:03 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'SSL certificate issues': 
+2026-11-27T12:39:03 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing security headers': 
+2026-11-27T12:39:03 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing HSTS header': 
+2026-11-27T12:39:05 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Content Security Policy missing or weak': 
+2026-11-27T12:39:05 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'X-Frame-Options missing': 
+2026-11-27T12:39:05 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing XSS protection headers': 
+2026-11-27T12:39:07 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'X-Content-Type-Options missing': 
+2026-11-27T12:39:07 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Referrer Policy missing': 
+2026-11-27T12:39:07 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Permissions Policy missing': 
+2026-11-27T12:39:09 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing social media image': 
+2026-11-27T12:39:09 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'External links missing security attributes': 
+2026-11-27T12:39:09 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing Facebook domain verification': 
+2026-11-27T12:39:12 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'og:url differs from canonical URL': 
+2026-11-27T12:39:12 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing HTML language declaration': 
+2026-11-27T12:39:12 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing Facebook domain verification': 
+2026-11-27T12:39:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing structured data / schema markup': 
+2026-11-27T12:39:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing DOCTYPE declaration': 
+2026-11-27T12:39:14 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Uppercase letters in URL path': 
+2026-11-27T12:39:16 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Low-quality URL slug': 
+2026-11-27T12:39:16 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Illogical heading hierarchy': 
+2026-11-27T12:39:16 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Iframes missing title attributes': 
+2026-11-27T12:39:19 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Heading structure issues': 
+2026-11-27T12:39:19 | WARNING | app.modules.audit.services.audit_response_builder | Ollama recommendation generation skipped/failed for 'Missing or poor page title': 
+2026-11-27T12:39:19 | INFO | app | -----Unified response keys: dict_keys(['audit', 'summary', 'categories', 'issues'])
+2026-11-27T12:39:19 | INFO | app | -----------Summary keys: dict_keys(['score', 'health', 'issues', 'checks'])
+2026-11-27T12:39:19 | INFO | app | AnalysisScorerService.score_project: score=61.1, grade=D, pages=6, audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:39:19 | INFO | app | audit.run_analysis_pipeline: STAGE score finished audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:39:19 | INFO | app | audit.run_analysis_pipeline: task finished for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6
+2026-11-27T12:39:38 | INFO | app | GET /audit/result/41a2bf11-6421-4401-b999-dafaf3f477a6 - format=full
+2026-11-27T12:39:38 | INFO | app | Cache hit: returning audit result from Redis for audit_id=41a2bf11-6421-4401-b999-dafaf3f477a6

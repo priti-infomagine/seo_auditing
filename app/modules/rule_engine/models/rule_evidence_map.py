@@ -249,6 +249,7 @@ HIGH_IMPACT_WARNINGS: set = {
 CATEGORY_DISPLAY: Dict[str, Dict[str, str]] = {
     "on_page":          {"id": "on_page_seo",        "name": "On-Page SEO"},
     "technical":        {"id": "technical_seo",      "name": "Technical SEO"},
+    "mobile":           {"id": "mobile",             "name": "Mobile"},
     "content":          {"id": "content_quality",    "name": "Content Quality"},
     "links":            {"id": "internal_linking",   "name": "Internal Linking"},
     "performance":      {"id": "performance",        "name": "Performance"},

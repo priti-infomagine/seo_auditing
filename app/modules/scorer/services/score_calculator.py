@@ -332,6 +332,7 @@ INTERNAL_TO_RESPONSE: Dict[str, str] = {
     "social": "social",
     "security": "security",
     "accessibility": "accessibility",
+    "mobile": "mobile",
     "performance": "performance",
     "url_structure": "url_structure",
 }

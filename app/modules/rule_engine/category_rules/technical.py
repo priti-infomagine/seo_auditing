@@ -71,10 +71,10 @@ class MobileViewportRule(BaseRule):
     """Check mobile viewport meta tag."""
     rule_id = "technical_002"
     name = "Mobile Viewport"
-    category = "technical"
+    category = "mobile"
     description = "Page should have viewport meta tag for mobile devices"
     weight = 1.3
-    tags = ["critical", "technical", "mobile"]
+    tags = ["critical", "mobile"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         basic = data.get("basic", {})
@@ -648,10 +648,10 @@ class MobileRule(BaseRule):
     """Check mobile friendliness."""
     rule_id = "mobile_001"
     name = "Mobile Friendliness"
-    category = "technical"
+    category = "mobile"
     description = "Page should be mobile-friendly"
     weight = 1.0
-    tags = ["warning", "technical", "mobile"]
+    tags = ["warning", "mobile"]
 
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
         basic = data.get("basic", {})

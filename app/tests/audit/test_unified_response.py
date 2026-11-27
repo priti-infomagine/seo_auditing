@@ -100,6 +100,25 @@ def test_categories_pass_rate_invariant(builder):
         assert "issues" not in c
 
 
+def test_mobile_rules_are_grouped_in_mobile_category(builder):
+    mobile = builder._build_categories(
+        [],
+        {"mobile": {"technical_002", "mobile_001"}},
+        {
+            "page-1": {
+                "technical_002": True,
+                "mobile_001": False,
+            }
+        },
+        1,
+    )
+
+    mobile_category = next(category for category in mobile if category["id"] == "mobile")
+    assert mobile_category["checks_total"] == 2
+    assert mobile_category["checks_passed"] == 1
+    assert mobile_category["checks_failed"] == 1
+
+
 def test_build_audit_block_takes_correct_number_of_args(builder):
     """Regression: _build_audit_block must be called with the exact number of
     positional args its signature declares (no duplicate audit_id). The build()
