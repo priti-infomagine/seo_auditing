@@ -22,6 +22,10 @@ from app.modules.rule_engine.models.rule_evidence_map import (
 )
 from app.modules.rule_engine.models.rule_result import RuleResult, Severity
 from app.modules.rule_engine.models.seo_issue import SEOIssue, SeverityTier
+from app.modules.rule_engine.services.evidence_extractor import (
+    RuleEvidenceExtractor,
+    legacy_rule_data,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +75,7 @@ class RuleResultToSEOIssueConverter:
         page_url: str,
         page_id: Optional[str] = None,
         audit_id: Optional[str] = None,
+        page_context: Optional[dict] = None,
     ) -> Optional[SEOIssue]:
         """
         Convert a RuleResult into a SEOIssue.
@@ -81,6 +86,7 @@ class RuleResultToSEOIssueConverter:
         if result.severity == Severity.ERROR:
             return None
 
+        rule_data = legacy_rule_data(result.data)
         return SEOIssue(
             rule_id=result.rule_id,
             severity=cls.severity_tier(result),
@@ -88,7 +94,23 @@ class RuleResultToSEOIssueConverter:
             status="passed" if result.passed else "failed",
             page_url=page_url,
             affected_part=cls.affected_part(result.rule_id),
-            evidence=_minify_evidence(result.data),
+            evidence=_minify_evidence(rule_data),
+            evidence_v1=RuleEvidenceExtractor.build(
+                rule_id=result.rule_id,
+                rule_name=result.name,
+                category=result.category,
+                passed=result.passed,
+                severity=result.severity.value,
+                message=result.message if isinstance(result.message, str) else None,
+                recommendation=(
+                    result.recommendation
+                    if isinstance(result.recommendation, str)
+                    else None
+                ),
+                page_url=page_url,
+                rule_data=rule_data,
+                page_context=page_context,
+            ),
             score_impact=result.score_impact,
             message=result.message if isinstance(result.message, str) else None,
             recommendation=result.recommendation if isinstance(result.recommendation, str) else None,

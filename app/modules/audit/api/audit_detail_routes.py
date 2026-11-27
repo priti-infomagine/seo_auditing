@@ -17,7 +17,7 @@ Cache keys (not implemented in this PR — see plan §11):
     audit:issue_evidence:{audit_id}:{issue_id}
     audit:page:{audit_id}:{page_id}
 """
-from typing import Optional
+from typing import Literal, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -146,10 +146,11 @@ async def get_audit_issue_pages(
 @router.get(
     "/{audit_id}/issues/{issue_id}/evidence",
     response_model=IssueEvidenceResponse,
-    summary="Lazy-loaded heavy evidence for one issue (links, images, rule_data)",
+    summary="Lazy-loaded evidence for failed or passing pages",
     description=(
-        "Returns heavy evidence on demand. Links and images are paginated. "
-        "This endpoint is NOT used by the overview path."
+        "Returns per-page structured evidence on demand. Use "
+        "``status=passed`` to inspect successful checks; failed checks are the "
+        "default. Links and images are paginated."
     ),
 )
 async def get_audit_issue_evidence(
@@ -159,6 +160,10 @@ async def get_audit_issue_evidence(
     links_offset: int = Query(0, ge=0),
     images_limit: int = Query(25, ge=1, le=100),
     images_offset: int = Query(0, ge=0),
+    status: Literal["failed", "passed"] = Query(
+        "failed",
+        description="Return evidence for failed checks or passing checks.",
+    ),
     db: AsyncSession = Depends(get_db),
 ) -> IssueEvidenceResponse:
     service = AuditReadModelService(db)
@@ -167,6 +172,7 @@ async def get_audit_issue_evidence(
             audit_id, issue_id,
             links_limit=links_limit, links_offset=links_offset,
             images_limit=images_limit, images_offset=images_offset,
+            status=status,
         )
     except LookupError:
         raise _not_found(audit_id)

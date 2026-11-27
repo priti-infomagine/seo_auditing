@@ -58,6 +58,10 @@ from app.modules.audit.schemas.issue_detail_schemas import (
     PageDetailResponse,
     RuleMeta,
 )
+from app.modules.rule_engine.services.evidence_extractor import (
+    RuleEvidenceExtractor,
+    legacy_rule_data,
+)
 from app.modules.rule_engine.models.rule_evidence_map import (
     CATEGORY_DISPLAY,
     RECOMMENDATIONS,
@@ -527,6 +531,7 @@ class AuditReadModelService:
         links_offset: int = 0,
         images_limit: int = 25,
         images_offset: int = 0,
+        status: str = "failed",
     ) -> IssueEvidenceResponse:
         """Lazy-load heavy evidence for one issue (links, images, rule_data)."""
         audit_id, _ = await self.repo.resolve_audit(audit_id)
@@ -539,12 +544,18 @@ class AuditReadModelService:
         images_limit = max(1, min(int(images_limit or self.EVIDENCE_DEFAULT_LIMIT), self.EVIDENCE_MAX_LIMIT))
         images_offset = max(0, int(images_offset or 0))
 
-        # Load all failed rows for this rule (cap to a reasonable upper bound so a
-        # pathological rule with 100k pages does not blow memory; a full list
-        # endpoint is not the goal of this endpoint).
+        if status not in {"failed", "passed"}:
+            raise ValueError(f"Unsupported evidence status: {status}")
+
+        # Bound the evidence response so a rule covering many pages cannot
+        # exhaust memory; this is a detail view, not a bulk export endpoint.
         HARD_CAP = 1000
-        rows, total = await self.repo.rule_eval_repo.get_failed_pages_for_rule(
-            audit_id, rule_id, limit=HARD_CAP, offset=0,
+        rows, total = await self.repo.rule_eval_repo.get_rule_pages_by_status(
+            audit_id,
+            rule_id,
+            passed=status == "passed",
+            limit=HARD_CAP,
+            offset=0,
         )
 
         # Batch-load URLs for the involved pages
@@ -556,23 +567,48 @@ class AuditReadModelService:
                 pid: (p.url or p.normalized_url) for pid, p in page_map.items() if p
             }
 
-        # Items: serialize the rule_data per row (small dict, no JSONB on the wire)
+        facts_map = await self.repo.parsed_fact_repo.get_by_page_ids(page_ids)
+        seo_map = await self.repo.seo_repo.get_by_page_ids(page_ids)
+        network_map = await self.repo.network_repo.get_by_page_ids(page_ids)
+
+        # Include the original rule fields and normalized evidence per page.
         items: List[EvidenceItem] = []
         for r in rows:
             url = page_url_map.get(r.page_id, f"page:{r.page_id}")
-            evidence_dict: Dict[str, Any] = {}
-            if isinstance(r.rule_data, dict):
-                evidence_dict = r.rule_data
+            fact = facts_map.get(r.page_id)
+            page_context = RuleEvidenceExtractor.build_page_context(
+                seo_data=seo_map.get(r.page_id),
+                network_data=network_map.get(r.page_id),
+                parsed_data=(
+                    fact.parsed_data
+                    if fact and isinstance(fact.parsed_data, dict)
+                    else {}
+                ),
+                crawl_page=page_map.get(r.page_id),
+            )
+            rule_data = legacy_rule_data(r.rule_data)
+            evidence_v1 = RuleEvidenceExtractor.build(
+                rule_id=r.rule_id,
+                rule_name=r.rule_name,
+                category=r.category,
+                passed=r.passed,
+                severity=r.severity,
+                message=r.message,
+                recommendation=r.recommendation,
+                page_url=url,
+                rule_data=rule_data,
+                page_context=page_context,
+            )
             items.append(EvidenceItem(
                 page_id=str(r.page_id),
                 url=url,
-                found_value=None,
-                expected_value=None,
-                evidence=evidence_dict,
+                found_value=evidence_v1.get("observed"),
+                expected_value=evidence_v1.get("expected"),
+                evidence=rule_data,
+                evidence_v1=evidence_v1,
             ))
 
         # Links / images: load parsed facts in one batched query, then slice
-        facts_map = await self.repo.parsed_fact_repo.get_by_page_ids(page_ids)
         all_links: List[EvidenceLink] = []
         all_images: List[EvidenceImage] = []
         for pid, fact in facts_map.items():
@@ -616,12 +652,13 @@ class AuditReadModelService:
 
         return IssueEvidenceResponse(
             rule_id=rule_id,
+            status=status,
             items=items,
             links=links_slice,
             images=images_slice,
             total_links=total_links,
             total_images=total_images,
-            total_items=len(items),
+            total_items=total,
         )
 
     # ---------------------------------------------------------------- page detail

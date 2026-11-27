@@ -81,7 +81,8 @@ def test_summary_health_thresholds(builder):
 async def test_issues_enriched_shape(builder):
     issues = await builder._build_issues(_issues())
     expected_keys = {"rule_id", "category", "severity", "title", "why", "what",
-                     "recommendation", "evidence", "affected_pages", "occurrences"}
+                     "recommendation", "evidence", "evidence_v1",
+                     "affected_pages", "occurrences"}
     for i in issues:
         assert set(i.keys()).issubset(expected_keys)
         assert {"rule_id", "category", "severity", "title", "affected_pages", "occurrences"}.issubset(set(i.keys()))

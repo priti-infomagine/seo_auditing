@@ -32,18 +32,22 @@ async def test_audit_analyze_issues_have_current_value_and_recommended(
     ) as client:
         response = await client.post(
             "/api/v1/audit/analyze",
-            json={"url": "https://example.com/"},
+            json={"url": "https://moneymatters.co.in/"},
         )
         assert response.status_code == 202, response.text
         posted = response.json()
         audit_id = uuid.UUID(posted["audit_id"])
-        audit_id = uuid.UUID(posted["audit_id"])
         task_id = posted["task_id"]
 
         async with session_factory() as db:
-            await _seed_crawl(db, audit_id, audit_id, n_pages=2)
+            await _seed_crawl(
+                db,
+                audit_id,
+                n_pages=2,
+                base_url="https://moneymatters.co.in",
+            )
 
-        await _run_pipeline(audit_id, audit_id, session_factory)
+        await _run_pipeline(audit_id, session_factory)
 
         state = await _poll_task_until_terminal(client, task_id)
         assert state == "SUCCESS"

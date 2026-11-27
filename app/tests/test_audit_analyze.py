@@ -8,6 +8,7 @@ import hashlib
 import uuid
 from types import SimpleNamespace
 from typing import Any, Dict, Optional
+from urllib.parse import urlsplit
 
 import pytest
 from httpx import ASGITransport, AsyncClient
@@ -37,8 +38,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <h1>{title}</h1>
   <p>Some body text with enough words to produce a word count greater than ten
   for the content quality checks and to make the page non-trivial.</p>
-  <a href="https://example.com/other">Internal link</a>
-  <img src="https://example.com/img.png" alt="An image with alt text">
+  <a href="{origin}/other">Internal link</a>
+  <img src="{origin}/img.png" alt="An image with alt text">
 </body>
 </html>"""
 
@@ -79,10 +80,18 @@ def mock_celery(monkeypatch):
     return SimpleNamespace(captured_tasks=_captured_send_tasks)
 
 
-async def _seed_crawl(db: AsyncSession, audit_id: uuid.UUID, n_pages: int):
+async def _seed_crawl(
+    db: AsyncSession,
+    audit_id: uuid.UUID,
+    n_pages: int,
+    base_url: str = "https://example.com",
+):
+    base = urlsplit(base_url)
+    origin = f"{base.scheme}://{base.netloc}"
+    host = base.hostname or "example.com"
     pages = []
     for i in range(n_pages):
-        url = f"https://example.com/page{i + 1}"
+        url = f"{origin}/page{i + 1}"
         norm = url
         page = CrawlPage(
             audit_id=audit_id,
@@ -90,7 +99,7 @@ async def _seed_crawl(db: AsyncSession, audit_id: uuid.UUID, n_pages: int):
             normalized_url=norm,
             url_hash=hashlib.sha256(norm.encode()).hexdigest(),
             scheme="https",
-            host="example.com",
+            host=host,
             path=f"/page{i + 1}",
             depth=0,
             status_code=200,
@@ -110,6 +119,7 @@ async def _seed_crawl(db: AsyncSession, audit_id: uuid.UUID, n_pages: int):
                 "long enough."
             ),
             url=page.normalized_url,
+            origin=origin,
         )
         db.add(PageSnapshot(page_id=page.id, content=html, compressed=False))
         db.add(PageSEOData(

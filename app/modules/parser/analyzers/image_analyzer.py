@@ -75,7 +75,7 @@ def _has_lazy_loading(img) -> bool:
     return loading.strip().lower() == "lazy"
 
 
-def _is_broken_image(img) -> bool:
+def is_broken_image(img) -> bool:
     """Check if image is broken (HTTP error, empty src, placeholder)."""
     url = getattr(img, "url", "") or (img.get("url", "") if isinstance(img, dict) else "")
     http_status = getattr(img, "http_status", 0) or (img.get("http_status", 0) if isinstance(img, dict) else 0)
@@ -136,6 +136,8 @@ def analyze_images(images: list) -> dict:
             "inline_svg_total_size_kb": 0,
             "oversized_image_count": 0,
             "broken_image_count": 0,
+            "broken_images": [],
+            "broken_images_truncated": 0,
             "generic_filename_count": 0,
             "descriptive_filename_count": 0,
             "has_fetchpriority_high": False,
@@ -168,6 +170,7 @@ def analyze_images(images: list) -> dict:
     svg_size_kb = 0
     oversized = 0
     broken = 0
+    broken_images = []
     generic_fn = 0
     descriptive_fn = 0
     fetchpriority_high = False
@@ -252,8 +255,24 @@ def analyze_images(images: list) -> dict:
                 lazy_loading += 1
             
             # Broken image
-            if _is_broken_image(img):
+            if is_broken_image(img):
                 broken += 1
+                if len(broken_images) < 25:
+                    url = url.strip() if isinstance(url, str) else ""
+                    if not url:
+                        reason = "empty_source"
+                    elif any(
+                        pattern in url.lower()
+                        for pattern in ("placeholder", "data:image", "blank", "spacer", "1x1", "pixel")
+                    ):
+                        reason = "placeholder_source"
+                    else:
+                        reason = "http_error"
+                    broken_images.append({
+                        "url": url or None,
+                        "http_status": http_status or None,
+                        "reason": reason,
+                    })
             
             # Oversized
             if file_size and file_size > 200 * 1024:  # > 200KB
@@ -356,6 +375,8 @@ def analyze_images(images: list) -> dict:
         "inline_svg_total_size_kb": round(svg_size_kb, 1),
         "oversized_image_count": oversized,
         "broken_image_count": broken,
+        "broken_images": broken_images,
+        "broken_images_truncated": max(0, broken - len(broken_images)),
         "generic_filename_count": generic_fn,
         "descriptive_filename_count": descriptive_fn,
         "has_fetchpriority_high": fetchpriority_high,

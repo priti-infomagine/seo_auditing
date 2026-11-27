@@ -1,8 +1,9 @@
 """
 Pydantic schemas for the unified audit API response.
 
-`issues[]` carries rule-first nested page evidence. `UnifiedAuditResponse`
-collapses to 4 top-level keys: `audit`, `summary`, `categories`, `issues`.
+`issues[]` carries rule-first nested page evidence, including additive,
+versioned evidence envelopes. `UnifiedAuditResponse` collapses to 4 top-level
+keys: `audit`, `summary`, `categories`, `issues`.
 """
 from typing import Any, Dict, List, Optional
 
@@ -25,6 +26,9 @@ class RuleLevelIssue(BaseModel):
     what: Optional[str] = None
     recommendation: Optional[str] = None
     affected_pages: int = 0
+    occurrences: List[Dict[str, Any]] = Field(default_factory=list)
+    evidence: Optional[Dict[str, Any]] = None
+    evidence_v1: List[Dict[str, Any]] = Field(default_factory=list)
     pages: List[PageIssueEvidence] = Field(default_factory=list)
 
 

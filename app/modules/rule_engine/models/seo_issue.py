@@ -45,6 +45,9 @@ class SEOIssue(BaseModel):
     evidence: dict = Field(
         default_factory=dict, description="Factual evidence from crawler/parser (minimal)"
     )
+    evidence_v1: Optional[dict] = Field(
+        default=None, description="Versioned, structured proof for the evaluated rule"
+    )
     score_impact: float = Field(default=0.0, description="Penalty applied to score")
     message: Optional[str] = Field(
         default=None, description="Short human-readable description of the issue"

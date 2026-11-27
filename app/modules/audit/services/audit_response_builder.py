@@ -45,6 +45,10 @@ from app.modules.crawler.repositories.crawl_page_repository import CrawlPageRepo
 from app.modules.crawler.repositories.page_seo_data_repository import (
     PageSEODataRepository,
 )
+from app.modules.crawler.repositories.page_network_data_repository import (
+    PageNetworkDataRepository,
+)
+from app.modules.rule_engine.services.evidence_extractor import RuleEvidenceExtractor
 from app.modules.separate_checks.robots_check.repository import (
     RobotCheckRepository,
 )
@@ -82,6 +86,7 @@ class AuditResponseBuilder:
         self.parsed_fact_repo = ParsedPageFactRepository(db)
         self.rule_eval_repo = RuleEvaluationResultRepository(db)
         self.seo_repo = PageSEODataRepository(db)
+        self.network_repo = PageNetworkDataRepository(db)
         self.robots_repo = RobotCheckRepository(db)
         self.calculator = ScoreCalculator()
         self.converter = RuleResultToSEOIssueConverter()
@@ -139,6 +144,11 @@ class AuditResponseBuilder:
 
         # --- Parsed facts (per-page content/image/schema/link signals) ---
         parsed_facts = await self.parsed_fact_repo.get_by_audit_id(audit_id)
+        parsed_by_page_id = {fact.page_id: fact for fact in parsed_facts}
+        crawl_page_by_id = {page.id: page for page in crawl_pages}
+        page_ids = [page.id for page in crawl_pages]
+        seo_map = await self.seo_repo.get_by_page_ids(page_ids)
+        network_map = await self.network_repo.get_by_page_ids(page_ids)
 
         # --- Rule evaluation results ---
         eval_rows = await self.rule_eval_repo.get_by_audit_id(audit_id)
@@ -252,6 +262,22 @@ class AuditResponseBuilder:
         }
 
         total_pages_analyzed = len(canonical_groups)
+        evidence_context_by_canonical: Dict[str, Dict[str, Any]] = {}
+        for canonical_key, grouped_page_ids in canonical_groups.items():
+            page_id = grouped_page_ids[0]
+            parsed_fact = parsed_by_page_id.get(page_id)
+            evidence_context_by_canonical[canonical_key] = (
+                RuleEvidenceExtractor.build_page_context(
+                    seo_data=seo_map.get(page_id),
+                    network_data=network_map.get(page_id),
+                    parsed_data=(
+                        parsed_fact.parsed_data
+                        if parsed_fact and isinstance(parsed_fact.parsed_data, dict)
+                        else {}
+                    ),
+                    crawl_page=crawl_page_by_id.get(page_id),
+                )
+            )
 
         # --- Shared check-result cache (Section 2) ----------------------------
         # ONE canonical verdict per (canonical page, check_key). check_key is the
@@ -313,6 +339,7 @@ class AuditResponseBuilder:
                 issue = self.converter.from_rule_result(
                      rr, page_url=p["url"],
                      page_id=p["page_id"], audit_id=str(audit_id),
+                     page_context=evidence_context_by_canonical.get(p["page_id"]),
                  )
                 if issue is not None:
                     all_seo_issues.append(issue)
@@ -339,11 +366,6 @@ class AuditResponseBuilder:
             crawl_job, pages_discovered, pages_crawled, total_pages_analyzed,
             status_code_counts, crawl_redirects, broken_pages, crawl_errors,
             robots_check,
-        )
-        # Batch-fetch SEO data for all crawl pages once (O(1)) instead of
-        # per-page get_by_page_id inside _build_indexation (N+1 fix).
-        seo_map = await self.seo_repo.get_by_page_ids(
-            [p.id for p in crawl_pages]
         )
         indexation = await self._build_indexation(
             crawl_pages, canonical_parsed_facts, seo_map, robots_check
@@ -694,6 +716,11 @@ class AuditResponseBuilder:
                 issue_obj["evidence"] = {"locations": locations[:50]}  # cap to top 50 sample locations per issue
             elif first.evidence:
                 issue_obj["evidence"] = first.evidence
+            evidence_items = [
+                issue.evidence_v1 for issue in group if issue.evidence_v1
+            ]
+            if evidence_items:
+                issue_obj["evidence_v1"] = evidence_items[:50]
 
             if RULE_WHY.get(rule_id):
                 issue_obj["why"] = RULE_WHY.get(rule_id)

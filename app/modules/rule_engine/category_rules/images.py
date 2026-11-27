@@ -686,7 +686,12 @@ class BrokenImageDetectionRule(BaseRule):
             severity=Severity.CRITICAL,
             score_impact=impact,
             recommendation="Fix or remove broken image URLs; ensure all image sources return HTTP 2xx",
-            data={"broken_count": broken_count, "total_checked": total},
+            data={
+                "broken_count": broken_count,
+                "total_checked": total,
+                "broken_images": images.get("broken_images", []),
+                "broken_images_truncated": images.get("broken_images_truncated", 0),
+            },
         )]
 
 

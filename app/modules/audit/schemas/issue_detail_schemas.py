@@ -8,7 +8,7 @@ by providing the heavy details on demand:
 * `IssueDetailResponse`     — full rule metadata, recommendation, examples
 * `IssueListResponse`       — paginated compact issue summaries
 * `IssuePagesResponse`      — paginated affected pages for one issue
-* `IssueEvidenceResponse`   — heavy evidence (links / images / rule_data)
+* `IssueEvidenceResponse`   — per-page structured evidence plus links/images
 * `PageDetailResponse`      — per-page breakdown
 """
 from typing import Any, Dict, List, Optional
@@ -77,13 +77,14 @@ class IssuePagesResponse(BaseModel):
 
 
 class EvidenceItem(BaseModel):
-    """One evidence item — heavy, lazy-loaded."""
+    """One lazy-loaded page result with legacy and normalized evidence."""
 
     page_id: str
     url: str
-    found_value: Optional[str] = None
-    expected_value: Optional[str] = None
+    found_value: Optional[Any] = None
+    expected_value: Optional[Any] = None
     evidence: Dict[str, Any] = Field(default_factory=dict)
+    evidence_v1: Dict[str, Any] = Field(default_factory=dict)
 
 
 class EvidenceLink(BaseModel):
@@ -110,9 +111,10 @@ class EvidenceImage(BaseModel):
 
 
 class IssueEvidenceResponse(BaseModel):
-    """Heavy evidence for one issue — paginated for links and images."""
+    """Per-page evidence for a rule, with optional passing-check results."""
 
     rule_id: str
+    status: str = "failed"
     items: List[EvidenceItem] = Field(default_factory=list)
     links: List[EvidenceLink] = Field(default_factory=list)
     images: List[EvidenceImage] = Field(default_factory=list)

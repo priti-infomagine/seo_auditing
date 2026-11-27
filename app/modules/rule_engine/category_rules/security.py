@@ -1012,37 +1012,84 @@ class SSLCertificateRule(BaseRule):
     tags = ["critical", "security", "ssl"]
     
     async def evaluate(self, data: Dict[str, Any]) -> List[RuleResult]:
-        ssl_data = data.get("ssl", {})
-        
-        if not ssl_data:
+        site_security = data.get("site_security") or {}
+        tls = site_security.get("tls") if isinstance(site_security, dict) else None
+        if not isinstance(tls, dict) or not tls:
+            url_info = data.get("url") or {}
+            if isinstance(url_info, dict) and url_info.get("https") is False:
+                return [self._create_result(
+                    passed=True,
+                    message="SSL certificate check not applicable; HTTPS usage is checked separately",
+                    severity=Severity.INFO,
+                    score_impact=0,
+                    data={"certificate_status": "not_applicable"},
+                )]
+
             return [self._create_result(
                 passed=False,
-                message="No SSL certificate information available",
+                message="SSL certificate could not be verified because the TLS probe result is unavailable",
                 severity=Severity.WARNING,
-                score_impact=-5,
-                recommendation="Ensure SSL certificate is properly configured",
+                score_impact=0,
+                recommendation="Retry the audit TLS probe to verify the certificate",
+                data={"certificate_status": "unverified"},
             )]
-        
-        is_valid = ssl_data.get("valid", False)
-        issuer = ssl_data.get("issuer", "")
-        expiry_date = ssl_data.get("expiry_date", "")
-        
-        if not is_valid:
+
+        error = tls.get("error")
+        if error and str(error).startswith("Certificate verification failed:"):
             return [self._create_result(
                 passed=False,
-                message="SSL certificate is not valid",
+                message=f"SSL certificate validation failed: {error}",
                 severity=Severity.CRITICAL,
                 score_impact=-15,
                 recommendation="Fix SSL certificate issues",
-                data={"ssl": ssl_data},
+                data={"certificate_status": "invalid", "tls": tls},
             )]
-        
+
+        if error:
+            return [self._create_result(
+                passed=False,
+                message=f"SSL certificate could not be verified: {error}",
+                severity=Severity.WARNING,
+                score_impact=0,
+                recommendation="Retry the TLS probe; check certificate validity after connectivity is restored",
+                data={"certificate_status": "unverified", "tls": tls},
+            )]
+
+        if tls.get("certificate_valid") is not True:
+            return [self._create_result(
+                passed=False,
+                message="SSL certificate validation could not be confirmed",
+                severity=Severity.WARNING,
+                score_impact=0,
+                recommendation="Retry the audit TLS probe to verify the certificate",
+                data={"certificate_status": "unverified", "tls": tls},
+            )]
+
+        if tls.get("chain_trusted") is not True:
+            return [self._create_result(
+                passed=False,
+                message="SSL certificate chain is not trusted",
+                severity=Severity.CRITICAL,
+                score_impact=-15,
+                recommendation="Install the complete certificate chain from a trusted certificate authority",
+                data={"certificate_status": "invalid", "tls": tls},
+            )]
+
+        issuer = tls.get("certificate_issuer", "")
+        expiry_date = tls.get("certificate_expiry", "")
         return [self._create_result(
             passed=True,
             message=f"Valid SSL certificate from {issuer or 'trusted CA'}",
             severity=Severity.PASSED,
             score_impact=0,
-            data={"issuer": issuer, "expiry_date": expiry_date},
+            data={
+                "certificate_status": "valid",
+                "certificate_valid": True,
+                "chain_trusted": True,
+                "issuer": issuer,
+                "expiry_date": expiry_date,
+                "tls": tls,
+            },
         )]
 
 

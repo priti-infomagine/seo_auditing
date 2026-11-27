@@ -294,6 +294,31 @@ class RuleEvaluationResultRepository:
         )).scalars().all()
         return list(rows), int(total or 0)
 
+    async def get_rule_pages_by_status(
+        self,
+        audit_id: UUID,
+        rule_id: str,
+        *,
+        passed: bool,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> Tuple[List[RuleEvaluationResult], int]:
+        """Paginated pass/fail page results for a rule's evidence view."""
+        base = select(RuleEvaluationResult).where(
+            RuleEvaluationResult.audit_id == audit_id,
+            RuleEvaluationResult.rule_id == rule_id,
+            RuleEvaluationResult.passed == passed,
+        )
+        total = (await self.db.execute(
+            select(func.count()).select_from(base.subquery())
+        )).scalar_one()
+        rows = (await self.db.execute(
+            base.order_by(RuleEvaluationResult.evaluated_at)
+            .offset(offset)
+            .limit(limit)
+        )).scalars().all()
+        return list(rows), int(total or 0)
+
     async def get_first_samples_for_rule(
         self,
         audit_id: UUID,
