@@ -607,7 +607,9 @@ class RuleEvaluatorService:
                     return val if val is not None else default
                 
                 # Add raw HTML for security checks (mixed content, forms, etc.)
-                data["html"] = _parse_jsonb(parsed_data.get("raw_html"), "")
+                # raw_html is stored as a plain string in JSONB, not as a JSON string
+                raw_html_val = parsed_data.get("raw_html")
+                data["html"] = raw_html_val if isinstance(raw_html_val, str) else ""
                 # Map parsed data keys to rule data keys - parse all JSONB fields
                 data["content"] = _parse_jsonb(parsed_data.get("content"), {})
                 data["headings"] = self._build_headings_summary(_parse_jsonb(parsed_data.get("headings"), []))
@@ -643,6 +645,56 @@ class RuleEvaluatorService:
                 # Dual-pass fields - safely parse JSON strings from JSONB
                 data["head"] = _parse_jsonb(parsed_data.get("head"), {})
                 data["head_rendered"] = _parse_jsonb(parsed_data.get("head_rendered"), {})
+                
+                # Build comprehensive head object from metadata for HTML validation rules
+                # The parser stores head elements in metadata and document, not in head field
+                metadata = parsed_data.get("metadata", {}) or {}
+                document = parsed_data.get("document", {}) or {}
+                meta_tags = metadata.get("meta_tags", []) or []
+                
+                # Build title list
+                title_list = []
+                if metadata.get("title"):
+                    title_list.append(metadata.get("title"))
+                
+                # Build meta list
+                meta_list = []
+                for mt in meta_tags:
+                    if isinstance(mt, dict):
+                        meta_list.append({
+                            "name": mt.get("name", ""),
+                            "property": mt.get("property", ""),
+                            "content": mt.get("content", ""),
+                            "http_equiv": mt.get("http_equiv", ""),
+                            "charset": mt.get("charset", ""),
+                        })
+                
+                # Build link list
+                link_list = []
+                if metadata.get("canonical"):
+                    link_list.append({"rel": "canonical", "href": metadata.get("canonical")})
+                # Add other links from metadata if available
+                for lt in metadata.get("links", []) or []:
+                    if isinstance(lt, dict):
+                        link_list.append(lt)
+                
+                # Build comprehensive head object
+                built_head = {
+                    "title": title_list,
+                    "meta": meta_list,
+                    "link": link_list,
+                    "viewport": metadata.get("viewport", ""),
+                    "charset": metadata.get("charset", "") or document.get("charset", ""),
+                    "language": metadata.get("language", "") or document.get("language", ""),
+                }
+                
+                # Merge with existing head data (from parser's head field for resource hints)
+                existing_head = data["head"] if isinstance(data["head"], dict) else {}
+                data["head"] = {**existing_head, **built_head}
+                
+                # Also build head_rendered similarly if not already populated
+                if not data["head_rendered"]:
+                    data["head_rendered"] = built_head.copy()
                 data["images_rendered"] = _parse_jsonb(parsed_data.get("images_rendered"), [])
                 data["resources_rendered"] = _parse_jsonb(parsed_data.get("resources_rendered"), [])
                 data["technical_rendered"] = _parse_jsonb(parsed_data.get("technical_rendered"), {}) or {}

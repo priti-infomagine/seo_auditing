@@ -46,6 +46,7 @@ class ScoreCalculator:
         "images": 0.02,          # Alt, dimensions, formats, lazy loading
         "eeat": 0.05,            # E-E-A-T trust signals
         "url_structure": 0.03,   # URL cleanliness, readability, structure
+        "html_validation": 0.02, # HTML structural correctness
         "social": 0.00,          # Not scored (informational)
         "accessibility": 0.00,   # Not scored (separate audit)
     }
@@ -72,6 +73,7 @@ class ScoreCalculator:
         "a11y": "accessibility",
         "eeat": "eeat",
         "url_structure": "url_structure",
+        "html_validation": "html_validation",
     }
 
     # Severity penalties (per failed check) - aligned with Ahrefs/Semrush impact

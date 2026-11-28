@@ -107,6 +107,17 @@ from app.modules.rule_engine.category_rules.eeat import (
     AffiliateDisclosureRule, YMYLDetectionRule,
 )
 from app.modules.rule_engine.category_rules.url_structure import ALL_URL_STRUCTURE_RULES
+from app.modules.rule_engine.category_rules.html_validation import (
+    SingleTitleElementRule,
+    SingleMetaDescriptionRule,
+    DoctypeDeclarationRule,
+    CharacterEncodingRule,
+    ValidHeadElementsRule,
+    NoscriptInHeadRule,
+    SingleHeadElementRule,
+    HtmlSizeLimitRule,
+    NoPlaceholderTextRule,
+)
 
 
 class ScorerService:
@@ -236,6 +247,17 @@ class ScorerService:
             
             # URL Structure (15 rules)
             *[rule_cls() for rule_cls in ALL_URL_STRUCTURE_RULES],
+
+            # HTML Validation (9 rules)
+            SingleTitleElementRule(),
+            SingleMetaDescriptionRule(),
+            DoctypeDeclarationRule(),
+            CharacterEncodingRule(),
+            ValidHeadElementsRule(),
+            NoscriptInHeadRule(),
+            SingleHeadElementRule(),
+            HtmlSizeLimitRule(),
+            NoPlaceholderTextRule(),
         ]
         
         logger.info(f"Loaded {len(rules)} scoring rules")

@@ -179,6 +179,16 @@ RULE_AFFECTED_PART: Dict[str, str] = {
     "eeat_012": "external_citations",
     "eeat_013": "affiliate_disclosure",
     "eeat_014": "ymyl_detection",
+    # html_validation
+    "htmlval_001": "title",
+    "htmlval_002": "meta_description",
+    "htmlval_003": "doctype",
+    "htmlval_004": "charset",
+    "htmlval_005": "head_elements",
+    "htmlval_006": "noscript",
+    "htmlval_007": "head",
+    "htmlval_008": "html_size",
+    "htmlval_009": "placeholder_text",
     # url_structure
     "url_structure_001": "Page URL, internal links",
     "url_structure_002": "Internal links",
@@ -260,6 +270,7 @@ CATEGORY_DISPLAY: Dict[str, Dict[str, str]] = {
     "accessibility":    {"id": "accessibility",      "name": "Accessibility"},
     "eeat":             {"id": "eeat",               "name": "EEAT"},
     "url_structure":    {"id": "url_structure",      "name": "URL Structure"},
+    "html_validation":  {"id": "html_validation",    "name": "HTML Validation"},
 }
 
 # ---------------------------------------------------------------------------
@@ -415,6 +426,16 @@ SUBCATEGORY_OF: Dict[str, str] = {
     "eeat_012": "external_citations",
     "eeat_013": "affiliate_disclosure",
     "eeat_014": "ymyl_detection",
+    # html_validation
+    "htmlval_001": "single_title",
+    "htmlval_002": "single_meta_description",
+    "htmlval_003": "doctype",
+    "htmlval_004": "charset",
+    "htmlval_005": "valid_head_elements",
+    "htmlval_006": "noscript_in_head",
+    "htmlval_007": "single_head",
+    "htmlval_008": "html_size",
+    "htmlval_009": "placeholder_text",
     # url_structure
     "url_structure_001": "url_structure",
     "url_structure_002": "url_structure",
@@ -452,6 +473,16 @@ SUBCATEGORY_NOT_AVAILABLE: set = {
     "orphan_pages",
     "near_duplicate_pages",
     "duplicate_descriptions",
+    # html_validation
+    "single_title",
+    "single_meta_description",
+    "doctype",
+    "charset",
+    "valid_head_elements",
+    "noscript_in_head",
+    "single_head",
+    "html_size",
+    "placeholder_text",
 }
 
 # ---------------------------------------------------------------------------
@@ -623,6 +654,16 @@ RECOMMENDATIONS: Dict[str, Dict[str, str]] = {
     "url_structure_013": {"action": "Use descriptive, keyword-rich slugs. Avoid numeric IDs, hashes, or parameter-only URLs for content pages.", "effort": "medium"},
     "url_structure_014": {"action": "Use proper URL paths for content pages. Hash routes (/#/ or /#!/) are generally not crawled as separate pages.", "effort": "medium"},
     "url_structure_015": {"action": "Fix malformed percent-encoding. Use valid UTF-8 percent-encoding. Avoid custom delimiters like ,,, : or leading [ in query strings.", "effort": "medium"},
+    # html_validation
+    "htmlval_001": {"action": "Add exactly one <title> element with descriptive text in <head>.", "effort": "low"},
+    "htmlval_002": {"action": "Add exactly one <meta name=\"description\" content=\"...\"> in <head>.", "effort": "low"},
+    "htmlval_003": {"action": "Add <!DOCTYPE html> as the very first line of the document.", "effort": "low"},
+    "htmlval_004": {"action": "Add <meta charset=\"UTF-8\"> to <head> or ensure server sends charset in Content-Type.", "effort": "low"},
+    "htmlval_005": {"action": "Move invalid elements out of <head>; keep only valid head children.", "effort": "medium"},
+    "htmlval_006": {"action": "Move <noscript> content to <body> or restrict children to link/style/meta.", "effort": "medium"},
+    "htmlval_007": {"action": "Ensure document has exactly one <head> element.", "effort": "low"},
+    "htmlval_008": {"action": "Reduce HTML size: remove inline scripts/styles, minify, use external resources.", "effort": "medium"},
+    "htmlval_009": {"action": "Replace placeholder content with final, meaningful content before publishing.", "effort": "low"},
 }
 
 # Human-readable title fallback per rule_id (for recommendations/priorities display).
@@ -816,6 +857,16 @@ RULE_TITLES: Dict[str, str] = {
     "url_structure_013": "Low-quality URL slug",
     "url_structure_014": "Hash-based routing in internal links",
     "url_structure_015": "Invalid or non-standard URL encoding",
+    # html_validation
+    "htmlval_001": "Single Title Element",
+    "htmlval_002": "Single Meta Description",
+    "htmlval_003": "DOCTYPE Declaration",
+    "htmlval_004": "Character Encoding",
+    "htmlval_005": "Valid Head Elements",
+    "htmlval_006": "Noscript in Head",
+    "htmlval_007": "Single Head Element",
+    "htmlval_008": "HTML Size Limit",
+    "htmlval_009": "No Placeholder Text",
 }
 
 RULE_WHY: Dict[str, str] = {
@@ -894,6 +945,16 @@ RULE_WHY: Dict[str, str] = {
     "url_structure_013": "Descriptive slugs help users and search engines understand page content; IDs and hashes do not.",
     "url_structure_014": "Hash-based routes (/#/ or /#!/) are generally not crawled as separate pages, hiding content from search.",
     "url_structure_015": "Malformed percent-encoding and custom delimiters confuse crawlers and break URL parsing.",
+    # html_validation
+    "htmlval_001": "Multiple or missing title elements confuse search engines and browsers, harming SEO and usability.",
+    "htmlval_002": "Multiple or missing meta descriptions reduce click-through rates from search results.",
+    "htmlval_003": "Missing or invalid DOCTYPE triggers quirks mode, causing rendering inconsistencies.",
+    "htmlval_004": "Missing charset declaration can cause character encoding issues and security vulnerabilities.",
+    "htmlval_005": "Invalid elements in <head> may be ignored by browsers or cause parsing errors.",
+    "htmlval_006": "Invalid noscript content in <head> violates HTML5 spec and may not work as intended.",
+    "htmlval_007": "Multiple <head> elements are invalid HTML and can cause unpredictable browser behavior.",
+    "htmlval_008": "Oversized HTML increases load time, hurts Core Web Vitals, and wastes bandwidth.",
+    "htmlval_009": "Placeholder text signals unfinished content, damaging credibility and SEO.",
 }
 RULE_WHAT: Dict[str, str] = {
     "links_006": "Crawl found pages with zero outbound internal links.",
@@ -971,4 +1032,14 @@ RULE_WHAT: Dict[str, str] = {
     "url_structure_013": "Slug is numeric, hash-like, or parameter-only; or page slug shares no tokens with title/H1.",
     "url_structure_014": "Fragment starts with / or ! (e.g., /#/path, /#!/path) indicating hash-based routing.",
     "url_structure_015": "Invalid percent-encoding, non-UTF-8 decoded bytes, or custom query delimiters (,,, :, [).",
+    # html_validation
+    "htmlval_001": "Checks that the HTML document contains exactly one <title> element in the <head> section.",
+    "htmlval_002": "Checks that the HTML document contains exactly one <meta name=\"description\"> element.",
+    "htmlval_003": "Validates that the document starts with a valid HTML5 DOCTYPE declaration (<!DOCTYPE html>).",
+    "htmlval_004": "Verifies the document declares character encoding via <meta charset> or HTTP Content-Type header.",
+    "htmlval_005": "Ensures only valid HTML5 head children (title, base, link, meta, style, script, noscript, template) appear in <head>.",
+    "htmlval_006": "Detects invalid <noscript> placement in <head>; only link, style, meta allowed as children.",
+    "htmlval_007": "Checks that the document contains exactly one <head> element.",
+    "htmlval_008": "Validates HTML document size does not exceed configured threshold (default 1 MB).",
+    "htmlval_009": "Scans visible content for placeholder text like lorem ipsum, TODO, coming soon, etc.",
 }
